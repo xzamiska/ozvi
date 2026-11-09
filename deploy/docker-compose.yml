@@ -64,7 +64,8 @@ services:
     restart: unless-stopped
     depends_on: { postgres: { condition: service_healthy } }
     environment:
-      OZVI_UPDATER_TOKEN: ${OZVI_UPDATER_TOKEN:?set OZVI_UPDATER_TOKEN (openssl rand -hex 32)}
+      # Required when the profile is on; the updater refuses to start without it (24+ chars).
+      OZVI_UPDATER_TOKEN: ${OZVI_UPDATER_TOKEN:-}
       OZVI_UPDATE_MODE: ${OZVI_UPDATE_MODE:-manual}
       OZVI_UPDATE_WINDOW: ${OZVI_UPDATE_WINDOW:-02:00-05:00}
       TZ: ${TZ:-Europe/Bratislava}
