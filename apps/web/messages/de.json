@@ -1,0 +1,3387 @@
+{
+  "account": {
+    "meta": {
+      "console": "Ozvi – Konsole",
+      "account": "Ozvi – Mein Konto"
+    },
+    "layout": {
+      "backToConsole": "Zurück zur Konsole",
+      "home": "Ozvi – Startseite",
+      "backHome": "Zurück zur Startseite",
+      "legal": "Rechtliches",
+      "terms": "Nutzungsbedingungen",
+      "privacy": "Datenschutzerklärung"
+    },
+    "legalNote": "Rechtsverbindlich ist die slowakische Fassung dieses Dokuments.",
+    "account": {
+      "title": "Mein Konto",
+      "lede": "Mit diesem Konto verwalten Sie Projekte in Ozvi. Personen auf Ihren Boards melden sich über Ihre App an und brauchen keins.",
+      "errors": {
+        "expired": "Der Link zur Änderung der E-Mail-Adresse ist abgelaufen. Fordern Sie die Änderung erneut an.",
+        "other": "Dieser Link gehört zu einem anderen Konto. Melden Sie sich mit dem Konto an, das die Änderung angefordert hat.",
+        "taken": "Inzwischen wurde mit der neuen Adresse ein anderes Konto angelegt. Die Änderung wurde nicht gespeichert."
+      },
+      "changedTitle": "E-Mail-Adresse geändert",
+      "changed": "Melden Sie sich ab sofort mit Ihrer neuen Adresse an.",
+      "profile": "Name und E-Mail-Adresse",
+      "language": "Sprache",
+      "languageLede": "Sprache der Konsole auf diesem Gerät.",
+      "sessions": "Sitzungen",
+      "sessionsText": "Meldet Ihr Konto auf allen Geräten ab, auch auf diesem. Nützlich, wenn Sie sich auf einem fremden Computer angemeldet haben.",
+      "signOutAll": "Überall abmelden",
+      "deleteTitle": "Konto löschen",
+      "deleteLede": "Das lässt sich nicht rückgängig machen.",
+      "cantDelete": "Sie können Ihr Konto noch nicht löschen",
+      "removeList": "Wir löschen außerdem dauerhaft alle Workspaces, in denen Sie das einzige Mitglied sind, mit allen Projekten, Ideen, Fehlermeldungen und Anhängen:",
+      "noProjects": ", keine Projekte",
+      "exportHint": "Einen Export jedes Projekts können Sie in dessen Einstellungen herunterladen (Projektdaten).",
+      "nothingRemoved": "Alle Ihre Workspaces haben weitere Mitglieder, daher werden keine Projekte gelöscht.",
+      "leave": "Sie verlassen {list}; alle anderen bleiben."
+    },
+    "forms": {
+      "role": "Rolle",
+      "roleOf": "Rolle: {email}",
+      "member": "Mitglied",
+      "owner": "Inhaber",
+      "keep": "Abbrechen",
+      "working": "Wird ausgeführt …",
+      "saving": "Wird gespeichert …",
+      "sending": "Wird gesendet …",
+      "changeRole": "Rolle ändern",
+      "email": "E-Mail",
+      "invitePlaceholder": "kollegin@firma.de",
+      "roleHint": "Mitglieder verwalten Projekte und Boards. Inhaber können zusätzlich Tarif und Zahlungen ändern und weitere Personen einladen.",
+      "sendInvite": "Einladung senden",
+      "name": "Name",
+      "nameHint": "für andere im Workspace sichtbar",
+      "saveName": "Name speichern",
+      "newEmail": "Neue E-Mail-Adresse",
+      "emailHint": "Sie melden sich derzeit mit <b>{email}</b> an. Wir senden einen Link an die neue Adresse; die Änderung wird wirksam, sobald Sie ihn anklicken.",
+      "sendLink": "Bestätigungslink senden",
+      "confirmDelete": "Geben Sie zur Bestätigung Ihre E-Mail-Adresse ein",
+      "deleting": "Konto wird gelöscht …",
+      "deleteForever": "Konto dauerhaft löschen"
+    },
+    "invite": {
+      "expiredTitle": "Diese Einladung ist abgelaufen",
+      "expiredLede": "Einladungen sind 7 Tage gültig und funktionieren nur einmal. Bitten Sie die Person, die Sie eingeladen hat, um eine neue.",
+      "myProjects": "Meine Projekte",
+      "title": "Einladung zu {ws}",
+      "invitesYou": " lädt Sie ein",
+      "weInvite": "Sie sind eingeladen",
+      "as": ". Ihre Rolle: ",
+      "roleAs": {
+        "owner": "Inhaber",
+        "member": "Mitglied"
+      },
+      "signInAs": "Sie werden angemeldet als ",
+      "created": " – falls Sie noch kein Konto haben, legen wir eines an",
+      "other": "Sie sind als <addr>{current}</addr> angemeldet. Mit der Annahme wechseln Sie zu <addr>{email}</addr>.",
+      "accept": "Einladung annehmen"
+    },
+    "newProject": {
+      "title": "Neues Projekt",
+      "welcome": "Willkommen bei Ozvi",
+      "lede": "Ein Projekt ist ein Board mit Ideen und Fehlermeldungen für eine Ihrer Apps. Das Aussehen können Sie später in den Einstellungen feinjustieren.",
+      "appName": "Name der App",
+      "appPlaceholder": "z. B. Rechnungsprofi",
+      "address": "Adresse des Boards",
+      "slugHint": "Kleinbuchstaben, Ziffern und Bindestriche.",
+      "boardAt": "Das Board wird erreichbar sein unter ",
+      "workspace": "Workspace",
+      "look": "Aussehen",
+      "creating": "Wird erstellt …",
+      "create": "Projekt erstellen"
+    },
+    "login": {
+      "cloudTitle": "Bei Ozvi anmelden",
+      "selfTitle": "Ozvi-Administration",
+      "cloudLede": "Wir senden Ihnen einen Anmeldecode per E-Mail. Noch kein Konto? Wir legen eines an – kostenlos und ohne Kreditkarte.",
+      "selfLede": "Der Zugang ist auf E-Mail-Adressen in OZVI_ADMIN_EMAILS beschränkt.",
+      "foot": "Indem Sie fortfahren, stimmen Sie den <terms>Nutzungsbedingungen</terms> zu und nehmen die <privacy>Datenschutzerklärung</privacy> zur Kenntnis.",
+      "denied": "Diese E-Mail-Adresse hat keinen Zugang. Melden Sie sich mit einer Adresse aus der Admin-Liste an.",
+      "linkExpiredTitle": "Dieser Link ist abgelaufen",
+      "linkExpired": "Anmeldelinks sind 15 Minuten gültig und funktionieren nur einmal. Senden Sie sich einen neuen Code.",
+      "sendNew": "Neuen Code senden",
+      "signInAs": "Sie werden angemeldet als ",
+      "signIn": "Anmelden"
+    },
+    "emailLogin": {
+      "expired": "Dieser Link ist abgelaufen. Senden Sie sich einen neuen Code.",
+      "email": "E-Mail",
+      "placeholder": "sie@firma.de",
+      "sendingCode": "Code wird gesendet …",
+      "hint": "Wir senden Ihnen einen 6-stelligen Code und einen Anmeldelink. Kein Passwort nötig.",
+      "sentTo": "Wir haben einen Code gesendet an ",
+      "validity": "Der Code ist 15 Minuten gültig. Die E-Mail enthält außerdem einen Link zur Anmeldung mit einem Klick.",
+      "codeLabel": "Code aus der E-Mail",
+      "verifying": "Wird geprüft …",
+      "signIn": "Anmelden",
+      "changeEmail": "E-Mail-Adresse ändern",
+      "resend": "Code erneut senden",
+      "sendCode": "Code senden"
+    },
+    "confirmEmail": {
+      "expiredTitle": "Dieser Link ist abgelaufen",
+      "expired": "Links zur Änderung der E-Mail-Adresse sind eine Stunde gültig und funktionieren nur einmal. Fordern Sie die Änderung in Ihren Kontoeinstellungen erneut an.",
+      "openAccount": "Mein Konto öffnen",
+      "title": "Neue E-Mail-Adresse bestätigen",
+      "now": "Aktuell",
+      "next": "Neu",
+      "note": "Nach der Bestätigung melden Sie sich nur noch mit der neuen Adresse an.",
+      "change": "E-Mail-Adresse ändern"
+    },
+    "server": {
+      "noProjectAccess": "Sie haben keinen Zugriff auf dieses Projekt.",
+      "tooManyAttempts": "Zu viele Versuche aus diesem Netzwerk. Versuchen Sie es in einer Stunde erneut.",
+      "codeSent": "Wir haben einen Code an {email} gesendet.",
+      "noSmtpCode": "E-Mail ist nicht konfiguriert (SMTP). Der Code steht im Serverlog.",
+      "noAccess": "Diese E-Mail-Adresse hat keinen Zugang. Auf einem selbst gehosteten Server fügen Sie sie zu OZVI_ADMIN_EMAILS hinzu.",
+      "emailLoginOff": "Die Anmeldung per E-Mail ist für dieses Projekt nicht aktiviert.",
+      "tooManyProjects": "Zu viele neue Projekte innerhalb einer Stunde. Versuchen Sie es später erneut.",
+      "nameLength": "Der Name muss 2 bis 60 Zeichen lang sein.",
+      "slugInvalid": "Die Adresse darf Kleinbuchstaben, Ziffern und Bindestriche enthalten (2–41 Zeichen) und kein reserviertes Wort sein.",
+      "pickLook": "Wählen Sie ein Aussehen.",
+      "noWorkspaceAccess": "Sie haben keinen Zugriff auf diesen Workspace.",
+      "slugTaken": "Die Adresse „{slug}“ ist bereits vergeben.",
+      "freeExists": "Sie haben bereits einen kostenlosen Workspace. Fügen Sie das Projekt dort hinzu oder wechseln Sie zu Pro.",
+      "planLimit": "Der Tarif {plan} umfasst {projects}. Wechseln Sie unter „Tarif & Nutzung“ zu einem höheren Tarif.",
+      "ownerOnlyBilling": "Nur der Inhaber des Workspace kann die Abrechnung ändern.",
+      "invalidPlan": "Ungültiger Tarif.",
+      "billingOff": "Zahlungen sind nicht konfiguriert.",
+      "noSubscription": "Dieser Workspace hat noch kein Abonnement.",
+      "simulationOff": "Die Zahlungssimulation ist ausgeschaltet.",
+      "validEmail": "Geben Sie eine gültige E-Mail-Adresse ein.",
+      "tooManyInvites": "Zu viele Einladungen innerhalb einer Stunde. Versuchen Sie es später erneut.",
+      "inviteSent": "Einladung an {email} gesendet.",
+      "inviteNoSmtp": "Die Einladung ist bereit, aber E-Mail ist nicht konfiguriert (SMTP). Der Link steht im Serverlog.",
+      "nameSaved": "Name gespeichert.",
+      "sameEmail": "Das ist Ihre aktuelle E-Mail-Adresse.",
+      "emailTaken": "Für {email} gibt es bereits ein anderes Ozvi-Konto.",
+      "linkSent": "Wir haben einen Link an {email} gesendet. Ihre E-Mail-Adresse ändert sich, sobald Sie ihn anklicken.",
+      "noSmtpLink": "E-Mail ist nicht konfiguriert (SMTP). Der Link steht im Serverlog.",
+      "selfHostDelete": "Auf einem selbst gehosteten Server verwaltet der Admin die Konten (OZVI_ADMIN_EMAILS).",
+      "typeEmail": "Geben Sie zur Bestätigung genau Ihre E-Mail-Adresse ein."
+    },
+    "workspace": {
+      "not_owner": "Das kann nur ein Inhaber des Workspace.",
+      "no_workspace": "Workspace nicht gefunden.",
+      "already_member": "{email} ist bereits in diesem Workspace.",
+      "too_many_pending": "Dieser Workspace hat zu viele offene Einladungen. Widerrufen Sie alte und versuchen Sie es erneut.",
+      "invite_expired": "Diese Einladung ist abgelaufen. Bitten Sie um eine neue.",
+      "last_owner": "Ein Workspace braucht mindestens einen Inhaber. Machen Sie zuerst eine andere Person zum Inhaber.",
+      "no_account": "Dieses Konto existiert nicht mehr.",
+      "email_taken": "Für {email} gibt es bereits ein anderes Ozvi-Konto. Löschen Sie es oder verwenden Sie eine andere Adresse.",
+      "subscription": "{ws} hat ein aktives Abonnement. Kündigen Sie es unter „Tarif & Nutzung“ (Abonnement verwalten) und löschen Sie danach Ihr Konto.",
+      "sole_owner": "Sie sind der einzige Inhaber von {ws}. Machen Sie unter „Team“ eine andere Person zum Inhaber oder entfernen Sie die übrigen Mitglieder."
+    },
+    "billing": {
+      "gateway_down": "Der Zahlungsdienst antwortet nicht. Versuchen Sie es gleich noch einmal.",
+      "not_for_sale": "Dieser Tarif kann noch nicht gebucht werden.",
+      "no_checkout": "Der Zahlungsdienst hat keinen Zahlungslink zurückgegeben.",
+      "no_portal": "Die Abonnementverwaltung ist gerade nicht verfügbar."
+    },
+    "mail": {
+      "inviteSubject": "Einladung zu {ws} bei Ozvi",
+      "inviteHeading": "Einladung zu {ws}",
+      "inviteBodyOwner": "{who} hat Sie als Inhaber von {ws} zu Ozvi eingeladen. Sie sehen die Projekte des Workspace und können sie verwalten.",
+      "inviteBodyMember": "{who} hat Sie als Mitglied von {ws} zu Ozvi eingeladen. Sie sehen die Projekte des Workspace und können sie verwalten.",
+      "inviteValidity": "Die Einladung ist 7 Tage gültig. Falls Sie noch kein Ozvi-Konto haben, wird bei der Annahme eines angelegt.",
+      "inviteCta": "Einladung annehmen",
+      "changedSubject": "Die E-Mail-Adresse Ihres Ozvi-Kontos wurde geändert",
+      "changedHeading": "E-Mail-Adresse des Kontos geändert",
+      "changedBody": "Ihr Ozvi-Konto meldet sich jetzt mit {email} an, nicht mehr mit dieser Adresse.",
+      "changedNotYou": "Wenn Sie das nicht waren, antworten Sie auf diese E-Mail oder wenden Sie sich an den Ozvi-Support."
+    }
+  },
+  "admin": {
+    "gate": {
+      "title": "Board-Einstellungen sind nur für Admins",
+      "noRole": "Ihr Konto hat keine Admin-Rolle. Ein anderer Admin dieses Boards kann sie Ihnen zuweisen.",
+      "signIn": "Wenn Sie Admin dieses Boards sind, melden Sie sich an."
+    },
+    "title": "Board-Einstellungen",
+    "lede": "Feedback für {name}: Darstellung, Anmeldung, Personen und Integrationen. Jeder Abschnitt wird separat gespeichert.",
+    "nav": {
+      "start": "Erste Schritte",
+      "look": "Darstellung",
+      "project": "Projekt",
+      "languages": "Sprachen",
+      "login": "Anmeldung",
+      "loginSub": "App-SSO, OIDC",
+      "domain": "Eigene Domain",
+      "people": "Personen",
+      "integrations": "Integrationen",
+      "integrationsSub": "GitHub, Webhooks, MCP",
+      "limits": "E-Mails und Limits",
+      "data": "Projektdaten",
+      "voting": "Abstimmung",
+      "import": "Import",
+      "tags": "Tags",
+      "statuses": "Status",
+      "statusesSub": "Namen, Unterstatus, Unbeantwortet"
+    },
+    "setup": {
+      "text": "Drei Schritte, und das Feedback fließt direkt aus Ihrer App. Das Aussehen können Sie jederzeit feinjustieren.",
+      "done": "Erledigt",
+      "sso": {
+        "title": "Anmeldung verbinden",
+        "text": "Aktivieren Sie SSO (Ihre App signiert die Person) oder OIDC. Bis dahin melden sich Personen mit einem per E-Mail gesendeten Code an."
+      },
+      "origin": {
+        "title": "Adresse Ihrer App zulassen",
+        "text": "Geben Sie im Abschnitt „Projekt“ die Adresse ein, unter der Ihre App läuft. Anderswo funktioniert das Widget nicht."
+      },
+      "widget": {
+        "title": "Widget in Ihre App einbinden",
+        "text": "Zwei Zeilen Code im Abschnitt „Anmeldung“. Erledigt ist es, sobald sich die erste Person über Ihre App anmeldet."
+      }
+    },
+    "look": {
+      "text": "Ein Theme gilt für das Board, das Widget und die E-Mails, damit sich das Feedback wie ein Teil Ihrer App anfühlt."
+    },
+    "project": {
+      "text": "Name, wer Ideen sehen kann, wie sich Personen anmelden und wo das Widget laufen darf."
+    },
+    "languages": {
+      "text": "Die Sprache, in der Board und E-Mails kommunizieren. Besucher erhalten ihre eigene Sprache, sofern sie aktiviert ist, sonst die Standardsprache. Beiträge in einer anderen Sprache lassen sich mit KI übersetzen.",
+      "default": "Standardsprache",
+      "defaultHint": "Für Besucher, deren Sprache das Board nicht anbietet, und für E-Mails an Personen, deren Sprache wir noch nicht kennen.",
+      "enabled": "Angebotene Sprachen",
+      "enabledHint": "Bei mehr als einer Sprache erscheint in der Kopfzeile des Boards eine Sprachauswahl. Ihre App kann die Sprache im SSO-Token festlegen (locale).",
+      "save": "Sprachen speichern",
+      "saved": "Sprachen gespeichert.",
+      "invalid": "Wählen Sie eine Sprache aus der Liste.",
+      "translation": "Übersetzung von Beiträgen",
+      "translationHint": "KI übersetzt Ideen, Kommentare und Neuigkeiten, die in einer anderen Sprache verfasst wurden, in die Sprache der lesenden Person. Übersetzungen sind immer gekennzeichnet, und das Original ist nur einen Klick entfernt. Private Fehlermeldungen und Team-Notizen werden nur für Personen übersetzt, die sie sehen dürfen.",
+      "translationNoAi": "Die Übersetzung benötigt KI, die für dieses Projekt nicht aktiviert ist (ein Tarif mit KI oder ein konfigurierter KI-Anbieter beim Self-Hosting).",
+      "mode": {
+        "off": "Aus",
+        "offHint": "Beiträge werden nur in ihrer Originalsprache angezeigt.",
+        "on_demand": "Auf Anfrage",
+        "on_demandHint": "Beiträge in einer anderen Sprache erhalten eine Schaltfläche „Übersetzen“.",
+        "auto": "Automatisch",
+        "autoHint": "Beiträge in einer anderen Sprache werden sofort übersetzt angezeigt, mit einem Link zum Original."
+      }
+    },
+    "login": {
+      "text": "Die Nutzer Ihrer App gelangen ohne weiteres Passwort ins Feedback-Board: Ihre App meldet sie an (SSO) oder leitet sie über Ihren Identitätsanbieter (OIDC).",
+      "ssoTitle": "Anmeldung aus Ihrer App (SSO)",
+      "step1": "1. Person im Backend Ihrer App signieren",
+      "step1Pkg": "mit",
+      "step2": "2. Widget in Ihre App einbinden",
+      "maskA": "Markieren Sie sensible Elemente mit",
+      "maskB": ", dann werden sie in Screenshots unkenntlich gemacht. Eigene Schaltfläche:",
+      "maskAnd": "und",
+      "oidcTitle": "Anmeldung mit OIDC",
+      "oidcText": "Wenn Ihre App einen eigenen Identitätsanbieter hat (Keycloak, Authentik, Auth0 …), führt die Schaltfläche „Anmelden“ dorthin. SSO-Tokens aus Ihrer App funktionieren weiterhin."
+    },
+    "domain": {
+      "text": "Board, Widget und Links in E-Mails laufen dann unter Ihrer Adresse, z. B. feedback.ihrefirma.de."
+    },
+    "people": {
+      "textA": "Das Team sieht Fehlermeldungen und ändert Status; Admins können zusätzlich diese Einstellungen ändern. Sendet Ihre App im SSO-Token eine Rolle (",
+      "textB": "), überschreibt diese bei der nächsten Anmeldung die hier festgelegte.",
+      "others": "Weitere Nutzer",
+      "newest": "zuletzt aktiv",
+      "show": "anzeigen",
+      "hide": "ausblenden",
+      "since": "dabei seit {when}",
+      "note": "„Überall abmelden“ beendet sofort alle Sitzungen der Person und widerruft ihre API-Tokens. Meldet sie sich erneut über Ihre App an, erhält sie wieder Zugriff; dauerhaft entziehen Sie ihn in Ihrer App."
+    },
+    "integrations": {
+      "text": "Verbinden Sie GitHub, senden Sie Benachrichtigungen in den Chat oder an Ihr eigenes Backend und geben Sie KI-Assistenten Zugriff.",
+      "githubText": "Verknüpfen Sie Meldungen mit Issues. Wenn Sie ein Issue schließen und ein Release veröffentlichen, erhält die meldende Person „behoben in Version X“ und bestätigt, ob es funktioniert. An GitHub gehen nur Titel, Beschreibung und App-Version, nie Konsolenlogs oder Screenshots.",
+      "linearText": "Erstellen Sie Linear-Issues aus Ideen und Fehlern und halten Sie die Schritte in beide Richtungen synchron. Das Issue erhält Titel und Beschreibung mit einem Hinweis, wer sie verfasst hat, nie Konsolenlogs oder Screenshots.",
+      "jiraText": "Dasselbe für Jira Cloud: Issues erstellen oder verknüpfen, Workflow-Status den Schritten in Ozvi zuordnen und auf Wunsch Kommentare spiegeln.",
+      "webhooks": "Webhooks",
+      "webhooksText": "Bei jedem Ereignis senden wir eine Nachricht an die Adresse.",
+      "chat": "Chatnachricht",
+      "events": "{n} Ereignisse",
+      "allEvents": "alle Ereignisse",
+      "withBugs": "inkl. Fehler",
+      "last": "zuletzt {when}",
+      "nothingYet": "noch nichts gesendet",
+      "failed": "{n} fehlgeschlagen in 7 Tagen",
+      "mcpTitle": "API-Tokens und MCP",
+      "mcpA": "Tokens für KI-Assistenten (MCP unter",
+      "mcpB": "). Jedes Teammitglied erstellt sein eigenes unter",
+      "mcpC": "; hier sehen Sie alle aktiven und können sie widerrufen.",
+      "restA": "Dieselben Tokens gelten auch für die REST-API unter",
+      "restDocs": "API-Dokumentation, Prüfung von Webhooks und Anleitungen für n8n, Make und Zapier",
+      "myTokens": "Meine API-Tokens",
+      "noTokens": "Noch niemand hat ein aktives Token.",
+      "lockdownTitle": "Lockdown-Modus für KI-Assistenten",
+      "lockdownText": "Assistenten, die MCP nutzen, erhalten Text nur vom Team und von Personen mit verifizierter Identität (angemeldet über Ihre App oder mit verifizierter E-Mail-Adresse). Beiträge nicht verifizierter Personen erreichen sie ohne Titel und Text, sodass dort versteckte Anweisungen nie beim Assistenten ankommen. Eine einzelne Verbindung kann den Modus mit dem Header X-Ozvi-Lockdown für sich selbst einschalten.",
+      "lockdownSave": "Modus speichern",
+      "lockdownSaved": "Gespeichert."
+    },
+    "limits": {
+      "text": "Die Nutzung in diesem Monat im Verhältnis zu Ihrem Tarif.",
+      "mailOffTitle": "E-Mails sind ausgeschaltet, daher erfahren meldende Personen nichts von Korrekturen",
+      "mailOffA": "Setzen Sie",
+      "mailOffB": "(eigener SMTP-Server, Resend, Postmark, SES …) oder",
+      "mailOffC": " sowie",
+      "plan": "Tarif",
+      "sent": "Gesendete E-Mails",
+      "deferred": "Wartet auf tägliche Zusammenfassung",
+      "attachments": "Anhänge",
+      "unlimited": "unbegrenzt"
+    },
+    "data": {
+      "text": "Laden Sie jederzeit alles aus dem Projekt herunter.",
+      "export": "Projektexport",
+      "exportText": "Ideen, Meldungen, Kommentare, Stimmen und Einstellungen in einer JSON-Datei.",
+      "download": "Export herunterladen",
+      "delete": "Projekt löschen",
+      "deleteText": "Löscht das Board mit allen Ideen, Meldungen, Kommentaren, Stimmen, Anhängen und Einstellungen dauerhaft. Laden Sie zuerst einen Export herunter.",
+      "csv": "Tabellenexport (CSV)",
+      "csvText": "Ideen oder Fehler mit Stimmen, Status, verfassender Person und Kundendaten sowie den zugehörigen Kommentaren und Abstimmenden. Aus einer Liste exportieren Sie genau das, was Sie gerade filtern.",
+      "csvIdeas": "Ideen",
+      "csvBugs": "Fehler",
+      "apiA": "Für Automatisierungen nutzen Sie",
+      "apiLink": "MCP und API-Tokens",
+      "apiB": "."
+    },
+    "retention": {
+      "title": "Aufbewahrung von Daten",
+      "text": "Wie lange das Projekt Aufzeichnungen von Fehlermeldungen, Dateien geschlossener Fehler und Kontakte aufbewahrt, die sich nie angemeldet haben. Die Löschung läuft jede Nacht automatisch.",
+      "capture": {
+        "label": "Aufzeichnung der Fehlermeldung",
+        "hint": "Netzwerkanfragen, Schritte in der App, Konsolenfehler, Sitzungslinks und der Widget-Screenshot. Seitenadresse, Browser und App-Version bleiben erhalten."
+      },
+      "closedFiles": {
+        "label": "Anhänge geschlossener Fehler",
+        "hint": "Dateien an Fehlern, die behoben, verifiziert oder als „Wird nicht behoben“ geschlossen sind, gezählt ab dem Schließen."
+      },
+      "contacts": {
+        "label": "Inaktive Kontakte",
+        "hint": "Personen aus einem Import oder aus Kundenfeedback eines Agenten, die sich nie angemeldet und nie selbst etwas geschrieben haben. Wir löschen Name, E-Mail-Adresse und Kundendaten; ihre Stimmen bleiben anonym erhalten."
+      },
+      "days": "{n, plural, one {# Tag} other {# Tage}}",
+      "months": "{n, plural, one {# Monat} other {# Monate}}",
+      "never": "Behalten",
+      "preview": {
+        "title": "Mit diesen Einstellungen würde in der nächsten Nacht gelöscht:",
+        "none": "Nichts, derzeit gibt es nichts zu löschen.",
+        "captures": "{n, plural, one {die Aufzeichnung von # Meldung} other {die Aufzeichnungen von # Meldungen}}",
+        "screenshots": "{n, plural, one {# Screenshot} other {# Screenshots}}",
+        "files": "{n, plural, one {# Anhang eines geschlossenen Fehlers} other {# Anhänge geschlossener Fehler}}",
+        "contacts": "{n, plural, one {die personenbezogenen Daten von # Kontakt} other {die personenbezogenen Daten von # Kontakten}}",
+        "bytes": "Dadurch werden {mb} MB frei."
+      },
+      "lastRun": "Zuletzt ausgeführt {when}.",
+      "neverRun": "Noch nicht ausgeführt.",
+      "schedule": "Läuft jede Nacht zwischen 02:00 und 06:00 Uhr mitteleuropäischer Zeit.",
+      "save": "Aufbewahrung speichern",
+      "saved": "Gespeichert. Die Löschung mit den neuen Einstellungen läuft in der nächsten Nacht.",
+      "invalid": "Wählen Sie eine der angebotenen Optionen."
+    },
+    "scope": {
+      "read": "Lesen",
+      "write": "Schreiben",
+      "triage": "Triage"
+    },
+    "token": {
+      "created": "erstellt {when}",
+      "used": "verwendet {when}",
+      "unused": "noch nicht verwendet",
+      "validUntil": "gültig bis {date}",
+      "noExpiry": "läuft nie ab"
+    },
+    "settings": {
+      "project": {
+        "name": "Projektname",
+        "nameHint": "Wird in der Kopfzeile des Boards und in E-Mails angezeigt.",
+        "publicTitle": "Ideen sind öffentlich",
+        "publicText": "Auch nicht angemeldete Besucher können Ideen, die Roadmap und Neuigkeiten lesen. Abstimmen können nur angemeldete Personen.",
+        "emailTitle": "Anmeldung per E-Mail",
+        "emailText": "Ein per E-Mail gesendeter Code oder Link, für Personen ohne Konto in Ihrer App.",
+        "loginUrl": "Anmelde-URL in Ihrer App",
+        "loginUrlHint": "Wohin wir nicht angemeldete Personen schicken. Wir hängen den Parameter ozvi_return an, damit Sie sie zurückleiten können.",
+        "origins": "Websites, die das Widget einbetten dürfen",
+        "originsHint": "Eine Adresse pro Zeile, ohne Pfad, z. B. https://app.billiwo.com.",
+        "save": "Einstellungen speichern"
+      },
+      "saving": "Wird gespeichert …",
+      "sso": {
+        "on": "SSO ist aktiviert.",
+        "onText": "Wir speichern das Secret nur verschlüsselt und können es daher nicht erneut anzeigen.",
+        "off": "SSO ist noch nicht aktiviert. Sobald Sie es aktivieren, erhalten Sie ein Secret, mit dem Ihre App Anmeldungen signiert.",
+        "newActive": "Das neue Secret ist aktiv.",
+        "setA": "Hinterlegen Sie es in Ihrer App als",
+        "oldGone": " Das alte Secret funktioniert nicht mehr.",
+        "onlyNow": " Wir zeigen es nur jetzt an, speichern Sie es also.",
+        "rotate": "Neues Secret erzeugen …",
+        "rotateTitle": "Neues SSO-Secret erzeugen?",
+        "rotateText": "Das alte Secret funktioniert sofort nicht mehr. Bis Sie das neue in Ihrer App als OZVI_SSO_SECRET hinterlegt haben, funktioniert die Anmeldung aus Ihrer App nicht.",
+        "rotating": "Wird erzeugt …",
+        "rotateConfirm": "Neues Secret erzeugen",
+        "enabling": "Wird aktiviert …",
+        "enable": "SSO aktivieren"
+      },
+      "optional": "optional",
+      "copy": "Kopieren",
+      "copied": "Kopiert",
+      "secretOnce": "Kopieren Sie es jetzt, Sie sehen es nicht noch einmal.",
+      "keep": "Abbrechen",
+      "working": "Wird ausgeführt …",
+      "sections": "Bereiche der Einstellungen",
+      "voting": {
+        "mode": "Art der Abstimmung",
+        "simpleTitle": "Einfache Stimme",
+        "simpleText": "ein Klick, eine Stimme. Am einfachsten für alle.",
+        "importanceTitle": "Nach Wichtigkeit",
+        "importanceText": "beim Abstimmen wählen Personen „Wäre schön“, „Wichtig“ oder „Entscheidend“ (1, 2 oder 3 Punkte). Angezeigt wird die Summe der Punkte.",
+        "budgetTitle": "Stimmen begrenzen",
+        "budgetText": "Alle erhalten eine feste Anzahl Stimmen für aktive Ideen und stimmen so für das ab, was ihnen wirklich wichtig ist. Die Stimmen kommen zurück, wenn eine Idee umgesetzt oder abgelehnt wird.",
+        "budget": "Stimmen pro Person",
+        "budgetHint": "1 bis 100. Bei der Abstimmung nach Wichtigkeit kostet „Entscheidend“ 3 Stimmen. Eine Senkung nimmt keine Stimmen weg; es lassen sich nur keine neuen vergeben, bis man unter dem Limit liegt.",
+        "save": "Abstimmung speichern",
+        "invalid": "Wählen Sie eine Art der Abstimmung.",
+        "budgetRange": "Die Stimmen müssen eine ganze Zahl von 1 bis 100 sein.",
+        "saved": "Einstellungen zur Abstimmung gespeichert."
+      }
+    },
+    "theme": {
+      "warn": {
+        "ink on surface": "Text auf Karten",
+        "ink on canvas": "Text auf Hintergrund",
+        "button text on accent": "Schaltflächentext",
+        "accent on surface": "Akzent auf Karten"
+      },
+      "colors": {
+        "accent": "Akzent",
+        "ink": "Text",
+        "surface": "Karten",
+        "canvas": "Hintergrund",
+        "border": "Rahmen"
+      },
+      "presets": "Mit einer Vorlage beginnen",
+      "presetsHint": "Eine Vorlage ersetzt Farben, Schrift und Eckenradius. Ihr Logo bleibt erhalten.",
+      "colorsLegend": "Farben",
+      "pickColor": "{label}, Farbwähler",
+      "fontLegend": "Schrift und Form",
+      "bodyFont": "Schrift für Text",
+      "headingFont": "Schrift für Überschriften",
+      "fontSource": "Schriftquelle",
+      "sourceSystem": "System",
+      "sourceCustom": "Eigene (von Ihrer App bereitgestellt)",
+      "sourceHint": "Ozvi liefert Google Fonts von seinem eigenen Server aus, sodass sich die Browser der Besucher nie mit Google verbinden (DSGVO). Eine Schrift außerhalb der Vorschläge erscheint nach dem Speichern in der Vorschau.",
+      "density": "Dichte",
+      "comfortable": "Großzügig",
+      "compact": "Kompakt",
+      "radius": "Eckenradius",
+      "logo": "Logo",
+      "logoHint": "Bild-URL, idealerweise SVG oder PNG mit transparentem Hintergrund.",
+      "badColor": "„{label}“ muss eine Farbe im Format #RRGGBB sein.",
+      "badLogo": "Das Logo muss eine vollständige URL sein, die mit https:// beginnt.",
+      "lowContrast": "Der Text ist möglicherweise schwer lesbar",
+      "contrast": "Kontrast",
+      "contrastHint": "Sie können trotzdem speichern. Das Board passt diese Farben bei der Anzeige gerade so weit an, dass Text 4,5:1 (WCAG AA) erreicht und lesbar bleibt.",
+      "adjusted": "{label}: Das Board verwendet {to} statt {from}",
+      "save": "Darstellung speichern",
+      "preview": "Vorschau",
+      "previewLabel": "Vorschau des Boards",
+      "ideas": "Ideen",
+      "suggest": "Idee vorschlagen",
+      "previewNote": "Besucher sehen Änderungen erst nach dem Speichern.",
+      "sample": [
+        {
+          "title": "Rechnungen nach DATEV exportieren",
+          "body": "Wir exportieren jeden Monat von Hand und hätten gern eine CSV-Datei.",
+          "when": "vor 2 Tagen"
+        },
+        {
+          "title": "Erinnerung bei unbezahlten Rechnungen",
+          "body": "Eine automatische E-Mail an den Kunden nach dem Fälligkeitsdatum.",
+          "when": "letzte Woche"
+        }
+      ]
+    },
+    "actions": {
+      "adminOnly": "Nur ein Projekt-Admin kann Einstellungen ändern.",
+      "themeJson": "Das Theme ist kein gültiges JSON.",
+      "themeSaved": "Theme gespeichert.",
+      "themeLow": "{n, plural, =1 {Theme gespeichert. Ein Farbpaar hat einen geringen Kontrast.} other {Theme gespeichert. {n} Farbpaare haben einen geringen Kontrast.}}",
+      "nameLength": "Der Name muss 2 bis 60 Zeichen lang sein.",
+      "loginUrl": "Die Anmelde-URL muss mit http:// oder https:// beginnen.",
+      "badOrigin": "„{o}“ ist kein gültiger Origin. Verwenden Sie das Format https://app.example.com ohne Pfad.",
+      "saved": "Einstellungen gespeichert.",
+      "confirmRotate": "Bestätigen Sie, dass Sie die Folgen des Austauschs des Secrets verstehen.",
+      "rotated": "Das neue Secret ist aktiv. Das alte funktioniert nicht mehr."
+    },
+    "tokens": {
+      "gateTitle": "API-Tokens sind für das Team",
+      "gateNoRole": "Ihr Konto gehört nicht zum Team. Ein Admin dieses Boards kann Sie hinzufügen.",
+      "gateSignIn": "Wenn Sie zum Team gehören, melden Sie sich an.",
+      "title": "Meine API-Tokens",
+      "lede": "Ein Token verbindet einen KI-Assistenten (Claude, Cursor …) über MCP mit dem Feedback von {name}. Der Assistent handelt in Ihrem Namen und kann nie mehr als Sie.",
+      "active": "Aktive Tokens",
+      "activeText": "Ein widerrufenes Token funktioniert sofort nicht mehr.",
+      "none": "Sie haben noch keine Tokens. Erstellen Sie unten eines oder nutzen Sie einen Connector ohne Token.",
+      "new": "Neues Token",
+      "newText": "Sie sehen das Token nur einmal, direkt nach dem Erstellen.",
+      "connect": "Assistenten verbinden",
+      "connectText": "Wählen Sie die Methode, die dazu passt, wo Sie den Assistenten nutzen.",
+      "connectors": "Claude.ai, ChatGPT und Apps mit Connectors",
+      "connectorsText": "Fügen Sie einen benutzerdefinierten Connector mit dieser Adresse hinzu. Anmeldung und Freigabe erfolgen hier, ohne Token.",
+      "codeA": "Führen Sie dies in Ihrem Terminal aus und ersetzen Sie",
+      "codeB": "durch Ihr Token.",
+      "others": "Cursor, VS Code und andere Clients",
+      "othersText": "Fügen Sie einen HTTP-MCP-Server hinzu:",
+      "ask": "Fragen Sie zum Beispiel: „Welche 5 Top-Ideen haben wir noch nicht eingeplant?“, „Fasse die neuen Fehler der letzten Woche zusammen“, „Finde Duplikate von #42“."
+    },
+    "oauth": {
+      "cannot": "Die Verbindung kann nicht hergestellt werden",
+      "unknownClient": "Diese App ist nicht registriert. Versuchen Sie die Verbindung noch einmal von vorn.",
+      "badRedirect": "Die Rücksprungadresse stimmt nicht mit der Registrierung der App überein.",
+      "pkce": "Die App muss PKCE (S256) verwenden.",
+      "cimdFailed": "Diese App kann nicht verifiziert werden: Ihre Beschreibung (Client ID Metadata Document) konnte nicht geladen werden oder ist ungültig. Versuchen Sie die Verbindung erneut; hilft das nicht, wenden Sie sich an die Entwickler der App.",
+      "badResource": "Die App fordert Zugriff auf einen anderen Server als dieses Board an. Verbinden Sie sie mit der MCP-Adresse dieses Boards.",
+      "noLogin": "Sie können sich bei diesem Board nicht direkt anmelden. Öffnen Sie es zuerst aus der App und versuchen Sie es dann erneut.",
+      "title": "Der KI-Assistent {client} möchte auf das Feedback zugreifen",
+      "lede": "Er arbeitet in Ihrem Namen mit dem Feedback für {project} – als <b>{user}</b>.",
+      "foot": "Sie können den Zugriff jederzeit unter „Meine API-Tokens“ widerrufen.",
+      "legacyClient": "Direkt bei Ozvi registriert",
+      "identity": "Identität über die Domain <b>{domain}</b> verifiziert. Name und Logo stellt die App selbst bereit.",
+      "returnsTo": "Nach Ihrer Entscheidung werden Sie zu <b>{host}</b> zurückgeleitet.",
+      "localTitle": "Rückkehr zu einer App auf diesem Computer",
+      "local": "Nachdem Sie den Zugriff erlaubt haben, kehren Sie zu einer localhost-Adresse zurück. Jede App auf Ihrem Computer könnte sich als {client} ausgeben, erlauben Sie den Zugriff also nur, wenn Sie diese Verbindung gerade selbst gestartet haben.",
+      "what": "Was er darf",
+      "scopes": {
+        "read": {
+          "title": "Lesen",
+          "text": "Ideen und Meldungen suchen und lesen"
+        },
+        "write": {
+          "title": "Schreiben",
+          "text": "zusätzlich Ideen und Meldungen anlegen und kommentieren"
+        },
+        "triage": {
+          "title": "Triage",
+          "text": "zusätzlich Status ändern und Duplikate zusammenführen"
+        }
+      },
+      "allow": "Erlauben",
+      "deny": "Ablehnen",
+      "signInAgain": "Bitte melden Sie sich erneut an.",
+      "invalid": "Ungültige Zugriffsanfrage.",
+      "resourceName": "{name} – Feedback (Ozvi)"
+    },
+    "voting": {
+      "text": "Wie Personen für Ideen abstimmen und wie viele Stimmen jede Person hat."
+    },
+    "import": {
+      "text": "Übernehmen Sie Ideen, Fehler, Stimmen und Kommentare aus Fider, Canny oder einer beliebigen Tabelle. Sie sehen zuerst eine Vorschau; danach läuft der Import im Hintergrund."
+    },
+    "tags": {
+      "text": "Tags ordnen Ideen und Fehler. Öffentliche Tags sehen alle und können danach filtern; Tags nur für das Team sieht nur das Team. Das Team vergibt sie in der Meldung oder direkt aus der Liste.",
+      "empty": "Noch keine Tags. Beginnen Sie mit denen, nach denen Sie am häufigsten sortieren (zum Beispiel Rechnungen, Mobil, Export).",
+      "public": "Öffentlich",
+      "teamOnly": "Nur für das Team",
+      "used": "{n, plural, =0 {nicht verwendet} one {# Meldung} other {# Meldungen}}",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "deleteTitle": "Den Tag „{name}“ löschen?",
+      "deleteText": "{n, plural, one {Der Tag verschwindet von # Meldung.} other {Der Tag verschwindet von # Meldungen.}} Die Meldungen bleiben erhalten.",
+      "deleteUnused": "Der Tag ist an keiner Meldung.",
+      "deleteConfirm": "Tag löschen",
+      "deleting": "Wird gelöscht …",
+      "deleted": "Tag gelöscht.",
+      "merge": "Zusammenführen",
+      "mergeTitle": "„{name}“ mit einem anderen Tag zusammenführen",
+      "mergeText": "{n, plural, =0 {Der Tag ist an keiner Meldung; nach dem Zusammenführen verschwindet er.} one {# Meldung erhält den gewählten Tag, und dieser verschwindet.} other {# Meldungen erhalten den gewählten Tag, und dieser verschwindet.}}",
+      "mergeInto": "Zusammenführen mit",
+      "mergePick": "Tag wählen",
+      "mergeToPublic": "Der Ziel-Tag ist öffentlich: Alle sehen ihn an diesen Meldungen.",
+      "mergeToTeam": "Der Ziel-Tag ist nur für das Team: Diese Meldungen zeigen öffentlich keinen Tag mehr an.",
+      "mergeConfirm": "Mit „{name}“ zusammenführen",
+      "merged": "Tags zusammengeführt.",
+      "new": "Neuer Tag",
+      "name": "Name",
+      "namePlaceholder": "zum Beispiel Rechnungen",
+      "preview": "Vorschau",
+      "color": "Farbe",
+      "colors": {
+        "neutral": "Neutral",
+        "accent": "Akzent",
+        "amber": "Bernstein",
+        "green": "Grün",
+        "red": "Rot",
+        "muted": "Gedämpft"
+      },
+      "publicLabel": "Öffentlicher Tag",
+      "publicOn": "Alle auf dem Board sehen ihn und können danach filtern.",
+      "publicOff": "Nur das Team sieht ihn: Er wird anderen nie in der Liste, über MCP außerhalb des Teams oder in Webhooks angezeigt.",
+      "save": "Tag speichern",
+      "create": "Tag erstellen",
+      "cancel": "Abbrechen",
+      "created": "Tag „{name}“ erstellt.",
+      "saved": "Tag „{name}“ gespeichert."
+    },
+    "statuses": {
+      "text": "Die Schritte im Ablauf sind fest vorgegeben, damit E-Mails, Roadmap und GitHub immer gleich funktionieren. Sie können sie aber umbenennen und unter jedem Schritt eigene Unterstatus für eine feinere Verfolgung hinzufügen.",
+      "kind": "Art der Meldung",
+      "ideas": "Ideen",
+      "bugs": "Fehler",
+      "shared": "gemeinsam",
+      "sharedHint": "Der Name des Schritts „In Arbeit“ gilt für Ideen und Fehler gleichermaßen.",
+      "rename": "Eigener Name",
+      "subName": "Name des Unterstatus",
+      "subPlaceholder": "zum Beispiel Im Test",
+      "addSub": "Unterstatus hinzufügen",
+      "removeSub": "Unterstatus entfernen",
+      "note": "Ein leeres Feld behält den ursprünglichen Namen. Fehlt eine Sprache, wird die Standardsprache des Boards verwendet. Meldungen in einem entfernten Unterstatus bleiben in ihrem Schritt.",
+      "save": "Status speichern",
+      "saved": "Status gespeichert.",
+      "unansweredTitle": "Unbeantwortet",
+      "unansweredText": "Meldungen, bei denen jemand außerhalb des Teams auf eine öffentliche Antwort oder eine Statusänderung wartet, erscheinen nach dieser Zeit im Tab „Unbeantwortet“ und in der Montagszusammenfassung des Teams.",
+      "days": "Höchstens warten",
+      "daysUnit": "Tage",
+      "daysHint": "1 bis 90 Tage. Wir empfehlen 7.",
+      "daysSave": "Speichern",
+      "daysSaved": "{n, plural, one {Eine Meldung erscheint nach # Tag Wartezeit.} other {Eine Meldung erscheint nach # Tagen Wartezeit.}}"
+    },
+    "privacyKit": {
+      "title": "Texte für Ihre Datenschutzerklärung",
+      "text": "Absätze für Ihre Datenschutzerklärung und Ihr Verarbeitungsverzeichnis, zusammengestellt aus den Einstellungen dieses Projekts. Ergänzen Sie die Angaben in eckigen Klammern.",
+      "legalTitle": "Dies ist keine Rechtsberatung",
+      "legal": "Es ist ein Entwurf auf Grundlage der Projekteinstellungen. Lassen Sie ihn vor der Veröffentlichung juristisch prüfen.",
+      "cloud": "Ozvi Cloud: Für die Daten Ihrer Nutzer sind Sie Verantwortlicher und Ozvi Ihr Auftragsverarbeiter. Sie brauchen auch einen Auftragsverarbeitungsvertrag (AVV/DPA); fordern Sie ihn unter {email} an.",
+      "self": "Selbst gehostet: Sie sind Verantwortlicher und brauchen keinen Auftragsverarbeitungsvertrag mit den Autoren von Ozvi. Verträge schließen Sie direkt mit den im Text genannten Anbietern (Hosting, E-Mail, KI, Integrationen).",
+      "subprocessors": "Liste der Unterauftragsverarbeiter",
+      "language": "Sprache des Textes",
+      "captureTitle": "Was das Widget sendet",
+      "captureHint": "Standardeinstellungen des Widgets. Wenn Sie in Ihrer App etwas abgeschaltet haben (OzviConfig oder Widget-Attribute), entfernen Sie den Haken.",
+      "cap": {
+        "screenshot": "Screenshot",
+        "console": "Konsolenfehler",
+        "network": "Anfrageprotokoll",
+        "steps": "Schritte in der App",
+        "links": "Links zur Sitzungsaufzeichnung"
+      },
+      "copyMd": "Alles kopieren (Markdown)",
+      "copyHtml": "Alles kopieren (HTML)",
+      "copy": "Kopieren",
+      "copied": "Kopiert",
+      "copyFailed": "Kopieren fehlgeschlagen. Markieren Sie den Text und kopieren Sie ihn von Hand."
+    }
+  },
+  "ai": {
+    "errors": {
+      "unset": "KI ist nicht eingerichtet (OZVI_AI_PROVIDER).",
+      "overloaded": "Die KI ist gerade überlastet. Versuchen Sie es in einer Minute erneut.",
+      "auth": "Der KI-Schlüssel ist ungültig.",
+      "failed": "KI-Fehler ({detail}). Bitte erneut versuchen.",
+      "refused": "Die KI hat die Verarbeitung dieses Inhalts abgelehnt.",
+      "empty": "Die KI hat keinen Text zurückgegeben.",
+      "off": "KI ist für dieses Projekt nicht aktiviert.",
+      "rate": "Zu viele KI-Anfragen in dieser Stunde. Versuchen Sie es später erneut."
+    },
+    "network": "Netzwerk",
+    "linkRemoved": "[Link entfernt]",
+    "label": "— Diese Zusammenfassung wurde von KI aus Nutzerfeedback erstellt. Prüfen Sie sie in Ozvi, bevor Sie entscheiden.",
+    "badge": {
+      "reviewed": "mit KI geschrieben · geprüft von {name}",
+      "reviewedAnon": "mit KI geschrieben · vom Team geprüft",
+      "draft": "KI-Entwurf · wartet auf Prüfung",
+      "model": "Modell: {model}"
+    }
+  },
+  "board": {
+    "shell": {
+      "backToConsole": "Zurück zu all Ihren Projekten in Ozvi",
+      "myProjects": "Meine Projekte",
+      "settings": "Board-Einstellungen",
+      "signIn": "Anmelden",
+      "badge": "Feedback mit",
+      "language": "Sprache"
+    },
+    "nav": {
+      "ideas": "Ideen",
+      "roadmap": "Roadmap",
+      "changelog": "Neuigkeiten",
+      "bugs": "Fehler",
+      "unanswered": "Unbeantwortet",
+      "unansweredHint": "Meldungen, die auf eine Antwort des Teams warten",
+      "unansweredCount": "{n, plural, one {# Meldung wartet} other {# Meldungen warten}}"
+    },
+    "account": {
+      "menu": "Konto",
+      "signedIn": "Angemeldete Person",
+      "me": "Meine Daten",
+      "tokens": "API-Tokens und KI-Assistenten",
+      "settings": "Board-Einstellungen",
+      "console": "Meine Projekte in Ozvi",
+      "signOut": "Abmelden"
+    },
+    "gate": {
+      "signIn": "Anmelden",
+      "backToIdeas": "Zurück zu den Ideen",
+      "viaApp": "Öffnen Sie das Feedback direkt in {app}, dann werden Sie automatisch angemeldet."
+    },
+    "notFound": {
+      "title": "Diese Seite gibt es nicht",
+      "text": "Der Link ist unvollständig, oder der Beitrag wurde inzwischen gelöscht oder mit einem anderen zusammengeführt."
+    },
+    "user": "Nutzer",
+    "teamMember": "Teammitglied",
+    "fromCustomers": "Aus Kundenfeedback",
+    "route": "Ablauf",
+    "comments": "{n, plural, one {# Kommentar} other {# Kommentare}}",
+    "votes": "{n, plural, one {# Stimme} other {# Stimmen}}",
+    "journey": {
+      "inVersion": " in v{v}",
+      "teamReply": "Antwort des Teams",
+      "released": "Release Notes veröffentlicht",
+      "issueClosed": "Issue ist geschlossen",
+      "issueOpen": "Issue ist offen",
+      "next": "Als Nächstes:",
+      "proof": "Nachweis der Korrektur",
+      "proofPreview": "Korrektur ausprobieren",
+      "proofRelease": "Release {v}"
+    },
+    "ideas": {
+      "gateTitle": "Ideen sind nur für angemeldete Personen sichtbar",
+      "gateText": "Melden Sie sich an, um die Ideen anderer zu sehen und wie weit sie gediehen sind.",
+      "title": "Ideen",
+      "lede": "Schlagen Sie vor, was Ihnen helfen würde, oder stimmen Sie für die Ideen anderer ab. Die gefragtesten kommen auf die Roadmap.",
+      "suggest": "Idee vorschlagen",
+      "signInToSuggest": "Zum Vorschlagen anmelden",
+      "search": "Ideen durchsuchen",
+      "status": "Status",
+      "order": "Sortieren",
+      "filters": {
+        "active": "Aktiv",
+        "shipped": "Umgesetzt",
+        "all": "Alle"
+      },
+      "topShort": "Stimmen",
+      "top": "Am gefragtesten",
+      "newShort": "Neu",
+      "newest": "Neueste",
+      "nothingFor": "Keine Ergebnisse für „{q}“",
+      "nothingForText": "Versuchen Sie ein anderes Wort oder schlagen Sie die Idee vor – vielleicht sind Sie die erste Person damit.",
+      "clearSearch": "Suche löschen",
+      "noneShipped": "Noch nichts umgesetzt",
+      "noneActive": "Keine aktiven Ideen",
+      "emptyFilter": "Nichts entspricht diesem Filter. Sehen Sie sich alle Ideen an.",
+      "showAll": "Alle anzeigen",
+      "emptyTitle": "Hier ist noch nichts",
+      "emptyUser": "Schlagen Sie die erste Idee vor, damit andere dafür abstimmen können.",
+      "emptyGuest": "Melden Sie sich an, um die erste Idee vorzuschlagen.",
+      "recentlyShipped": "Kürzlich umgesetzt",
+      "allNews": "Alle Neuigkeiten",
+      "byMrr": "Nach MRR",
+      "planFilter": "Tarif der Kunden",
+      "allPlans": "Alle Tarife",
+      "planOption": "Tarif {plan}",
+      "noneForPlan": "Niemand im Tarif {plan} wünscht sich hier etwas",
+      "noneForPlanText": "Für keine Idee in diesem Filter hat ein Kunde mit diesem Tarif abgestimmt oder sie vorgeschlagen."
+    },
+    "bugs": {
+      "gateTitle": "Fehlermeldungen sind nur für die meldende Person und das Team sichtbar",
+      "gateText": "Melden Sie sich an, um Ihre Meldungen und die Antworten des Teams zu sehen.",
+      "stages": {
+        "open": "Offen",
+        "fixed": "Behoben",
+        "all": "Alle"
+      },
+      "report": "Fehler melden",
+      "titleTeam": "Fehler",
+      "titleMine": "Meine Fehlermeldungen",
+      "ledeTeam": "Alles, was Nutzer gemeldet haben. Bewegen Sie Meldungen durch den Ablauf – die meldende Person erhält bei jeder Änderung eine E-Mail.",
+      "ledeMine": "Ihre Meldungen und wo sie im Ablauf stehen. Sobald wir einen Fehler behoben haben, informieren wir Sie per E-Mail.",
+      "status": "Status",
+      "onlyYou": "Nur Sie und das Team können diese sehen",
+      "emptyTeamTitle": "Noch keine Meldungen",
+      "emptyMineTitle": "Sie haben noch nichts gemeldet",
+      "emptyTeamText": "Wenn jemand etwas meldet, erscheint es hier zusammen mit den technischen Details.",
+      "emptyMineText": "Wenn etwas nicht funktioniert, melden Sie es. Nur Sie und das Team sehen die Meldung, und wir informieren Sie, sobald der Fehler behoben ist.",
+      "noneOpen": "Nichts offen",
+      "noneFixed": "Keine behobenen Meldungen",
+      "noneOpenText": "Alle Meldungen sind erledigt.",
+      "noneFixedText": "Sobald wir einen Fehler behoben haben, finden Sie ihn hier.",
+      "showAll": "Alle anzeigen",
+      "search": "Fehler durchsuchen (Titel, Beschreibung oder Nummer)",
+      "exactStatus": "Genauer Status",
+      "anyStatus": "Beliebiger Status",
+      "order": "Reihenfolge",
+      "sortNew": "Neueste",
+      "sortOld": "Älteste",
+      "sortAffected": "Meiste Betroffene",
+      "nothingFor": "Keine Ergebnisse für „{q}“",
+      "nothingForText": "Versuchen Sie ein anderes Wort oder die Nummer der Meldung.",
+      "clearSearch": "Suche löschen",
+      "noneStatus": "Keine Meldungen mit Status {status}",
+      "noneStatusText": "Wählen Sie einen anderen Status oder zeigen Sie alle Meldungen an."
+    },
+    "roadmap": {
+      "gateTitle": "Die Roadmap ist nur für angemeldete Personen sichtbar",
+      "gateText": "Melden Sie sich an, um zu sehen, was das Team plant und woran es arbeitet.",
+      "title": "Roadmap",
+      "lede": "Wo die Ideen in ihrem Ablauf stehen: was wir geplant haben, woran wir arbeiten und was bereits verfügbar ist.",
+      "planned": "Geplant",
+      "plannedEmpty": "Noch nichts geplant.",
+      "inProgress": "In Arbeit",
+      "inProgressEmpty": "Derzeit ist nichts in Arbeit.",
+      "shipped": "Kürzlich umgesetzt",
+      "shippedEmpty": "Noch nichts umgesetzt."
+    },
+    "changelog": {
+      "gateTitle": "Neuigkeiten sind nur für angemeldete Personen sichtbar",
+      "gateText": "Melden Sie sich an, um die Neuigkeiten zu sehen.",
+      "title": "Neuigkeiten",
+      "lede": "Was es Neues bei {app} gibt. Wenn wir eine Idee umsetzen, für die Sie abgestimmt haben, erhalten Sie eine E-Mail.",
+      "write": "Neuigkeit schreiben",
+      "published": "Veröffentlicht.",
+      "notified": "{n, plural, one { # Person, die für diese Ideen abgestimmt hat, erhält eine E-Mail.} other { # Personen, die für diese Ideen abgestimmt haben, erhalten eine E-Mail.}}",
+      "emptyTitle": "Noch keine Neuigkeiten",
+      "emptyTeam": "Wenn Sie eine Idee umgesetzt haben, schreiben Sie ein paar Zeilen dazu. Alle, die abgestimmt haben, erhalten eine E-Mail.",
+      "emptyGuest": "Wenn das Team etwas veröffentlicht, finden Sie es hier.",
+      "draft": "Entwurf, nicht veröffentlicht",
+      "edit": "Bearbeiten",
+      "finishDraft": "Entwurf fertigstellen",
+      "teamOnlyTitle": "Neuigkeiten schreibt das Team",
+      "teamOnlyNoRole": "Ihr Konto hat keine Team-Rolle. Der Admin dieses Boards kann sie Ihnen zuweisen.",
+      "teamOnlySignIn": "Wenn Sie zum Team gehören, melden Sie sich an.",
+      "newTitle": "Neuer Eintrag",
+      "newLede": "Schreiben Sie, was Sie umgesetzt haben. Wer für die ausgewählten Ideen abgestimmt hat, erfährt es nach der Veröffentlichung per E-Mail.",
+      "editTitle": "Eintrag bearbeiten",
+      "draftTitle": "Entwurf eines Eintrags",
+      "editLede": "Veröffentlicht am {date}. Änderungen erscheinen in der Liste der Neuigkeiten; es wird keine weitere E-Mail versendet.",
+      "draftLede": "Entwürfe sieht nur das Team. Nach der Veröffentlichung erhalten alle, die für die ausgewählten Ideen abgestimmt haben, eine E-Mail.",
+      "fromRelease": "Aus Release {version}",
+      "aiWriting": "Die KI schreibt den Entwurf noch. Laden Sie die Seite gleich neu; wenn Sie den Entwurf zwischenzeitlich speichern, bleibt Ihr Text erhalten.",
+      "releaseDraft": "Entwurf aus Release {version}.",
+      "releaseDraftText": "Automatisch aus den verknüpften Ideen und Korrekturen erstellt. Nichts wird veröffentlicht, bevor Sie es freigeben.",
+      "releaseOnGithub": "Release auf GitHub",
+      "aiReviewNote": "Diesen Text hat KI geschrieben. Lesen Sie ihn vollständig; mit der Veröffentlichung geben Sie ihn als {name} frei, und die Neuigkeit trägt den Hinweis „mit KI geschrieben“.",
+      "unannounced": {
+        "title": "Umgesetzt, aber nicht angekündigt",
+        "lede": "Diese Ideen und Korrekturen sind fertig, aber keine veröffentlichte Neuigkeit erwähnt sie. Die Abstimmenden erfahren davon erst durch eine Neuigkeit.",
+        "write": "Neuigkeit schreiben",
+        "inDraft": "in einem Entwurf",
+        "more": "… und {n, plural, one {# weitere} other {# weitere}}."
+      },
+      "saved": "Entwurf gespeichert."
+    },
+    "newItem": {
+      "gateBug": "Melden Sie sich an, um einen Fehler zu melden",
+      "gateIdea": "Melden Sie sich an, um eine Idee vorzuschlagen",
+      "gateText": "Nach der Anmeldung können Sie direkt weitermachen.",
+      "titleBug": "Fehler melden",
+      "titleIdea": "Idee vorschlagen",
+      "ledeBug": "Beschreiben Sie, was passiert ist. Ein Screenshot sagt mehr als ein Absatz; die technischen Details hängen wir selbst an.",
+      "ledeIdea": "Während Sie tippen, zeigen wir ähnliche Ideen an. Eine Stimme für eine bestehende Idee zählt mehr als ein neues Duplikat.",
+      "privateNote": "Nur Sie und das Team sehen die Meldung. Bei jeder Änderung erhalten Sie eine E-Mail."
+    },
+    "item": {
+      "context": {
+        "url": "Seite",
+        "appVersion": "App-Version",
+        "browser": "Browser",
+        "viewport": "Fenster",
+        "language": "Sprache",
+        "referrer": "Herkunft",
+        "console": "Konsolenfehler",
+        "traits": "Seitendaten (nicht verifiziert)"
+      },
+      "capture": {
+        "steps": "Schritte vor der Meldung",
+        "network": "Netzwerkanfragen",
+        "teamOnly": "Nur für das Team",
+        "sessions": "Sitzungsaufzeichnung",
+        "link": {
+          "sentry": "Sentry-Replay",
+          "posthog": "PostHog-Sitzung",
+          "logrocket": "LogRocket-Sitzung"
+        },
+        "kind": {
+          "nav": "Seite",
+          "submit": "Formular gesendet",
+          "error": "Konsolenfehler",
+          "request": "fehlgeschlagene Anfrage"
+        },
+        "role": {
+          "button": "Schaltfläche",
+          "link": "Link",
+          "other": "Steuerelement"
+        },
+        "unnamedForm": "unbenanntes Formular",
+        "col": {
+          "status": "Status",
+          "request": "Anfrage",
+          "time": "Zeit",
+          "size": "Größe",
+          "actions": "Aktionen"
+        },
+        "all": "Alle ({n})",
+        "failed": "Fehlgeschlagen ({n})",
+        "filter": "Anfragen filtern",
+        "copyCurl": "Als cURL kopieren",
+        "copied": "Kopiert",
+        "showBody": "Body von {url} anzeigen",
+        "hideBody": "Body von {url} ausblenden",
+        "sent": "Gesendet",
+        "response": "Antwort",
+        "networkError": "Netzwerkfehler",
+        "masked": "Sensible Werte (***) wurden bereits im Browser der meldenden Person vor dem Senden maskiert. Authorization- und Cookie-Header werden nie aufgezeichnet.",
+        "before": "{time} vor der Meldung"
+      },
+      "gateText": "Melden Sie sich an, um diese Idee und die Diskussion dazu zu sehen.",
+      "privateTitle": "Diese Meldung sehen nur die meldende Person und das Team",
+      "privateSignedIn": "Sie sind angemeldet, aber diese Meldung hat jemand anderes gesendet. Ihre eigenen Meldungen finden Sie unter „Fehler“.",
+      "privateSignIn": "Wenn Sie sie gesendet haben, melden Sie sich an, um sie samt den Antworten des Teams zu sehen.",
+      "privateViaApp": "Wenn Sie sie gesendet haben, öffnen Sie das Feedback direkt in {app}, dann werden Sie automatisch angemeldet.",
+      "myBugs": "Meine Fehlermeldungen",
+      "bug": "Fehler",
+      "idea": "Idee",
+      "privateTag": "Nur die meldende Person und das Team sehen das",
+      "mergedPrivate": "Wir bearbeiten diese Meldung bereits unter einer anderen Nummer. Wir informieren Sie, sobald der Fehler behoben ist.",
+      "mergedInto": "Dies ist ein Duplikat. Weiter geht es unter",
+      "votesMoved": "; die Stimmen wurden dorthin übertragen",
+      "noBody": "Keine Beschreibung.",
+      "technical": "Technische Details",
+      "show": "Anzeigen",
+      "comments": "Kommentare",
+      "noComments": "Noch keine Kommentare.",
+      "addComment": " Ergänzen Sie, was helfen würde.",
+      "teamBadge": "Team",
+      "internal": "nur für das Team",
+      "forTeam": "Für das Team",
+      "status": "Status",
+      "news": "Neuigkeiten",
+      "newsHint": "Schreiben Sie ein paar Zeilen dazu, was neu ist. Alle, die abgestimmt haben ({n}), erhalten eine E-Mail.",
+      "duplicates": "Duplikate",
+      "votesShort": "{n, plural, one {# Stimme} other {# Stimmen}}",
+      "noSimilar": "Wir haben nichts Ähnliches gefunden.",
+      "summary": "Zusammenfassung der Diskussion",
+      "commentSignIn": "Melden Sie sich an, um zu kommentieren.",
+      "commentViaApp": "Kommentieren können Sie, nachdem Sie das Feedback direkt in {app} geöffnet haben.",
+      "tags": "Tags",
+      "voters": "Abstimmende",
+      "votersHint": "{n, plural, =0 {Bisher hat niemand abgestimmt.} one {# Person hat abgestimmt: Name, E-Mail-Adresse, Unternehmen und Stimmgewicht.} other {# Personen haben abgestimmt: Namen, E-Mail-Adressen, Unternehmen und Stimmgewicht.}}",
+      "proof": "Nachweis der Korrektur",
+      "similarAi": "Diese hat ein KI-Modell nach Bedeutung ausgewählt. Ob es Duplikate sind, entscheiden Sie."
+    },
+    "me": {
+      "title": "Meine Daten",
+      "lede": "Was {app} in seinem Feedback über Sie speichert: Ihren Namen und Ihre E-Mail-Adresse aus der Anmeldung sowie Ihre Ideen, Meldungen, Kommentare und Stimmen.",
+      "account": "Angemeldetes Konto",
+      "accountNamed": "Andere sehen diesen Namen neben Ihren Ideen und Kommentaren.",
+      "accountUnnamed": "Wir kennen Ihren Namen nicht, daher wird bei Ihren Beiträgen „{shown}“ angezeigt.",
+      "noName": "Kein Name",
+      "emails": "E-Mails",
+      "emailsText": "Wir schreiben Ihnen, wenn jemand auf Ihre Idee oder Meldung antwortet, wenn sich ihr Status ändert und wenn eine Idee umgesetzt wird, für die Sie abgestimmt haben.",
+      "noEmail": "Die App hat uns Ihre E-Mail-Adresse nicht übermittelt, daher senden wir Ihnen keine E-Mails.",
+      "emailsOff": "E-Mails sind <b>ausgeschaltet</b>. An <addr>{email}</addr> senden wir nichts.",
+      "emailsOn": "E-Mails gehen an <addr>{email}</addr>.",
+      "turnOn": "E-Mails einschalten",
+      "turnOff": "E-Mails ausschalten",
+      "download": "Herunterladen",
+      "downloadText": "Eine Kopie von allem, was Sie hier geschrieben haben, in einer einzigen JSON-Datei.",
+      "downloadWhat": "Ideen, Fehlermeldungen, Kommentare, Stimmen und Anmeldedaten.",
+      "downloadButton": "Meine Daten herunterladen",
+      "erase": "Löschen",
+      "eraseText": "Entfernt Ihre Daten dauerhaft aus diesem Feedback-Board. Ihr Konto in der App bleibt unverändert.",
+      "whatHappens": "Was passiert",
+      "eraseList": [
+        "Wir löschen Ihre Stimmen, Kommentare und Fehlermeldungen einschließlich der Anhänge.",
+        "Wir löschen die Aufzeichnungen über E-Mails, die wir Ihnen gesendet haben, und melden Sie ab.",
+        "Ideen, für die andere abgestimmt haben, bleiben erhalten, aber ohne Ihren Namen.",
+        "Das lässt sich nicht rückgängig machen. Wenn Sie etwas behalten möchten, laden Sie Ihre Daten zuerst herunter."
+      ]
+    },
+    "pendingBadge": "Wartet auf Freigabe",
+    "paging": {
+      "shown": "{shown} von {total} angezeigt",
+      "more": "Mehr laden"
+    },
+    "affected": "Betrifft {n, plural, one {# Person} other {# Personen}}",
+    "mrrHint": "MRR der Kunden, die sich das wünschen (nur für das Team)",
+    "mrrShort": "{mrr} MRR",
+    "customers": {
+      "titleIdea": "Wer sich das wünscht",
+      "titleBug": "Wen es betrifft",
+      "teamOnly": "Nur für das Team",
+      "wantCompanies": "{n, plural, one {# Unternehmen wünscht sich das} other {# Unternehmen wünschen sich das}}",
+      "affectsCompanies": "Betrifft {n, plural, one {# Unternehmen} other {# Unternehmen}}",
+      "wantPeople": "{n, plural, one {# Person wünscht sich das} other {# Personen wünschen sich das}}",
+      "affectsPeople": "Betrifft {n, plural, one {# Person} other {# Personen}}",
+      "andPeople": " und {n, plural, one {# Person ohne Unternehmen} other {# Personen ohne Unternehmen}}",
+      "mrrTotal": "{mrr} MRR insgesamt",
+      "anonymous": "Nutzer",
+      "plan": "Tarif {plan}",
+      "author": "Verfasser",
+      "noTraits": "keine Kundendaten",
+      "noTraitsHint": "Senden Sie company, plan und mrr (in Cent) als Traits im SSO-Token, um zu sehen, welche Kunden sich das wünschen und wie viel sie zahlen.",
+      "showAll": "Alle anzeigen ({n})",
+      "more": "und {n} weitere"
+    },
+    "pendingComments": "{n, plural, one {# Kommentar wartet} other {# Kommentare warten}}",
+    "waitingSince": "Wartet seit {date}",
+    "waitingDays": "{n, plural, =0 {wartet seit heute} one {wartet seit # Tag} other {wartet seit # Tagen}}",
+    "unanswered": {
+      "gateTitle": "„Unbeantwortet“ sieht nur das Team",
+      "gateText": "Diese Warteschlange gehört dem Team: Meldungen, die auf eine Antwort warten.",
+      "title": "Unbeantwortet",
+      "lede": "{n, plural, one {Hier wartet jemand seit mehr als # Tag auf eine Antwort oder eine Statusänderung. Die längsten Wartezeiten stehen oben.} other {Hier wartet jemand seit mehr als # Tagen auf eine Antwort oder eine Statusänderung. Die längsten Wartezeiten stehen oben.}}",
+      "kind": "Art",
+      "all": "Alle",
+      "ideas": "Ideen",
+      "bugs": "Fehler",
+      "emptyTitle": "Niemand wartet",
+      "emptyText": "{n, plural, one {Das Team hat jede Meldung innerhalb von # Tag beantwortet.} other {Das Team hat jede Meldung innerhalb von # Tagen beantwortet.}}",
+      "ruleTitle": "Wann eine Meldung hier erscheint",
+      "rule": "{n, plural, one {Wenn die verfassende Person oder jemand anderes schreibt und das Team nicht innerhalb von # Tag öffentlich antwortet oder den Status ändert.} other {Wenn die verfassende Person oder jemand anderes schreibt und das Team nicht innerhalb von # Tagen öffentlich antwortet oder den Status ändert.}}",
+      "ruleClears": "Interne Notizen zählen nicht. Umgesetzte, behobene und abgelehnte Meldungen erscheinen hier nie.",
+      "change": "Anzahl der Tage ändern"
+    }
+  },
+  "boardAuth": {
+    "noProject": "Dieses Projekt existiert nicht.",
+    "ssoOff": "SSO ist für dieses Projekt nicht aktiviert.",
+    "ssoExpired": "Der Anmeldelink ist abgelaufen. Kehren Sie zur App zurück und öffnen Sie das Feedback erneut.",
+    "ssoFailed": "Wir konnten Ihre Anmeldung nicht verifizieren. Kehren Sie zur App zurück und versuchen Sie es erneut.",
+    "otherUser": "ein anderes Konto",
+    "switchTitle": "Konto wechseln?",
+    "switchHeading": "Zum Konto von {who} wechseln?",
+    "switchText": "Dieser Link möchte Sie mit einem anderen Konto anmelden als dem, mit dem Sie gerade angemeldet sind. Wenn Sie ihn nicht aus Ihrer eigenen App geöffnet haben, bleiben Sie besser angemeldet, wie Sie sind.",
+    "stay": "Angemeldet bleiben",
+    "switch": "Wechseln",
+    "oidcOff": "Die OIDC-Anmeldung ist nicht eingerichtet.",
+    "oidcDown": "Der Anmeldedienst ist nicht erreichbar. Versuchen Sie es gleich noch einmal.",
+    "oidcRefused": "Der Anbieter hat die Anmeldung abgelehnt ({err}). Versuchen Sie es erneut.",
+    "oidcStale": "Die Anmeldung ist abgelaufen oder stammt aus einem anderen Fenster. Melden Sie sich bitte erneut an.",
+    "oidcFailed": "Wir konnten Ihre Anmeldung nicht verifizieren. Versuchen Sie es erneut.",
+    "handoffExpired": "Der Link ist abgelaufen. Öffnen Sie das Projekt erneut aus der Übersicht.",
+    "handoffNoAccess": "Sie haben keinen Zugriff mehr auf dieses Projekt.",
+    "signInFirst": "Bitte melden Sie sich an.",
+    "notFound": "Nicht gefunden",
+    "fileMissing": "Datei fehlt",
+    "feedTitle": "{project} – Neuigkeiten",
+    "feedDescription": "Neuigkeiten bei {project}",
+    "loginTitle": "Anmelden",
+    "loginLede": "Feedback für {project}. Wir senden Ihnen einen Einmalcode per E-Mail.",
+    "loginLinkLede": "Feedback für {project}.",
+    "teamFoot": "Gehören Sie zum Team? <link>Öffnen Sie das Board aus der Ozvi-Konsole</link>, dann werden Sie automatisch angemeldet.",
+    "linkGoneTitle": "Dieser Link ist nicht mehr gültig",
+    "linkGoneLede": "Anmeldelinks sind 15 Minuten gültig und funktionieren nur einmal. Fordern Sie einen neuen Code an.",
+    "sendNewCode": "Neuen Code senden",
+    "signInAs": "Sie werden als <b>{email}</b> angemeldet.",
+    "signIn": "Anmelden",
+    "unsubInvalidTitle": "Dieser Link ist ungültig",
+    "unsubInvalidLede": "Kopieren Sie den vollständigen Link aus der E-Mail in Ihren Browser. Wenn das nicht hilft, hinterlassen Sie uns einen Kommentar auf dem Board.",
+    "unsubDoneTitle": "Erledigt, Sie erhalten keine E-Mails mehr",
+    "unsubDoneLede": "Sie können hier auf der Website weiterhin Feedback geben und verfolgen.",
+    "backToFeedback": "Zurück zum Feedback",
+    "unsubTitle": "E-Mails abbestellen?",
+    "unsubLede": "Sie erhalten vom Feedback für {project} keine E-Mails mehr zum Status von Meldungen und Ideen und zu Kommentaren.",
+    "unsubButton": "E-Mails abbestellen"
+  },
+  "console": {
+    "planName": {
+      "self": "Selbst gehostet",
+      "free": "Free",
+      "pro": "Pro",
+      "studio": "Studio"
+    },
+    "role": {
+      "owner": "Inhaber",
+      "member": "Mitglied"
+    },
+    "nav": {
+      "console": "Konsole",
+      "home": "Ozvi-Konsole",
+      "menu": "Menü",
+      "menuTitle": "Konsolenmenü",
+      "overview": "Übersicht",
+      "team": "Team",
+      "plan": "Tarif & Nutzung",
+      "delivery": "Zustellung",
+      "activity": "Aktivität",
+      "failures": "{count, plural, one {# Fehler in den letzten 7 Tagen} other {# Fehler in den letzten 7 Tagen}}",
+      "attention": "erfordert Aufmerksamkeit",
+      "projects": "Projekte",
+      "newProject": "Neues Projekt",
+      "openBoard": "Board öffnen",
+      "noProjects": "Noch keine.",
+      "workspace": "Workspace",
+      "switchWorkspace": "Workspace wechseln",
+      "yourWorkspaces": "Ihre Workspaces",
+      "current": "aktuell",
+      "newWorkspace": "Neuer Workspace",
+      "account": "Konto {email}",
+      "noName": "Kein Name",
+      "signedIn": "Angemeldet",
+      "myAccount": "Mein Konto",
+      "website": "Ozvi-Website",
+      "signOut": "Abmelden",
+      "language": "Sprache"
+    },
+    "units": {
+      "unlimited": "unbegrenzt",
+      "justNow": "gerade eben",
+      "of": "von",
+      "noLimit": "kein Limit",
+      "near": "Nahe am Limit des Tarifs.",
+      "over": "Limit erreicht."
+    },
+    "overview": {
+      "projects": "{count, plural, one {# Projekt} other {# Projekte}}",
+      "lede": "Tarif {plan}, {projects}.",
+      "ledeSelf": "Projekte auf Ihrem Server.",
+      "moreProjects": "Mehr Projekte mit einem höheren Tarif",
+      "newProject": "Neues Projekt",
+      "created": "{name} ist eingerichtet.",
+      "createdNext": "Nächster Schritt: Verbinden Sie in den Projekteinstellungen die Anmeldung und das Widget mit Ihrer App. Vom Board aus gelangen Sie über „Meine Projekte“ in der Kopfzeile hierher zurück.",
+      "setUp": "Projekt einrichten",
+      "openBoard": "Board öffnen",
+      "addName": "Fügen Sie Ihren Namen hinzu. Ihr Team und Ihre Nutzer sehen ihn bei Ihren Antworten statt Ihrer E-Mail-Adresse.",
+      "addNameCta": "Namen hinzufügen",
+      "pastDueTitle": "Zahlung für den Tarif fehlgeschlagen",
+      "pastDueOwner": "Aktualisieren Sie Ihre Karte unter <link>Tarif & Nutzung</link>, sonst wechselt der Workspace zu Free.",
+      "pastDueMember": "Der Inhaber des Workspace muss die Karte aktualisieren, sonst wechselt der Workspace zu Free.",
+      "nearTitle": "Sie nähern sich dem Limit Ihres Tarifs",
+      "near": "Siehe <link>Tarif & Nutzung</link>. Das Überschreiten des E-Mail-Limits blockiert nichts; Benachrichtigungen werden dann nur einmal täglich als Zusammenfassung gesendet.",
+      "domainTitle": "{domain} ist nicht verifiziert",
+      "domain": "Das Board {board} läuft noch unter seiner Ozvi-Adresse. Richten Sie DNS ein und verifizieren Sie die Domain in den <link>Projekteinstellungen</link>.",
+      "projectsHead": "Projekte",
+      "empty": "In diesem Workspace gibt es noch keine Projekte. Ein Projekt ist ein Board für eine Ihrer Apps.",
+      "createProject": "Projekt erstellen",
+      "settings": "Einstellungen",
+      "newBugs": "Neue Fehler",
+      "ideasToDecide": "Zu entscheidende Ideen",
+      "commentsWeek": "Kommentare, letzte 7 Tage",
+      "users": "Nutzer",
+      "noUsers": "Aus Ihrer App hat sich noch niemand angemeldet. Verbinden Sie die Anmeldung und fügen Sie das Widget in den <link>Einstellungen</link> hinzu.",
+      "lastActivity": "Letzte Aktivität {when}",
+      "planCard": "Tarif {plan}",
+      "upgrade": "Auf Pro upgraden",
+      "detail": "Details",
+      "emailsMonth": "E-Mails diesen Monat",
+      "attachments": "Anhänge",
+      "projectsMeter": "Projekte",
+      "projectsFull": "Mit einem höheren Tarif können Sie weitere Projekte hinzufügen.",
+      "recent": "Letzte Aktivität",
+      "all": "Alle ansehen",
+      "noActivity": "Noch nichts. Einladungen, Änderungen an Einstellungen, Tokens und Zahlungen erscheinen hier."
+    },
+    "activity": {
+      "title": "Aktivität",
+      "lede": "Änderungen am Workspace und an den Projekteinstellungen: Team, Tarif, Domains, Tokens, Webhooks und Anmeldung.",
+      "emptyTitle": "Noch keine Aktivität",
+      "emptyText": "Einträge erscheinen, sobald Sie jemanden einladen oder Projekteinstellungen ändern.",
+      "older": "Ältere Einträge",
+      "retention": {
+        "captures": "{n, plural, one {Aufzeichnung von # Meldung} other {Aufzeichnungen von # Meldungen}}",
+        "screenshots": "{n, plural, one {# Screenshot} other {# Screenshots}}",
+        "files": "{n, plural, one {# Anhang geschlossener Fehler} other {# Anhänge geschlossener Fehler}}",
+        "freed": "{mb} MB freigegeben",
+        "contacts": "{n, plural, one {# Kontakt anonymisiert} other {# Kontakte anonymisiert}}"
+      },
+      "paymentGateway": "Zahlungsdienst",
+      "actions": {
+        "project": {
+          "created": "Neues Projekt",
+          "settings": "Projekteinstellungen geändert",
+          "theme": "Theme des Boards geändert",
+          "sso_secret": "Neuer SSO-Schlüssel",
+          "oidc": "OIDC-Anmeldung eingerichtet",
+          "domain": "Eigene Domain geändert",
+          "domain_verified": "Eigene Domain verifiziert"
+        },
+        "token": {
+          "created": "Neues API-Token",
+          "revoked": "API-Token widerrufen",
+          "oauth_reuse": "OAuth-Refresh-Token wiederverwendet – Verbindung widerrufen"
+        },
+        "webhook": {
+          "added": "Neuer Webhook",
+          "deleted": "Webhook gelöscht"
+        },
+        "github": {
+          "connected": "GitHub verbunden",
+          "disconnected": "GitHub getrennt"
+        },
+        "linear": {
+          "connected": "Linear verbunden",
+          "disconnected": "Linear getrennt",
+          "mapping": "Statuszuordnung für Linear geändert"
+        },
+        "jira": {
+          "connected": "Jira verbunden",
+          "disconnected": "Jira getrennt",
+          "mapping": "Statuszuordnung für Jira geändert"
+        },
+        "board": {
+          "role": "Rolle auf dem Board geändert",
+          "signout": "Person auf allen Geräten abgemeldet"
+        },
+        "member": {
+          "invited": "Einladung für",
+          "invite_revoked": "Einladung widerrufen für",
+          "joined": "Neues Teammitglied",
+          "removed": "Aus dem Team entfernt",
+          "left": "Hat das Team verlassen",
+          "role": "Rolle im Team geändert"
+        },
+        "plan": {
+          "changed": "Tarif geändert"
+        },
+        "moderation": {
+          "edited": "Beitrag bearbeitet",
+          "deleted": "Beitrag gelöscht",
+          "restored": "Beitrag wiederhergestellt",
+          "approved": "Idee freigegeben",
+          "rejected": "Idee abgelehnt",
+          "comment_edited": "Kommentar bearbeitet",
+          "comment_deleted": "Kommentar gelöscht",
+          "blocked": "Person gesperrt",
+          "unblocked": "Person entsperrt",
+          "comment_approved": "Kommentar freigegeben"
+        },
+        "import": {
+          "started": "Import gestartet",
+          "undone": "Import rückgängig gemacht"
+        },
+        "retention": {
+          "run": "Automatische Datenlöschung",
+          "settings": "Aufbewahrung von Daten geändert"
+        },
+        "updater": {
+          "mode": "Aktualisierungsmodus geändert",
+          "start": "Ozvi-Aktualisierung gestartet"
+        }
+      }
+    },
+    "delivery": {
+      "title": "Zustellung",
+      "lede": "Was Ozvi für Ihre Projekte gesendet hat: E-Mails an Nutzer und an das Team sowie Webhook-Aufrufe. Wenn jemand sagt, dass nichts angekommen ist, sehen Sie hier nach.",
+      "kind": "Art",
+      "emails": "E-Mails",
+      "webhooks": "Webhooks",
+      "filter": "Filter",
+      "all": "Alle",
+      "problems": "Nur Probleme",
+      "noProblemsTitle": "Keine Probleme",
+      "noProblems": "Jede E-Mail wurde gesendet oder wartet in der Warteschlange.",
+      "noMailsTitle": "Noch keine E-Mails",
+      "noMails": "E-Mails erscheinen, wenn jemand einen Fehler meldet, kommentiert oder Sie einen Status ändern.",
+      "noFailedHooksTitle": "Keine fehlgeschlagenen Aufrufe",
+      "noHooksTitle": "Noch keine Aufrufe",
+      "noHooks": "Fügen Sie Webhooks in den Projekteinstellungen hinzu (Integrationen). Jeder Aufruf erscheint hier zusammen mit der Antwort des Servers.",
+      "when": "Wann",
+      "to": "An",
+      "what": "Was",
+      "project": "Projekt",
+      "status": "Status",
+      "target": "Ziel",
+      "event": "Ereignis",
+      "attempt": "Versuch {n}",
+      "limit": "Angezeigt werden die neuesten {n} Einträge.",
+      "kinds": {
+        "new_bug": "Neue Fehlermeldung",
+        "new_idea": "Neue Idee",
+        "comment": "Kommentar",
+        "comment_internal": "Interne Notiz",
+        "comment_queued": "Kommentar zur Freigabe",
+        "idea_rejected": "Idee abgelehnt",
+        "bug_status": "Status der Fehlermeldung",
+        "idea_status": "Status der Idee",
+        "changelog": "Neuigkeiten-Eintrag",
+        "team_digest": "Wöchentliche Zusammenfassung",
+        "digest": "Tägliche Zusammenfassung",
+        "login": "Anmeldung",
+        "invite": "Einladung"
+      },
+      "mail": {
+        "sent": "Gesendet",
+        "digested": "In Zusammenfassung",
+        "queued": "In der Warteschlange",
+        "deferred": "Für Zusammenfassung zurückgehalten",
+        "failed": "Nicht zugestellt",
+        "skipped": "Nicht gesendet"
+      },
+      "hook": {
+        "sent": "Zugestellt",
+        "queued": "In der Warteschlange",
+        "failed": "Fehlgeschlagen"
+      }
+    },
+    "people": {
+      "title": "Team",
+      "lede": "Wer die Projekte in {ws} verwaltet. Inhaber können zusätzlich den Tarif ändern und weitere Personen einladen. Die Nutzer Ihrer App gehören nicht hierher; sie melden sich über Ihre App am Board an.",
+      "errors": {
+        "last_owner": "Ein Workspace braucht mindestens einen Inhaber. Machen Sie zuerst eine andere Person zum Inhaber.",
+        "not_owner": "Das kann nur ein Inhaber des Workspace."
+      },
+      "members": "Mitglieder",
+      "you": "(Sie)",
+      "since": "im Team seit ",
+      "leave": "Workspace verlassen",
+      "remove": "Entfernen",
+      "leaveTitle": "{ws} verlassen?",
+      "removeTitle": "{who} entfernen?",
+      "leaveText": "Sie verlieren den Zugriff auf die Projekte dieses Workspace. Zurück kommen Sie nur mit einer neuen Einladung.",
+      "removeText": "{who} verliert den Zugriff auf die Projekte in {ws}. Mit einer neuen Einladung ist eine Rückkehr möglich.",
+      "removeConfirm": "Aus dem Workspace entfernen",
+      "pending": "Offene Einladungen",
+      "validUntil": "gültig bis ",
+      "revoke": "Einladung widerrufen",
+      "revokeTitle": "Einladung für {email} widerrufen?",
+      "revokeText": "Der Link in der E-Mail funktioniert dann nicht mehr. Wenn Sie es sich anders überlegen, senden Sie eine neue Einladung.",
+      "invite": "Ins Team einladen"
+    },
+    "plan": {
+      "title": "Tarif & Nutzung",
+      "lede": "Tarife begrenzen nur, was uns Geld kostet: E-Mails, Speicher für Anhänge, Anzahl der Projekte und eine eigene Domain. Nutzer und Einträge sind unbegrenzt.",
+      "paidTitle": "Vielen Dank für Ihre Zahlung",
+      "paid": "Der Tarif wechselt, sobald der Zahlungsdienst die Zahlung bestätigt, in der Regel innerhalb einer Minute.",
+      "pastDueTitle": "Die letzte Zahlung ist fehlgeschlagen",
+      "pastDue": "Aktualisieren Sie Ihre Karte in der Abonnementverwaltung, sonst wechselt der Workspace zu Free.",
+      "canceledTitle": "Abonnement gekündigt",
+      "canceled": "Der Tarif {plan} bleibt bis {date} aktiv, danach wechselt der Workspace zu Free. Es werden keine Projekte oder Daten gelöscht.",
+      "usageTitle": "Nutzung in diesem Monat",
+      "emails": "E-Mails",
+      "attachments": "Anhänge",
+      "projects": "Projekte",
+      "projectsFull": "Mit einem höheren Tarif können Sie weitere Projekte hinzufügen.",
+      "usageNote": "E-Mails werden über alle Projekte des Workspace ab dem 1. des Monats gezählt. Ein Überschreiten blockiert nichts; Benachrichtigungen werden dann einmal täglich als Zusammenfassung gesendet.",
+      "plans": "Tarife",
+      "billing": "Abrechnung",
+      "yearly": "Jährlich",
+      "quarterly": "Vierteljährlich",
+      "current": "Aktueller Tarif",
+      "forever": "dauerhaft",
+      "perYear": "pro Jahr",
+      "perQuarter": "pro Quartal",
+      "switchTo": "Zu {plan} wechseln",
+      "fProjects": "{count, plural, one {# Projekt} other {# Projekte}}",
+      "fProjectsUnlimited": "Unbegrenzte Projekte",
+      "fEmails": "{n} E-Mails pro Monat",
+      "fEmailsUnlimited": "Unbegrenzte E-Mails",
+      "fStorage": "{size} für Anhänge",
+      "fDomain": "Eigene Domain",
+      "fOzviAddress": "Adresse unter ozvi.io",
+      "fBadge": "„Ozvi“-Badge auf dem Board",
+      "fNoBadge": "Ohne Badge",
+      "fAi": "KI-Erkennung von Duplikaten und Zusammenfassungen",
+      "everyPlan": "MCP, GitHub, Webhooks und SSO sind in jedem Tarif enthalten.",
+      "portalHint": " Rechnungen, Ihre Karte, Tarifwechsel und Kündigung finden Sie in der Abonnementverwaltung.",
+      "memberNote": "Tarif und Zahlungen verwaltet der Inhaber des Workspace.",
+      "manage": "Abonnement verwalten",
+      "vat": "Preise zzgl. MwSt. Die Zahlungen wickelt Creem als Merchant of Record ab, der auch die Rechnung ausstellt.",
+      "notEnabled": " Zahlungen sind noch nicht aktiviert.",
+      "simulated": " Lokale Entwicklung: Zahlungen werden simuliert.",
+      "dpa": {
+        "title": "Auftragsverarbeitungsvertrag (DPA)",
+        "badge": "Entwurf",
+        "text": "Für die Daten Ihrer Nutzer ist Ozvi Ihr Auftragsverarbeiter nach Art. 28 DSGVO. Die Vertragsvorlage ist noch ein Entwurf, der juristisch geprüft wird. Auf Anfrage senden wir sie Ihnen per E-Mail und schicken sie unterschrieben zurück.",
+        "request": "DPA per E-Mail anfordern",
+        "subprocessors": "Liste der Unterauftragsverarbeiter",
+        "kit": "Texte für Ihre Datenschutzerklärung finden Sie in den Einstellungen jedes Projekts unter Projektdaten."
+      }
+    },
+    "simulate": {
+      "devOnly": "Nur lokale Entwicklung",
+      "devNote": "Statt Creem durchläuft ein erfundenes Ereignis denselben Code wie ein echter Webhook. In der Produktion gibt es diese Seite nicht.",
+      "title": "Simulation des Zahlungsdienstes",
+      "workspace": "Workspace",
+      "plan": "Tarif",
+      "status": "Status",
+      "periodEnd": "Zeitraum endet",
+      "payment": "Zahlung",
+      "pay": "{plan} bezahlen ({interval})",
+      "subscription": "Abonnement",
+      "renew": "Verlängerung bezahlt",
+      "pastDue": "Zahlung fehlgeschlagen",
+      "cancel": "Zum Ende des Zeitraums kündigen",
+      "expire": "Zeitraum abgelaufen",
+      "none": "Dieser Workspace hat kein Abonnement. Wählen Sie einen Tarif auf der Seite „Tarif“."
+    }
+  },
+  "release": {
+    "title": "Version {version}",
+    "lead": "Neu in Version {version}:",
+    "alsoFixes": "Außerdem haben wir {n, plural, one {# gemeldeten Fehler} other {# gemeldete Fehler}} behoben.",
+    "onlyFixes": "Version {version} behebt {n, plural, one {# gemeldeten Fehler} other {# gemeldete Fehler}}.",
+    "thanks": "Vielen Dank an alle, die Ideen vorgeschlagen, abgestimmt und Fehler gemeldet haben."
+  },
+  "domain": {
+    "badStatus": "Ungültiger Status „{status}“. Zulässig: {allowed}.",
+    "emptyComment": "Der Kommentar ist leer.",
+    "longComment": "Ein Kommentar darf höchstens 5.000 Zeichen lang sein.",
+    "mergeSelf": "Ein Beitrag kann nicht mit sich selbst zusammengeführt werden.",
+    "mergeKinds": "Sie können nur zwei Ideen oder zwei Fehler zusammenführen.",
+    "alreadyMerged": "#{n} ist bereits zusammengeführt.",
+    "targetMerged": "#{n} wurde in einen anderen Beitrag zusammengeführt; führen Sie in diesen zusammen.",
+    "mergedIdea": "Zusammengeführt mit #{n} „{title}“. Die Stimmen wurden dorthin übertragen.",
+    "mergedBug": "Wir bearbeiten diese Meldung bereits unter einer anderen Nummer. Sobald der Fehler behoben ist, informieren wir Sie hier.",
+    "blocked": "Sie können auf diesem Board derzeit keine Beiträge verfassen, nicht abstimmen und nicht kommentieren.",
+    "deleted": "Dieser Beitrag wurde gelöscht.",
+    "mergePending": "Diese Idee wartet auf Freigabe. Geben Sie sie zuerst frei oder lehnen Sie sie ab.",
+    "cannotEditPost": "Sie können diesen Beitrag nicht mehr bearbeiten, da das Team bereits reagiert hat. Ergänzen Sie Neues bitte in einem Kommentar.",
+    "cannotDeletePost": "Sie können diesen Beitrag nicht mehr löschen, da das Team bereits reagiert hat.",
+    "editWindow": "Kommentare können nur innerhalb von 30 Minuten nach dem Verfassen bearbeitet werden. Ergänzen Sie Neues in einem weiteren Kommentar.",
+    "cannotEditComment": "Sie können diesen Kommentar nicht bearbeiten oder löschen.",
+    "teamOnly": "Nur für das Projektteam.",
+    "notPending": "Diese Idee wartet nicht auf Freigabe.",
+    "cannotBlockTeam": "Teammitglieder können nicht gesperrt werden. Ändern Sie zuerst ihre Rolle.",
+    "titleShort": "Bitte geben Sie einen Titel mit mindestens 3 Zeichen ein.",
+    "titleLong": "Der Titel darf höchstens 200 Zeichen lang sein.",
+    "bodyLong": "Die Beschreibung darf höchstens 10.000 Zeichen lang sein.",
+    "tagsTeamOnly": "Nur das Team vergibt Tags.",
+    "tagsTooMany": "Ein Beitrag kann höchstens {n} Tags haben.",
+    "tagMissing": "Dieser Tag existiert nicht mehr. Laden Sie die Seite neu und versuchen Sie es erneut.",
+    "tagNames": "Diese Tags existieren nicht: {names}. Verfügbar: {known}.",
+    "tagName": "Geben Sie einen Tag-Namen ein (höchstens 40 Zeichen).",
+    "tagsLimit": "Ein Projekt kann höchstens {n} Tags haben. Führen Sie zuerst einige zusammen oder löschen Sie sie.",
+    "tagExists": "Der Tag „{name}“ existiert bereits.",
+    "tagMergeSelf": "Ein Tag kann nicht mit sich selbst zusammengeführt werden.",
+    "subMissing": "Dieser Unterstatus existiert nicht mehr. Laden Sie die Seite neu.",
+    "subStage": "Dieser Unterstatus gehört zu einem anderen Schritt im Ablauf.",
+    "subInvalid": "Die Status konnten nicht gespeichert werden. Laden Sie die Seite neu und versuchen Sie es erneut.",
+    "subName": "Jeder Unterstatus braucht einen Namen in mindestens einer Sprache.",
+    "subTooMany": "Ein Schritt kann höchstens {n} Unterstatus haben.",
+    "proofUrl": "Der Link muss eine vollständige Adresse sein, die mit https:// beginnt."
+  },
+  "email": {
+    "footer": "Sie erhalten diese E-Mail von {project}, weil Sie diesem Beitrag folgen.",
+    "unsubscribe": "E-Mails abbestellen",
+    "bugFixedSubject": "Behoben: {title}",
+    "bugMineSummary": "Ihre Meldung „{title}“ hat jetzt den Status: {label}.",
+    "bugMineSummaryVersion": "Ihre Meldung „{title}“ hat jetzt den Status: {label} (v{version}).",
+    "bugFixedHeading": "Wir haben den von Ihnen gemeldeten Fehler behoben",
+    "bugMineHeading": "Ihre Meldung hat jetzt den Status: {label}",
+    "bugFixedBody": "„{title}“ ist behoben.",
+    "bugFixedBodyVersion": "„{title}“ ist in Version {version} behoben.",
+    "bugFixedAsk": "Bitte probieren Sie es aus – mit einem Klick teilen Sie uns mit, ob es jetzt bei Ihnen funktioniert.",
+    "confirmFix": "Korrektur bestätigen",
+    "openReport": "Meldung öffnen",
+    "bugOtherSummary": "Meldung #{n} „{title}“ hat jetzt den Status: {label}.",
+    "bugOtherHeading": "Meldung #{n} hat jetzt den Status: {label}",
+    "fixedIn": " · behoben in Version {version}",
+    "shippedSubject": "Umgesetzt: {title}",
+    "ideaSummary": "Die Idee „{title}“, der Sie folgen, hat jetzt den Status: {label}.",
+    "ideaShippedHeading": "Eine Idee, der Sie folgen, wurde umgesetzt",
+    "ideaHeading": "Eine Idee, der Sie folgen, hat jetzt den Status: {label}",
+    "ideaWhy": "Sie erhalten diese E-Mail, weil Sie die Idee eingereicht oder kommentiert haben.",
+    "viewIdea": "Idee ansehen",
+    "someone": "Jemand",
+    "internalNote": "Interne Notiz",
+    "newComment": "Neuer Kommentar",
+    "newInternalNote": "Neue interne Notiz",
+    "onBug": "zur Meldung #{n}",
+    "onIdea": "zur Idee",
+    "commentSummary": "{who} hat einen Kommentar {where} „{title}“ geschrieben.",
+    "noteSummary": "{who} hat eine interne Notiz {where} „{title}“ hinzugefügt.",
+    "commentLead": "{who} {where} „{title}“:",
+    "reply": "Antworten",
+    "newIdeaSubject": "Neue Idee: {title}",
+    "newIdeaSummary": "Neue Idee „{title}“.",
+    "newIdea": "Neue Idee",
+    "openIdea": "Idee öffnen",
+    "newBugSubject": "Neue Meldung: {title}",
+    "newBugSummary": "Neue Fehlermeldung „{title}“.",
+    "newBug": "Neue Fehlermeldung",
+    "ref": "#{n} „{title}“",
+    "quoted": "„{title}“",
+    "changelogSubject": "Neuigkeiten: {title}",
+    "changelogSummary": "Wir haben „{title}“ veröffentlicht – {ideas}.",
+    "changelogOne": "Eine Idee, der Sie folgen, wurde umgesetzt: „{title}“.",
+    "changelogMany": "Ideen, denen Sie folgen, wurden umgesetzt: {titles}.",
+    "viewChangelog": "Neuigkeiten ansehen",
+    "teamDigestSubject": "{project}: Ihre Feedback-Woche",
+    "teamDigestSummary": "{ideas, plural, one {# neue Idee} other {# neue Ideen}}, {bugs, plural, one {# neuer Fehler} other {# neue Fehler}}, {open, plural, one {# offener Fehler} other {# offene Fehler}}.",
+    "teamDigestHeading": "Ihre Feedback-Woche",
+    "teamDigestNumbers": "Neue Ideen: {ideas} · neue Fehlermeldungen: {bugs} · offene Fehler insgesamt: {open}",
+    "teamDigestTop": "Die meisten Stimmen diese Woche:",
+    "openReports": "Meldungen öffnen",
+    "digestSubject": "{project}: {n, plural, one {# Neuigkeit} other {# Neuigkeiten}} zu Ihrem Feedback",
+    "digestHeading": "Was sich geändert hat",
+    "openFeedback": "Feedback öffnen",
+    "loginSubject": "{code} – Anmeldung bei {brand}",
+    "loginHeading": "Ihr Code: {code}",
+    "loginBody": "Geben Sie ihn in dem Fenster ein, in dem Sie sich angemeldet haben, oder klicken Sie auf die Schaltfläche. Er ist 15 Minuten gültig.",
+    "loginIgnore": "Wenn Sie keine Anmeldung angefordert haben, können Sie diese E-Mail ignorieren.",
+    "signIn": "Anmelden",
+    "changeSubject": "Bestätigen Sie Ihre neue E-Mail-Adresse für Ozvi",
+    "changeHeading": "Bestätigen Sie Ihre neue E-Mail-Adresse",
+    "changeBody": "Sie möchten sich mit dieser E-Mail-Adresse bei Ihrem Ozvi-Konto anmelden. Die Änderung wird wirksam, sobald Sie auf die Schaltfläche klicken. Der Link ist eine Stunde gültig.",
+    "changeIgnore": "Wenn Sie diese Änderung nicht angefordert haben, können Sie diese E-Mail ignorieren.",
+    "confirmEmail": "E-Mail-Adresse bestätigen",
+    "errInvalidEmail": "Geben Sie eine gültige E-Mail-Adresse ein.",
+    "errTooManyCodes": "Wir haben bereits mehrere Codes gesendet. Versuchen Sie es in ein paar Minuten erneut oder verwenden Sie die neueste E-Mail.",
+    "errTooManyWrong": "Zu viele falsche Codes für diese Adresse. Versuchen Sie es morgen erneut oder verwenden Sie den Link aus der neuesten E-Mail.",
+    "errCodeExpired": "Der Code ist abgelaufen. Fordern Sie einen neuen an.",
+    "errCodeBurned": "Falscher Code. Fordern Sie einen neuen an.",
+    "errCodeWrong": "Falscher Code. Prüfen Sie ihn und versuchen Sie es erneut.",
+    "errLinkInvalid": "Dieser Link ist nicht mehr gültig. Fordern Sie einen neuen an.",
+    "errTooManyLinks": "Wir haben bereits mehrere Links gesendet. Versuchen Sie es in einer Stunde erneut.",
+    "errChangeInvalid": "Dieser Link ist nicht mehr gültig. Fordern Sie die Änderung erneut an.",
+    "commentQueued": "Kommentar wartet auf Freigabe",
+    "commentQueuedSummary": "{who} hat einen Kommentar mit Links {where} „{title}“ geschrieben; er wartet auf Freigabe.",
+    "commentQueuedLead": "{who} hat einen Kommentar mit mehreren Links {where} „{title}“ hinterlassen. Andere sehen ihn, sobald Sie ihn freigeben:",
+    "reviewComment": "Kommentar prüfen",
+    "rejectedSubject": "Idee nicht veröffentlicht: {title}",
+    "rejectedSummary": "Das Team hat Ihre Idee „{title}“ nicht veröffentlicht.",
+    "rejectedHeading": "Das Team hat Ihre Idee nicht veröffentlicht",
+    "rejectedBody": "Das Team hat Ihre Idee „{title}“ geprüft und entschieden, sie nicht zu veröffentlichen. Bei Fragen schreiben Sie bitte dem Team.",
+    "rejectedBodyReason": "Das Team hat Ihre Idee „{title}“ geprüft und entschieden, sie nicht zu veröffentlichen. Es hat eine Nachricht hinzugefügt:",
+    "rejectedCta": "Idee öffnen",
+    "teamDigestUnanswered": "{n, plural, one {Unbeantwortet: # Meldung wartet seit mehr als {days} Tagen auf das Team.} other {Unbeantwortet: # Meldungen warten seit mehr als {days} Tagen auf das Team.}}",
+    "teamDigestWaiting": "{n, plural, one {# Tag} other {# Tage}}",
+    "openUnanswered": "Unbeantwortete öffnen",
+    "proofHeading": "Was wir geändert haben",
+    "proofPreview": "Korrektur ausprobieren",
+    "proofRelease": "Release {version}",
+    "releaseDraftSubject": "Entwurf der Neuigkeiten für {version} wartet auf Freigabe",
+    "releaseDraftSummary": "Release {version}: Ein Entwurf der Neuigkeiten wartet auf Freigabe ({ideas, plural, one {# Idee} other {# Ideen}}, {bugs, plural, one {# Korrektur} other {# Korrekturen}}).",
+    "releaseDraftHeading": "Entwurf der Neuigkeiten für {version} wartet auf Freigabe",
+    "releaseDraftBody": "Das GitHub-Release hat {ideas, plural, =0 {keine Ideen} one {# Idee} other {# Ideen}} auf „Umgesetzt“ und {bugs, plural, =0 {keine Fehler} one {# Fehler} other {# Fehler}} auf „Behoben“ gesetzt. Daraus haben wir einen Entwurf der Neuigkeiten erstellt.",
+    "releaseDraftNote": "Es wurde noch nichts veröffentlicht. Die Abstimmenden erhalten erst dann eine E-Mail, wenn Sie den Eintrag geprüft und veröffentlicht haben.",
+    "releaseDraftCta": "Entwurf prüfen",
+    "teamDigestUnannounced": "Umgesetzt, aber nicht angekündigt: {n, plural, one {# Beitrag ist} other {# Beiträge sind}} noch in keinem veröffentlichten Neuigkeiten-Eintrag enthalten. Die Abstimmenden erfahren erst dadurch davon.",
+    "updater": {
+      "available": {
+        "subject": "Ozvi {v} ist verfügbar",
+        "running": "Auf dem Server {url} läuft Version {from}.",
+        "auto": "Der Updater installiert sie im nächsten Nachtfenster, nachdem er die Datenbank gesichert hat.",
+        "manual": "Installieren Sie sie per Schaltfläche in den Board-Einstellungen unter Aktualisierungen.",
+        "command": "Aktualisieren Sie auf dem Server: Datenbank sichern und docker compose pull && docker compose up -d ausführen.",
+        "major": "Es ist eine grundlegende Änderung und wird daher nicht von selbst installiert. Lesen Sie vor der Aktualisierung die Versionshinweise.",
+        "cta": "Was ist neu"
+      },
+      "updated": {
+        "subject": "Ozvi ist auf {to} aktualisiert",
+        "text": "Die Aktualisierung von {url} von {from} auf {to} war erfolgreich.",
+        "backup": "Datenbanksicherung vor der Aktualisierung: {file}"
+      },
+      "rolledBack": {
+        "subject": "Ozvi-Aktualisierung auf {to} fehlgeschlagen, {from} läuft",
+        "text": "Die neue Version auf {url} ist nicht gestartet, daher hat der Updater {from} samt Datenbank aus der Sicherung wiederhergestellt. Es ging nichts verloren.",
+        "reason": "Grund: {message}",
+        "next": "Diese Version versuchen wir nicht erneut automatisch. Prüfen Sie die Logs (docker compose logs ozvi) oder warten Sie auf eine Korrektur."
+      },
+      "failed": {
+        "subject": "Ozvi-Aktualisierung fehlgeschlagen, prüfen Sie den Server",
+        "text": "Bei der Aktualisierung von {url} ist ein Fehler aufgetreten, den der Updater nicht selbst beheben konnte.",
+        "reason": "Fehler: {message}",
+        "restore": "Wiederherstellung aus der Sicherung: SELFHOST.md, Abschnitt Aktualizácie (Aktualisierungen)."
+      },
+      "open": "Einstellungen öffnen"
+    }
+  },
+  "errors": {
+    "signIn": "Bitte melden Sie sich dafür an.",
+    "signInAgain": "Bitte melden Sie sich erneut an.",
+    "ideaMissing": "Diese Idee existiert nicht.",
+    "itemMissing": "Dieser Beitrag existiert nicht.",
+    "numberMissing": "#{n} existiert nicht.",
+    "teamOnly": "Nur für das Projektteam.",
+    "statusTeamOnly": "Nur das Team kann den Status ändern.",
+    "mergeTeamOnly": "Nur das Team kann zusammenführen.",
+    "mergeNumber": "Geben Sie die Nummer des ursprünglichen Beitrags ein, z. B. 12.",
+    "cannotConfirm": "Diese Meldung kann nicht bestätigt werden.",
+    "stillBrokenIn": "Funktioniert in Version {v} immer noch nicht.",
+    "stillBroken": "Funktioniert trotz Korrektur immer noch nicht.",
+    "titleShort": "Der Titel muss mindestens 3 Zeichen lang sein.",
+    "titleLong": "Der Titel darf höchstens 200 Zeichen lang sein.",
+    "bodyLong": "Die Beschreibung darf höchstens 10.000 Zeichen lang sein.",
+    "rateLimit": "Zu viele Aktionen in kurzer Zeit. Bitte versuchen Sie es gleich noch einmal.",
+    "tooManyFiles": "Sie können höchstens {max} Dateien anhängen.",
+    "fileTooBig": "„{name}“ ist größer als 10 MB.",
+    "fileType": "„{name}“ wird nicht unterstützt. Senden Sie ein Bild, ein PDF oder ein Text-Log.",
+    "quota": "Der Speicherplatz für Anhänge in diesem Projekt ist aufgebraucht. Senden Sie die Meldung ohne Anhänge; das Team wird benachrichtigt.",
+    "entryTitle": "Der Titel muss 3 bis 200 Zeichen lang sein.",
+    "entryBody": "Der Text darf höchstens 20.000 Zeichen lang sein.",
+    "entryMissing": "Dieser Neuigkeiten-Eintrag existiert nicht.",
+    "draftSaved": "Entwurf gespeichert.",
+    "aiOff": "KI ist für dieses Projekt nicht aktiviert.",
+    "aiRate": "Zu viele KI-Anfragen in dieser Stunde. Versuchen Sie es später erneut.",
+    "aiPickIdeas": "Wählen Sie zuerst die Ideen aus, die Sie umgesetzt haben.",
+    "eraseConfirm": "Bestätigen Sie, dass Sie Ihre Daten wirklich löschen möchten.",
+    "eraseAdmin": "Ein Projekt-Admin kann sich nicht selbst löschen. Übertragen Sie die Admin-Rolle zuerst an eine andere Person.",
+    "deleteAdminOnly": "Nur ein Admin kann das Projekt löschen.",
+    "deleteConfirm": "Geben Sie zur Bestätigung genau „{slug}“ ein.",
+    "blocked": "Sie können auf diesem Board derzeit keine Beiträge verfassen und nicht abstimmen.",
+    "voteBudget": "Dafür haben Sie nicht mehr genug Stimmen ({n} übrig). Entfernen Sie eine Stimme von einer anderen Idee oder wählen Sie eine geringere Wichtigkeit.",
+    "adminOnly": "Das kann nur ein Board-Admin."
+  },
+  "forms": {
+    "optional": "optional",
+    "cancel": "Abbrechen",
+    "keep": "Behalten",
+    "saving": "Wird gespeichert …",
+    "newItem": {
+      "titleBug": "Was funktioniert nicht?",
+      "titleIdea": "Was würde Ihnen helfen?",
+      "placeholderBug": "Z. B. Die USt-IdNr. verschwindet nach dem Speichern eines Kunden",
+      "placeholderIdea": "Z. B. Rechnungen nach DATEV exportieren",
+      "similarLabel": "Ähnliche Ideen",
+      "similar": "Etwas Ähnliches gibt es bereits. Wenn es dasselbe ist, stimmen Sie einfach dafür ab.",
+      "bodyBug": "Was haben Sie getan und was haben Sie erwartet?",
+      "bodyIdea": "Wofür brauchen Sie das?",
+      "bodyPlaceholderBug": "1. Kunden geöffnet\n2. USt-IdNr. eingetragen und auf Speichern geklickt\n3. Nach erneutem Öffnen ist das Feld leer",
+      "bodyPlaceholderIdea": "Wie Sie es heute lösen und was sich ändern würde, wenn es das gäbe",
+      "filesBug": "Screenshot oder Log",
+      "filesIdea": "Bild oder Skizze",
+      "filesHintBug": "Bilder, PDFs und Text-Logs, bis zu 5 Dateien mit je 10 MB",
+      "filesHintIdea": "Bilder oder PDFs, bis zu 5 Dateien mit je 10 MB",
+      "context": "Wir hängen technische Details an",
+      "show": "Anzeigen",
+      "page": "Seite",
+      "appVersion": "App-Version",
+      "browser": "Browser",
+      "viewport": "Fenster",
+      "language": "Sprache",
+      "sending": "Wird gesendet …",
+      "submitBug": "Fehler melden",
+      "submitIdea": "Idee vorschlagen"
+    },
+    "files": {
+      "unsupported": "„{name}“ wird nicht unterstützt. Hängen Sie ein Bild, ein PDF oder ein Text-Log an.",
+      "tooBig": "„{name}“ ist {size} groß; das Limit liegt bei 10 MB.",
+      "tooMany": "Sie können höchstens {max} Dateien anhängen.",
+      "pick": "Dateien auswählen",
+      "orPhoto": "oder den Bildschirm fotografieren",
+      "drag": "Dateien hierher ziehen",
+      "browse": "durchsuchen",
+      "orPaste": "oder einen Screenshot einfügen mit",
+      "attached": "Angehängte Dateien",
+      "remove": "{name} entfernen"
+    },
+    "comment": {
+      "label": "Kommentar",
+      "placeholder": "Kommentar schreiben …",
+      "teamOnly": "Nur für das Team",
+      "adding": "Wird hinzugefügt …",
+      "add": "Kommentar hinzufügen"
+    },
+    "vote": {
+      "signInLabel": "{n} Stimmen. Melden Sie sich an, um abzustimmen.",
+      "signIn": "Zum Abstimmen anmelden",
+      "signedInOnly": "Nur angemeldete Personen können abstimmen",
+      "unvote": "Stimme zurückziehen",
+      "vote": "Abstimmen",
+      "count": "{count, plural, one {# Stimme} other {# Stimmen}}",
+      "weighted": "{points, plural, one {# Punkt} other {# Punkte}} von {people, plural, one {# Person} other {# Personen}}",
+      "change": "Stimme ändern",
+      "howImportant": "Wie wichtig ist Ihnen das?",
+      "level1": "Wäre schön",
+      "level2": "Wichtig",
+      "level3": "Entscheidend",
+      "cost": "{n, plural, one {# Stimme} other {# Stimmen}}",
+      "remove": "Stimme zurückziehen",
+      "left": "{n, plural, one {Sie haben noch # Stimme} other {Sie haben noch # Stimmen}}",
+      "exhausted": "Sie haben alle Ihre Stimmen vergeben. Ziehen Sie eine Stimme von einer anderen Idee zurück oder warten Sie, bis eine umgesetzt wird – dann erhalten Sie sie zurück.",
+      "exhaustedShort": "Sie haben alle Ihre Stimmen vergeben",
+      "exhaustedHow": "Ziehen Sie eine Stimme von einer anderen Idee zurück oder warten Sie, bis eine umgesetzt wird – dann erhalten Sie sie zurück.",
+      "budgetHint": "Alle haben {budget, plural, one {# Stimme} other {# Stimmen}} für aktive Ideen. Sobald eine Idee umgesetzt ist, erhalten Sie die Stimme zurück.",
+      "budgetHintImportance": "Alle haben {budget, plural, one {# Stimme} other {# Stimmen}}. „Wäre schön“ kostet 1, „Wichtig“ 2, „Entscheidend“ 3; nach der Umsetzung erhalten Sie sie zurück."
+    },
+    "confirmFix": {
+      "label": "Überprüfung der Korrektur",
+      "titleIn": "Wir haben das in Version {v} behoben.",
+      "title": "Wir haben das behoben.",
+      "text": "Funktioniert es jetzt bei Ihnen? Ein Klick schließt die Meldung oder schickt sie zurück an das Team.",
+      "works": "Ja, es funktioniert",
+      "broken": "Geht immer noch nicht"
+    },
+    "gallery": {
+      "label": "Anhänge",
+      "zoom": "{name} vergrößern",
+      "position": "{i} von {n}",
+      "download": "Herunterladen",
+      "close": "Schließen",
+      "prev": "Zurück",
+      "next": "Weiter"
+    },
+    "team": {
+      "statusToast": "Status: {s}",
+      "notifyBug": "Die meldende Person erhält eine E-Mail.",
+      "notifyIdea": "Die verfassende Person und alle Abstimmenden erhalten eine E-Mail.",
+      "status": "Status",
+      "now": "jetzt",
+      "fixedIn": "Behoben in Version",
+      "moveTo": "Verschieben nach {s}",
+      "unlink": "Verknüpfung mit {ref} lösen",
+      "unlinked": "Verknüpfung mit {ref} gelöst",
+      "issueLabel": "GitHub-Issue",
+      "issuePlaceholder": "#123 oder Link zum Issue",
+      "link": "Verknüpfen",
+      "createIssue": "Issue erstellen",
+      "mergeLabel": "Nummer des ursprünglichen Beitrags",
+      "merge": "Zusammenführen …",
+      "mergeTitle": "Mit #{n} zusammenführen?",
+      "mergeIdea": "Die Stimmen werden zu #{n} übertragen und diese Idee wird als Duplikat geschlossen.",
+      "mergeBug": "Diese Meldung wird als Duplikat von #{n} geschlossen. Die meldende Person erfährt über das Original von der Korrektur.",
+      "merging": "Wird zusammengeführt …",
+      "mergeInto": "Mit #{n} zusammenführen",
+      "aiHint": "Die KI liest Beschreibung und Kommentare und fasst zusammen, worum es geht. Prüfen Sie das anhand der Diskussion.",
+      "summarizing": "Wird zusammengefasst …",
+      "summarizeAgain": "Erneut zusammenfassen",
+      "summarize": "Diskussion zusammenfassen",
+      "aiSummaryLabel": "Von KI geschrieben · mit der Diskussion abgleichen"
+    },
+    "changelog": {
+      "votes": "{count, plural, one {# Stimme} other {# Stimmen}}",
+      "shipped": "Was Sie umgesetzt haben",
+      "linkedPublished": "Mit diesem Eintrag verknüpfte Ideen.",
+      "linkedDraft": "Ausgewählte Ideen werden beim Veröffentlichen als umgesetzt markiert.",
+      "noCandidates": "Noch keine Ideen sind geplant oder in Arbeit. Sie können einen Eintrag auch ohne sie schreiben.",
+      "drafting": "Entwurf wird geschrieben …",
+      "aiDraft": "Text mit KI entwerfen",
+      "pickFirst": "Wählen Sie zuerst mindestens eine Idee aus.",
+      "aiNote": "Die KI sieht nur Titel und Beschreibungen der ausgewählten Ideen. Lesen und bearbeiten Sie den Entwurf immer.",
+      "title": "Titel",
+      "titlePlaceholder": "Der DATEV-Export ist da",
+      "body": "Text",
+      "bodyHint": "Was neu ist und wie es hilft. Schreiben Sie für die Personen, die es sich gewünscht haben.",
+      "publishNoItems": "Beim Veröffentlichen wird der Eintrag zu den Neuigkeiten hinzugefügt. Ohne ausgewählte Ideen erhält niemand eine E-Mail.",
+      "publishOne": "Beim Veröffentlichen wird die ausgewählte Idee als umgesetzt markiert, und alle, die dafür abgestimmt haben, erhalten eine E-Mail mit diesem Text",
+      "publishMany": "Beim Veröffentlichen werden {n} ausgewählte Ideen als umgesetzt markiert, und alle, die dafür abgestimmt haben, erhalten eine E-Mail mit diesem Text",
+      "total": "({votes} insgesamt)",
+      "publishNotify": "Veröffentlichen und Abstimmende benachrichtigen",
+      "publish": "Eintrag veröffentlichen",
+      "saveChanges": "Änderungen speichern",
+      "saveDraft": "Entwurf speichern",
+      "discard": "Entwurf verwerfen",
+      "discardTitle": "Entwurf verwerfen?",
+      "discardText": "Der Entwurf „{title}“ wird dauerhaft gelöscht. Ausgewählte Ideen behalten ihren aktuellen Status.",
+      "discarding": "Wird verworfen …",
+      "bugPrivate": "Fehler · nur für das Team",
+      "aiLabelDraft": "Dieser Text wurde mit KI geschrieben. Nach der Veröffentlichung trägt der Eintrag den Hinweis „mit KI geschrieben“ und Ihren Namen als prüfende Person.",
+      "aiLabelPublished": "Dieser Text wurde mit KI geschrieben und trägt den Hinweis „mit KI geschrieben“."
+    },
+    "privacy": {
+      "eraseOpen": "Meine Daten löschen …",
+      "eraseTitle": "Ihre Daten dauerhaft löschen?",
+      "eraseText": "Wir löschen Ihre Stimmen, Kommentare, Fehlermeldungen samt Anhängen und E-Mails und melden Sie ab. Ideen, für die andere abgestimmt haben, bleiben erhalten, aber ohne den Namen der verfassenden Person. Das lässt sich nicht rückgängig machen.",
+      "deleting": "Wird gelöscht …",
+      "erase": "Meine Daten löschen",
+      "deleteOpen": "Projekt löschen …",
+      "deleteTitle": "Projekt {slug} dauerhaft löschen?",
+      "deleteText": "Löscht das Board, alle Ideen, Meldungen, Kommentare, Stimmen, Anhänge und Einstellungen. Das Widget in Ihrer App funktioniert dann nicht mehr. Das lässt sich nicht rückgängig machen – laden Sie daher zuerst einen Export herunter.",
+      "typeToConfirm": "Geben Sie zur Bestätigung ein:",
+      "delete": "Projekt dauerhaft löschen"
+    },
+    "update": {
+      "available": "Version {v} ist verfügbar",
+      "running": "Sie verwenden Version",
+      "breaking": " Dieses Release enthält inkompatible Änderungen; lesen Sie vor dem Update die Hinweise.",
+      "devOff": "Entwicklungs-Build, die Update-Prüfung ist ausgeschaltet.",
+      "off": "Die Update-Prüfung ist ausgeschaltet (OZVI_UPDATE_CHECK=0).",
+      "latest": "Sie verwenden die neueste Version.",
+      "failed": "Die Liste der Releases konnte gerade nicht geladen werden. Wir versuchen es morgen erneut.",
+      "how": "Sichern Sie die Datenbank und führen Sie dies auf dem Server aus (Migrationen laufen beim Start):",
+      "whatsNew": "Neu in {v}"
+    },
+    "proof": {
+      "teamOnly": "Nur das Team kann einen Nachweis für eine Korrektur hinzufügen.",
+      "noItem": "Der Beitrag wurde nicht gefunden. Laden Sie die Seite neu.",
+      "rate": "Zu viele Änderungen auf einmal. Versuchen Sie es gleich noch einmal.",
+      "added": "Link hinzugefügt.",
+      "hintBug": "Gemergte PRs werden automatisch hinzugefügt (eine Zeile „Ozvi: #12“ oder „Fixes #40“ eines verknüpften Issues). Die meldende Person sieht sie in der E-Mail „Funktioniert es bei Ihnen?“ zusammen mit der Vorschau.",
+      "hintIdea": "Gemergte PRs werden automatisch hinzugefügt (eine Zeile „Ozvi: #12“ im PR). Öffentlich werden nur die Vorschau und das Release angezeigt; PRs sind für das Team.",
+      "preview": "Vorschau",
+      "remove": "{what} entfernen",
+      "removed": "Link entfernt.",
+      "urlLabel": "Link zu einem PR oder einer Vorschau",
+      "urlPlaceholder": "https://…",
+      "add": "Link hinzufügen"
+    },
+    "markdown": {
+      "mode": "Editormodus",
+      "write": "Schreiben",
+      "preview": "Vorschau",
+      "toolbar": "Formatierung",
+      "bold": "Fett",
+      "italic": "Kursiv",
+      "link": "Link",
+      "list": "Liste",
+      "code": "Code",
+      "boldText": "fetter Text",
+      "italicText": "kursiv",
+      "linkText": "Linktext",
+      "codeText": "Code",
+      "empty": "Noch nichts für die Vorschau."
+    },
+    "updater": {
+      "title": "Aktualisierungen",
+      "version": "Ozvi {v}",
+      "image": "Image: {ref}",
+      "available": "Version {v} ist verfügbar",
+      "upToDate": "Sie nutzen die neueste Version.",
+      "whatsNew": "Neu in Version {v}",
+      "lastCheck": "Versionsliste geprüft {when}.",
+      "checkNow": "Jetzt prüfen",
+      "checked": "Die Versionsliste ist aktuell.",
+      "modeLabel": "Aktualisierungsmodus",
+      "modes": {
+        "notify": {
+          "label": "Nur benachrichtigen",
+          "text": "Wir senden eine E-Mail zur neuen Version, Sie aktualisieren per Befehl auf dem Server."
+        },
+        "manual": {
+          "label": "Auf Anfrage",
+          "text": "Sie installieren eine neue Version mit der Schaltfläche hier in den Einstellungen."
+        },
+        "auto": {
+          "label": "Automatisch",
+          "text": "Fehlerbehebungen und kleinere Versionen werden nachts installiert ({window}, {tz}). Grundlegende Änderungen warten immer auf Sie."
+        }
+      },
+      "saveMode": "Aktualisierungsmodus speichern",
+      "modeSaved": "Der Modus ist gespeichert.",
+      "updateNow": "Auf {v} aktualisieren",
+      "updating": "Wird gestartet…",
+      "confirmTitle": "Ozvi auf Version {v} aktualisieren?",
+      "confirmText": "Zuerst sichern wir die Datenbank. Während der Aktualisierung ist Ozvi etwa eine Minute nicht erreichbar. Startet die neue Version nicht, stellen wir die vorherige samt Daten aus der Sicherung wieder her.",
+      "cancel": "Noch nicht",
+      "started": "Die Aktualisierung läuft. Die Seite lädt sich selbst neu.",
+      "running": "Aktualisierung läuft. Ozvi antwortet eventuell kurz nicht.",
+      "reasons": {
+        "pinned": "OZVI_IMAGE auf dem Server nennt eine feste Version, daher ändert sie sich nicht von selbst. Für {v} ändern Sie den Image-Tag auf dem Server.",
+        "outsideLine": "Version {v} liegt außerhalb der Linie, der dieser Server folgt. Es ist eine grundlegende Änderung: Lesen Sie die Hinweise und ändern Sie OZVI_IMAGE auf dem Server.",
+        "breaking": "Diese Version ändert etwas Grundlegendes und wird daher nicht automatisch installiert. Lesen Sie die Hinweise und aktualisieren Sie per Schaltfläche.",
+        "notifyOnly": "Im Modus Nur benachrichtigen aktualisieren Sie auf dem Server (ohne automatische Sicherung):"
+      },
+      "unreachable": "Der Updater antwortet nicht. Prüfen Sie, ob er läuft (docker compose --profile updater ps) und denselben OZVI_UPDATER_TOKEN wie Ozvi hat.",
+      "backups": "Vor jeder Aktualisierung wird die Datenbank in den Ordner backups auf dem Server gesichert (die letzten 5 bleiben erhalten).",
+      "history": "Letzte Aktualisierungen",
+      "results": {
+        "updated": "Aktualisiert von {from} auf {to}",
+        "rolledBack": "{to} ist nicht gestartet, zurück auf {from} samt Daten",
+        "failed": "Fehlgeschlagen, prüfen Sie den Server",
+        "noChange": "Keine Änderung, die Registry hatte noch kein neueres Image"
+      },
+      "triggers": {
+        "manual": "auf Anfrage",
+        "scheduled": "automatisch"
+      },
+      "errors": {
+        "mode": "Unbekannter Aktualisierungsmodus.",
+        "unreachable": "Der Updater antwortet nicht. Prüfen Sie den Updater-Container auf dem Server.",
+        "busy": "Eine Aktualisierung läuft bereits.",
+        "notifyOnly": "Im Modus Nur benachrichtigen installiert der Updater nichts. Ändern Sie zuerst den Modus."
+      }
+    }
+  },
+  "integrations": {
+    "linear": {
+      "network": "Linear ist nicht erreichbar. Versuchen Sie es gleich noch einmal.",
+      "badKey": "Der Linear-API-Schlüssel ist ungültig oder wurde widerrufen.",
+      "forbidden": "Mit diesem Linear-Schlüssel ist das nicht möglich. Verwenden Sie den Schlüssel eines Workspace-Mitglieds mit Zugriff auf das Team.",
+      "notFound": "Linear findet dieses Issue nicht, oder der Schlüssel hat keinen Zugriff darauf.",
+      "error": "Linear hat einen Fehler zurückgegeben: {err}",
+      "status": "Linear hat den Fehler {s} zurückgegeben.",
+      "notConnected": "Linear ist für dieses Projekt nicht verbunden.",
+      "pickTeam": "Wählen Sie zuerst unter Admin → Integrationen ein Linear-Team.",
+      "ref": "Geben Sie eine Issue-ID wie ENG-123 oder den Linear-Link ein.",
+      "otherTeam": "Nur Issues aus dem Team {team} können verknüpft werden.",
+      "createFailed": "Linear hat das Issue nicht erstellt. Versuchen Sie es erneut."
+    },
+    "jira": {
+      "site": "Geben Sie Ihre Jira-Cloud-Adresse ein, z. B. ihrefirma.atlassian.net.",
+      "network": "Jira ist nicht erreichbar. Versuchen Sie es gleich noch einmal.",
+      "badToken": "Jira hat E-Mail-Adresse und API-Token abgelehnt. Prüfen Sie beides.",
+      "forbidden": "Dem Jira-Konto fehlt die Berechtigung dafür (Durchsuchen, Issues erstellen, Übergänge ausführen, kommentieren).",
+      "notFound": "Jira findet es nicht, oder das Konto hat keinen Zugriff darauf.",
+      "status": "Jira hat den Fehler {s} zurückgegeben.",
+      "notConnected": "Jira ist für dieses Projekt nicht verbunden.",
+      "pickProject": "Wählen Sie zuerst unter Admin → Integrationen ein Jira-Projekt und einen Issue-Typ.",
+      "ref": "Geben Sie einen Issue-Schlüssel wie ABC-12 oder den Jira-Link ein.",
+      "otherProject": "Nur Issues aus dem Projekt {project} können verknüpft werden."
+    },
+    "chatCard": {
+      "open": "In Ozvi öffnen",
+      "openUpdate": "Neuigkeit lesen"
+    },
+    "tracker": {
+      "acc": {
+        "linear": "Linear",
+        "jira": "Jira"
+      },
+      "alreadyLinked": "{ref} ist bereits mit #{n} verknüpft.",
+      "moved": "{tracker} {ref} wurde nach „{state}“ verschoben.",
+      "comment": "Kommentar aus Ozvi: verfasst von {trust} über {source}.",
+      "commentInternal": "Interne Team-Notiz aus Ozvi: verfasst von {trust} über {source}.",
+      "slowDown": "Zu viele Anfragen in kurzer Zeit. Warten Sie eine Minute und versuchen Sie es erneut.",
+      "saved": "Gespeichert.",
+      "unknown": "Unbekannte Integration.",
+      "notConnected": "Noch nicht verbunden.",
+      "mappingSaved": "Zuordnung gespeichert.",
+      "testOk": "Die Verbindung funktioniert: {who}, {n, plural, one {# Workflow-Status} other {# Workflow-Status}} geladen.",
+      "connect": "{name} verbinden",
+      "test": "Verbindung testen",
+      "testing": "Wird geprüft …",
+      "disconnect": "Trennen",
+      "disconnected": "{name} getrennt",
+      "disconnectTitle": "{name} trennen?",
+      "disconnectText": "Status werden nicht mehr synchronisiert, und aus Ozvi lassen sich keine neuen Issues mehr erstellen. Bestehende Verknüpfungen bleiben erhalten.",
+      "disconnectConfirm": "{name} trennen",
+      "disconnecting": "Wird getrennt …",
+      "connectedTo": "Verbunden als {who} · {where}",
+      "connectedNoTarget": "Verbunden als {who}. Wählen Sie jetzt, wohin Issues gehen, und speichern Sie.",
+      "keepSecret": "Leer lassen, um den gespeicherten Wert zu behalten.",
+      "saving": "Wird gespeichert …",
+      "issueLabel": "{name}-Issue",
+      "create": "Issue erstellen",
+      "noStates": "Noch keine Workflow-Status geladen. Laden Sie sie mit „Verbindung testen“.",
+      "push": {
+        "title": "Issue verschieben, wenn sich der Schritt in Ozvi ändert",
+        "text": "Synchronisierung in beide Richtungen; eine Änderung aus dem Tracker wird nie zurückgesendet"
+      },
+      "comments": {
+        "legend": "Kommentare aus Ozvi",
+        "off": {
+          "title": "Nicht spiegeln",
+          "text": "der Tracker erhält nur das Issue und Statuswechsel"
+        },
+        "public": {
+          "title": "Öffentliche Kommentare",
+          "text": "werden dem Issue mit Angabe der Herkunft hinzugefügt (Vertrauensstufe, nie der Name)"
+        },
+        "all": {
+          "title": "Öffentliche Kommentare und Team-Notizen",
+          "text": "auch interne Notizen; nur für einen Tracker, den Ihre Kunden nicht sehen"
+        }
+      },
+      "mapping": {
+        "title": "Statuszuordnung",
+        "text": "Wechselt ein Issue in einen anderen Status, wechselt der Beitrag in Ozvi in den von Ihnen gewählten Schritt. Meldende und Kommentierende erhalten die übliche E-Mail; Abstimmende erfahren es erst durch die veröffentlichte Neuigkeit.",
+        "state": "Workflow-Status",
+        "stage": "Schritt in Ozvi (Idee / Fehler)",
+        "push": "Für Ozvi → Tracker wird der erste Status der Liste verwendet, der dem Schritt des Beitrags zugeordnet ist.",
+        "save": "Zuordnung speichern"
+      },
+      "bucket": {
+        "none": "Ignorieren",
+        "ack": "Geplant / Bestätigt",
+        "progress": "In Arbeit",
+        "done": "Umgesetzt / Behoben",
+        "off": "Abgelehnt / Wird nicht behoben"
+      },
+      "linear": {
+        "needKey": "Fügen Sie einen persönlichen Linear-API-Schlüssel ein.",
+        "noTeam": "Dieses Team ist für diesen Schlüssel nicht verfügbar.",
+        "hookManual": "Gespeichert. Linear hat das automatische Anlegen des Webhooks nicht zugelassen: Fügen Sie ihn von Hand hinzu (Anleitung unten).",
+        "pickTeamNow": "Linear ist verbunden. Wählen Sie jetzt ein Team und speichern Sie.",
+        "hookCreated": "Mit {team} verbunden. Der Webhook wurde in Linear angelegt, Status werden jetzt synchronisiert.",
+        "key": "Persönlicher API-Schlüssel",
+        "keyHint": "Linear → Settings → Security & access → Personal API keys. Mit dem Schlüssel eines Workspace-Admins kann auch der Webhook angelegt werden.",
+        "team": "Team",
+        "teamHint": "Neue Issues gehen an dieses Team; nur seine Issues können verknüpft werden.",
+        "teamPick": "Team wählen",
+        "hookAuto": "Webhook automatisch in Linear angelegt: Status werden synchronisiert.",
+        "hookManualTitle": "Webhook-URL für Linear",
+        "hookSteps": "Linear → Settings → API → Webhooks → New webhook: Fügen Sie diese URL ein, wählen Sie das Team und die Data-change-Ereignisse „Issues“ und kopieren Sie dann das Signing Secret hierher.",
+        "hookLocal": "Dieses Board läuft nicht unter einer öffentlichen https-Adresse, daher kann Linear es nicht aufrufen. Status aus Linear werden synchronisiert, sobald Ozvi öffentlich läuft; Ozvi → Linear funktioniert bereits.",
+        "secret": "Signing Secret des Webhooks",
+        "secretHint": "Aus der Detailansicht des Webhooks in Linear.",
+        "save": "Linear speichern",
+        "placeholder": "ENG-123 oder Linear-Link"
+      },
+      "jira": {
+        "siteFormat": "Geben Sie Ihre Jira-Cloud-Adresse ein, z. B. ihrefirma.atlassian.net.",
+        "emailFormat": "Geben Sie die E-Mail-Adresse des Atlassian-Kontos ein, zu dem das Token gehört.",
+        "needToken": "Fügen Sie ein Atlassian-API-Token ein.",
+        "noProject": "Dieses Projekt ist für dieses Konto nicht verfügbar.",
+        "secretOnce": "Jira ist verbunden. Fügen Sie dieses Secret in den Jira-Webhook ein (Feld „Secret“):",
+        "pickProjectNow": "Jira ist verbunden. Wählen Sie jetzt ein Projekt und speichern Sie.",
+        "site": "Jira-Cloud-Adresse",
+        "siteHint": "Nur Atlassian-Cloud-Sites (….atlassian.net).",
+        "email": "E-Mail-Adresse des Atlassian-Kontos",
+        "token": "API-Token",
+        "tokenHint": "id.atlassian.com → Security → API tokens. Idealerweise ein Bot-Konto mit Zugriff auf ein einziges Projekt.",
+        "project": "Projekt",
+        "projectPick": "Projekt wählen",
+        "issueType": "Issue-Typ",
+        "issueTypeHint": "Für Issues, die aus Ozvi erstellt werden.",
+        "syncLegend": "Wie Änderungen aus Jira ankommen",
+        "sync": {
+          "webhook": {
+            "title": "Webhook",
+            "text": "sofort; ein Jira-Administrator richtet ihn einmalig ein"
+          },
+          "poll": {
+            "title": "Alle 5 Minuten prüfen",
+            "text": "keine Jira-Adminrechte nötig"
+          }
+        },
+        "hookTitle": "Webhook-URL für Jira",
+        "hookSteps": "Jira → Settings → System → WebHooks → Create a WebHook: Fügen Sie diese URL und das beim Verbinden angezeigte Secret ein, JQL „project = {key}“, Ereignisse Issue updated und deleted.",
+        "newSecret": "Neues Secret erzeugen",
+        "save": "Jira speichern",
+        "placeholder": "ABC-12 oder Jira-Link"
+      }
+    },
+    "saving": "Wird gespeichert …",
+    "verifying": "Wird geprüft …",
+    "token": {
+      "name": "Name",
+      "nameHint": "Damit Sie das Token später wiedererkennen, z. B. am Gerät.",
+      "namePlaceholder": "Claude Code – Laptop",
+      "validity": "Läuft ab",
+      "days": "{n} Tage",
+      "year": "1 Jahr",
+      "forever": "Nie",
+      "what": "Was der Assistent darf",
+      "read": {
+        "title": "Lesen",
+        "text": "Ideen und Meldungen suchen und lesen, Zusammenfassungen schreiben"
+      },
+      "write": {
+        "title": "Schreiben",
+        "text": "zusätzlich Ideen und Meldungen anlegen und kommentieren"
+      },
+      "triage": {
+        "title": "Triage",
+        "text": "zusätzlich Status ändern, Duplikate zusammenführen und mit GitHub verknüpfen"
+      },
+      "claudeCode": "Mit einem Befehl zu Claude Code hinzufügen:",
+      "copyCmd": "Befehl kopieren",
+      "creating": "Wird erstellt …",
+      "create": "Token erstellen",
+      "revoked": "Token „{name}“ widerrufen",
+      "revokedUnnamed": "Token widerrufen",
+      "revokeTitle": "Token „{name}“ widerrufen?",
+      "revokeTitleUnnamed": "Token widerrufen?",
+      "revoke": "Token widerrufen",
+      "revoking": "Wird widerrufen …",
+      "revokeText": "Jeder Assistent, der es verwendet, verliert sofort den Zugriff. Wenn Sie weiterhin eines brauchen, erstellen Sie danach ein neues Token."
+    },
+    "webhook": {
+      "events": {
+        "item_created": "Neue Idee oder Meldung",
+        "item_status_changed": "Statusänderung",
+        "comment_created": "Neuer Kommentar",
+        "item_merged": "Duplikate zusammengeführt",
+        "item_linked": "Mit einem Issue verknüpft (GitHub, Linear, Jira)",
+        "changelog_published": "Neuigkeit veröffentlicht",
+        "item_tags_changed": "Öffentliche Tags geändert"
+      },
+      "url": "Webhook-URL",
+      "format": "Format",
+      "chat": {
+        "title": "Chatnachricht",
+        "text": "Slack, Mattermost, Rocket.Chat"
+      },
+      "teams": {
+        "title": "Microsoft Teams",
+        "text": "Karte in einem Kanal (Workflows: „When a Teams webhook request is received“)"
+      },
+      "discord": {
+        "title": "Discord",
+        "text": "Embed in einem Kanal, Erwähnungen ausgeschaltet"
+      },
+      "json": {
+        "title": "Signiertes JSON",
+        "text": "für Ihr eigenes Backend, n8n, Zapier"
+      },
+      "eventsLegend": "Ereignisse",
+      "eventsHint": "Wenn Sie keines auswählen, senden wir alle.",
+      "bugs": "Auch Fehlermeldungen senden",
+      "bugsNote": "– sie sind privat, aktivieren Sie das nur für einen internen Kanal",
+      "adding": "Wird hinzugefügt …",
+      "add": "Webhook hinzufügen",
+      "sending": "Wird gesendet …",
+      "test": "Test senden",
+      "removed": "Webhook entfernt",
+      "remove": "Entfernen",
+      "removeTitle": "Webhook entfernen?",
+      "removeText": "Wir senden keine weiteren Ereignisse an diese Adresse.",
+      "removeConfirm": "Webhook entfernen",
+      "removing": "Wird entfernt …"
+    },
+    "github": {
+      "repo": "Repository",
+      "repoHint": "Im Format owner/name.",
+      "token": "Token",
+      "keepToken": "Leer lassen, um das gespeicherte Token zu behalten.",
+      "tokenHint": "Fine-grained Token, nur dieses Repository, Issues: Read and write.",
+      "onClose": "Wenn ein Issue geschlossen wird",
+      "release": {
+        "title": "Auf ein Release warten",
+        "text": "nach dem Release erhält der Fehler „behoben in Version X“ und die meldende Person eine E-Mail"
+      },
+      "fixed": {
+        "title": "Sofort als behoben markieren",
+        "text": "für Projekte ohne GitHub-Releases"
+      },
+      "hookA": "Repository → Settings → Webhooks → Add webhook: Payload URL",
+      "hookB": ", Content type application/json, Ereignisse Issues und Releases.",
+      "save": "GitHub speichern",
+      "connect": "GitHub verbinden",
+      "disconnected": "GitHub getrennt",
+      "disconnect": "Trennen",
+      "disconnectTitle": "GitHub trennen?",
+      "disconnectText": "Neue Issues werden nicht mehr verknüpft und der Status wird nicht mehr synchronisiert. Bestehende Verknüpfungen bleiben erhalten.",
+      "disconnectConfirm": "GitHub trennen",
+      "disconnecting": "Wird getrennt …"
+    },
+    "oidc": {
+      "issuerHint": "Leer lassen, um die OIDC-Anmeldung auszuschalten.",
+      "keepSecret": "Leer lassen, um das gespeicherte Secret zu behalten.",
+      "redirect": "Redirect-URI bei Ihrem Anbieter",
+      "roles": "Rollen (Team, Admin) legen Sie im Bereich „Personen“ fest; wir übernehmen sie nicht vom Anbieter.",
+      "save": "OIDC speichern"
+    },
+    "people": {
+      "roles": {
+        "member": "Nutzer",
+        "team": "Team",
+        "admin": "Admin"
+      },
+      "you": "das sind Sie",
+      "role": "Rolle",
+      "user": "Person",
+      "signedOut": "{name} ist überall abgemeldet",
+      "signOut": "Überall abmelden",
+      "signOutTitle": "{name} überall abmelden?",
+      "signOutTitleUnnamed": "Diese Person überall abmelden?",
+      "signingOut": "Wird abgemeldet …",
+      "signOutText": "Wir beenden sofort alle Sitzungen und widerrufen die API-Tokens. Meldet sich die Person erneut über Ihre App an, erhält sie wieder Zugriff; dauerhaft entziehen Sie ihn in Ihrer App."
+    },
+    "domain": {
+      "label": "Domain",
+      "none": "Leer lassen für keine eigene Domain.",
+      "plan": "Eigene Domains gibt es in den Tarifen Pro und Studio.",
+      "placeholder": "feedback.ihrefirma.de",
+      "verified": "ist verifiziert und funktioniert.",
+      "records": "Legen Sie bei Ihrem DNS-Anbieter zwei Einträge an",
+      "for": "für",
+      "afterDns": "Klicken Sie dann auf „Domain verifizieren“. Bis DNS-Änderungen überall ankommen, kann es bis zu einer Stunde dauern. Das HTTPS-Zertifikat stellen wir automatisch aus.",
+      "save": "Domain speichern",
+      "verify": "Domain verifizieren"
+    },
+    "act": {
+      "teamOnly": "Nur für das Projektteam.",
+      "adminOnly": "Nur für den Projekt-Admin.",
+      "tokenName": "Geben Sie dem Token einen Namen (2 bis 60 Zeichen), z. B. „Claude Code – Laptop“.",
+      "pickScope": "Wählen Sie eine Berechtigung.",
+      "tooMany": "Sie haben 20 aktive Tokens. Widerrufen Sie zuerst eines.",
+      "tokenCreated": "Token „{name}“ erstellt.",
+      "hookAddedSigned": "Webhook hinzugefügt. Prüfen Sie Signaturen mit diesem Secret (Header nach Standard Webhooks oder Ozvi-Signature, Anleitung unter /docs/webhooks).",
+      "hookAdded": "Webhook hinzugefügt.",
+      "noHook": "Dieser Webhook existiert nicht.",
+      "testTitle": "Testnachricht von Ozvi",
+      "delivered": "Zugestellt (HTTP {code}).",
+      "failed": "Nicht zugestellt: {err}.",
+      "repoFormat": "Geben Sie das Repository als owner/name ein, z. B. acme/app.",
+      "needToken": "Fügen Sie ein GitHub-Token mit der Berechtigung Issues: Read and write ein.",
+      "ghConnected": "GitHub ist mit {repo} verbunden. Fügen Sie jetzt im Repository einen Webhook hinzu (Anleitung unten) mit diesem Secret:",
+      "ghSaved": "GitHub-Einstellungen gespeichert.",
+      "noItem": "Dieser Beitrag existiert nicht.",
+      "linked": "Mit {ref} verknüpft.",
+      "oidcOff": "Die OIDC-Anmeldung ist ausgeschaltet.",
+      "httpsIssuer": "Der Issuer muss mit https:// beginnen.",
+      "clientId": "Geben Sie die Client-ID ein.",
+      "clientSecret": "Geben Sie das Client-Secret ein.",
+      "discovery": "Die Konfiguration von {issuer}/.well-known/openid-configuration konnte nicht geladen werden: {err}",
+      "oidcSaved": "OIDC gespeichert. Die Schaltfläche „Anmelden“ führt jetzt zu Ihrem Identitätsanbieter.",
+      "ownRole": "Sie können Ihre eigene Rolle nicht ändern.",
+      "badRole": "Ungültige Rolle.",
+      "domainRemoved": "Eigene Domain entfernt.",
+      "domainPlan": "Eigene Domains gibt es in den Tarifen Pro und Studio.",
+      "domainFormat": "Geben Sie eine Domain wie feedback.ihrefirma.de ein (ohne https:// und ohne Pfad).",
+      "domainTaken": "Diese Domain wird bereits von einem anderen Projekt verwendet.",
+      "domainVerifiedCert": "{d} ist verifiziert. Das Zertifikat wird beim ersten Aufruf ausgestellt.",
+      "domainSaved": "{d} gespeichert. Richten Sie DNS wie beschrieben ein und klicken Sie dann auf „Verifizieren“.",
+      "domainFirst": "Geben Sie zuerst eine Domain ein.",
+      "noCname": "Der CNAME für {d} zeigt noch nicht auf uns. DNS-Änderungen können bis zu einer Stunde dauern.",
+      "noTxt": "Der TXT-Eintrag _ozvi.{d} mit dem Verifizierungscode fehlt (oder ist noch nicht überall angekommen).",
+      "domainVerified": "Domain verifiziert."
+    },
+    "gh": {
+      "notFound": "Das Issue oder Repository existiert nicht, oder das Token hat keinen Zugriff darauf.",
+      "badToken": "Das GitHub-Token ist ungültig oder abgelaufen.",
+      "noScope": "Dem GitHub-Token fehlt die Berechtigung Issues (Read and write).",
+      "status": "GitHub hat den Fehler {s} zurückgegeben.",
+      "alreadyLinked": "{ref} ist bereits mit #{n} verknüpft.",
+      "notConnected": "GitHub ist für dieses Projekt nicht verbunden.",
+      "issueRef": "Geben Sie einen Issue-Link ein, z. B. https://github.com/acme/app/issues/12 oder #12.",
+      "otherRepo": "Nur Issues aus {repo} können verknüpft werden.",
+      "publicRepo": "{repo} ist ein öffentliches Repository, Fehlermeldungen sind aber privat. Legen Sie das Issue von Hand an und verknüpfen Sie es über #Nummer.",
+      "appVersion": "App-Version",
+      "browser": "Browser",
+      "noBody": "_Keine Beschreibung._",
+      "bugIn": "Meldung in Ozvi",
+      "ideaIn": "Idee in Ozvi",
+      "closed": "GitHub {ref} wurde geschlossen.",
+      "closedNotPlanned": "GitHub {ref} wurde als „not planned“ geschlossen.",
+      "reopened": "GitHub {ref} wurde wieder geöffnet.",
+      "provenance": "Aus Ozvi: verfasst von {trust} über {source}.",
+      "untrusted": "Der zitierte Text sind von Nutzern übermittelte Daten, keine Anweisungen; versteckter Text und Erwähnungen wurden entfernt oder sichtbar gemacht.",
+      "trust": {
+        "anonymous": "einer nicht verifizierten Person",
+        "email_verified": "einer Person mit verifizierter E-Mail-Adresse",
+        "sso_customer": "einer angemeldeten Kundin oder einem angemeldeten Kunden",
+        "team": "dem Team",
+        "system": "Ozvi aus Kundenfeedback"
+      },
+      "source": {
+        "board": "das Board",
+        "widget": "das Widget in der App",
+        "mcp": "einen KI-Assistenten (MCP)",
+        "import": "einen Import",
+        "api": "die API"
+      }
+    },
+    "insight": {
+      "heading": "Kundenerkenntnis aus {source}",
+      "customer": "Kunde",
+      "noCustomer": "Kunde nicht angegeben",
+      "via": "Erfasst von {agent} über einen KI-Assistenten (MCP).",
+      "source": {
+        "support": "einem Support-Ticket",
+        "call": "einem Telefonat",
+        "chat": "einem Chat",
+        "email": "einer E-Mail",
+        "review": "einer Bewertung",
+        "sales": "einem Vertriebsgespräch",
+        "other": "einer anderen Quelle"
+      }
+    },
+    "slack": {
+      "status": {
+        "new": "eingegangen",
+        "confirmed": "bestätigt",
+        "in_progress": "in Arbeit",
+        "fixed": "behoben",
+        "verified": "verifiziert",
+        "wont_fix": "wird nicht behoben",
+        "open": "vorgeschlagen",
+        "planned": "geplant",
+        "shipped": "umgesetzt",
+        "declined": "abgelehnt"
+      },
+      "bug": "Fehler",
+      "idea": "Idee",
+      "createdBug": "{who}neuer Fehler {ref}",
+      "createdIdea": "{who}neue Idee {ref}",
+      "status_": "{what} {ref} ist jetzt *{status}*",
+      "comment": "{who}Kommentar zu {ref}",
+      "merged": "{ref} mit #{n} zusammengeführt",
+      "linked": "{ref} verknüpft mit {link}",
+      "changelog": "Neuigkeit: {title}",
+      "aiAssisted": "mit KI geschrieben, vom Team geprüft",
+      "tags": "{ref} Tags: {tags}"
+    }
+  },
+  "landing": {
+    "meta": {
+      "title": "Ozvi – Fehlermeldungen, Ideen und Release Notes direkt in Ihrer App",
+      "description": "Private Fehlermeldungen mit Screenshots, ein öffentliches Ideen-Board, Roadmap und Release Notes. Anmeldung aus Ihrer App, MCP für KI-Assistenten, Quellcode verfügbar (Source-available, FSL)."
+    },
+    "nav": {
+      "product": "Produkt",
+      "developers": "Entwickler",
+      "pricing": "Preise",
+      "selfHost": "Self-Hosting",
+      "signIn": "Anmelden",
+      "start": "Kostenlos starten",
+      "console": "Konsole öffnen",
+      "menu": "Menü",
+      "language": "Sprache",
+      "productItems": [
+        {
+          "href": "#how",
+          "title": "Fehlermeldungen",
+          "text": "Privat, mit Screenshot und technischem Kontext"
+        },
+        {
+          "href": "#flows",
+          "title": "Ideen und Abstimmung",
+          "text": "Ein öffentliches Board, das für Sie priorisiert"
+        },
+        {
+          "href": "#flows",
+          "title": "Roadmap und Release Notes",
+          "text": "Was kommt und was fertig ist, mit E-Mails an alle Abstimmenden"
+        },
+        {
+          "href": "#design",
+          "title": "In Ihrem Branding",
+          "text": "Farben, Schrift und Logo Ihrer App"
+        }
+      ],
+      "productFeature": {
+        "href": "#how",
+        "title": "Vom Klick bis zur Antwort",
+        "text": "Verfolgen Sie eine einzelne Meldung Schritt für Schritt durch Ozvi."
+      },
+      "devItems": [
+        {
+          "href": "#developers",
+          "title": "Widget",
+          "text": "Ein Skript, Shadow DOM, 10,5 kB"
+        },
+        {
+          "href": "#developers",
+          "title": "Anmeldung",
+          "text": "Signiertes Token, OIDC oder E-Mail-Code"
+        },
+        {
+          "href": "#developers",
+          "title": "MCP-Server",
+          "text": "Claude Code, Cursor, VS Code"
+        },
+        {
+          "href": "/docs/api",
+          "title": "REST API und Webhooks",
+          "text": "OpenAPI 3.1, Standard Webhooks, n8n, Make, Zapier"
+        }
+      ],
+      "devFeature": {
+        "href": "#self-host",
+        "title": "Self-Hosting",
+        "text": "Ein Docker-Image und Postgres. Alle Funktionen, 0 €."
+      }
+    },
+    "hero": {
+      "title": "Feedback, das nicht verloren geht.",
+      "lede": "Ozvi sammelt Fehlermeldungen und Ideen direkt in Ihrer App, liefert sie Ihrem Team dorthin, wo es ohnehin arbeitet, und sagt der meldenden Person, was daraus geworden ist. In der Sprache und den Farben Ihrer Marke.",
+      "secondary": "So funktioniert’s",
+      "pauseMotion": "Animation pausieren",
+      "playMotion": "Animation abspielen",
+      "note": "Der Free-Tarif kommt ohne Kreditkarte aus. Selbst gehostet ist Ozvi mit allen Funktionen kostenlos."
+    },
+    "story": {
+      "label": "Eine Meldung, vom Klick bis zur Antwort",
+      "replay": "erneut abspielen",
+      "steps": [
+        {
+          "title": "Eine Person meldet einen Fehler",
+          "text": "Direkt in Ihrer App, ohne zusätzliches Konto. Das Widget hängt Screenshot, Version, Browser und Konsolenfehler an und macht Passwörter und markierte Felder unkenntlich, bevor etwas den Browser verlässt.",
+          "code": "POST /api/widget/items → 201"
+        },
+        {
+          "title": "Ihr Team erhält sie dort, wo es arbeitet",
+          "text": "Per E-Mail, in Slack oder Discord und mit einem Klick als GitHub-Issue. Der Status bleibt zwischen Ozvi und GitHub synchron.",
+          "code": "item.linked → acme/app#482"
+        },
+        {
+          "title": "Beheben direkt aus dem Editor",
+          "text": "Der MCP-Server gibt Claude Code, Cursor oder VS Code Zugriff auf die Meldungen: verwandte finden, Duplikate zusammenführen und den Status samt Version der Korrektur setzen.",
+          "code": "set_status #128 fixed --version 2.15"
+        },
+        {
+          "title": "Die meldende Person erhält eine Antwort",
+          "text": "Eine E-Mail bei jeder Änderung, beim Release mit Versionsnummer. Ein Klick bestätigt, dass es funktioniert, und die Meldung wird geschlossen.",
+          "code": "mail bug_status → delivered"
+        }
+      ],
+      "stage": {
+        "label": "Demo: Eine Person meldet einen Fehler, das Team behebt ihn und die Person erhält eine Antwort",
+        "app": "Rechnungen",
+        "url": "app.ihrefirma.de/rechnungen/2026-0412",
+        "invoice": "Rechnung 2026-0412",
+        "download": "PDF herunterladen",
+        "lines": [
+          [
+            "Individuelle Webentwicklung",
+            "1.200,00 €"
+          ],
+          [
+            "Hosting, 1 Jahr",
+            "180,00 €"
+          ]
+        ],
+        "report": "Rechnungs-PDF verliert die Umlaute in der Adresse",
+        "screenshot": "Screenshot",
+        "stops": [
+          "Eingegangen",
+          "Bestätigt",
+          "In Arbeit",
+          "Behoben",
+          "Verifiziert"
+        ],
+        "reply": "Behoben in Version 2.15. Funktioniert es jetzt bei Ihnen?",
+        "replyFrom": "Support-Team",
+        "log": "Ereignisse",
+        "summary": [
+          "seit der Meldung",
+          "E-Mails",
+          "Webhooks"
+        ],
+        "summaryValues": [
+          "1 Std. 37 Min.",
+          "2 zugestellt",
+          "1 × 200"
+        ],
+        "delivered": "zugestellt",
+        "errors": "2 Konsolenfehler"
+      }
+    },
+    "spec": [
+      {
+        "k": "10,5 kB",
+        "v": "Widget, gzip-komprimiert. Läuft im Shadow DOM und berührt nie Ihre Styles oder Skripte."
+      },
+      {
+        "k": "HS256 / OIDC",
+        "v": "Anmeldung aus Ihrer App. Niemand muss ein weiteres Konto anlegen."
+      },
+      {
+        "k": "11 Tools",
+        "v": "MCP-Server für KI-Assistenten: Suche, Duplikate, Status, Release Notes."
+      },
+      {
+        "k": "RLS",
+        "v": "Jedes Projekt ist in Postgres auf Zeilenebene isoliert, nicht nur im App-Code."
+      }
+    ],
+    "flows": {
+      "title": "Zwei Abläufe. Ein Überblick.",
+      "lede": "Fehler bleiben privat zwischen der meldenden Person und Ihrem Team. Ideen sind öffentlich, damit andere sie unterstützen können. Beide folgen einem Ablauf, den die meldende Person sieht.",
+      "bug": {
+        "title": "Fehler",
+        "text": "Privat. Screenshot, Seite, Version, Browser und Konsolenfehler kommen automatisch mit."
+      },
+      "idea": {
+        "title": "Idee",
+        "text": "Öffentlich auf dem Board. Abstimmung, Kommentare, Roadmap und Release Notes."
+      },
+      "stops": {
+        "new": [
+          "Eingegangen",
+          "Nur die meldende Person und das Team sehen sie."
+        ],
+        "confirmed": [
+          "Bestätigt",
+          "Sie haben ihn nachvollzogen und eingeordnet."
+        ],
+        "in_progress": [
+          "In Arbeit",
+          "Das Team arbeitet daran."
+        ],
+        "fixed": [
+          "Behoben",
+          "Die Korrektur ist in einem Release; die meldende Person erfährt die Version."
+        ],
+        "verified": [
+          "Verifiziert",
+          "Die meldende Person hat bestätigt, dass es funktioniert."
+        ],
+        "open": [
+          "Vorgeschlagen",
+          "Andere stimmen ab und ergänzen Kontext."
+        ],
+        "planned": [
+          "Geplant",
+          "Für ein kommendes Release eingeplant."
+        ],
+        "shipped": [
+          "Umgesetzt",
+          "Alle Abstimmenden haben eine E-Mail erhalten."
+        ]
+      }
+    },
+    "dev": {
+      "title": "In der Mittagspause eingebunden. Nicht in einem Sprint.",
+      "lede": "Ein Widget-Skript und ein Endpunkt, der die Person anmeldet. Alles andere ist API: Webhooks, GitHub und MCP für KI-Assistenten.",
+      "points": [
+        "Ein Fehler auf dem Board wird mit einem Klick zum GitHub-Issue, und sein Status wird zurücksynchronisiert.",
+        "E-Mails laufen über eine Outbox in der Datenbank. Nichts geht verloren, wenn SMTP ausfällt.",
+        "Jede Zustellung von E-Mails und Webhooks ist in der Konsole sichtbar, Fehler eingeschlossen."
+      ],
+      "copy": "kopieren",
+      "copied": "kopiert",
+      "tablist": "Integration",
+      "tabs": {
+        "widget": {
+          "label": "Widget",
+          "note": "Eine Schaltfläche, ein Fehlerformular mit Screenshot und Ideen. Die Sprache richtet sich nach dem lang-Attribut oder der Seite."
+        },
+        "sso": {
+          "label": "Anmeldung",
+          "note": "Das SDK steht unter MIT-Lizenz. Statt eines Tokens können Sie OIDC oder die Anmeldung per E-Mail-Code nutzen.",
+          "comment": "Ihr Backend teilt mit, wer angemeldet ist."
+        },
+        "mcp": {
+          "label": "MCP",
+          "note": "Zusammenführen und Veröffentlichen von Release Notes erfordern immer eine Bestätigung. Nutzertexte erreichen das Modell als Daten, nie als Anweisungen.",
+          "comment": "dann im Chat",
+          "q1": "Welche Fehler dieser Woche haben mit PDFs zu tun?",
+          "q2": "Führe #131 mit #128 zusammen und markiere es als behoben in 2.15."
+        },
+        "hook": {
+          "label": "Webhook",
+          "note": "HMAC-signiert, mit Wiederholungen und Zustellprotokoll in der Konsole. Slack, Discord und Mattermost erhalten von Haus aus eine lesbare Nachricht.",
+          "title": "Rechnungs-PDF verliert die Umlaute in der Adresse"
+        }
+      }
+    },
+    "pricing": {
+      "title": "Pro Jahr bezahlen. Nicht pro Nutzer.",
+      "lede": "Keine Limits bei Nutzern oder Einträgen. Sie zahlen nur für das, was uns Geld kostet: E-Mails, Speicher und Domains. Preise zzgl. MwSt.",
+      "plan": "Tarif",
+      "forever": "dauerhaft, ohne Kreditkarte",
+      "yearly": "pro Jahr oder {q} pro Quartal",
+      "choose": "{p} wählen",
+      "unlimited": "unbegrenzt",
+      "rows": {
+        "projects": "Projekte",
+        "emails": "E-Mails pro Monat",
+        "files": "Anhänge",
+        "domain": "Eigene Domain",
+        "badge": "Ohne Ozvi-Badge",
+        "ai": "KI: Duplikate und Zusammenfassungen",
+        "users": "Nutzer und Einträge",
+        "all": "MCP, GitHub, Webhooks, SSO"
+      },
+      "yes": "ja",
+      "no": "nein"
+    },
+    "self": {
+      "title": "Selbst gehostet: 0 €, alle Funktionen.",
+      "text": "Ein Docker-Image und Postgres. Nichts ist hinter einem Tarif versteckt. Quellcode verfügbar unter der FSL, die nach zwei Jahren zu Apache 2.0 wird.",
+      "c1": "Ozvi + Postgres",
+      "c2": "erstes Projekt",
+      "name": "Meine App"
+    },
+    "closing": {
+      "title": "Geben Sie Ihren Nutzern eine Stimme. Und antworten Sie ihnen.",
+      "text": "Der Free-Tarif kommt ohne Kreditkarte aus und läuft nie ab.",
+      "compare": "Tarife vergleichen"
+    },
+    "footer": {
+      "tagline": "Fehlermeldungen, Ideen und Release Notes direkt in Ihrer App.",
+      "product": "Produkt",
+      "developers": "Entwickler",
+      "legal": "Rechtliches",
+      "terms": "Nutzungsbedingungen",
+      "privacy": "Datenschutzerklärung",
+      "license": "Quellcode verfügbar (Source-available, FSL). SDK und Widget unter MIT."
+    }
+  },
+  "net": {
+    "invalid": "Das ist keine gültige URL.",
+    "https": "Die Adresse muss mit https:// beginnen.",
+    "creds": "Die Adresse darf keinen Benutzernamen und kein Passwort enthalten.",
+    "internal": "Die Adresse darf nicht auf ein internes Netzwerk verweisen."
+  },
+  "playground": {
+    "title": "Sieht aus wie Ihre App. Nicht wie wir.",
+    "lede": "Probieren Sie es aus. Dieses Board ist echt: Stimmen Sie ab, öffnen Sie eine Idee, schreiben Sie einen Kommentar oder schlagen Sie selbst etwas vor. Gestalten Sie es dann im Editor genau so, wie Sie es in Ihren Projekteinstellungen tun würden.",
+    "controls": {
+      "tablist": "Theme-Editor",
+      "heading": "Darstellung",
+      "name": "Name der App",
+      "accent": "Akzentfarbe",
+      "custom": "Eigene Farbe",
+      "base": "Grundton",
+      "bases": {
+        "neutral": "Neutral",
+        "warm": "Warm",
+        "cool": "Kühl",
+        "dark": "Dunkel"
+      },
+      "font": "Schrift",
+      "radius": "Eckenradius",
+      "density": "Dichte",
+      "compact": "Kompakt",
+      "comfortable": "Großzügig",
+      "reset": "Zurücksetzen",
+      "json": "theme.json",
+      "ui": "Einstellungen",
+      "copy": "kopieren",
+      "copied": "kopiert",
+      "contrastOk": "Der Textkontrast ist ausreichend (WCAG AA).",
+      "contrastWarn": "Geringer Kontrast: {token} {ratio}:1. Ozvi weist Sie darauf hin und passt die Farbe auf dem Board an, damit der Text lesbar bleibt.",
+      "tokens": {
+        "inkOnSurface": "Text auf Fläche",
+        "inkOnCanvas": "Text auf Hintergrund",
+        "accentOnSurface": "Akzent auf Fläche",
+        "buttonOnAccent": "Schaltflächentext"
+      }
+    },
+    "board": {
+      "url": "feedback.ihrefirma.de",
+      "tabs": {
+        "ideas": "Ideen",
+        "roadmap": "Roadmap",
+        "news": "Neuigkeiten",
+        "bugs": "Fehler"
+      },
+      "suggest": "Idee vorschlagen",
+      "titlePh": "Was würde Ihnen helfen?",
+      "add": "Hinzufügen",
+      "cancel": "Abbrechen",
+      "you": "Sie",
+      "now": "gerade eben",
+      "back": "Zurück zu den Ideen",
+      "comment": "Kommentar schreiben …",
+      "send": "Senden",
+      "comments": "{n, plural, one {# Kommentar} other {# Kommentare}}",
+      "votes": "Stimmen",
+      "private": "Nur Sie und das Team sehen das",
+      "fixedIn": "Behoben in",
+      "empty": "Noch keine Kommentare.",
+      "columns": {
+        "planned": "Geplant",
+        "in_progress": "In Arbeit",
+        "shipped": "Umgesetzt"
+      },
+      "status": {
+        "open": "Vorgeschlagen",
+        "planned": "Geplant",
+        "in_progress": "In Arbeit",
+        "shipped": "Umgesetzt",
+        "new": "Eingegangen",
+        "fixed": "Behoben"
+      },
+      "ideas": [
+        {
+          "title": "Export in die Buchhaltung",
+          "text": "Wir tippen jeden Monat Rechnungen von Hand ab. Ein XML-Export würde uns eine Stunde sparen.",
+          "author": "Maria K.",
+          "comments": [
+            [
+              "Peter H.",
+              "+1, am besten mit Aufschlüsselung der MwSt."
+            ],
+            [
+              "Team",
+              "Für März geplant. Wir geben Bescheid."
+            ]
+          ]
+        },
+        {
+          "title": "Wiederkehrende Zahlungen mit abweichendem Fälligkeitsdatum",
+          "text": "Manche Kunden haben 30 Tage Zahlungsziel, andere 14.",
+          "author": "Julia T.",
+          "comments": [
+            [
+              "Eva S.",
+              "Das würde uns sehr helfen."
+            ]
+          ]
+        },
+        {
+          "title": "Dunkelmodus",
+          "text": "Abends angenehmer für die Augen.",
+          "author": "Lukas B.",
+          "comments": []
+        }
+      ],
+      "news": [
+        {
+          "v": "2.15",
+          "date": "4. Nov.",
+          "title": "Korrekte PDFs und schnellere Suche",
+          "text": "Rechnungs-PDFs behalten jetzt die Umlaute in der Adresse. Die Kundensuche ist dreimal so schnell."
+        },
+        {
+          "v": "2.14",
+          "date": "21. Okt.",
+          "title": "Zahlungserinnerungen per E-Mail",
+          "text": "Wir erinnern Kunden jetzt automatisch an unbezahlte Rechnungen."
+        }
+      ],
+      "bugs": [
+        {
+          "title": "Rechnungs-PDF verliert die Umlaute in der Adresse"
+        },
+        {
+          "title": "Notiz zum Kunden verschwindet nach dem Speichern"
+        }
+      ]
+    },
+    "scope": {
+      "title": "Was Sie einstellen können",
+      "items": [
+        {
+          "k": "Farbe",
+          "v": "Fünf Farben: Akzent, Text, Fläche, Hintergrund und Rahmen. Dazu eine eigene Palette für den Dunkelmodus."
+        },
+        {
+          "k": "Schrift",
+          "v": "Jede Google-Schrift oder die Systemschrift, getrennt für Text und Überschriften. Die Schriften liefern wir von unserem eigenen Server aus, sodass sich Besucher nie mit Google verbinden."
+        },
+        {
+          "k": "Form",
+          "v": "Eckenradius von 0 bis 24 px und die Dichte der Listen."
+        },
+        {
+          "k": "Logo und Domain",
+          "v": "Ihr Logo und Ihre eigene Domain, etwa feedback.ihrefirma.de. Ab Pro ohne Ozvi-Badge."
+        },
+        {
+          "k": "Abstimmung",
+          "v": "Einfache Stimmen oder Wichtigkeitsbewertungen, optional mit monatlichem Stimmbudget."
+        },
+        {
+          "k": "Überall",
+          "v": "Ein Theme gestaltet das Board, das Widget in Ihrer App und die E-Mails."
+        }
+      ],
+      "limit": "Kein eigenes CSS und keine Templates. Ein Theme ist nur eine Sammlung von Tokens, deshalb geht das Board bei einem Update nie kaputt und bleibt barrierefrei."
+    }
+  },
+  "route": {
+    "label": {
+      "open": "Vorgeschlagen",
+      "planned": "Geplant",
+      "in_progress": "In Arbeit",
+      "shipped": "Umgesetzt",
+      "declined": "Abgelehnt",
+      "new": "Eingegangen",
+      "confirmed": "Bestätigt",
+      "fixed": "Behoben",
+      "verified": "Verifiziert",
+      "wont_fix": "Wird nicht behoben"
+    },
+    "hint": {
+      "open": "Andere können abstimmen und ergänzen, wie es ihnen helfen würde.",
+      "planned": "Das Team plant es für ein kommendes Release.",
+      "in_progress": "Das Team arbeitet gerade daran.",
+      "shipped": "Es ist umgesetzt. Alle, die abgestimmt haben, wurden per E-Mail informiert.",
+      "new": "Meldung eingegangen. Nur Sie und das Team können sie sehen.",
+      "confirmed": "Wir konnten den Fehler nachvollziehen und haben ihn eingeplant.",
+      "fixed": "Die Korrektur ist in einem Release enthalten. Wir melden uns, damit Sie es prüfen können.",
+      "verified": "Sie haben bestätigt, dass es funktioniert. Erledigt.",
+      "declined": "Das Team hat entschieden, diese Idee nicht umzusetzen.",
+      "wont_fix": "Das Team hat entschieden, diesen Fehler nicht zu beheben."
+    },
+    "next": {
+      "planned": "Das Team entscheidet, ob es für ein kommendes Release eingeplant wird.",
+      "in_progress": "Das Team beginnt mit der Umsetzung.",
+      "shipped": "Sobald es umgesetzt ist, erhalten alle, die abgestimmt haben, eine E-Mail.",
+      "confirmed": "Das Team versucht, den Fehler nachzuvollziehen, und plant ihn ein.",
+      "fixed": "Die Korrektur kommt mit einem der nächsten Releases.",
+      "verified": "Die meldende Person bestätigt, dass die Korrektur funktioniert, und die Meldung wird geschlossen."
+    },
+    "offRoute": "außerhalb des Ablaufs",
+    "stopOf": "Schritt {n} von {of}",
+    "now": "jetzt"
+  },
+  "widget": {
+    "noProject": "Dieses Projekt existiert nicht.",
+    "origin": "Diese Website darf kein Feedback senden. Fügen Sie sie in den Projekteinstellungen hinzu.",
+    "expired": "Ihre Anmeldung ist abgelaufen. Bitte versuchen Sie es erneut.",
+    "who": "Wir konnten die Person nicht verifizieren.",
+    "form": "Ungültiges Formular.",
+    "failed": "Die Meldung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+    "private": "Die Ideen dieses Projekts sehen nur angemeldete Personen. Melden Sie sich in der App an und versuchen Sie es erneut."
+  },
+  "moderation": {
+    "menu": "Optionen für den Beitrag",
+    "commentMenu": "Optionen für den Kommentar",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "deleting": "Wird gelöscht …",
+    "keep": "Behalten",
+    "cancel": "Abbrechen",
+    "save": "Änderungen speichern",
+    "saving": "Wird gespeichert …",
+    "saved": "Änderungen gespeichert",
+    "optional": "(optional)",
+    "editPost": "Beitrag bearbeiten",
+    "titleLabel": "Titel",
+    "bodyLabel": "Beschreibung",
+    "commentLabel": "Kommentartext",
+    "keysHint": "Esc bricht ab, Strg/⌘ + Enter speichert",
+    "edited": "bearbeitet",
+    "deletePostTitle": "{kind, select, bug {Diese Meldung löschen?} other {Diese Idee löschen?}}",
+    "deletePostText": "Sie verschwindet aus Listen und Suche und ist für niemanden mehr sichtbar. Das lässt sich nicht rückgängig machen.",
+    "deletePostTextTeam": "Sie verschwindet aus Listen, Suche, MCP und Webhooks. Das Team kann sie später auf ihrer Seite wiederherstellen.",
+    "deletedToast": "Gelöscht",
+    "deleteCommentTitle": "Kommentar löschen?",
+    "deleteCommentText": "An seiner Stelle bleibt nur ein Hinweis, dass er entfernt wurde, damit der Rest der Diskussion verständlich bleibt.",
+    "commentDeleted": "Kommentar entfernt",
+    "blockAuthor": "Verfasser sperren",
+    "unblockAuthor": "Verfasser entsperren",
+    "block": "Sperren",
+    "unblock": "Entsperren",
+    "blocking": "Wird gesperrt …",
+    "blockTitle": "Diese Person sperren?",
+    "blockText": "{name} kann das Board weiterhin lesen, aber keine Ideen vorschlagen, keine Fehler melden, nicht abstimmen und nicht kommentieren. Bestehende Beiträge bleiben erhalten. Sie können die Sperre jederzeit aufheben.",
+    "blockedToast": "{name} ist gesperrt",
+    "unblocked": "{name} kann wieder mitwirken",
+    "blockedBadge": "gesperrt",
+    "blockedNotice": "Sie können auf diesem Board derzeit keine Beiträge verfassen, nicht abstimmen und nicht kommentieren. Lesen ist weiterhin möglich; falls es sich um einen Irrtum handelt, wenden Sie sich bitte an das Team.",
+    "pendingTitle": "Wartet auf Freigabe.",
+    "pendingAuthor": "Das Team gibt neue Ideen vor der Veröffentlichung frei. Bis dahin sehen nur Sie sie; nach der Freigabe können alle sie sehen und unterstützen.",
+    "pendingAuthorLinks": "Ideen mit Links prüft das Team zuerst. Bis dahin sehen nur Sie sie; nach der Freigabe alle.",
+    "pendingTeam": "In diesem Projekt werden neue Ideen freigegeben. Andere sehen sie erst nach der Freigabe.",
+    "pendingTeamLinks": "Automatisch zurückgehalten: Sie enthält Links, wie es bei Spam oft der Fall ist. Andere sehen sie erst nach der Freigabe.",
+    "approve": "Freigeben und veröffentlichen",
+    "approvedToast": "Idee veröffentlicht",
+    "reject": "Ablehnen",
+    "rejecting": "Wird abgelehnt …",
+    "rejectedToast": "Idee abgelehnt",
+    "rejectTitle": "Idee ablehnen?",
+    "rejectText": "Die Idee wird nicht veröffentlicht. Wir informieren die verfassende Person per E-Mail, und wenn Sie eine Nachricht schreiben, sieht sie diese bei der Idee.",
+    "rejectReason": "Nachricht an die verfassende Person",
+    "rejectPlaceholder": "Z. B. Daran arbeiten wir bereits in Idee #12.",
+    "rejectedTitle": "Das Team hat diese Idee nicht veröffentlicht",
+    "rejectedText": "Die Idee „{title}“ bleibt verborgen. Bei Fragen wenden Sie sich bitte an das Team.",
+    "rejectedReason": "Nachricht vom Team",
+    "deletedTeamTitle": "Gelöscht.",
+    "rejectedTeamTitle": "Abgelehnt.",
+    "deletedMeta": "{who}, {when}. Niemand sonst kann es sehen.",
+    "reasonForAuthor": "Nachricht an die verfassende Person: {reason}",
+    "restore": "Wiederherstellen",
+    "restoring": "Wird wiederhergestellt …",
+    "restoredToast": "Wiederhergestellt",
+    "queue": "Wartet auf Freigabe",
+    "queueEmpty": "Nichts wartet auf Freigabe",
+    "queueEmptyText": "Neue Ideen und Kommentare, die freigegeben werden müssen, erscheinen hier.",
+    "settingTitle": "Das Team gibt neue Ideen frei",
+    "settingText": "Ideen von Personen außerhalb des Teams werden für andere erst nach der Freigabe sichtbar. Ideen mit mehreren Links werden immer zurückgehalten. Fehlermeldungen sind privat und benötigen nie eine Freigabe.",
+    "commentPendingAuthor": "Kommentare mit mehreren Links prüft das Team zuerst. Bis dahin sehen nur Sie ihn; nach der Freigabe alle.",
+    "commentPendingTeam": "Automatisch zurückgehalten: Er enthält mehrere Links. Andere sehen ihn erst nach der Freigabe.",
+    "approveComment": "Freigeben und veröffentlichen",
+    "commentApprovedToast": "Kommentar veröffentlicht",
+    "rejectCommentTitle": "Diesen Kommentar ablehnen?",
+    "rejectCommentText": "Der Kommentar wird nicht veröffentlicht und verschwindet aus der Diskussion. Bei Bedarf können Sie die verfassende Person über das Kommentarmenü sperren."
+  },
+  "docs": {
+    "navLabel": "Entwicklerdokumentation",
+    "home": "Ozvi – Startseite",
+    "api": "REST-API",
+    "webhooks": "Webhooks",
+    "automation": "Automatisierung",
+    "toc": "Auf dieser Seite",
+    "englishNote": "Die Entwicklerdokumentation ist wie die API auf Englisch."
+  },
+  "export": {
+    "teamOnly": "Der Export ist nur für das Team verfügbar.",
+    "yes": "ja",
+    "file": {
+      "ideas": "ideen",
+      "bugs": "fehler",
+      "comments_idea": "ideen-kommentare",
+      "comments_bug": "fehler-kommentare",
+      "voters_idea": "abstimmende",
+      "voters_bug": "fehler-abstimmende"
+    },
+    "col": {
+      "number": "Nummer",
+      "title": "Titel",
+      "body": "Beschreibung",
+      "stage": "Status",
+      "subStatus": "Unterstatus",
+      "statusKey": "Statuscode",
+      "voters": "Abstimmende",
+      "weighted": "Stimmgewicht",
+      "fixedIn": "Behoben in Version",
+      "comments": "Kommentare",
+      "tags": "Tags",
+      "author": "Verfasser",
+      "authorEmail": "E-Mail des Verfassers",
+      "company": "Unternehmen",
+      "plan": "Tarif",
+      "mrr": "MRR",
+      "currency": "Währung",
+      "companies": "Anfragende Unternehmen",
+      "demandMrr": "MRR der Anfragenden",
+      "pending": "Wartet auf Freigabe",
+      "created": "Erstellt (UTC)",
+      "updated": "Aktualisiert (UTC)",
+      "url": "Link",
+      "itemTitle": "Beitrag",
+      "comment": "Kommentar",
+      "internal": "Interne Notiz",
+      "voter": "Abstimmende Person",
+      "voterEmail": "E-Mail",
+      "weight": "Gewicht",
+      "votedAt": "Abgestimmt (UTC)"
+    },
+    "menu": {
+      "button": "Exportieren",
+      "filtered": "Mit den aktuellen Filtern",
+      "all": "Alles",
+      "ideas": "Ideen (CSV)",
+      "bugs": "Fehler (CSV)",
+      "comments": "Kommentare (CSV)",
+      "voters": "Abstimmende (CSV)",
+      "separator": "Trennzeichen",
+      "semicolon": "Semikolon ;",
+      "semicolonHint": "Excel auf Deutsch, Slowakisch, Tschechisch und in den meisten europäischen Sprachen",
+      "comma": "Komma ,",
+      "commaHint": "Excel auf Englisch, Google Sheets, Numbers"
+    }
+  },
+  "import": {
+    "tabs": {
+      "csv": "CSV-Datei",
+      "canny": "Canny",
+      "fider": "Fider"
+    },
+    "csv": {
+      "file": "CSV-Datei",
+      "choose": "Datei auswählen …",
+      "fileHint": "UTF-8 oder Windows-1250; das Trennzeichen ; oder , erkennen wir automatisch. Bis zu 10 MB und 20.000 Zeilen. Canny-Exporte erkennen wir an ihren Spalten.",
+      "kind": "Importieren als",
+      "ideas": "Ideen",
+      "bugs": "Fehler",
+      "cannyDetected": "Das ist ein Canny-Export: Die Spalten haben wir bereits für Sie zugeordnet. Er enthält keine Abstimmenden und keine Kommentare; dafür nutzen Sie den Import über die Canny-API.",
+      "mapping": "Welche Spalte ist welche",
+      "notMapped": "– nicht verwenden –",
+      "safe": "Niemand erhält eine E-Mail oder einen Webhook. Ein erneuter Durchlauf dupliziert nie etwas, und der gesamte Import lässt sich rückgängig machen.",
+      "nothingNew": "Nichts Neues zu importieren",
+      "start": "{n, plural, one {# Beitrag importieren} other {# Beiträge importieren}}"
+    },
+    "fields": {
+      "id": "ID im alten System",
+      "title": "Titel",
+      "body": "Beschreibung",
+      "kind": "Typ (Idee/Fehler)",
+      "status": "Status",
+      "authorEmail": "E-Mail des Verfassers",
+      "authorName": "Name des Verfassers",
+      "createdAt": "Erstellungsdatum",
+      "tags": "Tags",
+      "voterEmails": "E-Mails der Abstimmenden",
+      "links": "Bildlinks"
+    },
+    "preview": {
+      "title": "Vorschau (noch nichts gespeichert)",
+      "rows": "{n, plural, one {# Zeile} other {# Zeilen}} in der Datei",
+      "skipped": "{n, plural, one {# bereits importiert, übersprungen} other {# bereits importiert, übersprungen}}",
+      "ideas": "Ideen",
+      "bugs": "Fehler",
+      "people": "Neue Personen",
+      "peopleExisting": "+ {n} bereits auf dem Board",
+      "votes": "Stimmen",
+      "comments": "Kommentare",
+      "tags": "Neue Tags",
+      "tagsExisting": "+ {n} vorhandene",
+      "sample": "Erste Beiträge",
+      "idea": "Idee",
+      "bug": "Fehler",
+      "errors": "{n, plural, one {# Fehler} other {# Fehler}}",
+      "warnings": "{n, plural, one {# Warnung} other {# Warnungen}}",
+      "row": "Zeile",
+      "problem": "Was nicht stimmt",
+      "skipRow": "Zeile übersprungen",
+      "fallback": "mit Ersatzwert importiert",
+      "quoted": "„{v}“",
+      "files": "Anhänge",
+      "renumbered": "{changed, plural, one {# Beitrag erhält eine neue Nummer} other {# Beiträge erhalten neue Nummern}}, weil die ursprüngliche auf diesem Board bereits vergeben ist.{kept, plural, =0 {} one { Der übrige # behält seine Nummer.} other { Die übrigen # behalten ihre.}}"
+    },
+    "issues": {
+      "titleMissing": "Titel fehlt",
+      "titleLong": "Titel ist länger als 200 Zeichen",
+      "statusUnknown": "Unbekannter Status, verwendet wird der erste Schritt",
+      "dateInvalid": "Datum nicht lesbar, verwendet wird das heutige",
+      "emailInvalid": "Ungültige E-Mail-Adresse",
+      "kindUnknown": "Unbekannter Typ, verwendet wird der gewählte",
+      "duplicateId": "Dieselbe ID kommt mehrfach vor",
+      "bodyLong": "Beschreibung zu lang, gekürzt"
+    },
+    "notes": {
+      "cannyCsvNoVoters": "{n, plural, =0 {Der Canny-Export enthält keine Abstimmenden und keine Kommentare.} one {Der Canny-Export enthält keine Abstimmenden: # Stimme wird nicht übernommen. Für Stimmen und Kommentare nutzen Sie den Import über die Canny-API.} other {Der Canny-Export enthält keine Abstimmenden: # Stimmen werden nicht übernommen. Für Stimmen und Kommentare nutzen Sie den Import über die Canny-API.}}"
+    },
+    "canny": {
+      "key": "Geheimer API-Schlüssel von Canny",
+      "connect": "Verbinden",
+      "keyHint": "Sie finden ihn in Canny unter Settings → API. Wir verwenden ihn nur für diesen Import und speichern ihn nie.",
+      "boards": "Canny-Boards",
+      "posts": "{n, plural, one {# Beitrag} other {# Beiträge}}",
+      "destination": "Wohin Board {board} importiert wird",
+      "toIdeas": "Ideen",
+      "toBugs": "Fehler (privat)",
+      "skip": "Überspringen",
+      "mappingHint": "Status werden zu Schritten im Ablauf (Under review → Vorgeschlagen, Complete → Umgesetzt, Closed → Abgelehnt); eigene Status werden zu gleichnamigen Unterstatus. Die Priorität der Stimmen (Must have …) wird zur Wichtigkeit, sofern das Board sie nutzt. Interne Kommentare bleiben intern.",
+      "start": "{n, plural, one {# Board importieren} other {# Boards importieren}}"
+    },
+    "fider": {
+      "text": "Wir übernehmen Ideen, Fehler, Stimmen, Kommentare, Tags, Personen und Anhänge. Beitragsnummern bleiben gleich, sofern sie auf dem Board frei sind, damit alte Links weiter funktionieren.",
+      "hint": "Auf dem Server erledigt pnpm --filter @ozvi/web import:fider dasselbe (Anleitung in docs/MIGRACIA-Z-FIDERU.md).",
+      "source": "Importieren aus",
+      "backupTitle": "Fider-Backup",
+      "backupText": "die Datei backup.zip mit allem, einschließlich E-Mail-Adressen und Anhängen.",
+      "apiTitle": "Fider-API",
+      "apiText": "direkt aus Ihrem laufenden Fider mit dem Schlüssel eines Administrators.",
+      "file": "Backup (backup.zip)",
+      "choose": "backup.zip auswählen …",
+      "fileHint": "In Fider: Administration → Export → Backup. Bis zu 25 MB. Wir behalten die Datei nicht; sie wird nach dem Import verworfen.",
+      "url": "Fider-Adresse",
+      "key": "API-Schlüssel eines Administrators",
+      "connect": "Verbinden und laden",
+      "keyHint": "In Fider: My settings → API key. Wird nur für diesen Import verwendet und nie gespeichert.",
+      "loadingApi": "Beiträge, Kommentare und Stimmen werden aus Fider geladen …",
+      "loadingBackup": "Backup wird gelesen …",
+      "found": "{name}: {n, plural, one {# Beitrag} other {# Beiträge}}",
+      "foundNoName": "Fider enthält {n, plural, one {# Beitrag} other {# Beiträge}}",
+      "bugTag": "Tag, der Fehler kennzeichnet",
+      "noBugTag": "– keiner, alles ist eine Idee –",
+      "tagOption": "{name} ({n})",
+      "bugTagHint": "Beiträge mit diesem Tag werden zu privaten Fehlermeldungen, ohne Stimmen.",
+      "provider": "Anmeldung aus Ihrer App",
+      "noProvider": "– nicht verknüpfen, nur per E-Mail zuordnen –",
+      "providerOption": "{name} ({n, plural, one {# Person} other {# Personen}})",
+      "providerHint": "Personen behalten ihre Identität aus Ihrer App: Ihre erste SSO-Anmeldung landet bei derselben Person, samt Stimmen.",
+      "providerNone": "Fider hat keine Anmeldeidentitäten übermittelt, daher werden Personen per E-Mail zugeordnet.",
+      "people": "Personen: {app} mit ihrer App-Identität, {email} per E-Mail, {other} ohne E-Mail-Adresse.",
+      "tags": "Tags (Sichtbarkeit wie in Fider)",
+      "public": "öffentlich",
+      "teamOnly": "nur für das Team",
+      "posts": "{n, plural, one {# Beitrag in Fider} other {# Beiträge in Fider}}"
+    },
+    "started": "Der Import läuft. Den Fortschritt sehen Sie unten.",
+    "starting": "Wird gestartet …",
+    "status": {
+      "queued": "In der Warteschlange",
+      "running": "Läuft",
+      "done": "Fertig",
+      "failed": "Fehlgeschlagen",
+      "undone": "Rückgängig gemacht"
+    },
+    "source": {
+      "canny": "Canny",
+      "csv": "CSV",
+      "fider": "Fider"
+    },
+    "progress": {
+      "queued": "Wartet auf den Start …",
+      "fetch": "{n, plural, one {Download aus Canny: # Datensatz} other {Download aus Canny: # Datensätze}}",
+      "write": "{done} von {total} gespeichert",
+      "fetchFider": "{n, plural, one {Download aus Fider: # Datensatz} other {Download aus Fider: # Datensätze}}"
+    },
+    "summary": "{items, plural, one {# Beitrag} other {# Beiträge}}, {votes, plural, one {# Stimme} other {# Stimmen}}, {comments, plural, one {# Kommentar} other {# Kommentare}}, {users, plural, one {# neue Person} other {# neue Personen}}",
+    "runErrors": {
+      "restart": "Der Server wurde zwischenzeitlich neu gestartet, und der Canny-Schlüssel wird nicht aufbewahrt. Starten Sie den Import erneut; nichts wird dupliziert.",
+      "cannyKey": "Canny hat den Schlüssel abgelehnt. Prüfen Sie, ob es der geheime API-Schlüssel ist.",
+      "cannyNetwork": "Canny ist nicht erreichbar. Versuchen Sie es gleich noch einmal.",
+      "failed": "Der Import ist fehlgeschlagen. Sie können das Gespeicherte rückgängig machen oder den Import erneut ausführen.",
+      "fiderRestart": "Der Server wurde zwischenzeitlich neu gestartet, und weder das Backup noch der Schlüssel werden aufbewahrt. Laden Sie Fider erneut und starten Sie den Import; nichts wird dupliziert.",
+      "fiderKey": "Fider hat den Schlüssel abgelehnt. Verwenden Sie den API-Schlüssel eines Administrators.",
+      "fiderNetwork": "Fider ist nicht erreichbar. Versuchen Sie es gleich noch einmal.",
+      "fiderApi": "Fider hat einen Fehler zurückgegeben. Sie können das Gespeicherte rückgängig machen oder den Import erneut starten.",
+      "fiderBackup": "Wir konnten das Backup nicht lesen.",
+      "fiderUrl": "Fider hat auf eine andere Adresse umgeleitet."
+    },
+    "undo": "Rückgängig machen",
+    "undoTitle": "Diesen Import rückgängig machen?",
+    "undoText": "Wir löschen alles, was dieser Import angelegt hat: Beiträge (einschließlich allem, was seitdem hinzugefügt wurde), Kommentare, Stimmen, neue Tags und Personen, die sonst nichts auf dem Board haben. Das lässt sich nicht umkehren.",
+    "undoConfirm": "Importierte Daten löschen",
+    "undoing": "Wird gelöscht …",
+    "undone": "{items, plural, =0 {Import rückgängig gemacht.} one {Import rückgängig gemacht, # Beitrag gelöscht.} other {Import rückgängig gemacht, # Beiträge gelöscht.}}",
+    "errors": {
+      "adminOnly": "Nur ein Admin kann Importe ausführen.",
+      "noFile": "Wählen Sie eine CSV-Datei.",
+      "tooBig": "Die Datei ist größer als 10 MB. Teilen Sie sie in kleinere auf.",
+      "tooManyRows": "Die Datei hat mehr als 20.000 Zeilen. Teilen Sie sie in kleinere auf.",
+      "notText": "Das sieht nicht nach CSV aus. Speichern Sie die Tabelle als CSV (UTF-8).",
+      "empty": "Die Datei ist leer.",
+      "mapTitle": "Wählen Sie die Spalte mit dem Titel des Beitrags.",
+      "nothing": "Die Datei enthält nichts zum Importieren.",
+      "cannyKey": "Canny hat diesen Schlüssel nicht akzeptiert. Verwenden Sie den geheimen API-Schlüssel (Settings → API).",
+      "cannyNetwork": "Canny ist nicht erreichbar. Versuchen Sie es gleich noch einmal.",
+      "cannyApi": "Canny hat einen Fehler zurückgegeben. Versuchen Sie es später erneut.",
+      "cannyNoBoards": "Wählen Sie mindestens ein Board.",
+      "cannotUndo": "Dieser Import kann nicht rückgängig gemacht werden (er läuft noch oder wurde bereits rückgängig gemacht).",
+      "fiderKey": "Fider hat diesen Schlüssel nicht akzeptiert. Verwenden Sie den API-Schlüssel eines Administrators (My settings → API key).",
+      "fiderNetwork": "Fider ist unter dieser Adresse nicht erreichbar. Prüfen Sie die Adresse und versuchen Sie es erneut.",
+      "fiderApi": "Fider hat einen Fehler zurückgegeben, oder es handelt sich nicht um Fider. Prüfen Sie die Adresse.",
+      "fiderBackup": "Das sieht nicht nach einem Fider-Backup aus. Laden Sie backup.zip unter Administration → Export herunter.",
+      "fiderUrl": "Geben Sie die genaue Fider-Adresse inklusive https:// ein, ohne Weiterleitungen.",
+      "noBackup": "Wählen Sie die Datei backup.zip.",
+      "backupTooBig": "Das Backup ist größer als 25 MB. Nutzen Sie den Import über die API oder den Befehl auf dem Server.",
+      "fiderEmpty": "In Fider gibt es keine Beiträge.",
+      "fiderExpired": "Die geladenen Daten sind abgelaufen. Laden Sie Fider erneut."
+    }
+  },
+  "a11y": {
+    "skip": "Zum Inhalt springen",
+    "link": "Barrierefreiheit",
+    "page": {
+      "meta": "Erklärung zur Barrierefreiheit – Ozvi",
+      "title": "Erklärung zur Barrierefreiheit",
+      "lede": "Ozvi soll für alle nutzbar sein: nur mit der Tastatur, mit einem Screenreader, vergrößert oder ohne Farben unterscheiden zu können. Hier steht ehrlich, was funktioniert und was noch nicht.",
+      "statusTitle": "Stand der Vereinbarkeit",
+      "status": "Ozvi ist teilweise mit WCAG 2.2 Stufe AA vereinbar und damit mit den Anforderungen an Webinhalte der EN 301 549 v4.1.1. Was noch nicht konform ist, finden Sie unten.",
+      "scopeTitle": "Geltungsbereich dieser Erklärung",
+      "scope": [
+        "öffentliche Boards: Ideen, Roadmap, Neuigkeiten, Fehlermeldungen, Detailansicht, Idee vorschlagen, Anmeldung, meine Daten, API-Tokens und Projekteinstellungen",
+        "das Widget für Fehlermeldungen, das Sie in Ihre App einbetten",
+        "die Konsole unter /app, die Ozvi-Startseite und die rechtlichen Seiten"
+      ],
+      "themeNote": "Farben, Schrift und Logo eines Boards legt dessen Betreiber fest. Würden die gewählten Farben Text mit einem Kontrast unter 4,5:1 ergeben, passt das Board sie bei der Anzeige an, damit der Text lesbar bleibt.",
+      "testedTitle": "Wie wir geprüft haben",
+      "tested": "Automatisch mit axe-core 4.10 in Chrome auf jeder Ansicht, im hellen und dunklen Modus, auf Desktop und Mobilgeräten, sowie manuell: nur mit Tastatur, bei 320 px Breite und 400 % Zoom, mit reduzierter Bewegung und mit Kontrastprüfungen. Zuletzt geprüft: {date}.",
+      "limitsTitle": "Was noch nicht stimmt",
+      "limits": [
+        "Wir haben Ozvi noch nicht mit Personen getestet, die Screenreader im Alltag nutzen (VoiceOver, NVDA, JAWS); wir stützen uns auf automatisierte Tests und Code-Reviews.",
+        "Das Beispiel-Board auf der Startseite ist eine vereinfachte Darstellung: Einige Felder haben statt einer sichtbaren Beschriftung nur einen Platzhaltertext.",
+        "Inhalte, die Personen selbst verfassen (Ideentexte, Kommentare, angehängte Bilder), können wir nicht für sie korrigieren: Bilder haben keinen Alternativtext, und breite Codeblöcke lassen sich nur mit Maus oder Touch scrollen.",
+        "Der Screenshot, den das Widget an eine Meldung anhängt, ist ein Bild des Bildschirms; ein Screenreader kann seinen Inhalt nicht vorlesen."
+      ],
+      "feedbackTitle": "Auf eine Barriere gestoßen?",
+      "feedback": "Schreiben Sie uns an {email}. Wir antworten innerhalb von 5 Werktagen und stellen Ihnen die Inhalte nach Möglichkeit in anderer Form bereit.",
+      "feedbackSelf": "Dieses Board läuft auf einer eigenen Ozvi-Installation. Bitte wenden Sie sich an die Organisation, die es betreibt.",
+      "reportNote": "Einen ausführlichen Konformitätsbericht je Kriterium (Format VPAT / EN 301 549) erhalten Sie auf Anfrage.",
+      "enforcementTitle": "Wenn Sie mit unserer Antwort nicht zufrieden sind",
+      "enforcement": "Sie können sich an die Marktüberwachungsbehörde Ihres Landes wenden, die die Barrierefreiheit von Produkten und Dienstleistungen überwacht (in der Slowakei nach Gesetz Nr. 351/2022 Slg., in Tschechien nach Gesetz Nr. 424/2023 Slg.).",
+      "updated": "Wir haben diese Erklärung am {date} erstellt und aktualisieren sie bei jeder größeren Änderung."
+    }
+  },
+  "tags": {
+    "title": "Tags",
+    "teamOnly": "nur für das Team",
+    "add": "Tag",
+    "edit": "Tags bearbeiten",
+    "search": "Tags durchsuchen",
+    "noneAdmin": "Noch keine Tags. Legen Sie sie in den Einstellungen an.",
+    "noneTeam": "Noch keine Tags. Ein Board-Admin legt sie an.",
+    "noMatch": "Kein Tag mit diesem Namen.",
+    "manage": "Tags verwalten",
+    "tooMany": "Ein Beitrag kann höchstens {n} Tags haben.",
+    "filter": "Tag",
+    "all": "Alle Tags",
+    "noneForTag": "Nichts mit „{tag}“ getaggt",
+    "noneForTagText": "Wählen Sie einen anderen Tag oder zeigen Sie alles an."
+  },
+  "translate": {
+    "action": "Übersetzen",
+    "working": "Wird übersetzt …",
+    "foreign": "In einer anderen Sprache verfasst",
+    "label": "Mit KI übersetzt",
+    "showOriginal": "Original anzeigen",
+    "showTranslation": "Übersetzung anzeigen",
+    "original": "Original",
+    "model": "Maschinelle Übersetzung, Modell {model}. Sie kann Ungenauigkeiten enthalten.",
+    "errors": {
+      "off": "Die Übersetzung ist auf diesem Board nicht aktiviert.",
+      "unset": "Die Übersetzung ist gerade nicht verfügbar.",
+      "auth": "Die Übersetzung ist gerade nicht verfügbar.",
+      "overloaded": "Der Übersetzungsdienst ist gerade ausgelastet. Versuchen Sie es in einer Minute erneut.",
+      "failed": "Die Übersetzung hat nicht funktioniert. Versuchen Sie es erneut.",
+      "refused": "Dieser Beitrag kann nicht übersetzt werden.",
+      "empty": "Die Übersetzung hat nicht funktioniert. Versuchen Sie es erneut.",
+      "rate": "Zu viele Übersetzungen in dieser Stunde. Versuchen Sie es später erneut.",
+      "cap": "Dieses Board hat das heutige Übersetzungslimit erreicht. Versuchen Sie es morgen erneut.",
+      "tooLong": "Dieser Beitrag ist zu lang für eine Übersetzung."
+    }
+  },
+  "subprocessors": {
+    "meta": "Unterauftragsverarbeiter – Ozvi",
+    "title": "Unterauftragsverarbeiter",
+    "lede": "An wen die Ozvi-Cloud personenbezogene Daten übermittelt, wozu, wo sie verarbeitet werden und auf welcher Grundlage sie die EU verlassen. Für Daten auf Boards ist dies die Liste weiterer Auftragsverarbeiter nach Art. 28 DSGVO.",
+    "draftTitle": "Entwurf",
+    "draftText": "Diese Liste wurde noch nicht juristisch geprüft. Mit „Noch zu bestätigen“ markierte Angaben sind nicht verifiziert, daher nennen wir sie nicht.",
+    "pending": "Noch zu bestätigen",
+    "fields": {
+      "purpose": "Zweck",
+      "data": "Daten",
+      "location": "Ort",
+      "transfer": "Übermittlung außerhalb der EU",
+      "when": "Wann"
+    },
+    "listTitle": "Liste",
+    "items": [
+      {
+        "name": "Ozvi-Server (Hetzner)",
+        "entity": "Hetzner Online GmbH, Deutschland – ein vom Ozvi-Betreiber verwalteter dedizierter Server",
+        "purpose": "Betrieb der Anwendung, der Datenbank, gespeicherter Anhänge und Backups.",
+        "data": "Alles, was der Dienst speichert: Konten, Inhalte der Boards, Anhänge, Aufzeichnungen von Fehlermeldungen, die E-Mail-Warteschlange.",
+        "location": "Hetzner-Rechenzentrum in der EU",
+        "transfer": "Keine, die Daten bleiben in der EU.",
+        "when": "Immer",
+        "note": "Backups: auf eine separate Festplatte desselben Servers in der EU sowie eine weitere Kopie auf eigenem Speicher des Betreibers in der Slowakei."
+      },
+      {
+        "name": "Resend",
+        "entity": "Resend, Inc.",
+        "purpose": "Versand von E-Mails: Anmeldecodes, Benachrichtigungen, Zusammenfassungen und Release Notes.",
+        "data": "E-Mail-Adresse der empfangenden Person, Betreff und Inhalt der E-Mail, Metadaten zur Zustellung.",
+        "location": "TODO: Land und Region, in denen Resend E-Mails für unser Konto verarbeitet.",
+        "transfer": "TODO: Übermittlungsmechanismus (z. B. EU-US Data Privacy Framework oder Standardvertragsklauseln) gemäß Vertrag mit Resend.",
+        "when": "Immer; in der Cloud versenden wir die E-Mails."
+      },
+      {
+        "name": "Anthropic",
+        "entity": "Anthropic, PBC",
+        "purpose": "KI-Funktionen: Zusammenfassungen von Feedback, Entwürfe von Release Notes aus einem Release, Übersetzung von Beiträgen. Das Ergebnis ist immer ein Entwurf, den ein Mensch freigibt.",
+        "data": "Der Text von Beiträgen und Kommentaren, den die Aufgabe benötigt. Er wird nicht zum Training von Modellen verwendet.",
+        "location": "TODO: Land der Verarbeitung.",
+        "transfer": "TODO: Übermittlungsmechanismus gemäß den kommerziellen Bedingungen und dem AVV von Anthropic.",
+        "when": "Nur in Projekten mit aktivierten KI-Funktionen."
+      },
+      {
+        "name": "Creem",
+        "entity": "TODO: Firmenname und Sitz von Creem.",
+        "purpose": "Verkauf kostenpflichtiger Tarife als Merchant of Record: Zahlung, Rechnung, MwSt., Erstattungen.",
+        "data": "E-Mail-Adresse und Name des Kontos, Kunden- und Abonnement-IDs. Karten- und Rechnungsdaten geben Sie direkt bei Creem ein; wir sehen sie nie.",
+        "location": "TODO: Land der Verarbeitung.",
+        "transfer": "TODO: Übermittlungsmechanismus, falls Creem außerhalb der EU verarbeitet.",
+        "when": "Nur bei kostenpflichtigen Tarifen. Für Zahlungen ist Creem ein eigenständiger Verantwortlicher, nicht unser Auftragsverarbeiter für Board-Daten."
+      },
+      {
+        "name": "GitHub",
+        "entity": "GitHub, Inc.",
+        "purpose": "Verknüpfung eines Projekts mit einem Repository: Issues aus Ideen oder Fehlern, Status aus Pull Requests und Releases.",
+        "data": "Titel und Beschreibung des Beitrags, App-Version und Browser, ein Link zum Board. Nie Konsolen- oder Netzwerkaufzeichnungen oder Screenshots.",
+        "location": "TODO: Land der Verarbeitung.",
+        "transfer": "TODO: Übermittlungsmechanismus.",
+        "when": "Nur wenn der Kunde es mit seinem eigenen Konto mit einem Projekt verbindet."
+      },
+      {
+        "name": "Linear",
+        "entity": "TODO: Firmenname des Unternehmens.",
+        "purpose": "Verknüpfung eines Projekts mit Linear: Issues aus Beiträgen und Synchronisierung des Status.",
+        "data": "Titel und Beschreibung des Beitrags, App-Version und Browser, ein Link zum Board, Kommentare zu Statusänderungen.",
+        "location": "TODO: Land der Verarbeitung.",
+        "transfer": "TODO: Übermittlungsmechanismus.",
+        "when": "Nur wenn der Kunde es mit seinem eigenen Konto mit einem Projekt verbindet."
+      },
+      {
+        "name": "Jira Cloud",
+        "entity": "Atlassian",
+        "purpose": "Verknüpfung eines Projekts mit Jira: Issues aus Beiträgen und Synchronisierung des Status.",
+        "data": "Titel und Beschreibung des Beitrags, App-Version und Browser, ein Link zum Board, Kommentare zu Statusänderungen.",
+        "location": "TODO: Land der Verarbeitung (abhängig von den Jira-Cloud-Einstellungen des Kunden).",
+        "transfer": "TODO: Übermittlungsmechanismus.",
+        "when": "Nur wenn der Kunde es mit seinem eigenen Konto mit einem Projekt verbindet."
+      }
+    ],
+    "notTitle": "Was kein Unterauftragsverarbeiter ist",
+    "not": [
+      "Schriften: Wir liefern alle Schriften, auch Google Fonts, von unserem eigenen Server aus. Der Server lädt eine Schriftdatei einmalig herunter, ohne Daten von Besuchern; die Browser der Besucher verbinden sich nie mit Google.",
+      "Webhooks und Chatkanäle (Slack, Microsoft Teams, Discord u. Ä.), die ein Kunde einrichtet: Wir senden Daten in seinem Auftrag an die Adresse, die der Kunde wählt.",
+      "Analyse und Werbung: Wir verwenden keine Analyse- oder Werbetools von Drittanbietern.",
+      "Selbst gehostetes Ozvi: Es läuft beim Betreiber der jeweiligen Installation, und diese Liste gilt dafür nicht."
+    ],
+    "changesTitle": "Änderungen an dieser Liste",
+    "changes": "Bevor wir einen Unterauftragsverarbeiter hinzufügen oder ersetzen, informieren wir Cloud-Kunden vorab per E-Mail, damit sie widersprechen können. Der Auftragsverarbeitungsvertrag ist in der <link>Datenschutzerklärung</link> beschrieben.",
+    "contact": "Fragen zu Unterauftragsverarbeitern senden Sie bitte an {email}.",
+    "updated": "Liste zuletzt geändert: {date}",
+    "link": "Unterauftragsverarbeiter"
+  },
+  "privacyKit": {
+    "title": "Feedback zu {name} (Ozvi)",
+    "sections": {
+      "purpose": "Zweck und Rechtsgrundlage",
+      "data": "Welche Daten wir verarbeiten",
+      "recipients": "Wer die Daten verarbeitet",
+      "retention": "Wie lange wir die Daten speichern",
+      "rights": "Ihre Rechte",
+      "storage": "Cookies und Browserspeicher"
+    },
+    "purpose": {
+      "intro": "Für Feedback zu {name} nutzen wir den Dienst Ozvi: Sie können einen Fehler melden, eine Idee vorschlagen, abstimmen und kommentieren, und wir informieren Sie, wenn sich etwas ändert, an dem Sie beteiligt waren.",
+      "bugs": "Fehlermeldungen: Erfüllung des Vertrags, auf dessen Grundlage Sie unseren Dienst nutzen (Art. 6 Abs. 1 lit. b DSGVO).",
+      "ideas": "Ideen, Stimmen, Kommentare und E-Mail-Benachrichtigungen: unser berechtigtes Interesse, {name} nach den Bedürfnissen unserer Nutzer zu verbessern (Art. 6 Abs. 1 lit. f DSGVO).",
+      "review": "[Vorgeschlagene Rechtsgrundlage: vor der Veröffentlichung mit Ihrer eigenen Verarbeitung abgleichen und diesen Hinweis entfernen.]",
+      "ai": "Einige Funktionen nutzen künstliche Intelligenz: {features}. Das Ergebnis ist immer nur ein Entwurf, den eine Person aus unserem Team prüft; wir treffen keine automatisierten Entscheidungen über Sie.",
+      "aiSummaries": "Zusammenfassungen von Diskussionen für unser Team",
+      "aiChangelog": "Entwürfe für Neuigkeiten",
+      "aiTranslate": "maschinelle Übersetzung von Beiträgen auf dem Board (als Übersetzung gekennzeichnet, das Original ist einen Klick entfernt)",
+      "aiTranslateShort": "maschinelle Übersetzung von Beiträgen auf dem Board"
+    },
+    "data": {
+      "intro": "Je nachdem, was Sie nutzen, verarbeiten wir:",
+      "sso": "Ihre Identität aus Ihrem Konto bei {name}: Nutzerkennung, E-Mail-Adresse, Name und Profilbild sowie, falls unsere App sie übergibt, Angaben zu Ihrem Konto (zum Beispiel Tarif oder Firma), die nur unser Team sieht;",
+      "oidc": "Ihre Identität aus unserem Anmeldedienst ({issuer}): Nutzerkennung, E-Mail-Adresse und Name;",
+      "email": "Ihre E-Mail-Adresse und Ihren Namen, wenn Sie sich mit einem einmaligen Code per E-Mail am Board anmelden;",
+      "content": "was Sie uns senden: Fehlermeldungen, Ideen, Kommentare, Stimmen und Anhänge;",
+      "context": "bei einer Fehlermeldung technische Angaben, die uns helfen, das Problem nachzustellen: Seitenadresse, App-Version, Browser, Bildschirmgröße und Sprache;",
+      "contextWith": "bei einer Fehlermeldung technische Angaben, die uns helfen, das Problem nachzustellen: Seitenadresse, App-Version, Browser, Bildschirmgröße und Sprache sowie {captures};",
+      "cap": {
+        "screenshot": "einen Screenshot der Seite (Sie können ihn vor dem Senden entfernen)",
+        "console": "Fehlermeldungen aus der Browserkonsole",
+        "network": "ein Protokoll der letzten Anfragen der App (Adresse, Methode, Status und Dauer, ohne Formularinhalte)",
+        "steps": "Ihre letzten Schritte in der App (besuchte Seiten und Namen geklickter Schaltflächen, nicht was Sie eingegeben haben)",
+        "links": "einen Link zur Aufzeichnung Ihrer Sitzung in unserem Monitoring-Tool"
+      },
+      "mail": "Aufzeichnungen über die E-Mails, die wir Ihnen senden (Zustellstatus), und Ihre Benachrichtigungseinstellungen.",
+      "masking": "Passwörter, Kartennummern, Zugriffstoken und andere sensible Werte werden schon in Ihrem Browser vor dem Senden maskiert und auf dem Server erneut. Fehlermeldungen sehen nur Sie und unser Team.",
+      "optOut": "Vor dem Senden einer Fehlermeldung können Sie das Anfrageprotokoll und die Schritte abwählen."
+    },
+    "recipients": {
+      "cloud": "Den Dienst Ozvi stellt uns {operator} als Auftragsverarbeiter auf Grundlage eines Auftragsverarbeitungsvertrags bereit (Art. 28 DSGVO). Die Daten werden auf Servern in der EU gespeichert (Hetzner, Deutschland).",
+      "operatorPlaceholder": "[Anbieter des Dienstes Ozvi: Firma und Sitz]",
+      "cloudList": "Der Anbieter setzt für unser Board diese weiteren Auftragsverarbeiter ein:",
+      "resend": "Resend, Inc.: Versand von E-Mails (Anmeldecodes, Benachrichtigungen, Neuigkeiten);",
+      "anthropic": "Anthropic, PBC: KI-Funktionen ({task}); erhält nur den für die Aufgabe nötigen Text und verwendet ihn nicht zum Training von Modellen;",
+      "cloudMore": "Aktuelle Liste der Unterauftragsverarbeiter von Ozvi mit Verarbeitungsort und Garantien für Übermittlungen außerhalb der EU: {url}",
+      "self": "Wir betreiben Ozvi auf unserer eigenen Infrastruktur. Die Autoren von Ozvi haben keinen Zugriff auf die Daten und erhalten nichts davon.",
+      "selfList": "Anbieter, die wir dafür einsetzen:",
+      "hosting": "[Hosting-Anbieter, Land]: Server, Datenbank, Anhänge und Sicherungen;",
+      "smtp": "{host} [Name des Anbieters, Land]: Versand von E-Mails (Anmeldecodes, Benachrichtigungen, Neuigkeiten);",
+      "ecomail": "Ecomail [Name des Anbieters, Land]: Versand von E-Mails (Anmeldecodes, Benachrichtigungen, Neuigkeiten);",
+      "s3": "{host} [Name des Anbieters, Land]: Speicherung von Anhängen und Screenshots;",
+      "embeddings": "{host} [Name des Anbieters, Land]: Suche nach ähnlichen Beiträgen (Text der Beiträge);",
+      "aiRemote": "{host} [Name des Anbieters, Land]: KI-Funktionen ({task}); erhält nur den für die Aufgabe nötigen Text;",
+      "aiUnknown": "[KI-Anbieter]",
+      "aiLocal": "Die KI-Funktionen ({task}) laufen mit einem Modell auf unserem eigenen Server; kein Text geht an Dritte.",
+      "toolsIntro": "Unser Team hat diese Tools verbunden; die Daten gehen in unserem Auftrag dorthin:",
+      "github": "GitHub (GitHub, Inc.): Verknüpfung von Beiträgen mit Issues in unseren Entwicklungswerkzeugen: Titel und Beschreibung, App-Version, Browser und ein Link. Niemals das Konsolenprotokoll, das Anfrageprotokoll oder der Screenshot;",
+      "linear": "Linear: Verknüpfung von Beiträgen mit unserem Issue-Tracker: Titel und Beschreibung, App-Version, Browser, ein Link und Statusänderungen;",
+      "jira": "Jira Cloud (Atlassian): Verknüpfung von Beiträgen mit unserem Issue-Tracker: Titel und Beschreibung, App-Version, Browser, ein Link und Statusänderungen;",
+      "webhook": "unsere eigenen, per Webhook angebundenen Systeme: Benachrichtigungen über neue Beiträge und Änderungen{bugs, select, yes {, einschließlich Fehlermeldungen} other {}};",
+      "chat": "{channel}: Benachrichtigungen für unser Team über neue Beiträge und Änderungen (Titel, kurzer Auszug, Name des Autors und ein Link){bugs, select, yes {, einschließlich Fehlermeldungen} other {}};",
+      "channel": {
+        "slack": "Slack",
+        "teams": "Microsoft Teams",
+        "discord": "Discord"
+      },
+      "noTrackingCloud": "Das Feedback-Tool verwendet keine Analyse- oder Werbetools. Schriften liefert Ozvi selbst aus, Ihr Browser verbindet sich daher nicht mit Google oder anderen Dritten.",
+      "noTrackingSelf": "Das Feedback-Tool verwendet keine Analyse- oder Werbetools. Schriften liefert unser Server aus, Ihr Browser verbindet sich daher nicht mit Google oder anderen Dritten."
+    },
+    "retention": {
+      "content": "Beiträge, Kommentare und Stimmen speichern wir, solange wir das Board nutzen oder bis Sie sie oder alle Ihre Daten löschen (siehe Ihre Rechte).",
+      "capture": "Die technischen Angaben zu Fehlermeldungen (Anfrageprotokoll, Schritte, Konsolenfehler, Sitzungslinks und Screenshot) löschen wir {days, plural, one {# Tag} other {# Tage}} nach dem Senden der Meldung.",
+      "captureKeep": "Die technischen Angaben zu Fehlermeldungen speichern wir so lange wie die Meldung selbst.",
+      "files": "Anhänge erledigter Fehlermeldungen löschen wir {days, plural, one {# Tag} other {# Tage}} nach ihrer Erledigung.",
+      "contacts": "Kontakte, die sich nie angemeldet haben (zum Beispiel aus einem früheren Tool importiert), anonymisieren wir nach {months, plural, one {# Monat} other {# Monaten}}.",
+      "end": "Wenn wir den Dienst nicht mehr nutzen, werden die Daten gelöscht."
+    },
+    "rights": {
+      "myData": "Meine Daten",
+      "self": "Auf dem Board können Sie unter „{myData}“ ({url}) alle Ihre Daten herunterladen oder selbst löschen. Beim Löschen werden Ihre Stimmen, Kommentare und Fehlermeldungen samt Anhängen entfernt; Ideen, für die andere gestimmt haben, bleiben ohne Ihren Namen auf dem Board.",
+      "unsubscribe": "E-Mails bestellen Sie über den Link in der Fußzeile jeder E-Mail oder unter „{myData}“ ab.",
+      "other": "Für Auskunft, Berichtigung, Einschränkung, Widerspruch oder andere Anliegen wenden Sie sich an [Kontakt-E-Mail]. Sie haben außerdem das Recht, sich bei einer Aufsichtsbehörde zu beschweren."
+    },
+    "storage": {
+      "intro": "Das Feedback-Widget in unserer App und das Board verwenden nur die folgenden Einträge. Sie sind für die Funktionen nötig, die Sie nutzen; es gibt keine Tracking- oder Werbe-Cookies.",
+      "whereWidget": "Widget in {name}",
+      "whereBoard": "Board ({host})",
+      "whereBoardTeam": "Board ({host}), nur unser Team",
+      "head": {
+        "name": "Name",
+        "where": "Wo",
+        "type": "Typ",
+        "purpose": "Zweck",
+        "duration": "Dauer"
+      },
+      "type": {
+        "local": "localStorage",
+        "cookie": "Cookie",
+        "cookieHttpOnly": "Cookie (HttpOnly)"
+      },
+      "purpose": {
+        "seen": "Merkt sich die neueste Neuigkeit, die Sie gesehen haben, für das Abzeichen „Neu“. Verlässt nie Ihren Browser.",
+        "session": "Hält Sie am Board angemeldet.",
+        "oidc": "Schützt die Anmeldung über {issuer} vor Fälschung.",
+        "locale": "Merkt sich die gewählte Sprache.",
+        "csv": "Merkt sich das Trennzeichen für CSV-Exporte."
+      },
+      "untilCleared": "Bis Sie die Browserdaten löschen",
+      "widgetNote": "Das Widget selbst setzt keine Cookies: Es meldet Sie mit einem kurzlebigen Token aus unserer App an."
+    },
+    "units": {
+      "years": "{n, plural, one {# Jahr} other {# Jahre}}",
+      "days": "{n, plural, one {# Tag} other {# Tage}}",
+      "minutes": "{n, plural, one {# Minute} other {# Minuten}}"
+    }
+  },
+  "releases": {
+    "meta": "Ozvi-Versionen",
+    "title": "Ozvi-Versionen",
+    "lede": "Was jede Version hinzugefügt und behoben hat. Die Cloud auf ozvi.io läuft immer mit der neuesten Version, selbst gehostete Server aktualisiert ihr Betreiber oder der Updater.",
+    "slovakOnly": "Die Versionshinweise schreiben wir auf Slowakisch.",
+    "empty": "Es wurde noch keine Version veröffentlicht.",
+    "breaking": "Grundlegende Änderung",
+    "breakingText": "Lesen Sie vor der Aktualisierung eines selbst gehosteten Servers die vollständigen Hinweise. Der Updater installiert diese Version nicht automatisch."
+  }
+}

@@ -1,0 +1,6 @@
+﻿"Post Title","Post Detail","Score (Total Votes)","Comment Count","Date created","Image URLs","Post Status","Post URL","Tags","Post Author","Category","Owner","Associated MRR"
+"Dark mode","Please add a dark theme.",3,2,"2024-03-01 10:00:00","https://canny-assets.io/img/1.png","planned","https://acme.canny.io/feature-requests/p/dark-mode","UI, Theme","ana@acme.io","","","49"
+"Export to Excel","Line one
+line two, with comma",1,0,"2024-04-02 08:30:00","","complete","https://acme.canny.io/feature-requests/p/export-to-excel","","Bob","","",""
+"","no title here",0,0,"","","open","https://acme.canny.io/feature-requests/p/empty","","","","",""
+"=HYPERLINK(""http://evil"")","formula title",0,0,"yesterday","","weird status","https://acme.canny.io/feature-requests/p/formula","","","","",""

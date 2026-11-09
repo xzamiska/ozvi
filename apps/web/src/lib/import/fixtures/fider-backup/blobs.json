@@ -1,0 +1,18 @@
+[
+ {
+  "id": 1,
+  "key": "attachments/abc-screen.png",
+  "tenant_id": 1,
+  "size": 8,
+  "content_type": "image/png",
+  "file": "\\x89504e470d0a1a0a"
+ },
+ {
+  "id": 2,
+  "key": "attachments/def-log.txt",
+  "tenant_id": 1,
+  "size": 11,
+  "content_type": "text/plain",
+  "file": "\\x636f6e736f6c65206c6f67"
+ }
+]

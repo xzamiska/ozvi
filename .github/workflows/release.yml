@@ -1,0 +1,74 @@
+# Release: push a tag vX.Y.Z (docs/RELEASING.md). Needs apps/web/releases/X.Y.Z.md.
+# Builds ozvi and ozvi-updater for amd64 + arm64, pushes them to the private ghcr.io registry
+# (tags X.Y.Z, X.Y, X, latest; pre-releases X.Y.Z-rc.N only get their own tag) and creates the GitHub Release.
+name: Release
+on:
+  push:
+    tags: ["v*.*.*"]
+permissions:
+  contents: write
+  packages: write
+concurrency:
+  group: release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - name: Version and notes
+        id: v
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.]+)?$' || { echo "::error::tag $GITHUB_REF_NAME is not vX.Y.Z"; exit 1; }
+          NOTES="apps/web/releases/$VERSION.md"
+          case "$VERSION" in
+            *-*) PRE=true ;;
+            *) PRE=false; [ -f "$NOTES" ] || { echo "::error::missing $NOTES (release notes are required, see apps/web/releases/README.md)"; exit 1; } ;;
+          esac
+          MAJOR="${VERSION%%.*}"; REST="${VERSION#*.}"; MINOR="${REST%%.*}"
+          IMG="ghcr.io/${GITHUB_REPOSITORY,,}"
+          tags() { # $1 = image
+            if [ "$PRE" = true ]; then echo "$1:$VERSION"; else printf '%s\n' "$1:$VERSION" "$1:$MAJOR.$MINOR" "$1:$MAJOR" "$1:latest"; fi | paste -sd, -
+          }
+          { echo "version=$VERSION"; echo "pre=$PRE"; echo "notes=$NOTES"
+            echo "web_tags=$(tags "$IMG")"; echo "updater_tags=$(tags "$IMG-updater")"; } >> "$GITHUB_OUTPUT"
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push ozvi
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.v.outputs.web_tags }}
+          build-args: OZVI_VERSION=${{ steps.v.outputs.version }}
+          cache-from: type=gha,scope=ozvi
+          cache-to: type=gha,mode=max,scope=ozvi
+      - name: Build and push ozvi-updater
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: apps/updater/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.v.outputs.updater_tags }}
+          build-args: OZVI_VERSION=${{ steps.v.outputs.version }}
+          cache-from: type=gha,scope=updater
+          cache-to: type=gha,mode=max,scope=updater
+      - name: GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ steps.v.outputs.pre }}" = true ]; then
+            gh release create "$GITHUB_REF_NAME" --title "Ozvi ${{ steps.v.outputs.version }}" --generate-notes --prerelease
+          else
+            # Body = the public notes without their front matter.
+            awk 'NR==1 && /^---$/ {fm=1; next} fm && /^---$/ {fm=0; next} !fm' "${{ steps.v.outputs.notes }}" > notes.md
+            gh release create "$GITHUB_REF_NAME" --title "Ozvi ${{ steps.v.outputs.version }}" --notes-file notes.md --latest
+          fi

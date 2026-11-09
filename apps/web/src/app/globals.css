@@ -1,0 +1,237 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * Ozvi design system. Every colour, font and radius comes from --oz-* (packages/theme toCss), so a
+ * board looks like its host product. shadcn/ui reads its usual variables (--color-primary, --radius…),
+ * which are mapped onto --oz-* here. Ozvi's own surfaces get the same tokens from the "ozvi" preset.
+ *
+ * Signature of the system: the route ("trasa"). Every bug and idea travels stop by stop; stages have
+ * a fixed shape vocabulary (hollow, dotted, half, filled, double, slashed) so state never depends on
+ * colour alone and survives any host palette.
+ */
+
+/*
+ * Ozvi's own typefaces ship with the app (Geist 1.9, SIL OFL, assets/fonts) — no request ever leaves for a
+ * font CDN. Theme fonts of boards come from the first-party /fonts route (lib/fonts-store.ts).
+ */
+@font-face {
+  font-family: "Geist";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../assets/fonts/Geist-Variable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../assets/fonts/GeistMono-Variable.woff2") format("woff2");
+}
+
+/* Dark mode follows the theme's dark palette (toCss media query); shadcn's dark: classes stay opt-in. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Fallbacks when no theme is injected (layered, so the theme's inline :root always wins). */
+@layer theme {
+  :root {
+    --oz-accent: #5a3fe6;
+    --oz-on-accent: #ffffff;
+    --oz-ink: #0d0c14;
+    --oz-surface: #ffffff;
+    --oz-canvas: #f7f7f9;
+    --oz-border: #e6e5ec;
+    --oz-radius: 8px;
+    --oz-space: 1rem;
+  }
+}
+
+:root, .oz-scope {
+  /* Derived (re-declared on .oz-scope so a nested theme, e.g. the landing showcase, re-derives them) from the host palette. */
+  --oz-muted: color-mix(in oklab, var(--oz-ink) 62%, var(--oz-surface));
+  --oz-subtle: color-mix(in oklab, var(--oz-ink) 45%, var(--oz-surface));
+  --oz-faint: color-mix(in oklab, var(--oz-ink) 5%, var(--oz-surface));
+  --oz-wash: color-mix(in oklab, var(--oz-ink) 3%, var(--oz-canvas));
+  --oz-line: var(--oz-border);
+  --oz-line-strong: color-mix(in oklab, var(--oz-ink) 20%, var(--oz-border));
+  /* Form field outlines (inputs, checkboxes, radios, switches): ~3:1 on the surface (WCAG 1.4.11). */
+  --oz-field-line: color-mix(in oklab, var(--oz-ink) 42%, var(--oz-border));
+  --oz-accent-soft: color-mix(in oklab, var(--oz-accent) 11%, var(--oz-surface));
+  --oz-accent-line: color-mix(in oklab, var(--oz-accent) 35%, var(--oz-border));
+  /* Accent as text on the surface: pulled toward ink so links stay readable on pale host accents. */
+  --oz-accent-text: color-mix(in oklab, var(--oz-accent) 82%, var(--oz-ink));
+
+  /* Route stages. Fixed hues, tempered by the host ink so they sit in any palette. */
+  --oz-st-wait: var(--oz-subtle);
+  --oz-st-ack: color-mix(in oklab, #c27c0e 88%, var(--oz-ink));
+  --oz-st-work: var(--oz-accent);
+  --oz-st-done: color-mix(in oklab, #138a4b 90%, var(--oz-ink));
+  --oz-st-off: var(--oz-subtle);
+  --oz-danger: color-mix(in oklab, #c8322a 92%, var(--oz-ink));
+  --oz-warn: var(--oz-st-ack);
+  --oz-success: var(--oz-st-done);
+
+  --oz-shadow-pop: 0 1px 2px color-mix(in oklab, var(--oz-ink) 8%, transparent), 0 12px 32px -12px color-mix(in oklab, var(--oz-ink) 28%, transparent);
+  --oz-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --oz-frame: 1180px;
+}
+
+@theme inline {
+  --color-background: var(--oz-canvas);
+  --color-foreground: var(--oz-ink);
+  --color-card: var(--oz-surface);
+  --color-card-foreground: var(--oz-ink);
+  --color-popover: var(--oz-surface);
+  --color-popover-foreground: var(--oz-ink);
+  --color-primary: var(--oz-accent);
+  --color-primary-foreground: var(--oz-on-accent);
+  --color-secondary: var(--oz-faint);
+  --color-secondary-foreground: var(--oz-ink);
+  --color-muted: var(--oz-faint);
+  --color-muted-foreground: var(--oz-muted);
+  --color-accent: var(--oz-faint);
+  --color-accent-foreground: var(--oz-ink);
+  --color-destructive: var(--oz-danger);
+  --color-border: var(--oz-line);
+  --color-input: var(--oz-field-line);
+  --color-ring: var(--oz-accent);
+
+  --color-surface: var(--oz-surface);
+  --color-canvas: var(--oz-canvas);
+  --color-wash: var(--oz-wash);
+  --color-ink: var(--oz-ink);
+  --color-subtle: var(--oz-subtle);
+  --color-line: var(--oz-line);
+  --color-line-strong: var(--oz-line-strong);
+  --color-brand: var(--oz-accent);
+  --color-brand-soft: var(--oz-accent-soft);
+  --color-brand-line: var(--oz-accent-line);
+  --color-brand-text: var(--oz-accent-text);
+  --color-st-wait: var(--oz-st-wait);
+  --color-st-ack: var(--oz-st-ack);
+  --color-st-work: var(--oz-st-work);
+  --color-st-done: var(--oz-st-done);
+  --color-st-off: var(--oz-st-off);
+  --color-success: var(--oz-success);
+  --color-warn: var(--oz-warn);
+  /* Ozvi's own surfaces only (landing, /app, legal): the wordmark face. Never on a host's board. */
+  --font-brand: "Geist", var(--oz-font-heading, ui-sans-serif, system-ui, sans-serif);
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --font-sans: var(--oz-font-body, ui-sans-serif, system-ui, sans-serif);
+  --font-heading: var(--oz-font-heading, var(--oz-font-body, ui-sans-serif, system-ui, sans-serif));
+
+  --radius-sm: max(3px, calc(var(--oz-radius) * 0.5));
+  --radius-md: max(4px, calc(var(--oz-radius) * 0.75));
+  --radius-lg: var(--oz-radius);
+  --radius-xl: calc(var(--oz-radius) + 4px);
+
+  --shadow-pop: var(--oz-shadow-pop);
+  --ease-out-expo: var(--oz-ease);
+}
+
+@layer base {
+  *, ::after, ::before { border-color: var(--color-border); }
+  /* Nested themes (landing showcase, hero host app): borders must re-resolve against the scope's tokens. */
+  .oz-scope, .oz-scope *, .oz-scope ::after, .oz-scope ::before { border-color: var(--oz-line); }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: var(--oz-line-strong) transparent;
+    /* Focused elements are never hidden under the sticky header (WCAG 2.4.11): header + phone tab row. */
+    scroll-padding-top: 112px;
+  }
+  @media (min-width: 768px) { html { scroll-padding-top: 80px; } }
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 15.5px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    caret-color: var(--oz-accent);
+    accent-color: var(--oz-accent);
+  }
+  ::selection { background: color-mix(in oklab, var(--oz-accent) 22%, transparent); color: var(--oz-ink); }
+  h1, h2, h3, h4 { font-family: var(--font-heading); text-wrap: balance; letter-spacing: -0.012em; }
+  p { text-wrap: pretty; }
+  :focus-visible { outline: 2px solid var(--oz-accent); outline-offset: 2px; }
+  time, [data-num] { font-variant-numeric: tabular-nums; }
+  /* Placeholders are text too (WCAG 1.4.3): muted, not subtle. */
+  input::placeholder, textarea::placeholder { color: var(--oz-muted); }
+  /* Keyboard users jump past the header straight to the page (WCAG 2.4.1). */
+  .oz-skip { position: fixed; z-index: 100; top: 8px; left: 8px; padding: 10px 16px; border-radius: var(--radius-md); background: var(--oz-ink); color: var(--oz-surface); font-weight: 600; font-size: 14px; transform: translateY(-200%); }
+  .oz-skip:focus { transform: none; }
+  main:focus { outline: none; }
+}
+
+@layer components {
+  /* Page frame: identical across every board page, so the header never jumps. */
+  .oz-frame { width: 100%; max-width: var(--oz-frame); margin-inline: auto; padding-inline: 16px; }
+  @media (min-width: 768px) { .oz-frame { padding-inline: 28px; } }
+
+  /* Long-form text: a fixed reading measure. */
+  .oz-prose { max-width: 68ch; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.65; }
+
+  /* Markdown from people (lib/markdown.ts): quiet, compact, readable inside cards and comments. */
+  .oz-md { white-space: normal; }
+  .oz-md :where(p, li, blockquote, h3, h4) { white-space: pre-wrap; }
+  /* A blank line between paragraphs keeps about the same gap it had as plain text. */
+  .oz-md > * + * { margin-top: 1em; }
+  .oz-md :where(blockquote, li) > * + * { margin-top: 0.6em; }
+  .oz-md :where(h3, h4) { font-weight: 700; line-height: 1.3; margin-top: 1.25em; }
+  .oz-md > :where(h3, h4):first-child { margin-top: 0; }
+  .oz-md h3 { font-size: 1.15em; }
+  .oz-md h4 { font-size: 1.02em; }
+  .oz-md :where(ul, ol) { padding-left: 1.4em; }
+  .oz-md ul { list-style: disc; }
+  .oz-md ol { list-style: decimal; }
+  .oz-md :where(ul, ol) :where(ul, ol) { margin-top: 0.25em; }
+  .oz-md li + li { margin-top: 0.25em; }
+  .oz-md li::marker { color: var(--oz-subtle); }
+  .oz-md blockquote { border-left: 3px solid var(--oz-line-strong); padding-left: 0.9em; color: var(--oz-muted); }
+  .oz-md a { color: var(--oz-accent-text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  .oz-md a:hover { text-decoration-thickness: 2px; }
+  .oz-md :not(pre) > code { font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.88em; padding: 0.1em 0.35em; border-radius: 4px; background: var(--oz-wash, var(--color-muted)); border: 1px solid var(--oz-line); overflow-wrap: anywhere; }
+  .oz-md pre { font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.85em; line-height: 1.55; padding: 0.75em 0.9em; border-radius: var(--radius-md); background: var(--color-muted); border: 1px solid var(--oz-line); overflow-x: auto; white-space: pre; }
+  .oz-md img { max-width: 100%; height: auto; border-radius: var(--radius-md); border: 1px solid var(--oz-line); }
+  .oz-md strong { font-weight: 650; }
+
+  /* Text links inside content. */
+  .oz-link { color: var(--oz-accent-text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  .oz-link:hover { text-decoration-thickness: 2px; }
+
+  /* Whole-row link: the title's ::after covers the row, other controls sit above it. */
+  .oz-stretch::after { content: ""; position: absolute; inset: 0; }
+
+  kbd { font: 500 0.85em/1 var(--font-sans); padding: 2px 5px; border: 1px solid var(--oz-line); border-bottom-width: 2px; border-radius: 4px; background: var(--oz-surface); }
+}
+
+/* Landing: the route fills once on load (respecting reduced motion). */
+@keyframes oz-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes oz-stop { 0% { transform: scale(0.4); opacity: 0; } 70% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+@keyframes oz-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* The mark's echo: the two arcs answer the ring, once per cycle (Ozvi surfaces only). */
+@keyframes oz-echo { 0%, 55%, 100% { opacity: var(--o, 1); transform: none; } 20% { opacity: 0.15; transform: translateX(-1.5px); } }
+@media (prefers-reduced-motion: no-preference) {
+  /* Once, not forever: nothing moves on its own for longer than 5 s (WCAG 2.2.2). */
+  .oz-echo .oz-echo-near { animation: oz-echo 2.8s var(--oz-ease) 1; }
+  .oz-echo .oz-echo-far { --o: 0.4; animation: oz-echo 2.8s var(--oz-ease) 0.18s 1; }
+}
+
+/* Landing hero: an accent echo travelling outward from the mark (still with reduced motion). */
+@keyframes oz-hero-wave {
+  0% { transform: scale(1); opacity: 0; }
+  12% { opacity: 0.55; }
+  100% { transform: scale(6.4); opacity: 0; }
+}
+.oz-hero-wave { transform-box: view-box; transform-origin: 50% 50%; opacity: 0; vector-effect: non-scaling-stroke; }
+@media (prefers-reduced-motion: no-preference) {
+  /* Repeats every 7 s; the hero has a pause button (WCAG 2.2.2), hidden when motion is reduced. */
+  .oz-hero-wave { animation: oz-hero-wave 7s cubic-bezier(0.22, 0.61, 0.36, 1) infinite both; }
+  .oz-motion-paused .oz-hero-wave { animation-play-state: paused; }
+}
+@media (prefers-reduced-motion: reduce) { .oz-motion-toggle { display: none !important; } }

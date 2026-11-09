@@ -1,0 +1,47 @@
+[
+ {
+  "id": 1,
+  "name": "Peter Admin",
+  "email": "peter@billiwo.test",
+  "role": 3,
+  "status": 1,
+  "tenant_id": 1,
+  "email_supressed_at": null
+ },
+ {
+  "id": 2,
+  "name": "Mária Zákazníčka",
+  "email": "Maria@Firma.test",
+  "role": 1,
+  "status": 1,
+  "tenant_id": 1,
+  "email_supressed_at": null
+ },
+ {
+  "id": 3,
+  "name": "Ján Bez SSO",
+  "email": "jan@firma.test",
+  "role": 1,
+  "status": 1,
+  "tenant_id": 1,
+  "email_supressed_at": "2024-02-01T00:00:00+00:00"
+ },
+ {
+  "id": 4,
+  "name": "Zmazaný",
+  "email": "x@x.test",
+  "role": 1,
+  "status": 2,
+  "tenant_id": 1,
+  "email_supressed_at": null
+ },
+ {
+  "id": 5,
+  "name": "Kolega",
+  "email": "kolega@billiwo.test",
+  "role": 2,
+  "status": 1,
+  "tenant_id": 1,
+  "email_supressed_at": null
+ }
+]

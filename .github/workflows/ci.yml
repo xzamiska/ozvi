@@ -1,0 +1,44 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    env:
+      DATABASE_URL: postgres://ozvi:ozvi@localhost:5446/ozvi
+      OZVI_MODE: self
+      PUBLIC_URL: http://localhost:3300
+      OZVI_SESSION_SECRET: ci-session-secret-ci-session-secret-0123456789
+      OZVI_SECRET_KEY: ci-secret-key-ci-secret-key-ci-secret-key-0123
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["5446:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-retries 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: package.json
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Database (same roles as docker/initdb)
+        run: |
+          sudo apt-get install -y -qq postgresql-client >/dev/null
+          PGPASSWORD=postgres psql -h localhost -p 5446 -U postgres -v ON_ERROR_STOP=1 -f docker/initdb/01-ozvi.sql
+          pnpm db:migrate
+      - run: pnpm typecheck
+      - run: pnpm test
+      - name: Widget size budget
+        run: pnpm --filter @ozvi/widget build

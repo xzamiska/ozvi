@@ -1,0 +1,10 @@
+{
+  "name": "@ozvi/theme",
+  "version": "0.0.0",
+  "private": true,
+  "license": "FSL-1.1-ALv2",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "typecheck": "tsc -p .", "test": "vitest run" },
+  "dependencies": { "zod": "^4.6.7" }
+}

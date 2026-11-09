@@ -1,0 +1,53 @@
+import { describe, expect, it } from "vitest";
+import { parseNote, releaseFeed } from "./releases";
+import { updaterConfigured, updaterTokenOk } from "./updater";
+import { updaterMail } from "./updater-mail";
+
+const TOKEN = "t".repeat(32);
+
+describe("updater wiring", () => {
+  it("is configured only in self mode with a long token", () => {
+    expect(updaterConfigured({ OZVI_UPDATER_URL: "http://updater:8787", OZVI_UPDATER_TOKEN: TOKEN })).toBe(true);
+    expect(updaterConfigured({ OZVI_UPDATER_URL: "http://updater:8787", OZVI_UPDATER_TOKEN: "short" })).toBe(false);
+    expect(updaterConfigured({ OZVI_UPDATER_URL: "http://updater:8787", OZVI_UPDATER_TOKEN: TOKEN, OZVI_MODE: "cloud" })).toBe(false);
+    expect(updaterConfigured({ OZVI_UPDATER_TOKEN: TOKEN })).toBe(false);
+  });
+  it("checks the callback token exactly", () => {
+    expect(updaterTokenOk(`Bearer ${TOKEN}`, TOKEN)).toBe(true);
+    expect(updaterTokenOk(`Bearer ${TOKEN}x`, TOKEN)).toBe(false);
+    expect(updaterTokenOk(null, TOKEN)).toBe(false);
+    expect(updaterTokenOk(`Bearer ${"x".repeat(10)}`, "x".repeat(10))).toBe(false); // too short to be trusted
+  });
+});
+
+describe("updater e-mails", () => {
+  const ctx = { server: "https://feedback.example.com", settingsUrl: "https://feedback.example.com/app1/admin" };
+  it("explains how a new version gets installed", () => {
+    const auto = updaterMail({ type: "available", from: "1.4.2", to: "1.5.0", reason: "auto", url: "https://ozvi.io/releases#v1-5-0" }, ctx, "sk")!;
+    expect(auto.subject).toBe("Ozvi 1.5.0 je k dispozícii");
+    expect(auto.paragraphs[1]).toMatch(/nočnom okne/);
+    expect(auto.cta?.href).toBe("https://ozvi.io/releases#v1-5-0");
+    const major = updaterMail({ type: "available", from: "1.5.0", to: "2.0.0", reason: "outsideLine" }, ctx, "en")!;
+    expect(major.paragraphs[1]).toMatch(/major change/);
+    expect(major.cta?.href).toBe(ctx.settingsUrl);
+  });
+  it("reports a rollback with the reason, and ignores 'started'", () => {
+    const m = updaterMail({ type: "rolledBack", from: "1.4.2", to: "1.5.0", message: "health\ncheck   timed out" }, ctx, "sk")!;
+    expect(m.subject).toContain("1.5.0");
+    expect(m.paragraphs).toContain("Dôvod: health check timed out");
+    expect(updaterMail({ type: "started" }, ctx, "sk")).toBeNull();
+  });
+});
+
+describe("release notes", () => {
+  it("reads the front matter", () => {
+    expect(parseNote("1.5.0", "---\ndate: 2026-11-20\nbreaking: true\n---\n### Nové\n- x\n"))
+      .toEqual({ version: "1.5.0", date: "2026-11-20", breaking: true, body: "### Nové\n- x" });
+    expect(parseNote("1.5.1", "Len text")).toEqual({ version: "1.5.1", date: null, breaking: false, body: "Len text" });
+  });
+  it("builds the feed the updater and the update check read", () => {
+    const f = releaseFeed([parseNote("1.5.0", "a"), parseNote("1.4.2", "b")], "https://ozvi.io");
+    expect(f.latest).toEqual({ version: "1.5.0", date: undefined, breaking: false, url: "https://ozvi.io/releases#v1-5-0" });
+    expect(f.releases.map((r) => r.version)).toEqual(["1.5.0", "1.4.2"]);
+  });
+});

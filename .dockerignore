@@ -1,0 +1,10 @@
+**/node_modules
+**/.next
+**/dist
+.git
+data
+.env
+.env.*
+!.env.example
+apps/web/public/widget.js
+apps/web/public/widget-shot.js

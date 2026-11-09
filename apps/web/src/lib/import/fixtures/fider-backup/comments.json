@@ -1,0 +1,29 @@
+[
+ {
+  "id": 1,
+  "content": "Aj my by sme to chceli.",
+  "post_id": 1,
+  "user_id": 3,
+  "created_at": "2024-01-20T10:00:00.123456+00:00",
+  "deleted_at": null,
+  "tenant_id": 1
+ },
+ {
+  "id": 2,
+  "content": "Toto je zmazané",
+  "post_id": 1,
+  "user_id": 3,
+  "created_at": "2024-01-21T10:00:00.123456+00:00",
+  "deleted_at": "2024-01-22T10:00:00.123456+00:00",
+  "tenant_id": 1
+ },
+ {
+  "id": 3,
+  "content": "Tu je screenshot",
+  "post_id": 3,
+  "user_id": 2,
+  "created_at": "2024-01-23T10:00:00.123456+00:00",
+  "deleted_at": null,
+  "tenant_id": 1
+ }
+]

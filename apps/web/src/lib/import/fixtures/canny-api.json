@@ -1,0 +1,54 @@
+{
+  "boards": [
+    { "id": "b-feat", "name": "Feature Requests", "postCount": 3, "isPrivate": false },
+    { "id": "b-bugs", "name": "Bug Reports", "postCount": 1, "isPrivate": true },
+    { "id": "b-int", "name": "Internal", "postCount": 1, "isPrivate": true }
+  ],
+  "posts": [
+    {
+      "id": "p1", "title": "Dark mode", "details": "Please add a dark theme.", "status": "planned", "score": 3,
+      "created": "2024-03-01T10:00:00.000Z", "url": "https://acme.canny.io/feature-requests/p/dark-mode",
+      "author": { "id": "u1", "email": "Ana@Acme.io", "name": "Ana", "userID": "app-41", "companies": [{ "id": "c1", "name": "Acme", "monthlySpend": 49 }] },
+      "board": { "id": "b-feat", "name": "Feature Requests" },
+      "tags": [{ "id": "t1", "name": "UI" }, { "id": "t2", "name": "Theme" }],
+      "imageURLs": ["https://canny-assets.io/img/1.png"]
+    },
+    {
+      "id": "p2", "title": "Export to Excel", "details": "", "status": "complete", "score": 1,
+      "created": "2024-04-02T08:30:00.000Z", "url": "https://acme.canny.io/feature-requests/p/export-to-excel",
+      "author": { "id": "u2", "email": "bob@beta.sk", "name": "Bob" },
+      "board": { "id": "b-feat", "name": "Feature Requests" }, "tags": []
+    },
+    {
+      "id": "p3", "title": "Zapier", "details": "Zap it", "status": "Beta testing", "score": 0,
+      "created": "2024-05-05T12:00:00.000Z", "url": "https://acme.canny.io/feature-requests/p/zapier",
+      "author": { "id": "u3", "name": "No Mail" },
+      "board": { "id": "b-feat", "name": "Feature Requests" }, "tags": [{ "id": "t1", "name": "ui" }]
+    },
+    {
+      "id": "p4", "title": "Login fails on Safari", "details": "Blank page after login", "status": "in progress",
+      "created": "2024-06-01T09:00:00.000Z", "url": "https://acme.canny.io/bug-reports/p/login-fails-on-safari",
+      "author": { "id": "u2", "email": "bob@beta.sk", "name": "Bob" },
+      "board": { "id": "b-bugs", "name": "Bug Reports" }, "tags": []
+    },
+    {
+      "id": "p5", "title": "Secret roadmap", "details": "", "status": "open",
+      "created": "2024-06-02T09:00:00.000Z", "url": "https://acme.canny.io/internal/p/secret",
+      "author": { "id": "u9", "email": "boss@acme.io", "name": "Boss" },
+      "board": { "id": "b-int", "name": "Internal" }, "tags": []
+    }
+  ],
+  "comments": [
+    { "id": "c1", "value": "Yes please!", "author": { "id": "u2", "email": "bob@beta.sk", "name": "Bob" }, "created": "2024-03-02T10:00:00.000Z", "internal": false, "post": { "id": "p1" } },
+    { "id": "c2", "value": "Talk to design first", "author": { "id": "u7", "email": "pm@acme.io", "name": "PM", "isAdmin": true }, "created": "2024-03-03T10:00:00.000Z", "internal": true, "post": { "id": "p1" } },
+    { "id": "c3", "value": "On it", "author": { "id": "u7", "email": "pm@acme.io", "name": "PM" }, "created": "2024-06-02T10:00:00.000Z", "internal": false, "post": { "id": "p4" } },
+    { "id": "c4", "value": "lost", "author": { "id": "u7", "email": "pm@acme.io", "name": "PM" }, "created": "2024-06-02T10:00:00.000Z", "post": { "id": "p5" } }
+  ],
+  "votes": [
+    { "id": "v1", "voter": { "id": "u1", "email": "ana@acme.io", "name": "Ana" }, "created": "2024-03-01T10:00:00.000Z", "post": { "id": "p1" }, "votePriority": "Must have" },
+    { "id": "v2", "voter": { "id": "u2", "email": "bob@beta.sk", "name": "Bob" }, "created": "2024-03-02T10:00:00.000Z", "post": { "id": "p1" }, "votePriority": "Nice to have" },
+    { "id": "v3", "voter": { "id": "u4", "email": "cyril@gamma.cz", "name": "Cyril" }, "created": "2024-03-04T10:00:00.000Z", "post": { "id": "p1" }, "votePriority": "Important" },
+    { "id": "v4", "voter": { "id": "u2", "email": "bob@beta.sk", "name": "Bob" }, "created": "2024-04-02T08:30:00.000Z", "post": { "id": "p2" }, "votePriority": "No priority" },
+    { "id": "v5", "voter": { "id": "u2", "email": "bob@beta.sk", "name": "Bob" }, "created": "2024-06-01T09:00:00.000Z", "post": { "id": "p4" } }
+  ]
+}

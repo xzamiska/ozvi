@@ -1,0 +1,16 @@
+{
+  "name": "@ozvi/sdk",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Sign Ozvi SSO tokens in your backend. MIT so it can live in any host app.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./mask": "./src/mask.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run"
+  }
+}

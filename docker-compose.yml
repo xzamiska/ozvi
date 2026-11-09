@@ -1,0 +1,19 @@
+# Local dev only. Production compose lives in deploy/ (F4).
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports: ["5446:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ozvi -d ozvi"]
+      interval: 2s
+      retries: 20
+  mailpit:
+    image: axllent/mailpit:latest
+    ports: ["8046:8025", "1046:1025"]
+volumes:
+  pgdata:

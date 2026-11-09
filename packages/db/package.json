@@ -1,0 +1,30 @@
+{
+  "name": "@ozvi/db",
+  "version": "0.0.0",
+  "private": true,
+  "license": "FSL-1.1-ALv2",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "generate": "drizzle-kit generate",
+    "migrate": "tsx src/migrate.ts",
+    "test": "vitest run",
+    "seed": "tsx src/seed.ts",
+    "demo:cloud": "tsx src/demo-cloud.ts",
+    "cli": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "1.10.0",
+    "@ozvi/theme": "workspace:*",
+    "drizzle-orm": "^0.45.4",
+    "postgres": "^3.4.9"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.11",
+    "tsx": "^4.23.15"
+  }
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "projects" ADD COLUMN "team_digest_at" timestamp with time zone;

@@ -1,0 +1,26 @@
+[
+ {
+  "id": 1,
+  "tenant_id": 1,
+  "name": "Bug",
+  "slug": "bug",
+  "color": "FF0000",
+  "is_public": true
+ },
+ {
+  "id": 2,
+  "tenant_id": 1,
+  "name": "Export",
+  "slug": "export",
+  "color": "2E7D32",
+  "is_public": true
+ },
+ {
+  "id": 3,
+  "tenant_id": 1,
+  "name": "VIP zákazník",
+  "slug": "vip-zakaznik",
+  "color": "9E9E9E",
+  "is_public": false
+ }
+]

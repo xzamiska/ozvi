@@ -1,0 +1,26 @@
+[
+ {
+  "id": 1,
+  "tenant_id": 1,
+  "post_id": 3,
+  "comment_id": null,
+  "user_id": 2,
+  "attachment_bkey": "attachments/abc-screen.png"
+ },
+ {
+  "id": 2,
+  "tenant_id": 1,
+  "post_id": null,
+  "comment_id": 3,
+  "user_id": 2,
+  "attachment_bkey": "attachments/def-log.txt"
+ },
+ {
+  "id": 3,
+  "tenant_id": 1,
+  "post_id": 1,
+  "comment_id": null,
+  "user_id": 2,
+  "attachment_bkey": "attachments/gone.png"
+ }
+]

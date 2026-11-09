@@ -1,0 +1,3387 @@
+{
+  "account": {
+    "meta": {
+      "console": "Ozvi – konzole",
+      "account": "Ozvi – můj účet"
+    },
+    "layout": {
+      "backToConsole": "Zpět do konzole",
+      "home": "Ozvi – úvod",
+      "backHome": "Zpět na úvod",
+      "legal": "Právní informace",
+      "terms": "Obchodní podmínky",
+      "privacy": "Ochrana soukromí"
+    },
+    "legalNote": "Závazná je slovenská verze tohoto dokumentu.",
+    "account": {
+      "title": "Můj účet",
+      "lede": "Účet slouží ke správě projektů v Ozvi. Uživatelé na boardech se přihlašují přes vaši aplikaci a tento účet nepotřebují.",
+      "errors": {
+        "expired": "Odkaz na změnu e-mailu už neplatí. Požádejte o změnu znovu.",
+        "other": "Odkaz patří jinému účtu. Přihlaste se účtem, který o změnu žádal.",
+        "taken": "Na novou adresu mezitím vznikl jiný účet. Změna se neuložila."
+      },
+      "changedTitle": "E-mail je změněn",
+      "changed": "Od teď se přihlašujete novou adresou.",
+      "profile": "Jméno a e-mail",
+      "language": "Jazyk",
+      "languageLede": "Jazyk konzole na tomto zařízení.",
+      "sessions": "Přihlášení",
+      "sessionsText": "Odhlásí účet na všech zařízeních včetně tohoto. Hodí se, pokud jste se přihlásili na cizím počítači.",
+      "signOutAll": "Odhlásit se všude",
+      "deleteTitle": "Zrušení účtu",
+      "deleteLede": "Nelze vrátit zpět.",
+      "cantDelete": "Účet zatím nemůžete zrušit",
+      "removeList": "Natrvalo smažeme i prostory, ve kterých jste jediný člen, se všemi projekty, nápady, hlášeními a přílohami:",
+      "noProjects": ", bez projektů",
+      "exportHint": "Export každého projektu stáhnete v jeho nastavení (Data projektu).",
+      "nothingRemoved": "Ve všech vašich prostorech jsou i další členové, takže se žádné projekty nesmažou.",
+      "leave": "Z prostorů {list} odejdete, ostatní v nich pokračují."
+    },
+    "forms": {
+      "role": "Role",
+      "roleOf": "Role: {email}",
+      "member": "Člen",
+      "owner": "Vlastník",
+      "keep": "Nechat být",
+      "working": "Pracuji…",
+      "saving": "Ukládám…",
+      "sending": "Odesílám…",
+      "changeRole": "Změnit roli",
+      "email": "E-mail",
+      "invitePlaceholder": "kolega@firma.cz",
+      "roleHint": "Člen spravuje projekty a boardy. Vlastník navíc mění plán a platby a zve další lidi.",
+      "sendInvite": "Poslat pozvánku",
+      "name": "Jméno",
+      "nameHint": "uvidí ho ostatní v prostoru",
+      "saveName": "Uložit jméno",
+      "newEmail": "Nový e-mail",
+      "emailHint": "Teď se přihlašujete adresou <b>{email}</b>. Na novou adresu pošleme odkaz; změna se projeví, až na něj kliknete.",
+      "sendLink": "Poslat potvrzovací odkaz",
+      "confirmDelete": "Pro potvrzení napište svůj e-mail",
+      "deleting": "Ruším účet…",
+      "deleteForever": "Natrvalo zrušit účet"
+    },
+    "invite": {
+      "expiredTitle": "Pozvánka už neplatí",
+      "expiredLede": "Pozvánka platí 7 dní a dá se použít jen jednou. Požádejte toho, kdo vás pozval, o novou.",
+      "myProjects": "Moje projekty",
+      "title": "Pozvánka do prostoru {ws}",
+      "invitesYou": " vás zve",
+      "weInvite": "Zveme vás",
+      "as": " jako ",
+      "roleAs": {
+        "owner": "vlastníka",
+        "member": "člena"
+      },
+      "signInAs": "Přihlásíte se jako ",
+      "created": " — pokud účet ještě nemáte, vytvoříme ho",
+      "other": "Teď jste přihlášeni jako <addr>{current}</addr>. Přijetím se přepnete na <addr>{email}</addr>.",
+      "accept": "Přijmout pozvánku"
+    },
+    "newProject": {
+      "title": "Nový projekt",
+      "welcome": "Vítejte v Ozvi",
+      "lede": "Projekt je jeden board s nápady a hlášeními chyb pro jednu vaši aplikaci. Vzhled doladíte později v nastavení.",
+      "appName": "Název aplikace",
+      "appPlaceholder": "Např. Fakturka",
+      "address": "Adresa boardu",
+      "slugHint": "Malá písmena, číslice a pomlčky.",
+      "boardAt": "Board bude na adrese ",
+      "workspace": "Prostor",
+      "look": "Vzhled",
+      "creating": "Zakládám…",
+      "create": "Založit projekt"
+    },
+    "login": {
+      "cloudTitle": "Přihlaste se do Ozvi",
+      "selfTitle": "Správa Ozvi",
+      "cloudLede": "Pošleme vám přihlašovací kód. Pokud účet ještě nemáte, vytvoříme ho zdarma a bez karty.",
+      "selfLede": "Přístup mají e-maily z OZVI_ADMIN_EMAILS.",
+      "foot": "Pokračováním souhlasíte s <terms>obchodními podmínkami</terms> a berete na vědomí <privacy>zásady ochrany soukromí</privacy>.",
+      "denied": "Tento e-mail nemá přístup. Přihlaste se adresou, která je mezi správci.",
+      "linkExpiredTitle": "Odkaz už neplatí",
+      "linkExpired": "Přihlašovací odkaz platí 15 minut a dá se použít jen jednou. Pošlete si nový kód.",
+      "sendNew": "Poslat nový kód",
+      "signInAs": "Přihlásíte se jako ",
+      "signIn": "Přihlásit se"
+    },
+    "emailLogin": {
+      "expired": "Odkaz už neplatí. Pošlete si nový kód.",
+      "email": "E-mail",
+      "placeholder": "vy@firma.cz",
+      "sendingCode": "Odesílám kód…",
+      "hint": "Pošleme vám 6místný kód a přihlašovací odkaz. Heslo není potřeba.",
+      "sentTo": "Poslali jsme kód na ",
+      "validity": "Kód platí 15 minut. V e-mailu je i odkaz, který přihlásí jedním kliknutím.",
+      "codeLabel": "Kód z e-mailu",
+      "verifying": "Ověřuji…",
+      "signIn": "Přihlásit se",
+      "changeEmail": "Změnit e-mail",
+      "resend": "Poslat kód znovu",
+      "sendCode": "Poslat kód"
+    },
+    "confirmEmail": {
+      "expiredTitle": "Odkaz už neplatí",
+      "expired": "Odkaz na změnu e-mailu platí hodinu a dá se použít jen jednou. O změnu požádejte znovu v nastavení účtu.",
+      "openAccount": "Otevřít Můj účet",
+      "title": "Potvrdit nový e-mail",
+      "now": "Teď",
+      "next": "Od teď",
+      "note": "Po potvrzení se budete přihlašovat jen novou adresou.",
+      "change": "Změnit e-mail"
+    },
+    "server": {
+      "noProjectAccess": "K tomuto projektu nemáte přístup.",
+      "tooManyAttempts": "Příliš mnoho pokusů z této sítě. Zkuste to za hodinu.",
+      "codeSent": "Poslali jsme kód na {email}.",
+      "noSmtpCode": "E-maily nejsou nastavené (SMTP). Kód je v logu serveru.",
+      "noAccess": "Tento e-mail nemá přístup. Na vlastním serveru ho přidejte do OZVI_ADMIN_EMAILS.",
+      "emailLoginOff": "Přihlášení e-mailem není pro tento projekt zapnuté.",
+      "tooManyProjects": "Příliš mnoho nových projektů za hodinu. Zkuste to později.",
+      "nameLength": "Název musí mít 2 až 60 znaků.",
+      "slugInvalid": "Adresa smí obsahovat malá písmena, číslice a pomlčky (2–41 znaků) a nesmí být vyhrazená.",
+      "pickLook": "Vyberte vzhled.",
+      "noWorkspaceAccess": "K tomuto prostoru nemáte přístup.",
+      "slugTaken": "Adresa „{slug}“ je obsazená.",
+      "freeExists": "Bezplatný prostor už máte. Přidejte nový projekt do něj, nebo přejděte na Pro.",
+      "planLimit": "Plán {plan} zahrnuje {projects}. Přejděte na vyšší plán v Plánu a využití.",
+      "ownerOnlyBilling": "Platby může měnit jen vlastník prostoru.",
+      "invalidPlan": "Neplatný plán.",
+      "billingOff": "Platby nejsou nastavené.",
+      "noSubscription": "Pro tento prostor zatím není předplatné.",
+      "simulationOff": "Simulace plateb je vypnutá.",
+      "validEmail": "Zadejte platný e-mail.",
+      "tooManyInvites": "Příliš mnoho pozvánek za hodinu. Zkuste to později.",
+      "inviteSent": "Pozvánka odešla na {email}.",
+      "inviteNoSmtp": "Pozvánka je připravená, ale e-maily nejsou nastavené (SMTP). Odkaz je v logu serveru.",
+      "nameSaved": "Jméno je uložené.",
+      "sameEmail": "Tohle je váš současný e-mail.",
+      "emailTaken": "Na {email} už je jiný účet v Ozvi.",
+      "linkSent": "Poslali jsme odkaz na {email}. E-mail se změní, až na něj kliknete.",
+      "noSmtpLink": "E-maily nejsou nastavené (SMTP). Odkaz je v logu serveru.",
+      "selfHostDelete": "Na vlastním serveru účty spravuje správce (OZVI_ADMIN_EMAILS).",
+      "typeEmail": "Pro potvrzení napište přesně svůj e-mail."
+    },
+    "workspace": {
+      "not_owner": "Tohle může udělat jen vlastník prostoru.",
+      "no_workspace": "Prostor neexistuje.",
+      "already_member": "{email} už v prostoru je.",
+      "too_many_pending": "Prostor má příliš mnoho nevyřízených pozvánek. Zrušte staré a zkuste to znovu.",
+      "invite_expired": "Pozvánka už neplatí. Požádejte o novou.",
+      "last_owner": "Prostor musí mít alespoň jednoho vlastníka. Nejdřív udělejte vlastníkem někoho jiného.",
+      "no_account": "Účet už neexistuje.",
+      "email_taken": "Na {email} už je jiný účet v Ozvi. Zrušte ho, nebo použijte jinou adresu.",
+      "subscription": "Prostor {ws} má aktivní předplatné. Zrušte ho v Plánu a využití (Spravovat předplatné) a potom zrušte účet.",
+      "sole_owner": "V prostoru {ws} jste jediný vlastník. V části Tým udělejte vlastníkem někoho jiného, nebo ostatní členy odeberte."
+    },
+    "billing": {
+      "gateway_down": "Platební brána neodpovídá. Zkuste to za chvíli.",
+      "not_for_sale": "Tento plán zatím nejde koupit.",
+      "no_checkout": "Platební brána nevrátila odkaz na platbu.",
+      "no_portal": "Správa předplatného je teď nedostupná."
+    },
+    "mail": {
+      "inviteSubject": "Pozvánka do prostoru {ws} v Ozvi",
+      "inviteHeading": "Pozvánka do prostoru {ws}",
+      "inviteBodyOwner": "{who} vás zve do Ozvi jako vlastníka prostoru {ws}. Uvidíte jeho projekty a budete je moci spravovat.",
+      "inviteBodyMember": "{who} vás zve do Ozvi jako člena prostoru {ws}. Uvidíte jeho projekty a budete je moci spravovat.",
+      "inviteValidity": "Pozvánka platí 7 dní. Pokud účet v Ozvi ještě nemáte, vytvoří se po přijetí.",
+      "inviteCta": "Přijmout pozvánku",
+      "changedSubject": "E-mail vašeho účtu v Ozvi byl změněn",
+      "changedHeading": "E-mail účtu byl změněn",
+      "changedBody": "Účet v Ozvi se od teď přihlašuje adresou {email}, ne touto.",
+      "changedNotYou": "Pokud jste to nebyli vy, odpovězte na tento e-mail nebo napište podpoře Ozvi."
+    }
+  },
+  "admin": {
+    "gate": {
+      "title": "Nastavení boardu jsou jen pro adminy",
+      "noRole": "Váš účet nemá roli admin. Přidělí vám ji jiný admin tohoto boardu.",
+      "signIn": "Pokud jste admin tohoto boardu, přihlaste se."
+    },
+    "title": "Nastavení boardu",
+    "lede": "Zpětná vazba k aplikaci {name}: vzhled, přihlášení, lidé a propojení. Každá sekce se ukládá samostatně.",
+    "nav": {
+      "start": "Začínáme",
+      "look": "Vzhled",
+      "project": "Projekt",
+      "languages": "Jazyky",
+      "login": "Přihlášení",
+      "loginSub": "SSO z aplikace, OIDC",
+      "domain": "Vlastní doména",
+      "people": "Lidé",
+      "integrations": "Integrace",
+      "integrationsSub": "GitHub, webhooky, MCP",
+      "limits": "E-maily a limity",
+      "data": "Data projektu",
+      "voting": "Hlasování",
+      "import": "Import",
+      "tags": "Štítky",
+      "statuses": "Stavy",
+      "statusesSub": "Názvy, podstavy, bez odpovědi"
+    },
+    "setup": {
+      "text": "Tři kroky a zpětná vazba půjde přímo z vaší aplikace. Vzhled můžete doladit kdykoli.",
+      "done": "Hotovo",
+      "sso": {
+        "title": "Propojte přihlášení",
+        "text": "Zapněte SSO (aplikace podepíše uživatele) nebo OIDC. Do té doby se lidé přihlašují kódem z e-mailu."
+      },
+      "origin": {
+        "title": "Povolte adresu aplikace",
+        "text": "V sekci Projekt zadejte adresu, na které běží vaše aplikace. Jinde widget nepůjde."
+      },
+      "widget": {
+        "title": "Vložte widget do aplikace",
+        "text": "Dva řádky kódu v sekci Přihlášení. Hotovo je, jakmile se přes aplikaci přihlásí první člověk."
+      }
+    },
+    "look": {
+      "text": "Stejné téma platí pro board, widget i e-maily, aby zpětná vazba vypadala jako součást vaší aplikace."
+    },
+    "project": {
+      "text": "Název, kdo vidí nápady, jak se lidé přihlásí a kde smí běžet widget."
+    },
+    "languages": {
+      "text": "V jakém jazyce board a e-maily mluví. Návštěvník dostane svůj jazyk, pokud je zapnutý, jinak výchozí. Příspěvky v jiném jazyce může board přeložit s pomocí AI.",
+      "default": "Výchozí jazyk",
+      "defaultHint": "Pro návštěvníky, jejichž jazyk board nenabízí, a pro e-maily lidem, o jejichž jazyce zatím nevíme.",
+      "enabled": "Nabízené jazyky",
+      "enabledHint": "Při více jazycích se v hlavičce boardu objeví přepínač. Aplikace může jazyk určit v SSO tokenu (locale).",
+      "save": "Uložit jazyky",
+      "saved": "Jazyky jsou uložené.",
+      "invalid": "Vyberte jazyk ze seznamu.",
+      "translation": "Překlad příspěvků",
+      "translationHint": "Nápady, komentáře a novinky napsané v jiném jazyce přeloží AI do jazyka čtenáře. Překlad je vždy označený a originál je na jedno kliknutí. Soukromá hlášení a poznámky týmu se překládají jen těm, kdo je smí vidět.",
+      "translationNoAi": "Překlad potřebuje AI, které tento projekt nemá zapnuté (tarif s AI nebo nastavený poskytovatel AI při vlastním hostingu).",
+      "mode": {
+        "off": "Vypnutý",
+        "offHint": "Příspěvky se zobrazují jen v originále.",
+        "on_demand": "Na vyžádání",
+        "on_demandHint": "U příspěvku v jiném jazyce se zobrazí tlačítko „Přeložit“.",
+        "auto": "Automaticky",
+        "autoHint": "Příspěvky v jiném jazyce se rovnou zobrazí přeložené, s odkazem na originál."
+      }
+    },
+    "login": {
+      "text": "Uživatelé aplikace se do zpětné vazby dostanou bez dalšího hesla: aplikace je podepíše (SSO), nebo je pošle přes vašeho poskytovatele identity (OIDC).",
+      "ssoTitle": "Přihlášení z aplikace (SSO)",
+      "step1": "1. V backendu aplikace podepište uživatele",
+      "step1Pkg": "balíčkem",
+      "step2": "2. Do aplikace vložte widget",
+      "maskA": "Citlivé prvky označte",
+      "maskB": ", na screenshotu budou rozmazané. Vlastní tlačítko:",
+      "maskAnd": "a",
+      "oidcTitle": "Přihlášení přes OIDC",
+      "oidcText": "Pokud má aplikace vlastního poskytovatele identity (Keycloak, Authentik, Auth0…), tlačítko „Přihlásit se“ povede na něj. SSO tokeny z aplikace fungují dál."
+    },
+    "domain": {
+      "text": "Board, widget i odkazy v e-mailech poběží na vaší adrese, např. feedback.vasefirma.cz."
+    },
+    "people": {
+      "textA": "Tým vidí hlášení chyb a mění stavy, admin navíc tato nastavení. Pokud aplikace posílá roli v SSO tokenu (",
+      "textB": "), při dalším přihlášení přepíše tu, kterou nastavíte zde.",
+      "others": "Ostatní uživatelé",
+      "newest": "nejnovějších",
+      "show": "zobrazit",
+      "hide": "skrýt",
+      "since": "od {when}",
+      "note": "„Odhlásit všude“ okamžitě zruší přihlášení i API tokeny. Jakmile se člověk znovu přihlásí přes aplikaci, přístup se vrátí; natrvalo ho odeberete v aplikaci."
+    },
+    "integrations": {
+      "text": "Propojení s GitHubem, upozornění do chatu nebo vlastního backendu a přístup pro AI asistenty.",
+      "githubText": "Propojte hlášení s issues. Když issue zavřete a vydáte release, autor hlášení dostane „opraveno ve verzi X“ a potvrdí, jestli to funguje. Na GitHub jde jen název, popis a verze aplikace, ne konzole ani screenshoty.",
+      "linearText": "Vytvářejte issues v Linearu z nápadů a chyb a mějte zastávky sladěné oběma směry. Do issue jde název a popis s poznámkou, kdo ho napsal, nikdy ne konzole ani screenshoty.",
+      "jiraText": "Totéž pro Jira Cloud: vytvoření nebo propojení issues, mapování stavů workflow na zastávky Ozvi, pokud chcete, i zrcadlení komentářů.",
+      "webhooks": "Webhooky",
+      "webhooksText": "Při každé události pošleme zprávu na zadanou adresu.",
+      "chat": "Zpráva do chatu",
+      "events": "{n} událostí",
+      "allEvents": "všechny události",
+      "withBugs": "i chyby",
+      "last": "naposledy {when}",
+      "nothingYet": "zatím nic neodešlo",
+      "failed": "{n} nedoručených za 7 dní",
+      "mcpTitle": "API tokeny a MCP",
+      "mcpA": "Tokeny pro AI asistenty (MCP na",
+      "mcpB": "). Každý člen týmu si je vytváří sám v",
+      "mcpC": "; zde vidíte všechny aktivní a můžete je zrušit.",
+      "restA": "Stejné tokeny platí i pro REST API na",
+      "restDocs": "Dokumentace API, ověřování webhooků a návody pro n8n, Make a Zapier",
+      "myTokens": "Moje API tokeny",
+      "noTokens": "Zatím nikdo nemá aktivní token.",
+      "lockdownTitle": "Uzamčený režim pro AI asistenty",
+      "lockdownText": "Asistenti přes MCP dostanou text jen od týmu a od lidí s ověřenou identitou (přihlášení přes vaši aplikaci nebo ověřeným e-mailem). Příspěvky od neověřených autorů uvidí bez názvu a textu, takže se jejich pokyny k asistentovi nedostanou. Jednotlivé připojení si může režim zapnout samo hlavičkou X-Ozvi-Lockdown.",
+      "lockdownSave": "Uložit režim",
+      "lockdownSaved": "Uloženo."
+    },
+    "limits": {
+      "text": "Spotřeba tento měsíc podle vašeho tarifu.",
+      "mailOffTitle": "E-maily jsou vypnuté, autoři hlášení se o opravě nedozvědí",
+      "mailOffA": "Nastavte",
+      "mailOffB": "(vlastní SMTP, Resend, Postmark, SES…) nebo",
+      "mailOffC": ", a k tomu",
+      "plan": "Tarif",
+      "sent": "Odeslané e-maily",
+      "deferred": "Čeká na denní souhrn",
+      "attachments": "Přílohy",
+      "unlimited": "bez limitu"
+    },
+    "data": {
+      "text": "Vše, co projekt obsahuje, si můžete kdykoli stáhnout.",
+      "export": "Export projektu",
+      "exportText": "Nápady, hlášení, komentáře, hlasy a nastavení v jednom souboru JSON.",
+      "download": "Stáhnout export",
+      "delete": "Smazat projekt",
+      "deleteText": "Natrvalo smaže board, všechny nápady, hlášení, komentáře, hlasy, přílohy a nastavení. Nejdřív si stáhněte export.",
+      "csv": "Export do tabulky (CSV)",
+      "csvText": "Nápady nebo chyby s hlasy, stavem, autorem a údaji o zákaznících, jejich komentáře a hlasující. Ze seznamu se exportuje to, co právě filtrujete.",
+      "csvIdeas": "Nápady",
+      "csvBugs": "Chyby",
+      "apiA": "Pro automatizaci je tu",
+      "apiLink": "MCP a API tokeny",
+      "apiB": "."
+    },
+    "retention": {
+      "title": "Uchovávání dat",
+      "text": "Jak dlouho projekt drží technické záznamy z hlášení, soubory uzavřených chyb a kontakty, které se nikdy nepřihlásily. Mazání běží automaticky každou noc.",
+      "capture": {
+        "label": "Záznam z hlášení chyby",
+        "hint": "Síťové požadavky, kroky v aplikaci, chyby z konzole, odkazy na relace a snímek obrazovky z widgetu. Adresa stránky, prohlížeč a verze aplikace zůstanou."
+      },
+      "closedFiles": {
+        "label": "Přílohy uzavřených chyb",
+        "hint": "Soubory u chyb, které jsou opravené, ověřené nebo zamítnuté. Počítá se od uzavření."
+      },
+      "contacts": {
+        "label": "Neaktivní kontakty",
+        "hint": "Lidé z importu nebo ze zpětné vazby od agenta, kteří se nikdy nepřihlásili ani sami nic nenapsali. Smažeme jméno, e-mail a údaje o zákazníkovi, jejich hlasy zůstanou anonymně."
+      },
+      "days": "{n, plural, one {# den} few {# dny} other {# dní}}",
+      "months": "{n, plural, one {# měsíc} few {# měsíce} other {# měsíců}}",
+      "never": "Nemazat",
+      "preview": {
+        "title": "S tímto nastavením by nejbližší noc smazala",
+        "none": "Nic, momentálně není co mazat.",
+        "captures": "{n, plural, one {záznam z # hlášení} few {záznamy ze # hlášení} other {záznamy z # hlášení}}",
+        "screenshots": "{n, plural, one {# snímek obrazovky} few {# snímky obrazovky} other {# snímků obrazovky}}",
+        "files": "{n, plural, one {# přílohu uzavřené chyby} few {# přílohy uzavřených chyb} other {# příloh uzavřených chyb}}",
+        "contacts": "{n, plural, one {osobní údaje # kontaktu} few {osobní údaje # kontaktů} other {osobní údaje # kontaktů}}",
+        "bytes": "Uvolní se {mb} MB."
+      },
+      "lastRun": "Naposledy proběhlo {when}.",
+      "neverRun": "Zatím neproběhlo.",
+      "schedule": "Běží každou noc mezi 2:00 a 6:00 středoevropského času.",
+      "save": "Uložit uchovávání",
+      "saved": "Uloženo. Mazání podle nového nastavení proběhne nejbližší noc.",
+      "invalid": "Vyberte jednu z nabízených možností."
+    },
+    "scope": {
+      "read": "číst",
+      "write": "psát",
+      "triage": "triáž"
+    },
+    "token": {
+      "created": "vytvořen {when}",
+      "used": "použit {when}",
+      "unused": "zatím nepoužit",
+      "validUntil": "platí do {date}",
+      "noExpiry": "bez omezení platnosti"
+    },
+    "settings": {
+      "project": {
+        "name": "Název projektu",
+        "nameHint": "Zobrazuje se v hlavičce boardu a v e-mailech.",
+        "publicTitle": "Nápady vidí každý",
+        "publicText": "I nepřihlášení návštěvníci si mohou přečíst nápady, roadmapu a novinky. Hlasovat mohou jen přihlášení.",
+        "emailTitle": "Přihlášení e-mailem",
+        "emailText": "Kód nebo odkaz do schránky, pro lidi, kteří nemají účet v aplikaci.",
+        "loginUrl": "Adresa přihlášení v aplikaci",
+        "loginUrlHint": "Sem pošleme nepřihlášené. Přidáme parametr ozvi_return, abyste je mohli vrátit zpět.",
+        "origins": "Stránky, které mohou vložit widget",
+        "originsHint": "Jedna adresa na řádek, bez cesty, např. https://app.billiwo.com.",
+        "save": "Uložit nastavení"
+      },
+      "saving": "Ukládám…",
+      "sso": {
+        "on": "SSO je zapnuté.",
+        "onText": "Secret ukládáme jen zašifrovaný, proto ho nemůžeme znovu zobrazit.",
+        "off": "SSO zatím není zapnuté. Po zapnutí dostanete secret, kterým aplikace podepisuje přihlášení.",
+        "newActive": "Nový secret je aktivní.",
+        "setA": "Nastavte ho v aplikaci jako",
+        "oldGone": " Starý secret přestal platit.",
+        "onlyNow": " Ukážeme ho jen teď, uložte si ho.",
+        "rotate": "Vygenerovat nový secret…",
+        "rotateTitle": "Vygenerovat nový SSO secret?",
+        "rotateText": "Starý secret přestane platit hned. Dokud nový nenastavíte v aplikaci jako OZVI_SSO_SECRET, přihlášení z aplikace nebude fungovat.",
+        "rotating": "Generuji…",
+        "rotateConfirm": "Vygenerovat nový secret",
+        "enabling": "Zapínám…",
+        "enable": "Zapnout SSO"
+      },
+      "optional": "nepovinné",
+      "copy": "Kopírovat",
+      "copied": "Zkopírováno",
+      "secretOnce": "Zkopírujte si ho teď, podruhé ho neuvidíte.",
+      "keep": "Nechat být",
+      "working": "Pracuji…",
+      "sections": "Sekce nastavení",
+      "voting": {
+        "mode": "Způsob hlasování",
+        "simpleTitle": "Jednoduchý hlas",
+        "simpleText": "jedno kliknutí, jeden hlas. Pro lidi nejjednodušší.",
+        "importanceTitle": "Podle důležitosti",
+        "importanceText": "při hlasování si člověk vybere Hezké mít, Důležité nebo Kritické (1, 2 nebo 3 body). Celkem se ukazuje součet bodů.",
+        "budgetTitle": "Omezit počet hlasů",
+        "budgetText": "Každý má jen určitý počet hlasů na aktivní nápady, takže hlasuje pro to, na čem mu opravdu záleží. Po vydání nebo zamítnutí nápadu se hlasy vrátí.",
+        "budget": "Hlasů na osobu",
+        "budgetHint": "1 až 100. Při hlasování podle důležitosti stojí Kritické 3 hlasy. Snížení nikomu hlasy nebere, jen nové přibudou, až bude pod limitem.",
+        "save": "Uložit hlasování",
+        "invalid": "Vyberte způsob hlasování.",
+        "budgetRange": "Počet hlasů musí být celé číslo od 1 do 100.",
+        "saved": "Hlasování je uložené."
+      }
+    },
+    "theme": {
+      "warn": {
+        "ink on surface": "Text na kartách",
+        "ink on canvas": "Text na pozadí",
+        "button text on accent": "Text na tlačítku",
+        "accent on surface": "Hlavní barva na kartách"
+      },
+      "colors": {
+        "accent": "Hlavní barva",
+        "ink": "Text",
+        "surface": "Karty",
+        "canvas": "Pozadí",
+        "border": "Okraje"
+      },
+      "presets": "Začít ze šablony",
+      "presetsHint": "Šablona přepíše barvy, písmo a zaoblení. Logo zůstane.",
+      "colorsLegend": "Barvy",
+      "pickColor": "{label}, výběr barvy",
+      "fontLegend": "Písmo a tvar",
+      "bodyFont": "Písmo textu",
+      "headingFont": "Písmo nadpisů",
+      "fontSource": "Zdroj písma",
+      "sourceSystem": "Systémové",
+      "sourceCustom": "Vlastní (hostuje aplikace)",
+      "sourceHint": "Písma z Google Fonts servíruje Ozvi z vlastního serveru, prohlížeče návštěvníků se na Google nepřipojují (GDPR). Písmo mimo nabídku se v náhledu ukáže až po uložení.",
+      "density": "Hustota",
+      "comfortable": "Vzdušná",
+      "compact": "Kompaktní",
+      "radius": "Zaoblení",
+      "logo": "Logo",
+      "logoHint": "Adresa obrázku, ideálně SVG nebo PNG s průhledným pozadím.",
+      "badColor": "Barva „{label}“ musí být ve tvaru #RRGGBB.",
+      "badLogo": "Logo musí být celá adresa začínající https://.",
+      "lowContrast": "Text může být špatně čitelný",
+      "contrast": "kontrast",
+      "contrastHint": "Uložit to jde i tak. Board tyto barvy při zobrazení upraví jen natolik, aby text dosáhl kontrastu 4,5:1 (WCAG AA) a zůstal čitelný.",
+      "adjusted": "{label}: na boardu použijeme {to} místo {from}",
+      "save": "Uložit vzhled",
+      "preview": "Náhled",
+      "previewLabel": "Náhled boardu",
+      "ideas": "Nápady",
+      "suggest": "Navrhnout nápad",
+      "previewNote": "Změny uvidí návštěvníci až po uložení.",
+      "sample": [
+        {
+          "title": "Export faktur do Pohody",
+          "body": "Měsíčně exportujeme ručně, chtěli bychom XML.",
+          "when": "před 2 dny"
+        },
+        {
+          "title": "Upomínka nezaplacené faktury",
+          "body": "Automatický e-mail klientovi po splatnosti.",
+          "when": "před týdnem"
+        }
+      ]
+    },
+    "actions": {
+      "adminOnly": "Nastavení může měnit jen admin projektu.",
+      "themeJson": "Téma není platný JSON.",
+      "themeSaved": "Téma je uložené.",
+      "themeLow": "{n, plural, =1 {Téma je uložené. Jedna kombinace barev má nízký kontrast.} other {Téma je uložené. {n} kombinace barev mají nízký kontrast.}}",
+      "nameLength": "Název musí mít 2 až 60 znaků.",
+      "loginUrl": "Adresa přihlášení musí začínat http:// nebo https://.",
+      "badOrigin": "„{o}“ není platný původ. Použijte tvar https://app.example.com bez cesty.",
+      "saved": "Nastavení je uložené.",
+      "confirmRotate": "Potvrďte, že rozumíte dopadu výměny secretu.",
+      "rotated": "Nový secret je aktivní. Starý přestal platit."
+    },
+    "tokens": {
+      "gateTitle": "API tokeny jsou pro tým",
+      "gateNoRole": "Váš účet nemá roli v týmu. Přidělí vám ji admin tohoto boardu.",
+      "gateSignIn": "Pokud patříte do týmu, přihlaste se.",
+      "title": "Moje API tokeny",
+      "lede": "Token připojí AI asistenta (Claude, Cursor…) ke zpětné vazbě aplikace {name} přes MCP. Asistent jedná vaším jménem a nikdy nesmí víc než vy.",
+      "active": "Aktivní tokeny",
+      "activeText": "Zrušený token přestane fungovat okamžitě.",
+      "none": "Zatím nemáte žádný token. Vytvořte ho níže, nebo použijte konektor bez tokenu.",
+      "new": "Nový token",
+      "newText": "Token uvidíte jen jednou, hned po vytvoření.",
+      "connect": "Připojení asistenta",
+      "connectText": "Vyberte způsob podle toho, kde asistenta používáte.",
+      "connectors": "Claude.ai, ChatGPT a aplikace s konektory",
+      "connectorsText": "Přidejte vlastní konektor s touto adresou. Přihlášení a povolení proběhne zde, token není potřeba.",
+      "codeA": "Spusťte v terminálu a místo",
+      "codeB": "vložte svůj token.",
+      "others": "Cursor, VS Code a další klienti",
+      "othersText": "Přidejte MCP server typu HTTP:",
+      "ask": "Zkuste se zeptat: „Jakých 5 nápadů je nejžádanějších a ještě je nemáme v plánu?“, „Shrň nové chyby za poslední týden“, „Najdi duplicity k #42“."
+    },
+    "oauth": {
+      "cannot": "Připojení nelze dokončit",
+      "unknownClient": "Aplikace není registrovaná. Zkuste připojení začít znovu.",
+      "badRedirect": "Adresa návratu nesedí s registrací aplikace.",
+      "pkce": "Aplikace musí použít PKCE (S256).",
+      "cimdFailed": "Aplikaci nelze ověřit: její popis (Client ID Metadata Document) se nepodařilo načíst nebo je neplatný. Zkuste připojení znovu; pokud to nepomůže, kontaktujte autora aplikace.",
+      "badResource": "Aplikace žádá o přístup k jinému serveru, než je tento board. Připojte ji na adresu MCP tohoto boardu.",
+      "noLogin": "Na tomto boardu se nelze přihlásit přímo. Otevřete ho nejdřív z aplikace a zkuste to znovu.",
+      "title": "AI asistent {client} žádá o přístup ke zpětné vazbě",
+      "lede": "Bude pracovat se zpětnou vazbou k aplikaci {project} vaším jménem — jako <b>{user}</b>.",
+      "foot": "Přístup kdykoli zrušíte v Moje API tokeny.",
+      "legacyClient": "Registrovaná přímo v Ozvi",
+      "identity": "Totožnost ověřena doménou <b>{domain}</b>. Název a logo uvádí aplikace sama.",
+      "returnsTo": "Po rozhodnutí vás vrátí na <b>{host}</b>.",
+      "localTitle": "Návrat do aplikace v tomto počítači",
+      "local": "Po povolení přístupu se vrátíte na adresu localhost. Za {client} se může vydávat kterákoli aplikace ve vašem počítači, proto přístup povolte, jen pokud jste připojení právě spustili sami.",
+      "what": "Co smí dělat",
+      "scopes": {
+        "read": {
+          "title": "Číst",
+          "text": "hledat a číst nápady a hlášení"
+        },
+        "write": {
+          "title": "Psát",
+          "text": "i zakládat nápady a hlášení a komentovat"
+        },
+        "triage": {
+          "title": "Triáž",
+          "text": "i měnit stav a slučovat duplicity"
+        }
+      },
+      "allow": "Povolit",
+      "deny": "Zamítnout",
+      "signInAgain": "Přihlaste se znovu.",
+      "invalid": "Neplatná žádost o přístup.",
+      "resourceName": "{name} – zpětná vazba (Ozvi)"
+    },
+    "voting": {
+      "text": "Jak lidé hlasují pro nápady a kolik hlasů má každý k dispozici."
+    },
+    "import": {
+      "text": "Přineste si nápady, chyby, hlasy a komentáře z Fideru, Canny nebo z libovolné tabulky. Nejdřív uvidíte náhled, pak import běží na pozadí."
+    },
+    "tags": {
+      "text": "Štítky třídí nápady a chyby. Veřejné vidí a filtruje každý, štítky jen pro tým vidí pouze tým. Přiřazuje je tým v detailu nebo přímo v seznamu.",
+      "empty": "Zatím žádné štítky. Začněte těmi, podle kterých třídíte nejčastěji (například Faktury, Mobil, Export).",
+      "public": "Veřejný",
+      "teamOnly": "Jen pro tým",
+      "used": "{n, plural, =0 {nepoužitý} one {# hlášení} few {# hlášení} other {# hlášení}}",
+      "edit": "Upravit",
+      "delete": "Smazat",
+      "deleteTitle": "Smazat štítek „{name}“?",
+      "deleteText": "{n, plural, one {Štítek zmizí z # hlášení.} few {Štítek zmizí z # hlášení.} other {Štítek zmizí z # hlášení.}} Hlášení zůstanou.",
+      "deleteUnused": "Štítek není na žádném hlášení.",
+      "deleteConfirm": "Smazat štítek",
+      "deleting": "Mažu…",
+      "deleted": "Štítek je smazaný.",
+      "merge": "Sloučit",
+      "mergeTitle": "Sloučit „{name}“ do jiného štítku",
+      "mergeText": "{n, plural, =0 {Štítek není na žádném hlášení; po sloučení zmizí.} one {# hlášení dostane vybraný štítek a tento zmizí.} few {# hlášení dostanou vybraný štítek a tento zmizí.} other {# hlášení dostane vybraný štítek a tento zmizí.}}",
+      "mergeInto": "Sloučit do",
+      "mergePick": "Vyberte štítek",
+      "mergeToPublic": "Cílový štítek je veřejný: hlášení s ním uvidí každý.",
+      "mergeToTeam": "Cílový štítek je jen pro tým: veřejně už tato hlášení štítek mít nebudou.",
+      "mergeConfirm": "Sloučit do „{name}“",
+      "merged": "Štítky jsou sloučené.",
+      "new": "Nový štítek",
+      "name": "Název",
+      "namePlaceholder": "například Faktury",
+      "preview": "Ukázka",
+      "color": "Barva",
+      "colors": {
+        "neutral": "Neutrální",
+        "accent": "Akcent",
+        "amber": "Jantarová",
+        "green": "Zelená",
+        "red": "Červená",
+        "muted": "Tlumená"
+      },
+      "publicLabel": "Veřejný štítek",
+      "publicOn": "Uvidí ho každý na boardu a může podle něj filtrovat.",
+      "publicOff": "Vidí ho jen tým: nikdy se neukáže v seznamu, přes MCP mimo tým ani ve webhoocích.",
+      "save": "Uložit štítek",
+      "create": "Vytvořit štítek",
+      "cancel": "Zrušit",
+      "created": "Štítek „{name}“ je vytvořený.",
+      "saved": "Štítek „{name}“ je uložený."
+    },
+    "statuses": {
+      "text": "Zastávky trasy jsou pevné, aby e-maily, roadmapa a GitHub fungovaly vždy stejně. Můžete je ale přejmenovat a pod každou přidat vlastní podstavy pro jemnější sledování.",
+      "kind": "Typ hlášení",
+      "ideas": "Nápady",
+      "bugs": "Chyby",
+      "shared": "společné",
+      "sharedHint": "Název zastávky Rozpracované platí pro nápady i chyby.",
+      "rename": "Vlastní název",
+      "subName": "Název podstavu",
+      "subPlaceholder": "například V testování",
+      "addSub": "Přidat podstav",
+      "removeSub": "Odebrat podstav",
+      "note": "Prázdné pole = původní název. Chybějící jazyk převezme název ve výchozím jazyce boardu. Hlášení na odebraném podstavu zůstanou na své zastávce.",
+      "save": "Uložit stavy",
+      "saved": "Stavy jsou uložené.",
+      "unansweredTitle": "Bez odpovědi",
+      "unansweredText": "Hlášení, u kterých někdo mimo tým čeká na veřejnou odpověď nebo změnu stavu, se po této době objeví v záložce Bez odpovědi a v pondělním přehledu pro tým.",
+      "days": "Čekat nejvýš",
+      "daysUnit": "dní",
+      "daysHint": "1 až 90 dní. Doporučujeme 7.",
+      "daysSave": "Uložit",
+      "daysSaved": "{n, plural, one {Hlášení se ukáže po # dni čekání.} other {Hlášení se ukáže po # dnech čekání.}}"
+    },
+    "privacyKit": {
+      "title": "Texty pro vaše zásady ochrany soukromí",
+      "text": "Odstavce do zásad ochrany soukromí a záznamů o zpracování, sestavené podle nastavení tohoto projektu. Údaje v hranatých závorkách doplňte.",
+      "legalTitle": "Toto není právní rada",
+      "legal": "Jde o návrh podle toho, jak je projekt nastavený. Před zveřejněním ho zkontrolujte s právníkem.",
+      "cloud": "Ozvi cloud: pro údaje vašich uživatelů jste správce a Ozvi váš zpracovatel. Potřebujete také smlouvu o zpracování (DPA), vyžádáte si ji na {email}.",
+      "self": "Vlastní instalace: správcem jste vy a s autory Ozvi smlouvu o zpracování nepotřebujete. Smlouvy uzavíráte přímo s poskytovateli uvedenými v textu (hosting, e-maily, AI, integrace).",
+      "subprocessors": "Seznam subdodavatelů",
+      "language": "Jazyk textu",
+      "captureTitle": "Co posílá widget",
+      "captureHint": "Výchozí nastavení widgetu. Pokud jste něco ve své aplikaci vypnuli (OzviConfig nebo atributy widgetu), odškrtněte to.",
+      "cap": {
+        "screenshot": "Snímek obrazovky",
+        "console": "Chyby z konzole",
+        "network": "Záznam požadavků",
+        "steps": "Kroky v aplikaci",
+        "links": "Odkazy na záznam relace"
+      },
+      "copyMd": "Kopírovat vše (Markdown)",
+      "copyHtml": "Kopírovat vše (HTML)",
+      "copy": "Kopírovat",
+      "copied": "Zkopírováno",
+      "copyFailed": "Kopírování selhalo. Označte text a zkopírujte ho ručně."
+    }
+  },
+  "ai": {
+    "errors": {
+      "unset": "AI není nastavené (OZVI_AI_PROVIDER).",
+      "overloaded": "AI je právě přetížené. Zkuste to za minutu.",
+      "auth": "Klíč k AI je neplatný.",
+      "failed": "AI selhalo ({detail}). Zkuste to znovu.",
+      "refused": "AI odmítlo tento obsah zpracovat.",
+      "empty": "AI nevrátilo žádný text.",
+      "off": "AI není pro tento projekt zapnuté.",
+      "rate": "Příliš mnoho požadavků na AI za hodinu. Zkuste to později."
+    },
+    "network": "síť",
+    "linkRemoved": "[odkaz odstraněn]",
+    "label": "— Shrnutí napsala AI z textů uživatelů. Než se rozhodnete, ověřte si to v Ozvi.",
+    "badge": {
+      "reviewed": "s pomocí AI · zkontroloval/a {name}",
+      "reviewedAnon": "s pomocí AI · zkontroloval tým",
+      "draft": "Návrh od AI · čeká na kontrolu",
+      "model": "Model: {model}"
+    }
+  },
+  "board": {
+    "shell": {
+      "backToConsole": "Zpět na všechny projekty v Ozvi",
+      "myProjects": "Moje projekty",
+      "settings": "Nastavení boardu",
+      "signIn": "Přihlásit se",
+      "badge": "Zpětná vazba přes",
+      "language": "Jazyk"
+    },
+    "nav": {
+      "ideas": "Nápady",
+      "roadmap": "Roadmapa",
+      "changelog": "Novinky",
+      "bugs": "Chyby",
+      "unanswered": "Bez odpovědi",
+      "unansweredHint": "Hlášení, která čekají na odpověď týmu",
+      "unansweredCount": "{n, plural, one {# hlášení čeká} few {# hlášení čekají} other {# hlášení čeká}}"
+    },
+    "account": {
+      "menu": "Účet",
+      "signedIn": "Přihlášený uživatel",
+      "me": "Moje údaje",
+      "tokens": "API tokeny a AI asistenti",
+      "settings": "Nastavení boardu",
+      "console": "Moje projekty v Ozvi",
+      "signOut": "Odhlásit se"
+    },
+    "gate": {
+      "signIn": "Přihlásit se",
+      "backToIdeas": "Zpět na nápady",
+      "viaApp": "Otevřete zpětnou vazbu z aplikace {app}, přihlásí vás automaticky."
+    },
+    "notFound": {
+      "title": "Tato stránka tu není",
+      "text": "Odkaz je neúplný, nebo záznam mezitím smazali či sloučili s jiným."
+    },
+    "user": "Uživatel",
+    "teamMember": "Člen týmu",
+    "fromCustomers": "Ze zpětné vazby zákazníků",
+    "route": "Cesta",
+    "comments": "{n, plural, one {# komentář} few {# komentáře} many {# komentáře} other {# komentářů}}",
+    "votes": "{n, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}}",
+    "journey": {
+      "inVersion": " ve v{v}",
+      "teamReply": "Odpověď týmu",
+      "released": "Novinka zveřejněna",
+      "issueClosed": "Issue je uzavřené",
+      "issueOpen": "Issue je otevřené",
+      "next": "Dále:",
+      "proof": "Důkaz opravy",
+      "proofPreview": "Vyzkoušet opravu",
+      "proofRelease": "Vydání {v}"
+    },
+    "ideas": {
+      "gateTitle": "Nápady vidí jen přihlášení",
+      "gateText": "Přihlaste se a uvidíte nápady ostatních i to, kam se posunuly.",
+      "title": "Nápady",
+      "lede": "Navrhněte, co by vám pomohlo, nebo hlasujte pro nápady ostatních. Ty nejžádanější jdou do roadmapy.",
+      "suggest": "Navrhnout nápad",
+      "signInToSuggest": "Přihlásit se a navrhnout",
+      "search": "Hledat v nápadech",
+      "status": "Stav",
+      "order": "Řazení",
+      "filters": {
+        "active": "Aktivní",
+        "shipped": "Vydané",
+        "all": "Všechny"
+      },
+      "topShort": "Hlasy",
+      "top": "Nejžádanější",
+      "newShort": "Nové",
+      "newest": "Nejnovější",
+      "nothingFor": "Nic pro „{q}“",
+      "nothingForText": "Zkuste jiné slovo, nebo nápad navrhněte — možná jste první.",
+      "clearSearch": "Zrušit hledání",
+      "noneShipped": "Zatím nic vydaného",
+      "noneActive": "Žádné aktivní nápady",
+      "emptyFilter": "V tomto filtru nic není. Podívejte se na všechny nápady.",
+      "showAll": "Zobrazit všechny",
+      "emptyTitle": "Zatím tu nic není",
+      "emptyUser": "Navrhněte první nápad, ostatní pro něj budou moct hlasovat.",
+      "emptyGuest": "Po přihlášení můžete navrhnout první nápad.",
+      "recentlyShipped": "Naposledy vydané",
+      "allNews": "Všechny novinky",
+      "byMrr": "Podle MRR",
+      "planFilter": "Tarif zákazníka",
+      "allPlans": "Všechny tarify",
+      "planOption": "Tarif {plan}",
+      "noneForPlan": "Nikdo s tarifem {plan} tu nic nechce",
+      "noneForPlanText": "V tomto filtru není nápad, pro který by hlasoval nebo ho navrhl zákazník s tímto tarifem."
+    },
+    "bugs": {
+      "gateTitle": "Hlášení chyb vidí jen autor a tým",
+      "gateText": "Přihlaste se a uvidíte svá hlášení i odpovědi týmu.",
+      "stages": {
+        "open": "Otevřené",
+        "fixed": "Opravené",
+        "all": "Všechny"
+      },
+      "report": "Nahlásit chybu",
+      "titleTeam": "Chyby",
+      "titleMine": "Moje hlášení chyb",
+      "ledeTeam": "Vše, co uživatelé nahlásili. Posouvejte hlášení po cestě, autor dostane e-mail při každé změně.",
+      "ledeMine": "Vaše hlášení a kde jsou na cestě. Až chybu opravíme, dáme vám vědět e-mailem.",
+      "status": "Stav",
+      "onlyYou": "Vidíte jen vy a tým",
+      "emptyTeamTitle": "Zatím žádná hlášení",
+      "emptyMineTitle": "Zatím jste nic nenahlásili",
+      "emptyTeamText": "Když uživatel něco nahlásí, objeví se to tady i s technickými údaji.",
+      "emptyMineText": "Když něco nefunguje, nahlaste to. Hlášení uvidíte jen vy a tým, a až chybu opravíme, dáme vám vědět.",
+      "noneOpen": "Nic otevřeného",
+      "noneFixed": "Žádná opravená hlášení",
+      "noneOpenText": "Všechna hlášení jsou vyřízená.",
+      "noneFixedText": "Až některou chybu opravíme, najdete ji tady.",
+      "showAll": "Zobrazit všechny",
+      "search": "Hledat v chybách (název, popis nebo číslo)",
+      "exactStatus": "Přesný stav",
+      "anyStatus": "Jakýkoli stav",
+      "order": "Pořadí",
+      "sortNew": "Nejnovější",
+      "sortOld": "Nejstarší",
+      "sortAffected": "Nejvíc dotčených",
+      "nothingFor": "Nic pro „{q}“",
+      "nothingForText": "Zkuste jiné slovo nebo číslo hlášení.",
+      "clearSearch": "Zrušit hledání",
+      "noneStatus": "Žádná hlášení ve stavu {status}",
+      "noneStatusText": "Vyberte jiný stav nebo zobrazte všechna hlášení."
+    },
+    "roadmap": {
+      "gateTitle": "Roadmapu vidí jen přihlášení",
+      "gateText": "Přihlaste se a uvidíte, co tým plánuje a na čem pracuje.",
+      "title": "Roadmapa",
+      "lede": "Kde jsou nápady na své cestě: co jsme si naplánovali, na čem pracujeme a co už je venku.",
+      "planned": "Plánováno",
+      "plannedEmpty": "Zatím nic naplánováno.",
+      "inProgress": "Rozpracováno",
+      "inProgressEmpty": "Momentálně není nic rozpracováno.",
+      "shipped": "Nedávno vydáno",
+      "shippedEmpty": "Zatím jsme nic nevydali."
+    },
+    "changelog": {
+      "gateTitle": "Novinky vidí jen přihlášení",
+      "gateText": "Přihlaste se a uvidíte, co je nového.",
+      "title": "Novinky",
+      "lede": "Novinky v aplikaci {app}. Když vydáme nápad, pro který jste hlasovali, přijde vám e-mail.",
+      "write": "Napsat novinku",
+      "published": "Zveřejněno.",
+      "notified": "{n, plural, one { E-mail dostane # člověk, který pro nápady hlasoval.} few { E-mail dostanou # lidé, kteří pro nápady hlasovali.} other { E-mail dostane # lidí, kteří pro nápady hlasovali.}}",
+      "emptyTitle": "Zatím žádné novinky",
+      "emptyTeam": "Až vydáte nápad, napište o něm pár vět. Hlasující dostanou e-mail.",
+      "emptyGuest": "Až tým něco vydá, najdete to tady.",
+      "draft": "Koncept, nezveřejněno",
+      "edit": "Upravit",
+      "finishDraft": "Dokončit koncept",
+      "teamOnlyTitle": "Novinky píše tým",
+      "teamOnlyNoRole": "Váš účet nemá roli v týmu. Přidělí vám ji admin tohoto boardu.",
+      "teamOnlySignIn": "Pokud patříte do týmu, přihlaste se.",
+      "newTitle": "Nová novinka",
+      "newLede": "Napište, co jste vydali. Lidé, kteří pro vybrané nápady hlasovali, se to po zveřejnění dozví e-mailem.",
+      "editTitle": "Upravit novinku",
+      "draftTitle": "Koncept novinky",
+      "editLede": "Zveřejněno {date}. Úpravy se projeví v seznamu novinek; e-mail znovu neodejde.",
+      "draftLede": "Koncept vidí jen tým. Po zveřejnění dostanou hlasující pro vybrané nápady e-mail.",
+      "fromRelease": "Z vydání {version}",
+      "aiWriting": "AI ještě píše text návrhu. Za chvíli obnovte stránku; pokud návrh mezitím uložíte, zůstane váš text.",
+      "releaseDraft": "Návrh z vydání {version}.",
+      "releaseDraftText": "Vznikl automaticky z propojených nápadů a oprav. Nic se nezveřejní, dokud ho neschválíte.",
+      "releaseOnGithub": "Vydání na GitHubu",
+      "aiReviewNote": "Text napsala AI. Přečtěte si ho celý; zveřejněním ho schvalujete pod jménem {name} a u novinky se zobrazí štítek „s pomocí AI“.",
+      "unannounced": {
+        "title": "Vydané, ale neoznámené",
+        "lede": "Tyto nápady a opravy jsou hotové, ale žádná zveřejněná novinka o nich nemluví. Hlasující se o nich dozví až z novinky.",
+        "write": "Napsat novinku",
+        "inDraft": "v konceptu",
+        "more": "… a {n, plural, one {# další} few {# další} other {# dalších}}."
+      },
+      "saved": "Koncept je uložený."
+    },
+    "newItem": {
+      "gateBug": "Pro nahlášení chyby se přihlaste",
+      "gateIdea": "Pro navržení nápadu se přihlaste",
+      "gateText": "Přihlaste se a hned můžete pokračovat.",
+      "titleBug": "Nahlásit chybu",
+      "titleIdea": "Navrhnout nápad",
+      "ledeBug": "Popište, co se stalo. Snímek obrazovky řekne víc než odstavec textu, technické údaje připojíme sami.",
+      "ledeIdea": "Při psaní vám ukážeme podobné nápady. Hlas u existujícího má větší váhu než nový duplikát.",
+      "privateNote": "Hlášení uvidíte jen vy a tým. Při každé změně vám přijde e-mail."
+    },
+    "item": {
+      "context": {
+        "url": "Stránka",
+        "appVersion": "Verze aplikace",
+        "browser": "Prohlížeč",
+        "viewport": "Okno",
+        "language": "Jazyk",
+        "referrer": "Přišel z",
+        "console": "Chyby v konzoli",
+        "traits": "Údaje ze stránky (neověřené)"
+      },
+      "capture": {
+        "steps": "Kroky před nahlášením",
+        "network": "Požadavky na server",
+        "teamOnly": "Vidí jen tým",
+        "sessions": "Záznam relace",
+        "link": {
+          "sentry": "Sentry replay",
+          "posthog": "PostHog relace",
+          "logrocket": "LogRocket relace"
+        },
+        "kind": {
+          "nav": "stránka",
+          "submit": "odeslání formuláře",
+          "error": "chyba v konzoli",
+          "request": "neúspěšný požadavek"
+        },
+        "role": {
+          "button": "tlačítko",
+          "link": "odkaz",
+          "other": "ovládací prvek"
+        },
+        "unnamedForm": "formulář bez názvu",
+        "col": {
+          "status": "Stav",
+          "request": "Požadavek",
+          "time": "Doba",
+          "size": "Velikost",
+          "actions": "Akce"
+        },
+        "all": "Všechny ({n})",
+        "failed": "Neúspěšné ({n})",
+        "filter": "Filtrovat požadavky",
+        "copyCurl": "Kopírovat jako cURL",
+        "copied": "Zkopírováno",
+        "showBody": "Zobrazit tělo požadavku {url}",
+        "hideBody": "Skrýt tělo požadavku {url}",
+        "sent": "Odesláno",
+        "response": "Odpověď",
+        "networkError": "Chyba sítě",
+        "masked": "Citlivé hodnoty (***) zamaskoval prohlížeč reportéra ještě před odesláním. Hlavičky Authorization a Cookie se nezaznamenávají.",
+        "before": "{time} před nahlášením"
+      },
+      "gateText": "Přihlaste se a uvidíte tento nápad i diskusi pod ním.",
+      "privateTitle": "Toto hlášení vidí jen jeho autor a tým",
+      "privateSignedIn": "Jste přihlášeni, ale toto hlášení poslal někdo jiný. Svá hlášení najdete v sekci Chyby.",
+      "privateSignIn": "Pokud jste ho poslali vy, přihlaste se a uvidíte ho i s odpověďmi týmu.",
+      "privateViaApp": "Pokud jste ho poslali vy, otevřete zpětnou vazbu z aplikace {app}, přihlásí vás automaticky.",
+      "myBugs": "Moje hlášení chyb",
+      "bug": "Chyba",
+      "idea": "Nápad",
+      "privateTag": "Vidí jen autor a tým",
+      "mergedPrivate": "Toto hlášení už řešíme pod jiným číslem. Až ho opravíme, dáme vědět.",
+      "mergedInto": "Toto je duplicita. Pokračuje v",
+      "votesMoved": ", hlasy se přesunuly tam",
+      "noBody": "Bez popisu.",
+      "technical": "Technické údaje",
+      "show": "Zobrazit",
+      "comments": "Komentáře",
+      "noComments": "Zatím bez komentářů.",
+      "addComment": " Doplňte, co by pomohlo.",
+      "teamBadge": "tým",
+      "internal": "jen pro tým",
+      "forTeam": "Pro tým",
+      "status": "Stav",
+      "news": "Novinky",
+      "newsHint": "Napište pár vět o tom, co je nového. Hlasující ({n}) dostanou e-mail.",
+      "duplicates": "Duplicity",
+      "votesShort": "{n} hl.",
+      "noSimilar": "Nenašli jsme nic podobného.",
+      "summary": "Shrnutí diskuse",
+      "commentSignIn": "Komentovat mohou přihlášení.",
+      "commentViaApp": "Komentovat můžete po otevření zpětné vazby z aplikace {app}.",
+      "tags": "Štítky",
+      "voters": "Hlasující",
+      "votersHint": "{n, plural, =0 {Zatím nikdo nehlasoval.} one {Hlasoval # člověk: jméno, e-mail, firma a váha hlasu.} few {Hlasovali # lidé: jména, e-maily, firma a váha hlasu.} many {Hlasovalo # lidí: jména, e-maily, firma a váha hlasu.} other {Hlasovalo # lidí: jména, e-maily, firma a váha hlasu.}}",
+      "proof": "Důkaz opravy",
+      "similarAi": "Podobné záznamy vybral model AI podle významu textu. Zda jde o duplicitu, rozhodněte sami."
+    },
+    "me": {
+      "title": "Moje údaje",
+      "lede": "Co o vás {app} ve zpětné vazbě uchovává: jméno a e-mail z přihlášení, vaše nápady, hlášení, komentáře a hlasy.",
+      "account": "Přihlášený účet",
+      "accountNamed": "Toto jméno vidí ostatní u vašich nápadů a komentářů.",
+      "accountUnnamed": "Jméno nemáme, u vašich příspěvků se proto zobrazuje „{shown}“.",
+      "noName": "Bez jména",
+      "emails": "E-maily",
+      "emailsText": "Píšeme vám, když někdo odpoví u vašeho nápadu nebo hlášení, když se změní jeho stav a když vyjde nápad, pro který jste hlasovali.",
+      "noEmail": "Aplikace nám neposlala váš e-mail, proto vám nepíšeme.",
+      "emailsOff": "E-maily jsou <b>vypnuté</b>. Na <addr>{email}</addr> nic neposíláme.",
+      "emailsOn": "E-maily chodí na <addr>{email}</addr>.",
+      "turnOn": "Zapnout e-maily",
+      "turnOff": "Vypnout e-maily",
+      "download": "Stáhnout",
+      "downloadText": "Kopie všeho, co jste tu napsali, v jednom souboru JSON.",
+      "downloadWhat": "Nápady, hlášení chyb, komentáře, hlasy a údaje z přihlášení.",
+      "downloadButton": "Stáhnout moje údaje",
+      "erase": "Smazat",
+      "eraseText": "Natrvalo odstraní vaše údaje z této zpětné vazby. Účet v aplikaci tím nezrušíte.",
+      "whatHappens": "Co se stane",
+      "eraseList": [
+        "Smažeme vaše hlasy, komentáře a hlášení chyb i s přílohami.",
+        "Smažeme záznamy o e-mailech, které jsme vám poslali, a odhlásíme vás.",
+        "Nápady, pro které hlasovali i jiní, zůstanou, ale bez vašeho jména.",
+        "Vrátit to nejde. Pokud si chcete něco nechat, nejdřív si údaje stáhněte."
+      ]
+    },
+    "pendingBadge": "Čeká na schválení",
+    "paging": {
+      "shown": "Zobrazeno {shown} z {total}",
+      "more": "Načíst další"
+    },
+    "affected": "Týká se {n, plural, one {# člověka} few {# lidí} many {# člověka} other {# lidí}}",
+    "mrrHint": "MRR zákazníků, kteří to chtějí (jen pro tým)",
+    "mrrShort": "{mrr} MRR",
+    "customers": {
+      "titleIdea": "Kdo to chce",
+      "titleBug": "Koho se to týká",
+      "teamOnly": "Jen tým",
+      "wantCompanies": "Chce to {n, plural, one {# firma} few {# firmy} many {# firmy} other {# firem}}",
+      "affectsCompanies": "Týká se {n, plural, one {# firmy} few {# firem} many {# firmy} other {# firem}}",
+      "wantPeople": "Chce to {n, plural, one {# člověk} few {# lidé} many {# člověka} other {# lidí}}",
+      "affectsPeople": "Týká se {n, plural, one {# člověka} few {# lidí} many {# člověka} other {# lidí}}",
+      "andPeople": " a {n, plural, one {# člověk bez firmy} few {# lidé bez firmy} many {# člověka bez firmy} other {# lidí bez firmy}}",
+      "mrrTotal": "celkem {mrr} MRR",
+      "anonymous": "Uživatel",
+      "plan": "tarif {plan}",
+      "author": "autor",
+      "noTraits": "bez údajů o zákazníkovi",
+      "noTraitsHint": "Pošlete v SSO tokenu vlastnosti company, plan a mrr (v centech) a uvidíte tu, kteří zákazníci to chtějí a kolik platí.",
+      "showAll": "Zobrazit všechny ({n})",
+      "more": "a další ({n})"
+    },
+    "pendingComments": "{n, plural, one {# komentář čeká} few {# komentáře čekají} other {# komentářů čeká}}",
+    "waitingSince": "Čeká od {date}",
+    "waitingDays": "{n, plural, =0 {čeká od dneška} one {čeká # den} few {čeká # dny} other {čeká # dní}}",
+    "unanswered": {
+      "gateTitle": "Bez odpovědi vidí jen tým",
+      "gateText": "Tahle fronta patří týmu: hlášení, která čekají na odpověď.",
+      "title": "Bez odpovědi",
+      "lede": "{n, plural, one {Někdo čeká na odpověď nebo změnu stavu déle než # den. Nejdéle čekající jsou nahoře.} few {Někdo čeká na odpověď nebo změnu stavu déle než # dny. Nejdéle čekající jsou nahoře.} other {Někdo čeká na odpověď nebo změnu stavu déle než # dní. Nejdéle čekající jsou nahoře.}}",
+      "kind": "Typ",
+      "all": "Vše",
+      "ideas": "Nápady",
+      "bugs": "Chyby",
+      "emptyTitle": "Nikdo nečeká",
+      "emptyText": "{n, plural, one {Na každé hlášení tým odpověděl do # dne.} other {Na každé hlášení tým odpověděl do # dní.}}",
+      "ruleTitle": "Kdy se hlášení objeví",
+      "rule": "{n, plural, one {Když autor nebo jiný uživatel napíše a tým do # dne neodpoví veřejně ani nezmění stav.} other {Když autor nebo jiný uživatel napíše a tým do # dní neodpoví veřejně ani nezmění stav.}}",
+      "ruleClears": "Interní poznámky se nepočítají. Vydaná, opravená a zamítnutá hlášení tu nejsou.",
+      "change": "Změnit počet dní"
+    }
+  },
+  "boardAuth": {
+    "noProject": "Projekt neexistuje.",
+    "ssoOff": "Tento projekt nemá zapnuté SSO.",
+    "ssoExpired": "Přihlašovací odkaz vypršel. Vraťte se do aplikace a otevřete zpětnou vazbu znovu.",
+    "ssoFailed": "Přihlášení se nepodařilo ověřit. Vraťte se do aplikace a zkuste to znovu.",
+    "otherUser": "jiný uživatel",
+    "switchTitle": "Přepnout uživatele?",
+    "switchHeading": "Přepnout na účet {who}?",
+    "switchText": "Odkaz vás chce přihlásit jako jiného uživatele, než pod jakým jste přihlášeni teď. Pokud jste ho neotevřeli z vlastní aplikace, zůstaňte přihlášeni jako dosud.",
+    "stay": "Zůstat přihlášen",
+    "switch": "Přepnout",
+    "oidcOff": "Přihlášení přes OIDC není nastavené.",
+    "oidcDown": "Poskytovatel přihlášení je nedostupný. Zkuste to za chvíli.",
+    "oidcRefused": "Poskytovatel přihlášení odmítl ({err}). Zkuste to znovu.",
+    "oidcStale": "Přihlášení vypršelo nebo přišlo z jiného okna. Zkuste se přihlásit znovu.",
+    "oidcFailed": "Přihlášení se nepodařilo ověřit. Zkuste to znovu.",
+    "handoffExpired": "Odkaz vypršel. Otevřete projekt znovu z přehledu.",
+    "handoffNoAccess": "K tomuto projektu už nemáte přístup.",
+    "signInFirst": "Přihlaste se.",
+    "notFound": "Nenalezeno",
+    "fileMissing": "Soubor chybí",
+    "feedTitle": "{project} – novinky",
+    "feedDescription": "Novinky v aplikaci {project}",
+    "loginTitle": "Přihlaste se",
+    "loginLede": "Zpětná vazba k aplikaci {project}. Pošleme vám jednorázový kód e-mailem.",
+    "loginLinkLede": "Zpětná vazba k aplikaci {project}.",
+    "teamFoot": "Patříte do týmu? <link>Otevřete board z konzole Ozvi</link>, přihlásí vás automaticky.",
+    "linkGoneTitle": "Odkaz už neplatí",
+    "linkGoneLede": "Odkaz pro přihlášení platí 15 minut a lze ho použít jen jednou. Pošlete si nový kód.",
+    "sendNewCode": "Poslat nový kód",
+    "signInAs": "Přihlásíte se jako <b>{email}</b>.",
+    "signIn": "Přihlásit se",
+    "unsubInvalidTitle": "Odkaz není platný",
+    "unsubInvalidLede": "Zkopírujte do prohlížeče celý odkaz z e-mailu. Pokud to nepomůže, napište nám komentář na boardu.",
+    "unsubDoneTitle": "Hotovo, e-maily vám už posílat nebudeme",
+    "unsubDoneLede": "Zpětnou vazbu můžete dál přidávat i sledovat tady na stránce.",
+    "backToFeedback": "Zpět na zpětnou vazbu",
+    "unsubTitle": "Odhlásit se z e-mailů?",
+    "unsubLede": "Zpětná vazba k aplikaci {project} vám přestane posílat zprávy o stavu hlášení, nápadů a o komentářích.",
+    "unsubButton": "Odhlásit se z e-mailů"
+  },
+  "console": {
+    "planName": {
+      "self": "Vlastní server",
+      "free": "Free",
+      "pro": "Pro",
+      "studio": "Studio"
+    },
+    "role": {
+      "owner": "Vlastník",
+      "member": "Člen"
+    },
+    "nav": {
+      "console": "Konzole",
+      "home": "Konzole Ozvi",
+      "menu": "Menu",
+      "menuTitle": "Menu konzole",
+      "overview": "Přehled",
+      "team": "Tým",
+      "plan": "Plán a využití",
+      "delivery": "Doručování",
+      "activity": "Aktivita",
+      "failures": "{count, plural, one {# selhání za 7 dní} few {# selhání za 7 dní} other {# selhání za 7 dní}}",
+      "attention": "vyžaduje pozornost",
+      "projects": "Projekty",
+      "newProject": "Nový projekt",
+      "openBoard": "otevřít board",
+      "noProjects": "Zatím žádný.",
+      "workspace": "Prostor",
+      "switchWorkspace": "Přepnout prostor",
+      "yourWorkspaces": "Vaše prostory",
+      "current": "aktuální",
+      "newWorkspace": "Nový prostor",
+      "account": "Účet {email}",
+      "noName": "Bez jména",
+      "signedIn": "Přihlášen",
+      "myAccount": "Můj účet",
+      "website": "Web Ozvi",
+      "signOut": "Odhlásit se",
+      "language": "Jazyk"
+    },
+    "units": {
+      "unlimited": "neomezeně",
+      "justNow": "právě teď",
+      "of": "z",
+      "noLimit": "bez limitu",
+      "near": "Blížíte se k limitu plánu.",
+      "over": "Limit je vyčerpán."
+    },
+    "overview": {
+      "projects": "{count, plural, one {# projekt} few {# projekty} other {# projektů}}",
+      "lede": "Plán {plan}, {projects}.",
+      "ledeSelf": "Projekty na vašem serveru.",
+      "moreProjects": "Více projektů ve vyšším plánu",
+      "newProject": "Nový projekt",
+      "created": "Projekt {name} je založen.",
+      "createdNext": "Další krok: v nastavení propojte přihlášení a widget ve vaší aplikaci. Z boardu se sem vrátíte přes „Moje projekty“ v záhlaví.",
+      "setUp": "Nastavit projekt",
+      "openBoard": "Otevřít board",
+      "addName": "Doplňte své jméno. Tým a uživatelé ho uvidí u vašich odpovědí místo e-mailu.",
+      "addNameCta": "Doplnit jméno",
+      "pastDueTitle": "Platba za plán selhala",
+      "pastDueOwner": "Aktualizujte kartu v <link>Plánu a využití</link>, jinak se prostor přepne na Free.",
+      "pastDueMember": "Vlastník prostoru musí aktualizovat kartu, jinak se prostor přepne na Free.",
+      "nearTitle": "Blížíte se k limitu plánu",
+      "near": "Podívejte se do <link>Plánu a využití</link>. Po překročení e-mailů se nic nezablokuje, upozornění jen odejdou jednou denně v souhrnu.",
+      "domainTitle": "Doména {domain} není ověřená",
+      "domain": "Board {board} zatím běží na adrese Ozvi. Nastavte DNS a ověřte doménu v <link>nastavení projektu</link>.",
+      "projectsHead": "Projekty",
+      "empty": "V tomto prostoru zatím není žádný projekt. Projekt je jeden board pro jednu vaši aplikaci.",
+      "createProject": "Založit projekt",
+      "settings": "Nastavení",
+      "newBugs": "Nové chyby",
+      "ideasToDecide": "Nápady k rozhodnutí",
+      "commentsWeek": "Komentáře za 7 dní",
+      "users": "Uživatelé",
+      "noUsers": "Z vaší aplikace se sem zatím nikdo nepřihlásil. Propojte přihlášení a přidejte widget v <link>nastavení</link>.",
+      "lastActivity": "Poslední aktivita {when}",
+      "planCard": "Plán {plan}",
+      "upgrade": "Přejít na Pro",
+      "detail": "Detail",
+      "emailsMonth": "E-maily tento měsíc",
+      "attachments": "Přílohy",
+      "projectsMeter": "Projekty",
+      "projectsFull": "Další projekt přidáte ve vyšším plánu.",
+      "recent": "Poslední aktivita",
+      "all": "Vše",
+      "noActivity": "Zatím nic. Tady uvidíte pozvánky, změny nastavení, tokeny a platby."
+    },
+    "activity": {
+      "title": "Aktivita",
+      "lede": "Změny v prostoru a v nastavení projektů: tým, plán, domény, tokeny, webhooky a přihlášení.",
+      "emptyTitle": "Zatím žádná aktivita",
+      "emptyText": "První záznamy přibudou, až někoho pozvete nebo změníte nastavení projektu.",
+      "older": "Starší záznamy",
+      "retention": {
+        "captures": "{n, plural, one {záznam z # hlášení} few {záznamy z # hlášení} other {záznamy z # hlášení}}",
+        "screenshots": "{n, plural, one {# snímek obrazovky} few {# snímky obrazovky} other {# snímků obrazovky}}",
+        "files": "{n, plural, one {# příloha uzavřených chyb} few {# přílohy uzavřených chyb} other {# příloh uzavřených chyb}}",
+        "freed": "uvolněno {mb} MB",
+        "contacts": "{n, plural, one {# anonymizovaný kontakt} few {# anonymizované kontakty} other {# anonymizovaných kontaktů}}"
+      },
+      "paymentGateway": "Platební brána",
+      "actions": {
+        "project": {
+          "created": "Nový projekt",
+          "settings": "Změněno nastavení projektu",
+          "theme": "Změněn vzhled boardu",
+          "sso_secret": "Nový klíč SSO",
+          "oidc": "Nastaveno přihlášení přes OIDC",
+          "domain": "Změněna vlastní doména",
+          "domain_verified": "Ověřena vlastní doména"
+        },
+        "token": {
+          "created": "Nový API token",
+          "revoked": "Zrušen API token",
+          "oauth_reuse": "Opakovaně použitý OAuth token — připojení zrušeno"
+        },
+        "webhook": {
+          "added": "Nový webhook",
+          "deleted": "Odstraněn webhook"
+        },
+        "github": {
+          "connected": "Propojen GitHub",
+          "disconnected": "Odpojen GitHub"
+        },
+        "linear": {
+          "connected": "Propojen Linear",
+          "disconnected": "Odpojen Linear",
+          "mapping": "Změněno mapování stavů Linearu"
+        },
+        "jira": {
+          "connected": "Propojena Jira",
+          "disconnected": "Odpojena Jira",
+          "mapping": "Změněno mapování stavů Jiry"
+        },
+        "board": {
+          "role": "Změněna role na boardu",
+          "signout": "Odhlášení uživatele ze všech zařízení"
+        },
+        "member": {
+          "invited": "Pozvánka pro",
+          "invite_revoked": "Zrušena pozvánka pro",
+          "joined": "Nový člen týmu",
+          "removed": "Odebrán z týmu",
+          "left": "Odchod z týmu",
+          "role": "Změněna role v týmu"
+        },
+        "plan": {
+          "changed": "Změněn plán"
+        },
+        "moderation": {
+          "edited": "Upravený příspěvek",
+          "deleted": "Smazaný příspěvek",
+          "restored": "Obnovený příspěvek",
+          "approved": "Schválený nápad",
+          "rejected": "Zamítnutý nápad",
+          "comment_edited": "Upravený komentář",
+          "comment_deleted": "Smazaný komentář",
+          "blocked": "Zablokovaný uživatel",
+          "unblocked": "Odblokovaný uživatel",
+          "comment_approved": "Schválený komentář"
+        },
+        "import": {
+          "started": "Import spuštěn",
+          "undone": "Import vrácen zpět"
+        },
+        "retention": {
+          "run": "Automatické mazání dat",
+          "settings": "Změněno uchovávání dat"
+        },
+        "updater": {
+          "mode": "Změněn režim aktualizací",
+          "start": "Spuštěna aktualizace Ozvi"
+        }
+      }
+    },
+    "delivery": {
+      "title": "Doručování",
+      "lede": "Co Ozvi odeslalo za vaše projekty: e-maily uživatelům a týmu a volání webhooků. Když někdo tvrdí, že mu nic nepřišlo, podívejte se sem.",
+      "kind": "Druh",
+      "emails": "E-maily",
+      "webhooks": "Webhooky",
+      "filter": "Filtr",
+      "all": "Vše",
+      "problems": "Jen problémy",
+      "noProblemsTitle": "Žádné problémy",
+      "noProblems": "Všechny e-maily odešly nebo čekají ve frontě.",
+      "noMailsTitle": "Zatím žádné e-maily",
+      "noMails": "E-maily se objeví, až někdo nahlásí chybu, napíše komentář nebo změníte stav.",
+      "noFailedHooksTitle": "Žádná neúspěšná volání",
+      "noHooksTitle": "Zatím žádná volání",
+      "noHooks": "Webhooky přidáte v nastavení projektu (Integrace). Každé volání se tu zobrazí i s odpovědí serveru.",
+      "when": "Kdy",
+      "to": "Komu",
+      "what": "Co",
+      "project": "Projekt",
+      "status": "Stav",
+      "target": "Cíl",
+      "event": "Událost",
+      "attempt": "{n}. pokus",
+      "limit": "Zobrazeno je posledních {n} záznamů.",
+      "kinds": {
+        "new_bug": "Nové hlášení",
+        "new_idea": "Nový nápad",
+        "comment": "Komentář",
+        "comment_internal": "Interní poznámka",
+        "comment_queued": "Komentář ke schválení",
+        "idea_rejected": "Zamítnutý nápad",
+        "bug_status": "Stav hlášení",
+        "idea_status": "Stav nápadu",
+        "changelog": "Novinka",
+        "team_digest": "Týdenní souhrn",
+        "digest": "Denní souhrn",
+        "login": "Přihlášení",
+        "invite": "Pozvánka"
+      },
+      "mail": {
+        "sent": "Odeslán",
+        "digested": "V souhrnu",
+        "queued": "Čeká",
+        "deferred": "Odložen do souhrnu",
+        "failed": "Nedoručen",
+        "skipped": "Neodeslán"
+      },
+      "hook": {
+        "sent": "Doručen",
+        "queued": "Čeká",
+        "failed": "Selhal"
+      }
+    },
+    "people": {
+      "title": "Tým",
+      "lede": "Kdo spravuje projekty prostoru {ws}. Vlastníci navíc mění plán a zvou další lidi. Uživatelé vaší aplikace sem nepatří, na board se přihlašují přes aplikaci.",
+      "errors": {
+        "last_owner": "Prostor musí mít alespoň jednoho vlastníka. Nejdřív udělejte vlastníkem někoho jiného.",
+        "not_owner": "Tohle může udělat jen vlastník prostoru."
+      },
+      "members": "Členové",
+      "you": "(vy)",
+      "since": "v týmu od ",
+      "leave": "Opustit prostor",
+      "remove": "Odebrat",
+      "leaveTitle": "Opustit prostor {ws}?",
+      "removeTitle": "Odebrat {who}?",
+      "leaveText": "Ztratíte přístup k projektům tohoto prostoru. Zpět se dostanete jen na novou pozvánku.",
+      "removeText": "{who} ztratí přístup k projektům prostoru {ws}. Zpět ho dostanete novou pozvánkou.",
+      "removeConfirm": "Odebrat z prostoru",
+      "pending": "Nevyřízené pozvánky",
+      "validUntil": "platí do ",
+      "revoke": "Zrušit pozvánku",
+      "revokeTitle": "Zrušit pozvánku pro {email}?",
+      "revokeText": "Odkaz v e-mailu přestane fungovat. Pokud si to rozmyslíte, pošlete novou pozvánku.",
+      "invite": "Pozvat do týmu"
+    },
+    "plan": {
+      "title": "Plán a využití",
+      "lede": "Plány omezují jen to, co nás stojí peníze: e-maily, místo na přílohy, počet projektů a vlastní doménu. Uživatelé a záznamy jsou neomezené.",
+      "paidTitle": "Děkujeme za platbu",
+      "paid": "Plán se přepne, jakmile platbu potvrdí platební brána, obvykle do minuty.",
+      "pastDueTitle": "Poslední platba selhala",
+      "pastDue": "Aktualizujte kartu ve správě předplatného, jinak se prostor přepne na Free.",
+      "canceledTitle": "Předplatné je zrušené",
+      "canceled": "Plán {plan} platí do {date}, potom prostor přejde na Free. Projekty ani data se nemažou.",
+      "usageTitle": "Využití tento měsíc",
+      "emails": "E-maily",
+      "attachments": "Přílohy",
+      "projects": "Projekty",
+      "projectsFull": "Další projekt přidáte ve vyšším plánu.",
+      "usageNote": "E-maily se počítají za všechny projekty prostoru od 1. dne v měsíci. Po překročení se nic nezablokuje, upozornění odejdou jednou denně v souhrnu.",
+      "plans": "Plány",
+      "billing": "Platba",
+      "yearly": "Ročně",
+      "quarterly": "Čtvrtletně",
+      "current": "Aktuální plán",
+      "forever": "navždy",
+      "perYear": "ročně",
+      "perQuarter": "čtvrtletně",
+      "switchTo": "Přejít na {plan}",
+      "fProjects": "{count, plural, one {# projekt} few {# projekty} other {# projektů}}",
+      "fProjectsUnlimited": "Neomezeně projektů",
+      "fEmails": "{n} e-mailů měsíčně",
+      "fEmailsUnlimited": "Neomezeně e-mailů",
+      "fStorage": "{size} na přílohy",
+      "fDomain": "Vlastní doména",
+      "fOzviAddress": "Adresa na ozvi.io",
+      "fBadge": "Odznak „Ozvi“ na boardu",
+      "fNoBadge": "Bez odznaku",
+      "fAi": "AI duplicity a souhrny",
+      "everyPlan": "MCP, GitHub, webhooky a SSO jsou ve všech plánech.",
+      "portalHint": " Faktury, kartu, změnu plánu i zrušení najdete ve správě předplatného.",
+      "memberNote": "Plán a platby mění vlastník prostoru.",
+      "manage": "Spravovat předplatné",
+      "vat": "Ceny jsou bez DPH. Platby zpracovává Creem jako prodejce (merchant of record) a fakturu vystaví on.",
+      "notEnabled": " Platby zatím nejsou zapnuté.",
+      "simulated": " Lokální vývoj: platby se jen simulují.",
+      "dpa": {
+        "title": "Smlouva o zpracování údajů (DPA)",
+        "badge": "Návrh",
+        "text": "Pro údaje vašich uživatelů je Ozvi váš zpracovatel podle čl. 28 GDPR. Vzor smlouvy je zatím návrh, který čeká na kontrolu právníkem. Na požádání vám ho pošleme e-mailem a podepsaný vrátíme.",
+        "request": "Vyžádat DPA e-mailem",
+        "subprocessors": "Seznam subdodavatelů",
+        "kit": "Texty pro vaše zásady ochrany soukromí najdete v nastavení každého projektu v části Data projektu."
+      }
+    },
+    "simulate": {
+      "devOnly": "Jen lokální vývoj",
+      "devNote": "Místo Creemu se odešle smyšlená událost přes stejný kód jako skutečný webhook. V produkci tato stránka neexistuje.",
+      "title": "Simulace platební brány",
+      "workspace": "Prostor",
+      "plan": "Plán",
+      "status": "Stav",
+      "periodEnd": "Období do",
+      "payment": "Platba",
+      "pay": "Zaplatit {plan} ({interval})",
+      "subscription": "Předplatné",
+      "renew": "Obnovení zaplaceno",
+      "pastDue": "Platba selhala",
+      "cancel": "Zrušit ke konci období",
+      "expire": "Období vypršelo",
+      "none": "Prostor nemá předplatné. Vyberte plán na stránce Plán."
+    }
+  },
+  "release": {
+    "title": "Verze {version}",
+    "lead": "Ve verzi {version} přibylo:",
+    "alsoFixes": "Opravili jsme také {n, plural, one {# nahlášenou chybu} few {# nahlášené chyby} other {# nahlášených chyb}}.",
+    "onlyFixes": "Verze {version} opravuje {n, plural, one {# nahlášenou chybu} few {# nahlášené chyby} other {# nahlášených chyb}}.",
+    "thanks": "Děkujeme všem, kdo nápady navrhli, hlasovali pro ně a chyby nahlásili."
+  },
+  "domain": {
+    "badStatus": "Neplatný stav „{status}“. Povolené: {allowed}.",
+    "emptyComment": "Komentář je prázdný.",
+    "longComment": "Komentář může mít nejvýše 5 000 znaků.",
+    "mergeSelf": "Záznam nelze sloučit sám se sebou.",
+    "mergeKinds": "Sloučit lze jen dva nápady nebo dvě chyby.",
+    "alreadyMerged": "#{n} je už sloučený.",
+    "targetMerged": "#{n} je sloučený do jiného záznamu; slučte do něj.",
+    "mergedIdea": "Sloučeno do #{n} „{title}“. Hlasy se přesunuly tam.",
+    "mergedBug": "Toto hlášení už řešíme pod jiným číslem. Až ho opravíme, dáme vědět i tady.",
+    "blocked": "Na tomto boardu teď nemůžete přidávat příspěvky, hlasovat ani komentovat.",
+    "deleted": "Tento záznam byl smazán.",
+    "mergePending": "Nápad čeká na schválení. Nejdřív ho schvalte nebo zamítněte.",
+    "cannotEditPost": "Tento příspěvek už upravit nemůžete: tým na něj už reagoval. Doplnění napište do komentáře.",
+    "cannotDeletePost": "Tento příspěvek už smazat nemůžete: tým na něj už reagoval.",
+    "editWindow": "Komentář jde upravit jen 30 minut po přidání. Doplnění napište do nového komentáře.",
+    "cannotEditComment": "Tento komentář nemůžete upravit ani smazat.",
+    "teamOnly": "Jen pro tým projektu.",
+    "notPending": "Tento nápad nečeká na schválení.",
+    "cannotBlockTeam": "Člena týmu zablokovat nemůžete. Nejdřív mu změňte roli.",
+    "titleShort": "Napište název aspoň na 3 znaky.",
+    "titleLong": "Název může mít nejvýše 200 znaků.",
+    "bodyLong": "Popis může mít nejvýše 10 000 znaků.",
+    "tagsTeamOnly": "Štítky přiřazuje jen tým.",
+    "tagsTooMany": "Hlášení může mít nejvýš {n} štítků.",
+    "tagMissing": "Takový štítek tu není. Obnovte stránku a zkuste to znovu.",
+    "tagNames": "Tyto štítky neexistují: {names}. Dostupné: {known}.",
+    "tagName": "Zadejte název štítku (nejvýš 40 znaků).",
+    "tagsLimit": "Projekt může mít nejvýš {n} štítků. Nejdřív nějaké slučte nebo smažte.",
+    "tagExists": "Štítek „{name}“ už existuje.",
+    "tagMergeSelf": "Štítek nejde sloučit sám se sebou.",
+    "subMissing": "Takový podstav už neexistuje. Obnovte stránku.",
+    "subStage": "Podstav patří k jiné zastávce trasy.",
+    "subInvalid": "Stavy se nepodařilo uložit. Obnovte stránku a zkuste to znovu.",
+    "subName": "Každý podstav potřebuje název aspoň v jednom jazyce.",
+    "subTooMany": "Pod jednou zastávkou může být nejvýš {n} podstavů.",
+    "proofUrl": "Odkaz musí být celá adresa začínající https://."
+  },
+  "email": {
+    "footer": "Tento e-mail vám poslal {project}, protože sledujete tento záznam.",
+    "unsubscribe": "Odhlásit se z e-mailů",
+    "bugFixedSubject": "Opraveno: {title}",
+    "bugMineSummary": "Vaše hlášení „{title}“ je teď: {label}.",
+    "bugMineSummaryVersion": "Vaše hlášení „{title}“ je teď: {label} (v{version}).",
+    "bugFixedHeading": "Chybu, kterou jste nahlásili, jsme opravili",
+    "bugMineHeading": "Vaše hlášení je teď: {label}",
+    "bugFixedBody": "„{title}“ je opraveno.",
+    "bugFixedBodyVersion": "„{title}“ je opraveno ve verzi {version}.",
+    "bugFixedAsk": "Vyzkoušejte to prosím — jedním kliknutím nám dáte vědět, jestli už to funguje.",
+    "confirmFix": "Potvrdit opravu",
+    "openReport": "Otevřít hlášení",
+    "bugOtherSummary": "Hlášení #{n} „{title}“ je teď: {label}.",
+    "bugOtherHeading": "Hlášení #{n} je teď: {label}",
+    "fixedIn": " · opraveno ve verzi {version}",
+    "shippedSubject": "Vydáno: {title}",
+    "ideaSummary": "Nápad „{title}“, který sledujete, je teď: {label}.",
+    "ideaShippedHeading": "Nápad, který sledujete, je venku",
+    "ideaHeading": "Nápad, který sledujete, je teď: {label}",
+    "ideaWhy": "Dostáváte to, protože jste nápad napsali nebo jste ho komentovali.",
+    "viewIdea": "Zobrazit nápad",
+    "someone": "Někdo",
+    "internalNote": "Interní poznámka",
+    "newComment": "Nový komentář",
+    "newInternalNote": "Nová interní poznámka",
+    "onBug": "u hlášení #{n}",
+    "onIdea": "u nápadu",
+    "commentSummary": "{who} napsal(a) komentář {where} „{title}“.",
+    "noteSummary": "{who} přidal(a) interní poznámku {where} „{title}“.",
+    "commentLead": "{who} {where} „{title}“:",
+    "reply": "Odpovědět",
+    "newIdeaSubject": "Nový nápad: {title}",
+    "newIdeaSummary": "Nový nápad „{title}“.",
+    "newIdea": "Nový nápad",
+    "openIdea": "Otevřít nápad",
+    "newBugSubject": "Nové hlášení: {title}",
+    "newBugSummary": "Nové hlášení chyby „{title}“.",
+    "newBug": "Nové hlášení chyby",
+    "ref": "#{n} „{title}“",
+    "quoted": "„{title}“",
+    "changelogSubject": "Novinka: {title}",
+    "changelogSummary": "Vydali jsme „{title}“ — {ideas}.",
+    "changelogOne": "Nápad, který sledujete, je venku: „{title}“.",
+    "changelogMany": "Nápady, které sledujete, jsou venku: {titles}.",
+    "viewChangelog": "Zobrazit novinky",
+    "teamDigestSubject": "{project}: týden ve zpětné vazbě",
+    "teamDigestSummary": "{ideas, plural, one {# nový nápad} few {# nové nápady} other {# nových nápadů}}, {bugs, plural, one {# nová chyba} few {# nové chyby} other {# nových chyb}}, {open, plural, one {# otevřená chyba} few {# otevřené chyby} other {# otevřených chyb}}.",
+    "teamDigestHeading": "Týden ve zpětné vazbě",
+    "teamDigestNumbers": "Nové nápady: {ideas} · nová hlášení chyb: {bugs} · otevřené chyby celkem: {open}",
+    "teamDigestTop": "Nejvíc hlasů za týden:",
+    "openReports": "Otevřít hlášení",
+    "digestSubject": "{project}: {n, plural, one {# novinka} few {# novinky} other {# novinek}} k vaší zpětné vazbě",
+    "digestHeading": "Co se změnilo",
+    "openFeedback": "Otevřít zpětnou vazbu",
+    "loginSubject": "{code} — přihlášení do {brand}",
+    "loginHeading": "Váš kód: {code}",
+    "loginBody": "Zadejte ho v okně, kde jste se přihlašovali, nebo klikněte na tlačítko. Platí 15 minut.",
+    "loginIgnore": "Pokud jste o přihlášení nežádali, tento e-mail ignorujte.",
+    "signIn": "Přihlásit se",
+    "changeSubject": "Potvrďte nový e-mail pro Ozvi",
+    "changeHeading": "Potvrďte nový e-mail",
+    "changeBody": "Tímto e-mailem se chcete přihlašovat k účtu v Ozvi. Změna se projeví, až kliknete na tlačítko. Odkaz platí hodinu.",
+    "changeIgnore": "Pokud jste o změnu nežádali, tento e-mail ignorujte.",
+    "confirmEmail": "Potvrdit e-mail",
+    "errInvalidEmail": "Zadejte platný e-mail.",
+    "errTooManyCodes": "Poslali jsme už několik kódů. Zkuste to za pár minut, nebo použijte poslední e-mail.",
+    "errTooManyWrong": "Příliš mnoho nesprávných kódů pro tuto adresu. Zkuste to zítra nebo použijte odkaz z posledního e-mailu.",
+    "errCodeExpired": "Platnost kódu vypršela. Pošlete si nový.",
+    "errCodeBurned": "Nesprávný kód. Pošlete si nový.",
+    "errCodeWrong": "Nesprávný kód. Zkontrolujte ho a zkuste to znovu.",
+    "errLinkInvalid": "Odkaz už neplatí. Pošlete si nový.",
+    "errTooManyLinks": "Poslali jsme už několik odkazů. Zkuste to za hodinu.",
+    "errChangeInvalid": "Odkaz už neplatí. Požádejte o změnu znovu.",
+    "commentQueued": "Komentář čeká na schválení",
+    "commentQueuedSummary": "{who} napsal(a) komentář s odkazy {where} „{title}“, čeká na schválení.",
+    "commentQueuedLead": "{who} napsal(a) komentář s více odkazy {where} „{title}“. Ostatní ho uvidí, až ho schválíte:",
+    "reviewComment": "Zobrazit komentář",
+    "rejectedSubject": "Nápad nezveřejněn: {title}",
+    "rejectedSummary": "Tým nezveřejnil váš nápad „{title}“.",
+    "rejectedHeading": "Váš nápad tým nezveřejnil",
+    "rejectedBody": "Váš nápad „{title}“ tým prošel a rozhodl se ho nezveřejnit. Pokud máte dotaz, napište týmu.",
+    "rejectedBodyReason": "Váš nápad „{title}“ tým prošel a rozhodl se ho nezveřejnit. Připojil k tomu zprávu:",
+    "rejectedCta": "Otevřít nápad",
+    "teamDigestUnanswered": "{n, plural, one {Bez odpovědi: # hlášení čeká na tým déle než {days} dní.} few {Bez odpovědi: # hlášení čekají na tým déle než {days} dní.} other {Bez odpovědi: # hlášení čeká na tým déle než {days} dní.}}",
+    "teamDigestWaiting": "{n, plural, one {# den} few {# dny} other {# dní}}",
+    "openUnanswered": "Otevřít Bez odpovědi",
+    "proofHeading": "Co jsme změnili",
+    "proofPreview": "Vyzkoušet opravu",
+    "proofRelease": "Vydání {version}",
+    "releaseDraftSubject": "Návrh novinky pro {version} čeká na schválení",
+    "releaseDraftSummary": "Vydání {version}: návrh novinky čeká na schválení ({ideas, plural, one {# nápad} few {# nápady} other {# nápadů}}, {bugs, plural, one {# oprava} few {# opravy} other {# oprav}}).",
+    "releaseDraftHeading": "Návrh novinky pro {version} čeká na schválení",
+    "releaseDraftBody": "Vydání na GitHubu posunulo {ideas, plural, =0 {žádný nápad} one {# nápad} few {# nápady} other {# nápadů}} mezi vydané a {bugs, plural, =0 {žádnou chybu} one {# chybu} few {# chyby} other {# chyb}} mezi opravené. Připravili jsme z toho koncept novinky.",
+    "releaseDraftNote": "Nic se nezveřejnilo. Hlasující dostanou e-mail, až novinku zkontrolujete a zveřejníte.",
+    "releaseDraftCta": "Zkontrolovat návrh",
+    "teamDigestUnannounced": "Vydané, ale neoznámené: {n, plural, one {# položka zatím není} few {# položky zatím nejsou} other {# položek zatím není}} v žádné zveřejněné novince. Hlasující se o nich dozví až z ní.",
+    "updater": {
+      "available": {
+        "subject": "Ozvi {v} je k dispozici",
+        "running": "Na serveru {url} běží verze {from}.",
+        "auto": "Updater ji nainstaluje v nejbližším nočním okně. Před aktualizací zálohuje databázi.",
+        "manual": "Nainstalujete ji tlačítkem v nastavení boardu, část Aktualizace.",
+        "command": "Aktualizujete ji na serveru: zálohujte databázi a spusťte docker compose pull && docker compose up -d.",
+        "major": "Jde o zásadní změnu, proto se sama nenainstaluje. Před aktualizací si přečtěte poznámky k vydání.",
+        "cta": "Co je nového"
+      },
+      "updated": {
+        "subject": "Ozvi je aktualizováno na {to}",
+        "text": "Aktualizace na serveru {url} z verze {from} na {to} proběhla v pořádku.",
+        "backup": "Záloha databáze před aktualizací: {file}"
+      },
+      "rolledBack": {
+        "subject": "Aktualizace Ozvi na {to} se nepodařila, běží {from}",
+        "text": "Nová verze na serveru {url} nenaběhla, proto updater vrátil verzi {from} i s databází ze zálohy. Nic se neztratilo.",
+        "reason": "Důvod: {message}",
+        "next": "Tuto verzi se už automaticky instalovat nepokusíme. Zkontrolujte záznamy (docker compose logs ozvi) nebo počkejte na opravu."
+      },
+      "failed": {
+        "subject": "Aktualizace Ozvi selhala, zkontrolujte server",
+        "text": "Při aktualizaci na serveru {url} nastala chyba, kterou updater nedokázal vyřešit sám.",
+        "reason": "Chyba: {message}",
+        "restore": "Postup obnovy ze zálohy je v dokumentaci SELFHOST.md, část Aktualizace."
+      },
+      "open": "Otevřít nastavení"
+    }
+  },
+  "errors": {
+    "signIn": "K této akci se musíte přihlásit.",
+    "signInAgain": "Přihlaste se znovu.",
+    "ideaMissing": "Nápad neexistuje.",
+    "itemMissing": "Záznam neexistuje.",
+    "numberMissing": "#{n} neexistuje.",
+    "teamOnly": "Jen pro tým projektu.",
+    "statusTeamOnly": "Stav může měnit jen tým.",
+    "mergeTeamOnly": "Slučovat může jen tým.",
+    "mergeNumber": "Zadejte číslo původního záznamu, např. 12.",
+    "cannotConfirm": "Toto hlášení nelze potvrdit.",
+    "stillBrokenIn": "Ve verzi {v} to pořád nefunguje.",
+    "stillBroken": "S opravou to pořád nefunguje.",
+    "titleShort": "Napište název alespoň na 3 znaky.",
+    "titleLong": "Název může mít nejvýš 200 znaků.",
+    "bodyLong": "Popis může mít nejvýš 10 000 znaků.",
+    "rateLimit": "Příliš mnoho akcí za krátkou dobu. Zkuste to prosím za chvíli.",
+    "tooManyFiles": "Přiložit můžete nejvýš {max} souborů.",
+    "fileTooBig": "Soubor „{name}“ má víc než 10 MB.",
+    "fileType": "Soubor „{name}“ nepodporujeme. Pošlete obrázek, PDF nebo textový log.",
+    "quota": "Projekt vyčerpal místo na přílohy. Hlášení pošlete bez přílohy, tým se o tom dozví.",
+    "entryTitle": "Nadpis musí mít 3 až 200 znaků.",
+    "entryBody": "Text může mít nejvýš 20 000 znaků.",
+    "entryMissing": "Záznam v changelogu neexistuje.",
+    "draftSaved": "Koncept je uložený.",
+    "aiOff": "AI není pro tento projekt zapnuté.",
+    "aiRate": "Příliš mnoho požadavků na AI za hodinu. Zkuste to později.",
+    "aiPickIdeas": "Nejdřív vyberte nápady, které jste vydali.",
+    "eraseConfirm": "Potvrďte, že chcete údaje opravdu smazat.",
+    "eraseAdmin": "Admin projektu nemůže smazat sám sebe. Nejdřív předejte roli jinému adminovi.",
+    "deleteAdminOnly": "Projekt může smazat jen admin.",
+    "deleteConfirm": "Pro potvrzení napište přesně „{slug}“.",
+    "blocked": "Na tomto boardu teď nemůžete přidávat příspěvky ani hlasovat.",
+    "voteBudget": "Na tento hlas vám nezbývá dost hlasů (zbývá {n}). Odeberte hlas z jiného nápadu nebo zvolte nižší důležitost.",
+    "adminOnly": "Tohle může udělat jen admin boardu."
+  },
+  "forms": {
+    "optional": "nepovinné",
+    "cancel": "Zrušit",
+    "keep": "Ponechat",
+    "saving": "Ukládám…",
+    "newItem": {
+      "titleBug": "Co nefunguje?",
+      "titleIdea": "Co by vám pomohlo?",
+      "placeholderBug": "Např. Po uložení klienta zmizí DIČ",
+      "placeholderIdea": "Např. Export faktur do Pohody",
+      "similarLabel": "Podobné nápady",
+      "similar": "Něco podobného už existuje. Pokud je to ono, stačí zahlasovat.",
+      "bodyBug": "Co jste dělali a co jste čekali?",
+      "bodyIdea": "Proč to potřebujete?",
+      "bodyPlaceholderBug": "1. Otevřel jsem klienta\n2. Vyplnil DIČ a dal Uložit\n3. Po znovuotevření je pole prázdné",
+      "bodyPlaceholderIdea": "Jak to dnes řešíte a co by se změnilo, kdyby to tu bylo",
+      "filesBug": "Screenshot nebo log",
+      "filesIdea": "Obrázek nebo náčrt",
+      "filesHintBug": "Obrázky, PDF a textové logy, nejvýš 5 souborů po 10 MB",
+      "filesHintIdea": "Obrázky nebo PDF, nejvýš 5 souborů po 10 MB",
+      "context": "Připojíme technické údaje",
+      "show": "Zobrazit",
+      "page": "Stránka",
+      "appVersion": "Verze aplikace",
+      "browser": "Prohlížeč",
+      "viewport": "Okno",
+      "language": "Jazyk",
+      "sending": "Odesílám…",
+      "submitBug": "Nahlásit chybu",
+      "submitIdea": "Navrhnout nápad"
+    },
+    "files": {
+      "unsupported": "„{name}“ nepodporujeme. Přiložte obrázek, PDF nebo textový log.",
+      "tooBig": "„{name}“ má {size}, nejvýš lze 10 MB.",
+      "tooMany": "Přiložit lze nejvýš {max} souborů.",
+      "pick": "Vyberte soubory",
+      "orPhoto": "nebo vyfoťte obrazovku",
+      "drag": "Přetáhněte soubory sem",
+      "browse": "vyberte je",
+      "orPaste": "nebo vložte screenshot přes",
+      "attached": "Přiložené soubory",
+      "remove": "Odebrat {name}"
+    },
+    "comment": {
+      "label": "Komentář",
+      "placeholder": "Napište komentář…",
+      "teamOnly": "Jen pro tým",
+      "adding": "Přidávám…",
+      "add": "Přidat komentář"
+    },
+    "vote": {
+      "signInLabel": "Hlasů: {n}. Pro hlasování se přihlaste.",
+      "signIn": "Pro hlasování se přihlaste",
+      "signedInOnly": "Hlasovat mohou přihlášení",
+      "unvote": "Zrušit hlas",
+      "vote": "Hlasovat",
+      "count": "{count, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}}",
+      "weighted": "{points, plural, one {# bod} few {# body} many {# bodu} other {# bodů}} od {people, plural, one {# člověka} other {# lidí}}",
+      "change": "Změnit hlas",
+      "howImportant": "Jak je to pro vás důležité?",
+      "level1": "Hezké mít",
+      "level2": "Důležité",
+      "level3": "Kritické",
+      "cost": "{n, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}}",
+      "remove": "Odebrat hlas",
+      "left": "Zbýv{n, plural, one {á} few {ají} many {á} other {á}} vám {n, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}}",
+      "exhausted": "Vyčerpali jste všechny hlasy. Odeberte hlas z jiného nápadu, nebo počkejte, až ho vydáme — hlasy se vám vrátí.",
+      "exhaustedShort": "Vyčerpali jste všechny hlasy",
+      "exhaustedHow": "Odeberte hlas z jiného nápadu, nebo počkejte, až některý vydáme — hlasy se vám vrátí.",
+      "budgetHint": "Každý má {budget, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}} na aktivní nápady. Po vydání nápadu se vám hlas vrátí.",
+      "budgetHintImportance": "Každý má {budget, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}}. Hezké mít stojí 1, Důležité 2, Kritické 3; po vydání se vrátí."
+    },
+    "confirmFix": {
+      "label": "Ověření opravy",
+      "titleIn": "Opravili jsme to ve verzi {v}.",
+      "title": "Opravili jsme to.",
+      "text": "Už vám to funguje? Jedním kliknutím hlášení uzavřete, nebo ho vrátíte týmu.",
+      "works": "Ano, funguje",
+      "broken": "Pořád nefunguje"
+    },
+    "gallery": {
+      "label": "Přílohy",
+      "zoom": "Zvětšit {name}",
+      "position": "{i} z {n}",
+      "download": "Stáhnout",
+      "close": "Zavřít",
+      "prev": "Předchozí",
+      "next": "Další"
+    },
+    "team": {
+      "statusToast": "Stav: {s}",
+      "notifyBug": "Autor hlášení dostane e-mail.",
+      "notifyIdea": "Autor a hlasující dostanou e-mail.",
+      "status": "Stav",
+      "now": "teď",
+      "fixedIn": "Opraveno ve verzi",
+      "moveTo": "Přesunout na {s}",
+      "unlink": "Odpojit {ref}",
+      "unlinked": "{ref} odpojeno",
+      "issueLabel": "Issue na GitHubu",
+      "issuePlaceholder": "#123 nebo odkaz na issue",
+      "link": "Propojit",
+      "createIssue": "Vytvořit issue",
+      "mergeLabel": "Číslo původního záznamu",
+      "merge": "Sloučit…",
+      "mergeTitle": "Sloučit do #{n}?",
+      "mergeIdea": "Hlasy se přesunou do #{n} a tento nápad se uzavře jako duplicita.",
+      "mergeBug": "Toto hlášení se uzavře jako duplicita #{n}. Autor se o opravě dozví z původního.",
+      "merging": "Slučuji…",
+      "mergeInto": "Sloučit do #{n}",
+      "aiHint": "AI přečte popis a komentáře a shrne, o co jde. Ověřte si to v diskusi.",
+      "summarizing": "Shrnuji…",
+      "summarizeAgain": "Shrnout znovu",
+      "summarize": "Shrnout diskusi",
+      "aiSummaryLabel": "Napsala AI · ověřte si to v diskusi"
+    },
+    "changelog": {
+      "votes": "{count, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}}",
+      "shipped": "Co jste vydali",
+      "linkedPublished": "Nápady propojené s touto novinkou.",
+      "linkedDraft": "Vybrané nápady se po zveřejnění označí jako vydané.",
+      "noCandidates": "Zatím nejsou žádné nápady plánované ani rozpracované. Novinku můžete napsat i bez nich.",
+      "drafting": "Píšu návrh…",
+      "aiDraft": "Navrhnout text pomocí AI",
+      "pickFirst": "Nejdřív vyberte alespoň jeden nápad.",
+      "aiNote": "AI vidí jen názvy a popisy vybraných nápadů. Návrh vždy přečtěte a upravte.",
+      "title": "Nadpis",
+      "titlePlaceholder": "Export do Pohody je tady",
+      "body": "Text",
+      "bodyHint": "Co je nového a proč to pomůže. Pište pro lidi, kteří o to žádali.",
+      "publishNoItems": "Po zveřejnění se novinka objeví v seznamu novinek. Bez vybraných nápadů nikomu nepošleme e-mail.",
+      "publishOne": "Po zveřejnění se vybraný nápad označí jako vydaný a každý, kdo pro něj hlasoval, dostane jeden e-mail s tímto textem",
+      "publishMany": "Po zveřejnění se {n} vybraných nápadů označí jako vydané a každý, kdo pro ně hlasoval, dostane jeden e-mail s tímto textem",
+      "total": "(celkem {votes})",
+      "publishNotify": "Zveřejnit a upozornit hlasující",
+      "publish": "Zveřejnit novinku",
+      "saveChanges": "Uložit změny",
+      "saveDraft": "Uložit koncept",
+      "discard": "Zahodit koncept",
+      "discardTitle": "Zahodit koncept?",
+      "discardText": "Koncept „{title}“ se natrvalo smaže. Vybrané nápady zůstanou v původním stavu.",
+      "discarding": "Zahazuji…",
+      "bugPrivate": "chyba · jen pro tým",
+      "aiLabelDraft": "Text vznikl s pomocí AI. Po zveřejnění se u novinky zobrazí štítek „s pomocí AI“ s vaším jménem jako kontrolora.",
+      "aiLabelPublished": "Text vznikl s pomocí AI a nese štítek „s pomocí AI“."
+    },
+    "privacy": {
+      "eraseOpen": "Smazat moje údaje…",
+      "eraseTitle": "Natrvalo smazat vaše údaje?",
+      "eraseText": "Smažeme vaše hlasy, komentáře, hlášení chyb včetně příloh i e-maily a odhlásíme vás. Nápady, pro které hlasovali jiní, zůstanou bez jména autora. Vrátit to nejde.",
+      "deleting": "Mažu…",
+      "erase": "Smazat moje údaje",
+      "deleteOpen": "Smazat projekt…",
+      "deleteTitle": "Natrvalo smazat projekt {slug}?",
+      "deleteText": "Smaže board, všechny nápady, hlášení, komentáře, hlasy, přílohy a nastavení. Widget v aplikaci přestane fungovat. Vrátit to nejde, proto si nejdřív stáhněte export.",
+      "typeToConfirm": "Pro potvrzení napište",
+      "delete": "Natrvalo smazat projekt"
+    },
+    "update": {
+      "available": "K dispozici je verze {v}",
+      "running": "Běžíte na verzi",
+      "breaking": " Toto vydání mění něco zásadního, před aktualizací si přečtěte poznámky.",
+      "devOff": "Vývojová verze, kontrola aktualizací je vypnutá.",
+      "off": "Kontrola aktualizací je vypnutá (OZVI_UPDATE_CHECK=0).",
+      "latest": "Máte nejnovější verzi.",
+      "failed": "Seznam vydání se teď nepodařilo načíst. Zkusíme to zítra.",
+      "how": "Zazálohujte databázi a na serveru spusťte (migrace proběhnou při startu samy):",
+      "whatsNew": "Co je nového ve verzi {v}"
+    },
+    "proof": {
+      "teamOnly": "Důkaz opravy může přidat jen tým.",
+      "noItem": "Záznam se nenašel. Obnovte stránku.",
+      "rate": "Příliš mnoho změn najednou. Zkuste to za chvíli.",
+      "added": "Odkaz je přidaný.",
+      "hintBug": "Sloučené PR se přidají samy (řádek „Ozvi: #12“ nebo „Fixes #40“ propojeného issue). Reportér je uvidí v e-mailu „funguje vám to?“ spolu s náhledem.",
+      "hintIdea": "Sloučené PR se přidají samy (řádek „Ozvi: #12“ v PR). Veřejně se u vydání ukáže jen náhled a vydání, PR vidí jen tým.",
+      "preview": "Náhled",
+      "remove": "Odebrat {what}",
+      "removed": "Odkaz je odebraný.",
+      "urlLabel": "Odkaz na PR nebo náhled",
+      "urlPlaceholder": "https://…",
+      "add": "Přidat odkaz"
+    },
+    "markdown": {
+      "mode": "Režim editoru",
+      "write": "Psát",
+      "preview": "Náhled",
+      "toolbar": "Formátování",
+      "bold": "Tučně",
+      "italic": "Kurzíva",
+      "link": "Odkaz",
+      "list": "Seznam",
+      "code": "Kód",
+      "boldText": "tučný text",
+      "italicText": "kurzíva",
+      "linkText": "text odkazu",
+      "codeText": "kód",
+      "empty": "Zatím není co zobrazit."
+    },
+    "updater": {
+      "title": "Aktualizace",
+      "version": "Ozvi {v}",
+      "image": "Obraz: {ref}",
+      "available": "K dispozici je verze {v}",
+      "upToDate": "Máte nejnovější verzi.",
+      "whatsNew": "Co je nového ve verzi {v}",
+      "lastCheck": "Seznam vydání zkontrolován {when}.",
+      "checkNow": "Zkontrolovat teď",
+      "checked": "Seznam vydání je aktuální.",
+      "modeLabel": "Režim aktualizací",
+      "modes": {
+        "notify": {
+          "label": "Jen upozornit",
+          "text": "Pošleme e-mail o nové verzi, aktualizujete příkazem na serveru."
+        },
+        "manual": {
+          "label": "Na pokyn",
+          "text": "Novou verzi nainstalujete tlačítkem zde v nastavení."
+        },
+        "auto": {
+          "label": "Automaticky",
+          "text": "Opravy a menší verze se nainstalují v noci ({window}, {tz}). Zásadní změny vždy počkají na vás."
+        }
+      },
+      "saveMode": "Uložit režim aktualizací",
+      "modeSaved": "Režim je uložen.",
+      "updateNow": "Aktualizovat na {v}",
+      "updating": "Spouštím…",
+      "confirmTitle": "Aktualizovat Ozvi na verzi {v}?",
+      "confirmText": "Nejdřív zálohujeme databázi. Během aktualizace bude Ozvi asi minutu nedostupné. Pokud nová verze nenaběhne, vrátíme předchozí i s daty ze zálohy.",
+      "cancel": "Zatím ne",
+      "started": "Aktualizace běží. Stránka se obnoví sama.",
+      "running": "Probíhá aktualizace. Ozvi může chvíli neodpovídat.",
+      "reasons": {
+        "pinned": "Server má v OZVI_IMAGE pevnou verzi, proto se sám neposune. Na verzi {v} změňte značku obrazu na serveru.",
+        "outsideLine": "Verze {v} je mimo větev, kterou server sleduje. Jde o zásadní změnu: přečtěte si poznámky a na serveru změňte OZVI_IMAGE.",
+        "breaking": "Toto vydání mění něco zásadního, proto se automaticky nenainstaluje. Přečtěte si poznámky a aktualizujte tlačítkem.",
+        "notifyOnly": "V režimu Jen upozornit aktualizujete na serveru (záloha se neprovede sama):"
+      },
+      "unreachable": "Updater neodpovídá. Zkontrolujte, zda běží (docker compose --profile updater ps) a zda má stejný OZVI_UPDATER_TOKEN jako Ozvi.",
+      "backups": "Před každou aktualizací se databáze zálohuje do složky backups na serveru (uchováme posledních 5).",
+      "history": "Poslední aktualizace",
+      "results": {
+        "updated": "Aktualizováno z {from} na {to}",
+        "rolledBack": "Verze {to} nenaběhla, vráceno na {from} i s daty",
+        "failed": "Selhalo, zkontrolujte server",
+        "noChange": "Beze změny, registr ještě neměl novější obraz"
+      },
+      "triggers": {
+        "manual": "na pokyn",
+        "scheduled": "automaticky"
+      },
+      "errors": {
+        "mode": "Neznámý režim aktualizací.",
+        "unreachable": "Updater neodpovídá. Zkontrolujte kontejner updater na serveru.",
+        "busy": "Aktualizace už běží.",
+        "notifyOnly": "V režimu Jen upozornit updater nic neinstaluje. Nejdřív změňte režim."
+      }
+    }
+  },
+  "integrations": {
+    "linear": {
+      "network": "Linear je momentálně nedostupný. Zkuste to za chvíli.",
+      "badKey": "API klíč pro Linear je neplatný nebo byl zrušen.",
+      "forbidden": "Klíč pro Linear k tomu nemá oprávnění. Použijte klíč člena workspace s přístupem k týmu.",
+      "notFound": "Linear toto issue nenašel nebo ho klíč nevidí.",
+      "error": "Linear vrátil chybu: {err}",
+      "status": "Linear vrátil chybu {s}.",
+      "notConnected": "Linear není pro tento projekt propojený.",
+      "pickTeam": "Nejdřív vyberte tým v Linearu v admin → Integrace.",
+      "ref": "Zadejte ID issue, např. ENG-123, nebo odkaz z Linearu.",
+      "otherTeam": "Propojit lze jen issues z týmu {team}.",
+      "createFailed": "Linear issue nevytvořil. Zkuste to znovu."
+    },
+    "jira": {
+      "site": "Zadejte adresu Jira Cloud, např. firma.atlassian.net.",
+      "network": "Jira je momentálně nedostupná. Zkuste to za chvíli.",
+      "badToken": "Jira odmítla e-mail a API token. Zkontrolujte obojí.",
+      "forbidden": "Účet v Jiře k tomu nemá oprávnění (procházení, vytváření, přechody, komentáře).",
+      "notFound": "Jira to nenašla nebo to účet nevidí.",
+      "status": "Jira vrátila chybu {s}.",
+      "notConnected": "Jira není pro tento projekt propojená.",
+      "pickProject": "Nejdřív vyberte projekt a typ issue v admin → Integrace.",
+      "ref": "Zadejte klíč issue, např. ABC-12, nebo odkaz z Jiry.",
+      "otherProject": "Propojit lze jen issues z projektu {project}."
+    },
+    "chatCard": {
+      "open": "Otevřít v Ozvi",
+      "openUpdate": "Přečíst novinku"
+    },
+    "tracker": {
+      "acc": {
+        "linear": "Linear",
+        "jira": "Jiru"
+      },
+      "alreadyLinked": "{ref} je už propojené s #{n}.",
+      "moved": "{tracker} {ref} se přesunulo do stavu „{state}“.",
+      "comment": "Komentář z Ozvi: napsal(a) {trust} přes {source}.",
+      "commentInternal": "Interní poznámka týmu z Ozvi: napsal(a) {trust} přes {source}.",
+      "slowDown": "Příliš mnoho požadavků za krátkou dobu. Počkejte minutu a zkuste to znovu.",
+      "saved": "Uloženo.",
+      "unknown": "Neznámá integrace.",
+      "notConnected": "Zatím nepropojeno.",
+      "mappingSaved": "Mapování uloženo.",
+      "testOk": "Spojení funguje: {who}, {n, plural, one {načten # stav} few {načteny # stavy} many {načteno # stavu} other {načteno # stavů}}.",
+      "connect": "Propojit {name}",
+      "test": "Otestovat spojení",
+      "testing": "Ověřuji…",
+      "disconnect": "Odpojit",
+      "disconnected": "Odpojeno: {name}",
+      "disconnectTitle": "Odpojit {name}?",
+      "disconnectText": "Stavy se přestanou synchronizovat a z Ozvi už nepůjde vytvářet issues. Propojení u existujících položek zůstanou.",
+      "disconnectConfirm": "Odpojit {name}",
+      "disconnecting": "Odpojuji…",
+      "connectedTo": "Propojeno jako {who} · {where}",
+      "connectedNoTarget": "Propojeno jako {who}. Teď vyberte, kam mají issues jít, a uložte.",
+      "keepSecret": "Nechte prázdné, pokud chcete ponechat uložený.",
+      "saving": "Ukládám…",
+      "issueLabel": "Issue ({name})",
+      "create": "Vytvořit issue",
+      "noStates": "Stavy workflow ještě nejsou načtené. Načtete je přes „Otestovat spojení“.",
+      "push": {
+        "title": "Přesunout issue, když se změní zastávka v Ozvi",
+        "text": "obousměrná synchronizace; změna, která přišla z trackeru, se zpět neposílá"
+      },
+      "comments": {
+        "legend": "Komentáře z Ozvi",
+        "off": {
+          "title": "Nezrcadlit",
+          "text": "tracker dostane jen issue a přesuny stavů"
+        },
+        "public": {
+          "title": "Veřejné komentáře",
+          "text": "přidají se k issue s tím, kdo je napsal (úroveň ověření, nikdy jméno)"
+        },
+        "all": {
+          "title": "Veřejné komentáře i poznámky týmu",
+          "text": "i interní poznámky; jen pro tracker, který zákazníci nevidí"
+        }
+      },
+      "mapping": {
+        "title": "Mapování stavů",
+        "text": "Když se issue přesune do jiného stavu, položka v Ozvi přejde na zastávku, kterou vyberete. Autor a komentující dostanou běžný e-mail; hlasující se to dozvědí až ze zveřejněné novinky.",
+        "state": "Stav workflow",
+        "stage": "Zastávka v Ozvi (nápad / chyba)",
+        "push": "Směrem z Ozvi do trackeru se použije první stav v seznamu namapovaný na zastávku položky.",
+        "save": "Uložit mapování"
+      },
+      "bucket": {
+        "none": "Ignorovat",
+        "ack": "Plánováno / Potvrzeno",
+        "progress": "Rozpracováno",
+        "done": "Vydáno / Opraveno",
+        "off": "Zamítnuto / Nebude se řešit"
+      },
+      "linear": {
+        "needKey": "Vložte osobní API klíč z Linearu.",
+        "noTeam": "Tento tým není pro klíč dostupný.",
+        "hookManual": "Uloženo. Linear nedovolil vytvořit webhook automaticky: přidejte ho ručně (postup níže).",
+        "pickTeamNow": "Linear je propojený. Teď vyberte tým a uložte.",
+        "hookCreated": "Propojeno s týmem {team}. Webhook v Linearu je vytvořený, stavy se synchronizují.",
+        "key": "Osobní API klíč",
+        "keyHint": "Linear → Settings → Security & access → Personal API keys. Klíč admina workspace umí vytvořit i webhook.",
+        "team": "Tým",
+        "teamHint": "Nové issues půjdou do tohoto týmu a propojit lze jen jeho issues.",
+        "teamPick": "Vyberte tým",
+        "hookAuto": "Webhook v Linearu je vytvořený automaticky: stavy se synchronizují.",
+        "hookManualTitle": "Adresa webhooku pro Linear",
+        "hookSteps": "Linear → Settings → API → Webhooks → New webhook: vložte tuto adresu, vyberte tým, události „Issues“ a podpisový secret zkopírujte sem.",
+        "hookLocal": "Tento board neběží na veřejné https adrese, takže ho Linear nezavolá. Stavy z Linearu se začnou synchronizovat, až Ozvi poběží veřejně; směr Ozvi → Linear funguje už teď.",
+        "secret": "Podpisový secret webhooku",
+        "secretHint": "Z detailu webhooku v Linearu.",
+        "save": "Uložit Linear",
+        "placeholder": "ENG-123 nebo odkaz z Linearu"
+      },
+      "jira": {
+        "siteFormat": "Zadejte adresu Jira Cloud, např. firma.atlassian.net.",
+        "emailFormat": "Zadejte e-mail účtu Atlassian, ke kterému token patří.",
+        "needToken": "Vložte API token z Atlassianu.",
+        "noProject": "Tento projekt není pro účet dostupný.",
+        "secretOnce": "Jira je propojená. Tento secret vložte do webhooku v Jiře (pole Secret):",
+        "pickProjectNow": "Jira je propojená. Teď vyberte projekt a uložte.",
+        "site": "Adresa Jira Cloud",
+        "siteHint": "Jen weby Atlassian Cloud (….atlassian.net).",
+        "email": "E-mail účtu Atlassian",
+        "token": "API token",
+        "tokenHint": "id.atlassian.com → Security → API tokens. Ideálně servisní účet s přístupem k jednomu projektu.",
+        "project": "Projekt",
+        "projectPick": "Vyberte projekt",
+        "issueType": "Typ issue",
+        "issueTypeHint": "Pro issues vytvořené z Ozvi.",
+        "syncLegend": "Jak přicházejí změny z Jiry",
+        "sync": {
+          "webhook": {
+            "title": "Webhook",
+            "text": "okamžitě; jednou ho přidá administrátor Jiry"
+          },
+          "poll": {
+            "title": "Kontrola každých 5 minut",
+            "text": "nejsou potřeba administrátorská práva v Jiře"
+          }
+        },
+        "hookTitle": "Adresa webhooku pro Jiru",
+        "hookSteps": "Jira → Settings → System → WebHooks → Create a WebHook: vložte tuto adresu a secret zobrazený při propojení, JQL „project = {key}“, události Issue updated a deleted.",
+        "newSecret": "Vygenerovat nový secret",
+        "save": "Uložit Jiru",
+        "placeholder": "ABC-12 nebo odkaz z Jiry"
+      }
+    },
+    "saving": "Ukládám…",
+    "verifying": "Ověřuji…",
+    "token": {
+      "name": "Název",
+      "nameHint": "Abyste token později poznali, např. podle zařízení.",
+      "namePlaceholder": "Claude Code – notebook",
+      "validity": "Platnost",
+      "days": "{n} dní",
+      "year": "1 rok",
+      "forever": "Bez omezení",
+      "what": "Co smí asistent dělat",
+      "read": {
+        "title": "Číst",
+        "text": "hledat a číst nápady a hlášení, dělat souhrny"
+      },
+      "write": {
+        "title": "Psát",
+        "text": "i zakládat nápady a hlášení a komentovat"
+      },
+      "triage": {
+        "title": "Triáž",
+        "text": "i měnit stav, slučovat duplicity a propojovat s GitHubem"
+      },
+      "claudeCode": "Přidání do Claude Code jedním příkazem:",
+      "copyCmd": "Kopírovat příkaz",
+      "creating": "Vytvářím…",
+      "create": "Vytvořit token",
+      "revoked": "Token „{name}“ je zrušený",
+      "revokedUnnamed": "Token je zrušený",
+      "revokeTitle": "Zrušit token „{name}“?",
+      "revokeTitleUnnamed": "Zrušit token?",
+      "revoke": "Zrušit token",
+      "revoking": "Ruším…",
+      "revokeText": "Asistent, který ho používá, okamžitě ztratí přístup. Pokud ho ještě potřebujete, vytvořte pak nový."
+    },
+    "webhook": {
+      "events": {
+        "item_created": "Nový nápad nebo hlášení",
+        "item_status_changed": "Změna stavu",
+        "comment_created": "Nový komentář",
+        "item_merged": "Sloučení duplicit",
+        "item_linked": "Propojení s issue (GitHub, Linear, Jira)",
+        "changelog_published": "Zveřejněná novinka",
+        "item_tags_changed": "Změna veřejných štítků"
+      },
+      "url": "Adresa webhooku",
+      "format": "Formát",
+      "chat": {
+        "title": "Zpráva do chatu",
+        "text": "Slack, Mattermost, Rocket.Chat"
+      },
+      "teams": {
+        "title": "Microsoft Teams",
+        "text": "karta v kanálu (Workflows: „When a Teams webhook request is received“)"
+      },
+      "discord": {
+        "title": "Discord",
+        "text": "karta v kanálu, zmínky vypnuté"
+      },
+      "json": {
+        "title": "JSON s podpisem",
+        "text": "pro vlastní backend, n8n, Zapier"
+      },
+      "eventsLegend": "Události",
+      "eventsHint": "Když nevyberete nic, pošleme všechny.",
+      "bugs": "Posílat i hlášení chyb",
+      "bugsNote": "— jsou soukromá, zapněte jen pro interní kanál",
+      "adding": "Přidávám…",
+      "add": "Přidat webhook",
+      "sending": "Posílám…",
+      "test": "Poslat test",
+      "removed": "Webhook je odstraněný",
+      "remove": "Odstranit",
+      "removeTitle": "Odstranit webhook?",
+      "removeText": "Na tuto adresu už nepošleme žádnou událost.",
+      "removeConfirm": "Odstranit webhook",
+      "removing": "Odstraňuji…"
+    },
+    "github": {
+      "repo": "Repozitář",
+      "repoHint": "Ve tvaru vlastník/název.",
+      "token": "Token",
+      "keepToken": "Prázdné = ponechat uložený token.",
+      "tokenHint": "Fine-grained token, jen tento repozitář, Issues: Read and write.",
+      "onClose": "Když se issue zavře",
+      "release": {
+        "title": "Počkat na release",
+        "text": "po vydání dostane chyba „opraveno ve verzi X“ a autor e-mail"
+      },
+      "fixed": {
+        "title": "Hned označit jako opravené",
+        "text": "pro projekty bez GitHub releasů"
+      },
+      "hookA": "Repozitář → Settings → Webhooks → Add webhook: Payload URL",
+      "hookB": ", Content type application/json, události Issues a Releases.",
+      "save": "Uložit GitHub",
+      "connect": "Připojit GitHub",
+      "disconnected": "GitHub je odpojený",
+      "disconnect": "Odpojit",
+      "disconnectTitle": "Odpojit GitHub?",
+      "disconnectText": "Nové issues se přestanou propojovat a stav se nebude synchronizovat. Propojení u existujících záznamů zůstanou.",
+      "disconnectConfirm": "Odpojit GitHub",
+      "disconnecting": "Odpojuji…"
+    },
+    "oidc": {
+      "issuerHint": "Prázdné = přihlášení přes OIDC je vypnuté.",
+      "keepSecret": "Prázdné = ponechat uložený secret.",
+      "redirect": "Redirect URI u poskytovatele",
+      "roles": "Role (tým, admin) nastavíte v sekci Lidé, od poskytovatele je nepřebíráme.",
+      "save": "Uložit OIDC"
+    },
+    "people": {
+      "roles": {
+        "member": "Uživatel",
+        "team": "Tým",
+        "admin": "Admin"
+      },
+      "you": "to jste vy",
+      "role": "Role",
+      "user": "Uživatel",
+      "signedOut": "{name} je odhlášen všude",
+      "signOut": "Odhlásit všude",
+      "signOutTitle": "Odhlásit {name} všude?",
+      "signOutTitleUnnamed": "Odhlásit uživatele všude?",
+      "signingOut": "Odhlašuji…",
+      "signOutText": "Okamžitě zrušíme jeho přihlášení i API tokeny. Jakmile se znovu přihlásí přes aplikaci, přístup se mu vrátí; natrvalo ho odeberete v aplikaci."
+    },
+    "domain": {
+      "label": "Doména",
+      "none": "Prázdné = bez vlastní domény.",
+      "plan": "Vlastní doména je v tarifu Pro a Studio.",
+      "placeholder": "feedback.vasefirma.cz",
+      "verified": "je ověřená a funguje.",
+      "records": "U správce DNS nastavte dva záznamy",
+      "for": "pro",
+      "afterDns": "Potom klikněte na „Ověřit doménu“. Změna DNS se může šířit i hodinu. Certifikát HTTPS vystavíme automaticky.",
+      "save": "Uložit doménu",
+      "verify": "Ověřit doménu"
+    },
+    "act": {
+      "teamOnly": "Jen pro tým projektu.",
+      "adminOnly": "Jen pro admina projektu.",
+      "tokenName": "Pojmenujte token (2 až 60 znaků), např. „Claude Code – notebook“.",
+      "pickScope": "Vyberte oprávnění.",
+      "tooMany": "Máte 20 aktivních tokenů. Nejdřív některý zrušte.",
+      "tokenCreated": "Token „{name}“ je vytvořený.",
+      "hookAddedSigned": "Webhook je přidaný. Podpis ověříte tímto secretem (hlavičky Standard Webhooks nebo Ozvi-Signature, návod na /docs/webhooks).",
+      "hookAdded": "Webhook je přidaný.",
+      "noHook": "Webhook neexistuje.",
+      "testTitle": "Testovací zpráva z Ozvi",
+      "delivered": "Doručeno (HTTP {code}).",
+      "failed": "Nedoručeno: {err}.",
+      "repoFormat": "Repozitář zadejte ve tvaru vlastník/název, např. firma/app.",
+      "needToken": "Vložte GitHub token s oprávněním Issues: čtení a zápis.",
+      "ghConnected": "GitHub je připojený k {repo}. Teď v repozitáři přidejte webhook (návod níže) s tímto secretem:",
+      "ghSaved": "Nastavení GitHubu je uložené.",
+      "noItem": "Záznam neexistuje.",
+      "linked": "Propojeno s {ref}.",
+      "oidcOff": "Přihlášení přes OIDC je vypnuté.",
+      "httpsIssuer": "Issuer musí začínat https://.",
+      "clientId": "Zadejte Client ID.",
+      "clientSecret": "Zadejte Client secret.",
+      "discovery": "Z {issuer}/.well-known/openid-configuration se nepodařilo načíst konfiguraci: {err}",
+      "oidcSaved": "OIDC je uložené. Tlačítko „Přihlásit se“ teď vede na vašeho poskytovatele identity.",
+      "ownRole": "Vlastní roli nezměníte.",
+      "badRole": "Neplatná role.",
+      "domainRemoved": "Vlastní doména je odstraněná.",
+      "domainPlan": "Vlastní doména je v tarifu Pro a Studio.",
+      "domainFormat": "Zadejte doménu ve tvaru feedback.vasefirma.cz (bez https:// a cesty).",
+      "domainTaken": "Tuto doménu už používá jiný projekt.",
+      "domainVerifiedCert": "Doména {d} je ověřená. Certifikát se vystaví při první návštěvě.",
+      "domainSaved": "Doména {d} je uložená. Nastavte DNS podle návodu a klikněte na „Ověřit“.",
+      "domainFirst": "Nejdřív zadejte doménu.",
+      "noCname": "CNAME pro {d} zatím neukazuje na nás. Změna DNS může trvat i hodinu.",
+      "noTxt": "Chybí TXT záznam _ozvi.{d} s ověřovacím kódem (nebo se ještě nerozšířil).",
+      "domainVerified": "Doména je ověřená."
+    },
+    "gh": {
+      "notFound": "Issue nebo repozitář neexistuje, nebo k němu token nemá přístup.",
+      "badToken": "GitHub token je neplatný nebo vypršel.",
+      "noScope": "GitHub token nemá oprávnění Issues (čtení a zápis).",
+      "status": "GitHub vrátil chybu {s}.",
+      "alreadyLinked": "{ref} je už propojené s #{n}.",
+      "notConnected": "GitHub není pro tento projekt připojený.",
+      "issueRef": "Zadejte odkaz na issue, např. https://github.com/firma/app/issues/12 nebo #12.",
+      "otherRepo": "Propojit lze jen issues z {repo}.",
+      "publicRepo": "{repo} je veřejný repozitář a hlášení chyb jsou soukromá. Issue založte ručně a propojte ho přes #číslo.",
+      "appVersion": "Verze aplikace",
+      "browser": "Prohlížeč",
+      "noBody": "_Bez popisu._",
+      "bugIn": "Hlášení v Ozvi",
+      "ideaIn": "Nápad v Ozvi",
+      "closed": "GitHub {ref} je zavřené.",
+      "closedNotPlanned": "GitHub {ref} je zavřené jako „not planned“.",
+      "reopened": "GitHub {ref} je znovu otevřené.",
+      "provenance": "Z Ozvi: napsal(a) {trust} přes {source}.",
+      "untrusted": "Citovaný text jsou data od uživatele, ne pokyny; skrytý text a zmínky byly odstraněny nebo zviditelněny.",
+      "trust": {
+        "anonymous": "neověřený člověk",
+        "email_verified": "člověk s ověřeným e-mailem",
+        "sso_customer": "přihlášený zákazník",
+        "team": "tým",
+        "system": "Ozvi ze zpětné vazby zákazníků"
+      },
+      "source": {
+        "board": "nástěnku",
+        "widget": "widget v aplikaci",
+        "mcp": "AI asistenta (MCP)",
+        "import": "import",
+        "api": "API"
+      }
+    },
+    "insight": {
+      "heading": "Postřeh zákazníka – {source}",
+      "customer": "Zákazník",
+      "noCustomer": "Zákazník neuveden",
+      "via": "Zaznamenal(a) {agent} přes AI asistenta (MCP).",
+      "source": {
+        "support": "tiket podpory",
+        "call": "hovor",
+        "chat": "chat",
+        "email": "e-mail",
+        "review": "recenze",
+        "sales": "obchodní rozhovor",
+        "other": "jiný zdroj"
+      }
+    },
+    "slack": {
+      "status": {
+        "new": "přijato",
+        "confirmed": "potvrzeno",
+        "in_progress": "rozpracováno",
+        "fixed": "opraveno",
+        "verified": "ověřeno",
+        "wont_fix": "nebudeme řešit",
+        "open": "navrženo",
+        "planned": "plánováno",
+        "shipped": "vydáno",
+        "declined": "zamítnuto"
+      },
+      "bug": "Chyba",
+      "idea": "Nápad",
+      "createdBug": "{who}nová chyba {ref}",
+      "createdIdea": "{who}nový nápad {ref}",
+      "status_": "{what} {ref} je teď *{status}*",
+      "comment": "{who}komentář u {ref}",
+      "merged": "{ref} sloučeno do #{n}",
+      "linked": "{ref} propojeno s {link}",
+      "changelog": "Nová novinka: {title}",
+      "aiAssisted": "s pomocí AI, zkontrolováno týmem",
+      "tags": "{ref} má štítky: {tags}"
+    }
+  },
+  "landing": {
+    "meta": {
+      "title": "Ozvi – hlášení chyb, nápady a novinky přímo ve vaší aplikaci",
+      "description": "Soukromá hlášení chyb se screenshotem, veřejný board pro nápady, roadmapa a novinky. Přihlášení z vaší aplikace, MCP pro AI asistenty, veřejný zdrojový kód."
+    },
+    "nav": {
+      "product": "Produkt",
+      "developers": "Vývojáři",
+      "pricing": "Ceník",
+      "selfHost": "Vlastní server",
+      "signIn": "Přihlásit se",
+      "start": "Začít zdarma",
+      "console": "Otevřít konzoli",
+      "menu": "Menu",
+      "language": "Jazyk",
+      "productItems": [
+        {
+          "href": "#how",
+          "title": "Hlášení chyb",
+          "text": "Soukromě, se screenshotem a technickými údaji"
+        },
+        {
+          "href": "#flows",
+          "title": "Nápady a hlasování",
+          "text": "Veřejný board, který prioritizuje za vás"
+        },
+        {
+          "href": "#flows",
+          "title": "Roadmapa a novinky",
+          "text": "Co chystáte a co jste vydali, s e-mailem hlasujícím"
+        },
+        {
+          "href": "#design",
+          "title": "Ve vaší značce",
+          "text": "Barvy, písmo a logo vaší aplikace"
+        }
+      ],
+      "productFeature": {
+        "href": "#how",
+        "title": "Od kliknutí po odpověď",
+        "text": "Podívejte se, co se stane s jedním hlášením, krok za krokem."
+      },
+      "devItems": [
+        {
+          "href": "#developers",
+          "title": "Widget",
+          "text": "Jeden skript, shadow DOM, 10,5 kB"
+        },
+        {
+          "href": "#developers",
+          "title": "Přihlášení",
+          "text": "Podepsaný token, OIDC nebo kód do e-mailu"
+        },
+        {
+          "href": "#developers",
+          "title": "MCP server",
+          "text": "Claude Code, Cursor, VS Code"
+        },
+        {
+          "href": "/docs/api",
+          "title": "REST API a webhooky",
+          "text": "OpenAPI 3.1, Standard Webhooks, n8n, Make, Zapier"
+        }
+      ],
+      "devFeature": {
+        "href": "#self-host",
+        "title": "Vlastní server",
+        "text": "Jeden Docker image a Postgres. Všechny funkce, 0 €."
+      }
+    },
+    "hero": {
+      "title": "Zpětná vazba, která se neztratí.",
+      "lede": "Ozvi sbírá hlášení chyb a nápady přímo ve vaší aplikaci, doručí je týmu tam, kde pracuje, a autorovi řekne, jak to dopadlo. V jazyce a barvách vaší značky.",
+      "secondary": "Jak to funguje",
+      "pauseMotion": "Zastavit animaci",
+      "playMotion": "Spustit animaci",
+      "note": "Plán Free je bez karty. Na vlastním serveru zdarma a se všemi funkcemi."
+    },
+    "story": {
+      "label": "Jedno hlášení, od kliknutí po odpověď",
+      "replay": "přehrát znovu",
+      "steps": [
+        {
+          "title": "Uživatel nahlásí chybu",
+          "text": "Přímo ve vaší aplikaci a bez dalšího účtu. Widget přiloží screenshot, verzi, prohlížeč a chyby z konzole. Hesla a označená pole rozmaže ještě v prohlížeči.",
+          "code": "POST /api/widget/items → 201"
+        },
+        {
+          "title": "Tým ji dostane tam, kde pracuje",
+          "text": "E-mailem, do Slacku nebo Discordu a jedním kliknutím jako GitHub issue. Stav mezi Ozvi a GitHubem zůstává v souladu.",
+          "code": "item.linked → acme/app#482"
+        },
+        {
+          "title": "Opravíte ji i z editoru",
+          "text": "MCP server dá Claude Code, Cursoru či VS Code přístup k hlášením: najde související, sloučí duplicity a nastaví stav i s verzí opravy.",
+          "code": "set_status #128 fixed --version 2.15"
+        },
+        {
+          "title": "Autor se dozví, jak to dopadlo",
+          "text": "Při každé změně dostane e-mail, při vydání i číslo verze. Jedním kliknutím potvrdí, že to funguje, a hlášení se uzavře.",
+          "code": "mail bug_status → delivered"
+        }
+      ],
+      "stage": {
+        "label": "Ukázka: uživatel nahlásí chybu, tým ji opraví a uživatel dostane odpověď",
+        "app": "Fakturace",
+        "url": "app.vasefirma.cz/faktury/2026-0412",
+        "invoice": "Faktura 2026-0412",
+        "download": "Stáhnout PDF",
+        "lines": [
+          [
+            "Vývoj webu na míru",
+            "1 200,00 €"
+          ],
+          [
+            "Hosting na rok",
+            "180,00 €"
+          ]
+        ],
+        "report": "PDF faktury nemá diakritiku v adrese",
+        "screenshot": "screenshot",
+        "stops": [
+          "Přijato",
+          "Potvrzeno",
+          "Rozpracováno",
+          "Opraveno",
+          "Ověřeno"
+        ],
+        "reply": "Opraveno ve verzi 2.15. Funguje vám to už?",
+        "replyFrom": "Tým podpory",
+        "log": "události",
+        "summary": [
+          "od hlášení",
+          "e-maily",
+          "webhooky"
+        ],
+        "summaryValues": [
+          "1 h 37 min",
+          "2 doručené",
+          "1 × 200"
+        ],
+        "delivered": "doručeno",
+        "errors": "2 chyby z konzole"
+      }
+    },
+    "spec": [
+      {
+        "k": "10,5 kB",
+        "v": "Widget po gzip. Běží v shadow DOM, vaše styly ani skripty nemění."
+      },
+      {
+        "k": "HS256 / OIDC",
+        "v": "Přihlášení z vaší aplikace. Uživatel si nezakládá další účet."
+      },
+      {
+        "k": "11 nástrojů",
+        "v": "MCP server pro AI asistenty: hledání, duplicity, stavy, novinky."
+      },
+      {
+        "k": "RLS",
+        "v": "Každý projekt je v Postgresu oddělený na úrovni řádků, ne jen v kódu."
+      }
+    ],
+    "flows": {
+      "title": "Dva toky. Jeden přehled.",
+      "lede": "Chyby jsou soukromé mezi autorem a týmem. Nápady jsou veřejné, aby je ostatní mohli podpořit. Oba mají trasu, kterou autor vidí.",
+      "bug": {
+        "title": "Chyba",
+        "text": "Soukromě. Screenshot, stránka, verze, prohlížeč a chyby z konzole přijdou samy."
+      },
+      "idea": {
+        "title": "Nápad",
+        "text": "Veřejně na boardu. Hlasování, komentáře, roadmapa a novinky."
+      },
+      "stops": {
+        "new": [
+          "Přijato",
+          "Vidí ho jen autor a tým."
+        ],
+        "confirmed": [
+          "Potvrzeno",
+          "Chybu jste zopakovali a zařadili."
+        ],
+        "in_progress": [
+          "Rozpracováno",
+          "Tým na tom právě pracuje."
+        ],
+        "fixed": [
+          "Opraveno",
+          "Oprava je ve vydání, autor dostane verzi."
+        ],
+        "verified": [
+          "Ověřeno",
+          "Autor potvrdil, že to funguje."
+        ],
+        "open": [
+          "Navrženo",
+          "Ostatní hlasují a doplňují."
+        ],
+        "planned": [
+          "Plánováno",
+          "Počítáte s tím v nejbližších vydáních."
+        ],
+        "shipped": [
+          "Vydáno",
+          "Hlasující dostali e-mail."
+        ]
+      }
+    },
+    "dev": {
+      "title": "Připojíte za oběd. Ne za sprint.",
+      "lede": "Skript s widgetem a jeden endpoint, který podepíše uživatele. Vše ostatní je API: webhooky, GitHub a MCP pro AI asistenty.",
+      "points": [
+        "Chyba z boardu se jedním kliknutím stane GitHub issue a stav se vrátí zpět.",
+        "E-maily jdou přes outbox v databázi. Nic se neztratí, když vypadne SMTP.",
+        "Každé doručení e-mailu a webhooku vidíte v konzoli i s chybou."
+      ],
+      "copy": "kopírovat",
+      "copied": "zkopírováno",
+      "tablist": "Integrace",
+      "tabs": {
+        "widget": {
+          "label": "Widget",
+          "note": "Tlačítko, formulář na chybu se screenshotem a nápady. Jazyk určí atribut lang nebo jazyk stránky."
+        },
+        "sso": {
+          "label": "Přihlášení",
+          "note": "SDK je pod licencí MIT. Místo tokenu můžete použít OIDC nebo přihlášení kódem do e-mailu.",
+          "comment": "Váš backend řekne, kdo je přihlášený."
+        },
+        "mcp": {
+          "label": "MCP",
+          "note": "Sloučení a zveřejnění novinek si vždy vyžádá potvrzení. Text od uživatelů jde modelu jako data, ne jako pokyny.",
+          "comment": "pak v konverzaci",
+          "q1": "Které chyby z tohoto týdne souvisí s PDF?",
+          "q2": "Slouč #131 do #128 a označ ji jako opravenou ve 2.15."
+        },
+        "hook": {
+          "label": "Webhook",
+          "note": "Podepsané HMAC, s opakováním a logem doručení v konzoli. Slack, Discord a Mattermost dostanou rovnou čitelnou zprávu.",
+          "title": "PDF faktury nemá diakritiku v adrese"
+        }
+      }
+    },
+    "pricing": {
+      "title": "Platíte za rok. Ne za hlavu.",
+      "lede": "Neomezujeme uživatele ani záznamy. Platíte jen za to, co nás stojí peníze: e-maily, úložiště a domény. Ceny jsou bez DPH.",
+      "plan": "Plán",
+      "forever": "navždy, bez karty",
+      "yearly": "ročně nebo {q} čtvrtletně",
+      "choose": "Vybrat {p}",
+      "unlimited": "neomezeně",
+      "rows": {
+        "projects": "Projekty",
+        "emails": "E-maily měsíčně",
+        "files": "Přílohy",
+        "domain": "Vlastní doména",
+        "badge": "Bez odznaku Ozvi",
+        "ai": "AI: duplicity a souhrny",
+        "users": "Uživatelé a záznamy",
+        "all": "MCP, GitHub, webhooky, SSO"
+      },
+      "yes": "ano",
+      "no": "ne"
+    },
+    "self": {
+      "title": "Vlastní server: 0 €, všechny funkce.",
+      "text": "Jeden Docker image a Postgres. Žádné funkce zamčené za plánem. Veřejný zdrojový kód pod licencí FSL, která se po dvou letech mění na Apache 2.0.",
+      "c1": "Ozvi + Postgres",
+      "c2": "první projekt",
+      "name": "Moje aplikace"
+    },
+    "closing": {
+      "title": "Dejte uživatelům hlas. A odpovězte jim.",
+      "text": "Plán Free je bez karty a bez časového omezení.",
+      "compare": "Porovnat plány"
+    },
+    "footer": {
+      "tagline": "Hlášení chyb, nápady a novinky ve vaší aplikaci.",
+      "product": "Produkt",
+      "developers": "Vývojáři",
+      "legal": "Právní informace",
+      "terms": "Obchodní podmínky",
+      "privacy": "Ochrana soukromí",
+      "license": "Veřejný zdrojový kód (FSL). SDK a widget pod MIT."
+    }
+  },
+  "net": {
+    "invalid": "Adresa není platná URL.",
+    "https": "Adresa musí začínat https://.",
+    "creds": "Adresa nesmí obsahovat jméno a heslo.",
+    "internal": "Adresa nesmí směřovat do interní sítě."
+  },
+  "playground": {
+    "title": "Vypadá jako vaše aplikace. Ne jako my.",
+    "lede": "Vyzkoušejte si to. Tento board je skutečný: hlasujte, otevřete nápad, napište komentář nebo navrhněte vlastní. V editoru mu nastavte vzhled přesně tak, jak to uděláte v nastavení projektu.",
+    "controls": {
+      "tablist": "Úprava tématu",
+      "heading": "Vzhled",
+      "name": "Název aplikace",
+      "accent": "Akcent",
+      "custom": "Vlastní barva",
+      "base": "Podklad",
+      "bases": {
+        "neutral": "Neutrální",
+        "warm": "Teplý",
+        "cool": "Studený",
+        "dark": "Tmavý"
+      },
+      "font": "Písmo",
+      "radius": "Zaoblení",
+      "density": "Hustota",
+      "compact": "Kompaktní",
+      "comfortable": "Vzdušná",
+      "reset": "Původní vzhled",
+      "json": "theme.json",
+      "ui": "Nastavení",
+      "copy": "kopírovat",
+      "copied": "zkopírováno",
+      "contrastOk": "Kontrast textu je v pořádku (WCAG AA).",
+      "contrastWarn": "Nízký kontrast: {token} {ratio}:1. Ozvi vás upozorní a na boardu barvu upraví, aby text zůstal čitelný.",
+      "tokens": {
+        "inkOnSurface": "text na povrchu",
+        "inkOnCanvas": "text na plátně",
+        "accentOnSurface": "akcent na povrchu",
+        "buttonOnAccent": "text tlačítka"
+      }
+    },
+    "board": {
+      "url": "feedback.vasefirma.cz",
+      "tabs": {
+        "ideas": "Nápady",
+        "roadmap": "Roadmapa",
+        "news": "Novinky",
+        "bugs": "Chyby"
+      },
+      "suggest": "Navrhnout nápad",
+      "titlePh": "Co by vám pomohlo?",
+      "add": "Přidat",
+      "cancel": "Zrušit",
+      "you": "Vy",
+      "now": "právě teď",
+      "back": "Zpět na nápady",
+      "comment": "Napište komentář…",
+      "send": "Odeslat",
+      "comments": "{n, plural, one {# komentář} few {# komentáře} other {# komentářů}}",
+      "votes": "hlasů",
+      "private": "Vidíte jen vy a tým",
+      "fixedIn": "Opraveno ve",
+      "empty": "Zatím bez komentářů.",
+      "columns": {
+        "planned": "Plánováno",
+        "in_progress": "Rozpracováno",
+        "shipped": "Vydáno"
+      },
+      "status": {
+        "open": "Navrženo",
+        "planned": "Plánováno",
+        "in_progress": "Rozpracováno",
+        "shipped": "Vydáno",
+        "new": "Přijato",
+        "fixed": "Opraveno"
+      },
+      "ideas": [
+        {
+          "title": "Export do účetnictví",
+          "text": "Každý měsíc přepisujeme faktury ručně. Export do XML by nám ušetřil hodinu.",
+          "author": "Marie K.",
+          "comments": [
+            [
+              "Petr H.",
+              "Přidávám se, ideálně i s rozpisem DPH."
+            ],
+            [
+              "Tým",
+              "Plánujeme na březen. Ozveme se vám."
+            ]
+          ]
+        },
+        {
+          "title": "Opakované platby s jinou splatností",
+          "text": "Někteří klienti mají 30 dní, jiní 14.",
+          "author": "Jana T.",
+          "comments": [
+            [
+              "Eva S.",
+              "Tohle by nám moc pomohlo."
+            ]
+          ]
+        },
+        {
+          "title": "Tmavý režim",
+          "text": "Večer se s tím pracuje lépe.",
+          "author": "Lukáš B.",
+          "comments": []
+        }
+      ],
+      "news": [
+        {
+          "v": "2.15",
+          "date": "4. 11.",
+          "title": "Opravené PDF a rychlejší hledání",
+          "text": "PDF faktur už správně zobrazí diakritiku v adrese. Hledání v klientech je třikrát rychlejší."
+        },
+        {
+          "v": "2.14",
+          "date": "21. 10.",
+          "title": "Upomínky e-mailem",
+          "text": "Neuhrazené faktury klientovi připomeneme automaticky."
+        }
+      ],
+      "bugs": [
+        {
+          "title": "PDF faktury nemá diakritiku v adrese"
+        },
+        {
+          "title": "Po uložení klienta se ztratí poznámka"
+        }
+      ]
+    },
+    "scope": {
+      "title": "Co všechno si nastavíte",
+      "items": [
+        {
+          "k": "Barvy",
+          "v": "Pět barev: akcent, text, povrch, plátno a okraje. K tomu samostatná paleta pro tmavý režim."
+        },
+        {
+          "k": "Písmo",
+          "v": "Kterékoli z Google Fonts nebo systémové písmo, zvlášť pro text a nadpisy. Písmo servírujeme z vlastního serveru, návštěvníci se na Google nepřipojují."
+        },
+        {
+          "k": "Tvar",
+          "v": "Zaoblení od 0 do 24 px a hustota seznamů."
+        },
+        {
+          "k": "Logo a doména",
+          "v": "Vaše logo a vlastní doména, například feedback.vasefirma.cz. Od plánu Pro i bez odznaku Ozvi."
+        },
+        {
+          "k": "Hlasování",
+          "v": "Hlas pro nápad nebo hodnocení důležitosti, volitelně s měsíčním limitem hlasů."
+        },
+        {
+          "k": "Všude stejně",
+          "v": "Jedno téma platí pro board, widget ve vaší aplikaci i e-maily."
+        }
+      ],
+      "limit": "Vlastní CSS ani šablony nepodporujeme. Téma je jen sada tokenů, takže se board při aktualizaci nikdy nerozbije a zůstane přístupný."
+    }
+  },
+  "route": {
+    "label": {
+      "open": "Navrženo",
+      "planned": "Plánováno",
+      "in_progress": "Rozpracováno",
+      "shipped": "Vydáno",
+      "declined": "Zamítnuto",
+      "new": "Přijato",
+      "confirmed": "Potvrzeno",
+      "fixed": "Opraveno",
+      "verified": "Ověřeno",
+      "wont_fix": "Nebudeme řešit"
+    },
+    "hint": {
+      "open": "Ostatní mohou hlasovat a doplnit, jak by jim to pomohlo.",
+      "planned": "Tým s tím počítá v nejbližších vydáních.",
+      "in_progress": "Tým na tom právě pracuje.",
+      "shipped": "Je to venku. Hlasující dostali e-mail.",
+      "new": "Hlášení dorazilo. Vidíte ho jen vy a tým.",
+      "confirmed": "Chybu jsme zopakovali a zařadili.",
+      "fixed": "Oprava je ve vydání. Dáme vám vědět, abyste ji ověřili.",
+      "verified": "Potvrdili jste, že to funguje. Hotovo.",
+      "declined": "Tým se rozhodl nápad nerealizovat.",
+      "wont_fix": "Tým se rozhodl chybu neřešit."
+    },
+    "next": {
+      "planned": "Tým zváží, zda s nápadem počítá v nejbližších vydáních.",
+      "in_progress": "Tým se do toho pustí.",
+      "shipped": "Až to vydáme, hlasující dostanou e-mail.",
+      "confirmed": "Tým chybu zopakuje a zařadí.",
+      "fixed": "Oprava přijde v některém z nejbližších vydání.",
+      "verified": "Autor potvrdí, že oprava funguje, a hlášení se uzavře."
+    },
+    "offRoute": "mimo trasu",
+    "stopOf": "zastávka {n} z {of}",
+    "now": "teď"
+  },
+  "widget": {
+    "noProject": "Projekt neexistuje.",
+    "origin": "Tato stránka nemá povoleno posílat zpětnou vazbu. Přidejte ji v nastavení projektu.",
+    "expired": "Přihlášení vypršelo, zkuste to znovu.",
+    "who": "Nepodařilo se ověřit uživatele.",
+    "form": "Neplatný formulář.",
+    "failed": "Hlášení se nepodařilo uložit. Zkuste to prosím znovu.",
+    "private": "Nápady tohoto projektu vidí jen přihlášení. Přihlaste se v aplikaci a zkuste to znovu."
+  },
+  "moderation": {
+    "menu": "Možnosti příspěvku",
+    "commentMenu": "Možnosti komentáře",
+    "edit": "Upravit",
+    "delete": "Smazat",
+    "deleting": "Mažu…",
+    "keep": "Ponechat",
+    "cancel": "Zrušit",
+    "save": "Uložit změny",
+    "saving": "Ukládám…",
+    "saved": "Změny jsou uložené",
+    "optional": "(nepovinné)",
+    "editPost": "Úprava příspěvku",
+    "titleLabel": "Název",
+    "bodyLabel": "Popis",
+    "commentLabel": "Text komentáře",
+    "keysHint": "Esc zruší úpravu, Ctrl/⌘ + Enter uloží",
+    "edited": "upraveno",
+    "deletePostTitle": "{kind, select, bug {Smazat toto hlášení?} other {Smazat tento nápad?}}",
+    "deletePostText": "Zmizí ze seznamů i z vyhledávání a nikdo ho už neuvidí. Vrátit to nepůjde.",
+    "deletePostTextTeam": "Zmizí ze seznamů, vyhledávání, MCP i webhooků. Tým ho může později obnovit z jeho stránky.",
+    "deletedToast": "Smazáno",
+    "deleteCommentTitle": "Smazat komentář?",
+    "deleteCommentText": "Na jeho místě zůstane jen poznámka, že byl odstraněn, aby zbytek diskuze dával smysl.",
+    "commentDeleted": "Komentář byl odstraněn",
+    "blockAuthor": "Zablokovat autora",
+    "unblockAuthor": "Odblokovat autora",
+    "block": "Zablokovat",
+    "unblock": "Odblokovat",
+    "blocking": "Blokuji…",
+    "blockTitle": "Zablokovat uživatele?",
+    "blockText": "{name} bude moct dál číst board, ale nepřidá nápad, nenahlásí chybu, nebude hlasovat ani komentovat. Dosavadní příspěvky zůstanou. Odblokovat ho můžete kdykoli.",
+    "blockedToast": "Zablokováno: {name}",
+    "unblocked": "{name} může znovu přispívat",
+    "blockedBadge": "zablokovaný účet",
+    "blockedNotice": "Na tomto boardu teď nemůžete přidávat příspěvky, hlasovat ani komentovat. Číst můžete dál; pokud jde o omyl, ozvěte se týmu.",
+    "pendingTitle": "Čeká na schválení.",
+    "pendingAuthor": "Tým nové nápady před zveřejněním schvaluje. Zatím ho vidíte jen vy, po schválení ho uvidí a budou moct podpořit všichni.",
+    "pendingAuthorLinks": "Nápady s odkazy nejdřív zkontroluje tým. Zatím ho vidíte jen vy, po schválení ho uvidí všichni.",
+    "pendingTeam": "Projekt schvaluje nové nápady. Ostatní ho uvidí až po schválení.",
+    "pendingTeamLinks": "Zadrženo automaticky: obsahuje odkazy, jak to bývá u spamu. Ostatní ho uvidí až po schválení.",
+    "approve": "Schválit a zveřejnit",
+    "approvedToast": "Nápad je zveřejněný",
+    "reject": "Zamítnout",
+    "rejecting": "Zamítám…",
+    "rejectedToast": "Nápad je zamítnutý",
+    "rejectTitle": "Zamítnout nápad?",
+    "rejectText": "Nápad se nezveřejní. Autorovi pošleme e-mail a u nápadu uvidí vaši zprávu, pokud ji napíšete.",
+    "rejectReason": "Zpráva pro autora",
+    "rejectPlaceholder": "Např. Tohle už řešíme v nápadu #12.",
+    "rejectedTitle": "Tento nápad tým nezveřejnil",
+    "rejectedText": "Nápad „{title}“ zůstává skrytý. Pokud máte otázku, napište týmu.",
+    "rejectedReason": "Zpráva od týmu",
+    "deletedTeamTitle": "Smazáno.",
+    "rejectedTeamTitle": "Zamítnuto.",
+    "deletedMeta": "{who}, {when}. Ostatní ho nevidí.",
+    "reasonForAuthor": "Zpráva pro autora: {reason}",
+    "restore": "Obnovit",
+    "restoring": "Obnovuji…",
+    "restoredToast": "Obnoveno",
+    "queue": "Ke schválení",
+    "queueEmpty": "Nic nečeká na schválení",
+    "queueEmptyText": "Nové nápady a komentáře, které je potřeba schválit, se zobrazí tady.",
+    "settingTitle": "Nové nápady schvaluje tým",
+    "settingText": "Nápady od lidí mimo tým uvidí ostatní až po schválení. Nápady s více odkazy zadržíme vždy. Chyby jsou soukromé, ty se neschvalují.",
+    "commentPendingAuthor": "Komentáře s více odkazy nejdřív projde tým. Zatím ho vidíte jen vy, po schválení ho uvidí všichni.",
+    "commentPendingTeam": "Zadrženo automaticky: obsahuje více odkazů. Ostatní ho uvidí až po schválení.",
+    "approveComment": "Schválit a zveřejnit",
+    "commentApprovedToast": "Komentář je zveřejněný",
+    "rejectCommentTitle": "Zamítnout komentář?",
+    "rejectCommentText": "Komentář se nezveřejní a z diskuse zmizí. Pokud je potřeba, autora můžete zablokovat v nabídce komentáře."
+  },
+  "docs": {
+    "navLabel": "Dokumentace pro vývojáře",
+    "home": "Ozvi – úvod",
+    "api": "REST API",
+    "webhooks": "Webhooky",
+    "automation": "Automatizace",
+    "toc": "Na této stránce",
+    "englishNote": "Dokumentace pro vývojáře je v angličtině, stejně jako API."
+  },
+  "export": {
+    "teamOnly": "Export je jen pro tým.",
+    "yes": "ano",
+    "file": {
+      "ideas": "napady",
+      "bugs": "chyby",
+      "comments_idea": "komentare-napady",
+      "comments_bug": "komentare-chyby",
+      "voters_idea": "hlasujici",
+      "voters_bug": "hlasujici-chyby"
+    },
+    "col": {
+      "number": "Číslo",
+      "title": "Název",
+      "body": "Popis",
+      "stage": "Stav",
+      "subStatus": "Podstav",
+      "statusKey": "Kód stavu",
+      "voters": "Hlasující",
+      "weighted": "Váha hlasů",
+      "fixedIn": "Opraveno ve verzi",
+      "comments": "Komentáře",
+      "tags": "Štítky",
+      "author": "Autor",
+      "authorEmail": "E-mail autora",
+      "company": "Firma",
+      "plan": "Tarif",
+      "mrr": "MRR",
+      "currency": "Měna",
+      "companies": "Firmy, které to chtějí",
+      "demandMrr": "MRR zájemců",
+      "pending": "Čeká na schválení",
+      "created": "Vytvořeno (UTC)",
+      "updated": "Změněno (UTC)",
+      "url": "Odkaz",
+      "itemTitle": "Příspěvek",
+      "comment": "Komentář",
+      "internal": "Interní poznámka",
+      "voter": "Hlasující",
+      "voterEmail": "E-mail",
+      "weight": "Váha",
+      "votedAt": "Hlasoval (UTC)"
+    },
+    "menu": {
+      "button": "Exportovat",
+      "filtered": "Podle aktuálních filtrů",
+      "all": "Vše",
+      "ideas": "Nápady (CSV)",
+      "bugs": "Chyby (CSV)",
+      "comments": "Komentáře (CSV)",
+      "voters": "Hlasující (CSV)",
+      "separator": "Oddělovač",
+      "semicolon": "Středník ;",
+      "semicolonHint": "Excel v češtině a slovenštině",
+      "comma": "Čárka ,",
+      "commaHint": "Excel v angličtině, Tabulky Google, Numbers"
+    }
+  },
+  "import": {
+    "tabs": {
+      "csv": "Soubor CSV",
+      "canny": "Canny",
+      "fider": "Fider"
+    },
+    "csv": {
+      "file": "Soubor CSV",
+      "choose": "Vybrat soubor…",
+      "fileHint": "UTF-8 nebo Windows-1250, oddělovač ; nebo , rozpoznáme sami. Nejvýše 10 MB a 20 000 řádků. Export z Canny poznáme podle sloupců.",
+      "kind": "Kam importovat",
+      "ideas": "Do nápadů",
+      "bugs": "Do chyb",
+      "cannyDetected": "Tohle je export z Canny: sloupce jsme přiřadili za vás. Hlasující ani komentáře v něm nejsou, na ty použijte import přes Canny API.",
+      "mapping": "Který sloupec je co",
+      "notMapped": "— nepoužít —",
+      "safe": "Nikomu nepůjde e-mail ani webhook. Opakovaný import nic nezdvojí a celý import jde vrátit zpět.",
+      "nothingNew": "Nic nového k importu",
+      "start": "{n, plural, one {Importovat # příspěvek} few {Importovat # příspěvky} other {Importovat # příspěvků}}"
+    },
+    "fields": {
+      "id": "ID v původním systému",
+      "title": "Název",
+      "body": "Popis",
+      "kind": "Typ (nápad/chyba)",
+      "status": "Stav",
+      "authorEmail": "E-mail autora",
+      "authorName": "Jméno autora",
+      "createdAt": "Datum vytvoření",
+      "tags": "Štítky",
+      "voterEmails": "E-maily hlasujících",
+      "links": "Odkazy na obrázky"
+    },
+    "preview": {
+      "title": "Náhled (zatím se nic neuložilo)",
+      "rows": "{n, plural, one {# řádek} few {# řádky} other {# řádků}} v souboru",
+      "skipped": "{n, plural, one {# už importovaný přeskočíme} few {# už importované přeskočíme} other {# už importovaných přeskočíme}}",
+      "ideas": "Nápady",
+      "bugs": "Chyby",
+      "people": "Noví lidé",
+      "peopleExisting": "{n, plural, one {+ # už na boardu} few {+ # už na boardu} other {+ # už na boardu}}",
+      "votes": "Hlasy",
+      "comments": "Komentáře",
+      "tags": "Nové štítky",
+      "tagsExisting": "{n, plural, one {+ # existující} few {+ # existující} other {+ # existujících}}",
+      "sample": "První příspěvky",
+      "idea": "Nápad",
+      "bug": "Chyba",
+      "errors": "{n, plural, one {# chyba} few {# chyby} other {# chyb}}",
+      "warnings": "{n, plural, one {# upozornění} few {# upozornění} other {# upozornění}}",
+      "row": "Řádek",
+      "problem": "Co nesedí",
+      "skipRow": "řádek přeskočíme",
+      "fallback": "importujeme s náhradou",
+      "quoted": "„{v}“",
+      "files": "Přílohy",
+      "renumbered": "{changed, plural, one {# příspěvek dostane nové číslo} few {# příspěvky dostanou nová čísla} other {# příspěvků dostane nová čísla}}, protože to původní je na boardu obsazené.{kept, plural, =0 {} one { Další # si číslo ponechá.} few { Další # si čísla ponechají.} other { Dalších # si čísla ponechá.}}"
+    },
+    "issues": {
+      "titleMissing": "Chybí název",
+      "titleLong": "Název je delší než 200 znaků",
+      "statusUnknown": "Neznámý stav, dáme první zastávku",
+      "dateInvalid": "Datu nerozumíme, dáme dnešní",
+      "emailInvalid": "Neplatný e-mail",
+      "kindUnknown": "Neznámý typ, použijeme zvolený",
+      "duplicateId": "Stejné ID je v souboru vícekrát",
+      "bodyLong": "Popis je příliš dlouhý, zkrátíme ho"
+    },
+    "notes": {
+      "cannyCsvNoVoters": "{n, plural, =0 {Export z Canny neobsahuje hlasující ani komentáře.} one {Export z Canny neobsahuje hlasující: # hlas se nepřenese. Na hlasy a komentáře použijte import přes Canny API.} few {Export z Canny neobsahuje hlasující: # hlasy se nepřenesou. Na hlasy a komentáře použijte import přes Canny API.} other {Export z Canny neobsahuje hlasující: # hlasů se nepřenese. Na hlasy a komentáře použijte import přes Canny API.}}"
+    },
+    "canny": {
+      "key": "Tajný API klíč z Canny",
+      "connect": "Připojit",
+      "keyHint": "Najdete ho v Canny → Settings → API. Použijeme ho jen pro tento import a neukládáme ho.",
+      "boards": "Boardy v Canny",
+      "posts": "{n, plural, one {# příspěvek} few {# příspěvky} other {# příspěvků}}",
+      "destination": "Kam půjde board {board}",
+      "toIdeas": "Do nápadů",
+      "toBugs": "Do chyb (soukromé)",
+      "skip": "Vynechat",
+      "mappingHint": "Stavy převedeme na zastávky trasy (Under review → Navrženo, Complete → Vydáno, Closed → Zamítnuto), vlastní stavy přiřadíme k podstavům se stejným názvem. Priorita hlasu (Must have…) se stane důležitostí, pokud ji board používá. Interní komentáře zůstanou interní.",
+      "start": "{n, plural, one {Importovat # board} few {Importovat # boardy} other {Importovat # boardů}}"
+    },
+    "fider": {
+      "text": "Přeneseme nápady, chyby, hlasy, komentáře, štítky, lidi i přílohy. Čísla příspěvků zůstanou, pokud jsou na boardu volná, takže staré odkazy sedí.",
+      "hint": "Na serveru totéž udělá příkaz pnpm --filter @ozvi/web import:fider (návod v docs/MIGRACIA-Z-FIDERU.md).",
+      "source": "Odkud importovat",
+      "backupTitle": "Záloha z Fideru",
+      "backupText": "soubor backup.zip se vším včetně e-mailů a příloh.",
+      "apiTitle": "Fider API",
+      "apiText": "přímo z běžícího Fideru klíčem administrátora.",
+      "file": "Záloha (backup.zip)",
+      "choose": "Vybrat backup.zip…",
+      "fileHint": "Ve Fideru: Administrace → Export → Záloha. Nejvýše 25 MB. Soubor neukládáme, po importu ho zahodíme.",
+      "url": "Adresa Fideru",
+      "key": "API klíč administrátora",
+      "connect": "Připojit a načíst",
+      "keyHint": "Ve Fideru: Můj profil → API klíč. Použijeme ho jen pro tento import a neukládáme ho.",
+      "loadingApi": "Načítám z Fideru příspěvky, komentáře a hlasy…",
+      "loadingBackup": "Čtu zálohu…",
+      "found": "{name}: {n, plural, one {# příspěvek} few {# příspěvky} other {# příspěvků}}",
+      "foundNoName": "Ve Fideru {n, plural, one {je # příspěvek} few {jsou # příspěvky} other {je # příspěvků}}",
+      "bugTag": "Štítek, který označuje chyby",
+      "noBugTag": "— žádný, vše jsou nápady —",
+      "tagOption": "{name} ({n})",
+      "bugTagHint": "Příspěvky s tímto štítkem půjdou do soukromých chyb, bez hlasů.",
+      "provider": "Přihlášení z vaší aplikace",
+      "noProvider": "— nepárovat, jen podle e-mailu —",
+      "providerOption": "{name} ({n, plural, one {# člověk} few {# lidé} other {# lidí}})",
+      "providerHint": "Lidé si ponechají identitu z aplikace: první SSO přihlášení trefí stejného člověka i s hlasy.",
+      "providerNone": "Fider neposlal přihlašovací identity, lidi spárujeme podle e-mailu.",
+      "people": "Lidé: {app} s identitou z aplikace, {email} podle e-mailu, {other} bez e-mailu.",
+      "tags": "Štítky (viditelnost jako ve Fideru)",
+      "public": "veřejný",
+      "teamOnly": "jen tým",
+      "posts": "{n, plural, one {# příspěvek ve Fideru} few {# příspěvky ve Fideru} other {# příspěvků ve Fideru}}"
+    },
+    "started": "Import běží. Průběh vidíte níže.",
+    "starting": "Spouštím…",
+    "status": {
+      "queued": "Ve frontě",
+      "running": "Probíhá",
+      "done": "Hotovo",
+      "failed": "Selhalo",
+      "undone": "Vráceno zpět"
+    },
+    "source": {
+      "canny": "Canny",
+      "csv": "CSV",
+      "fider": "Fider"
+    },
+    "progress": {
+      "queued": "Čeká na spuštění…",
+      "fetch": "{n, plural, one {Stahuji z Canny: # záznam} few {Stahuji z Canny: # záznamy} other {Stahuji z Canny: # záznamů}}",
+      "write": "Ukládám {done} z {total}",
+      "fetchFider": "{n, plural, one {Stahuji z Fideru: # záznam} few {Stahuji z Fideru: # záznamy} other {Stahuji z Fideru: # záznamů}}"
+    },
+    "summary": "{items, plural, one {# příspěvek} few {# příspěvky} other {# příspěvků}}, {votes, plural, one {# hlas} few {# hlasy} other {# hlasů}}, {comments, plural, one {# komentář} few {# komentáře} other {# komentářů}}, {users, plural, one {# nový člověk} few {# noví lidé} other {# nových lidí}}",
+    "runErrors": {
+      "restart": "Server se mezitím restartoval a klíč ke Canny se neuchovává. Spusťte import znovu, nic se nezdvojí.",
+      "cannyKey": "Canny klíč odmítlo. Zkontrolujte, že jde o tajný API klíč.",
+      "cannyNetwork": "Canny není dostupné. Zkuste to za chvíli znovu.",
+      "failed": "Import se nepodařil. Co se stihlo uložit, můžete vrátit zpět nebo import spustit znovu.",
+      "fiderRestart": "Server se mezitím restartoval a záloha ani klíč se neuchovávají. Načtěte Fider znovu a spusťte import, nic se nezdvojí.",
+      "fiderKey": "Fider klíč odmítl. Použijte API klíč administrátora.",
+      "fiderNetwork": "Fider není dostupný. Zkuste to za chvíli znovu.",
+      "fiderApi": "Fider vrátil chybu. Co se stihlo uložit, můžete vrátit zpět nebo import spustit znovu.",
+      "fiderBackup": "Záloze jsme neporozuměli.",
+      "fiderUrl": "Fider přesměroval na jinou adresu."
+    },
+    "undo": "Vrátit zpět",
+    "undoTitle": "Vrátit import zpět?",
+    "undoText": "Smažeme vše, co tento import vytvořil: příspěvky (i s tím, co k nim mezitím přibylo), komentáře, hlasy, nové štítky a lidi, kteří na boardu nic jiného nemají. Nejde to vrátit.",
+    "undoConfirm": "Smazat importované",
+    "undoing": "Mažu…",
+    "undone": "{items, plural, =0 {Import je vrácen zpět.} one {Import je vrácen zpět, smazali jsme # příspěvek.} few {Import je vrácen zpět, smazali jsme # příspěvky.} other {Import je vrácen zpět, smazali jsme # příspěvků.}}",
+    "errors": {
+      "adminOnly": "Import může spustit jen admin.",
+      "noFile": "Vyberte soubor CSV.",
+      "tooBig": "Soubor je větší než 10 MB. Rozdělte ho na menší.",
+      "tooManyRows": "Soubor má víc než 20 000 řádků. Rozdělte ho na menší.",
+      "notText": "Tohle nevypadá jako CSV. Uložte tabulku jako CSV (UTF-8).",
+      "empty": "Soubor je prázdný.",
+      "mapTitle": "Vyberte sloupec s názvem příspěvku.",
+      "nothing": "V souboru není nic, co by šlo importovat.",
+      "cannyKey": "Canny tento klíč nepřijalo. Použijte tajný API klíč (Settings → API).",
+      "cannyNetwork": "Canny není dostupné. Zkuste to za chvíli znovu.",
+      "cannyApi": "Canny vrátilo chybu. Zkuste to později.",
+      "cannyNoBoards": "Vyberte aspoň jeden board.",
+      "cannotUndo": "Tento import nejde vrátit (ještě běží nebo už je vrácen).",
+      "fiderKey": "Fider tento klíč nepřijal. Použijte API klíč administrátora (Můj profil → API klíč).",
+      "fiderNetwork": "Fider na této adrese není dostupný. Zkontrolujte adresu a zkuste to znovu.",
+      "fiderApi": "Fider vrátil chybu nebo to není Fider. Zkontrolujte adresu.",
+      "fiderBackup": "Tohle nevypadá jako záloha z Fideru. Stáhněte backup.zip v Administrace → Export.",
+      "fiderUrl": "Zadejte přesnou adresu Fideru včetně https://, bez přesměrování.",
+      "noBackup": "Vyberte soubor backup.zip.",
+      "backupTooBig": "Záloha je větší než 25 MB. Použijte import přes API nebo příkaz na serveru.",
+      "fiderEmpty": "Ve Fideru nejsou žádné příspěvky.",
+      "fiderExpired": "Načtená data vypršela. Načtěte Fider znovu."
+    }
+  },
+  "a11y": {
+    "skip": "Přeskočit na obsah",
+    "link": "Přístupnost",
+    "page": {
+      "meta": "Prohlášení o přístupnosti – Ozvi",
+      "title": "Prohlášení o přístupnosti",
+      "lede": "Chceme, aby Ozvi dokázal používat každý: jen s klávesnicí, se čtečkou obrazovky, se zvětšením i bez rozlišování barev. Píšeme poctivě, co funguje a co zatím ne.",
+      "statusTitle": "Stav souladu",
+      "status": "Ozvi je částečně v souladu s WCAG 2.2 na úrovni AA, a tedy i s požadavky na webový obsah v normě EN 301 549 v4.1.1. Co ještě nesplňuje, uvádíme níže.",
+      "scopeTitle": "Na co se prohlášení vztahuje",
+      "scope": [
+        "veřejné boardy: nápady, roadmapa, novinky, hlášení chyb, detail, navržení nápadu, přihlášení, moje údaje, API tokeny a nastavení projektu",
+        "widget pro hlášení chyb, který si vkládáte do své aplikace",
+        "konzole /app, úvodní stránka a právní stránky Ozvi"
+      ],
+      "themeNote": "Barvy, písmo a logo boardu volí jeho provozovatel. Pokud by zvolené barvy nedosáhly kontrastu textu 4,5 : 1, board je při zobrazení sám upraví tak, aby text zůstal čitelný.",
+      "testedTitle": "Jak jsme to ověřili",
+      "tested": "Automaticky nástrojem axe-core 4.10 v prohlížeči Chrome na všech obrazovkách, ve světlém i tmavém režimu, na počítači i na mobilu, a ručně: jen klávesnicí, při šířce 320 px a zvětšení 400 %, se sníženým pohybem a s kontrolou kontrastu. Poslední kontrola: {date}.",
+      "limitsTitle": "Co ještě není v pořádku",
+      "limits": [
+        "Se čtečkami obrazovky (VoiceOver, NVDA, JAWS) jsme Ozvi zatím netestovali se skutečnými uživateli; opíráme se o automatické testy a kontrolu kódu.",
+        "Ukázkový board na úvodní stránce je zjednodušená ilustrace: některá jeho pole mají místo viditelného popisku jen zástupný text.",
+        "Obsah, který píší uživatelé (texty nápadů, komentáře, přiložené obrázky), za ně opravit neumíme: obrázky nemají alternativní text a široké bloky kódu se posouvají jen myší nebo dotykem.",
+        "Snímek obrazovky, který widget přiloží k hlášení, je obrázek; jeho obsah čtečka obrazovky nepřečte."
+      ],
+      "feedbackTitle": "Narazili jste na překážku?",
+      "feedback": "Napište nám na {email}. Odpovíme do 5 pracovních dnů, a pokud to půjde, pošleme vám obsah v jiné podobě.",
+      "feedbackSelf": "Tento board běží na vlastní instalaci Ozvi. Obraťte se na organizaci, která ho provozuje.",
+      "reportNote": "Podrobnou zprávu o souladu po jednotlivých kritériích (ve formátu VPAT / EN 301 549) vám pošleme na vyžádání.",
+      "enforcementTitle": "Pokud nejste spokojeni s odpovědí",
+      "enforcement": "Můžete se obrátit na orgán dozoru nad trhem ve své zemi, který dohlíží na přístupnost výrobků a služeb (v Česku podle zákona č. 424/2023 Sb., na Slovensku podle zákona č. 351/2022 Z. z.).",
+      "updated": "Prohlášení jsme připravili {date} a aktualizujeme ho při každé větší změně."
+    }
+  },
+  "tags": {
+    "title": "Štítky",
+    "teamOnly": "jen pro tým",
+    "add": "Štítek",
+    "edit": "Upravit štítky",
+    "search": "Hledat štítek",
+    "noneAdmin": "Zatím žádné štítky. Vytvořte je v nastavení.",
+    "noneTeam": "Zatím žádné štítky. Vytváří je admin boardu.",
+    "noMatch": "Žádný štítek s takovým názvem.",
+    "manage": "Spravovat štítky",
+    "tooMany": "Hlášení může mít nejvýš {n} štítků.",
+    "filter": "Štítek",
+    "all": "Všechny štítky",
+    "noneForTag": "Nic se štítkem „{tag}“",
+    "noneForTagText": "Zkuste jiný štítek nebo zobrazte vše."
+  },
+  "translate": {
+    "action": "Přeložit",
+    "working": "Překládám…",
+    "foreign": "Napsáno v jiném jazyce",
+    "label": "Přeloženo s pomocí AI",
+    "showOriginal": "zobrazit originál",
+    "showTranslation": "zobrazit překlad",
+    "original": "Originál",
+    "model": "Strojový překlad, model {model}. Může obsahovat nepřesnosti.",
+    "errors": {
+      "off": "Překlad není na tomto boardu zapnutý.",
+      "unset": "Překlad teď není k dispozici.",
+      "auth": "Překlad teď není k dispozici.",
+      "overloaded": "Překladač je právě přetížený. Zkuste to za chvíli.",
+      "failed": "Překlad se nepodařil. Zkuste to znovu.",
+      "refused": "Tento příspěvek nelze přeložit.",
+      "empty": "Překlad se nepodařil. Zkuste to znovu.",
+      "rate": "Příliš mnoho překladů za hodinu. Zkuste to později.",
+      "cap": "Board dnes dosáhl denního limitu překladů. Zkuste to zítra.",
+      "tooLong": "Příspěvek je na překlad příliš dlouhý."
+    }
+  },
+  "subprocessors": {
+    "meta": "Subdodavatelé – Ozvi",
+    "title": "Subdodavatelé",
+    "lede": "Komu Ozvi cloud posílá osobní údaje, proč, kde se zpracovávají a na jakém základě odcházejí mimo EU. Pro data na boardech je to seznam dalších zpracovatelů podle čl. 28 GDPR.",
+    "draftTitle": "Návrh",
+    "draftText": "Seznam ještě nekontroloval právník. Položky označené „Doplní provozovatel“ jsme zatím neověřili, a proto je neuvádíme.",
+    "pending": "Doplní provozovatel",
+    "fields": {
+      "purpose": "Účel",
+      "data": "Údaje",
+      "location": "Kde",
+      "transfer": "Předávání mimo EU",
+      "when": "Kdy"
+    },
+    "listTitle": "Seznam",
+    "items": [
+      {
+        "name": "Server Ozvi (Hetzner)",
+        "entity": "Hetzner Online GmbH, Německo – dedikovaný server, který spravuje provozovatel Ozvi",
+        "purpose": "Běh aplikace, databáze, uložené přílohy a zálohy.",
+        "data": "Vše, co služba ukládá: účty, obsah boardů, přílohy, technický záznam hlášení, fronta e-mailů.",
+        "location": "Datové centrum Hetzner v EU",
+        "transfer": "Žádný, data zůstávají v EU.",
+        "when": "Vždy",
+        "note": "Zálohy: na samostatný disk téhož serveru v EU a další kopie na vlastní úložiště provozovatele na Slovensku."
+      },
+      {
+        "name": "Resend",
+        "entity": "Resend, Inc.",
+        "purpose": "Odesílání e-mailů: přihlašovací kódy, upozornění, souhrny a novinky.",
+        "data": "E-mailová adresa příjemce, předmět a obsah e-mailu, technické údaje o doručení.",
+        "location": "TODO: země a region, kde Resend zpracovává e-maily pro náš účet.",
+        "transfer": "TODO: mechanismus předávání (např. rámec EU – USA nebo standardní smluvní doložky) podle smlouvy s Resend.",
+        "when": "Vždy, e-maily v cloudu posíláme my."
+      },
+      {
+        "name": "Anthropic",
+        "entity": "Anthropic, PBC",
+        "purpose": "AI funkce: souhrny zpětné vazby, návrh novinky z vydání, překlad příspěvků. Výstup je vždy návrh, který schvaluje člověk.",
+        "data": "Text příspěvků a komentářů potřebný pro daný úkol. Nepoužívá se k trénování modelů.",
+        "location": "TODO: země zpracování.",
+        "transfer": "TODO: mechanismus předávání podle obchodních podmínek a DPA Anthropic.",
+        "when": "Jen v projektech, které mají AI funkce zapnuté."
+      },
+      {
+        "name": "Creem",
+        "entity": "TODO: obchodní firma a sídlo společnosti Creem.",
+        "purpose": "Prodej placených plánů jako prodejce (merchant of record): platba, faktura, DPH, vrácení peněz.",
+        "data": "E-mail a jméno účtu, identifikátory zákazníka a předplatného. Kartu a fakturační údaje zadáváte přímo u Creem, my je nevidíme.",
+        "location": "TODO: země zpracování.",
+        "transfer": "TODO: mechanismus předávání, pokud Creem zpracovává mimo EU.",
+        "when": "Jen u placených plánů. Creem je při platbě samostatný správce, ne náš zpracovatel pro data na boardech."
+      },
+      {
+        "name": "GitHub",
+        "entity": "GitHub, Inc.",
+        "purpose": "Propojení projektu s repozitářem: issue z nápadu nebo chyby, stav podle pull requestů a vydání.",
+        "data": "Název a popis položky, verze aplikace a prohlížeč, odkaz na board. Nikdy záznam z konzole, sítě ani snímek obrazovky.",
+        "location": "TODO: země zpracování.",
+        "transfer": "TODO: mechanismus předávání.",
+        "when": "Jen pokud ho zákazník v projektu sám připojí, přes vlastní účet."
+      },
+      {
+        "name": "Linear",
+        "entity": "TODO: obchodní firma společnosti.",
+        "purpose": "Propojení projektu s Linear: issue z položky a synchronizace stavu.",
+        "data": "Název a popis položky, verze aplikace a prohlížeč, odkaz na board, komentáře o změně stavu.",
+        "location": "TODO: země zpracování.",
+        "transfer": "TODO: mechanismus předávání.",
+        "when": "Jen pokud ho zákazník v projektu sám připojí, přes vlastní účet."
+      },
+      {
+        "name": "Jira Cloud",
+        "entity": "Atlassian",
+        "purpose": "Propojení projektu s Jirou: issue z položky a synchronizace stavu.",
+        "data": "Název a popis položky, verze aplikace a prohlížeč, odkaz na board, komentáře o změně stavu.",
+        "location": "TODO: země zpracování (závisí na nastavení Jira Cloud zákazníka).",
+        "transfer": "TODO: mechanismus předávání.",
+        "when": "Jen pokud ji zákazník v projektu sám připojí, přes vlastní účet."
+      }
+    ],
+    "notTitle": "Co subdodavatel není",
+    "not": [
+      "Písma: všechna písma, i ta z Google Fonts, poskytujeme z vlastního serveru. Server si soubor písma stáhne jednou, bez jakýchkoli údajů o návštěvnících; prohlížeč návštěvníka se ke Googlu nepřipojuje.",
+      "Webhooky a chatovací kanály (Slack, Microsoft Teams, Discord apod.), které si zákazník nastaví: údaje posíláme na adresu, kterou určí zákazník, jeho jménem.",
+      "Analytika a reklama: nepoužíváme žádné analytické ani reklamní nástroje třetích stran.",
+      "Vlastní instalace Ozvi (self-host): běží u provozovatele instalace a tento seznam se na ni nevztahuje."
+    ],
+    "changesTitle": "Změny seznamu",
+    "changes": "Před přidáním nebo výměnou subdodavatele upozorníme zákazníky cloudu předem e-mailem, aby mohli vznést námitku. Smlouva o zpracování je popsána v části <link>Ochrana soukromí</link>.",
+    "contact": "Dotazy k subdodavatelům posílejte na {email}.",
+    "updated": "Poslední změna seznamu: {date}",
+    "link": "Subdodavatelé"
+  },
+  "privacyKit": {
+    "title": "Zpětná vazba k {name} (Ozvi)",
+    "sections": {
+      "purpose": "Účel a právní základ",
+      "data": "Jaké údaje zpracováváme",
+      "recipients": "Kdo údaje zpracovává",
+      "retention": "Jak dlouho údaje uchováváme",
+      "rights": "Vaše práva",
+      "storage": "Cookies a úložiště prohlížeče"
+    },
+    "purpose": {
+      "intro": "Ke sběru zpětné vazby k {name} používáme službu Ozvi: můžete nahlásit chybu, navrhnout nápad, hlasovat a komentovat a my vám dáme vědět, když se změní něco, na čem jste se podíleli.",
+      "bugs": "Hlášení chyb: plnění smlouvy, na jejímž základě naši službu používáte (čl. 6 odst. 1 písm. b) GDPR).",
+      "ideas": "Nápady, hlasy, komentáře a e-mailová upozornění: náš oprávněný zájem zlepšovat {name} podle potřeb uživatelů (čl. 6 odst. 1 písm. f) GDPR).",
+      "review": "[Navrhovaný právní základ: před zveřejněním ho porovnejte se svým zpracováním a tuto poznámku odstraňte.]",
+      "ai": "Některé funkce využívají umělou inteligenci: {features}. Výsledek je vždy jen návrh, který zkontroluje člověk z našeho týmu; o vás automatizovaně nerozhodujeme.",
+      "aiSummaries": "shrnutí diskusí pro náš tým",
+      "aiChangelog": "návrhy textů novinek",
+      "aiTranslate": "strojový překlad příspěvků na boardu (označený jako překlad, originál je na jedno kliknutí)",
+      "aiTranslateShort": "strojový překlad příspěvků na boardu"
+    },
+    "data": {
+      "intro": "Podle toho, co používáte, zpracováváme:",
+      "sso": "vaši identitu z účtu v {name}: identifikátor uživatele, e-mailovou adresu, jméno a profilový obrázek a, pokud je naše aplikace předá, údaje o vašem účtu (například tarif nebo firmu), které vidí jen náš tým;",
+      "oidc": "vaši identitu z naší přihlašovací služby ({issuer}): identifikátor uživatele, e-mailovou adresu a jméno;",
+      "email": "vaši e-mailovou adresu a jméno, pokud se na board přihlásíte jednorázovým kódem z e-mailu;",
+      "content": "co nám pošlete: hlášení chyb, nápady, komentáře, hlasy a přílohy;",
+      "context": "u hlášení chyby technické údaje, které nám pomohou chybu zopakovat: adresu stránky, verzi aplikace, prohlížeč, velikost obrazovky a jazyk;",
+      "contextWith": "u hlášení chyby technické údaje, které nám pomohou chybu zopakovat: adresu stránky, verzi aplikace, prohlížeč, velikost obrazovky a jazyk, dále {captures};",
+      "cap": {
+        "screenshot": "snímek obrazovky (před odesláním ho můžete odebrat)",
+        "console": "chybová hlášení z konzole prohlížeče",
+        "network": "záznam posledních požadavků aplikace (adresa, metoda, stav a doba trvání, bez obsahu formulářů)",
+        "steps": "vaše poslední kroky v aplikaci (navštívené stránky a názvy tlačítek, ne to, co jste napsali)",
+        "links": "odkaz na záznam vaší relace v našem monitorovacím nástroji"
+      },
+      "mail": "záznamy o e-mailech, které vám posíláme (stav doručení), a vaše nastavení upozornění.",
+      "masking": "Hesla, čísla platebních karet, přístupové tokeny a další citlivé hodnoty se maskují už ve vašem prohlížeči před odesláním a znovu na serveru. Hlášení chyb vidíte jen vy a náš tým.",
+      "optOut": "Před odesláním hlášení můžete záznam požadavků a kroků vypnout."
+    },
+    "recipients": {
+      "cloud": "Službu Ozvi nám poskytuje {operator} jako zpracovatel na základě smlouvy o zpracování osobních údajů (čl. 28 GDPR). Údaje jsou uloženy na serverech v EU (Hetzner, Německo).",
+      "operatorPlaceholder": "[poskytovatel služby Ozvi: obchodní firma a sídlo]",
+      "cloudList": "Poskytovatel pro náš board využívá tyto další zpracovatele:",
+      "resend": "Resend, Inc.: odesílání e-mailů (přihlašovací kódy, upozornění, novinky);",
+      "anthropic": "Anthropic, PBC: funkce AI ({task}); dostane jen text potřebný pro danou úlohu a nepoužívá ho k trénování modelů;",
+      "cloudMore": "Aktuální seznam subdodavatelů Ozvi s místem zpracování a zárukami při předávání mimo EU: {url}",
+      "self": "Ozvi provozujeme na vlastní infrastruktuře. Autoři Ozvi k údajům nemají přístup a nic z nich nedostávají.",
+      "selfList": "Poskytovatelé, které k tomu využíváme:",
+      "hosting": "[poskytovatel hostingu, země]: servery, databáze, přílohy a zálohy;",
+      "smtp": "{host} [název poskytovatele, země]: odesílání e-mailů (přihlašovací kódy, upozornění, novinky);",
+      "ecomail": "Ecomail [název poskytovatele, země]: odesílání e-mailů (přihlašovací kódy, upozornění, novinky);",
+      "s3": "{host} [název poskytovatele, země]: ukládání příloh a snímků obrazovky;",
+      "embeddings": "{host} [název poskytovatele, země]: vyhledávání podobných příspěvků (text příspěvků);",
+      "aiRemote": "{host} [název poskytovatele, země]: funkce AI ({task}); dostane jen text potřebný pro danou úlohu;",
+      "aiUnknown": "[poskytovatel AI]",
+      "aiLocal": "Funkce AI ({task}) běží na modelu na našem vlastním serveru; žádný text neodchází třetí straně.",
+      "toolsIntro": "Náš tým propojil tyto nástroje; údaje do nich odcházejí naším jménem:",
+      "github": "GitHub (GitHub, Inc.): propojení příspěvků s úkoly v našich vývojářských nástrojích: název a popis, verze aplikace, prohlížeč a odkaz. Nikdy ne záznam z konzole, záznam požadavků ani snímek obrazovky;",
+      "linear": "Linear: propojení příspěvků s naším systémem úkolů: název a popis, verze aplikace, prohlížeč, odkaz a změny stavu;",
+      "jira": "Jira Cloud (Atlassian): propojení příspěvků s naším systémem úkolů: název a popis, verze aplikace, prohlížeč, odkaz a změny stavu;",
+      "webhook": "naše vlastní systémy připojené přes webhook: upozornění na nové příspěvky a změny{bugs, select, yes {, včetně hlášení chyb} other {}};",
+      "chat": "{channel}: upozornění pro náš tým na nové příspěvky a změny (název, krátký úryvek, jméno autora a odkaz){bugs, select, yes {, včetně hlášení chyb} other {}};",
+      "channel": {
+        "slack": "Slack",
+        "teams": "Microsoft Teams",
+        "discord": "Discord"
+      },
+      "noTrackingCloud": "Nástroj pro zpětnou vazbu nepoužívá žádné analytické ani reklamní nástroje. Písma servíruje přímo Ozvi, váš prohlížeč se proto nepřipojuje ke Google ani k jiným třetím stranám.",
+      "noTrackingSelf": "Nástroj pro zpětnou vazbu nepoužívá žádné analytické ani reklamní nástroje. Písma servíruje náš server, váš prohlížeč se proto nepřipojuje ke Google ani k jiným třetím stranám."
+    },
+    "retention": {
+      "content": "Příspěvky, komentáře a hlasy uchováváme, dokud board používáme, nebo dokud je nebo všechny své údaje nesmažete (viz Vaše práva).",
+      "capture": "Technické údaje hlášení chyb (záznam požadavků, kroky, chyby z konzole, odkazy na relaci a snímek obrazovky) mažeme {days, plural, one {# den} few {# dny} many {# dne} other {# dní}} po odeslání hlášení.",
+      "captureKeep": "Technické údaje hlášení chyb uchováváme stejně dlouho jako samotné hlášení.",
+      "files": "Přílohy vyřešených hlášení chyb mažeme {days, plural, one {# den} few {# dny} many {# dne} other {# dní}} po jejich vyřešení.",
+      "contacts": "Kontakty, které se nikdy nepřihlásily (například importované z předchozího nástroje), anonymizujeme po {months, plural, one {# měsíci} other {# měsících}}.",
+      "end": "Když službu přestaneme používat, údaje se vymažou."
+    },
+    "rights": {
+      "myData": "Moje údaje",
+      "self": "Na boardu v části „{myData}“ ({url}) si můžete všechny své údaje stáhnout nebo je sami vymazat. Vymazání odstraní vaše hlasy, komentáře a hlášení chyb i s přílohami; nápady, pro které hlasovali jiní, zůstanou na boardu bez vašeho jména.",
+      "unsubscribe": "E-maily vypnete odkazem v patičce každého z nich nebo v části „{myData}“.",
+      "other": "S žádostí o přístup, opravu, omezení, námitkou nebo jinou žádostí se obraťte na [kontaktní e-mail]. Máte také právo podat stížnost u dozorového úřadu."
+    },
+    "storage": {
+      "intro": "Widget zpětné vazby v naší aplikaci a board používají jen položky uvedené níže. Jsou potřebné pro funkce, které používáte; nejde o sledovací ani reklamní cookies.",
+      "whereWidget": "Widget v {name}",
+      "whereBoard": "Board ({host})",
+      "whereBoardTeam": "Board ({host}), jen náš tým",
+      "head": {
+        "name": "Název",
+        "where": "Kde",
+        "type": "Typ",
+        "purpose": "Účel",
+        "duration": "Platnost"
+      },
+      "type": {
+        "local": "localStorage",
+        "cookie": "Cookie",
+        "cookieHttpOnly": "Cookie (HttpOnly)"
+      },
+      "purpose": {
+        "seen": "Pamatuje si nejnovější novinku, kterou jste viděli, kvůli odznaku „Co je nového“. Nikdy neopustí váš prohlížeč.",
+        "session": "Udržuje vaše přihlášení na boardu.",
+        "oidc": "Chrání přihlášení přes {issuer} před podvržením.",
+        "locale": "Pamatuje si jazyk, který jste si vybrali.",
+        "csv": "Pamatuje si oddělovač pro export do CSV."
+      },
+      "untilCleared": "Dokud nevymažete data prohlížeče",
+      "widgetNote": "Samotný widget žádné cookies nenastavuje: přihlásí vás krátkodobým tokenem z naší aplikace."
+    },
+    "units": {
+      "years": "{n, plural, one {# rok} few {# roky} many {# roku} other {# let}}",
+      "days": "{n, plural, one {# den} few {# dny} many {# dne} other {# dní}}",
+      "minutes": "{n, plural, one {# minuta} few {# minuty} many {# minuty} other {# minut}}"
+    }
+  },
+  "releases": {
+    "meta": "Vydání Ozvi",
+    "title": "Vydání Ozvi",
+    "lede": "Co přibylo a co jsme opravili v každé verzi. Cloud na ozvi.io běží vždy na nejnovější verzi, vlastní servery aktualizuje jejich správce nebo updater.",
+    "slovakOnly": "Poznámky k vydáním píšeme slovensky.",
+    "empty": "Zatím jsme nevydali žádnou verzi.",
+    "breaking": "Zásadní změna",
+    "breakingText": "Před aktualizací vlastního serveru si přečtěte celé poznámky. Updater tuto verzi nenainstaluje automaticky."
+  }
+}

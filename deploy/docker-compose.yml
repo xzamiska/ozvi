@@ -1,0 +1,89 @@
+# Self-host Ozvi: Postgres + Ozvi. Put a TLS proxy (Caddy, Traefik) in front of port 3000.
+#   cp .env.example .env   # fill the secrets
+#   docker compose up -d
+# Optional updater (backup → new version → health check → rollback), docs/SELFHOST.md → Aktualizácie:
+#   COMPOSE_PROFILES=updater in .env, plus OZVI_UPDATER_TOKEN (openssl rand -hex 32)
+name: ozvi
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      OZVI_DB_PASSWORD: ${OZVI_DB_PASSWORD:?set OZVI_DB_PASSWORD}
+    volumes:
+      - pg:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ozvi -d ozvi"]
+      interval: 5s
+      retries: 30
+  ozvi:
+    image: ${OZVI_IMAGE:-ghcr.io/xzamiska/ozvi:latest}
+    # Built from source instead: docker build -t ozvi:local . and OZVI_IMAGE=ozvi:local in .env
+    restart: unless-stopped
+    depends_on: { postgres: { condition: service_healthy } }
+    environment:
+      OZVI_MODE: self
+      DATABASE_URL: postgres://ozvi:${OZVI_DB_PASSWORD}@postgres:5432/ozvi
+      PUBLIC_URL: ${PUBLIC_URL:?set PUBLIC_URL, e.g. https://feedback.example.com}
+      OZVI_SECRET_KEY: ${OZVI_SECRET_KEY:?set OZVI_SECRET_KEY}
+      OZVI_SESSION_SECRET: ${OZVI_SESSION_SECRET:?set OZVI_SESSION_SECRET}
+      SMTP_URL: ${SMTP_URL:-}
+      ECOMAIL_API_KEY: ${ECOMAIL_API_KEY:-}
+      OZVI_MAIL_FROM: ${OZVI_MAIL_FROM:-}
+      OZVI_TRUSTED_PROXIES: ${OZVI_TRUSTED_PROXIES:-1}
+      S3_ENDPOINT: ${S3_ENDPOINT:-}
+      S3_BUCKET: ${S3_BUCKET:-}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-}
+      OZVI_AI_PROVIDER: ${OZVI_AI_PROVIDER:-}
+      OZVI_AI_API_KEY: ${OZVI_AI_API_KEY:-}
+      OZVI_AI_BASE_URL: ${OZVI_AI_BASE_URL:-}
+      OZVI_AI_MODEL: ${OZVI_AI_MODEL:-}
+      OZVI_AI_MODEL_FAST: ${OZVI_AI_MODEL_FAST:-}
+      # Deprecated (= OZVI_AI_PROVIDER=anthropic + OZVI_AI_API_KEY); kept so older .env files keep working.
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OZVI_EMBEDDINGS_URL: ${OZVI_EMBEDDINGS_URL:-}
+      OZVI_EMBEDDINGS_MODEL: ${OZVI_EMBEDDINGS_MODEL:-}
+      OZVI_EMBEDDINGS_KEY: ${OZVI_EMBEDDINGS_KEY:-}
+      OZVI_FONTS_PREFETCH: ${OZVI_FONTS_PREFETCH:-}
+      OZVI_FONTS_REMOTE: ${OZVI_FONTS_REMOTE:-}
+      # Operators: may create accounts, get the updater e-mails (comma-separated).
+      OZVI_ADMIN_EMAILS: ${OZVI_ADMIN_EMAILS:-}
+      OZVI_ADMIN_LOCALE: ${OZVI_ADMIN_LOCALE:-sk}
+      OZVI_UPDATER_URL: ${OZVI_UPDATER_URL:-}
+      OZVI_UPDATER_TOKEN: ${OZVI_UPDATER_TOKEN:-}
+    ports: ["${OZVI_PORT:-3000}:3000"]
+    volumes: [uploads:/data]
+  # Optional. It needs the Docker socket (= control of this server), so it only runs with COMPOSE_PROFILES=updater.
+  # It changes nothing but the "ozvi" service of this project and always backs up the database first.
+  updater:
+    image: ${OZVI_UPDATER_IMAGE:-ghcr.io/xzamiska/ozvi-updater:1}
+    profiles: [updater]
+    restart: unless-stopped
+    depends_on: { postgres: { condition: service_healthy } }
+    environment:
+      OZVI_UPDATER_TOKEN: ${OZVI_UPDATER_TOKEN:?set OZVI_UPDATER_TOKEN (openssl rand -hex 32)}
+      OZVI_UPDATE_MODE: ${OZVI_UPDATE_MODE:-manual}
+      OZVI_UPDATE_WINDOW: ${OZVI_UPDATE_WINDOW:-02:00-05:00}
+      TZ: ${TZ:-Europe/Bratislava}
+      OZVI_DB_ADMIN_URL: postgres://postgres:${POSTGRES_PASSWORD}@postgres:5432/ozvi
+      OZVI_DIR: ${OZVI_DIR:-${PWD}}
+      OZVI_WEB_URL: http://ozvi:3000
+      OZVI_RELEASES_URL: ${OZVI_RELEASES_URL:-https://ozvi.io/releases.json}
+      # Only for a private mirror of the images (ghcr.io/xzamiska is public).
+      OZVI_REGISTRY: ${OZVI_REGISTRY:-ghcr.io}
+      OZVI_REGISTRY_USER: ${OZVI_REGISTRY_USER:-}
+      OZVI_REGISTRY_TOKEN: ${OZVI_REGISTRY_TOKEN:-}
+    # The project directory is mounted at the same path as on the host, so compose resolves it the same way.
+    working_dir: ${OZVI_DIR:-${PWD}}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${OZVI_DIR:-${PWD}}:${OZVI_DIR:-${PWD}}:ro
+      - updater:/state
+      - ./backups:/backups
+volumes:
+  pg:
+  uploads:
+  updater:

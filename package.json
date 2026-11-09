@@ -1,0 +1,30 @@
+{
+  "name": "ozvi",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Ozvi — source-available bug reports + idea board that looks like your product",
+  "license": "FSL-1.1-ALv2",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=22.23.4 <23"
+  },
+  "scripts": {
+    "dev": "pnpm dev:infra && pnpm db:migrate && pnpm db:seed && pnpm --filter @ozvi/web dev",
+    "dev:infra": "docker compose up -d --wait",
+    "dev:cloud": "./scripts/dev-cloud.sh",
+    "db:reset:cloud": "docker compose exec -T postgres psql -U postgres -c \"DROP DATABASE IF EXISTS ozvi_cloud WITH (FORCE)\"",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "db:generate": "pnpm --filter @ozvi/db generate",
+    "db:migrate": "pnpm --filter @ozvi/db migrate",
+    "stop": "docker compose stop",
+    "db:seed": "pnpm --filter @ozvi/db seed",
+    "db:demo:cloud": "set -a && . ./.env && . ./.env.cloud && set +a && pnpm --filter @ozvi/db demo:cloud"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "~5.9.3",
+    "vitest": "^5.1.0"
+  }
+}

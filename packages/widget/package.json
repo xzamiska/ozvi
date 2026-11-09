@@ -1,0 +1,55 @@
+{
+  "name": "@ozvi/widget",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Ozvi in-app widget (window.Ozvi API, <ozvi-widget>, <ozvi-roadmap>, <ozvi-changelog>) and React / Vue wrappers. MIT.",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/loader.d.ts",
+      "import": "./dist/loader.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./vue": {
+      "types": "./dist/vue.d.ts",
+      "import": "./dist/vue.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "tsc -p .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "modern-screenshot": "^4.7.0",
+    "preact": "^10.29.8"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "vue": ">=3.3"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "esbuild": "^0.28.2",
+    "react": "19.3.1",
+    "vue": "3.5.45"
+  }
+}
