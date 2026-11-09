@@ -1,0 +1,29 @@
+# Ozvi cloud edge (deploy/cloud/README.md). Start it first: it creates the network the app stacks join.
+name: ozvi-edge
+services:
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      ACME_EMAIL: ${ACME_EMAIL:?set ACME_EMAIL}
+      LIVE_DOMAIN: ${LIVE_DOMAIN:?set LIVE_DOMAIN, e.g. ozvi.io}
+      STAGING_DOMAIN: ${STAGING_DOMAIN:?set STAGING_DOMAIN, e.g. staging.ozvi.io}
+      STAGING_AUTH_USER: ${STAGING_AUTH_USER:?set STAGING_AUTH_USER}
+      # caddy hash-password; in .env write every $ as $$
+      STAGING_AUTH_HASH: ${STAGING_AUTH_HASH:?set STAGING_AUTH_HASH}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [edge]
+    mem_limit: 256m
+networks:
+  edge:
+    name: ozvi-edge
+volumes:
+  caddy_data:
+  caddy_config:

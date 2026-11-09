@@ -1,0 +1,84 @@
+# One Ozvi cloud environment (live or staging): Postgres, Ozvi, nightly database dump.
+# Run once per environment with its own directory and .env:
+#   docker compose -p ozvi-live up -d      (OZVI_ENV=live)
+#   docker compose -p ozvi-staging up -d   (OZVI_ENV=staging)
+# The edge stack (../edge) must be running: Ozvi joins its network as <OZVI_ENV>-ozvi.
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      OZVI_DB_PASSWORD: ${OZVI_DB_PASSWORD:?set OZVI_DB_PASSWORD}
+    volumes:
+      - pg:/var/lib/postgresql/data
+      - ${OZVI_INITDB:-../../initdb}:/docker-entrypoint-initdb.d:ro
+    networks: [internal]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ozvi -d ozvi"]
+      interval: 5s
+      retries: 30
+    mem_limit: ${PG_MEM:-1g}
+
+  ozvi:
+    image: ${OZVI_IMAGE:-ghcr.io/xzamiska/ozvi:1}
+    restart: unless-stopped
+    depends_on: { postgres: { condition: service_healthy } }
+    environment:
+      OZVI_MODE: cloud
+      DATABASE_URL: postgres://ozvi:${OZVI_DB_PASSWORD}@postgres:5432/ozvi
+      PUBLIC_URL: https://${OZVI_DOMAIN:?set OZVI_DOMAIN, e.g. ozvi.io}
+      OZVI_CLOUD_DOMAIN: ${OZVI_DOMAIN}
+      OZVI_CNAME_TARGET: ${OZVI_CNAME_TARGET:-}
+      OZVI_SECRET_KEY: ${OZVI_SECRET_KEY:?set OZVI_SECRET_KEY}
+      OZVI_SESSION_SECRET: ${OZVI_SESSION_SECRET:?set OZVI_SESSION_SECRET}
+      OZVI_TRUSTED_PROXIES: "1"
+      SMTP_URL: ${SMTP_URL:-}
+      OZVI_MAIL_FROM: ${OZVI_MAIL_FROM:-}
+      CREEM_API_KEY: ${CREEM_API_KEY:-}
+      CREEM_WEBHOOK_SECRET: ${CREEM_WEBHOOK_SECRET:-}
+      CREEM_TEST: ${CREEM_TEST:-}
+      CREEM_PRODUCT_PRO_YEAR: ${CREEM_PRODUCT_PRO_YEAR:-}
+      CREEM_PRODUCT_PRO_QUARTER: ${CREEM_PRODUCT_PRO_QUARTER:-}
+      CREEM_PRODUCT_STUDIO_YEAR: ${CREEM_PRODUCT_STUDIO_YEAR:-}
+      CREEM_PRODUCT_STUDIO_QUARTER: ${CREEM_PRODUCT_STUDIO_QUARTER:-}
+      OZVI_AI_PROVIDER: ${OZVI_AI_PROVIDER:-}
+      OZVI_AI_API_KEY: ${OZVI_AI_API_KEY:-}
+      OZVI_AI_BASE_URL: ${OZVI_AI_BASE_URL:-}
+      OZVI_AI_MODEL: ${OZVI_AI_MODEL:-}
+      OZVI_AI_MODEL_FAST: ${OZVI_AI_MODEL_FAST:-}
+      OZVI_EMBEDDINGS_MODEL: ${OZVI_EMBEDDINGS_MODEL:-}
+      OZVI_ADMIN_EMAILS: ${OZVI_ADMIN_EMAILS:-}
+      OZVI_FONTS_PREFETCH: "1"
+    volumes:
+      - uploads:/data
+    networks:
+      internal: {}
+      edge:
+        aliases: ["${OZVI_ENV:?set OZVI_ENV to live or staging}-ozvi"]
+    mem_limit: ${OZVI_MEM:-1536m}
+
+  # Nightly custom-format dump at 02:30 (TZ), kept BACKUP_KEEP days, in addition to the VM backup.
+  backup:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    depends_on: { postgres: { condition: service_healthy } }
+    environment:
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      TZ: ${TZ:-Europe/Bratislava}
+      KEEP: ${BACKUP_KEEP:-14}
+    entrypoint: ["/bin/sh", "/backup.sh"]
+    volumes:
+      - ./backups:/backups
+      - ${OZVI_BACKUP_SCRIPT:-./backup.sh}:/backup.sh:ro
+    networks: [internal]
+    mem_limit: 256m
+
+networks:
+  internal: {}
+  edge:
+    external: true
+    name: ozvi-edge
+volumes:
+  pg:
+  uploads:

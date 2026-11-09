@@ -1,0 +1,80 @@
+# Ozvi cloud edge: one Caddy in front of the "live" and "staging" app stacks (deploy/cloud/app).
+# Certificates: the apex domains through normal ACME; <slug>.<domain> and customers' own domains
+# on demand, each one approved by the environment that owns the name (see :9180 below).
+{
+	email {$ACME_EMAIL}
+	on_demand_tls {
+		ask http://127.0.0.1:9180/ask
+	}
+	servers {
+		# One proxy in front of Ozvi (OZVI_TRUSTED_PROXIES=1).
+		client_ip_headers X-Forwarded-For
+	}
+}
+
+(live) {
+	encode zstd gzip
+	reverse_proxy live-ozvi:3000
+}
+
+(staging) {
+	encode zstd gzip
+	header X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+	handle /robots.txt {
+		respond "User-agent: *
+Disallow: /
+" 200
+	}
+	# Basic auth only for pages a person opens. Paths with their own auth or that third parties
+	# load without our credentials stay open: API and webhooks (tokens, signatures), MCP and OAuth,
+	# the widget and its files, fonts, the release list, health and well-known documents.
+	@needs_auth not path /api/* /mcp /mcp/* /*/mcp /*/mcp/* /oauth/* /.well-known/* /widget*.js /fonts/* /releases.json /robots.txt /_next/static/*
+	basic_auth @needs_auth {
+		{$STAGING_AUTH_USER} {$STAGING_AUTH_HASH}
+	}
+	reverse_proxy staging-ozvi:3000
+}
+
+# Caddy asks this before every on-demand certificate. Names under the staging domain go to the
+# staging app, everything else to live; each answers 200 only for its own boards and verified domains.
+http://127.0.0.1:9180 {
+	bind 127.0.0.1
+	@staging expression `{query.domain}.endsWith(".{$STAGING_DOMAIN}")`
+	rewrite * /api/domains/ask?{query}
+	handle @staging {
+		reverse_proxy staging-ozvi:3000
+	}
+	handle {
+		reverse_proxy live-ozvi:3000
+	}
+}
+
+{$STAGING_DOMAIN} {
+	import staging
+}
+
+*.{$STAGING_DOMAIN} {
+	tls {
+		on_demand
+	}
+	import staging
+}
+
+{$LIVE_DOMAIN} {
+	import live
+}
+
+*.{$LIVE_DOMAIN} {
+	tls {
+		on_demand
+	}
+	import live
+}
+
+# Customers' own domains (CNAME to OZVI_CNAME_TARGET), live only.
+https:// {
+	tls {
+		on_demand
+	}
+	import live
+}

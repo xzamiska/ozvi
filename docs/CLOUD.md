@@ -21,26 +21,9 @@ Lokálne vyskúšanie celého cloudu: [CLOUD-LOKALNE.md](CLOUD-LOKALNE.md).
 | `CREEM_PRODUCT_PRO_YEAR`, `…_PRO_QUARTER`, `…_STUDIO_YEAR`, `…_STUDIO_QUARTER` | id produktov v Creem |
 | `SMTP_URL`, `OZVI_MAIL_FROM` | náš Resend (kódy na prihlásenie aj notifikácie); e-maily v cloude posielame my, preto ich obmedzujú plány. Alternatíva: `ECOMAIL_API_KEY` |
 
-## Caddy: vlastné domény s automatickým HTTPS
+## Nasadenie
 
-```caddy
-{
-  on_demand_tls {
-    ask http://ozvi:3000/api/domains/ask
-  }
-}
-
-ozvi.io, *.ozvi.io {
-  reverse_proxy ozvi:3000
-}
-
-https:// {
-  tls { on_demand }
-  reverse_proxy ozvi:3000
-}
-```
-
-`/api/domains/ask` odpovie 200 len pre overené vlastné domény projektov s plánom, ktorý ich obsahuje, a pre existujúce `<slug>.ozvi.io`. Pre `*.ozvi.io` stačí aj on-demand (wildcard cez DNS challenge nie je nutný).
+Edge Caddy, staging a live na jednej VM, certifikáty na požiadanie pre `<projekt>.ozvi.io` a vlastné domény, staging za basic auth: [deploy/cloud](../deploy/cloud/README.md). `/api/domains/ask` odpovie 200 len pre overené vlastné domény projektov s plánom, ktorý ich obsahuje, a pre existujúce `<slug>.<OZVI_CLOUD_DOMAIN>`.
 
 ## Platby (Creem)
 

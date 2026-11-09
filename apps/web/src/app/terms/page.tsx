@@ -15,7 +15,7 @@ export default function Terms() {
   return (
     <LegalShell title="Obchodné podmienky" toc={[{ id: "cast-1", label: "Kto poskytuje službu" }, { id: "cast-2", label: "Čo je služba" }, { id: "cast-3", label: "Účet" }, { id: "cast-4", label: "Plány a platby" }, { id: "cast-5", label: "Čo so službou nerobiť" }, { id: "cast-6", label: "Vaše dáta" }, { id: "cast-7", label: "Dostupnosť" }, { id: "cast-8", label: "Zodpovednosť" }, { id: "cast-9", label: "Ukončenie a zmeny podmienok" }, { id: "cast-10", label: "Rozhodné právo" }]}>
       <h2 id="cast-1">1. Kto poskytuje službu</h2>
-      <p>Službu Ozvi (ďalej „služba“) poskytuje {LEGAL.operator}, IČO {LEGAL.companyId}, so sídlom {LEGAL.address} (ďalej „my“). Kontakt: {LEGAL.email}.</p>
+      <p>Službu Ozvi (ďalej „služba“) poskytuje {LEGAL.operator}, so sídlom {LEGAL.address}, IČO {LEGAL.companyId}, DIČ {LEGAL.taxId}, IČ DPH {LEGAL.vatId}, {LEGAL.register} (ďalej „my“). Kontakt: {LEGAL.email}.</p>
 
       <h2 id="cast-2">2. Čo je služba</h2>
       <p>Ozvi je hostovaná služba na zber spätnej väzby: súkromné hlásenia chýb, verejný board s nápadmi, roadmapa a novinky pre vašu aplikáciu. Rovnaký softvér si môžete prevádzkovať aj na vlastnom serveri podľa jeho licencie; tieto podmienky sa týkajú len hostovanej služby.</p>

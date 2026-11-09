@@ -15,7 +15,7 @@ export default function Privacy() {
       <p>Ozvi spracúva dva druhy osobných údajov a pri každom má inú rolu. Tu je, čo zbierame, prečo, komu to posielame a ako dlho to držíme.</p>
 
       <h2 id="cast-1">1. Účty v Ozvi — sme prevádzkovateľ</h2>
-      <p>Prevádzkovateľ: {LEGAL.operator}, IČO {LEGAL.companyId}, {LEGAL.address}, {LEGAL.email}.</p>
+      <p>Prevádzkovateľ: {LEGAL.operator}, so sídlom {LEGAL.address}, IČO {LEGAL.companyId}, {LEGAL.register}. Kontakt: {LEGAL.email}.</p>
       <ul>
         <li><b>Čo:</b> e-mail, meno (ak ho vyplníte), členstvo v priestoroch, čas posledného prihlásenia. Pri platbách aj identifikátory zákazníka a predplatného v Creem; kartu ani fakturačné údaje nevidíme.</li>
         <li><b>Prečo:</b> aby ste sa mohli prihlásiť a spravovať projekty (plnenie zmluvy) a aby sme vedeli účtovať plány.</li>

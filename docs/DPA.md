@@ -12,7 +12,7 @@ Verzia šablóny: {{LEGAL.version}} · účinná od {{LEGAL.effective}}
 [obchodné meno], IČO [IČO], so sídlom [sídlo], zastúpený [meno, funkcia], kontakt pre ochranu údajov: [e-mail].
 
 **Sprostredkovateľ** (poskytovateľ služby Ozvi, ďalej „Ozvi“):
-{{LEGAL.operator}}, IČO {{LEGAL.companyId}}, so sídlom {{LEGAL.address}}, kontakt: {{LEGAL.email}}.
+Zamiska solutions s.r.o., so sídlom Bajkalská 45G, 821 05 Bratislava-Ružinov, IČO 54580242, DIČ 2121731106, IČ DPH SK2121731106, zapísaná v obchodnom registri Mestského súdu Bratislava III, oddiel Sro, vložka č. 160737/B, kontakt: podpora@ozvi.io.
 
 Táto zmluva dopĺňa [Obchodné podmienky](https://ozvi.io/terms) (ďalej „Podmienky“). Pri rozpore v otázkach ochrany osobných údajov má prednosť táto zmluva.
 
