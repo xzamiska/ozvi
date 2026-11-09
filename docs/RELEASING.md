@@ -28,4 +28,4 @@ Pred-vydanie `v1.5.0-rc.1` dostane len vlastnú značku. Nepohnú sa ním `1`, `
 
 ## Prvé vydanie
 
-V `apps/web/releases/_draft-1.0.0.md` je pripravený návrh poznámok. Pri prvom vydaní ho premenujte na `1.0.0.md`, upravte dátum a otagujte `v1.0.0`.
+`v1.0.0` vyšlo 2026-11-09.
