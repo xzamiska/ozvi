@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 import { logActivity, who } from "./activity";
 import type { LoginState } from "@/components/EmailLogin";
 import { signupClosed } from "./account-rules";
-import { accountForVerifiedEmail, APP_COOKIE, appCookie, getAccount, isMember, newWorkspaceSlug } from "./account";
+import { accountForVerifiedEmail, APP_COOKIE, mayCreateAccount, appCookie, getAccount, isMember, newWorkspaceSlug } from "./account";
 import { clientIp } from "./client-ip";
 import { getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/server";
@@ -28,6 +28,10 @@ export async function requestAccountLogin(_: LoginState, form: FormData): Promis
   const locale = await requestLocale();
   const t = await getTranslations({ locale, namespace: "account.server" });
   if (!allow("loginIp", clientIp(await headers()))) return { step: "email", email, error: t("tooManyAttempts") };
+  // No code for an address that could not sign in anyway (closed sign-up, self-host non-admin).
+  if (email.includes("@") && !mayCreateAccount(email) && !(await db.query.accounts.findFirst({ columns: { id: true }, where: eq(schema.accounts.email, email) }))) {
+    return { step: "email", email, error: t(process.env.OZVI_MODE === "cloud" && signupClosed() ? "signupClosed" : "noAccess") };
+  }
   try {
     const { sent } = await issueLogin({ db, email, projectId: null, linkBase: `${publicUrl()}/app/login/link`, brand: { name: "Ozvi" }, locale });
     return { step: "code", email, info: sent ? t("codeSent", { email }) : t("noSmtpCode") };
