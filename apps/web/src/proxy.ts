@@ -2,6 +2,7 @@ import { isIP } from "node:net";
 import { NextResponse, type NextRequest } from "next/server";
 import { primaryHost, slugForHost } from "@/lib/domains";
 import { hostOrigin } from "@/lib/email/url";
+import { indexable, NOINDEX } from "@/lib/indexing";
 
 /**
  * Host routing. The primary host (PUBLIC_URL) serves everything. A project's custom domain or
@@ -19,7 +20,15 @@ function next(req: NextRequest) {
   return NextResponse.next({ request: { headers } });
 }
 
+/** Every response except Ozvi's own public pages carries noindex (ADR-0010). */
 export async function proxy(req: NextRequest) {
+  const res = await route(req);
+  const host = (req.headers.get("host") ?? "").toLowerCase().replace(/:\d+$/, "");
+  if (!indexable({ cloud: process.env.OZVI_MODE === "cloud", primary: host === primaryHost(), path: req.nextUrl.pathname })) res.headers.set("X-Robots-Tag", NOINDEX);
+  return res;
+}
+
+async function route(req: NextRequest) {
   const host = (req.headers.get("host") ?? "").toLowerCase().replace(/:\d+$/, "").replace(/^\[|\]$/g, "");
   // Single-label names (container names like "ozvi") and IPs are internal traffic: no host routing.
   if (!host || host === primaryHost() || !host.includes(".") || isIP(host)) return next(req);

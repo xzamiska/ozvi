@@ -11,3 +11,4 @@
 | [0007](0007-email-outbox-table.md) | E-maily cez outbox tabuľku (namiesto pg-boss) | 2026-11-05 |
 | [0008](0008-fsl-source-available.md) | Licencia FSL-1.1-ALv2 namiesto AGPL (kód verejný, bez konkurenčného SaaS, po 2 rokoch Apache 2.0) | 2026-11-07 |
 | [0009](0009-releases-registry-updater.md) | Vydania tagom na súkromný ghcr.io, zoznam vydaní na ozvi.io, voliteľný updater so zálohou a návratom | 2026-11-09 |
+| [0010](0010-boards-never-indexed.md) | Boardy sa nikdy neindexujú (bez nastavenia); indexuje sa len web Ozvi v cloude | 2026-11-10 |
