@@ -9,6 +9,9 @@ process.env.OZVI_SECRET_KEY ??= "test-secret-key-0123456789abcdef-xyz";
 process.env.DATABASE_URL ??= "postgres://ozvi:ozvi@localhost:5446/ozvi";
 process.env.PUBLIC_URL = "https://feedback.example.com";
 process.env.OZVI_CLOUD_DOMAIN = "ozvi.test";
+// The sign-in tests read the code and link from the dev log line, which only appears without a mail transport.
+delete process.env.SMTP_URL;
+delete process.env.ECOMAIL_API_KEY;
 
 const { normalizeDomain } = await import("./domains");
 const { projectOrigin } = await import("./email/url");

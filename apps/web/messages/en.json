@@ -84,7 +84,7 @@
       "welcome": "Welcome to Ozvi",
       "lede": "A project is one board of ideas and bug reports for one of your apps. You can fine-tune the look later in settings.",
       "appName": "App name",
-      "appPlaceholder": "e.g. Invoicer",
+      "appPlaceholder": "e.g. Bookly",
       "address": "Board address",
       "slugHint": "Lowercase letters, digits and hyphens.",
       "boardAt": "The board will live at ",
@@ -490,13 +490,13 @@
       "previewNote": "Visitors see changes only after you save.",
       "sample": [
         {
-          "title": "Export invoices to Xero",
-          "body": "We export by hand every month and would love a CSV.",
+          "title": "Export to CSV",
+          "body": "We copy data by hand every month. A CSV export would save us an hour.",
           "when": "2 days ago"
         },
         {
-          "title": "Reminder for unpaid invoices",
-          "body": "An automatic e-mail to the client after the due date.",
+          "title": "Dark mode",
+          "body": "The app is easier on the eyes in the evening.",
           "when": "last week"
         }
       ]
@@ -588,7 +588,7 @@
     },
     "tags": {
       "text": "Tags sort ideas and bugs. Everyone sees and filters by public tags; team-only tags are seen only by the team. The team assigns them on the report or straight from the list.",
-      "empty": "No tags yet. Start with the ones you sort by most often (for example Invoices, Mobile, Export).",
+      "empty": "No tags yet. Start with the ones you sort by most often (for example Mobile, Export, Sign-in).",
       "public": "Public",
       "teamOnly": "Team only",
       "used": "{n, plural, =0 {unused} one {# report} other {# reports}}",
@@ -611,7 +611,7 @@
       "merged": "Tags merged.",
       "new": "New tag",
       "name": "Name",
-      "namePlaceholder": "for example Invoices",
+      "namePlaceholder": "for example Mobile",
       "preview": "Preview",
       "color": "Colour",
       "colors": {
@@ -1636,7 +1636,7 @@
       "titleBug": "What isn’t working?",
       "titleIdea": "What would help you?",
       "placeholderBug": "E.g. The VAT number disappears after saving a client",
-      "placeholderIdea": "E.g. Export invoices to Xero",
+      "placeholderIdea": "E.g. Export to CSV",
       "similarLabel": "Similar ideas",
       "similar": "Something similar already exists. If it’s the same, just vote for it.",
       "bodyBug": "What did you do and what did you expect?",
@@ -1754,7 +1754,7 @@
       "pickFirst": "First pick at least one idea.",
       "aiNote": "AI only sees the titles and descriptions of the selected ideas. Always read and edit the draft.",
       "title": "Title",
-      "titlePlaceholder": "Xero export is here",
+      "titlePlaceholder": "CSV export is here",
       "body": "Text",
       "bodyHint": "What’s new and why it helps. Write for the people who asked for it.",
       "publishNoItems": "Publishing adds the update to the changelog. With no ideas selected, nobody gets an e-mail.",

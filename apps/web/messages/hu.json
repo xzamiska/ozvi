@@ -84,7 +84,7 @@
       "welcome": "Üdvözöl az Ozvi",
       "lede": "Egy projekt egy ötleteket és hibajelentéseket gyűjtő tábla az egyik alkalmazásodhoz. A megjelenést később a beállításokban finomhangolhatod.",
       "appName": "Alkalmazás neve",
-      "appPlaceholder": "pl. Számlázó",
+      "appPlaceholder": "Pl. Foglaló",
       "address": "Tábla címe",
       "slugHint": "Kisbetűk, számjegyek és kötőjelek.",
       "boardAt": "A tábla címe: ",
@@ -490,13 +490,13 @@
       "previewNote": "A látogatók csak mentés után látják a változásokat.",
       "sample": [
         {
-          "title": "Számlák exportálása a könyvelőprogramba",
-          "body": "Minden hónapban kézzel exportálunk, egy CSV nagyon jól jönne.",
+          "title": "Exportálás CSV-be",
+          "body": "Havonta kézzel másoljuk az adatokat. A CSV-export egy órát spórolna nekünk.",
           "when": "2 napja"
         },
         {
-          "title": "Emlékeztető a kifizetetlen számlákról",
-          "body": "Automatikus e-mail az ügyfélnek a fizetési határidő után.",
+          "title": "Sötét mód",
+          "body": "Este kényelmesebb vele dolgozni.",
           "when": "múlt héten"
         }
       ]
@@ -588,7 +588,7 @@
     },
     "tags": {
       "text": "A címkék rendszerezik az ötleteket és a hibákat. A nyilvános címkéket mindenki látja, és szűrhet rájuk; a csak csapatnak szóló címkéket csak a csapat látja. A csapat a bejelentésnél vagy közvetlenül a listából rendeli hozzá őket.",
-      "empty": "Még nincsenek címkék. Kezdd azokkal, amelyek szerint a leggyakrabban rendszerezel (például Számlák, Mobil, Export).",
+      "empty": "Még nincsenek címkék. Kezdd azokkal, amelyek szerint a leggyakrabban rendezel (például Mobil, Export, Bejelentkezés).",
       "public": "Nyilvános",
       "teamOnly": "Csak a csapatnak",
       "used": "{n, plural, =0 {nincs használatban} one {# bejelentés} other {# bejelentés}}",
@@ -611,7 +611,7 @@
       "merged": "Címkék összevonva.",
       "new": "Új címke",
       "name": "Név",
-      "namePlaceholder": "például Számlák",
+      "namePlaceholder": "például Mobil",
       "preview": "Előnézet",
       "color": "Szín",
       "colors": {
@@ -1636,7 +1636,7 @@
       "titleBug": "Mi nem működik?",
       "titleIdea": "Mi segítene neked?",
       "placeholderBug": "Pl. Az ügyfél mentése után eltűnik az adószám",
-      "placeholderIdea": "Pl. Számlák exportálása a könyvelőprogramba",
+      "placeholderIdea": "Pl. Exportálás CSV-be",
       "similarLabel": "Hasonló ötletek",
       "similar": "Már létezik valami hasonló. Ha ugyanaz, egyszerűen szavazz rá.",
       "bodyBug": "Mit csináltál, és mire számítottál?",
@@ -1754,7 +1754,7 @@
       "pickFirst": "Először válassz ki legalább egy ötletet.",
       "aiNote": "Az AI csak a kiválasztott ötletek címét és leírását látja. A vázlatot mindig olvasd el és szerkeszd át.",
       "title": "Cím",
-      "titlePlaceholder": "Megérkezett a könyvelési export",
+      "titlePlaceholder": "Itt a CSV-export",
       "body": "Szöveg",
       "bodyHint": "Mi az újdonság, és miben segít. Azoknak írj, akik kérték.",
       "publishNoItems": "A közzététel hozzáadja a bejelentést az Újdonságokhoz. Ha nincs kiválasztott ötlet, senki sem kap e-mailt.",

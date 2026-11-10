@@ -84,7 +84,7 @@
       "welcome": "Willkommen bei Ozvi",
       "lede": "Ein Projekt ist ein Board mit Ideen und Fehlermeldungen für eine Ihrer Apps. Das Aussehen können Sie später in den Einstellungen feinjustieren.",
       "appName": "Name der App",
-      "appPlaceholder": "z. B. Rechnungsprofi",
+      "appPlaceholder": "z. B. Terminbuch",
       "address": "Adresse des Boards",
       "slugHint": "Kleinbuchstaben, Ziffern und Bindestriche.",
       "boardAt": "Das Board wird erreichbar sein unter ",
@@ -490,13 +490,13 @@
       "previewNote": "Besucher sehen Änderungen erst nach dem Speichern.",
       "sample": [
         {
-          "title": "Rechnungen nach DATEV exportieren",
-          "body": "Wir exportieren jeden Monat von Hand und hätten gern eine CSV-Datei.",
+          "title": "Export als CSV",
+          "body": "Wir kopieren jeden Monat Daten von Hand. Ein CSV-Export würde uns eine Stunde sparen.",
           "when": "vor 2 Tagen"
         },
         {
-          "title": "Erinnerung bei unbezahlten Rechnungen",
-          "body": "Eine automatische E-Mail an den Kunden nach dem Fälligkeitsdatum.",
+          "title": "Dunkelmodus",
+          "body": "Abends arbeitet es sich angenehmer.",
           "when": "letzte Woche"
         }
       ]
@@ -588,7 +588,7 @@
     },
     "tags": {
       "text": "Tags ordnen Ideen und Fehler. Öffentliche Tags sehen alle und können danach filtern; Tags nur für das Team sieht nur das Team. Das Team vergibt sie in der Meldung oder direkt aus der Liste.",
-      "empty": "Noch keine Tags. Beginnen Sie mit denen, nach denen Sie am häufigsten sortieren (zum Beispiel Rechnungen, Mobil, Export).",
+      "empty": "Noch keine Tags. Beginnen Sie mit denen, nach denen Sie am häufigsten sortieren (zum Beispiel Mobil, Export, Anmeldung).",
       "public": "Öffentlich",
       "teamOnly": "Nur für das Team",
       "used": "{n, plural, =0 {nicht verwendet} one {# Meldung} other {# Meldungen}}",
@@ -611,7 +611,7 @@
       "merged": "Tags zusammengeführt.",
       "new": "Neuer Tag",
       "name": "Name",
-      "namePlaceholder": "zum Beispiel Rechnungen",
+      "namePlaceholder": "zum Beispiel Mobil",
       "preview": "Vorschau",
       "color": "Farbe",
       "colors": {
@@ -1636,7 +1636,7 @@
       "titleBug": "Was funktioniert nicht?",
       "titleIdea": "Was würde Ihnen helfen?",
       "placeholderBug": "Z. B. Die USt-IdNr. verschwindet nach dem Speichern eines Kunden",
-      "placeholderIdea": "Z. B. Rechnungen nach DATEV exportieren",
+      "placeholderIdea": "z. B. Export als CSV",
       "similarLabel": "Ähnliche Ideen",
       "similar": "Etwas Ähnliches gibt es bereits. Wenn es dasselbe ist, stimmen Sie einfach dafür ab.",
       "bodyBug": "Was haben Sie getan und was haben Sie erwartet?",
@@ -1754,7 +1754,7 @@
       "pickFirst": "Wählen Sie zuerst mindestens eine Idee aus.",
       "aiNote": "Die KI sieht nur Titel und Beschreibungen der ausgewählten Ideen. Lesen und bearbeiten Sie den Entwurf immer.",
       "title": "Titel",
-      "titlePlaceholder": "Der DATEV-Export ist da",
+      "titlePlaceholder": "Der CSV-Export ist da",
       "body": "Text",
       "bodyHint": "Was neu ist und wie es hilft. Schreiben Sie für die Personen, die es sich gewünscht haben.",
       "publishNoItems": "Beim Veröffentlichen wird der Eintrag zu den Neuigkeiten hinzugefügt. Ohne ausgewählte Ideen erhält niemand eine E-Mail.",

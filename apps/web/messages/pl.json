@@ -84,7 +84,7 @@
       "welcome": "Witaj w Ozvi",
       "lede": "Projekt to jedna tablica pomysłów i zgłoszeń błędów dla jednej z twoich aplikacji. Wygląd dopracujesz później w ustawieniach.",
       "appName": "Nazwa aplikacji",
-      "appPlaceholder": "np. Fakturownik",
+      "appPlaceholder": "Np. Rezerwacje",
       "address": "Adres tablicy",
       "slugHint": "Małe litery, cyfry i łączniki.",
       "boardAt": "Tablica będzie dostępna pod adresem ",
@@ -490,13 +490,13 @@
       "previewNote": "Odwiedzający zobaczą zmiany dopiero po zapisaniu.",
       "sample": [
         {
-          "title": "Eksport faktur do KSeF",
-          "body": "Co miesiąc eksportujemy ręcznie i bardzo przydałby się CSV.",
+          "title": "Eksport do CSV",
+          "body": "Co miesiąc kopiujemy dane ręcznie. Eksport do CSV oszczędziłby nam godzinę.",
           "when": "2 dni temu"
         },
         {
-          "title": "Przypomnienie o nieopłaconych fakturach",
-          "body": "Automatyczny e-mail do klienta po terminie płatności.",
+          "title": "Tryb ciemny",
+          "body": "Wieczorem pracuje się z aplikacją wygodniej.",
           "when": "w zeszłym tygodniu"
         }
       ]
@@ -588,7 +588,7 @@
     },
     "tags": {
       "text": "Tagi porządkują pomysły i błędy. Publiczne tagi widzi i filtruje każdy; tagi tylko dla zespołu widzi wyłącznie zespół. Zespół przypisuje je przy zgłoszeniu albo bezpośrednio z listy.",
-      "empty": "Nie ma jeszcze tagów. Zacznij od tych, według których sortujesz najczęściej (np. Faktury, Mobile, Eksport).",
+      "empty": "Na razie brak tagów. Zacznij od tych, według których sortujesz najczęściej (na przykład Mobile, Eksport, Logowanie).",
       "public": "Publiczny",
       "teamOnly": "Tylko dla zespołu",
       "used": "{n, plural, =0 {nieużywany} one {# zgłoszenie} few {# zgłoszenia} many {# zgłoszeń} other {# zgłoszenia}}",
@@ -611,7 +611,7 @@
       "merged": "Tagi scalone.",
       "new": "Nowy tag",
       "name": "Nazwa",
-      "namePlaceholder": "np. Faktury",
+      "namePlaceholder": "na przykład Mobile",
       "preview": "Podgląd",
       "color": "Kolor",
       "colors": {
@@ -1636,7 +1636,7 @@
       "titleBug": "Co nie działa?",
       "titleIdea": "Co by ci pomogło?",
       "placeholderBug": "Np. NIP znika po zapisaniu klienta",
-      "placeholderIdea": "Np. Eksport faktur do KSeF",
+      "placeholderIdea": "Np. Eksport do CSV",
       "similarLabel": "Podobne pomysły",
       "similar": "Coś podobnego już istnieje. Jeśli to to samo, po prostu na to zagłosuj.",
       "bodyBug": "Co robisz i co powinno się stać?",
@@ -1754,7 +1754,7 @@
       "pickFirst": "Najpierw wybierz co najmniej jeden pomysł.",
       "aiNote": "AI widzi tylko tytuły i opisy wybranych pomysłów. Zawsze przeczytaj i popraw szkic.",
       "title": "Tytuł",
-      "titlePlaceholder": "Eksport do KSeF już jest",
+      "titlePlaceholder": "Eksport do CSV już jest",
       "body": "Tekst",
       "bodyHint": "Co nowego i jak to pomaga. Pisz dla osób, które o to prosiły.",
       "publishNoItems": "Publikacja doda aktualizację do Nowości. Bez wybranych pomysłów nikt nie dostanie e-maila.",

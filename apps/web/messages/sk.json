@@ -84,7 +84,7 @@
       "welcome": "Vitajte v Ozvi",
       "lede": "Projekt je jeden board s nápadmi a hláseniami chýb pre jednu vašu aplikáciu. Vzhľad doladíte neskôr v nastaveniach.",
       "appName": "Názov aplikácie",
-      "appPlaceholder": "Napr. Faktúrnik",
+      "appPlaceholder": "Napr. Rezervačka",
       "address": "Adresa boardu",
       "slugHint": "Malé písmená, číslice a pomlčky.",
       "boardAt": "Board bude na adrese ",
@@ -490,13 +490,13 @@
       "previewNote": "Zmeny uvidia návštevníci až po uložení.",
       "sample": [
         {
-          "title": "Export faktúr do Pohody",
-          "body": "Mesačne exportujeme ručne, chceli by sme XML.",
+          "title": "Export do CSV",
+          "body": "Každý mesiac kopírujeme dáta ručne. Export do CSV by nám ušetril hodinu.",
           "when": "pred 2 dňami"
         },
         {
-          "title": "Pripomienka neuhradenej faktúry",
-          "body": "Automatický e-mail klientovi po splatnosti.",
+          "title": "Tmavý režim",
+          "body": "Večer sa s aplikáciou pracuje lepšie.",
           "when": "pred týždňom"
         }
       ]
@@ -588,7 +588,7 @@
     },
     "tags": {
       "text": "Štítky triedia nápady a chyby. Verejné vidí a filtruje každý, štítky len pre tím vidí iba tím. Priraďuje ich tím v detaile alebo priamo v zozname.",
-      "empty": "Zatiaľ žiadne štítky. Začnite tými, podľa ktorých triedite najčastejšie (napríklad Faktúry, Mobil, Export).",
+      "empty": "Zatiaľ žiadne štítky. Začnite tými, podľa ktorých triedite najčastejšie (napríklad Mobil, Export, Prihlásenie).",
       "public": "Verejný",
       "teamOnly": "Len pre tím",
       "used": "{n, plural, =0 {nepoužitý} one {# hlásenie} few {# hlásenia} other {# hlásení}}",
@@ -611,7 +611,7 @@
       "merged": "Štítky sú zlúčené.",
       "new": "Nový štítok",
       "name": "Názov",
-      "namePlaceholder": "napríklad Faktúry",
+      "namePlaceholder": "napríklad Mobil",
       "preview": "Ukážka",
       "color": "Farba",
       "colors": {
@@ -1636,7 +1636,7 @@
       "titleBug": "Čo nefunguje?",
       "titleIdea": "Čo by vám pomohlo?",
       "placeholderBug": "Napr. Po uložení klienta zmizne IČ DPH",
-      "placeholderIdea": "Napr. Export faktúr do Pohody",
+      "placeholderIdea": "Napr. Export do CSV",
       "similarLabel": "Podobné nápady",
       "similar": "Podobné už existuje. Ak je to ono, stačí zahlasovať.",
       "bodyBug": "Čo ste robili a čo ste čakali?",
@@ -1754,7 +1754,7 @@
       "pickFirst": "Najprv vyberte aspoň jeden nápad.",
       "aiNote": "AI vidí len názvy a popisy vybraných nápadov. Návrh vždy prečítajte a upravte.",
       "title": "Nadpis",
-      "titlePlaceholder": "Export do Pohody je tu",
+      "titlePlaceholder": "Export do CSV je tu",
       "body": "Text",
       "bodyHint": "Čo je nové a prečo to pomôže. Píšte pre ľudí, ktorí o to žiadali.",
       "publishNoItems": "Zverejnením sa novinka objaví v zozname noviniek. Bez vybraných nápadov nikomu nepošleme e-mail.",
