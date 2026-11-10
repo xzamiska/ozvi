@@ -1548,18 +1548,7 @@
     "releaseDraftCta": "Review the draft",
     "teamDigestUnannounced": "Shipped but not announced: {n, plural, one {# item is} other {# items are}} not in any published update yet. Voters only hear about them from one.",
     "updater": {
-      "available": {
-        "subject": "Ozvi {v} is available",
-        "running": "The server at {url} runs version {from}.",
-        "auto": "The updater installs it in the next night window, after backing up the database.",
-        "manual": "Install it with the button in the board settings, under Updates.",
-        "command": "Update on the server: back up the database and run docker compose pull && docker compose up -d.",
-        "major": "It is a major change, so it is not installed by itself. Read the release notes before updating.",
-        "cta": "What's new"
-      },
       "updated": {
-        "subject": "Ozvi is updated to {to}",
-        "text": "The update of {url} from {from} to {to} went through.",
         "backup": "Database backup from before the update: {file}"
       },
       "rolledBack": {
@@ -1829,7 +1818,7 @@
       "modes": {
         "notify": {
           "label": "Notify only",
-          "text": "We e-mail you about a new version; you update with a command on the server."
+          "text": "We show a new version here in Settings; you update with a command on the server."
         },
         "manual": {
           "label": "On request",

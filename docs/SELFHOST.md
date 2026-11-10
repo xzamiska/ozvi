@@ -77,7 +77,7 @@ Malý kontajner `ozvi-updater` vedľa Ozvi. V admine pribudne časť **Aktualiz�
 
 | Režim | Čo robí |
 |---|---|
-| Len upozorniť | Pošle e-mail o novej verzii (`OZVI_ADMIN_EMAILS`). Nič nemení. |
+| Len upozorniť | Novú verziu ukáže v admine. Nič nemení. |
 | Na pokyn (predvolený) | Tlačidlo „Aktualizovať na X.Y.Z“ v admine. |
 | Automaticky | V nočnom okne (`OZVI_UPDATE_WINDOW`, predvolene 02:00–05:00 v `TZ`) nainštaluje opravy a menšie verzie. Novú hlavnú verziu ani vydanie označené ako zásadné nikdy nenainštaluje sám. Verziu, ktorá raz zlyhala, sám znova neskúša. |
 
@@ -86,7 +86,9 @@ Pri každej aktualizácii:
 2. stiahne nový obraz (`docker compose pull ozvi`) a spustí ho (`docker compose up -d ozvi`),
 3. počká, kým `/api/health` odpovie a beží nová verzia (najviac 3 minúty),
 4. ak nie, zastaví ju, obnoví databázu zo zálohy a spustí predchádzajúci obraz,
-5. pošle e-mail o výsledku a zapíše ho do histórie v admine.
+5. zapíše výsledok do histórie v admine; ak sa aktualizácia vrátila alebo zlyhala, pošle aj e-mail.
+
+O novej verzii ani o úspešnej aktualizácii e-maily nechodia, ukážu sa iba v admine.
 
 Zapnutie v `.env` (vzor je v `deploy/.env.example`):
 
@@ -94,7 +96,7 @@ Zapnutie v `.env` (vzor je v `deploy/.env.example`):
 COMPOSE_PROFILES=updater
 OZVI_UPDATER_URL=http://updater:8787
 OZVI_UPDATER_TOKEN=…            # openssl rand -hex 32
-OZVI_ADMIN_EMAILS=vy@firma.sk   # komu chodia e-maily o aktualizáciách
+OZVI_ADMIN_EMAILS=vy@firma.sk   # komu príde e-mail, keď aktualizácia zlyhá
 ```
 
 potom `docker compose up -d`.

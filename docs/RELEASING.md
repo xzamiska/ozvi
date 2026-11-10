@@ -16,7 +16,7 @@ Verzie sú semver: `1.4.2` = oprava, `1.5.0` = nové funkcie, `2.0.0` = zmena, k
    - vytvorí GitHub Release s poznámkami.
 
    Bez súboru s poznámkami workflow skončí chybou a nič sa nenahrá.
-5. Nasaďte cloud (ozvi.io) na novú verziu. Až potom sa vydanie objaví na `ozvi.io/releases` a v `releases.json`. Odtiaľ si ho nájdu vlastné servery a updatery: v noci ho nainštalujú tie v automatickom režime, ostatným príde e-mail.
+5. Nasaďte cloud (ozvi.io) na novú verziu. Až potom sa vydanie objaví na `ozvi.io/releases` a v `releases.json`. Odtiaľ si ho nájdu vlastné servery a updatery: v noci ho nainštalujú tie v automatickom režime, ostatným sa ukáže v admine (e-mail nechodí).
 
 Pred-vydanie `v1.5.0-rc.1` dostane len vlastnú značku. Nepohnú sa ním `1`, `1.5` ani `latest`, takže ho žiadny updater nenainštaluje sám a nepotrebuje poznámky.
 

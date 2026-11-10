@@ -1548,18 +1548,7 @@
     "releaseDraftCta": "Vázlat áttekintése",
     "teamDigestUnannounced": "Elkészült, de nincs bejelentve: {n, plural, one {# bejegyzés} other {# bejegyzés}} még egyetlen közzétett bejelentésben sem szerepel. A szavazók csak abból értesülnek róla.",
     "updater": {
-      "available": {
-        "subject": "Elérhető az Ozvi {v}",
-        "running": "A(z) {url} szerveren a(z) {from} verzió fut.",
-        "auto": "Az updater a következő éjszakai ablakban telepíti, előtte mentést készít az adatbázisról.",
-        "manual": "A tábla beállításaiban, a Frissítések részben, gombbal telepítheti.",
-        "command": "Frissítsen a szerveren: mentse az adatbázist, és futtassa: docker compose pull && docker compose up -d.",
-        "major": "Jelentős változásról van szó, ezért magától nem települ. Frissítés előtt olvassa el a kiadási megjegyzéseket.",
-        "cta": "Újdonságok"
-      },
       "updated": {
-        "subject": "Az Ozvi frissítve: {to}",
-        "text": "A(z) {url} frissítése a(z) {from} verzióról a(z) {to} verzióra sikeresen lezajlott.",
         "backup": "A frissítés előtti adatbázismentés: {file}"
       },
       "rolledBack": {
@@ -1829,7 +1818,7 @@
       "modes": {
         "notify": {
           "label": "Csak értesítés",
-          "text": "E-mailt küldünk az új verzióról, a frissítést Ön futtatja paranccsal a szerveren."
+          "text": "Az új verziót itt, a Beállításokban jelezzük, a frissítést Ön futtatja paranccsal a szerveren."
         },
         "manual": {
           "label": "Kérésre",

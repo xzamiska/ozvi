@@ -1548,18 +1548,7 @@
     "releaseDraftCta": "Entwurf prüfen",
     "teamDigestUnannounced": "Umgesetzt, aber nicht angekündigt: {n, plural, one {# Beitrag ist} other {# Beiträge sind}} noch in keinem veröffentlichten Neuigkeiten-Eintrag enthalten. Die Abstimmenden erfahren erst dadurch davon.",
     "updater": {
-      "available": {
-        "subject": "Ozvi {v} ist verfügbar",
-        "running": "Auf dem Server {url} läuft Version {from}.",
-        "auto": "Der Updater installiert sie im nächsten Nachtfenster, nachdem er die Datenbank gesichert hat.",
-        "manual": "Installieren Sie sie per Schaltfläche in den Board-Einstellungen unter Aktualisierungen.",
-        "command": "Aktualisieren Sie auf dem Server: Datenbank sichern und docker compose pull && docker compose up -d ausführen.",
-        "major": "Es ist eine grundlegende Änderung und wird daher nicht von selbst installiert. Lesen Sie vor der Aktualisierung die Versionshinweise.",
-        "cta": "Was ist neu"
-      },
       "updated": {
-        "subject": "Ozvi ist auf {to} aktualisiert",
-        "text": "Die Aktualisierung von {url} von {from} auf {to} war erfolgreich.",
         "backup": "Datenbanksicherung vor der Aktualisierung: {file}"
       },
       "rolledBack": {
@@ -1829,7 +1818,7 @@
       "modes": {
         "notify": {
           "label": "Nur benachrichtigen",
-          "text": "Wir senden eine E-Mail zur neuen Version, Sie aktualisieren per Befehl auf dem Server."
+          "text": "Eine neue Version zeigen wir hier in den Einstellungen, Sie aktualisieren per Befehl auf dem Server."
         },
         "manual": {
           "label": "Auf Anfrage",

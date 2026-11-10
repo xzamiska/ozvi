@@ -15,7 +15,7 @@ const TYPES = new Set<UpdaterEvent["type"]>(["available", "started", "updated", 
 
 /**
  * Callback from the ozvi-updater sidecar (same shared OZVI_UPDATER_TOKEN). E-mails the operators in
- * OZVI_ADMIN_EMAILS; "started" is only logged. Self-host only.
+ * OZVI_ADMIN_EMAILS only when an update rolled back or failed; the rest is only logged. Self-host only.
  */
 export async function POST(req: Request) {
   if (process.env.OZVI_MODE === "cloud") return new Response(null, { status: 404 });

@@ -16,29 +16,15 @@ export interface UpdaterEvent {
 
 const short = (s: string | undefined, n = 400) => (s ?? "").replace(/\s+/g, " ").trim().slice(0, n);
 
-/** The operator e-mail for an event; null for events that only go to the log ("started"). */
+/**
+ * The operator e-mail for an event. Only problems are mailed (rolled back, failed); a new version and a
+ * successful update show in the admin's Updates section only, never in anyone's inbox.
+ */
 export function updaterMail(e: UpdaterEvent, ctx: { server: string; settingsUrl: string | null }, locale: Locale): Mail | null {
   const t = translator(locale, "email");
   const from = short(e.from ?? "?", 40), to = short(e.to ?? "?", 40);
   const cta = ctx.settingsUrl ? { label: t("updater.open"), href: ctx.settingsUrl } : undefined;
   switch (e.type) {
-    case "available": {
-      const how = e.reason === "auto" ? "auto" : e.reason === "notAuto" ? "manual" : e.reason === "notifyOnly" ? "command"
-        : e.reason === "breaking" || e.reason === "outsideLine" || e.reason === "pinned" ? "major" : "manual";
-      const subject = t("updater.available.subject", { v: to });
-      return {
-        subject, summary: subject, heading: subject,
-        paragraphs: [t("updater.available.running", { url: ctx.server, from }), t(`updater.available.${how}`)],
-        cta: e.url?.startsWith("https://") ? { label: t("updater.available.cta"), href: e.url } : cta,
-      };
-    }
-    case "updated": {
-      const subject = t("updater.updated.subject", { to });
-      return {
-        subject, summary: subject, heading: subject, cta,
-        paragraphs: [t("updater.updated.text", { url: ctx.server, from, to }), ...(e.backup ? [t("updater.updated.backup", { file: short(e.backup, 200) })] : [])],
-      };
-    }
     case "rolledBack": {
       const subject = t("updater.rolledBack.subject", { to, from });
       return {

@@ -16,7 +16,7 @@ export interface State {
   mode: Mode;
   releases: Release[];
   feedAt: string | null;
-  /** Versions we already e-mailed about, so "available" goes out once per release. */
+  /** Versions already reported, so "available" goes out once per release. */
   announced: string[];
   history: HistoryEntry[];
 }

@@ -1548,18 +1548,7 @@
     "releaseDraftCta": "Zkontrolovat návrh",
     "teamDigestUnannounced": "Vydané, ale neoznámené: {n, plural, one {# položka zatím není} few {# položky zatím nejsou} other {# položek zatím není}} v žádné zveřejněné novince. Hlasující se o nich dozví až z ní.",
     "updater": {
-      "available": {
-        "subject": "Ozvi {v} je k dispozici",
-        "running": "Na serveru {url} běží verze {from}.",
-        "auto": "Updater ji nainstaluje v nejbližším nočním okně. Před aktualizací zálohuje databázi.",
-        "manual": "Nainstalujete ji tlačítkem v nastavení boardu, část Aktualizace.",
-        "command": "Aktualizujete ji na serveru: zálohujte databázi a spusťte docker compose pull && docker compose up -d.",
-        "major": "Jde o zásadní změnu, proto se sama nenainstaluje. Před aktualizací si přečtěte poznámky k vydání.",
-        "cta": "Co je nového"
-      },
       "updated": {
-        "subject": "Ozvi je aktualizováno na {to}",
-        "text": "Aktualizace na serveru {url} z verze {from} na {to} proběhla v pořádku.",
         "backup": "Záloha databáze před aktualizací: {file}"
       },
       "rolledBack": {
@@ -1829,7 +1818,7 @@
       "modes": {
         "notify": {
           "label": "Jen upozornit",
-          "text": "Pošleme e-mail o nové verzi, aktualizujete příkazem na serveru."
+          "text": "Novou verzi ukážeme tady v Nastavení, aktualizujete příkazem na serveru."
         },
         "manual": {
           "label": "Na pokyn",

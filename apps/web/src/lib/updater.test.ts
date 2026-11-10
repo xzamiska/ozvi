@@ -22,14 +22,9 @@ describe("updater wiring", () => {
 
 describe("updater e-mails", () => {
   const ctx = { server: "https://feedback.example.com", settingsUrl: "https://feedback.example.com/app1/admin" };
-  it("explains how a new version gets installed", () => {
-    const auto = updaterMail({ type: "available", from: "1.4.2", to: "1.5.0", reason: "auto", url: "https://ozvi.io/releases#v1-5-0" }, ctx, "sk")!;
-    expect(auto.subject).toBe("Ozvi 1.5.0 je k dispozícii");
-    expect(auto.paragraphs[1]).toMatch(/nočnom okne/);
-    expect(auto.cta?.href).toBe("https://ozvi.io/releases#v1-5-0");
-    const major = updaterMail({ type: "available", from: "1.5.0", to: "2.0.0", reason: "outsideLine" }, ctx, "en")!;
-    expect(major.paragraphs[1]).toMatch(/major change/);
-    expect(major.cta?.href).toBe(ctx.settingsUrl);
+  it("never mails a new version or a successful update", () => {
+    expect(updaterMail({ type: "available", from: "1.4.2", to: "1.5.0", reason: "auto" }, ctx, "sk")).toBeNull();
+    expect(updaterMail({ type: "updated", from: "1.4.2", to: "1.5.0", backup: "x.dump" }, ctx, "sk")).toBeNull();
   });
   it("reports a rollback with the reason, and ignores 'started'", () => {
     const m = updaterMail({ type: "rolledBack", from: "1.4.2", to: "1.5.0", message: "health\ncheck   timed out" }, ctx, "sk")!;

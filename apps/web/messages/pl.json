@@ -1548,18 +1548,7 @@
     "releaseDraftCta": "Sprawdź szkic",
     "teamDigestUnannounced": "Wdrożone, ale nieogłoszone: {n, plural, one {# wpis nie jest} few {# wpisy nie są} many {# wpisów nie jest} other {# wpisu nie jest}} jeszcze w żadnej opublikowanej aktualizacji. Głosujący dowiedzą się o nich dopiero z niej.",
     "updater": {
-      "available": {
-        "subject": "Ozvi {v} jest dostępne",
-        "running": "Na serwerze {url} działa wersja {from}.",
-        "auto": "Updater zainstaluje ją w najbliższym nocnym oknie, po utworzeniu kopii zapasowej bazy danych.",
-        "manual": "Zainstalujesz ją przyciskiem w ustawieniach tablicy, w sekcji Aktualizacje.",
-        "command": "Zaktualizuj na serwerze: utwórz kopię zapasową bazy i uruchom docker compose pull && docker compose up -d.",
-        "major": "To zasadnicza zmiana, dlatego nie zainstaluje się sama. Przed aktualizacją przeczytaj informacje o wydaniu.",
-        "cta": "Co nowego"
-      },
       "updated": {
-        "subject": "Ozvi zaktualizowano do {to}",
-        "text": "Aktualizacja serwera {url} z wersji {from} do {to} przebiegła pomyślnie.",
         "backup": "Kopia zapasowa bazy sprzed aktualizacji: {file}"
       },
       "rolledBack": {
@@ -1829,7 +1818,7 @@
       "modes": {
         "notify": {
           "label": "Tylko powiadom",
-          "text": "Wyślemy e-mail o nowej wersji, aktualizujesz poleceniem na serwerze."
+          "text": "Nową wersję pokażemy tutaj w Ustawieniach, aktualizujesz poleceniem na serwerze."
         },
         "manual": {
           "label": "Na żądanie",

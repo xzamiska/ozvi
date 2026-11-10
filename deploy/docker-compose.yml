@@ -49,7 +49,7 @@ services:
       OZVI_EMBEDDINGS_KEY: ${OZVI_EMBEDDINGS_KEY:-}
       OZVI_FONTS_PREFETCH: ${OZVI_FONTS_PREFETCH:-}
       OZVI_FONTS_REMOTE: ${OZVI_FONTS_REMOTE:-}
-      # Operators: may create accounts, get the updater e-mails (comma-separated).
+      # Operators: may create accounts, get an e-mail when an update fails (comma-separated).
       OZVI_ADMIN_EMAILS: ${OZVI_ADMIN_EMAILS:-}
       OZVI_ADMIN_LOCALE: ${OZVI_ADMIN_LOCALE:-sk}
       OZVI_UPDATER_URL: ${OZVI_UPDATER_URL:-}
