@@ -12,6 +12,7 @@ import { StickySteps } from "@/components/landing/StickySteps";
 import { TeamDesk } from "@/components/landing/TeamDesk";
 import { LangSwitch, SiteHeader, type NavItem } from "@/components/landing/SiteHeader";
 import { signupClosed } from "@/lib/account-rules";
+import { ownFeedback } from "@/lib/own-feedback";
 import { ProductTour } from "@/components/landing/ProductTour";
 import { OzviLogo, OzviMark } from "@/components/ozvi/Logo";
 import { LOCALE_TAG, type Locale } from "@/i18n/locales";
@@ -130,6 +131,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
   const go = (label: string, className: string, extra?: string) => soon
     ? <span className={cn(soonLabel, extra)}>{t("nav.soon")}</span>
     : <Link href={start.href} className={cn(className, extra)}>{label}</Link>;
+  const own = await ownFeedback();
   const fonts = [...new Set([site, host].map((th) => fontsHref(th, { skipBundled: true })).filter(Boolean))] as string[];
 
   return (
@@ -387,7 +389,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               <LangSwitch locale={locale} label={t("nav.language")} align="start" className="-ml-2 justify-self-start" />
             </div>
             {([
-              [t("footer.product"), (t.raw("nav.productItems") as NavItem[]).slice(0, 3)],
+              [t("footer.product"), [...(t.raw("nav.productItems") as NavItem[]).slice(0, 3), { href: "/demo", title: t("footer.demo"), text: "" }, ...(own ? [{ href: own.ideas, title: t("footer.feedback"), text: "" }] : [])]],
               [t("footer.developers"), [...(t.raw("nav.devItems") as NavItem[]), t.raw("nav.devFeature") as NavItem]],
             ] as const).map(([h, items]) => (
               <nav key={h} aria-label={h}>

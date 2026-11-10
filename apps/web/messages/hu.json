@@ -2543,7 +2543,9 @@
       "legal": "Jogi információk",
       "terms": "Felhasználási feltételek",
       "privacy": "Adatvédelmi tájékoztató",
-      "license": "Nyilvános forráskód (FSL). Az SDK és a widget MIT-licenc alatt."
+      "license": "Nyilvános forráskód (FSL). Az SDK és a widget MIT-licenc alatt.",
+      "demo": "Widget-bemutató",
+      "feedback": "Javasolj ötletet az Ozvinak"
     },
     "product": {
       "title": "Amit a felhasználóid látnak. És amit a csapatod.",

@@ -2543,7 +2543,9 @@
       "legal": "Rechtliches",
       "terms": "Nutzungsbedingungen",
       "privacy": "Datenschutzerklärung",
-      "license": "Quellcode verfügbar (Source-available, FSL). SDK und Widget unter MIT."
+      "license": "Quellcode verfügbar (Source-available, FSL). SDK und Widget unter MIT.",
+      "demo": "Widget-Demo",
+      "feedback": "Idee für Ozvi vorschlagen"
     },
     "product": {
       "title": "Was Ihre Nutzer sehen. Und was Ihr Team sieht.",

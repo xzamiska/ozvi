@@ -1,3 +1,6 @@
+import Script from "next/script";
+import { ownFeedback } from "@/lib/own-feedback";
+import { OZVI_VERSION } from "@/lib/version";
 import { schema, withProject } from "@ozvi/db";
 import { and, eq, gte, inArray, sql } from "drizzle-orm";
 import { notFound, redirect } from "next/navigation";
@@ -32,11 +35,18 @@ export default async function ConsoleLayout({ children, params }: { children: Re
   if (!ws) notFound();
   const cloud = process.env.OZVI_MODE === "cloud";
   const failures = await recentFailures(ws.projects.map((p) => p.id));
+  const own = await ownFeedback();
 
   return (
     <ConsoleShell ws={{ id: ws.id, name: ws.name, plan: ws.plan }} all={ws.all} projects={ws.projects.map((p) => ({ slug: p.slug, name: p.name }))}
       account={{ name: account.name, email: account.email }} cloud={cloud} attention={{ delivery: failures, plan: ws.planStatus === "past_due" }}>
       <main id="main" tabIndex={-1} className="mx-auto w-full max-w-[1120px] px-4 pt-6 pb-20 md:px-10 md:pt-10">{children}</main>
+      {own && <>
+        {/* Ozvi's own feedback widget: the console is a host app like any other (lib/own-feedback.ts). */}
+        {/* @ts-expect-error custom element */}
+        <ozvi-widget project={own.project.slug} token-url="/app/api/feedback-token" app-version={OZVI_VERSION} />
+        <Script src="/widget.js" strategy="afterInteractive" />
+      </>}
     </ConsoleShell>
   );
 }

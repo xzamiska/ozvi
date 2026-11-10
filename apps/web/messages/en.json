@@ -2543,7 +2543,9 @@
       "legal": "Legal",
       "terms": "Terms of service",
       "privacy": "Privacy policy",
-      "license": "Source-available (FSL). SDK and widget under MIT."
+      "license": "Source-available (FSL). SDK and widget under MIT.",
+      "demo": "Widget demo",
+      "feedback": "Suggest an idea for Ozvi"
     },
     "product": {
       "title": "What your users see. And what your team sees.",

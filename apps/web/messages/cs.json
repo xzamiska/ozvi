@@ -2543,7 +2543,9 @@
       "legal": "Právní informace",
       "terms": "Obchodní podmínky",
       "privacy": "Ochrana soukromí",
-      "license": "Veřejný zdrojový kód (FSL). SDK a widget pod MIT."
+      "license": "Veřejný zdrojový kód (FSL). SDK a widget pod MIT.",
+      "demo": "Ukázka widgetu",
+      "feedback": "Navrhněte nápad na Ozvi"
     },
     "product": {
       "title": "Co uvidí vaši uživatelé. A co váš tým.",
