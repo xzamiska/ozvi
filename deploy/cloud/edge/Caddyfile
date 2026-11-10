@@ -40,7 +40,12 @@ Disallow: /
 http://127.0.0.1:9180 {
 	bind 127.0.0.1
 	@staging expression `{query.domain}.endsWith(".{$STAGING_DOMAIN}")`
+	# www only redirects to the apex (live.caddy); it is no board, so the app would refuse it.
+	@www query domain=www.{$LIVE_DOMAIN}
 	rewrite * /api/domains/ask?{query}
+	handle @www {
+		respond 200
+	}
 	handle @staging {
 		reverse_proxy staging-ozvi:3000
 	}
