@@ -2289,12 +2289,12 @@
           "text": "Private, with a screenshot and technical context"
         },
         {
-          "href": "#flows",
+          "href": "#how",
           "title": "Ideas and voting",
           "text": "A public board that prioritises for you"
         },
         {
-          "href": "#flows",
+          "href": "#how",
           "title": "Roadmap and release notes",
           "text": "What’s next and what shipped, with e-mails to voters"
         },
@@ -2306,8 +2306,8 @@
       ],
       "productFeature": {
         "href": "#how",
-        "title": "From click to reply",
-        "text": "Follow a single report through Ozvi, step by step."
+        "title": "Product tour",
+        "text": "The users' board and the team's view, on sample data."
       },
       "devItems": [
         {
@@ -2342,8 +2342,6 @@
       "title": "Feedback that doesn’t get lost.",
       "lede": "Ozvi collects bug reports and ideas inside your app, delivers them to your team where it already works, and tells the reporter how it turned out. In your brand’s language and colours.",
       "secondary": "How it works",
-      "pauseMotion": "Pause animation",
-      "playMotion": "Play animation",
       "note": "The Free plan needs no card. Self-hosted, it’s free with every feature.",
       "loop": {
         "label": "Example: a user reports a bug in your app, the team fixes it on the board and the author gets the answer by e-mail",
@@ -2361,30 +2359,6 @@
       }
     },
     "story": {
-      "label": "One report, from click to reply",
-      "replay": "replay",
-      "steps": [
-        {
-          "title": "A user reports a bug",
-          "text": "Right inside your app, with no extra account. The widget attaches a screenshot, version, browser and console errors, and blurs passwords and marked fields before anything leaves the browser.",
-          "code": "POST /api/widget/items → 201"
-        },
-        {
-          "title": "Your team gets it where it works",
-          "text": "By e-mail, in Slack or Discord, and as a GitHub issue in one click. Status stays in sync between Ozvi and GitHub.",
-          "code": "item.linked → acme/app#482"
-        },
-        {
-          "title": "Fix it from your editor",
-          "text": "The MCP server gives Claude Code, Cursor or VS Code access to reports: find related ones, merge duplicates and set the status with the fix version.",
-          "code": "set_status #128 fixed --version 2.15"
-        },
-        {
-          "title": "The reporter hears back",
-          "text": "An e-mail at every change, with the version number on release. One click confirms it works, and the report closes.",
-          "code": "mail bug_status → delivered"
-        }
-      ],
       "stage": {
         "label": "Demo: a user reports a bug, the team fixes it and the user gets a reply",
         "app": "Invoicing",
@@ -2445,52 +2419,6 @@
         "v": "Each project is isolated in Postgres at row level, not just in app code."
       }
     ],
-    "flows": {
-      "title": "Two flows. One overview.",
-      "lede": "Bugs stay private between the reporter and your team. Ideas are public so others can back them. Both follow a route the reporter can see.",
-      "bug": {
-        "title": "Bug",
-        "text": "Private. Screenshot, page, version, browser and console errors arrive on their own."
-      },
-      "idea": {
-        "title": "Idea",
-        "text": "Public on the board. Voting, comments, roadmap and release notes."
-      },
-      "stops": {
-        "new": [
-          "Received",
-          "Only the reporter and team see it."
-        ],
-        "confirmed": [
-          "Confirmed",
-          "You reproduced and triaged it."
-        ],
-        "in_progress": [
-          "In progress",
-          "The team is working on it."
-        ],
-        "fixed": [
-          "Fixed",
-          "The fix is in a release; the reporter gets the version."
-        ],
-        "verified": [
-          "Verified",
-          "The reporter confirmed it works."
-        ],
-        "open": [
-          "Proposed",
-          "Others vote and add context."
-        ],
-        "planned": [
-          "Planned",
-          "Scheduled for an upcoming release."
-        ],
-        "shipped": [
-          "Shipped",
-          "Voters got an e-mail."
-        ]
-      }
-    },
     "dev": {
       "title": "Wire it up over lunch. Not over a sprint.",
       "lede": "A widget script and one endpoint that signs the user in. Everything else is API: webhooks, GitHub and MCP for AI assistants.",
@@ -2567,6 +2495,132 @@
       "terms": "Terms of service",
       "privacy": "Privacy policy",
       "license": "Source-available (FSL). SDK and widget under MIT."
+    },
+    "product": {
+      "title": "What your users see. And what your team sees.",
+      "lede": "This is the real board with sample data, in a customer app's colours. Go ahead: vote, add an idea or a comment.",
+      "tablist": "Parts of the board",
+      "teamOnly": "team only",
+      "app": "Invoicing",
+      "parts": {
+        "ideas": {
+          "title": "Ideas with voting",
+          "text": "Users suggest and vote. While typing they see similar ideas, so duplicates don't pile up."
+        },
+        "roadmap": {
+          "title": "Roadmap",
+          "text": "What you plan, what you're working on and what shipped. An idea moves along it with the status your team gives it."
+        },
+        "news": {
+          "title": "Changelog",
+          "text": "When an idea ships, one entry e-mails everyone who voted for it. A draft can come straight from a GitHub release."
+        },
+        "bugs": {
+          "title": "Private bug reports",
+          "text": "Only the author and your team see a report. The author can follow where it is and gets an e-mail when it's fixed."
+        },
+        "team": {
+          "title": "Team view",
+          "text": "Every report comes with a screenshot, version, browser and console errors. The team adds an internal note, merges a duplicate, links GitHub and tells the author in one step."
+        }
+      },
+      "team": {
+        "title": "Bug reports",
+        "private": "private",
+        "filters": [
+          [
+            "New",
+            "3"
+          ],
+          [
+            "Unanswered",
+            "2"
+          ],
+          [
+            "All",
+            "41"
+          ]
+        ],
+        "queue": [
+          "CSV export fails at 10,000 rows",
+          "Invoice PDF loses accents in the address",
+          "Chosen language is lost after sign-in"
+        ],
+        "reporter": "Jana Kováčová · Pro plan · 2 h ago",
+        "shot": "annotated screenshot",
+        "console": "Error: font has no glyph for “ž” (U+017E) · pdf-render.ts:88",
+        "similar": "Similar: #119 Accents in PDF export",
+        "merge": "Merge",
+        "noteLabel": "Internal note · team only",
+        "note": "The PDF font lacks Central European glyphs. Switching to Noto Sans, the fix ships in 2.15.",
+        "pr": "PR #490 merged · preview ready",
+        "fixedIn": "Fixed in version",
+        "save": "Save and tell the author"
+      }
+    },
+    "features": {
+      "title": "Everything from report to reply.",
+      "lede": "No paid add-ons. Cloud plans differ only in what costs us money, and on your own server everything is free.",
+      "groups": [
+        {
+          "title": "Collect",
+          "items": [
+            "A widget in your app, also as a React component",
+            "Annotated screenshots",
+            "Version, browser, URL and console errors, automatically",
+            "Passwords and marked fields are blurred in the browser",
+            "Sign-in through your app: a signed token or OIDC"
+          ]
+        },
+        {
+          "title": "Triage",
+          "items": [
+            "Fixed status routes for ideas and bugs",
+            "Internal notes and team-only tags",
+            "Similar items and merging duplicates",
+            "An “Unanswered” queue so nothing sits forgotten",
+            "AI summaries and translations (Studio plan and self-host)"
+          ]
+        },
+        {
+          "title": "Reply to the author",
+          "items": [
+            "E-mail: “fixed in 2.15, does it work for you?”",
+            "Changelog entries that e-mail everyone who voted",
+            "Proof of the fix: PR, release or preview",
+            "A Monday digest for the team"
+          ]
+        },
+        {
+          "title": "Integrations",
+          "items": [
+            "GitHub: issues, pull requests and changelog drafts from releases",
+            "Linear and Jira Cloud",
+            "Slack, Discord and signed webhooks",
+            "An MCP server for AI assistants (Claude Code, Cursor, VS Code)",
+            "REST API and your own domain"
+          ]
+        },
+        {
+          "title": "Privacy",
+          "items": [
+            "Only the author and your team see bug reports",
+            "Data in the EU (data centre in Germany)",
+            "Export and erasure of a user's data",
+            "Ready texts for your privacy policy",
+            "Source-available code (FSL)"
+          ]
+        },
+        {
+          "title": "Moving from Fider",
+          "items": [
+            "Import from a backup or through Fider's API",
+            "Ideas, votes, comments, tags and attachments",
+            "Item numbers stay where possible",
+            "Users are matched to their account on first sign-in"
+          ]
+        }
+      ]
     }
   },
   "net": {

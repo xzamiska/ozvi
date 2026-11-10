@@ -2289,12 +2289,12 @@
           "text": "Soukromě, se screenshotem a technickými údaji"
         },
         {
-          "href": "#flows",
+          "href": "#how",
           "title": "Nápady a hlasování",
           "text": "Veřejný board, který prioritizuje za vás"
         },
         {
-          "href": "#flows",
+          "href": "#how",
           "title": "Roadmapa a novinky",
           "text": "Co chystáte a co jste vydali, s e-mailem hlasujícím"
         },
@@ -2306,8 +2306,8 @@
       ],
       "productFeature": {
         "href": "#how",
-        "title": "Od kliknutí po odpověď",
-        "text": "Podívejte se, co se stane s jedním hlášením, krok za krokem."
+        "title": "Prohlídka produktu",
+        "text": "Board pro uživatele i pohled týmu, na ukázkových datech."
       },
       "devItems": [
         {
@@ -2342,8 +2342,6 @@
       "title": "Zpětná vazba, která se neztratí.",
       "lede": "Ozvi sbírá hlášení chyb a nápady přímo ve vaší aplikaci, doručí je týmu tam, kde pracuje, a autorovi řekne, jak to dopadlo. V jazyce a barvách vaší značky.",
       "secondary": "Jak to funguje",
-      "pauseMotion": "Zastavit animaci",
-      "playMotion": "Spustit animaci",
       "note": "Plán Free je bez karty. Na vlastním serveru zdarma a se všemi funkcemi.",
       "loop": {
         "label": "Ukázka: uživatel nahlásí chybu ve vaší aplikaci, tým ji na boardu opraví a autor dostane odpověď e-mailem",
@@ -2361,30 +2359,6 @@
       }
     },
     "story": {
-      "label": "Jedno hlášení, od kliknutí po odpověď",
-      "replay": "přehrát znovu",
-      "steps": [
-        {
-          "title": "Uživatel nahlásí chybu",
-          "text": "Přímo ve vaší aplikaci a bez dalšího účtu. Widget přiloží screenshot, verzi, prohlížeč a chyby z konzole. Hesla a označená pole rozmaže ještě v prohlížeči.",
-          "code": "POST /api/widget/items → 201"
-        },
-        {
-          "title": "Tým ji dostane tam, kde pracuje",
-          "text": "E-mailem, do Slacku nebo Discordu a jedním kliknutím jako GitHub issue. Stav mezi Ozvi a GitHubem zůstává v souladu.",
-          "code": "item.linked → acme/app#482"
-        },
-        {
-          "title": "Opravíte ji i z editoru",
-          "text": "MCP server dá Claude Code, Cursoru či VS Code přístup k hlášením: najde související, sloučí duplicity a nastaví stav i s verzí opravy.",
-          "code": "set_status #128 fixed --version 2.15"
-        },
-        {
-          "title": "Autor se dozví, jak to dopadlo",
-          "text": "Při každé změně dostane e-mail, při vydání i číslo verze. Jedním kliknutím potvrdí, že to funguje, a hlášení se uzavře.",
-          "code": "mail bug_status → delivered"
-        }
-      ],
       "stage": {
         "label": "Ukázka: uživatel nahlásí chybu, tým ji opraví a uživatel dostane odpověď",
         "app": "Fakturace",
@@ -2445,52 +2419,6 @@
         "v": "Každý projekt je v Postgresu oddělený na úrovni řádků, ne jen v kódu."
       }
     ],
-    "flows": {
-      "title": "Dva toky. Jeden přehled.",
-      "lede": "Chyby jsou soukromé mezi autorem a týmem. Nápady jsou veřejné, aby je ostatní mohli podpořit. Oba mají trasu, kterou autor vidí.",
-      "bug": {
-        "title": "Chyba",
-        "text": "Soukromě. Screenshot, stránka, verze, prohlížeč a chyby z konzole přijdou samy."
-      },
-      "idea": {
-        "title": "Nápad",
-        "text": "Veřejně na boardu. Hlasování, komentáře, roadmapa a novinky."
-      },
-      "stops": {
-        "new": [
-          "Přijato",
-          "Vidí ho jen autor a tým."
-        ],
-        "confirmed": [
-          "Potvrzeno",
-          "Chybu jste zopakovali a zařadili."
-        ],
-        "in_progress": [
-          "Rozpracováno",
-          "Tým na tom právě pracuje."
-        ],
-        "fixed": [
-          "Opraveno",
-          "Oprava je ve vydání, autor dostane verzi."
-        ],
-        "verified": [
-          "Ověřeno",
-          "Autor potvrdil, že to funguje."
-        ],
-        "open": [
-          "Navrženo",
-          "Ostatní hlasují a doplňují."
-        ],
-        "planned": [
-          "Plánováno",
-          "Počítáte s tím v nejbližších vydáních."
-        ],
-        "shipped": [
-          "Vydáno",
-          "Hlasující dostali e-mail."
-        ]
-      }
-    },
     "dev": {
       "title": "Připojíte za oběd. Ne za sprint.",
       "lede": "Skript s widgetem a jeden endpoint, který podepíše uživatele. Vše ostatní je API: webhooky, GitHub a MCP pro AI asistenty.",
@@ -2567,6 +2495,132 @@
       "terms": "Obchodní podmínky",
       "privacy": "Ochrana soukromí",
       "license": "Veřejný zdrojový kód (FSL). SDK a widget pod MIT."
+    },
+    "product": {
+      "title": "Co uvidí vaši uživatelé. A co váš tým.",
+      "lede": "Toto je skutečný board s ukázkovými daty, v barvách aplikace zákazníka. Můžete hlasovat, přidat nápad i komentář.",
+      "tablist": "Části boardu",
+      "teamOnly": "jen tým",
+      "app": "Fakturace",
+      "parts": {
+        "ideas": {
+          "title": "Nápady s hlasováním",
+          "text": "Uživatelé navrhují a hlasují. Při psaní uvidí podobné nápady, takže nevznikají duplicity."
+        },
+        "roadmap": {
+          "title": "Roadmapa",
+          "text": "Co plánujete, na čem pracujete a co jste vydali. Nápad se po ní posouvá se stavem, který mu dá tým."
+        },
+        "news": {
+          "title": "Novinky",
+          "text": "Když nápad vydáte, jedna novinka pošle e-mail každému, kdo pro něj hlasoval. Koncept umí připravit i z releasu na GitHubu."
+        },
+        "bugs": {
+          "title": "Soukromá hlášení chyb",
+          "text": "Hlášení vidí jen autor a tým. Autor sleduje, kde se nachází, a když je opraveno, dostane e-mail."
+        },
+        "team": {
+          "title": "Pohled týmu",
+          "text": "Každé hlášení má screenshot, verzi, prohlížeč a chyby z konzole. Tým přidá interní poznámku, sloučí duplicitu, propojí GitHub a jedním krokem dá autorovi vědět."
+        }
+      },
+      "team": {
+        "title": "Hlášení chyb",
+        "private": "soukromé",
+        "filters": [
+          [
+            "Nové",
+            "3"
+          ],
+          [
+            "Bez odpovědi",
+            "2"
+          ],
+          [
+            "Všechna",
+            "41"
+          ]
+        ],
+        "queue": [
+          "Export do CSV selže při 10 000 řádcích",
+          "PDF faktury nemá diakritiku v adrese",
+          "Po přihlášení se ztratí vybraný jazyk"
+        ],
+        "reporter": "Jana Kováčová · tarif Pro · před 2 h",
+        "shot": "screenshot s anotací",
+        "console": "Error: písmo neobsahuje znak „ž“ (U+017E) · pdf-render.ts:88",
+        "similar": "Podobné: #119 Diakritika v exportu do PDF",
+        "merge": "Sloučit",
+        "noteLabel": "Interní poznámka · jen pro tým",
+        "note": "Font v PDF nemá české a slovenské znaky. Přejdeme na Noto Sans, oprava půjde ve verzi 2.15.",
+        "pr": "PR #490 sloučen · náhled připraven",
+        "fixedIn": "Opraveno ve verzi",
+        "save": "Uložit a dát vědět autorovi"
+      }
+    },
+    "features": {
+      "title": "Vše od hlášení po odpověď.",
+      "lede": "Žádné doplňky za příplatek. Tarify v cloudu se liší jen v tom, co nás stojí peníze, a na vlastním serveru máte vše zdarma.",
+      "groups": [
+        {
+          "title": "Sběr",
+          "items": [
+            "Widget do vaší aplikace, i jako React komponenta",
+            "Screenshot s anotací",
+            "Verze, prohlížeč, adresa a chyby z konzole automaticky",
+            "Hesla a označená pole se rozmažou už v prohlížeči",
+            "Přihlášení přes vaši aplikaci: podepsaný token nebo OIDC"
+          ]
+        },
+        {
+          "title": "Třídění",
+          "items": [
+            "Stavy s pevným pořadím pro nápady i chyby",
+            "Interní poznámky a štítky jen pro tým",
+            "Podobné záznamy a sloučení duplicit",
+            "Fronta „Bez odpovědi“, aby nic nezůstalo ležet",
+            "AI shrnutí a překlad příspěvků (tarif Studio a vlastní server)"
+          ]
+        },
+        {
+          "title": "Odpověď autorovi",
+          "items": [
+            "E-mail „opraveno ve verzi 2.15, funguje vám to?“",
+            "Novinky s e-mailem každému, kdo hlasoval",
+            "Důkaz opravy: PR, release nebo náhled",
+            "Pondělní přehled pro tým"
+          ]
+        },
+        {
+          "title": "Integrace",
+          "items": [
+            "GitHub: issues, pull requesty a koncepty novinek z releasů",
+            "Linear a Jira Cloud",
+            "Slack, Discord a podepsané webhooky",
+            "MCP server pro AI asistenty (Claude Code, Cursor, VS Code)",
+            "REST API a vlastní doména"
+          ]
+        },
+        {
+          "title": "Soukromí",
+          "items": [
+            "Hlášení chyb vidí jen autor a tým",
+            "Data v EU (datové centrum v Německu)",
+            "Export a smazání dat uživatele",
+            "Texty pro vaše zásady ochrany soukromí",
+            "Veřejný zdrojový kód (FSL)"
+          ]
+        },
+        {
+          "title": "Přechod z Fideru",
+          "items": [
+            "Import ze zálohy nebo přes API Fideru",
+            "Nápady, hlasy, komentáře, štítky a přílohy",
+            "Čísla záznamů zůstanou, kde to jde",
+            "Uživatelé se po prvním přihlášení spojí se svým účtem"
+          ]
+        }
+      ]
     }
   },
   "net": {

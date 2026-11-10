@@ -9,7 +9,7 @@ import { flowCookieName } from "./oidc";
 import { buildKit, DEFAULT_CAPTURE, kitHtml, kitMarkdown, type KitConfig, type KitT } from "./privacy-kit";
 import { aiRecipient, browserStorage, isPrivateHost, kitConfig, type KitFacts } from "./privacy-kit-config";
 import { cookieName, MAX_AGE } from "./session-core";
-import { CSV_SEP_KEY, HERO_MOTION_KEY, WIDGET_SEEN_PREFIX } from "./storage-keys";
+import { CSV_SEP_KEY, WIDGET_SEEN_PREFIX } from "./storage-keys";
 
 process.env.OZVI_SESSION_SECRET ??= "test-session-secret-0123456789abcdef";
 
@@ -161,7 +161,7 @@ describe("privacy kit storage table", () => {
 
     // Every cookie write goes through a name we know; the console's ozvi_app is for Ozvi customers, not their users.
     const KNOWN_COOKIES = /sessionCookie\(|cookieName\(|flowCookieName\(|LOCALE_COOKIE|appCookie\(|APP_COOKIE/;
-    const KNOWN_STORAGE = new Set(["CSV_SEP_KEY", "HERO_MOTION_KEY"]);
+    const KNOWN_STORAGE = new Set(["CSV_SEP_KEY"]);
     for (const f of files(webSrc)) {
       const src = readFileSync(f, "utf8");
       for (const m of src.matchAll(/cookies(?:\(\)\))?\.set\(([^\n]*\n?[^\n]*)/g)) expect(m[1], `${f}: ${m[0]}`).toMatch(KNOWN_COOKIES);
@@ -171,6 +171,5 @@ describe("privacy kit storage table", () => {
         expect(key && KNOWN_STORAGE.has(key), `${f} writes localStorage with an unlisted key`).toBe(true);
       }
     }
-    expect(HERO_MOTION_KEY).not.toBe(CSV_SEP_KEY); // landing page only: not on a board, not in the widget
   });
 });

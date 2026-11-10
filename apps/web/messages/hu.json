@@ -2289,12 +2289,12 @@
           "text": "Privát, képernyőképpel és technikai kontextussal"
         },
         {
-          "href": "#flows",
+          "href": "#how",
           "title": "Ötletek és szavazás",
           "text": "Nyilvános tábla, amely helyetted rangsorol"
         },
         {
-          "href": "#flows",
+          "href": "#how",
           "title": "Ütemterv és kiadási jegyzetek",
           "text": "Mi következik és mi készült el, e-maillel a szavazóknak"
         },
@@ -2306,8 +2306,8 @@
       ],
       "productFeature": {
         "href": "#how",
-        "title": "A kattintástól a válaszig",
-        "text": "Kövess végig egy bejelentést az Ozviban, lépésről lépésre."
+        "title": "Termékbemutató",
+        "text": "A felhasználók táblája és a csapat nézete, mintaadatokkal."
       },
       "devItems": [
         {
@@ -2342,8 +2342,6 @@
       "title": "Visszajelzés, ami nem vész el.",
       "lede": "Az Ozvi az alkalmazásodon belül gyűjti a hibajelentéseket és az ötleteket, oda juttatja el őket, ahol a csapatod már amúgy is dolgozik, és tudatja a bejelentővel, mi lett a sorsuk. A márkád nyelvén és színeiben.",
       "secondary": "Hogyan működik",
-      "pauseMotion": "Animáció szüneteltetése",
-      "playMotion": "Animáció lejátszása",
       "note": "Az ingyenes csomaghoz nem kell bankkártya. Saját üzemeltetésben minden funkcióval ingyenes.",
       "loop": {
         "label": "Példa: egy felhasználó hibát jelez az alkalmazásodban, a csapat a táblán kijavítja, a bejelentő e-mailben kap választ",
@@ -2361,30 +2359,6 @@
       }
     },
     "story": {
-      "label": "Egy bejelentés a kattintástól a válaszig",
-      "replay": "újra",
-      "steps": [
-        {
-          "title": "Egy felhasználó hibát jelent",
-          "text": "Közvetlenül az alkalmazásodban, külön fiók nélkül. A widget csatolja a képernyőképet, a verziót, a böngészőt és a konzolhibákat, a jelszavakat és a megjelölt mezőket pedig elhomályosítja, mielőtt bármi elhagyná a böngészőt.",
-          "code": "POST /api/widget/items → 201"
-        },
-        {
-          "title": "A csapatod ott kapja meg, ahol dolgozik",
-          "text": "E-mailben, Slacken vagy Discordon, és egy kattintással GitHub-issue-ként. Az állapot szinkronban marad az Ozvi és a GitHub között.",
-          "code": "item.linked → acme/app#482"
-        },
-        {
-          "title": "Javítsd a szerkesztődből",
-          "text": "Az MCP-szerver hozzáférést ad a Claude Code-nak, a Cursornak vagy a VS Code-nak a bejelentésekhez: megkeresheti a kapcsolódókat, összevonhatja a duplikátumokat, és beállíthatja az állapotot a javítás verziójával.",
-          "code": "set_status #128 fixed --version 2.15"
-        },
-        {
-          "title": "A bejelentő választ kap",
-          "text": "Minden változásnál e-mailt kap, kiadáskor a verziószámmal. Egy kattintással megerősíti, hogy működik, és a bejelentés lezárul.",
-          "code": "mail bug_status → delivered"
-        }
-      ],
       "stage": {
         "label": "Bemutató: egy felhasználó hibát jelent, a csapat kijavítja, a felhasználó pedig választ kap",
         "app": "Számlázás",
@@ -2445,52 +2419,6 @@
         "v": "Minden projekt soros szinten el van különítve a Postgresben, nem csak az alkalmazás kódjában."
       }
     ],
-    "flows": {
-      "title": "Két folyamat. Egy áttekintés.",
-      "lede": "A hibák privátak maradnak a bejelentő és a csapatod között. Az ötletek nyilvánosak, hogy mások is támogathassák őket. Mindkettő a bejelentő számára látható útvonalat követ.",
-      "bug": {
-        "title": "Hiba",
-        "text": "Privát. A képernyőkép, az oldal, a verzió, a böngésző és a konzolhibák maguktól megérkeznek."
-      },
-      "idea": {
-        "title": "Ötlet",
-        "text": "Nyilvános a táblán. Szavazás, hozzászólások, ütemterv és kiadási jegyzetek."
-      },
-      "stops": {
-        "new": [
-          "Beérkezett",
-          "Csak a bejelentő és a csapat látja."
-        ],
-        "confirmed": [
-          "Megerősítve",
-          "Reprodukáltad és besoroltad."
-        ],
-        "in_progress": [
-          "Folyamatban",
-          "A csapat dolgozik rajta."
-        ],
-        "fixed": [
-          "Javítva",
-          "A javítás bekerült egy kiadásba; a bejelentő megkapja a verziószámot."
-        ],
-        "verified": [
-          "Ellenőrizve",
-          "A bejelentő megerősítette, hogy működik."
-        ],
-        "open": [
-          "Javasolt",
-          "Mások szavaznak rá és kiegészítik."
-        ],
-        "planned": [
-          "Tervezett",
-          "Egy következő kiadásba ütemezve."
-        ],
-        "shipped": [
-          "Elkészült",
-          "A szavazók e-mailt kaptak."
-        ]
-      }
-    },
     "dev": {
       "title": "Egy ebédszünet alatt beköthető. Nem egy sprint alatt.",
       "lede": "Egy widgetszkript és egy végpont, amely bejelentkezteti a felhasználót. Minden más API: webhookok, GitHub és MCP az AI-asszisztenseknek.",
@@ -2567,6 +2495,132 @@
       "terms": "Felhasználási feltételek",
       "privacy": "Adatvédelmi tájékoztató",
       "license": "Nyilvános forráskód (FSL). Az SDK és a widget MIT-licenc alatt."
+    },
+    "product": {
+      "title": "Amit a felhasználóid látnak. És amit a csapatod.",
+      "lede": "Ez a valódi tábla mintaadatokkal, egy ügyfél alkalmazásának színeiben. Szavazhatsz, ötletet vagy hozzászólást is írhatsz.",
+      "tablist": "A tábla részei",
+      "teamOnly": "csak csapat",
+      "app": "Számlázás",
+      "parts": {
+        "ideas": {
+          "title": "Ötletek szavazással",
+          "text": "A felhasználók javasolnak és szavaznak. Írás közben látják a hasonló ötleteket, így nem szaporodnak a duplikátumok."
+        },
+        "roadmap": {
+          "title": "Ütemterv",
+          "text": "Mit terveztek, min dolgoztok és mit adtatok ki. Az ötlet azzal az állapottal halad rajta, amit a csapat ad neki."
+        },
+        "news": {
+          "title": "Újdonságok",
+          "text": "Ha egy ötlet megjelenik, egyetlen bejegyzés e-mailt küld mindenkinek, aki rá szavazott. A vázlat GitHub-kiadásból is elkészülhet."
+        },
+        "bugs": {
+          "title": "Privát hibajelentések",
+          "text": "A jelentést csak a bejelentő és a csapat látja. A bejelentő követi, hol tart, és e-mailt kap, amikor kijavították."
+        },
+        "team": {
+          "title": "A csapat nézete",
+          "text": "Minden jelentéshez képernyőkép, verzió, böngésző és konzolhibák tartoznak. A csapat belső jegyzetet ír, összevonja a duplikátumot, összeköti a GitHubbal, és egy lépésben értesíti a bejelentőt."
+        }
+      },
+      "team": {
+        "title": "Hibajelentések",
+        "private": "privát",
+        "filters": [
+          [
+            "Új",
+            "3"
+          ],
+          [
+            "Válasz nélkül",
+            "2"
+          ],
+          [
+            "Összes",
+            "41"
+          ]
+        ],
+        "queue": [
+          "A CSV-export 10 000 sornál elakad",
+          "A számla PDF-jéből eltűnnek az ékezetek a címben",
+          "Bejelentkezés után elvész a választott nyelv"
+        ],
+        "reporter": "Jana Kováčová · Pro csomag · 2 órája",
+        "shot": "jelölt képernyőkép",
+        "console": "Error: a betűkészletből hiányzik az „ő” (U+0151) · pdf-render.ts:88",
+        "similar": "Hasonló: #119 Ékezetek a PDF-exportban",
+        "merge": "Összevonás",
+        "noteLabel": "Belső jegyzet · csak a csapatnak",
+        "note": "A PDF betűkészletéből hiányoznak a közép-európai karakterek. Noto Sansra váltunk, a javítás a 2.15-ben jön.",
+        "pr": "PR #490 beolvasztva · előnézet kész",
+        "fixedIn": "Javítva a verzióban",
+        "save": "Mentés és a bejelentő értesítése"
+      }
+    },
+    "features": {
+      "title": "Minden a bejelentéstől a válaszig.",
+      "lede": "Nincsenek fizetős kiegészítők. A felhőcsomagok csak abban különböznek, ami nekünk pénzbe kerül, saját szerveren pedig minden ingyenes.",
+      "groups": [
+        {
+          "title": "Gyűjtés",
+          "items": [
+            "Widget az alkalmazásodban, React-komponensként is",
+            "Jelölt képernyőkép",
+            "Verzió, böngésző, cím és konzolhibák automatikusan",
+            "A jelszavak és a megjelölt mezők már a böngészőben elmosódnak",
+            "Bejelentkezés az alkalmazásodon át: aláírt token vagy OIDC"
+          ]
+        },
+        {
+          "title": "Osztályozás",
+          "items": [
+            "Rögzített sorrendű állapotok ötletekhez és hibákhoz",
+            "Belső jegyzetek és csak a csapat által látható címkék",
+            "Hasonló bejegyzések és duplikátumok összevonása",
+            "„Válasz nélkül” sor, hogy semmi ne maradjon el",
+            "MI-összefoglaló és fordítás (Studio csomag és saját szerver)"
+          ]
+        },
+        {
+          "title": "Válasz a bejelentőnek",
+          "items": [
+            "E-mail: „javítva a 2.15-ben, működik már?”",
+            "Újdonságok e-mailben mindenkinek, aki szavazott",
+            "A javítás bizonyítéka: PR, kiadás vagy előnézet",
+            "Hétfői összefoglaló a csapatnak"
+          ]
+        },
+        {
+          "title": "Integrációk",
+          "items": [
+            "GitHub: issue-k, pull requestek és újdonság-vázlatok kiadásokból",
+            "Linear és Jira Cloud",
+            "Slack, Discord és aláírt webhookok",
+            "MCP-szerver MI-asszisztenseknek (Claude Code, Cursor, VS Code)",
+            "REST API és saját domain"
+          ]
+        },
+        {
+          "title": "Adatvédelem",
+          "items": [
+            "A hibajelentéseket csak a bejelentő és a csapat látja",
+            "Adatok az EU-ban (adatközpont Németországban)",
+            "Felhasználói adatok exportja és törlése",
+            "Szövegek az adatvédelmi tájékoztatódhoz",
+            "Nyilvános forráskód (FSL)"
+          ]
+        },
+        {
+          "title": "Átállás Fiderről",
+          "items": [
+            "Importálás mentésből vagy a Fider API-ján át",
+            "Ötletek, szavazatok, hozzászólások, címkék és mellékletek",
+            "A bejegyzések száma megmarad, ahol lehet",
+            "A felhasználók első bejelentkezéskor a saját fiókjukhoz kapcsolódnak"
+          ]
+        }
+      ]
     }
   },
   "net": {

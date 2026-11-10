@@ -9,11 +9,9 @@ import { HeroLoop } from "@/components/landing/HeroLoop";
 import { Playground } from "@/components/landing/Playground";
 import { LangSwitch, SiteHeader, type NavItem } from "@/components/landing/SiteHeader";
 import { signupClosed } from "@/lib/account-rules";
-import { Story } from "@/components/landing/Story";
+import { ProductTour } from "@/components/landing/ProductTour";
 import { OzviLogo, OzviMark } from "@/components/ozvi/Logo";
-import { StatusMark } from "@/components/ozvi/route";
 import { LOCALE_TAG, type Locale } from "@/i18n/locales";
-import { ROUTE, type Kind } from "@/lib/route";
 import { cn } from "@/lib/utils";
 
 /*
@@ -85,26 +83,6 @@ claude mcp add --transport http ozvi \\
   ];
 }
 
-function Flow({ kind, title, text, stops }: { kind: Kind; title: string; text: string; stops: Record<string, [string, string]> }) {
-  return (
-    <div className="grid gap-6 border-t pt-8 lg:grid-cols-[240px_1fr] lg:gap-10">
-      <div>
-        <h3 className="text-[18px] font-semibold tracking-tight">{title}</h3>
-        <p className="mt-1.5 text-[14.5px] leading-relaxed text-muted-foreground">{text}</p>
-      </div>
-      <ol className={cn("grid grid-cols-2 gap-x-4 gap-y-6", kind === "bug" ? "sm:grid-cols-3 lg:grid-cols-5" : "sm:grid-cols-4")}>
-        {ROUTE[kind].map((s) => (
-          <li key={s} data-r className="grid content-start gap-2">
-            <StatusMark kind={kind} status={s} className="size-[18px]" />
-            <b className="text-[14.5px] font-semibold">{stops[s]![0]}</b>
-            <span className="text-[13.5px] leading-snug text-muted-foreground">{stops[s]![1]}</span>
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
-}
-
 const h2 = "text-[32px] leading-[1.06] font-semibold tracking-[-0.04em] text-balance md:text-[44px]";
 const lede = "text-[16.5px] leading-relaxed text-muted-foreground";
 const primary = "inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-foreground px-5 text-[14.5px] font-semibold text-background transition-opacity hover:opacity-85";
@@ -143,7 +121,6 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
   const go = (label: string, className: string, extra?: string) => soon
     ? <span className={cn(soonLabel, extra)}>{t("nav.soon")}</span>
     : <Link href={start.href} className={cn(className, extra)}>{label}</Link>;
-  const flowStops = t.raw("flows.stops") as Record<string, [string, string]>;
   const fonts = [...new Set([site, host].map((th) => fontsHref(th, { skipBundled: true })).filter(Boolean))] as string[];
 
   return (
@@ -171,13 +148,14 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             </div>
           </section>
 
-          {/* the story: one report, scroll-driven */}
-          <section id="how" aria-labelledby="how-h" className="oz-frame scroll-mt-20 pb-24 lg:pb-32">
-            <h2 id="how-h" className="mb-10 flex items-center gap-3 text-[14px] font-medium text-muted-foreground lg:mb-4">
-              <span aria-hidden className="h-px w-8 bg-line-strong" />{t("story.label")}
-            </h2>
-            <Story />
-          </section>
+          {/* the product, part by part: what users see and what the team sees */}
+          <Reveal as="section" id="how" aria-labelledby="how-h" className="oz-frame scroll-mt-20 pb-24 lg:pb-32">
+            <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
+              <h2 id="how-h" data-r className={cn(h2, "max-w-[15ch]")}>{t("product.title")}</h2>
+              <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("product.lede")}</p>
+            </div>
+            <div data-r className="mt-12"><ProductTour /></div>
+          </Reveal>
 
           {/* spec sheet */}
           <section aria-label="Spec" className="border-y bg-surface">
@@ -192,15 +170,23 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             </dl>
           </section>
 
-          {/* two flows */}
-          <Reveal as="section" id="flows" aria-labelledby="flows-h" className="oz-frame scroll-mt-20 py-24 lg:py-32">
+          {/* everything it does, grouped by the job */}
+          <Reveal as="section" id="features" aria-labelledby="features-h" className="oz-frame scroll-mt-20 py-24 lg:py-32">
             <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
-              <h2 id="flows-h" data-r className={cn(h2, "max-w-[14ch]")}>{t("flows.title")}</h2>
-              <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("flows.lede")}</p>
+              <h2 id="features-h" data-r className={cn(h2, "max-w-[15ch]")}>{t("features.title")}</h2>
+              <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("features.lede")}</p>
             </div>
-            <div className="mt-14 grid gap-12">
-              <Flow kind="bug" title={t("flows.bug.title")} text={t("flows.bug.text")} stops={flowStops} />
-              <Flow kind="idea" title={t("flows.idea.title")} text={t("flows.idea.text")} stops={flowStops} />
+            <div className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+              {(t.raw("features.groups") as { title: string; items: string[] }[]).map((g) => (
+                <div key={g.title} data-r className="grid content-start gap-4 border-t border-line-strong pt-5">
+                  <h3 className="text-[17px] font-semibold tracking-tight">{g.title}</h3>
+                  <ul className="grid gap-2.5 text-[14.5px] leading-snug text-foreground/85">
+                    {g.items.map((i) => (
+                      <li key={i} className="grid grid-cols-[auto_1fr] gap-2.5"><Check className="mt-0.5 size-4 text-primary" strokeWidth={2.5} aria-hidden />{i}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </Reveal>
 

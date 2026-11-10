@@ -2289,12 +2289,12 @@
           "text": "Privat, mit Screenshot und technischem Kontext"
         },
         {
-          "href": "#flows",
+          "href": "#how",
           "title": "Ideen und Abstimmung",
           "text": "Ein öffentliches Board, das für Sie priorisiert"
         },
         {
-          "href": "#flows",
+          "href": "#how",
           "title": "Roadmap und Release Notes",
           "text": "Was kommt und was fertig ist, mit E-Mails an alle Abstimmenden"
         },
@@ -2306,8 +2306,8 @@
       ],
       "productFeature": {
         "href": "#how",
-        "title": "Vom Klick bis zur Antwort",
-        "text": "Verfolgen Sie eine einzelne Meldung Schritt für Schritt durch Ozvi."
+        "title": "Produkttour",
+        "text": "Das Board der Nutzer und die Ansicht des Teams, mit Beispieldaten."
       },
       "devItems": [
         {
@@ -2342,8 +2342,6 @@
       "title": "Feedback, das nicht verloren geht.",
       "lede": "Ozvi sammelt Fehlermeldungen und Ideen direkt in Ihrer App, liefert sie Ihrem Team dorthin, wo es ohnehin arbeitet, und sagt der meldenden Person, was daraus geworden ist. In der Sprache und den Farben Ihrer Marke.",
       "secondary": "So funktioniert’s",
-      "pauseMotion": "Animation pausieren",
-      "playMotion": "Animation abspielen",
       "note": "Der Free-Tarif kommt ohne Kreditkarte aus. Selbst gehostet ist Ozvi mit allen Funktionen kostenlos.",
       "loop": {
         "label": "Beispiel: Ein Nutzer meldet einen Fehler in Ihrer App, das Team behebt ihn auf dem Board und der Autor erhält die Antwort per E-Mail",
@@ -2361,30 +2359,6 @@
       }
     },
     "story": {
-      "label": "Eine Meldung, vom Klick bis zur Antwort",
-      "replay": "erneut abspielen",
-      "steps": [
-        {
-          "title": "Eine Person meldet einen Fehler",
-          "text": "Direkt in Ihrer App, ohne zusätzliches Konto. Das Widget hängt Screenshot, Version, Browser und Konsolenfehler an und macht Passwörter und markierte Felder unkenntlich, bevor etwas den Browser verlässt.",
-          "code": "POST /api/widget/items → 201"
-        },
-        {
-          "title": "Ihr Team erhält sie dort, wo es arbeitet",
-          "text": "Per E-Mail, in Slack oder Discord und mit einem Klick als GitHub-Issue. Der Status bleibt zwischen Ozvi und GitHub synchron.",
-          "code": "item.linked → acme/app#482"
-        },
-        {
-          "title": "Beheben direkt aus dem Editor",
-          "text": "Der MCP-Server gibt Claude Code, Cursor oder VS Code Zugriff auf die Meldungen: verwandte finden, Duplikate zusammenführen und den Status samt Version der Korrektur setzen.",
-          "code": "set_status #128 fixed --version 2.15"
-        },
-        {
-          "title": "Die meldende Person erhält eine Antwort",
-          "text": "Eine E-Mail bei jeder Änderung, beim Release mit Versionsnummer. Ein Klick bestätigt, dass es funktioniert, und die Meldung wird geschlossen.",
-          "code": "mail bug_status → delivered"
-        }
-      ],
       "stage": {
         "label": "Demo: Eine Person meldet einen Fehler, das Team behebt ihn und die Person erhält eine Antwort",
         "app": "Rechnungen",
@@ -2445,52 +2419,6 @@
         "v": "Jedes Projekt ist in Postgres auf Zeilenebene isoliert, nicht nur im App-Code."
       }
     ],
-    "flows": {
-      "title": "Zwei Abläufe. Ein Überblick.",
-      "lede": "Fehler bleiben privat zwischen der meldenden Person und Ihrem Team. Ideen sind öffentlich, damit andere sie unterstützen können. Beide folgen einem Ablauf, den die meldende Person sieht.",
-      "bug": {
-        "title": "Fehler",
-        "text": "Privat. Screenshot, Seite, Version, Browser und Konsolenfehler kommen automatisch mit."
-      },
-      "idea": {
-        "title": "Idee",
-        "text": "Öffentlich auf dem Board. Abstimmung, Kommentare, Roadmap und Release Notes."
-      },
-      "stops": {
-        "new": [
-          "Eingegangen",
-          "Nur die meldende Person und das Team sehen sie."
-        ],
-        "confirmed": [
-          "Bestätigt",
-          "Sie haben ihn nachvollzogen und eingeordnet."
-        ],
-        "in_progress": [
-          "In Arbeit",
-          "Das Team arbeitet daran."
-        ],
-        "fixed": [
-          "Behoben",
-          "Die Korrektur ist in einem Release; die meldende Person erfährt die Version."
-        ],
-        "verified": [
-          "Verifiziert",
-          "Die meldende Person hat bestätigt, dass es funktioniert."
-        ],
-        "open": [
-          "Vorgeschlagen",
-          "Andere stimmen ab und ergänzen Kontext."
-        ],
-        "planned": [
-          "Geplant",
-          "Für ein kommendes Release eingeplant."
-        ],
-        "shipped": [
-          "Umgesetzt",
-          "Alle Abstimmenden haben eine E-Mail erhalten."
-        ]
-      }
-    },
     "dev": {
       "title": "In der Mittagspause eingebunden. Nicht in einem Sprint.",
       "lede": "Ein Widget-Skript und ein Endpunkt, der die Person anmeldet. Alles andere ist API: Webhooks, GitHub und MCP für KI-Assistenten.",
@@ -2567,6 +2495,132 @@
       "terms": "Nutzungsbedingungen",
       "privacy": "Datenschutzerklärung",
       "license": "Quellcode verfügbar (Source-available, FSL). SDK und Widget unter MIT."
+    },
+    "product": {
+      "title": "Was Ihre Nutzer sehen. Und was Ihr Team sieht.",
+      "lede": "Das ist das echte Board mit Beispieldaten, in den Farben einer Kunden-App. Stimmen Sie ab, schlagen Sie eine Idee vor oder kommentieren Sie.",
+      "tablist": "Teile des Boards",
+      "teamOnly": "nur Team",
+      "app": "Rechnungen",
+      "parts": {
+        "ideas": {
+          "title": "Ideen mit Abstimmung",
+          "text": "Nutzer schlagen vor und stimmen ab. Beim Schreiben sehen sie ähnliche Ideen, so entstehen keine Duplikate."
+        },
+        "roadmap": {
+          "title": "Roadmap",
+          "text": "Was Sie planen, woran Sie arbeiten und was erschienen ist. Eine Idee wandert mit dem Status, den ihr Team vergibt."
+        },
+        "news": {
+          "title": "Neuigkeiten",
+          "text": "Erscheint eine Idee, schickt ein Eintrag allen eine E-Mail, die dafür gestimmt haben. Ein Entwurf kann direkt aus einem GitHub-Release entstehen."
+        },
+        "bugs": {
+          "title": "Private Fehlermeldungen",
+          "text": "Eine Meldung sehen nur die meldende Person und Ihr Team. Sie verfolgt, wo die Meldung steht, und bekommt eine E-Mail, wenn der Fehler behoben ist."
+        },
+        "team": {
+          "title": "Ansicht des Teams",
+          "text": "Jede Meldung bringt Screenshot, Version, Browser und Konsolenfehler mit. Das Team schreibt eine interne Notiz, führt Duplikate zusammen, verknüpft GitHub und informiert die meldende Person in einem Schritt."
+        }
+      },
+      "team": {
+        "title": "Fehlermeldungen",
+        "private": "privat",
+        "filters": [
+          [
+            "Neu",
+            "3"
+          ],
+          [
+            "Unbeantwortet",
+            "2"
+          ],
+          [
+            "Alle",
+            "41"
+          ]
+        ],
+        "queue": [
+          "CSV-Export bricht bei 10.000 Zeilen ab",
+          "Rechnungs-PDF verliert Umlaute in der Adresse",
+          "Gewählte Sprache geht nach der Anmeldung verloren"
+        ],
+        "reporter": "Jana Kováčová · Pro-Tarif · vor 2 h",
+        "shot": "annotierter Screenshot",
+        "console": "Error: Schrift enthält kein „ž“ (U+017E) · pdf-render.ts:88",
+        "similar": "Ähnlich: #119 Umlaute im PDF-Export",
+        "merge": "Zusammenführen",
+        "noteLabel": "Interne Notiz · nur Team",
+        "note": "Der PDF-Schrift fehlen mitteleuropäische Zeichen. Wir wechseln auf Noto Sans, der Fix kommt in 2.15.",
+        "pr": "PR #490 gemergt · Vorschau bereit",
+        "fixedIn": "Behoben in Version",
+        "save": "Speichern und Meldenden informieren"
+      }
+    },
+    "features": {
+      "title": "Alles von der Meldung bis zur Antwort.",
+      "lede": "Keine kostenpflichtigen Add-ons. Cloud-Tarife unterscheiden sich nur in dem, was uns Geld kostet, und auf dem eigenen Server ist alles kostenlos.",
+      "groups": [
+        {
+          "title": "Sammeln",
+          "items": [
+            "Ein Widget in Ihrer App, auch als React-Komponente",
+            "Screenshots mit Anmerkungen",
+            "Version, Browser, Adresse und Konsolenfehler automatisch",
+            "Passwörter und markierte Felder werden schon im Browser verwischt",
+            "Anmeldung über Ihre App: signiertes Token oder OIDC"
+          ]
+        },
+        {
+          "title": "Sichten",
+          "items": [
+            "Feste Statusabfolgen für Ideen und Fehler",
+            "Interne Notizen und Tags nur fürs Team",
+            "Ähnliche Einträge und Zusammenführen von Duplikaten",
+            "Eine Liste „Unbeantwortet“, damit nichts liegen bleibt",
+            "KI-Zusammenfassung und Übersetzung (Studio-Tarif und eigener Server)"
+          ]
+        },
+        {
+          "title": "Antwort an die meldende Person",
+          "items": [
+            "E-Mail: „behoben in 2.15, funktioniert es?“",
+            "Neuigkeiten per E-Mail an alle, die abgestimmt haben",
+            "Beleg der Behebung: PR, Release oder Vorschau",
+            "Ein Wochenüberblick fürs Team am Montag"
+          ]
+        },
+        {
+          "title": "Integrationen",
+          "items": [
+            "GitHub: Issues, Pull Requests und Entwürfe aus Releases",
+            "Linear und Jira Cloud",
+            "Slack, Discord und signierte Webhooks",
+            "MCP-Server für KI-Assistenten (Claude Code, Cursor, VS Code)",
+            "REST-API und eigene Domain"
+          ]
+        },
+        {
+          "title": "Datenschutz",
+          "items": [
+            "Fehlermeldungen sehen nur Meldende und Ihr Team",
+            "Daten in der EU (Rechenzentrum in Deutschland)",
+            "Export und Löschung von Nutzerdaten",
+            "Texte für Ihre Datenschutzerklärung",
+            "Öffentlicher Quellcode (FSL)"
+          ]
+        },
+        {
+          "title": "Umstieg von Fider",
+          "items": [
+            "Import aus einem Backup oder über die Fider-API",
+            "Ideen, Stimmen, Kommentare, Tags und Anhänge",
+            "Nummern bleiben erhalten, wo möglich",
+            "Nutzer werden bei der ersten Anmeldung ihrem Konto zugeordnet"
+          ]
+        }
+      ]
     }
   },
   "net": {

@@ -26,7 +26,7 @@ const START = { name: "", accent: ACCENTS[0]!, base: "neutral" as Base, font: "G
 
 type IdeaStatus = "open" | "planned" | "in_progress" | "shipped";
 type Idea = { id: number; title: string; text: string; author: string; votes: number; voted: boolean; status: IdeaStatus; comments: [string, string][]; mine?: boolean };
-type View = "ideas" | "roadmap" | "news" | "bugs";
+export type View = "ideas" | "roadmap" | "news" | "bugs";
 /** checkContrast() token names → message keys (playground.controls.tokens). */
 const TOKENS: Record<string, "inkOnSurface" | "inkOnCanvas" | "accentOnSurface" | "buttonOnAccent"> = {
   "ink on surface": "inkOnSurface", "ink on canvas": "inkOnCanvas", "accent on surface": "accentOnSurface", "button text on accent": "buttonOnAccent",
@@ -186,13 +186,16 @@ export function Playground() {
   );
 }
 
-function MiniBoard({ name, compact }: { name: string; compact: boolean }) {
+/** The sample board. `view`/`onView` let a parent (the landing's product tour) drive the tabs. */
+export function MiniBoard({ name, compact, view: shown, onView }: { name: string; compact: boolean; view?: View; onView?: (v: View) => void }) {
   const t = useTranslations("playground.board");
   const locale = useLocale();
   const sample = (): Idea[] => (t.raw("ideas") as IdeaText[]).map((i, id) => ({ ...i, ...IDEAS[id]!, id, voted: false, comments: [...i.comments] }));
   const news = t.raw("news") as News[];
   const bugs = (t.raw("bugs") as { title: string }[]).map((b, k) => ({ ...b, ...BUGS[k]! }));
-  const [view, setView] = useState<View>("ideas");
+  const [own, setOwn] = useState<View>("ideas");
+  const view = shown ?? own;
+  const setView = (v: View) => (onView ? onView(v) : setOwn(v));
   const [ideas, setIdeas] = useState<Idea[]>(sample);
   const [open, setOpen] = useState<number | null>(null);
   const [adding, setAdding] = useState(false);

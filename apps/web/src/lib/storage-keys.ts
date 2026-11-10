@@ -8,8 +8,6 @@
 export const WIDGET_SEEN_PREFIX = "ozvi:seen:";
 /** Board, team only: the remembered CSV separator (components/ExportMenu.tsx). */
 export const CSV_SEP_KEY = "ozvi.csvSep";
-/** Landing page only (not a board, not the widget): hero animation paused or playing. */
-export const HERO_MOTION_KEY = "ozvi:hero-motion";
 /** OIDC sign-in flow cookie lifetime in seconds (app/[project]/oidc/start). */
 export const OIDC_FLOW_MAX_AGE = 600;
 /** Explicit language choice (NEXT_LOCALE) lifetime in seconds. */

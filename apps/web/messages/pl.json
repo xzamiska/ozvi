@@ -2289,12 +2289,12 @@
           "text": "Prywatne, ze zrzutem ekranu i kontekstem technicznym"
         },
         {
-          "href": "#flows",
+          "href": "#how",
           "title": "Pomysły i głosowanie",
           "text": "Publiczna tablica, która ustala priorytety za ciebie"
         },
         {
-          "href": "#flows",
+          "href": "#how",
           "title": "Roadmapa i informacje o wydaniach",
           "text": "Co dalej i co już wdrożone, z e-mailami do głosujących"
         },
@@ -2306,8 +2306,8 @@
       ],
       "productFeature": {
         "href": "#how",
-        "title": "Od kliknięcia do odpowiedzi",
-        "text": "Prześledź krok po kroku jedno zgłoszenie w Ozvi."
+        "title": "Przegląd produktu",
+        "text": "Tablica dla użytkowników i widok zespołu, na przykładowych danych."
       },
       "devItems": [
         {
@@ -2342,8 +2342,6 @@
       "title": "Opinie, które nie giną.",
       "lede": "Ozvi zbiera zgłoszenia błędów i pomysły bezpośrednio w twojej aplikacji, dostarcza je zespołowi tam, gdzie już pracuje, i informuje zgłaszającego, jak sprawa się zakończyła. W języku i kolorach twojej marki.",
       "secondary": "Jak to działa",
-      "pauseMotion": "Wstrzymaj animację",
-      "playMotion": "Odtwórz animację",
       "note": "Plan Free nie wymaga karty. Na własnym serwerze jest bezpłatny i ze wszystkimi funkcjami.",
       "loop": {
         "label": "Przykład: użytkownik zgłasza błąd w twojej aplikacji, zespół naprawia go na tablicy, a autor dostaje odpowiedź e-mailem",
@@ -2361,30 +2359,6 @@
       }
     },
     "story": {
-      "label": "Jedno zgłoszenie, od kliknięcia do odpowiedzi",
-      "replay": "odtwórz ponownie",
-      "steps": [
-        {
-          "title": "Użytkownik zgłasza błąd",
-          "text": "Bezpośrednio w twojej aplikacji, bez zakładania kolejnego konta. Widżet dołącza zrzut ekranu, wersję, przeglądarkę i błędy z konsoli, a hasła i oznaczone pola rozmywa, zanim cokolwiek opuści przeglądarkę.",
-          "code": "POST /api/widget/items → 201"
-        },
-        {
-          "title": "Zespół dostaje je tam, gdzie pracuje",
-          "text": "E-mailem, na Slacku lub Discordzie, a jednym kliknięciem także jako issue na GitHubie. Status synchronizuje się między Ozvi a GitHubem.",
-          "code": "item.linked → acme/app#482"
-        },
-        {
-          "title": "Naprawiasz z poziomu edytora",
-          "text": "Serwer MCP daje Claude Code, Cursorowi lub VS Code dostęp do zgłoszeń: znajdzie powiązane, scali duplikaty i ustawi status z wersją poprawki.",
-          "code": "set_status #128 fixed --version 2.15"
-        },
-        {
-          "title": "Zgłaszający dostaje odpowiedź",
-          "text": "E-mail przy każdej zmianie, a przy wydaniu z numerem wersji. Jednym kliknięciem potwierdza, że działa, i zgłoszenie się zamyka.",
-          "code": "mail bug_status → delivered"
-        }
-      ],
       "stage": {
         "label": "Demo: użytkownik zgłasza błąd, zespół go naprawia, a użytkownik dostaje odpowiedź",
         "app": "Fakturowanie",
@@ -2445,52 +2419,6 @@
         "v": "Każdy projekt jest odizolowany w Postgresie na poziomie wierszy, a nie tylko w kodzie aplikacji."
       }
     ],
-    "flows": {
-      "title": "Dwa przepływy. Jeden przegląd.",
-      "lede": "Błędy pozostają prywatne między zgłaszającym a twoim zespołem. Pomysły są publiczne, żeby inni mogli je poprzeć. Jedne i drugie przechodzą przez ścieżkę, którą zgłaszający widzi.",
-      "bug": {
-        "title": "Błąd",
-        "text": "Prywatny. Zrzut ekranu, strona, wersja, przeglądarka i błędy z konsoli docierają same."
-      },
-      "idea": {
-        "title": "Pomysł",
-        "text": "Publiczny na tablicy. Głosowanie, komentarze, roadmapa i informacje o wydaniach."
-      },
-      "stops": {
-        "new": [
-          "Przyjęte",
-          "Widzi je tylko zgłaszający i zespół."
-        ],
-        "confirmed": [
-          "Potwierdzone",
-          "Odtworzone i zaklasyfikowane."
-        ],
-        "in_progress": [
-          "W realizacji",
-          "Zespół nad tym pracuje."
-        ],
-        "fixed": [
-          "Naprawione",
-          "Poprawka jest w wydaniu; zgłaszający dostaje numer wersji."
-        ],
-        "verified": [
-          "Zweryfikowane",
-          "Zgłaszający potwierdził, że działa."
-        ],
-        "open": [
-          "Zaproponowane",
-          "Inni głosują i dodają kontekst."
-        ],
-        "planned": [
-          "Zaplanowane",
-          "W planie na jedno z najbliższych wydań."
-        ],
-        "shipped": [
-          "Wdrożone",
-          "Głosujący dostali e-mail."
-        ]
-      }
-    },
     "dev": {
       "title": "Podłączysz to w przerwie na lunch. Nie w sprincie.",
       "lede": "Skrypt widżetu i jeden endpoint, który loguje użytkownika. Cała reszta to API: webhooki, GitHub i MCP dla asystentów AI.",
@@ -2567,6 +2495,132 @@
       "terms": "Regulamin",
       "privacy": "Polityka prywatności",
       "license": "Kod źródłowy dostępny (FSL). SDK i widżet na licencji MIT."
+    },
+    "product": {
+      "title": "Co zobaczą twoi użytkownicy. I co twój zespół.",
+      "lede": "To prawdziwa tablica z przykładowymi danymi, w kolorach aplikacji klienta. Możesz głosować, dodać pomysł i komentarz.",
+      "tablist": "Części tablicy",
+      "teamOnly": "tylko zespół",
+      "app": "Fakturowanie",
+      "parts": {
+        "ideas": {
+          "title": "Pomysły z głosowaniem",
+          "text": "Użytkownicy proponują i głosują. Podczas pisania widzą podobne pomysły, więc nie mnożą się duplikaty."
+        },
+        "roadmap": {
+          "title": "Roadmapa",
+          "text": "Co planujesz, nad czym pracujesz i co wydałeś. Pomysł przesuwa się po niej ze statusem nadanym przez zespół."
+        },
+        "news": {
+          "title": "Nowości",
+          "text": "Gdy pomysł zostanie wydany, jeden wpis wysyła e-mail każdemu, kto na niego głosował. Szkic może powstać z releasu na GitHubie."
+        },
+        "bugs": {
+          "title": "Prywatne zgłoszenia błędów",
+          "text": "Zgłoszenie widzi tylko autor i zespół. Autor śledzi, gdzie jest, i dostaje e-mail, gdy błąd zostanie naprawiony."
+        },
+        "team": {
+          "title": "Widok zespołu",
+          "text": "Każde zgłoszenie ma zrzut ekranu, wersję, przeglądarkę i błędy z konsoli. Zespół dodaje notatkę wewnętrzną, scala duplikat, łączy GitHub i jednym krokiem informuje autora."
+        }
+      },
+      "team": {
+        "title": "Zgłoszenia błędów",
+        "private": "prywatne",
+        "filters": [
+          [
+            "Nowe",
+            "3"
+          ],
+          [
+            "Bez odpowiedzi",
+            "2"
+          ],
+          [
+            "Wszystkie",
+            "41"
+          ]
+        ],
+        "queue": [
+          "Eksport do CSV nie działa przy 10 000 wierszy",
+          "PDF faktury traci polskie znaki w adresie",
+          "Po zalogowaniu znika wybrany język"
+        ],
+        "reporter": "Jana Kováčová · plan Pro · 2 h temu",
+        "shot": "zrzut ekranu z adnotacją",
+        "console": "Error: czcionka nie zawiera znaku „ż” (U+017C) · pdf-render.ts:88",
+        "similar": "Podobne: #119 Polskie znaki w eksporcie PDF",
+        "merge": "Scal",
+        "noteLabel": "Notatka wewnętrzna · tylko zespół",
+        "note": "Czcionka w PDF nie ma znaków środkowoeuropejskich. Przechodzimy na Noto Sans, poprawka w wersji 2.15.",
+        "pr": "PR #490 scalony · podgląd gotowy",
+        "fixedIn": "Naprawione w wersji",
+        "save": "Zapisz i powiadom autora"
+      }
+    },
+    "features": {
+      "title": "Wszystko od zgłoszenia do odpowiedzi.",
+      "lede": "Bez płatnych dodatków. Plany w chmurze różnią się tylko tym, co nas kosztuje, a na własnym serwerze wszystko jest za darmo.",
+      "groups": [
+        {
+          "title": "Zbieranie",
+          "items": [
+            "Widget w twojej aplikacji, także jako komponent React",
+            "Zrzut ekranu z adnotacją",
+            "Wersja, przeglądarka, adres i błędy z konsoli automatycznie",
+            "Hasła i oznaczone pola są rozmywane już w przeglądarce",
+            "Logowanie przez twoją aplikację: podpisany token lub OIDC"
+          ]
+        },
+        {
+          "title": "Segregacja",
+          "items": [
+            "Statusy o stałej kolejności dla pomysłów i błędów",
+            "Notatki wewnętrzne i tagi tylko dla zespołu",
+            "Podobne wpisy i scalanie duplikatów",
+            "Kolejka „Bez odpowiedzi”, żeby nic nie utknęło",
+            "Podsumowania AI i tłumaczenia wpisów (plan Studio i własny serwer)"
+          ]
+        },
+        {
+          "title": "Odpowiedź autorowi",
+          "items": [
+            "E-mail „naprawione w wersji 2.15, czy już działa?”",
+            "Nowości z e-mailem do każdego, kto głosował",
+            "Dowód naprawy: PR, release lub podgląd",
+            "Poniedziałkowe podsumowanie dla zespołu"
+          ]
+        },
+        {
+          "title": "Integracje",
+          "items": [
+            "GitHub: issues, pull requesty i szkice nowości z releasów",
+            "Linear i Jira Cloud",
+            "Slack, Discord i podpisane webhooki",
+            "Serwer MCP dla asystentów AI (Claude Code, Cursor, VS Code)",
+            "REST API i własna domena"
+          ]
+        },
+        {
+          "title": "Prywatność",
+          "items": [
+            "Zgłoszenia błędów widzi tylko autor i zespół",
+            "Dane w UE (centrum danych w Niemczech)",
+            "Eksport i usunięcie danych użytkownika",
+            "Teksty do twojej polityki prywatności",
+            "Publiczny kod źródłowy (FSL)"
+          ]
+        },
+        {
+          "title": "Przejście z Fidera",
+          "items": [
+            "Import z kopii zapasowej lub przez API Fidera",
+            "Pomysły, głosy, komentarze, tagi i załączniki",
+            "Numery wpisów zostają, gdzie to możliwe",
+            "Użytkownicy łączą się ze swoim kontem przy pierwszym logowaniu"
+          ]
+        }
+      ]
     }
   },
   "net": {
