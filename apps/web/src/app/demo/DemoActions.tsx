@@ -13,17 +13,17 @@ export function DemoActions() {
   async function save() {
     setMsg("");
     await fetch("/api/health").catch(() => {});
-    const r = await fetch("/api/demo/invoices/2026-0501?api_key=sk_live_demo123&draft=1", {
+    const r = await fetch("/api/demo/bookings/2026-11-14-1030?api_key=sk_live_demo123&draft=1", {
       method: "PUT", headers: { "content-type": "application/json" },
-      body: JSON.stringify({ customer: "Firma s.r.o.", vatId: "SK2020123456", iban: "SK3112000000198742637541", password: "tajne-heslo", amount: 124000 }),
+      body: JSON.stringify({ client: "Jana Kováčová", phone: "+421905123456", note: "Citlivá pokožka, alergia na amoniak", pin: "4711", price: 6500 }),
     }).catch(() => null);
-    if (!r?.ok) { console.error(`Uloženie faktúry zlyhalo (HTTP ${r?.status ?? 0})`); setMsg("Faktúru sa nepodarilo uložiť."); }
+    if (!r?.ok) { console.error(`Uloženie rezervácie zlyhalo (HTTP ${r?.status ?? 0})`); setMsg("Rezerváciu sa nepodarilo uložiť."); }
   }
   return (
     <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginTop: 16 }}>
       <button type="button" onClick={() => go("detail")} aria-pressed={tab === "detail"}>Detail</button>
-      <button type="button" onClick={() => go("platby")} aria-pressed={tab === "platby"}>Platby</button>
-      <button type="button" onClick={save} style={{ fontWeight: 600 }}>Uložiť faktúru</button>
+      <button type="button" onClick={() => go("historia")} aria-pressed={tab === "historia"}>História</button>
+      <button type="button" onClick={save} style={{ fontWeight: 600 }}>Uložiť rezerváciu</button>
       {msg && <span role="alert" style={{ color: "#B3261E" }}>{msg}</span>}
     </div>
   );

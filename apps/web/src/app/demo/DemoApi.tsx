@@ -29,8 +29,8 @@ export function DemoApi() {
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         <button type="button" className={btn} onClick={() => ozvi().open("ideas")}>Ozvi.open(&quot;ideas&quot;)</button>
         <button type="button" className={btn} onClick={() => ozvi().open("bug")}>Ozvi.open(&quot;bug&quot;)</button>
-        <button type="button" className={btn} onClick={() => { ozvi().prefill({ kind: "idea", title: "Hromadný export faktúr", body: "Potrebujem export za celý mesiac naraz." }); ozvi().open("idea"); }}>prefill + open(&quot;idea&quot;)</button>
-        <button type="button" className={btn} onClick={() => { ozvi().prefill({ title: "Uloženie faktúry zlyhalo" }); ozvi().open("bug"); }}>prefill + open(&quot;bug&quot;)</button>
+        <button type="button" className={btn} onClick={() => { ozvi().prefill({ kind: "idea", title: "Presunúť celý deň naraz", body: "Keď je kaderníčka chorá, potrebujem presunúť všetky jej termíny naraz." }); ozvi().open("idea"); }}>prefill + open(&quot;idea&quot;)</button>
+        <button type="button" className={btn} onClick={() => { ozvi().prefill({ title: "Uloženie rezervácie zlyhalo" }); ozvi().open("bug"); }}>prefill + open(&quot;bug&quot;)</button>
         <button type="button" className={btn} onClick={() => ozvi().toggle()}>Ozvi.toggle()</button>
         <button type="button" className={btn} onClick={() => ozvi().setLanguage("en")}>setLanguage(&quot;en&quot;)</button>
         <button type="button" className={btn} onClick={() => ozvi().setLanguage("sk")}>setLanguage(&quot;sk&quot;)</button>
