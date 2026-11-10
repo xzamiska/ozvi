@@ -3,6 +3,11 @@
 	import live
 }
 
+# www is a reserved slug: send it to the apex instead of a missing board.
+www.{$LIVE_DOMAIN} {
+	redir https://{$LIVE_DOMAIN}{uri} permanent
+}
+
 *.{$LIVE_DOMAIN} {
 	tls {
 		on_demand
