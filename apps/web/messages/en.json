@@ -2556,6 +2556,13 @@
         "pr": "PR #490 merged · preview ready",
         "fixedIn": "Fixed in version",
         "save": "Save and tell the author"
+      },
+      "look": {
+        "label": "In your colours",
+        "accent": "Accent {color}",
+        "light": "Light",
+        "dark": "Dark",
+        "radius": "Corners"
       }
     },
     "features": {
@@ -2631,39 +2638,7 @@
   },
   "playground": {
     "title": "Looks like your app. Not like us.",
-    "lede": "Try it. This board is real: vote, open an idea, leave a comment or suggest your own. Then style it in the editor exactly as you would in your project settings.",
-    "controls": {
-      "tablist": "Theme editor",
-      "heading": "Appearance",
-      "name": "App name",
-      "accent": "Accent",
-      "custom": "Custom colour",
-      "base": "Base",
-      "bases": {
-        "neutral": "Neutral",
-        "warm": "Warm",
-        "cool": "Cool",
-        "dark": "Dark"
-      },
-      "font": "Typeface",
-      "radius": "Corner radius",
-      "density": "Density",
-      "compact": "Compact",
-      "comfortable": "Comfortable",
-      "reset": "Reset",
-      "json": "theme.json",
-      "ui": "Settings",
-      "copy": "copy",
-      "copied": "copied",
-      "contrastOk": "Text contrast passes (WCAG AA).",
-      "contrastWarn": "Low contrast: {token} {ratio}:1. Ozvi warns you and adjusts the colour on the board so text stays readable.",
-      "tokens": {
-        "inkOnSurface": "text on surface",
-        "inkOnCanvas": "text on canvas",
-        "accentOnSurface": "accent on surface",
-        "buttonOnAccent": "button text"
-      }
-    },
+    "lede": "The board, the widget in your app and the e-mails wear your colours, font and shapes. Try the colours on the board above; all of this is set per project.",
     "board": {
       "url": "feedback.yourcompany.com",
       "tabs": {
@@ -2757,7 +2732,6 @@
       ]
     },
     "scope": {
-      "title": "What you can set",
       "items": [
         {
           "k": "Colour",

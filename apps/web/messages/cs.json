@@ -2556,6 +2556,13 @@
         "pr": "PR #490 sloučen · náhled připraven",
         "fixedIn": "Opraveno ve verzi",
         "save": "Uložit a dát vědět autorovi"
+      },
+      "look": {
+        "label": "Ve vašich barvách",
+        "accent": "Akcent {color}",
+        "light": "Světlý",
+        "dark": "Tmavý",
+        "radius": "Zaoblení"
       }
     },
     "features": {
@@ -2631,39 +2638,7 @@
   },
   "playground": {
     "title": "Vypadá jako vaše aplikace. Ne jako my.",
-    "lede": "Vyzkoušejte si to. Tento board je skutečný: hlasujte, otevřete nápad, napište komentář nebo navrhněte vlastní. V editoru mu nastavte vzhled přesně tak, jak to uděláte v nastavení projektu.",
-    "controls": {
-      "tablist": "Úprava tématu",
-      "heading": "Vzhled",
-      "name": "Název aplikace",
-      "accent": "Akcent",
-      "custom": "Vlastní barva",
-      "base": "Podklad",
-      "bases": {
-        "neutral": "Neutrální",
-        "warm": "Teplý",
-        "cool": "Studený",
-        "dark": "Tmavý"
-      },
-      "font": "Písmo",
-      "radius": "Zaoblení",
-      "density": "Hustota",
-      "compact": "Kompaktní",
-      "comfortable": "Vzdušná",
-      "reset": "Původní vzhled",
-      "json": "theme.json",
-      "ui": "Nastavení",
-      "copy": "kopírovat",
-      "copied": "zkopírováno",
-      "contrastOk": "Kontrast textu je v pořádku (WCAG AA).",
-      "contrastWarn": "Nízký kontrast: {token} {ratio}:1. Ozvi vás upozorní a na boardu barvu upraví, aby text zůstal čitelný.",
-      "tokens": {
-        "inkOnSurface": "text na povrchu",
-        "inkOnCanvas": "text na plátně",
-        "accentOnSurface": "akcent na povrchu",
-        "buttonOnAccent": "text tlačítka"
-      }
-    },
+    "lede": "Board, widget ve vaší aplikaci i e-maily nesou vaše barvy, písmo a tvary. Barvy si vyzkoušejte na boardu výše, tohle vše nastavíte v projektu.",
     "board": {
       "url": "feedback.vasefirma.cz",
       "tabs": {
@@ -2757,7 +2732,6 @@
       ]
     },
     "scope": {
-      "title": "Co všechno si nastavíte",
       "items": [
         {
           "k": "Barvy",

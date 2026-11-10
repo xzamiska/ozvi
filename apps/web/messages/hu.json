@@ -2556,6 +2556,13 @@
         "pr": "PR #490 beolvasztva · előnézet kész",
         "fixedIn": "Javítva a verzióban",
         "save": "Mentés és a bejelentő értesítése"
+      },
+      "look": {
+        "label": "A te színeidben",
+        "accent": "Kiemelőszín {color}",
+        "light": "Világos",
+        "dark": "Sötét",
+        "radius": "Lekerekítés"
       }
     },
     "features": {
@@ -2631,39 +2638,7 @@
   },
   "playground": {
     "title": "Olyan, mint az alkalmazásod. Nem olyan, mint mi.",
-    "lede": "Próbáld ki. Ez a tábla valódi: szavazz, nyiss meg egy ötletet, szólj hozzá, vagy javasolj sajátot. Aztán szabd testre a szerkesztőben pontosan úgy, ahogy a projekt beállításaiban tennéd.",
-    "controls": {
-      "tablist": "Témaszerkesztő",
-      "heading": "Megjelenés",
-      "name": "Alkalmazás neve",
-      "accent": "Kiemelőszín",
-      "custom": "Egyéni szín",
-      "base": "Alap",
-      "bases": {
-        "neutral": "Semleges",
-        "warm": "Meleg",
-        "cool": "Hideg",
-        "dark": "Sötét"
-      },
-      "font": "Betűtípus",
-      "radius": "Saroklekerekítés",
-      "density": "Sűrűség",
-      "compact": "Tömör",
-      "comfortable": "Kényelmes",
-      "reset": "Visszaállítás",
-      "json": "theme.json",
-      "ui": "Beállítások",
-      "copy": "másolás",
-      "copied": "másolva",
-      "contrastOk": "A szöveg kontrasztja megfelelő (WCAG AA).",
-      "contrastWarn": "Alacsony kontraszt: {token} {ratio}:1. Az Ozvi figyelmeztet, és a táblán módosítja a színt, hogy a szöveg olvasható maradjon.",
-      "tokens": {
-        "inkOnSurface": "szöveg a felületen",
-        "inkOnCanvas": "szöveg a háttéren",
-        "accentOnSurface": "kiemelőszín a felületen",
-        "buttonOnAccent": "gomb szövege"
-      }
-    },
+    "lede": "A tábla, az alkalmazásodban futó widget és az e-mailek a te színeidet, betűtípusodat és formáidat viselik. A színeket próbáld ki a fenti táblán, mindezt a projektben állítod be.",
     "board": {
       "url": "visszajelzes.ceged.hu",
       "tabs": {
@@ -2757,7 +2732,6 @@
       ]
     },
     "scope": {
-      "title": "Mit állíthatsz be",
       "items": [
         {
           "k": "Szín",

@@ -2556,6 +2556,13 @@
         "pr": "PR #490 gemergt · Vorschau bereit",
         "fixedIn": "Behoben in Version",
         "save": "Speichern und Meldenden informieren"
+      },
+      "look": {
+        "label": "In Ihren Farben",
+        "accent": "Akzent {color}",
+        "light": "Hell",
+        "dark": "Dunkel",
+        "radius": "Ecken"
       }
     },
     "features": {
@@ -2631,39 +2638,7 @@
   },
   "playground": {
     "title": "Sieht aus wie Ihre App. Nicht wie wir.",
-    "lede": "Probieren Sie es aus. Dieses Board ist echt: Stimmen Sie ab, öffnen Sie eine Idee, schreiben Sie einen Kommentar oder schlagen Sie selbst etwas vor. Gestalten Sie es dann im Editor genau so, wie Sie es in Ihren Projekteinstellungen tun würden.",
-    "controls": {
-      "tablist": "Theme-Editor",
-      "heading": "Darstellung",
-      "name": "Name der App",
-      "accent": "Akzentfarbe",
-      "custom": "Eigene Farbe",
-      "base": "Grundton",
-      "bases": {
-        "neutral": "Neutral",
-        "warm": "Warm",
-        "cool": "Kühl",
-        "dark": "Dunkel"
-      },
-      "font": "Schrift",
-      "radius": "Eckenradius",
-      "density": "Dichte",
-      "compact": "Kompakt",
-      "comfortable": "Großzügig",
-      "reset": "Zurücksetzen",
-      "json": "theme.json",
-      "ui": "Einstellungen",
-      "copy": "kopieren",
-      "copied": "kopiert",
-      "contrastOk": "Der Textkontrast ist ausreichend (WCAG AA).",
-      "contrastWarn": "Geringer Kontrast: {token} {ratio}:1. Ozvi weist Sie darauf hin und passt die Farbe auf dem Board an, damit der Text lesbar bleibt.",
-      "tokens": {
-        "inkOnSurface": "Text auf Fläche",
-        "inkOnCanvas": "Text auf Hintergrund",
-        "accentOnSurface": "Akzent auf Fläche",
-        "buttonOnAccent": "Schaltflächentext"
-      }
-    },
+    "lede": "Board, Widget in Ihrer App und E-Mails tragen Ihre Farben, Schrift und Formen. Die Farben probieren Sie oben am Board aus, all das stellen Sie im Projekt ein.",
     "board": {
       "url": "feedback.ihrefirma.de",
       "tabs": {
@@ -2757,7 +2732,6 @@
       ]
     },
     "scope": {
-      "title": "Was Sie einstellen können",
       "items": [
         {
           "k": "Farbe",

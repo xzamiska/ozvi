@@ -2556,6 +2556,13 @@
         "pr": "PR #490 zlúčený · náhľad pripravený",
         "fixedIn": "Opravené vo verzii",
         "save": "Uložiť a dať vedieť autorovi"
+      },
+      "look": {
+        "label": "Vo vašich farbách",
+        "accent": "Akcent {color}",
+        "light": "Svetlý",
+        "dark": "Tmavý",
+        "radius": "Zaoblenie"
       }
     },
     "features": {
@@ -2631,39 +2638,7 @@
   },
   "playground": {
     "title": "Vyzerá ako vaša aplikácia. Nie ako my.",
-    "lede": "Skúste si to. Tento board je skutočný: hlasujte, otvorte nápad, napíšte komentár alebo navrhnite vlastný. V editore mu nastavte vzhľad presne tak, ako to urobíte v nastaveniach projektu.",
-    "controls": {
-      "tablist": "Úprava témy",
-      "heading": "Vzhľad",
-      "name": "Názov aplikácie",
-      "accent": "Akcent",
-      "custom": "Vlastná farba",
-      "base": "Podklad",
-      "bases": {
-        "neutral": "Neutrálny",
-        "warm": "Teplý",
-        "cool": "Studený",
-        "dark": "Tmavý"
-      },
-      "font": "Písmo",
-      "radius": "Zaoblenie",
-      "density": "Hustota",
-      "compact": "Kompaktná",
-      "comfortable": "Vzdušná",
-      "reset": "Pôvodný vzhľad",
-      "json": "theme.json",
-      "ui": "Nastavenia",
-      "copy": "kopírovať",
-      "copied": "skopírované",
-      "contrastOk": "Kontrast textu je v poriadku (WCAG AA).",
-      "contrastWarn": "Nízky kontrast: {token} {ratio}:1. Ozvi vás upozorní a na boarde farbu upraví, aby text zostal čitateľný.",
-      "tokens": {
-        "inkOnSurface": "text na povrchu",
-        "inkOnCanvas": "text na plátne",
-        "accentOnSurface": "akcent na povrchu",
-        "buttonOnAccent": "text tlačidla"
-      }
-    },
+    "lede": "Board, widget vo vašej aplikácii aj e-maily nosia vaše farby, písmo a tvary. Farby si vyskúšajte na boarde vyššie, toto všetko nastavíte v projekte.",
     "board": {
       "url": "feedback.vasafirma.sk",
       "tabs": {
@@ -2757,7 +2732,6 @@
       ]
     },
     "scope": {
-      "title": "Čo všetko si nastavíte",
       "items": [
         {
           "k": "Farby",

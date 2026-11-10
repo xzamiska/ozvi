@@ -6,7 +6,6 @@ import { getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
 import { Reveal } from "@/components/landing/Reveal";
 import { HeroLoop } from "@/components/landing/HeroLoop";
-import { Playground } from "@/components/landing/Playground";
 import { LangSwitch, SiteHeader, type NavItem } from "@/components/landing/SiteHeader";
 import { signupClosed } from "@/lib/account-rules";
 import { ProductTour } from "@/components/landing/ProductTour";
@@ -157,19 +156,6 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             <div data-r className="mt-12"><ProductTour /></div>
           </Reveal>
 
-          {/* spec sheet */}
-          <section aria-label="Spec" className="border-y bg-surface">
-            <dl className="oz-frame grid sm:grid-cols-2 lg:grid-cols-4">
-              {(t.raw("spec") as { k: string; v: string }[]).map((s, i) => (
-                <div key={s.k} className={cn("grid content-start gap-2 py-8 sm:px-6 lg:py-10",
-                  i > 0 && "max-sm:border-t", i % 2 === 1 && "sm:border-l", i >= 2 && "sm:max-lg:border-t", i === 2 && "lg:border-l", i % 2 === 0 && "sm:pl-0", i === 2 && "lg:pl-6")}>
-                  <dt className="font-mono text-[22px] font-medium tracking-tight">{s.k}</dt>
-                  <dd className="text-[14px] leading-relaxed text-muted-foreground">{s.v}</dd>
-                </div>
-              ))}
-            </dl>
-          </section>
-
           {/* everything it does, grouped by the job */}
           <Reveal as="section" id="features" aria-labelledby="features-h" className="oz-frame scroll-mt-20 py-24 lg:py-32">
             <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
@@ -190,6 +176,25 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             </div>
           </Reveal>
 
+          {/* their brand, not ours: what the theme covers (try it on the tour's board above) */}
+          <section id="design" aria-labelledby="design-h" className="scroll-mt-16 border-t">
+            <Reveal className="oz-frame py-24 lg:py-28">
+              <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
+                <h2 id="design-h" data-r className={cn(h2, "max-w-[13ch]")}>{pg("title")}</h2>
+                <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{pg("lede")}</p>
+              </div>
+              <dl className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+                {(pg.raw("scope.items") as { k: string; v: string }[]).map((i) => (
+                  <div key={i.k} data-r className="grid content-start gap-1.5 border-t pt-4">
+                    <dt className="text-[15px] font-semibold">{i.k}</dt>
+                    <dd className="text-[14px] leading-relaxed text-muted-foreground">{i.v}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p data-r className="mt-10 max-w-[70ch] text-[14px] leading-relaxed text-muted-foreground">{pg("scope.limit")}</p>
+            </Reveal>
+          </section>
+
           {/* developers */}
           <section id="developers" aria-labelledby="dev-h" className="scroll-mt-16 border-t bg-surface">
             <Reveal className="oz-frame grid gap-12 py-24 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:py-32">
@@ -204,31 +209,14 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               </div>
               <div data-r className="min-w-0"><DevTabs tabs={devTabs(t, locale)} /></div>
             </Reveal>
-          </section>
-
-          {/* their brand, not ours: a live board and the theme editor */}
-          <section id="design" aria-labelledby="design-h" className="scroll-mt-16 border-t">
-            <Reveal className="oz-frame py-24 lg:py-32">
-              <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
-                <h2 id="design-h" data-r className={cn(h2, "max-w-[13ch]")}>{pg("title")}</h2>
-                <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{pg("lede")}</p>
-              </div>
-              <div data-r className="mt-12"><Playground /></div>
-              <div className="mt-16 grid gap-10 lg:grid-cols-[240px_1fr]">
-                <h3 data-r className="text-[18px] font-semibold tracking-tight">{pg("scope.title")}</h3>
-                <div>
-                  <dl className="grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-3">
-                    {(pg.raw("scope.items") as { k: string; v: string }[]).map((i) => (
-                      <div key={i.k} data-r className="grid content-start gap-1.5 border-t pt-4">
-                        <dt className="text-[14.5px] font-semibold">{i.k}</dt>
-                        <dd className="text-[14px] leading-relaxed text-muted-foreground">{i.v}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                  <p data-r className="mt-8 max-w-[70ch] border-l-2 border-primary pl-4 text-[14px] leading-relaxed text-muted-foreground">{pg("scope.limit")}</p>
+            <dl aria-label="Spec" className="oz-frame grid border-t pb-4 sm:grid-cols-2 lg:grid-cols-4">
+              {(t.raw("spec") as { k: string; v: string }[]).map((s, i) => (
+                <div key={s.k} className={cn("grid content-start gap-2 py-8 sm:pr-6", i > 0 && "max-sm:border-t", i % 2 === 1 && "sm:border-l sm:pl-6", i >= 2 && "sm:max-lg:border-t", i === 2 && "lg:border-l lg:pl-6")}>
+                  <dt className="font-mono text-[20px] font-medium tracking-tight">{s.k}</dt>
+                  <dd className="text-[14px] leading-relaxed text-muted-foreground">{s.v}</dd>
                 </div>
-              </div>
-            </Reveal>
+              ))}
+            </dl>
           </section>
 
           {/* pricing */}

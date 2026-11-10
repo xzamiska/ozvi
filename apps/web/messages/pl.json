@@ -2556,6 +2556,13 @@
         "pr": "PR #490 scalony · podgląd gotowy",
         "fixedIn": "Naprawione w wersji",
         "save": "Zapisz i powiadom autora"
+      },
+      "look": {
+        "label": "W twoich kolorach",
+        "accent": "Akcent {color}",
+        "light": "Jasny",
+        "dark": "Ciemny",
+        "radius": "Zaokrąglenie"
       }
     },
     "features": {
@@ -2631,39 +2638,7 @@
   },
   "playground": {
     "title": "Wygląda jak twoja aplikacja. Nie jak my.",
-    "lede": "Wypróbuj. Ta tablica jest prawdziwa: zagłosuj, otwórz pomysł, zostaw komentarz albo zaproponuj własny. Potem dopasuj jej wygląd w edytorze, dokładnie tak jak w ustawieniach swojego projektu.",
-    "controls": {
-      "tablist": "Edytor motywu",
-      "heading": "Wygląd",
-      "name": "Nazwa aplikacji",
-      "accent": "Akcent",
-      "custom": "Własny kolor",
-      "base": "Baza",
-      "bases": {
-        "neutral": "Neutralna",
-        "warm": "Ciepła",
-        "cool": "Chłodna",
-        "dark": "Ciemna"
-      },
-      "font": "Krój pisma",
-      "radius": "Zaokrąglenie rogów",
-      "density": "Gęstość",
-      "compact": "Kompaktowa",
-      "comfortable": "Przestronna",
-      "reset": "Przywróć",
-      "json": "theme.json",
-      "ui": "Ustawienia",
-      "copy": "kopiuj",
-      "copied": "skopiowano",
-      "contrastOk": "Kontrast tekstu jest wystarczający (WCAG AA).",
-      "contrastWarn": "Niski kontrast: {token} {ratio}:1. Ozvi cię ostrzeże i dostosuje kolor na tablicy, żeby tekst pozostał czytelny.",
-      "tokens": {
-        "inkOnSurface": "tekst na powierzchni",
-        "inkOnCanvas": "tekst na tle",
-        "accentOnSurface": "akcent na powierzchni",
-        "buttonOnAccent": "tekst przycisku"
-      }
-    },
+    "lede": "Tablica, widget w twojej aplikacji i e-maile mają twoje kolory, czcionkę i kształty. Kolory wypróbuj na tablicy powyżej, wszystko to ustawisz w projekcie.",
     "board": {
       "url": "opinie.twojafirma.pl",
       "tabs": {
@@ -2757,7 +2732,6 @@
       ]
     },
     "scope": {
-      "title": "Co możesz ustawić",
       "items": [
         {
           "k": "Kolor",
