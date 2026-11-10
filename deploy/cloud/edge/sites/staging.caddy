@@ -1,5 +1,9 @@
 # staging.<domain> and <slug>.staging.<domain>, behind basic auth.
+# On demand: with live enabled, staging.<domain> sits under *.<domain> and gets no certificate of its own.
 {$STAGING_DOMAIN} {
+	tls {
+		on_demand
+	}
 	import staging
 }
 

@@ -40,8 +40,10 @@ Disallow: /
 http://127.0.0.1:9180 {
 	bind 127.0.0.1
 	@staging expression `{query.domain}.endsWith(".{$STAGING_DOMAIN}")`
-	# www only redirects to the apex (live.caddy); it is no board, so the app would refuse it.
-	@www query domain=www.{$LIVE_DOMAIN}
+	# Fixed names under *.{$LIVE_DOMAIN} that are no board, so neither app would approve them:
+	# www (redirects to the apex) and the staging apex. Caddy leaves every name under a wildcard
+	# site to on-demand certificates, so these too must pass this check.
+	@www query domain=www.{$LIVE_DOMAIN} domain={$STAGING_DOMAIN}
 	rewrite * /api/domains/ask?{query}
 	handle @www {
 		respond 200
