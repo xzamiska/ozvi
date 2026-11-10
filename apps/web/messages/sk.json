@@ -2573,7 +2573,6 @@
           "Kalendár na mobile nezobrazí sobotné termíny",
           "Po prihlásení sa stratí vybraný jazyk"
         ],
-        "reporter": "Jana Kováčová · plán Pro · pred 2 h",
         "shot": "screenshot s anotáciou",
         "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
         "similar": "Podobné: #119 Víkend v týždennom pohľade je prázdny",
@@ -2581,8 +2580,21 @@
         "noteLabel": "Interná poznámka · len pre tím",
         "note": "Mobilný pohľad počíta týždeň od nedele, zvyšok od pondelka. Zjednotíme to, oprava pôjde vo verzii 2.15.",
         "pr": "PR #490 zlúčený · náhľad pripravený",
-        "fixedIn": "Opravené vo verzii",
-        "save": "Uložiť a dať vedieť autorovi"
+        "save": "Uložiť a dať vedieť autorovi",
+        "reporters": [
+          "Martin Novák · plán Free · pred 20 min",
+          "Jana Kováčová · plán Pro · pred 2 h",
+          "Eva Szabó · plán Studio · včera"
+        ],
+        "filterLabel": "Filter hlásení",
+        "emptyFilter": "Tu nič nečaká. Skúste iný filter.",
+        "noErrors": "Bez chýb v konzole",
+        "merged": "Zlúčené: #119 · 3 hlasy prenesené",
+        "notePh": "Interná poznámka…",
+        "addNote": "Pridať",
+        "statusLabel": "Stav hlásenia",
+        "sentFixed": "Autor dostal e-mail: „Opravené vo verzii 2.15. Funguje vám to už?“",
+        "sentStatus": "Autor dostal e-mail: hlásenie je teraz „{status}“."
       },
       "look": {
         "label": "Vo vašich farbách",

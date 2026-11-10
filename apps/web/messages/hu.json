@@ -2573,7 +2573,6 @@
           "A mobilos naptár nem mutatja a szombati időpontokat",
           "Bejelentkezés után elvész a választott nyelv"
         ],
-        "reporter": "Jana Kováčová · Pro csomag · 2 órája",
         "shot": "jelölt képernyőkép",
         "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
         "similar": "Hasonló: #119 Üres hétvége a heti nézetben",
@@ -2581,8 +2580,21 @@
         "noteLabel": "Belső jegyzet · csak a csapatnak",
         "note": "A mobilos nézet vasárnaptól számolja a hetet, a többi hétfőtől. Egységesítjük, a javítás a 2.15-ben jön.",
         "pr": "PR #490 beolvasztva · előnézet kész",
-        "fixedIn": "Javítva a verzióban",
-        "save": "Mentés és a bejelentő értesítése"
+        "save": "Mentés és a bejelentő értesítése",
+        "reporters": [
+          "Martin Novák · Free csomag · 20 perce",
+          "Jana Kováčová · Pro csomag · 2 órája",
+          "Eva Szabó · Studio csomag · tegnap"
+        ],
+        "filterLabel": "Jelentések szűrése",
+        "emptyFilter": "Itt nincs semmi. Próbálj másik szűrőt.",
+        "noErrors": "Nincs konzolhiba",
+        "merged": "Összevonva: #119 · 3 szavazat átvéve",
+        "notePh": "Belső jegyzet…",
+        "addNote": "Hozzáadás",
+        "statusLabel": "A jelentés állapota",
+        "sentFixed": "A bejelentő e-mailt kapott: „Javítva a 2.15-ös verzióban. Működik már?”",
+        "sentStatus": "A bejelentő e-mailt kapott: a jelentés állapota most „{status}”."
       },
       "look": {
         "label": "A te színeidben",

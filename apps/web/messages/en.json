@@ -2573,7 +2573,6 @@
           "Mobile calendar doesn't show Saturday slots",
           "Chosen language is lost after sign-in"
         ],
-        "reporter": "Jana Kováčová · Pro plan · 2 h ago",
         "shot": "annotated screenshot",
         "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
         "similar": "Similar: #119 Weekend empty in week view",
@@ -2581,8 +2580,21 @@
         "noteLabel": "Internal note · team only",
         "note": "The mobile view starts the week on Sunday, the rest on Monday. We'll align them; the fix ships in 2.15.",
         "pr": "PR #490 merged · preview ready",
-        "fixedIn": "Fixed in version",
-        "save": "Save and tell the author"
+        "save": "Save and tell the author",
+        "reporters": [
+          "Martin Novák · Free plan · 20 min ago",
+          "Jana Kováčová · Pro plan · 2 h ago",
+          "Eva Szabó · Studio plan · yesterday"
+        ],
+        "filterLabel": "Filter reports",
+        "emptyFilter": "Nothing waiting here. Try another filter.",
+        "noErrors": "No console errors",
+        "merged": "Merged: #119 · 3 votes carried over",
+        "notePh": "Internal note…",
+        "addNote": "Add",
+        "statusLabel": "Report status",
+        "sentFixed": "The author got an e-mail: “Fixed in version 2.15. Does it work for you now?”",
+        "sentStatus": "The author got an e-mail: the report is now “{status}”."
       },
       "look": {
         "label": "In your colours",

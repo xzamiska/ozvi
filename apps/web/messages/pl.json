@@ -2573,7 +2573,6 @@
           "Kalendarz na telefonie nie pokazuje sobotnich terminów",
           "Po zalogowaniu znika wybrany język"
         ],
-        "reporter": "Jana Kováčová · plan Pro · 2 h temu",
         "shot": "zrzut ekranu z adnotacją",
         "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
         "similar": "Podobne: #119 Weekend pusty w widoku tygodnia",
@@ -2581,8 +2580,21 @@
         "noteLabel": "Notatka wewnętrzna · tylko zespół",
         "note": "Widok mobilny liczy tydzień od niedzieli, reszta od poniedziałku. Ujednolicimy to, poprawka w wersji 2.15.",
         "pr": "PR #490 scalony · podgląd gotowy",
-        "fixedIn": "Naprawione w wersji",
-        "save": "Zapisz i powiadom autora"
+        "save": "Zapisz i powiadom autora",
+        "reporters": [
+          "Martin Novák · plan Free · 20 min temu",
+          "Jana Kováčová · plan Pro · 2 h temu",
+          "Eva Szabó · plan Studio · wczoraj"
+        ],
+        "filterLabel": "Filtr zgłoszeń",
+        "emptyFilter": "Nic tu nie czeka. Wypróbuj inny filtr.",
+        "noErrors": "Brak błędów w konsoli",
+        "merged": "Scalone: #119 · 3 głosy przeniesione",
+        "notePh": "Notatka wewnętrzna…",
+        "addNote": "Dodaj",
+        "statusLabel": "Status zgłoszenia",
+        "sentFixed": "Autor dostał e-mail: „Naprawione w wersji 2.15. Czy już działa?”",
+        "sentStatus": "Autor dostał e-mail: zgłoszenie ma teraz status „{status}”."
       },
       "look": {
         "label": "W twoich kolorach",

@@ -2573,7 +2573,6 @@
           "Mobiler Kalender zeigt keine Samstagstermine",
           "Gewählte Sprache geht nach der Anmeldung verloren"
         ],
-        "reporter": "Jana Kováčová · Pro-Tarif · vor 2 h",
         "shot": "annotierter Screenshot",
         "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
         "similar": "Ähnlich: #119 Wochenende in der Wochenansicht leer",
@@ -2581,8 +2580,21 @@
         "noteLabel": "Interne Notiz · nur Team",
         "note": "Die mobile Ansicht beginnt die Woche am Sonntag, der Rest am Montag. Wir vereinheitlichen das, der Fix kommt in 2.15.",
         "pr": "PR #490 gemergt · Vorschau bereit",
-        "fixedIn": "Behoben in Version",
-        "save": "Speichern und Meldenden informieren"
+        "save": "Speichern und Meldenden informieren",
+        "reporters": [
+          "Martin Novák · Free-Tarif · vor 20 Min.",
+          "Jana Kováčová · Pro-Tarif · vor 2 h",
+          "Eva Szabó · Studio-Tarif · gestern"
+        ],
+        "filterLabel": "Meldungen filtern",
+        "emptyFilter": "Hier wartet nichts. Versuchen Sie einen anderen Filter.",
+        "noErrors": "Keine Konsolenfehler",
+        "merged": "Zusammengeführt: #119 · 3 Stimmen übernommen",
+        "notePh": "Interne Notiz…",
+        "addNote": "Hinzufügen",
+        "statusLabel": "Status der Meldung",
+        "sentFixed": "Die meldende Person hat eine E-Mail bekommen: „Behoben in Version 2.15. Funktioniert es jetzt?“",
+        "sentStatus": "Die meldende Person hat eine E-Mail bekommen: Die Meldung ist jetzt „{status}“."
       },
       "look": {
         "label": "In Ihren Farben",
