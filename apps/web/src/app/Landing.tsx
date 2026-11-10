@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
 import { Reveal } from "@/components/landing/Reveal";
-import { Echo } from "@/components/landing/Echo";
+import { HeroLoop } from "@/components/landing/HeroLoop";
 import { Playground } from "@/components/landing/Playground";
 import { LangSwitch, SiteHeader, type NavItem } from "@/components/landing/SiteHeader";
 import { signupClosed } from "@/lib/account-rules";
@@ -155,19 +155,19 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
         <SiteHeader locale={locale} signedIn={signedIn} soon={soon} />
 
         <main id="main" tabIndex={-1}>
-          {/* hero: the promise, then straight into the story */}
-          <section className="relative isolate -mt-16 pt-16">
-            <Echo />
-            <div className="oz-frame pt-16 pb-16 md:pt-24 lg:pb-20">
-              <h1 className="max-w-[14ch] text-[46px] leading-[1] font-semibold tracking-[-0.05em] sm:text-[64px] lg:text-[84px]">{t("hero.title")}</h1>
-              <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-                <p className={cn(lede, "max-w-[58ch] text-[18px] md:text-[19px]")}>{t("hero.lede")}</p>
-                <div className="flex flex-wrap gap-3">
+          {/* hero: the promise on the left, the product doing it on the right */}
+          <section className="relative isolate overflow-hidden">
+            <div className="oz-frame grid gap-12 pt-14 pb-16 md:pt-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)] lg:items-center lg:gap-16 lg:pb-24">
+              <div>
+                <h1 className="max-w-[13ch] text-[44px] leading-[1.02] font-semibold tracking-[-0.04em] sm:text-[58px] lg:text-[68px]">{t("hero.title")}</h1>
+                <p className={cn(lede, "mt-6 max-w-[48ch] text-[18px] md:text-[19px]")}>{t("hero.lede")}</p>
+                <div className="mt-8 flex flex-wrap gap-3">
                   {go(start.label, primary)}
                   <a href="#how" className={ghost}>{t("hero.secondary")}</a>
                 </div>
+                <p className="mt-5 max-w-[48ch] text-[13.5px] text-muted-foreground">{t("hero.note")}</p>
               </div>
-              <p className="mt-6 text-[13.5px] text-muted-foreground">{t("hero.note")}</p>
+              <HeroLoop className="mx-auto w-full max-w-[500px] lg:mx-0" />
             </div>
           </section>
 

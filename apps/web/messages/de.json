@@ -2344,7 +2344,21 @@
       "secondary": "So funktioniert’s",
       "pauseMotion": "Animation pausieren",
       "playMotion": "Animation abspielen",
-      "note": "Der Free-Tarif kommt ohne Kreditkarte aus. Selbst gehostet ist Ozvi mit allen Funktionen kostenlos."
+      "note": "Der Free-Tarif kommt ohne Kreditkarte aus. Selbst gehostet ist Ozvi mit allen Funktionen kostenlos.",
+      "loop": {
+        "label": "Beispiel: Ein Nutzer meldet einen Fehler in Ihrer App, das Team behebt ihn auf dem Board und der Autor erhält die Antwort per E-Mail",
+        "where": [
+          "Ein Nutzer meldet ihn in Ihrer App",
+          "Ihr Team sieht ihn auf dem Board und behebt ihn",
+          "Der Autor erhält die Antwort"
+        ],
+        "widgetTitle": "Fehler melden",
+        "widgetSend": "Melden",
+        "mailSubject": "Behoben in Version 2.15",
+        "mailBody": "Wir haben den gemeldeten Fehler behoben. Funktioniert es jetzt?",
+        "yes": "Ja, funktioniert",
+        "no": "Noch nicht"
+      }
     },
     "story": {
       "label": "Eine Meldung, vom Klick bis zur Antwort",

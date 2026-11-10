@@ -2344,7 +2344,21 @@
       "secondary": "How it works",
       "pauseMotion": "Pause animation",
       "playMotion": "Play animation",
-      "note": "The Free plan needs no card. Self-hosted, it’s free with every feature."
+      "note": "The Free plan needs no card. Self-hosted, it’s free with every feature.",
+      "loop": {
+        "label": "Example: a user reports a bug in your app, the team fixes it on the board and the author gets the answer by e-mail",
+        "where": [
+          "A user reports it in your app",
+          "Your team has it on the board and fixes it",
+          "The author gets the answer"
+        ],
+        "widgetTitle": "Report a bug",
+        "widgetSend": "Report",
+        "mailSubject": "Fixed in version 2.15",
+        "mailBody": "We fixed the bug you reported. Does it work for you now?",
+        "yes": "Yes, it works",
+        "no": "Not yet"
+      }
     },
     "story": {
       "label": "One report, from click to reply",

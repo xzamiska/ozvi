@@ -2344,7 +2344,21 @@
       "secondary": "Hogyan működik",
       "pauseMotion": "Animáció szüneteltetése",
       "playMotion": "Animáció lejátszása",
-      "note": "Az ingyenes csomaghoz nem kell bankkártya. Saját üzemeltetésben minden funkcióval ingyenes."
+      "note": "Az ingyenes csomaghoz nem kell bankkártya. Saját üzemeltetésben minden funkcióval ingyenes.",
+      "loop": {
+        "label": "Példa: egy felhasználó hibát jelez az alkalmazásodban, a csapat a táblán kijavítja, a bejelentő e-mailben kap választ",
+        "where": [
+          "A felhasználó az alkalmazásodban jelzi",
+          "A csapat a táblán látja és kijavítja",
+          "A bejelentő választ kap"
+        ],
+        "widgetTitle": "Hiba bejelentése",
+        "widgetSend": "Bejelentés",
+        "mailSubject": "Javítva a 2.15-ös verzióban",
+        "mailBody": "Kijavítottuk a bejelentett hibát. Már működik?",
+        "yes": "Igen, működik",
+        "no": "Még nem"
+      }
     },
     "story": {
       "label": "Egy bejelentés a kattintástól a válaszig",

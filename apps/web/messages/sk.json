@@ -2344,7 +2344,21 @@
       "secondary": "Ako to funguje",
       "pauseMotion": "Zastaviť animáciu",
       "playMotion": "Spustiť animáciu",
-      "note": "Plán Free je bez karty. Na vlastnom serveri zadarmo a so všetkými funkciami."
+      "note": "Plán Free je bez karty. Na vlastnom serveri zadarmo a so všetkými funkciami.",
+      "loop": {
+        "label": "Ukážka: používateľ nahlási chybu vo vašej aplikácii, tím ju na boarde opraví a autor dostane odpoveď e-mailom",
+        "where": [
+          "Používateľ ju nahlási vo vašej aplikácii",
+          "Tím ju má na boarde a opraví ju",
+          "Autor dostane odpoveď"
+        ],
+        "widgetTitle": "Nahlásiť chybu",
+        "widgetSend": "Nahlásiť",
+        "mailSubject": "Opravené vo verzii 2.15",
+        "mailBody": "Chybu, ktorú ste nahlásili, sme opravili. Funguje vám to už?",
+        "yes": "Áno, funguje",
+        "no": "Ešte nie"
+      }
     },
     "story": {
       "label": "Jedno hlásenie, od kliknutia po odpoveď",

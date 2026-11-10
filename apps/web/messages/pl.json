@@ -2344,7 +2344,21 @@
       "secondary": "Jak to działa",
       "pauseMotion": "Wstrzymaj animację",
       "playMotion": "Odtwórz animację",
-      "note": "Plan Free nie wymaga karty. Na własnym serwerze jest bezpłatny i ze wszystkimi funkcjami."
+      "note": "Plan Free nie wymaga karty. Na własnym serwerze jest bezpłatny i ze wszystkimi funkcjami.",
+      "loop": {
+        "label": "Przykład: użytkownik zgłasza błąd w twojej aplikacji, zespół naprawia go na tablicy, a autor dostaje odpowiedź e-mailem",
+        "where": [
+          "Użytkownik zgłasza go w twojej aplikacji",
+          "Zespół ma go na tablicy i naprawia",
+          "Autor dostaje odpowiedź"
+        ],
+        "widgetTitle": "Zgłoś błąd",
+        "widgetSend": "Zgłoś",
+        "mailSubject": "Naprawione w wersji 2.15",
+        "mailBody": "Naprawiliśmy zgłoszony przez ciebie błąd. Czy już działa?",
+        "yes": "Tak, działa",
+        "no": "Jeszcze nie"
+      }
     },
     "story": {
       "label": "Jedno zgłoszenie, od kliknięcia do odpowiedzi",
