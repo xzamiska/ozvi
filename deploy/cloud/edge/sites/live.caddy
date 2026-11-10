@@ -4,7 +4,11 @@
 }
 
 # www is a reserved slug: send it to the apex instead of a missing board.
+# On demand like the rest of *.domain: Caddy leaves names under a wildcard site to that site's certificates.
 www.{$LIVE_DOMAIN} {
+	tls {
+		on_demand
+	}
 	redir https://{$LIVE_DOMAIN}{uri} permanent
 }
 
