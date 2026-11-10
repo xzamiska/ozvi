@@ -2374,26 +2374,35 @@
         "mailBody": "Wir haben den gemeldeten Fehler behoben. Funktioniert es jetzt?",
         "yes": "Ja, funktioniert",
         "no": "Noch nicht"
+      },
+      "badge": "Fehlermeldungen, Ideen und Neuigkeiten in Ihrer App",
+      "shotLabel": "Beispiel: das Ideen-Board, wie Nutzer es sehen, und dieselbe Meldung aus Sicht des Teams",
+      "notes": {
+        "mail": "jana@firma.de hat eine E-Mail bekommen",
+        "mailSub": "Behoben in Version 2.15",
+        "merge": "#119 mit #128 zusammengeführt",
+        "mergeSub": "3 Stimmen übernommen",
+        "votes": "41 Stimmen für die Google-Kalender-Synchronisierung"
       }
     },
     "story": {
       "stage": {
         "label": "Demo: Eine Person meldet einen Fehler, das Team behebt ihn und die Person erhält eine Antwort",
-        "app": "Rechnungen",
-        "url": "app.ihrefirma.de/rechnungen/2026-0412",
-        "invoice": "Rechnung 2026-0412",
-        "download": "PDF herunterladen",
+        "app": "Buchungen",
+        "url": "app.ihrefirma.de/kalender/2026-11-14",
+        "invoice": "Samstag, 14. November",
+        "download": "Neue Buchung",
         "lines": [
           [
-            "Individuelle Webentwicklung",
-            "1.200,00 €"
+            "Schnitt & Föhnen · Eva",
+            "9:00"
           ],
           [
-            "Hosting, 1 Jahr",
-            "180,00 €"
+            "Färben · Lucia",
+            "10:30"
           ]
         ],
-        "report": "Rechnungs-PDF verliert die Umlaute in der Adresse",
+        "report": "Mobiler Kalender zeigt keine Samstagstermine",
         "screenshot": "Screenshot",
         "stops": [
           "Eingegangen",
@@ -2462,13 +2471,13 @@
           "label": "MCP",
           "note": "Zusammenführen und Veröffentlichen von Release Notes erfordern immer eine Bestätigung. Nutzertexte erreichen das Modell als Daten, nie als Anweisungen.",
           "comment": "dann im Chat",
-          "q1": "Welche Fehler dieser Woche haben mit PDFs zu tun?",
+          "q1": "Welche Fehler dieser Woche betreffen den Kalender?",
           "q2": "Führe #131 mit #128 zusammen und markiere es als behoben in 2.15."
         },
         "hook": {
           "label": "Webhook",
           "note": "HMAC-signiert, mit Wiederholungen und Zustellprotokoll in der Konsole. Slack, Discord und Mattermost erhalten von Haus aus eine lesbare Nachricht.",
-          "title": "Rechnungs-PDF verliert die Umlaute in der Adresse"
+          "title": "Mobiler Kalender zeigt keine Samstagstermine"
         }
       }
     },
@@ -2519,7 +2528,7 @@
       "lede": "Das ist das echte Board mit Beispieldaten, in den Farben einer Kunden-App. Stimmen Sie ab, schlagen Sie eine Idee vor oder kommentieren Sie.",
       "tablist": "Teile des Boards",
       "teamOnly": "nur Team",
-      "app": "Rechnungen",
+      "app": "Buchungen",
       "parts": {
         "ideas": {
           "title": "Ideen mit Abstimmung",
@@ -2560,17 +2569,17 @@
           ]
         ],
         "queue": [
-          "CSV-Export bricht bei 10.000 Zeilen ab",
-          "Rechnungs-PDF verliert Umlaute in der Adresse",
+          "CSV-Export der Buchungen bricht bei 10.000 Zeilen ab",
+          "Mobiler Kalender zeigt keine Samstagstermine",
           "Gewählte Sprache geht nach der Anmeldung verloren"
         ],
         "reporter": "Jana Kováčová · Pro-Tarif · vor 2 h",
         "shot": "annotierter Screenshot",
-        "console": "Error: Schrift enthält kein „ž“ (U+017E) · pdf-render.ts:88",
-        "similar": "Ähnlich: #119 Umlaute im PDF-Export",
+        "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
+        "similar": "Ähnlich: #119 Wochenende in der Wochenansicht leer",
         "merge": "Zusammenführen",
         "noteLabel": "Interne Notiz · nur Team",
-        "note": "Der PDF-Schrift fehlen mitteleuropäische Zeichen. Wir wechseln auf Noto Sans, der Fix kommt in 2.15.",
+        "note": "Die mobile Ansicht beginnt die Woche am Sonntag, der Rest am Montag. Wir vereinheitlichen das, der Fix kommt in 2.15.",
         "pr": "PR #490 gemergt · Vorschau bereit",
         "fixedIn": "Behoben in Version",
         "save": "Speichern und Meldenden informieren"
@@ -2631,15 +2640,6 @@
             "Texte für Ihre Datenschutzerklärung",
             "Öffentlicher Quellcode (FSL)"
           ]
-        },
-        {
-          "title": "Umstieg von Fider",
-          "items": [
-            "Import aus einem Backup oder über die Fider-API",
-            "Ideen, Stimmen, Kommentare, Tags und Anhänge",
-            "Nummern bleiben erhalten, wo möglich",
-            "Nutzer werden bei der ersten Anmeldung ihrem Konto zugeordnet"
-          ]
         }
       ],
       "tiles": {
@@ -2648,7 +2648,7 @@
           "text": "Screenshot, Version, Browser und Konsolenfehler hängt das Widget selbst an. Niemand muss etwas erklären.",
           "items": [
             {
-              "title": "Rechnungsdruck schneidet die Fußzeile ab",
+              "title": "SMS-Erinnerung hat nach der Zeitumstellung die falsche Uhrzeit",
               "meta": "Chrome 141 · v2.14.0 · 1 Konsolenfehler"
             },
             {
@@ -2656,15 +2656,15 @@
               "meta": "Safari 19 · v2.14.0"
             },
             {
-              "title": "Rechnungs-PDF verliert Umlaute in der Adresse",
+              "title": "Mobiler Kalender zeigt keine Samstagstermine",
               "meta": "Chrome 141 · v2.14.0 · Screenshot"
             },
             {
-              "title": "Export in die Buchhaltung",
+              "title": "Synchronisierung mit Google Kalender",
               "meta": "41 Stimmen · Geplant"
             },
             {
-              "title": "Wiederkehrende Zahlungen mit anderem Fälligkeitstag",
+              "title": "Wöchentlich wiederkehrende Buchungen",
               "meta": "17 Stimmen · In Arbeit"
             }
           ]
@@ -2675,15 +2675,15 @@
           "lines": [
             {
               "who": "you",
-              "text": "Was wurde Neues zu Rechnungen gemeldet?"
+              "text": "Was wurde Neues zum Kalender gemeldet?"
             },
             {
               "who": "tool",
-              "text": "search_items „Rechnung“ · 3 Treffer"
+              "text": "search_items „Kalender“ · 3 Treffer"
             },
             {
               "who": "ai",
-              "text": "#128 PDF verliert Umlaute, #126 Druck schneidet die Fußzeile ab. #119 sieht wie ein Duplikat von #128 aus."
+              "text": "#128 Mobil zeigt keine Samstage, #126 falsche Erinnerungszeit. #119 sieht wie ein Duplikat von #128 aus."
             },
             {
               "who": "you",
@@ -2718,13 +2718,23 @@
         "self": {
           "title": "Oder auf dem eigenen Server",
           "text": "Ein Docker-Image und Postgres. Alle Funktionen, 0 €."
+        },
+        "fider": {
+          "title": "Umstieg von Fider",
+          "text": "Import aus einem Backup oder über die API: Ideen, Stimmen, Kommentare, Tags und Anhänge. Nummern bleiben erhalten, wo möglich."
+        },
+        "langs": {
+          "title": "Sechs Sprachen",
+          "text": "Board, Widget und E-Mails auf Slowakisch, Tschechisch, Englisch, Polnisch, Ungarisch und Deutsch. Beiträge lassen sich mit einem Klick übersetzen."
+        },
+        "a11y": {
+          "title": "Barrierefreiheit",
+          "text": "Tastaturbedienung, Kontrast nach WCAG 2.2 AA und ein veröffentlichter Barrierefreiheitsbericht nach EN 301 549."
         }
       },
       "moreTitle": "Und außerdem"
     },
     "flow": {
-      "title": "Egal woher sie kommen, sie landen dort, wo Sie arbeiten.",
-      "lede": "Ozvi sammelt Meldungen und Ideen aus dem Widget, per E-Mail, über die API und von KI-Assistenten und gibt sie an die Werkzeuge Ihres Teams weiter. Die meldende Person erfährt, wenn es erledigt ist.",
       "sources": [
         "Widget in der App",
         "E-Mail",
@@ -2737,6 +2747,32 @@
         "Slack, Discord, Webhooks",
         "Antwort an Meldende"
       ]
+    },
+    "steps": [
+      {
+        "title": "Meldungen kommen mit Kontext.",
+        "text": "Nutzer melden einen Fehler direkt in Ihrer App. Screenshot, Version, Browser und Konsolenfehler hängt das Widget selbst an, Passwörter verwischt es schon im Browser."
+      },
+      {
+        "title": "Ihr Team erledigt alles an einem Ort.",
+        "text": "Eine filterbare Liste, ähnliche Einträge mit einem Klick zusammengeführt, interne Notizen und Tags, die Nutzer nie sehen. Nichts bleibt unbeantwortet liegen."
+      },
+      {
+        "title": "Ideen sortieren sich nach Stimmen.",
+        "text": "Nutzer schlagen vor und stimmen ab und sehen beim Schreiben ähnliche Ideen. Die Roadmap zeigt, was Sie planen und woran Sie arbeiten, und jede Idee wandert mit ihrem Status."
+      },
+      {
+        "title": "Verbunden mit den Werkzeugen, die Sie schon nutzen.",
+        "text": "Ein Klick macht aus einer Meldung ein Issue in GitHub, Linear oder Jira. Neuigkeiten gehen an Slack und Discord, und der KI-Assistent in Ihrem Editor arbeitet über MCP mit den Meldungen."
+      },
+      {
+        "title": "Und die meldende Person erfährt, wie es ausging.",
+        "text": "Bei „Behoben“ kommt eine E-Mail mit der Frage, ob es jetzt funktioniert. Erscheint eine Idee, schreibt ein Eintrag allen, die dafür gestimmt haben."
+      }
+    ],
+    "try": {
+      "title": "Probieren Sie es aus. In den Farben Ihrer App.",
+      "lede": "Das ist das echte Board mit Beispieldaten. Stimmen Sie ab, schlagen Sie eine Idee vor, wechseln Sie zur Ansicht des Teams und ändern Sie die Farben, so wie später in den Projekteinstellungen."
     }
   },
   "net": {
@@ -2785,23 +2821,23 @@
       },
       "ideas": [
         {
-          "title": "Export in die Buchhaltung",
-          "text": "Wir tippen jeden Monat Rechnungen von Hand ab. Ein XML-Export würde uns eine Stunde sparen.",
+          "title": "Synchronisierung mit Google Kalender",
+          "text": "Kunden übertragen Termine von Hand in ihren Kalender. Eine Synchronisierung würde ihnen das ersparen.",
           "author": "Maria K.",
           "comments": [
             [
               "Peter H.",
-              "+1, am besten mit Aufschlüsselung der MwSt."
+              "+1, am besten auch mit Outlook."
             ],
             [
               "Team",
-              "Für März geplant. Wir geben Bescheid."
+              "Geplant für März. Wir melden uns."
             ]
           ]
         },
         {
-          "title": "Wiederkehrende Zahlungen mit abweichendem Fälligkeitsdatum",
-          "text": "Manche Kunden haben 30 Tage Zahlungsziel, andere 14.",
+          "title": "Wöchentlich wiederkehrende Buchungen",
+          "text": "Stammkunden kommen jeden Dienstag zur gleichen Zeit.",
           "author": "Julia T.",
           "comments": [
             [
@@ -2821,22 +2857,22 @@
         {
           "v": "2.15",
           "date": "4. Nov.",
-          "title": "Korrekte PDFs und schnellere Suche",
-          "text": "Rechnungs-PDFs behalten jetzt die Umlaute in der Adresse. Die Kundensuche ist dreimal so schnell."
+          "title": "Samstagstermine auf dem Handy und schnellere Suche",
+          "text": "Der mobile Kalender zeigt jetzt auch Samstagstermine. Die Kundensuche ist dreimal schneller."
         },
         {
           "v": "2.14",
           "date": "21. Okt.",
-          "title": "Zahlungserinnerungen per E-Mail",
-          "text": "Wir erinnern Kunden jetzt automatisch an unbezahlte Rechnungen."
+          "title": "Erinnerungen per SMS",
+          "text": "Wir erinnern Kunden einen Tag vorher jetzt auch per SMS."
         }
       ],
       "bugs": [
         {
-          "title": "Rechnungs-PDF verliert die Umlaute in der Adresse"
+          "title": "Mobiler Kalender zeigt keine Samstagstermine"
         },
         {
-          "title": "Notiz zum Kunden verschwindet nach dem Speichern"
+          "title": "Kundennotiz geht nach dem Speichern verloren"
         }
       ]
     },

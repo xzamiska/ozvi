@@ -2374,26 +2374,35 @@
         "mailBody": "Naprawiliśmy zgłoszony przez ciebie błąd. Czy już działa?",
         "yes": "Tak, działa",
         "no": "Jeszcze nie"
+      },
+      "badge": "Zgłoszenia błędów, pomysły i nowości w twojej aplikacji",
+      "shotLabel": "Przykład: tablica pomysłów tak, jak widzą ją użytkownicy, i to samo zgłoszenie oczami zespołu",
+      "notes": {
+        "mail": "jana@firma.pl dostała e-mail",
+        "mailSub": "Naprawione w wersji 2.15",
+        "merge": "#119 scalone z #128",
+        "mergeSub": "3 głosy przeniesione",
+        "votes": "41 głosów za synchronizacją z Kalendarzem Google"
       }
     },
     "story": {
       "stage": {
         "label": "Demo: użytkownik zgłasza błąd, zespół go naprawia, a użytkownik dostaje odpowiedź",
-        "app": "Fakturowanie",
-        "url": "app.twojafirma.pl/faktury/2026-0412",
-        "invoice": "Faktura 2026-0412",
-        "download": "Pobierz PDF",
+        "app": "Rezerwacje",
+        "url": "app.twojafirma.pl/kalendarz/2026-11-14",
+        "invoice": "Sobota 14 listopada",
+        "download": "Nowa rezerwacja",
         "lines": [
           [
-            "Tworzenie strony internetowej na zamówienie",
-            "1200,00 €"
+            "Strzyżenie i modelowanie · Ewa",
+            "9:00"
           ],
           [
-            "Hosting, 1 rok",
-            "180,00 €"
+            "Koloryzacja · Łucja",
+            "10:30"
           ]
         ],
-        "report": "PDF faktury gubi polskie znaki w adresie",
+        "report": "Kalendarz na telefonie nie pokazuje sobotnich terminów",
         "screenshot": "zrzut ekranu",
         "stops": [
           "Przyjęte",
@@ -2462,13 +2471,13 @@
           "label": "MCP",
           "note": "Scalanie i publikowanie informacji o wydaniach zawsze wymaga potwierdzenia. Tekst od użytkowników trafia do modelu jako dane, nigdy jako instrukcje.",
           "comment": "potem, na czacie",
-          "q1": "Które błędy z tego tygodnia dotyczą PDF-ów?",
+          "q1": "Które błędy z tego tygodnia dotyczą kalendarza?",
           "q2": "Scal #131 z #128 i oznacz jako naprawione w 2.15."
         },
         "hook": {
           "label": "Webhook",
           "note": "Podpisany HMAC, ponawiany, z dziennikiem dostarczeń w konsoli. Slack, Discord i Mattermost od razu dostają czytelną wiadomość.",
-          "title": "PDF faktury gubi polskie znaki w adresie"
+          "title": "Kalendarz na telefonie nie pokazuje sobotnich terminów"
         }
       }
     },
@@ -2519,7 +2528,7 @@
       "lede": "To prawdziwa tablica z przykładowymi danymi, w kolorach aplikacji klienta. Możesz głosować, dodać pomysł i komentarz.",
       "tablist": "Części tablicy",
       "teamOnly": "tylko zespół",
-      "app": "Fakturowanie",
+      "app": "Rezerwacje",
       "parts": {
         "ideas": {
           "title": "Pomysły z głosowaniem",
@@ -2560,17 +2569,17 @@
           ]
         ],
         "queue": [
-          "Eksport do CSV nie działa przy 10 000 wierszy",
-          "PDF faktury traci polskie znaki w adresie",
+          "Eksport rezerwacji do CSV nie działa przy 10 000 wierszy",
+          "Kalendarz na telefonie nie pokazuje sobotnich terminów",
           "Po zalogowaniu znika wybrany język"
         ],
         "reporter": "Jana Kováčová · plan Pro · 2 h temu",
         "shot": "zrzut ekranu z adnotacją",
-        "console": "Error: czcionka nie zawiera znaku „ż” (U+017C) · pdf-render.ts:88",
-        "similar": "Podobne: #119 Polskie znaki w eksporcie PDF",
+        "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
+        "similar": "Podobne: #119 Weekend pusty w widoku tygodnia",
         "merge": "Scal",
         "noteLabel": "Notatka wewnętrzna · tylko zespół",
-        "note": "Czcionka w PDF nie ma znaków środkowoeuropejskich. Przechodzimy na Noto Sans, poprawka w wersji 2.15.",
+        "note": "Widok mobilny liczy tydzień od niedzieli, reszta od poniedziałku. Ujednolicimy to, poprawka w wersji 2.15.",
         "pr": "PR #490 scalony · podgląd gotowy",
         "fixedIn": "Naprawione w wersji",
         "save": "Zapisz i powiadom autora"
@@ -2631,15 +2640,6 @@
             "Teksty do twojej polityki prywatności",
             "Publiczny kod źródłowy (FSL)"
           ]
-        },
-        {
-          "title": "Przejście z Fidera",
-          "items": [
-            "Import z kopii zapasowej lub przez API Fidera",
-            "Pomysły, głosy, komentarze, tagi i załączniki",
-            "Numery wpisów zostają, gdzie to możliwe",
-            "Użytkownicy łączą się ze swoim kontem przy pierwszym logowaniu"
-          ]
         }
       ],
       "tiles": {
@@ -2648,7 +2648,7 @@
           "text": "Widget sam dołącza zrzut ekranu, wersję, przeglądarkę i błędy z konsoli. Użytkownik niczego nie tłumaczy.",
           "items": [
             {
-              "title": "Wydruk faktury obcina stopkę",
+              "title": "Przypomnienie SMS ma złą godzinę po zmianie czasu",
               "meta": "Chrome 141 · v2.14.0 · 1 błąd z konsoli"
             },
             {
@@ -2656,15 +2656,15 @@
               "meta": "Safari 19 · v2.14.0"
             },
             {
-              "title": "PDF faktury traci polskie znaki w adresie",
+              "title": "Kalendarz na telefonie nie pokazuje sobotnich terminów",
               "meta": "Chrome 141 · v2.14.0 · zrzut ekranu"
             },
             {
-              "title": "Eksport do księgowości",
+              "title": "Synchronizacja z Kalendarzem Google",
               "meta": "41 głosów · Zaplanowane"
             },
             {
-              "title": "Płatności cykliczne z innym terminem",
+              "title": "Cotygodniowe rezerwacje cykliczne",
               "meta": "17 głosów · W toku"
             }
           ]
@@ -2675,15 +2675,15 @@
           "lines": [
             {
               "who": "you",
-              "text": "Co nowego zgłosili w sprawie faktur?"
+              "text": "Co nowego zgłosili w sprawie kalendarza?"
             },
             {
               "who": "tool",
-              "text": "search_items „faktura” · 3 wyniki"
+              "text": "search_items „kalendarz” · 3 wyniki"
             },
             {
               "who": "ai",
-              "text": "#128 PDF traci polskie znaki, #126 wydruk obcina stopkę. #119 wygląda na duplikat #128."
+              "text": "#128 telefon ukrywa soboty, #126 zła godzina przypomnienia. #119 wygląda na duplikat #128."
             },
             {
               "who": "you",
@@ -2718,13 +2718,23 @@
         "self": {
           "title": "Albo na własnym serwerze",
           "text": "Jeden obraz Docker i Postgres. Wszystkie funkcje, 0 €."
+        },
+        "fider": {
+          "title": "Przejście z Fidera",
+          "text": "Import z kopii zapasowej lub przez API: pomysły, głosy, komentarze, tagi i załączniki. Numery wpisów zostają, gdzie to możliwe."
+        },
+        "langs": {
+          "title": "Sześć języków",
+          "text": "Tablica, widget i e-maile po słowacku, czesku, angielsku, polsku, węgiersku i niemiecku. Wpisy przetłumaczysz jednym kliknięciem."
+        },
+        "a11y": {
+          "title": "Dostępność",
+          "text": "Obsługa klawiaturą, kontrast według WCAG 2.2 AA i opublikowany raport dostępności według EN 301 549."
         }
       },
       "moreTitle": "I jeszcze"
     },
     "flow": {
-      "title": "Skądkolwiek przyjdą, trafią tam, gdzie pracujesz.",
-      "lede": "Ozvi zbiera zgłoszenia i pomysły z widgetu, e-maila, API i od asystentów AI, a potem przekazuje je do narzędzi zespołu. Autorowi daje znać, gdy jest gotowe.",
       "sources": [
         "Widget w aplikacji",
         "E-mail",
@@ -2737,6 +2747,32 @@
         "Slack, Discord, webhooki",
         "Odpowiedź autorowi"
       ]
+    },
+    "steps": [
+      {
+        "title": "Zgłoszenia przychodzą z kontekstem.",
+        "text": "Użytkownik zgłasza błąd prosto w twojej aplikacji. Widget sam dołącza zrzut ekranu, wersję, przeglądarkę i błędy z konsoli, a hasła rozmywa już w przeglądarce."
+      },
+      {
+        "title": "Zespół załatwia wszystko w jednym miejscu.",
+        "text": "Kolejka zgłoszeń z filtrami, podobne wpisy do scalenia jednym kliknięciem, notatki wewnętrzne i tagi, których użytkownik nie widzi. Nic nie zostaje bez odpowiedzi."
+      },
+      {
+        "title": "Pomysły układają się według głosów.",
+        "text": "Użytkownicy proponują i głosują, a podczas pisania widzą podobne pomysły. Roadmapa pokazuje, co planujesz i nad czym pracujesz, a pomysł przesuwa się po niej ze statusem."
+      },
+      {
+        "title": "Połączone z narzędziami, których już używasz.",
+        "text": "Jednym kliknięciem zgłoszenie staje się issue w GitHubie, Linearze lub Jirze. Nowości trafiają do Slacka i Discorda, a asystent AI w edytorze pracuje ze zgłoszeniami przez MCP."
+      },
+      {
+        "title": "A autor dowiaduje się, jak się skończyło.",
+        "text": "Przy „Naprawione” dostaje e-mail z pytaniem, czy już działa. Gdy wydasz pomysł, jeden wpis napisze do każdego, kto na niego głosował."
+      }
+    ],
+    "try": {
+      "title": "Wypróbuj. W kolorach twojej aplikacji.",
+      "lede": "To prawdziwa tablica z przykładowymi danymi. Zagłosuj, dodaj pomysł, przełącz na widok zespołu i zmień kolory, tak jak zrobisz to w ustawieniach projektu."
     }
   },
   "net": {
@@ -2785,23 +2821,23 @@
       },
       "ideas": [
         {
-          "title": "Eksport do księgowości",
-          "text": "Co miesiąc przepisujemy faktury ręcznie. Eksport do XML zaoszczędziłby nam godzinę.",
+          "title": "Synchronizacja z Kalendarzem Google",
+          "text": "Klienci przepisują terminy do kalendarza ręcznie. Synchronizacja by im to oszczędziła.",
           "author": "Maria K.",
           "comments": [
             [
               "Piotr H.",
-              "+1, najlepiej z rozbiciem VAT."
+              "Dołączam się, najlepiej też z Outlookiem."
             ],
             [
               "Zespół",
-              "Planujemy to na marzec. Damy znać."
+              "Planujemy na marzec. Damy znać."
             ]
           ]
         },
         {
-          "title": "Płatności cykliczne z innym terminem płatności",
-          "text": "Część klientów ma 30 dni, inni 14.",
+          "title": "Cotygodniowe rezerwacje cykliczne",
+          "text": "Stali klienci przychodzą w każdy wtorek o tej samej porze.",
           "author": "Joanna T.",
           "comments": [
             [
@@ -2821,22 +2857,22 @@
         {
           "v": "2.15",
           "date": "4 lis",
-          "title": "Poprawione PDF-y i szybsze wyszukiwanie",
-          "text": "PDF-y faktur zachowują teraz polskie znaki w adresie. Wyszukiwanie klientów jest trzy razy szybsze."
+          "title": "Sobotnie terminy na telefonie i szybsze wyszukiwanie",
+          "text": "Kalendarz na telefonie pokazuje już sobotnie terminy. Wyszukiwanie klientów jest trzy razy szybsze."
         },
         {
           "v": "2.14",
           "date": "21 paź",
-          "title": "Przypomnienia e-mailem",
-          "text": "Teraz automatycznie przypominamy klientom o nieopłaconych fakturach."
+          "title": "Przypomnienia SMS",
+          "text": "Przypominamy klientom o terminie dzień wcześniej także SMS-em."
         }
       ],
       "bugs": [
         {
-          "title": "PDF faktury gubi polskie znaki w adresie"
+          "title": "Kalendarz na telefonie nie pokazuje sobotnich terminów"
         },
         {
-          "title": "Notatka klienta znika po zapisaniu"
+          "title": "Po zapisaniu klienta znika notatka"
         }
       ]
     },

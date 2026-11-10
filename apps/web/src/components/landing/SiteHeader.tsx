@@ -110,9 +110,10 @@ export function SiteHeader({ locale, signedIn, soon = false }: { locale: Locale;
   );
 
   return (
-    <header className={cn("sticky top-0 z-40 border-b transition-[background-color,border-color] duration-200", scrolled || open ? "bg-background" : "border-transparent")}>
-      <div className="oz-frame flex h-16 items-center gap-6">
-        <Link href={home(locale)} aria-label="Ozvi"><OzviLogo markClassName="size-7" className="[&>span:last-child]:text-[21px]" /></Link>
+    <header className="sticky top-0 z-40 pt-3">
+      <div className="oz-frame"><div className={cn("relative flex h-14 items-center gap-6 rounded-2xl border px-4 backdrop-blur-xl transition-[background-color,box-shadow,border-color] duration-200 sm:px-5",
+        scrolled || open ? "border-line bg-surface/85 shadow-[0_12px_40px_-24px_rgb(13_12_20/0.35)]" : "border-line/60 bg-surface/60")}>
+        <Link href={home(locale)} data-scroll-top aria-label="Ozvi"><OzviLogo markClassName="size-7" className="[&>span:last-child]:text-[21px]" /></Link>
 
         <div ref={nav} className="relative hidden items-center lg:flex" onPointerLeave={(e) => e.pointerType === "mouse" && hover(null)}>
           {trigger("product", t("nav.product"))}
@@ -155,10 +156,10 @@ export function SiteHeader({ locale, signedIn, soon = false }: { locale: Locale;
             </SheetContent>
           </Sheet>
         </div>
-      </div>
-      <span aria-hidden className={cn("absolute inset-x-0 -bottom-px h-px overflow-hidden transition-opacity", scrolled ? "opacity-100" : "opacity-0")}>
-        <span ref={bar} className="absolute inset-0 origin-left scale-x-0 bg-primary" />
-      </span>
+        <span aria-hidden className={cn("pointer-events-none absolute inset-x-5 -bottom-px h-px overflow-hidden transition-opacity", scrolled ? "opacity-100" : "opacity-0")}>
+          <span ref={bar} className="absolute inset-0 origin-left scale-x-0 bg-primary" />
+        </span>
+      </div></div>
     </header>
   );
 }

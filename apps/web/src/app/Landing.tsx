@@ -1,12 +1,15 @@
 import { PLAN_LIMITS, PRICES } from "@ozvi/db";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
-import { Bot, Check, Code, EyeOff, GitPullRequest, Globe, Inbox, Mail, MessageSquare, Minus, Server, Sparkles, Webhook } from "lucide-react";
+import { Accessibility, ArrowRightLeft, Bot, Check, Code, EyeOff, GitMerge, GitPullRequest, Inbox, Languages, Mail, MessageSquare, Minus, Server, Sparkles, Webhook } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
 import { Beams, ReportStream, RouteFill, Terminal } from "@/components/landing/Live";
 import { Reveal } from "@/components/landing/Reveal";
-import { HeroLoop } from "@/components/landing/HeroLoop";
+import { MiniBoard } from "@/components/landing/SampleBoard";
+import { SmoothScroll } from "@/components/landing/SmoothScroll";
+import { StickySteps } from "@/components/landing/StickySteps";
+import { TeamDesk } from "@/components/landing/TeamDesk";
 import { LangSwitch, SiteHeader, type NavItem } from "@/components/landing/SiteHeader";
 import { signupClosed } from "@/lib/account-rules";
 import { ProductTour } from "@/components/landing/ProductTour";
@@ -89,6 +92,8 @@ const primary = "inline-flex h-11 items-center justify-center gap-2 rounded-lg b
 /** Before launch (OZVI_SIGNUP=closed) the sign-up buttons become this plain label. */
 const soonLabel = "inline-flex h-11 items-center justify-center rounded-lg border border-dashed border-line-strong px-5 text-[14.5px] font-medium text-muted-foreground";
 const flowChip = "inline-flex items-center gap-2.5 rounded-xl border bg-background px-3.5 py-2.5 text-[13.5px] font-medium whitespace-nowrap shadow-[0_8px_24px_-16px_rgb(13_12_20/0.35)]";
+const hostPanel = "look-host oz-scope overflow-hidden rounded-2xl border bg-background font-sans text-foreground shadow-[0_30px_80px_-40px_rgb(13_12_20/0.4)]";
+const note = "pointer-events-none absolute hidden items-center gap-2.5 rounded-2xl border bg-surface/90 px-3.5 py-2.5 text-left text-[13px] leading-snug shadow-[0_20px_50px_-20px_rgb(13_12_20/0.35)] backdrop-blur lg:flex";
 const tile = "relative overflow-hidden rounded-2xl border bg-surface p-6 shadow-[0_1px_0_rgb(13_12_20/0.03)]";
 const tileH = "text-[18px] font-semibold tracking-tight";
 const tileP = "mt-2 max-w-[48ch] text-[14.5px] leading-relaxed text-muted-foreground";
@@ -133,51 +138,82 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
       <style>{toCss(site) + toCss(term, ".look-term") + toCss(host, ".look-host")}</style>
 
       <div className="min-h-dvh overflow-x-clip bg-background font-brand text-foreground">
+        <SmoothScroll />
         <SiteHeader locale={locale} signedIn={signedIn} soon={soon} />
 
         <main id="main" tabIndex={-1}>
-          {/* hero: the promise on the left, the product doing it on the right */}
-          <section className="relative isolate overflow-hidden">
-            <div className="oz-frame grid gap-12 pt-14 pb-16 md:pt-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)] lg:items-center lg:gap-16 lg:pb-24">
-              <div>
-                <h1 className="max-w-[13ch] text-[44px] leading-[1.02] font-semibold tracking-[-0.04em] sm:text-[58px] lg:text-[68px]">{t("hero.title")}</h1>
-                <p className={cn(lede, "mt-6 max-w-[48ch] text-[18px] md:text-[19px]")}>{t("hero.lede")}</p>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  {go(start.label, primary)}
-                  <a href="#how" className={ghost}>{t("hero.secondary")}</a>
-                </div>
-                <p className="mt-5 max-w-[48ch] text-[13.5px] text-muted-foreground">{t("hero.note")}</p>
+          {/* hero: the promise, then the product as the picture (a still: nothing to click here) */}
+          <section className="relative isolate -mt-[68px] pt-[68px]">
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[1050px] bg-[radial-gradient(45%_40%_at_18%_14%,color-mix(in_oklab,var(--oz-accent)_16%,transparent),transparent_70%),radial-gradient(40%_35%_at_82%_8%,rgb(20_184_166/0.13),transparent_70%),radial-gradient(50%_45%_at_50%_62%,rgb(236_72_153/0.07),transparent_70%)]" />
+            <div className="oz-frame pt-16 text-center md:pt-24">
+              <p className="oz-rise mx-auto inline-flex items-center gap-2 rounded-full border bg-surface/80 px-3 py-1 text-[13px] text-muted-foreground backdrop-blur">
+                <Sparkles className="size-3.5 text-brand-text" aria-hidden />{t("hero.badge")}
+              </p>
+              <h1 className="oz-rise mx-auto mt-6 max-w-[16ch] text-[44px] leading-[1.02] font-semibold tracking-[-0.045em] [animation-delay:80ms] sm:text-[64px] lg:text-[80px]">{t("hero.title")}</h1>
+              <p className={cn(lede, "oz-rise mx-auto mt-6 max-w-[56ch] text-[18px] [animation-delay:160ms] md:text-[19px]")}>{t("hero.lede")}</p>
+              <div className="oz-rise mt-8 flex flex-wrap justify-center gap-3 [animation-delay:240ms]">
+                {go(start.label, primary)}
+                <a href="#how" className={ghost}>{t("hero.secondary")}</a>
               </div>
-              <HeroLoop className="mx-auto w-full max-w-[500px] lg:mx-0" />
+              <p className="mt-5 text-[13.5px] text-muted-foreground">{t("hero.note")}</p>
+            </div>
+
+            <div className="oz-frame relative mt-14 pb-20 lg:pb-28">
+              <div role="img" aria-label={t("hero.shotLabel")} className="relative mx-auto max-w-[1100px] rounded-[26px] border bg-surface/60 p-2 shadow-[0_50px_120px_-50px_color-mix(in_oklab,var(--oz-accent)_45%,transparent)] backdrop-blur sm:p-2.5">
+                <div inert className="pointer-events-none grid gap-2.5 select-none lg:grid-cols-[1fr_1.15fr]">
+                  <div className={hostPanel}><MiniBoard name={t("product.app")} compact={false} /></div>
+                  <div className={cn(hostPanel, "hidden lg:block")}><TeamDesk /></div>
+                </div>
+                <span aria-hidden className={cn(note, "oz-float-in bottom-20 -left-12 [animation-delay:900ms]")}><Mail className="size-4 shrink-0 text-brand-text" /><span><b className="font-semibold">{t("hero.notes.mail")}</b><br /><span className="text-muted-foreground">{t("hero.notes.mailSub")}</span></span></span>
+                <span aria-hidden className={cn(note, "oz-float-in -right-10 bottom-28 [animation-delay:1700ms]")}><GitMerge className="size-4 shrink-0 text-success" /><span><b className="font-semibold">{t("hero.notes.merge")}</b><br /><span className="text-muted-foreground">{t("hero.notes.mergeSub")}</span></span></span>
+                <span aria-hidden className={cn(note, "oz-float-in -top-5 right-24 [animation-delay:2500ms]")}><span className="size-2 shrink-0 rounded-full bg-success" />{t("hero.notes.votes")}</span>
+              </div>
             </div>
           </section>
 
-          {/* the product, part by part: what users see and what the team sees */}
-          <Reveal as="section" id="how" aria-labelledby="how-h" className="oz-frame scroll-mt-20 pb-24 lg:pb-32">
-            <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
-              <h2 id="how-h" data-r className={cn(h2, "max-w-[15ch]")}>{t("product.title")}</h2>
-              <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("product.lede")}</p>
-            </div>
-            <div data-r className="mt-12"><ProductTour /></div>
-          </Reveal>
+          {/* how it works: the steps scroll past, the picture on the right follows */}
+          <section id="how" aria-labelledby="how-h" className="oz-frame scroll-mt-24 py-16 lg:py-8">
+            <h2 id="how-h" className="sr-only">{t("hero.secondary")}</h2>
+            <StickySteps steps={(t.raw("steps") as { title: string; text: string }[]).map((s, i) => ({ ...s, panel: [
+              <div key="s" className="rounded-2xl border bg-surface p-5 sm:p-6"><ReportStream items={(t.raw("features.tiles.stream.items") as { title: string; meta: string }[]).map((r, k) => ({ ...r, n: 126 + k, tone: k < 3 ? "bug" as const : "idea" as const }))} /></div>,
+              <div key="t" className={hostPanel}><TeamDesk /></div>,
+              <div key="i" inert className={cn(hostPanel, "pointer-events-none select-none")}><MiniBoard name={t("product.app")} compact={false} view="roadmap" /></div>,
+              <div key="b" className="grid gap-6">
+                <div className="overflow-x-auto pb-1 [scrollbar-width:none]"><Beams className="min-w-[560px]"
+                  left={(t.raw("flow.sources") as string[]).map((l, k) => { const Icon = [MessageSquare, Mail, Code, Bot][k]!; return <span key={l} className={flowChip}><Icon className="size-4 text-brand-text" aria-hidden />{l}</span>; })}
+                  hub={<span className="grid size-20 place-items-center rounded-3xl border bg-background shadow-[0_20px_50px_-20px_color-mix(in_oklab,var(--oz-accent)_55%,transparent)]"><OzviMark className="size-10" /></span>}
+                  right={(t.raw("flow.tools") as string[]).map((l, k) => { const Icon = [GitPullRequest, Sparkles, Webhook, Inbox][k]!; return <span key={l} className={flowChip}><Icon className="size-4 text-success" aria-hidden />{l}</span>; })} /></div>
+                <div className="look-term oz-scope rounded-2xl bg-background p-5 text-foreground"><Terminal lines={t.raw("features.tiles.mcp.lines") as { who: "you" | "ai" | "tool"; text: string }[]} /></div>
+              </div>,
+              <div key="r" className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-center">
+                <div className="rounded-2xl border bg-surface p-7"><RouteFill stops={t.raw("features.tiles.route.stops") as string[]} /></div>
+                <div className={cn(hostPanel, "p-6")}>
+                  <p className="text-[12.5px] text-muted-foreground">{t("story.stage.app")} → jana@firma.sk</p>
+                  <p className="mt-2 text-[17px] font-semibold">{t("hero.loop.mailSubject")}</p>
+                  <p className="mt-1.5 text-[14px] leading-relaxed">{t("hero.loop.mailBody")}</p>
+                  <div className="mt-4 flex gap-2 text-[13px] font-semibold"><span className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground">{t("hero.loop.yes")}</span><span className="rounded-md border border-line-strong px-3 py-1.5">{t("hero.loop.no")}</span></div>
+                </div>
+              </div>,
+            ][i] }))} />
+          </section>
 
-          {/* where reports come from and where they end up */}
-          <section id="flow" aria-labelledby="flow-h" className="scroll-mt-16 border-y bg-surface">
+          {/* try it: the working board in the visitor's colours, and what a theme covers */}
+          <section id="design" aria-labelledby="design-h" className="relative isolate scroll-mt-24 border-y bg-surface">
             <Reveal className="oz-frame py-24 lg:py-28">
-              <h2 id="flow-h" data-r className={cn(h2, "mx-auto max-w-[19ch] text-center")}>{t("flow.title")}</h2>
-              <p data-r className={cn(lede, "mx-auto mt-5 max-w-[58ch] text-center")}>{t("flow.lede")}</p>
-              <div data-r className="mt-14 overflow-x-auto pb-2 [scrollbar-width:none]">
-                <Beams className="mx-auto min-w-[640px] max-w-[900px]"
-                  left={(t.raw("flow.sources") as string[]).map((label, i) => {
-                    const Icon = [MessageSquare, Mail, Code, Bot][i]!;
-                    return <span key={label} className={flowChip}><Icon className="size-4 text-brand-text" aria-hidden />{label}</span>;
-                  })}
-                  hub={<span className="grid size-24 place-items-center rounded-3xl border bg-background shadow-[0_20px_50px_-20px_color-mix(in_oklab,var(--oz-accent)_55%,transparent)]"><OzviMark className="size-12" /></span>}
-                  right={(t.raw("flow.tools") as string[]).map((label, i) => {
-                    const Icon = [GitPullRequest, Sparkles, Webhook, Inbox][i]!;
-                    return <span key={label} className={flowChip}><Icon className="size-4 text-success" aria-hidden />{label}</span>;
-                  })} />
+              <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
+                <h2 id="design-h" data-r className={cn(h2, "max-w-[15ch]")}>{t("try.title")}</h2>
+                <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("try.lede")}</p>
               </div>
+              <div data-r className="mt-12"><ProductTour /></div>
+              <dl className="mt-16 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+                {(pg.raw("scope.items") as { k: string; v: string }[]).map((i) => (
+                  <div key={i.k} data-r className="grid content-start gap-1.5 border-t pt-4">
+                    <dt className="text-[15px] font-semibold">{i.k}</dt>
+                    <dd className="text-[14px] leading-relaxed text-muted-foreground">{i.v}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p data-r className="mt-10 max-w-[70ch] text-[14px] leading-relaxed text-muted-foreground">{pg("scope.limit")}</p>
             </Reveal>
           </section>
 
@@ -187,43 +223,28 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               <h2 id="features-h" data-r className={cn(h2, "max-w-[15ch]")}>{t("features.title")}</h2>
               <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("features.lede")}</p>
             </div>
-            <div className="mt-14 grid gap-4 md:grid-cols-6">
-              <div data-r className={cn(tile, "md:col-span-3 md:row-span-2")}>
-                <h3 className={tileH}>{t("features.tiles.stream.title")}</h3>
-                <p className={tileP}>{t("features.tiles.stream.text")}</p>
-                <div className="mt-6"><ReportStream items={(t.raw("features.tiles.stream.items") as { title: string; meta: string }[]).map((r, i) => ({ ...r, n: 126 + i, tone: i < 3 ? "bug" as const : "idea" as const }))} /></div>
-              </div>
-              <div data-r className={cn(tile, "md:col-span-3")}>
-                <h3 className={tileH}>{t("features.tiles.mcp.title")}</h3>
-                <p className={tileP}>{t("features.tiles.mcp.text")}</p>
-                <div className="look-term oz-scope mt-5 rounded-xl bg-background p-4 text-foreground"><Terminal lines={t.raw("features.tiles.mcp.lines") as { who: "you" | "ai" | "tool"; text: string }[]} /></div>
-              </div>
-              <div data-r className={cn(tile, "md:col-span-3")}>
-                <h3 className={tileH}>{t("features.tiles.route.title")}</h3>
-                <div className="mt-5 grid gap-6 sm:grid-cols-[auto_1fr]">
-                  <RouteFill stops={t.raw("features.tiles.route.stops") as string[]} />
-                  <p className={cn(tileP, "mt-0 self-end")}>{t("features.tiles.route.text")}</p>
-                </div>
-              </div>
-              <div data-r className={cn(tile, "md:col-span-2")}>
+            <div className="mt-14 grid gap-4 md:grid-cols-3">
+              <div data-r className={cn(tile, "md:row-span-2")}>
                 <EyeOff className="size-5 text-brand-text" aria-hidden />
                 <h3 className={cn(tileH, "mt-4")}>{t("features.tiles.privacy.title")}</h3>
                 <p className={tileP}>{t("features.tiles.privacy.text")}</p>
-                <div aria-hidden className="mt-4 grid gap-2 rounded-xl border bg-background p-3 text-[12.5px]">
+                <div aria-hidden className="mt-5 grid gap-2 rounded-xl border bg-background p-3 text-[12.5px]">
                   <span className="flex justify-between text-muted-foreground">{t("features.tiles.privacy.email")}<span className="text-foreground">jana@firma.sk</span></span>
                   <span className="flex justify-between text-muted-foreground">{t("features.tiles.privacy.password")}<span className="rounded bg-foreground/15 px-6 blur-[3px]">heslo123</span></span>
                 </div>
-              </div>
-              <div data-r className={cn(tile, "md:col-span-2")}>
-                <Globe className="size-5 text-brand-text" aria-hidden />
-                <h3 className={cn(tileH, "mt-4")}>{t("features.tiles.eu.title")}</h3>
+                <h3 className={cn(tileH, "mt-8")}>{t("features.tiles.eu.title")}</h3>
                 <p className={tileP}>{t("features.tiles.eu.text")}</p>
               </div>
-              <div data-r className={cn(tile, "md:col-span-2")}>
-                <Server className="size-5 text-brand-text" aria-hidden />
-                <h3 className={cn(tileH, "mt-4")}>{t("features.tiles.self.title")}</h3>
-                <p className={tileP}>{t("features.tiles.self.text")}</p>
-              </div>
+              {(["self", "fider", "langs", "a11y"] as const).map((k) => {
+                const Icon = { self: Server, fider: ArrowRightLeft, langs: Languages, a11y: Accessibility }[k];
+                return (
+                  <div key={k} data-r className={tile}>
+                    <Icon className="size-5 text-brand-text" aria-hidden />
+                    <h3 className={cn(tileH, "mt-4")}>{t(`features.tiles.${k}.title`)}</h3>
+                    <p className={tileP}>{t(`features.tiles.${k}.text`)}</p>
+                  </div>
+                );
+              })}
             </div>
 
             <h3 data-r className="mt-20 text-[20px] font-semibold tracking-tight">{t("features.moreTitle")}</h3>
@@ -240,25 +261,6 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               ))}
             </div>
           </Reveal>
-
-          {/* their brand, not ours: what the theme covers (try it on the tour's board above) */}
-          <section id="design" aria-labelledby="design-h" className="scroll-mt-16 border-t">
-            <Reveal className="oz-frame py-24 lg:py-28">
-              <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
-                <h2 id="design-h" data-r className={cn(h2, "max-w-[13ch]")}>{pg("title")}</h2>
-                <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{pg("lede")}</p>
-              </div>
-              <dl className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-                {(pg.raw("scope.items") as { k: string; v: string }[]).map((i) => (
-                  <div key={i.k} data-r className="grid content-start gap-1.5 border-t pt-4">
-                    <dt className="text-[15px] font-semibold">{i.k}</dt>
-                    <dd className="text-[14px] leading-relaxed text-muted-foreground">{i.v}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p data-r className="mt-10 max-w-[70ch] text-[14px] leading-relaxed text-muted-foreground">{pg("scope.limit")}</p>
-            </Reveal>
-          </section>
 
           {/* developers */}
           <section id="developers" aria-labelledby="dev-h" className="scroll-mt-16 border-t bg-surface">

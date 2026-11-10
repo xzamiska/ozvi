@@ -2374,26 +2374,35 @@
         "mailBody": "Kijavítottuk a bejelentett hibát. Már működik?",
         "yes": "Igen, működik",
         "no": "Még nem"
+      },
+      "badge": "Hibajelentések, ötletek és újdonságok az alkalmazásodban",
+      "shotLabel": "Példa: az ötlettábla, ahogy a felhasználók látják, és ugyanaz a jelentés a csapat szemével",
+      "notes": {
+        "mail": "jana@ceg.hu e-mailt kapott",
+        "mailSub": "Javítva a 2.15-ös verzióban",
+        "merge": "#119 összevonva a #128-cal",
+        "mergeSub": "3 szavazat átvéve",
+        "votes": "41 szavazat a Google Naptár-szinkronra"
       }
     },
     "story": {
       "stage": {
         "label": "Bemutató: egy felhasználó hibát jelent, a csapat kijavítja, a felhasználó pedig választ kap",
-        "app": "Számlázás",
-        "url": "app.ceged.hu/szamlak/2026-0412",
-        "invoice": "2026-0412 számú számla",
-        "download": "PDF letöltése",
+        "app": "Foglalások",
+        "url": "app.cegetek.hu/naptar/2026-11-14",
+        "invoice": "Szombat, november 14.",
+        "download": "Új foglalás",
         "lines": [
           [
-            "Egyedi webfejlesztés",
-            "1 200,00 €"
+            "Vágás és szárítás · Éva",
+            "9:00"
           ],
           [
-            "Tárhely, 1 év",
-            "180,00 €"
+            "Festés · Lúcia",
+            "10:30"
           ]
         ],
-        "report": "A számla-PDF-ből eltűnnek az ékezetek a címben",
+        "report": "A mobilos naptár nem mutatja a szombati időpontokat",
         "screenshot": "képernyőkép",
         "stops": [
           "Beérkezett",
@@ -2462,13 +2471,13 @@
           "label": "MCP",
           "note": "Az összevonás és a kiadási jegyzetek közzététele mindig megerősítést kér. A felhasználói szöveg adatként jut el a modellhez, soha nem utasításként.",
           "comment": "aztán a csevegőben",
-          "q1": "Melyik heti hibák kapcsolódnak a PDF-ekhez?",
+          "q1": "Melyik e heti hiba kapcsolódik a naptárhoz?",
           "q2": "Vond össze a #131-et a #128-cal, és jelöld javítottként a 2.15-ben."
         },
         "hook": {
           "label": "Webhook",
           "note": "HMAC-aláírással, újrapróbálkozással, kézbesítési naplóval a konzolban. A Slack, a Discord és a Mattermost alapból olvasható üzenetet kap.",
-          "title": "A számla-PDF-ből eltűnnek az ékezetek a címben"
+          "title": "A mobilos naptár nem mutatja a szombati időpontokat"
         }
       }
     },
@@ -2519,7 +2528,7 @@
       "lede": "Ez a valódi tábla mintaadatokkal, egy ügyfél alkalmazásának színeiben. Szavazhatsz, ötletet vagy hozzászólást is írhatsz.",
       "tablist": "A tábla részei",
       "teamOnly": "csak csapat",
-      "app": "Számlázás",
+      "app": "Foglalások",
       "parts": {
         "ideas": {
           "title": "Ötletek szavazással",
@@ -2560,17 +2569,17 @@
           ]
         ],
         "queue": [
-          "A CSV-export 10 000 sornál elakad",
-          "A számla PDF-jéből eltűnnek az ékezetek a címben",
+          "A foglalások CSV-exportja 10 000 sornál elakad",
+          "A mobilos naptár nem mutatja a szombati időpontokat",
           "Bejelentkezés után elvész a választott nyelv"
         ],
         "reporter": "Jana Kováčová · Pro csomag · 2 órája",
         "shot": "jelölt képernyőkép",
-        "console": "Error: a betűkészletből hiányzik az „ő” (U+0151) · pdf-render.ts:88",
-        "similar": "Hasonló: #119 Ékezetek a PDF-exportban",
+        "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
+        "similar": "Hasonló: #119 Üres hétvége a heti nézetben",
         "merge": "Összevonás",
         "noteLabel": "Belső jegyzet · csak a csapatnak",
-        "note": "A PDF betűkészletéből hiányoznak a közép-európai karakterek. Noto Sansra váltunk, a javítás a 2.15-ben jön.",
+        "note": "A mobilos nézet vasárnaptól számolja a hetet, a többi hétfőtől. Egységesítjük, a javítás a 2.15-ben jön.",
         "pr": "PR #490 beolvasztva · előnézet kész",
         "fixedIn": "Javítva a verzióban",
         "save": "Mentés és a bejelentő értesítése"
@@ -2631,15 +2640,6 @@
             "Szövegek az adatvédelmi tájékoztatódhoz",
             "Nyilvános forráskód (FSL)"
           ]
-        },
-        {
-          "title": "Átállás Fiderről",
-          "items": [
-            "Importálás mentésből vagy a Fider API-ján át",
-            "Ötletek, szavazatok, hozzászólások, címkék és mellékletek",
-            "A bejegyzések száma megmarad, ahol lehet",
-            "A felhasználók első bejelentkezéskor a saját fiókjukhoz kapcsolódnak"
-          ]
         }
       ],
       "tiles": {
@@ -2648,7 +2648,7 @@
           "text": "A widget magától csatolja a képernyőképet, a verziót, a böngészőt és a konzolhibákat. A felhasználónak semmit sem kell magyaráznia.",
           "items": [
             {
-              "title": "A számla nyomtatása levágja a láblécet",
+              "title": "Az SMS-emlékeztető rossz időpontot mutat az óraátállítás után",
               "meta": "Chrome 141 · v2.14.0 · 1 konzolhiba"
             },
             {
@@ -2656,15 +2656,15 @@
               "meta": "Safari 19 · v2.14.0"
             },
             {
-              "title": "A számla PDF-jéből eltűnnek az ékezetek",
+              "title": "A mobilos naptár nem mutatja a szombati időpontokat",
               "meta": "Chrome 141 · v2.14.0 · képernyőkép"
             },
             {
-              "title": "Exportálás a könyveléshez",
+              "title": "Szinkronizálás a Google Naptárral",
               "meta": "41 szavazat · Tervezett"
             },
             {
-              "title": "Ismétlődő fizetés eltérő határidővel",
+              "title": "Hetente ismétlődő foglalások",
               "meta": "17 szavazat · Folyamatban"
             }
           ]
@@ -2675,15 +2675,15 @@
           "lines": [
             {
               "who": "you",
-              "text": "Mi újat jelentettek a számlákról?"
+              "text": "Mi újat jelentettek a naptárról?"
             },
             {
               "who": "tool",
-              "text": "search_items „számla” · 3 találat"
+              "text": "search_items „naptár” · 3 találat"
             },
             {
               "who": "ai",
-              "text": "#128 a PDF-ből eltűnnek az ékezetek, #126 a nyomtatás levágja a láblécet. #119 a #128 duplikátumának tűnik."
+              "text": "#128 a mobil elrejti a szombatokat, #126 rossz emlékeztető időpont. #119 a #128 duplikátumának tűnik."
             },
             {
               "who": "you",
@@ -2718,13 +2718,23 @@
         "self": {
           "title": "Vagy saját szerveren",
           "text": "Egy Docker-kép és Postgres. Minden funkció, 0 €."
+        },
+        "fider": {
+          "title": "Átállás Fiderről",
+          "text": "Importálás mentésből vagy API-n át: ötletek, szavazatok, hozzászólások, címkék és mellékletek. A bejegyzések száma megmarad, ahol lehet."
+        },
+        "langs": {
+          "title": "Hat nyelv",
+          "text": "Tábla, widget és e-mailek szlovákul, csehül, angolul, lengyelül, magyarul és németül. A bejegyzések egy kattintással lefordíthatók."
+        },
+        "a11y": {
+          "title": "Akadálymentesség",
+          "text": "Billentyűzetes kezelés, WCAG 2.2 AA szerinti kontraszt és nyilvános akadálymentességi jelentés az EN 301 549 szerint."
         }
       },
       "moreTitle": "És még"
     },
     "flow": {
-      "title": "Bárhonnan jönnek, oda kerülnek, ahol dolgoztok.",
-      "lede": "Az Ozvi összegyűjti a jelentéseket és ötleteket a widgetből, e-mailből, az API-ból és MI-asszisztensektől, majd továbbítja a csapat eszközeibe. A bejelentőnek szól, ha kész.",
       "sources": [
         "Widget az alkalmazásban",
         "E-mail",
@@ -2737,6 +2747,32 @@
         "Slack, Discord, webhookok",
         "Válasz a bejelentőnek"
       ]
+    },
+    "steps": [
+      {
+        "title": "A jelentések kontextussal érkeznek.",
+        "text": "A felhasználó közvetlenül az alkalmazásodban jelez hibát. A widget magától csatolja a képernyőképet, a verziót, a böngészőt és a konzolhibákat, a jelszavakat pedig már a böngészőben elmossa."
+      },
+      {
+        "title": "A csapat mindent egy helyen intéz.",
+        "text": "Szűrhető jelentéssor, hasonló bejegyzések egy kattintásos összevonása, belső jegyzetek és címkék, amelyeket a felhasználó nem lát. Semmi sem marad válasz nélkül."
+      },
+      {
+        "title": "Az ötletek szavazatok szerint rendeződnek.",
+        "text": "A felhasználók javasolnak és szavaznak, írás közben látják a hasonló ötleteket. Az ütemterv megmutatja, mit terveztek és min dolgoztok, az ötlet az állapotával halad rajta."
+      },
+      {
+        "title": "Összekötve az eszközökkel, amiket már használtok.",
+        "text": "Egy kattintással GitHub-, Linear- vagy Jira-issue lesz a jelentésből. Az újdonságok a Slackbe és a Discordba mennek, a szerkesztődben futó MI-asszisztens pedig MCP-n át dolgozik a jelentésekkel."
+      },
+      {
+        "title": "És a bejelentő megtudja, mi lett vele.",
+        "text": "„Javítva” állapotnál e-mailt kap, hogy működik-e már. Ha egy ötlet megjelenik, egyetlen bejegyzés ír mindenkinek, aki rá szavazott."
+      }
+    ],
+    "try": {
+      "title": "Próbáld ki. Az alkalmazásod színeiben.",
+      "lede": "Ez a valódi tábla mintaadatokkal. Szavazz, adj hozzá ötletet, válts a csapat nézetére, és állítsd be a színeit, ahogy a projekt beállításaiban is teszed majd."
     }
   },
   "net": {
@@ -2785,23 +2821,23 @@
       },
       "ideas": [
         {
-          "title": "Exportálás a könyvelésbe",
-          "text": "Minden hónapban kézzel gépeljük át a számlákat. Egy XML-export egy órát spórolna nekünk.",
+          "title": "Szinkronizálás a Google Naptárral",
+          "text": "Az ügyfelek kézzel írják át az időpontokat a naptárukba. A szinkron ezt megspórolná.",
           "author": "Mária K.",
           "comments": [
             [
               "Péter H.",
-              "+1, ideális esetben áfabontással."
+              "Csatlakozom, ideális esetben Outlookkal is."
             ],
             [
               "Csapat",
-              "Márciusra tervezzük. Szólunk."
+              "Márciusra tervezzük. Jelentkezünk."
             ]
           ]
         },
         {
-          "title": "Ismétlődő fizetések eltérő fizetési határidővel",
-          "text": "Egyes ügyfeleinknek 30 nap, másoknak 14.",
+          "title": "Hetente ismétlődő foglalások",
+          "text": "A törzsvendégek minden kedden ugyanabban az időben jönnek.",
           "author": "Judit T.",
           "comments": [
             [
@@ -2821,22 +2857,22 @@
         {
           "v": "2.15",
           "date": "nov. 4.",
-          "title": "Javított PDF-ek és gyorsabb keresés",
-          "text": "A számla-PDF-ek most már megtartják az ékezeteket a címben. Az ügyfélkeresés háromszor gyorsabb."
+          "title": "Szombati időpontok mobilon és gyorsabb keresés",
+          "text": "A mobilos naptár már a szombati időpontokat is mutatja. Az ügyfelek keresése háromszor gyorsabb."
         },
         {
           "v": "2.14",
           "date": "okt. 21.",
-          "title": "E-mailes emlékeztetők",
-          "text": "Mostantól automatikusan emlékeztetjük az ügyfeleket a kifizetetlen számlákra."
+          "title": "SMS-emlékeztetők",
+          "text": "Az ügyfeleknek egy nappal előtte SMS-ben is emlékeztetőt küldünk."
         }
       ],
       "bugs": [
         {
-          "title": "A számla-PDF-ből eltűnnek az ékezetek a címben"
+          "title": "A mobilos naptár nem mutatja a szombati időpontokat"
         },
         {
-          "title": "Mentés után eltűnik az ügyfélhez fűzött megjegyzés"
+          "title": "Az ügyfél mentése után elvész a megjegyzés"
         }
       ]
     },

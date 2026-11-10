@@ -19,7 +19,7 @@ export function TeamDesk() {
   const chip = "inline-flex items-center gap-1 rounded bg-wash px-1.5 py-0.5 text-[11.5px] text-muted-foreground";
 
   return (
-    <div className="flex h-[520px] flex-col">
+    <div className="flex h-[520px] flex-col max-md:h-auto">
       <div className="flex h-12 shrink-0 items-center gap-3 border-b bg-surface px-4">
         <b className="font-heading text-[14.5px] font-semibold">{t("product.team.title")}</b>
         <span className="inline-flex items-center gap-1 text-[12px] text-muted-foreground"><Lock className="size-3" />{t("product.team.private")}</span>
@@ -62,7 +62,7 @@ export function TeamDesk() {
             <span className={chip}><Camera className="size-3" />{t("product.team.shot")}</span>
             <span className={cn(chip, "font-mono")}>v2.14.0</span>
             <span className={chip}><MonitorSmartphone className="size-3" />Chrome 141 · macOS</span>
-            <span className={cn(chip, "font-mono")}>/faktury/2026-0412</span>
+            <span className={cn(chip, "font-mono")}>/kalendar/2026-11-14</span>
           </div>
           <p className="mt-2 flex items-start gap-1.5 rounded-md border bg-surface px-2.5 py-2 font-mono text-[11.5px] leading-snug" style={r}>
             <TriangleAlert className="mt-px size-3.5 shrink-0 text-destructive" />

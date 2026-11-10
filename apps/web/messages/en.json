@@ -2374,26 +2374,35 @@
         "mailBody": "We fixed the bug you reported. Does it work for you now?",
         "yes": "Yes, it works",
         "no": "Not yet"
+      },
+      "badge": "Bug reports, ideas and a changelog inside your app",
+      "shotLabel": "Example: the ideas board as users see it, and the same report through the team's eyes",
+      "notes": {
+        "mail": "jana@company.com got an e-mail",
+        "mailSub": "Fixed in version 2.15",
+        "merge": "#119 merged into #128",
+        "mergeSub": "3 votes carried over",
+        "votes": "41 votes for Google Calendar sync"
       }
     },
     "story": {
       "stage": {
         "label": "Demo: a user reports a bug, the team fixes it and the user gets a reply",
-        "app": "Invoicing",
-        "url": "app.yourcompany.com/invoices/2026-0412",
-        "invoice": "Invoice 2026-0412",
-        "download": "Download PDF",
+        "app": "Bookings",
+        "url": "app.yourcompany.com/calendar/2026-11-14",
+        "invoice": "Saturday, 14 November",
+        "download": "New booking",
         "lines": [
           [
-            "Custom web development",
-            "€1,200.00"
+            "Cut & blow-dry · Eva",
+            "9:00"
           ],
           [
-            "Hosting, 1 year",
-            "€180.00"
+            "Colouring · Lucy",
+            "10:30"
           ]
         ],
-        "report": "Invoice PDF drops accents in the address",
+        "report": "Mobile calendar doesn't show Saturday slots",
         "screenshot": "screenshot",
         "stops": [
           "Received",
@@ -2462,13 +2471,13 @@
           "label": "MCP",
           "note": "Merging and publishing release notes always ask for confirmation. User text reaches the model as data, never as instructions.",
           "comment": "then, in the chat",
-          "q1": "Which bugs from this week are related to PDFs?",
+          "q1": "Which bugs from this week are about the calendar?",
           "q2": "Merge #131 into #128 and mark it fixed in 2.15."
         },
         "hook": {
           "label": "Webhook",
           "note": "HMAC-signed, retried, with a delivery log in the console. Slack, Discord and Mattermost get a readable message out of the box.",
-          "title": "Invoice PDF drops accents in the address"
+          "title": "Mobile calendar doesn't show Saturday slots"
         }
       }
     },
@@ -2519,7 +2528,7 @@
       "lede": "This is the real board with sample data, in a customer app's colours. Go ahead: vote, add an idea or a comment.",
       "tablist": "Parts of the board",
       "teamOnly": "team only",
-      "app": "Invoicing",
+      "app": "Bookings",
       "parts": {
         "ideas": {
           "title": "Ideas with voting",
@@ -2560,17 +2569,17 @@
           ]
         ],
         "queue": [
-          "CSV export fails at 10,000 rows",
-          "Invoice PDF loses accents in the address",
+          "Bookings CSV export fails at 10,000 rows",
+          "Mobile calendar doesn't show Saturday slots",
           "Chosen language is lost after sign-in"
         ],
         "reporter": "Jana Kováčová · Pro plan · 2 h ago",
         "shot": "annotated screenshot",
-        "console": "Error: font has no glyph for “ž” (U+017E) · pdf-render.ts:88",
-        "similar": "Similar: #119 Accents in PDF export",
+        "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
+        "similar": "Similar: #119 Weekend empty in week view",
         "merge": "Merge",
         "noteLabel": "Internal note · team only",
-        "note": "The PDF font lacks Central European glyphs. Switching to Noto Sans, the fix ships in 2.15.",
+        "note": "The mobile view starts the week on Sunday, the rest on Monday. We'll align them; the fix ships in 2.15.",
         "pr": "PR #490 merged · preview ready",
         "fixedIn": "Fixed in version",
         "save": "Save and tell the author"
@@ -2631,15 +2640,6 @@
             "Ready texts for your privacy policy",
             "Source-available code (FSL)"
           ]
-        },
-        {
-          "title": "Moving from Fider",
-          "items": [
-            "Import from a backup or through Fider's API",
-            "Ideas, votes, comments, tags and attachments",
-            "Item numbers stay where possible",
-            "Users are matched to their account on first sign-in"
-          ]
         }
       ],
       "tiles": {
@@ -2648,7 +2648,7 @@
           "text": "The widget attaches a screenshot, version, browser and console errors. Users don't have to explain anything.",
           "items": [
             {
-              "title": "Printing an invoice cuts off the footer",
+              "title": "SMS reminder has the wrong time after the clock change",
               "meta": "Chrome 141 · v2.14.0 · 1 console error"
             },
             {
@@ -2656,15 +2656,15 @@
               "meta": "Safari 19 · v2.14.0"
             },
             {
-              "title": "Invoice PDF loses accents in the address",
+              "title": "Mobile calendar doesn't show Saturday slots",
               "meta": "Chrome 141 · v2.14.0 · screenshot"
             },
             {
-              "title": "Export to accounting",
+              "title": "Sync with Google Calendar",
               "meta": "41 votes · Planned"
             },
             {
-              "title": "Recurring payments with a different due date",
+              "title": "Weekly recurring bookings",
               "meta": "17 votes · In progress"
             }
           ]
@@ -2675,15 +2675,15 @@
           "lines": [
             {
               "who": "you",
-              "text": "What's new about invoices?"
+              "text": "What's new about the calendar?"
             },
             {
               "who": "tool",
-              "text": "search_items “invoice” · 3 results"
+              "text": "search_items “calendar” · 3 results"
             },
             {
               "who": "ai",
-              "text": "#128 PDF loses accents, #126 printing cuts the footer. #119 looks like a duplicate of #128."
+              "text": "#128 mobile hides Saturdays, #126 wrong reminder time. #119 looks like a duplicate of #128."
             },
             {
               "who": "you",
@@ -2718,13 +2718,23 @@
         "self": {
           "title": "Or on your own server",
           "text": "One Docker image and Postgres. Every feature, €0."
+        },
+        "fider": {
+          "title": "Moving from Fider",
+          "text": "Import from a backup or through the API: ideas, votes, comments, tags and attachments. Item numbers stay where possible."
+        },
+        "langs": {
+          "title": "Six languages",
+          "text": "The board, widget and e-mails in Slovak, Czech, English, Polish, Hungarian and German. Posts translate in one click."
+        },
+        "a11y": {
+          "title": "Accessibility",
+          "text": "Keyboard control, WCAG 2.2 AA contrast and a published accessibility report under EN 301 549."
         }
       },
       "moreTitle": "And more"
     },
     "flow": {
-      "title": "Wherever they come from, they end up where you work.",
-      "lede": "Ozvi collects reports and ideas from the widget, e-mail, the API and AI assistants, and passes them on to your team's tools. It tells the author when it's done.",
       "sources": [
         "Widget in your app",
         "E-mail",
@@ -2737,6 +2747,32 @@
         "Slack, Discord, webhooks",
         "Reply to the author"
       ]
+    },
+    "steps": [
+      {
+        "title": "Reports arrive with context.",
+        "text": "A user reports a bug right inside your app. The widget attaches a screenshot, version, browser and console errors, and blurs passwords in the browser."
+      },
+      {
+        "title": "Your team handles it in one place.",
+        "text": "A filtered queue, similar items merged in one click, internal notes and tags users never see. Nothing sits without a reply."
+      },
+      {
+        "title": "Ideas sort themselves by votes.",
+        "text": "Users suggest and vote, and see similar ideas while typing. The roadmap shows what you plan and what you're working on, and each idea moves along it with its status."
+      },
+      {
+        "title": "Connected to the tools you already use.",
+        "text": "One click turns a report into a GitHub, Linear or Jira issue. Changelog entries go to Slack and Discord, and the AI assistant in your editor works with reports over MCP."
+      },
+      {
+        "title": "And the author hears how it ended.",
+        "text": "At “Fixed” they get an e-mail asking whether it works for them now. When an idea ships, one changelog entry writes to everyone who voted for it."
+      }
+    ],
+    "try": {
+      "title": "Try it. In your app's colours.",
+      "lede": "This is the real board with sample data. Vote, add an idea, switch to the team view and change its colours, just like you will in your project settings."
     }
   },
   "net": {
@@ -2785,27 +2821,27 @@
       },
       "ideas": [
         {
-          "title": "Export to accounting",
-          "text": "We retype invoices by hand every month. An XML export would save us an hour.",
+          "title": "Sync with Google Calendar",
+          "text": "Clients copy their appointments into their calendar by hand. A sync would save them that.",
           "author": "Maria K.",
           "comments": [
             [
               "Peter H.",
-              "+1, ideally with a VAT breakdown."
+              "+1, ideally Outlook too."
             ],
             [
               "Team",
-              "Planned for March. We’ll let you know."
+              "Planned for March. We'll let you know."
             ]
           ]
         },
         {
-          "title": "Recurring payments with a different due date",
-          "text": "Some clients have 30 days, others 14.",
+          "title": "Weekly recurring bookings",
+          "text": "Regulars come every Tuesday at the same time.",
           "author": "Jane T.",
           "comments": [
             [
-              "Eve S.",
+              "Eva S.",
               "This would help us a lot."
             ]
           ]
@@ -2821,22 +2857,22 @@
         {
           "v": "2.15",
           "date": "4 Nov",
-          "title": "Fixed PDFs and faster search",
-          "text": "Invoice PDFs now keep accents in the address. Client search is three times faster."
+          "title": "Saturday slots on mobile and faster search",
+          "text": "The mobile calendar now shows Saturday slots too. Searching clients is three times faster."
         },
         {
           "v": "2.14",
           "date": "21 Oct",
-          "title": "E-mail reminders",
-          "text": "We now remind clients about unpaid invoices automatically."
+          "title": "SMS reminders",
+          "text": "We now remind clients of their appointment a day ahead by SMS too."
         }
       ],
       "bugs": [
         {
-          "title": "Invoice PDF drops accents in the address"
+          "title": "Mobile calendar doesn't show Saturday slots"
         },
         {
-          "title": "Client note disappears after saving"
+          "title": "Client note is lost after saving"
         }
       ]
     },

@@ -2374,26 +2374,35 @@
         "mailBody": "Chybu, ktorú ste nahlásili, sme opravili. Funguje vám to už?",
         "yes": "Áno, funguje",
         "no": "Ešte nie"
+      },
+      "badge": "Hlásenia chýb, nápady a novinky vo vašej aplikácii",
+      "shotLabel": "Ukážka: board s nápadmi, ako ho vidia používatelia, a to isté hlásenie očami tímu",
+      "notes": {
+        "mail": "jana@firma.sk dostala e-mail",
+        "mailSub": "Opravené vo verzii 2.15",
+        "merge": "#119 zlúčené do #128",
+        "mergeSub": "3 hlasy prenesené",
+        "votes": "41 hlasov za synchronizáciu s Google Kalendárom"
       }
     },
     "story": {
       "stage": {
         "label": "Ukážka: používateľ nahlási chybu, tím ju opraví a používateľ dostane odpoveď",
-        "app": "Fakturácia",
-        "url": "app.vasafirma.sk/faktury/2026-0412",
-        "invoice": "Faktúra 2026-0412",
-        "download": "Stiahnuť PDF",
+        "app": "Rezervácie",
+        "url": "app.vasafirma.sk/kalendar/2026-11-14",
+        "invoice": "Sobota 14. novembra",
+        "download": "Nová rezervácia",
         "lines": [
           [
-            "Vývoj webu na mieru",
-            "1 200,00 €"
+            "Strih a fúkanie · Eva",
+            "9:00"
           ],
           [
-            "Hosting na rok",
-            "180,00 €"
+            "Farbenie · Lucia",
+            "10:30"
           ]
         ],
-        "report": "PDF faktúry nemá diakritiku v adrese",
+        "report": "Kalendár na mobile nezobrazí sobotné termíny",
         "screenshot": "screenshot",
         "stops": [
           "Prijaté",
@@ -2462,13 +2471,13 @@
           "label": "MCP",
           "note": "Zlúčenie a zverejnenie noviniek si vždy vyžiada potvrdenie. Text od používateľov ide modelu ako dáta, nie ako pokyny.",
           "comment": "potom v rozhovore",
-          "q1": "Ktoré chyby z tohto týždňa súvisia s PDF?",
+          "q1": "Ktoré chyby z tohto týždňa súvisia s kalendárom?",
           "q2": "Zlúč #131 do #128 a označ ju ako opravenú v 2.15."
         },
         "hook": {
           "label": "Webhook",
           "note": "Podpísané HMAC, s opakovaním a logom doručení v konzole. Slack, Discord a Mattermost dostanú rovno čitateľnú správu.",
-          "title": "PDF faktúry nemá diakritiku v adrese"
+          "title": "Kalendár na mobile nezobrazí sobotné termíny"
         }
       }
     },
@@ -2519,7 +2528,7 @@
       "lede": "Toto je skutočný board s ukážkovými dátami, vo farbách aplikácie zákazníka. Môžete hlasovať, pridať nápad aj komentár.",
       "tablist": "Časti boardu",
       "teamOnly": "len tím",
-      "app": "Fakturácia",
+      "app": "Rezervácie",
       "parts": {
         "ideas": {
           "title": "Nápady s hlasovaním",
@@ -2560,17 +2569,17 @@
           ]
         ],
         "queue": [
-          "Export do CSV zlyhá pri 10 000 riadkoch",
-          "PDF faktúry nemá diakritiku v adrese",
+          "Export rezervácií do CSV zlyhá pri 10 000 riadkoch",
+          "Kalendár na mobile nezobrazí sobotné termíny",
           "Po prihlásení sa stratí vybraný jazyk"
         ],
         "reporter": "Jana Kováčová · plán Pro · pred 2 h",
         "shot": "screenshot s anotáciou",
-        "console": "Error: písmo neobsahuje znak „ž“ (U+017E) · pdf-render.ts:88",
-        "similar": "Podobné: #119 Diakritika v exporte do PDF",
+        "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
+        "similar": "Podobné: #119 Víkend v týždennom pohľade je prázdny",
         "merge": "Zlúčiť",
         "noteLabel": "Interná poznámka · len pre tím",
-        "note": "Font v PDF nemá slovenské znaky. Prejdeme na Noto Sans, oprava pôjde vo verzii 2.15.",
+        "note": "Mobilný pohľad počíta týždeň od nedele, zvyšok od pondelka. Zjednotíme to, oprava pôjde vo verzii 2.15.",
         "pr": "PR #490 zlúčený · náhľad pripravený",
         "fixedIn": "Opravené vo verzii",
         "save": "Uložiť a dať vedieť autorovi"
@@ -2631,15 +2640,6 @@
             "Texty pre vaše zásady ochrany súkromia",
             "Verejný zdrojový kód (FSL)"
           ]
-        },
-        {
-          "title": "Prechod z Fideru",
-          "items": [
-            "Import zo zálohy alebo cez API Fideru",
-            "Nápady, hlasy, komentáre, štítky a prílohy",
-            "Čísla záznamov ostanú, kde sa dá",
-            "Používatelia sa po prvom prihlásení spoja so svojím účtom"
-          ]
         }
       ],
       "tiles": {
@@ -2648,7 +2648,7 @@
           "text": "Screenshot, verziu, prehliadač a chyby z konzoly pribalí widget sám. Používateľ nič nevysvetľuje.",
           "items": [
             {
-              "title": "Tlač faktúry oreže pätičku",
+              "title": "Pripomienka SMS má zlý čas po zmene na zimný čas",
               "meta": "Chrome 141 · v2.14.0 · 1 chyba z konzoly"
             },
             {
@@ -2656,15 +2656,15 @@
               "meta": "Safari 19 · v2.14.0"
             },
             {
-              "title": "PDF faktúry nemá diakritiku v adrese",
+              "title": "Kalendár na mobile nezobrazí sobotné termíny",
               "meta": "Chrome 141 · v2.14.0 · screenshot"
             },
             {
-              "title": "Export do účtovníctva",
+              "title": "Synchronizácia s Google Kalendárom",
               "meta": "41 hlasov · Plánované"
             },
             {
-              "title": "Opakované platby s inou splatnosťou",
+              "title": "Opakované rezervácie každý týždeň",
               "meta": "17 hlasov · Rozpracované"
             }
           ]
@@ -2675,15 +2675,15 @@
           "lines": [
             {
               "who": "you",
-              "text": "Čo nové nahlásili k faktúram?"
+              "text": "Čo nové nahlásili ku kalendáru?"
             },
             {
               "who": "tool",
-              "text": "search_items „faktúra“ · 3 výsledky"
+              "text": "search_items „kalendár“ · 3 výsledky"
             },
             {
               "who": "ai",
-              "text": "#128 PDF nemá diakritiku, #126 tlač oreže pätičku. #119 vyzerá ako duplicita #128."
+              "text": "#128 mobil nezobrazí soboty, #126 zlý čas pripomienky. #119 vyzerá ako duplicita #128."
             },
             {
               "who": "you",
@@ -2718,13 +2718,23 @@
         "self": {
           "title": "Alebo na vlastnom serveri",
           "text": "Jeden Docker image a Postgres. Všetky funkcie, 0 €."
+        },
+        "fider": {
+          "title": "Prechod z Fideru",
+          "text": "Import zo zálohy alebo cez API: nápady, hlasy, komentáre, štítky aj prílohy. Čísla záznamov ostanú, kde sa dá."
+        },
+        "langs": {
+          "title": "Šesť jazykov",
+          "text": "Board, widget aj e-maily po slovensky, česky, anglicky, poľsky, maďarsky a nemecky. Príspevky sa dajú preložiť jedným klikom."
+        },
+        "a11y": {
+          "title": "Prístupnosť",
+          "text": "Ovládanie klávesnicou, kontrast podľa WCAG 2.2 AA a zverejnený výkaz prístupnosti podľa EN 301 549."
         }
       },
       "moreTitle": "A ďalej"
     },
     "flow": {
-      "title": "Odkiaľkoľvek prídu, skončia tam, kde pracujete.",
-      "lede": "Ozvi zbiera hlásenia a nápady z widgetu, e-mailu, API aj od AI asistentov a posiela ich ďalej do nástrojov tímu. Autorovi dá vedieť, keď je hotovo.",
       "sources": [
         "Widget v aplikácii",
         "E-mail",
@@ -2737,6 +2747,32 @@
         "Slack, Discord, webhooky",
         "Odpoveď autorovi"
       ]
+    },
+    "steps": [
+      {
+        "title": "Hlásenia prichádzajú s kontextom.",
+        "text": "Používateľ nahlási chybu priamo vo vašej aplikácii. Screenshot, verziu, prehliadač a chyby z konzoly pribalí widget sám, heslá rozmaže ešte v prehliadači."
+      },
+      {
+        "title": "Tím vybaví všetko na jednom mieste.",
+        "text": "Fronta hlásení s filtrami, podobné záznamy na zlúčenie jedným klikom, interné poznámky a štítky, ktoré používateľ nevidí. Nič neostane ležať bez odpovede."
+      },
+      {
+        "title": "Nápady sa zoradia podľa hlasov.",
+        "text": "Používatelia navrhujú a hlasujú, pri písaní uvidia podobné nápady. Roadmapa ukáže, čo plánujete a na čom pracujete, a nápad sa po nej posúva so stavom."
+      },
+      {
+        "title": "Napojené na nástroje, ktoré už používate.",
+        "text": "Hlásenie sa jedným klikom stane issue na GitHube, v Lineari alebo Jire. Novinky idú do Slacku a Discordu a AI asistent vo vašom editore pracuje s hláseniami cez MCP."
+      },
+      {
+        "title": "A autor sa dozvie, ako to dopadlo.",
+        "text": "Pri „Opravené“ mu príde e-mail s otázkou, či mu to už funguje. Keď vydáte nápad, jedna novinka napíše každému, kto zaň hlasoval."
+      }
+    ],
+    "try": {
+      "title": "Vyskúšajte si to. Vo farbách vašej aplikácie.",
+      "lede": "Toto je skutočný board s ukážkovými dátami. Hlasujte, pridajte nápad, prepnite na pohľad tímu a nastavte mu farby. Rovnako to urobíte v nastaveniach projektu."
     }
   },
   "net": {
@@ -2785,13 +2821,13 @@
       },
       "ideas": [
         {
-          "title": "Export do účtovníctva",
-          "text": "Každý mesiac prepisujeme faktúry ručne. Export do XML by nám ušetril hodinu.",
+          "title": "Synchronizácia s Google Kalendárom",
+          "text": "Klienti si termíny prepisujú do kalendára ručne. Synchronizácia by im to ušetrila.",
           "author": "Mária K.",
           "comments": [
             [
               "Peter H.",
-              "Pridávam sa, ideálne aj s rozpisom DPH."
+              "Pridávam sa, ideálne aj s Outlookom."
             ],
             [
               "Tím",
@@ -2800,8 +2836,8 @@
           ]
         },
         {
-          "title": "Opakované platby s inou splatnosťou",
-          "text": "Niektorí klienti majú 30 dní, iní 14.",
+          "title": "Opakované rezervácie každý týždeň",
+          "text": "Stáli klienti chodia každý utorok v rovnakom čase.",
           "author": "Jana T.",
           "comments": [
             [
@@ -2821,19 +2857,19 @@
         {
           "v": "2.15",
           "date": "4. 11.",
-          "title": "Opravené PDF a rýchlejšie hľadanie",
-          "text": "PDF faktúr už správne zobrazí diakritiku v adrese. Hľadanie v klientoch je trikrát rýchlejšie."
+          "title": "Sobotné termíny na mobile a rýchlejšie hľadanie",
+          "text": "Kalendár na mobile už zobrazí aj sobotné termíny. Hľadanie v klientoch je trikrát rýchlejšie."
         },
         {
           "v": "2.14",
           "date": "21. 10.",
-          "title": "Pripomienky e-mailom",
-          "text": "Neuhradené faktúry pripomenieme klientovi automaticky."
+          "title": "Pripomienky cez SMS",
+          "text": "Klientom pripomenieme termín deň vopred aj SMS správou."
         }
       ],
       "bugs": [
         {
-          "title": "PDF faktúry nemá diakritiku v adrese"
+          "title": "Kalendár na mobile nezobrazí sobotné termíny"
         },
         {
           "title": "Po uložení klienta sa stratí poznámka"
