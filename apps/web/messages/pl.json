@@ -163,7 +163,7 @@
       "noSmtpLink": "E-mail nie jest skonfigurowany (SMTP). Link znajdziesz w logu serwera.",
       "selfHostDelete": "Na własnym serwerze kontami zarządza administrator (OZVI_ADMIN_EMAILS).",
       "typeEmail": "Aby potwierdzić, wpisz dokładnie swój adres e-mail.",
-      "signupClosed": "Rejestracja nie jest jeszcze otwarta. Napisz na podpora@ozvi.io, a damy znać, gdy wystartujemy."
+      "signupClosed": "Rejestracja nie jest jeszcze otwarta. Napisz na support@ozvi.io, a damy znać, gdy wystartujemy."
     },
     "workspace": {
       "not_owner": "Może to zrobić tylko właściciel przestrzeni roboczej.",

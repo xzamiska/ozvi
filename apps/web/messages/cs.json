@@ -163,7 +163,7 @@
       "noSmtpLink": "E-maily nejsou nastavené (SMTP). Odkaz je v logu serveru.",
       "selfHostDelete": "Na vlastním serveru účty spravuje správce (OZVI_ADMIN_EMAILS).",
       "typeEmail": "Pro potvrzení napište přesně svůj e-mail.",
-      "signupClosed": "Registrace ještě není otevřená. Napište nám na podpora@ozvi.io a ozveme se, až spustíme."
+      "signupClosed": "Registrace ještě není otevřená. Napište nám na support@ozvi.io a ozveme se, až spustíme."
     },
     "workspace": {
       "not_owner": "Tohle může udělat jen vlastník prostoru.",

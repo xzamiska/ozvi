@@ -163,7 +163,7 @@
       "noSmtpLink": "Az e-mail-küldés nincs beállítva (SMTP). A link a szerver naplójában található.",
       "selfHostDelete": "Saját üzemeltetésű szerveren a fiókokat az adminisztrátor kezeli (OZVI_ADMIN_EMAILS).",
       "typeEmail": "A megerősítéshez írd be pontosan az e-mail-címedet.",
-      "signupClosed": "A regisztráció még nem nyílt meg. Írjon a podpora@ozvi.io címre, és szólunk, amikor elindulunk."
+      "signupClosed": "A regisztráció még nem nyílt meg. Írjon a support@ozvi.io címre, és szólunk, amikor elindulunk."
     },
     "workspace": {
       "not_owner": "Ezt csak a munkaterület tulajdonosa teheti meg.",

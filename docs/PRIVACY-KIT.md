@@ -32,7 +32,7 @@ Text sa skladá zo **skutočného nastavenia projektu a inštancie**:
 ### Ozvi cloud
 
 - **Zákazník** (firma s boardom) je **prevádzkovateľ** údajov svojich používateľov.
-- **Ozvi** je **sprostredkovateľ** (čl. 28 GDPR). Potrebná je zmluva o spracúvaní (DPA). Vzor je v [`DPA.md`](DPA.md) a zatiaľ je to návrh na právnu kontrolu. Zákazník si ho vyžiada e-mailom na podpora@ozvi.io (konzola → Plán a využitie → karta DPA).
+- **Ozvi** je **sprostredkovateľ** (čl. 28 GDPR). Potrebná je zmluva o spracúvaní (DPA). Vzor je v [`DPA.md`](DPA.md) a zatiaľ je to návrh na právnu kontrolu. Zákazník si ho vyžiada e-mailom na support@ozvi.io (konzola → Plán a využitie → karta DPA).
 - Ďalší sprostredkovatelia Ozvi sú zverejnení na `/subprocessors`. Kit v cloude odkazuje na tento zoznam a menovite uvádza Resend a pri zapnutej AI aj Anthropic.
 - Integrácie (GitHub, Linear, Jira, webhooky) si zapína zákazník cez vlastné účty, takže údaje idú tam v jeho mene. Kit ich vypíše ako nástroje zákazníka.
 

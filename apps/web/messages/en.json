@@ -163,7 +163,7 @@
       "noSmtpLink": "E-mail isn’t configured (SMTP). The link is in the server log.",
       "selfHostDelete": "On a self-hosted server, the admin manages accounts (OZVI_ADMIN_EMAILS).",
       "typeEmail": "To confirm, type your e-mail exactly.",
-      "signupClosed": "Sign-up isn’t open yet. Write to podpora@ozvi.io and we’ll let you know when we launch."
+      "signupClosed": "Sign-up isn’t open yet. Write to support@ozvi.io and we’ll let you know when we launch."
     },
     "workspace": {
       "not_owner": "Only a workspace owner can do this.",

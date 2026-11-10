@@ -10,7 +10,7 @@ export const LEGAL = {
   vatId: "SK2121731106",
   address: "Bajkalská 45G, 821 05 Bratislava-Ružinov",
   register: "zapísaná v obchodnom registri Mestského súdu Bratislava III, oddiel Sro, vložka č. 160737/B",
-  email: "podpora@ozvi.io",
+  email: "support@ozvi.io",
   effective: "[dátum účinnosti]",
   version: "návrh 2026-11-07",
 } as const;
