@@ -25,8 +25,10 @@ FROM node:22.23.4-alpine AS runtime
 WORKDIR /app
 # Release version shown in the admin and compared with the public release list (docs/SELFHOST.md → Aktualizácie).
 ARG OZVI_VERSION=dev
+# Builds of main for ozvi.io: the newest version whose release images exist (lib/releases.ts). Empty for releases.
+ARG OZVI_RELEASED=
 LABEL org.opencontainers.image.version=$OZVI_VERSION org.opencontainers.image.source=https://github.com/xzamiska/ozvi
-ENV OZVI_VERSION=$OZVI_VERSION NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=3000 HOSTNAME=0.0.0.0 OZVI_STORAGE_DIR=/data/uploads
+ENV OZVI_VERSION=$OZVI_VERSION OZVI_RELEASED=$OZVI_RELEASED NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=3000 HOSTNAME=0.0.0.0 OZVI_STORAGE_DIR=/data/uploads
 RUN addgroup -S ozvi && adduser -S ozvi -G ozvi && mkdir -p /data/uploads && chown -R ozvi:ozvi /data
 COPY --from=build --chown=ozvi:ozvi /app/apps/web/.next/standalone ./
 COPY --from=build --chown=ozvi:ozvi /app/apps/web/.next/static ./apps/web/.next/static

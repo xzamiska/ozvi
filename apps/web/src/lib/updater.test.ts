@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseNote, releaseFeed } from "./releases";
+import { parseNote, published, releaseFeed } from "./releases";
 import { updaterConfigured, updaterTokenOk } from "./updater";
 import { updaterMail } from "./updater-mail";
 
@@ -35,6 +35,12 @@ describe("updater e-mails", () => {
 });
 
 describe("release notes", () => {
+  it("leaves out notes newer than the published release on a build of main", () => {
+    expect(published("1.0.5", "1.0.4")).toBe(false);
+    expect(published("1.0.4", "1.0.4")).toBe(true);
+    expect(published("1.0.5", "")).toBe(true);
+    expect(published("1.0.5", undefined)).toBe(true);
+  });
   it("reads the front matter", () => {
     expect(parseNote("1.5.0", "---\ndate: 2026-11-20\nbreaking: true\n---\n### Nové\n- x\n"))
       .toEqual({ version: "1.5.0", date: "2026-11-20", breaking: true, body: "### Nové\n- x" });

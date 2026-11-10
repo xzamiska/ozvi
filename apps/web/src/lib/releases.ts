@@ -29,6 +29,14 @@ export function parseNote(version: string, src: string): ReleaseNote {
   return { version, date, breaking, body: body.trim() };
 }
 
+/**
+ * ozvi.io runs builds of main, which can carry the notes of a release whose images are still being
+ * built. OZVI_RELEASED (set by the deploy to the newest version whose images exist) keeps newer notes
+ * out of the list, so no updater is sent to a tag that cannot be pulled yet. Unset: every note.
+ */
+export const published = (version: string, released = process.env.OZVI_RELEASED) =>
+  !released || compareVersions(version, released) <= 0;
+
 let cache: { at: number; notes: ReleaseNote[] } | null = null;
 
 /** Newest first; pre-releases are left out of the public list. */
@@ -39,7 +47,7 @@ export async function releaseNotes(): Promise<ReleaseNote[]> {
   const notes: ReleaseNote[] = [];
   for (const f of files) {
     const m = VERSION.exec(f);
-    if (!m || m[1]!.includes("-")) continue;
+    if (!m || m[1]!.includes("-") || !published(m[1]!)) continue;
     notes.push(parseNote(m[1]!, await readFile(join(DIR(), f), "utf8")));
   }
   notes.sort((a, b) => compareVersions(b.version, a.version));
