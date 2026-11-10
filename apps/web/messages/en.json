@@ -104,7 +104,8 @@
       "linkExpired": "Sign-in links are valid for 15 minutes and work once. Send yourself a new code.",
       "sendNew": "Send a new code",
       "signInAs": "You’ll sign in as ",
-      "signIn": "Sign in"
+      "signIn": "Sign in",
+      "closed": "Sign-up opens soon. To try Ozvi among the first, write to us at <mail>{email}</mail>."
     },
     "emailLogin": {
       "expired": "That link has expired. Send yourself a new code.",
@@ -161,7 +162,8 @@
       "linkSent": "We sent a link to {email}. Your e-mail changes once you click it.",
       "noSmtpLink": "E-mail isn’t configured (SMTP). The link is in the server log.",
       "selfHostDelete": "On a self-hosted server, the admin manages accounts (OZVI_ADMIN_EMAILS).",
-      "typeEmail": "To confirm, type your e-mail exactly."
+      "typeEmail": "To confirm, type your e-mail exactly.",
+      "signupClosed": "Sign-up isn’t open yet. Write to podpora@ozvi.io and we’ll let you know when we launch."
     },
     "workspace": {
       "not_owner": "Only a workspace owner can do this.",

@@ -104,7 +104,8 @@
       "linkExpired": "Přihlašovací odkaz platí 15 minut a dá se použít jen jednou. Pošlete si nový kód.",
       "sendNew": "Poslat nový kód",
       "signInAs": "Přihlásíte se jako ",
-      "signIn": "Přihlásit se"
+      "signIn": "Přihlásit se",
+      "closed": "Registrace se brzy otevře. Pokud chcete Ozvi vyzkoušet mezi prvními, napište nám na <mail>{email}</mail>."
     },
     "emailLogin": {
       "expired": "Odkaz už neplatí. Pošlete si nový kód.",
@@ -161,7 +162,8 @@
       "linkSent": "Poslali jsme odkaz na {email}. E-mail se změní, až na něj kliknete.",
       "noSmtpLink": "E-maily nejsou nastavené (SMTP). Odkaz je v logu serveru.",
       "selfHostDelete": "Na vlastním serveru účty spravuje správce (OZVI_ADMIN_EMAILS).",
-      "typeEmail": "Pro potvrzení napište přesně svůj e-mail."
+      "typeEmail": "Pro potvrzení napište přesně svůj e-mail.",
+      "signupClosed": "Registrace ještě není otevřená. Napište nám na podpora@ozvi.io a ozveme se, až spustíme."
     },
     "workspace": {
       "not_owner": "Tohle může udělat jen vlastník prostoru.",

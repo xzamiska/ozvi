@@ -104,7 +104,8 @@
       "linkExpired": "A bejelentkezési linkek 15 percig érvényesek, és egyszer használhatók. Küldj magadnak új kódot.",
       "sendNew": "Új kód küldése",
       "signInAs": "Bejelentkezés ezzel a címmel: ",
-      "signIn": "Bejelentkezés"
+      "signIn": "Bejelentkezés",
+      "closed": "A regisztráció hamarosan megnyílik. Ha az elsők között szeretné kipróbálni az Ozvit, írjon nekünk: <mail>{email}</mail>."
     },
     "emailLogin": {
       "expired": "Ez a link lejárt. Küldj magadnak új kódot.",
@@ -161,7 +162,8 @@
       "linkSent": "Linket küldtünk ide: {email}. Az e-mail-címed akkor módosul, amikor rákattintasz.",
       "noSmtpLink": "Az e-mail-küldés nincs beállítva (SMTP). A link a szerver naplójában található.",
       "selfHostDelete": "Saját üzemeltetésű szerveren a fiókokat az adminisztrátor kezeli (OZVI_ADMIN_EMAILS).",
-      "typeEmail": "A megerősítéshez írd be pontosan az e-mail-címedet."
+      "typeEmail": "A megerősítéshez írd be pontosan az e-mail-címedet.",
+      "signupClosed": "A regisztráció még nem nyílt meg. Írjon a podpora@ozvi.io címre, és szólunk, amikor elindulunk."
     },
     "workspace": {
       "not_owner": "Ezt csak a munkaterület tulajdonosa teheti meg.",

@@ -104,7 +104,8 @@
       "linkExpired": "Linki do logowania są ważne 15 minut i działają tylko raz. Wyślij sobie nowy kod.",
       "sendNew": "Wyślij nowy kod",
       "signInAs": "Zalogujesz się jako ",
-      "signIn": "Zaloguj się"
+      "signIn": "Zaloguj się",
+      "closed": "Rejestracja wkrótce zostanie otwarta. Jeśli chcesz wypróbować Ozvi jako jeden z pierwszych, napisz do nas na <mail>{email}</mail>."
     },
     "emailLogin": {
       "expired": "Ten link wygasł. Wyślij sobie nowy kod.",
@@ -161,7 +162,8 @@
       "linkSent": "Wysłaliśmy link na adres {email}. Adres zmieni się po jego kliknięciu.",
       "noSmtpLink": "E-mail nie jest skonfigurowany (SMTP). Link znajdziesz w logu serwera.",
       "selfHostDelete": "Na własnym serwerze kontami zarządza administrator (OZVI_ADMIN_EMAILS).",
-      "typeEmail": "Aby potwierdzić, wpisz dokładnie swój adres e-mail."
+      "typeEmail": "Aby potwierdzić, wpisz dokładnie swój adres e-mail.",
+      "signupClosed": "Rejestracja nie jest jeszcze otwarta. Napisz na podpora@ozvi.io, a damy znać, gdy wystartujemy."
     },
     "workspace": {
       "not_owner": "Może to zrobić tylko właściciel przestrzeni roboczej.",

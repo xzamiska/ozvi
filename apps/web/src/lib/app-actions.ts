@@ -9,6 +9,7 @@ import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { logActivity, who } from "./activity";
 import type { LoginState } from "@/components/EmailLogin";
+import { signupClosed } from "./account-rules";
 import { accountForVerifiedEmail, APP_COOKIE, appCookie, getAccount, isMember, newWorkspaceSlug } from "./account";
 import { clientIp } from "./client-ip";
 import { getTranslations } from "next-intl/server";
@@ -38,7 +39,7 @@ export async function requestAccountLogin(_: LoginState, form: FormData): Promis
 
 async function finish(email: string): Promise<string | null> {
   const account = await accountForVerifiedEmail(email);
-  if (!account) return (await server())("noAccess");
+  if (!account) return (await server())(process.env.OZVI_MODE === "cloud" && signupClosed() ? "signupClosed" : "noAccess");
   (await cookies()).set(appCookie(account));
   return null;
 }

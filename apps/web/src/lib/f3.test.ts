@@ -57,6 +57,8 @@ describe("account signup rules", () => {
     expect(mayCreateAccount("a@b.sk", { OZVI_MODE: "cloud" })).toBe(true);
     expect(mayCreateAccount("a@b.sk", { OZVI_MODE: "self" })).toBe(false);
     expect(mayCreateAccount("a@b.sk", { OZVI_MODE: "self", OZVI_ADMIN_EMAILS: "x@y.sk, A@B.sk" })).toBe(true);
+    expect(mayCreateAccount("a@b.sk", { OZVI_MODE: "cloud", OZVI_SIGNUP: "closed" })).toBe(false);
+    expect(mayCreateAccount("a@b.sk", { OZVI_MODE: "cloud", OZVI_SIGNUP: "closed", OZVI_ADMIN_EMAILS: "a@b.sk" })).toBe(true);
   });
 });
 
