@@ -1506,9 +1506,9 @@
     "digestHeading": "Was sich geändert hat",
     "openFeedback": "Feedback öffnen",
     "loginSubject": "{code} – Anmeldung bei {brand}",
-    "loginHeading": "Ihr Code: {code}",
-    "loginBody": "Geben Sie ihn in dem Fenster ein, in dem Sie sich angemeldet haben, oder klicken Sie auf die Schaltfläche. Er ist 15 Minuten gültig.",
-    "loginIgnore": "Wenn Sie keine Anmeldung angefordert haben, können Sie diese E-Mail ignorieren.",
+    "loginHeading": "Anmeldung bei {brand}",
+    "loginBody": "Geben Sie diesen Code in dem Fenster ein, in dem Sie sich anmelden.",
+    "loginIgnore": "Wir haben diesen Code an {email} gesendet. Wenn Sie keine Anmeldung angefordert haben, müssen Sie nichts tun. Ohne den Code kommt niemand in das Konto.",
     "signIn": "Anmelden",
     "changeSubject": "Bestätigen Sie Ihre neue E-Mail-Adresse für Ozvi",
     "changeHeading": "Bestätigen Sie Ihre neue E-Mail-Adresse",
@@ -1575,7 +1575,10 @@
         "restore": "Wiederherstellung aus der Sicherung: SELFHOST.md, Abschnitt Aktualizácie (Aktualisierungen)."
       },
       "open": "Einstellungen öffnen"
-    }
+    },
+    "loginValid": "15 Minuten gültig, nur einmal verwendbar.",
+    "loginOr": "Oder melden Sie sich mit einem Klick an:",
+    "loginPreheader": "Ihr Anmeldecode für {brand}. 15 Minuten gültig."
   },
   "errors": {
     "signIn": "Bitte melden Sie sich dafür an.",

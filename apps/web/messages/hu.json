@@ -1506,9 +1506,9 @@
     "digestHeading": "Mi változott",
     "openFeedback": "Visszajelzések megnyitása",
     "loginSubject": "{code} – bejelentkezési kód ({brand})",
-    "loginHeading": "A kódod: {code}",
-    "loginBody": "Írd be abban az ablakban, ahol bejelentkeztél, vagy kattints a gombra. 15 percig érvényes.",
-    "loginIgnore": "Ha nem te kezdeményezted a bejelentkezést, nyugodtan hagyd figyelmen kívül ezt az e-mailt.",
+    "loginHeading": "Bejelentkezés: {brand}",
+    "loginBody": "Írd be ezt a kódot abban az ablakban, ahol bejelentkeztél.",
+    "loginIgnore": "A kódot a(z) {email} címre küldtük. Ha nem te kezdeményezted a bejelentkezést, nincs teendőd. Kód nélkül senki nem fér hozzá a fiókhoz.",
     "signIn": "Bejelentkezés",
     "changeSubject": "Erősítsd meg az új e-mail-címedet az Ozviban",
     "changeHeading": "Erősítsd meg az új e-mail-címedet",
@@ -1575,7 +1575,10 @@
         "restore": "A mentésből való visszaállítás leírása: SELFHOST.md, Aktualizácie (Frissítések) szakasz."
       },
       "open": "Beállítások megnyitása"
-    }
+    },
+    "loginValid": "15 percig érvényes, egyszer használható.",
+    "loginOr": "Vagy jelentkezz be egy kattintással:",
+    "loginPreheader": "Bejelentkezési kódod ({brand}). 15 percig érvényes."
   },
   "errors": {
     "signIn": "Ehhez jelentkezz be.",

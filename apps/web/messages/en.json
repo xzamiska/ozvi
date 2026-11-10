@@ -1506,9 +1506,9 @@
     "digestHeading": "What changed",
     "openFeedback": "Open feedback",
     "loginSubject": "{code} — sign in to {brand}",
-    "loginHeading": "Your code: {code}",
-    "loginBody": "Enter it in the window where you were signing in, or click the button. It’s valid for 15 minutes.",
-    "loginIgnore": "If you didn’t ask to sign in, you can ignore this e-mail.",
+    "loginHeading": "Sign in to {brand}",
+    "loginBody": "Enter this code in the window where you were signing in.",
+    "loginIgnore": "We sent this code to {email}. If you didn’t ask to sign in, you don’t need to do anything. Nobody gets into the account without the code.",
     "signIn": "Sign in",
     "changeSubject": "Confirm your new e-mail for Ozvi",
     "changeHeading": "Confirm your new e-mail",
@@ -1575,7 +1575,10 @@
         "restore": "How to restore from the backup: SELFHOST.md, section Aktualizácie (Updates)."
       },
       "open": "Open settings"
-    }
+    },
+    "loginValid": "Valid for 15 minutes, single use.",
+    "loginOr": "Or sign in with one click:",
+    "loginPreheader": "Your sign-in code for {brand}. Valid for 15 minutes."
   },
   "errors": {
     "signIn": "Please sign in to do this.",

@@ -93,9 +93,13 @@ export async function issueLogin(i: IssueInput): Promise<{ sent: boolean }> {
   const mail = renderMail({
     subject: t("loginSubject", { code, brand: i.brand.name }),
     summary: "",
-    heading: t("loginHeading", { code }),
-    paragraphs: [t("loginBody"), t("loginIgnore")],
+    preheader: t("loginPreheader", { brand: i.brand.name }),
+    heading: t("loginHeading", { brand: i.brand.name }),
+    paragraphs: [t("loginBody")],
+    code: { value: code, note: t("loginValid") },
+    ctaLead: t("loginOr"),
     cta: { label: t("signIn"), href: url },
+    fine: [t("loginIgnore", { email })],
   }, theme, i.brand.name, null, locale);
   const sent = await sendNow({ to: email, fromName: i.brand.name, subject: mail.subject, html: mail.html, text: mail.text, kind: "login" });
   if (!sent && process.env.NODE_ENV !== "production") console.log(`[ozvi] login for ${email}: code ${code}, link ${url}`);
@@ -169,8 +173,9 @@ export async function issueEmailChange(db: Db, accountId: string, newEmail: stri
     subject: t("changeSubject"),
     summary: "",
     heading: t("changeHeading"),
-    paragraphs: [t("changeBody"), t("changeIgnore")],
+    paragraphs: [t("changeBody")],
     cta: { label: t("confirmEmail"), href: url },
+    fine: [t("changeIgnore")],
   }, parseTheme(presets.ozvi), "Ozvi", null, loc);
   const sent = await sendNow({ to: email, fromName: "Ozvi", subject: mail.subject, html: mail.html, text: mail.text, kind: "login" });
   if (!sent && process.env.NODE_ENV !== "production") console.log(`[ozvi] e-mail change to ${email}: ${url}`);

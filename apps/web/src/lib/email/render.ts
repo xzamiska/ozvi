@@ -1,9 +1,9 @@
-import { onAccent, renderedPalettes, type Theme } from "@ozvi/theme";
+import { MIX, mixOklab, onAccent, renderedPalettes, type Theme } from "@ozvi/theme";
 import type { Locale } from "../../i18n/locales";
 import { translator } from "../../i18n/messages";
 import { markdownToText, renderMarkdownWith } from "../markdown";
 
-/** Minimal, themed, table-free e-mail. Inline styles only; every dynamic string is escaped. */
+/** Themed, table-free e-mail: brand, one card, small print. Inline styles only; every dynamic string is escaped. */
 
 export const esc = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
@@ -15,6 +15,14 @@ export interface Mail {
   heading: string;
   paragraphs: string[];
   cta?: { label: string; href: string };
+  /** Muted line above the button ("Or sign in with one click"). */
+  ctaLead?: string;
+  /** A one-time code, set large and centred, with a note under it (validity). */
+  code?: { value: string; note?: string };
+  /** Small print under a divider (why you got this, what to do if it wasn't you). */
+  fine?: string[];
+  /** Inbox preview text; defaults to the summary. */
+  preheader?: string;
   /** User text (Markdown subset), rendered as e-mail-safe HTML and as plain text. */
   quote?: string;
   /** Allow # headings in the quote (changelog entries). */
@@ -51,28 +59,52 @@ export function mailMarkdown(src: string, theme: Theme, opts: { headings?: boole
 export function renderMail(m: Mail, theme: Theme, projectName: string, unsubscribeHref: string | null, locale: Locale = "sk") {
   const t = translator(locale, "email");
   const c = renderedPalettes(theme).light; // readable even when the host palette is not (WCAG AA)
+  const muted = mixOklab(c.ink, c.surface, MIX.muted);
+  const r = Math.min(theme.radius, 16);
+  const font = `${esc(theme.font.body)},-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif`;
+  const mono = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Courier New',monospace";
+
+  // The project's logo when it has one (alt text when images are blocked), otherwise its name next to an accent mark.
+  const brand = theme.logoUrl
+    ? `<img src="${esc(theme.logoUrl)}" alt="${esc(projectName)}" height="28" style="display:block;height:28px;width:auto;border:0">`
+    : `<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${c.accent};margin-right:8px;vertical-align:middle"></span><span style="font-size:15px;font-weight:700;vertical-align:middle">${esc(projectName)}</span>`;
+  const code = m.code
+    ? `<div style="margin:24px 0 8px;padding:20px 12px;background:${c.canvas};border:1px solid ${c.border};border-radius:${r}px;text-align:center">
+<div style="font-family:${mono};font-size:34px;line-height:1.1;font-weight:700;letter-spacing:10px;padding-left:10px;color:${c.ink}">${esc(m.code.value)}</div>
+${m.code.note ? `<div style="margin-top:8px;font-size:13px;color:${muted}">${esc(m.code.note)}</div>` : ""}</div>`
+    : "";
   const btn = m.cta
-    ? `<p style="margin:24px 0"><a href="${esc(m.cta.href)}" style="display:inline-block;padding:11px 18px;border-radius:${theme.radius}px;background:${c.accent};color:${onAccent(c.accent)};text-decoration:none;font-weight:600">${esc(m.cta.label)}</a></p>`
+    ? `${m.ctaLead ? `<p style="margin:24px 0 10px;color:${muted};font-size:14px">${esc(m.ctaLead)}</p>` : ""}<p style="margin:${m.ctaLead ? "0" : "28px"} 0 4px"><a href="${esc(m.cta.href)}" style="display:inline-block;padding:12px 20px;border-radius:${r}px;background:${c.accent};color:${onAccent(c.accent)};text-decoration:none;font-weight:600;font-size:15px">${esc(m.cta.label)}</a></p>`
     : "";
   const quote = m.quote
-    ? `<blockquote style="margin:16px 0;padding:10px 14px 2px;border-left:3px solid ${c.accent};background:${c.canvas}">${mailMarkdown(m.quote, theme, { headings: m.quoteHeadings, base: m.quoteBase })}</blockquote>`
+    ? `<blockquote style="margin:20px 0;padding:12px 16px 4px;border-left:3px solid ${c.accent};background:${c.canvas};border-radius:0 ${r}px ${r}px 0">${mailMarkdown(m.quote, theme, { headings: m.quoteHeadings, base: m.quoteBase })}</blockquote>`
     : "";
   const links = m.links && m.links.items.length
-    ? `<p style="margin:16px 0 6px;font-weight:600">${esc(m.links.heading)}</p><ul style="margin:0 0 10px;padding-left:20px">${m.links.items.map((l) =>
-      `<li style="margin:0 0 4px"><a href="${esc(l.href)}" style="color:${c.ink};text-decoration:underline">${esc(l.label)}</a>${l.note ? ` <span style="color:#666">${esc(l.note)}</span>` : ""}</li>`).join("")}</ul>`
+    ? `<p style="margin:20px 0 6px;font-weight:600">${esc(m.links.heading)}</p><ul style="margin:0 0 10px;padding-left:20px">${m.links.items.map((l) =>
+      `<li style="margin:0 0 4px"><a href="${esc(l.href)}" style="color:${c.ink};text-decoration:underline">${esc(l.label)}</a>${l.note ? ` <span style="color:${muted}">${esc(l.note)}</span>` : ""}</li>`).join("")}</ul>`
+    : "";
+  const fine = m.fine?.length
+    ? `<div style="margin-top:28px;padding-top:16px;border-top:1px solid ${c.border}">${m.fine.map((f) => `<p style="margin:0 0 6px;font-size:13px;line-height:1.5;color:${muted}">${esc(f)}</p>`).join("")}</div>`
     : "";
   const foot = unsubscribeHref
-    ? `<p style="margin-top:32px;font-size:12px;color:#777">${esc(t("footer", { project: projectName }))} <a href="${esc(unsubscribeHref)}" style="color:#777">${esc(t("unsubscribe"))}</a></p>`
+    ? `<p style="margin:16px 4px 0;font-size:12px;line-height:1.5;color:${muted}">${esc(t("footer", { project: projectName }))} <a href="${esc(unsubscribeHref)}" style="color:${muted};text-decoration:underline">${esc(t("unsubscribe"))}</a></p>`
     : "";
-  const html = `<!doctype html><html lang="${locale}"><body style="margin:0;padding:24px 12px;background:${c.canvas};color:${c.ink};font-family:${esc(theme.font.body)},Arial,sans-serif;line-height:1.5">
-<div style="max-width:560px;margin:0 auto;background:${c.surface};border:1px solid ${c.border};border-radius:${theme.radius}px;padding:24px">
-<p style="margin:0 0 12px;font-weight:700">${esc(projectName)}</p>
-<h1 style="margin:0 0 12px;font-size:20px;line-height:1.3">${esc(m.heading)}</h1>
-${m.paragraphs.map((p) => `<p style="margin:0 0 10px">${esc(p)}</p>`).join("")}${quote}${links}${btn}${foot}
-</div></body></html>`;
-  const text = [m.heading, "", ...m.paragraphs, m.quote ? `\n${quoteText(m)}` : "",
-    m.links && m.links.items.length ? `\n${m.links.heading}\n${m.links.items.map((l) => `- ${l.label}${l.note ? ` ${l.note}` : ""}: ${l.href}`).join("\n")}` : "", m.cta ? `\n${m.cta.label}: ${m.cta.href}` : "",
-    unsubscribeHref ? `\n${t("unsubscribe")}: ${unsubscribeHref}` : ""].join("\n");
+  const preheader = m.preheader ?? m.summary;
+  const html = `<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>${esc(m.subject)}</title></head>
+<body style="margin:0;padding:0;background:${c.canvas};color:${c.ink};font-family:${font};font-size:15px;line-height:1.6;-webkit-text-size-adjust:100%">
+${preheader ? `<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">${esc(preheader)}</div>` : ""}
+<div style="padding:32px 16px">
+<div style="max-width:520px;margin:0 auto">
+<div style="margin:0 4px 16px">${brand}</div>
+<div style="background:${c.surface};border:1px solid ${c.border};border-radius:${r}px;padding:32px 28px">
+<h1 style="margin:0 0 14px;font-size:22px;line-height:1.3;font-weight:700;letter-spacing:-0.01em">${esc(m.heading)}</h1>
+${m.paragraphs.map((p) => `<p style="margin:0 0 12px">${esc(p)}</p>`).join("")}${code}${quote}${links}${btn}${fine}
+</div>${foot}
+</div></div></body></html>`;
+  const text = [m.heading, "", ...m.paragraphs, m.code ? `\n    ${m.code.value}\n${m.code.note ? `\n${m.code.note}` : ""}` : "", m.quote ? `\n${quoteText(m)}` : "",
+    m.links && m.links.items.length ? `\n${m.links.heading}\n${m.links.items.map((l) => `- ${l.label}${l.note ? ` ${l.note}` : ""}: ${l.href}`).join("\n")}` : "",
+    m.cta ? `\n${m.ctaLead ? `${m.ctaLead}\n` : ""}${m.cta.label}: ${m.cta.href}` : "", m.fine?.length ? `\n${m.fine.join("\n")}` : "",
+    unsubscribeHref ? `\n${t("unsubscribe")}: ${unsubscribeHref}` : ""].join("\n").replace(/\n{3,}/g, "\n\n").trim();
   return { subject: m.subject, summary: m.summary, html, text };
 }
 

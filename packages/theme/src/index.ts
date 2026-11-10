@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { readablePalette, stageColor } from "./a11y";
 
-export { auditPalette, derivedText, mixOklab, readablePalette, stageColor, type ContrastIssue, type Palette } from "./a11y";
+export { auditPalette, derivedText, MIX, mixOklab, readablePalette, stageColor, type ContrastIssue, type Palette } from "./a11y";
 
 /**
  * theme.json — the single contract that makes a board look like the host product.

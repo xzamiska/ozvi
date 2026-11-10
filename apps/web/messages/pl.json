@@ -1506,9 +1506,9 @@
     "digestHeading": "Co się zmieniło",
     "openFeedback": "Otwórz opinie",
     "loginSubject": "{code} — logowanie do {brand}",
-    "loginHeading": "Twój kod: {code}",
-    "loginBody": "Wpisz go w oknie, w którym się logujesz, albo kliknij przycisk. Kod jest ważny 15 minut.",
-    "loginIgnore": "Jeśli to nie ty próbujesz się zalogować, możesz zignorować tę wiadomość.",
+    "loginHeading": "Logowanie do {brand}",
+    "loginBody": "Wpisz ten kod w oknie, w którym się logujesz.",
+    "loginIgnore": "Wysłaliśmy ten kod na {email}. Jeśli to nie ty próbujesz się zalogować, nie musisz nic robić. Bez kodu nikt nie wejdzie na konto.",
     "signIn": "Zaloguj się",
     "changeSubject": "Potwierdź nowy adres e-mail w Ozvi",
     "changeHeading": "Potwierdź nowy adres e-mail",
@@ -1575,7 +1575,10 @@
         "restore": "Jak przywrócić kopię zapasową: SELFHOST.md, sekcja Aktualizácie (Aktualizacje)."
       },
       "open": "Otwórz ustawienia"
-    }
+    },
+    "loginValid": "Ważny 15 minut, jednorazowy.",
+    "loginOr": "Albo zaloguj się jednym kliknięciem:",
+    "loginPreheader": "Twój kod logowania do {brand}. Ważny 15 minut."
   },
   "errors": {
     "signIn": "Zaloguj się, żeby to zrobić.",

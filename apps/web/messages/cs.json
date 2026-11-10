@@ -1506,9 +1506,9 @@
     "digestHeading": "Co se změnilo",
     "openFeedback": "Otevřít zpětnou vazbu",
     "loginSubject": "{code} — přihlášení do {brand}",
-    "loginHeading": "Váš kód: {code}",
-    "loginBody": "Zadejte ho v okně, kde jste se přihlašovali, nebo klikněte na tlačítko. Platí 15 minut.",
-    "loginIgnore": "Pokud jste o přihlášení nežádali, tento e-mail ignorujte.",
+    "loginHeading": "Přihlášení do {brand}",
+    "loginBody": "Zadejte tento kód v okně, kde jste se přihlašovali.",
+    "loginIgnore": "Kód jsme poslali na {email}. Pokud jste o přihlášení nežádali, nemusíte nic dělat. Bez kódu se do účtu nikdo nedostane.",
     "signIn": "Přihlásit se",
     "changeSubject": "Potvrďte nový e-mail pro Ozvi",
     "changeHeading": "Potvrďte nový e-mail",
@@ -1575,7 +1575,10 @@
         "restore": "Postup obnovy ze zálohy je v dokumentaci SELFHOST.md, část Aktualizace."
       },
       "open": "Otevřít nastavení"
-    }
+    },
+    "loginValid": "Platí 15 minut a použít se dá jednou.",
+    "loginOr": "Nebo se přihlaste jedním kliknutím:",
+    "loginPreheader": "Váš přihlašovací kód do {brand}. Platí 15 minut."
   },
   "errors": {
     "signIn": "K této akci se musíte přihlásit.",
