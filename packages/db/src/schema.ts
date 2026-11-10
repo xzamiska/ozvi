@@ -58,6 +58,9 @@ export const projects = pgTable("projects", {
   teamDigestAt: timestamp("team_digest_at", { withTimezone: true }),
   /** Public ideas board on/off; the bug space is always private. */
   ideasPublic: boolean("ideas_public").notNull().default(true),
+  /** The board's own favicon (storage key, changes with every new icon, so it doubles as a cache key). Null = a letter in the accent colour. */
+  faviconKey: text("favicon_key"),
+  faviconType: text("favicon_type"),
   /** Where "Prihlásiť sa" sends people: a host-app URL that redirects back to /<slug>/sso?token=… */
   loginUrl: text("login_url"),
   /** SSO signing secret, AES-256-GCM encrypted with OZVI_SECRET_KEY (see crypto.ts). */

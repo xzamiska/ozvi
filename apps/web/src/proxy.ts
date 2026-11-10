@@ -38,6 +38,8 @@ async function route(req: NextRequest) {
 
   const path = req.nextUrl.pathname;
   if (path === "/") return NextResponse.redirect(new URL(`/${slug}/ideas`, hostOrigin(host)));
+  // Browsers ask a board's domain for /favicon.ico: the board's icon, not Ozvi's.
+  if (path === "/favicon.ico") return NextResponse.rewrite(new URL(`/${slug}/favicon`, req.url));
   if (path === `/${slug}` || path.startsWith(`/${slug}/`) || SHARED.has(path) || WIDGET_FILE.test(path) || path.startsWith("/fonts/") || path.startsWith("/_next/") || path.startsWith(`/.well-known/oauth-`)) {
     return next(req);
   }

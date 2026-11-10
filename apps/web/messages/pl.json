@@ -511,7 +511,16 @@
       "badOrigin": "„{o}” nie jest prawidłowym originem. Użyj formatu https://app.example.com bez ścieżki.",
       "saved": "Ustawienia zapisane.",
       "confirmRotate": "Potwierdź, że rozumiesz skutki wymiany sekretu.",
-      "rotated": "Nowy sekret jest aktywny. Stary już nie działa."
+      "rotated": "Nowy sekret jest aktywny. Stary już nie działa.",
+      "faviconBadSite": "Wpisz adres swojej aplikacji, np. https://app.twojafirma.pl.",
+      "faviconBlocked": "Ozvi nie połączy się z tym adresem (wewnętrzny lub niepubliczny).",
+      "faviconNotFound": "Na {site} nie znaleźliśmy ikony. Prześlij ją ręcznie.",
+      "faviconFetched": "Favicon pobrany z {site}.",
+      "faviconNoFile": "Wybierz plik z ikoną.",
+      "faviconTooBig": "Ikona może mieć najwyżej 200 kB.",
+      "faviconBadType": "Ten plik nie jest obrazem. Użyj PNG, SVG, ICO, JPEG, GIF lub WebP.",
+      "faviconSaved": "Favicon zapisany.",
+      "faviconCleared": "Tablica znów używa litery w kolorze akcentu."
     },
     "tokens": {
       "gateTitle": "Tokeny API są dla zespołu",
@@ -668,6 +677,19 @@
       "copy": "Kopiuj",
       "copied": "Skopiowano",
       "copyFailed": "Kopiowanie nie powiodło się. Zaznacz tekst i skopiuj go ręcznie."
+    },
+    "favicon": {
+      "title": "Favicon",
+      "custom": "Tablica ma własną ikonę. Widać ją na karcie przeglądarki i w zakładkach.",
+      "letter": "Na razie widać pierwszą literę projektu w kolorze akcentu.",
+      "site": "Strona twojej aplikacji",
+      "siteHint": "Ozvi pobierze z niej ikonę raz i zachowa kopię. Tablica nie odwołuje się potem do twojego serwera.",
+      "fetch": "Pobierz z aplikacji",
+      "fetching": "Pobieram…",
+      "upload": "Prześlij własny",
+      "uploading": "Przesyłam…",
+      "uploadHint": "PNG, SVG lub ICO, najwyżej 200 kB.",
+      "clear": "Użyj litery"
     }
   },
   "ai": {

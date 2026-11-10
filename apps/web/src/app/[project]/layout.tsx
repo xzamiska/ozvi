@@ -19,7 +19,9 @@ import { unansweredWhere } from "@/lib/unanswered";
 /** Every board page is titled "<page> – <project>" (WCAG 2.4.2); the board never shows Ozvi's name. */
 export async function generateMetadata({ params }: { params: Promise<{ project: string }> }) {
   const { project } = await getCtx((await params).project);
-  return { title: { template: `%s – ${project.name}`, default: project.name } };
+  // The board's own icon (or its letter), never Ozvi's: a board looks like the host product.
+  const icon = `/${project.slug}/favicon?v=${project.faviconKey?.split("/").pop() ?? "letter"}`;
+  return { title: { template: `%s – ${project.name}`, default: project.name }, icons: { icon, apple: icon, shortcut: icon } };
 }
 
 export default async function ProjectLayout({ children, params }: { children: React.ReactNode; params: Promise<{ project: string }> }) {

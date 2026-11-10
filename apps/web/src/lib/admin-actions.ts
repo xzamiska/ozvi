@@ -10,6 +10,10 @@ import { isLocale, LOCALES } from "@/i18n/locales";
 import { TRANSLATION_MODES } from "./translate";
 import { getTranslations } from "next-intl/server";
 import { getCtx } from "./project";
+import { randomUUID } from "node:crypto";
+import { appSite, fetchSiteIcon, iconType, MAX_ICON_BYTES } from "./favicon";
+import { BlockedAddressError } from "./net";
+import { storage } from "./storage";
 
 async function requireAdmin(slug: string) {
   const ctx = await getCtx(slug);
@@ -49,6 +53,12 @@ export async function saveSettings(slug: string, _: AdminState, form: FormData):
     emailLogin: form.get("emailLogin") === "on", moderateIdeas: form.get("moderateIdeas") === "on",
   }).where(eq(schema.projects.id, project.id));
   await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "project.settings" });
+  // First time the host app is known and the board has no icon yet: take the app's favicon (best effort).
+  const site = !project.faviconKey ? appSite({ loginUrl: loginUrl || null, allowedOrigins: origins }) : null;
+  if (site) {
+    const icon = await Promise.race([fetchSiteIcon(site).catch(() => null), new Promise<null>((r) => setTimeout(() => r(null), 6000))]);
+    if (icon) await storeIcon({ id: project.id, faviconKey: null }, icon.bytes, icon.type).catch(() => {});
+  }
   revalidatePath(`/${slug}`, "layout");
   return { ok: t("saved") };
 }
@@ -108,4 +118,54 @@ export async function saveVoting(slug: string, _: AdminState, form: FormData): P
     detail: `voting: ${mode}${budget ? `, ${budget}` : ""}` });
   revalidatePath(`/${slug}`, "layout");
   return { ok: t("saved") };
+}
+
+/* ---------- favicon (lib/favicon.ts) ---------- */
+
+async function storeIcon(project: { id: string; faviconKey: string | null }, bytes: Uint8Array, type: string) {
+  const key = `icons/${project.id}-${randomUUID()}`;
+  await storage().put(key, bytes, type);
+  await db.update(schema.projects).set({ faviconKey: key, faviconType: type }).where(eq(schema.projects.id, project.id));
+  if (project.faviconKey) await storage().remove(project.faviconKey).catch(() => {});
+}
+
+/** Takes the icon from the host app's website (the address the admin gives, or the app's login URL). */
+export async function fetchFavicon(slug: string, _: AdminState, form: FormData): Promise<AdminState> {
+  const { project, user, t } = await requireAdmin(slug);
+  const raw = String(form.get("site") ?? "").trim() || appSite(project) || "";
+  if (!raw) return { error: t("faviconBadSite") };
+  let site: string;
+  try { site = new URL(/^https?:\/\//.test(raw) ? raw : `https://${raw}`).toString(); } catch { return { error: t("faviconBadSite") }; }
+  const icon = await fetchSiteIcon(site).catch((e) => (e instanceof BlockedAddressError ? "blocked" as const : null));
+  if (icon === "blocked") return { error: t("faviconBlocked") };
+  if (!icon) return { error: t("faviconNotFound", { site: new URL(site).host }) };
+  await storeIcon(project, icon.bytes, icon.type);
+  await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "project.theme" });
+  revalidatePath(`/${slug}`, "layout");
+  return { ok: t("faviconFetched", { site: new URL(site).host }) };
+}
+
+/** An icon the admin uploads: PNG, SVG, ICO, JPEG, GIF or WebP, checked by its bytes, at most 200 kB. */
+export async function uploadFavicon(slug: string, _: AdminState, form: FormData): Promise<AdminState> {
+  const { project, user, t } = await requireAdmin(slug);
+  const file = form.get("icon");
+  if (!(file instanceof File) || file.size === 0) return { error: t("faviconNoFile") };
+  if (file.size > MAX_ICON_BYTES) return { error: t("faviconTooBig") };
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  const type = iconType(bytes);
+  if (!type) return { error: t("faviconBadType") };
+  await storeIcon(project, bytes, type);
+  await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "project.theme" });
+  revalidatePath(`/${slug}`, "layout");
+  return { ok: t("faviconSaved") };
+}
+
+/** Back to the letter in the accent colour. */
+export async function clearFavicon(slug: string): Promise<AdminState> {
+  const { project, user, t } = await requireAdmin(slug);
+  await db.update(schema.projects).set({ faviconKey: null, faviconType: null }).where(eq(schema.projects.id, project.id));
+  if (project.faviconKey) await storage().remove(project.faviconKey).catch(() => {});
+  await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "project.theme" });
+  revalidatePath(`/${slug}`, "layout");
+  return { ok: t("faviconCleared") };
 }

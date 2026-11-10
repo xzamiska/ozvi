@@ -511,7 +511,16 @@
       "badOrigin": "„{o}“ není platný původ. Použijte tvar https://app.example.com bez cesty.",
       "saved": "Nastavení je uložené.",
       "confirmRotate": "Potvrďte, že rozumíte dopadu výměny secretu.",
-      "rotated": "Nový secret je aktivní. Starý přestal platit."
+      "rotated": "Nový secret je aktivní. Starý přestal platit.",
+      "faviconBadSite": "Zadejte adresu vaší aplikace, například https://app.vasefirma.cz.",
+      "faviconBlocked": "K této adrese se Ozvi nepřipojí (interní nebo neveřejná adresa).",
+      "faviconNotFound": "Na {site} jsme nenašli použitelnou ikonu. Nahrajte ji ručně.",
+      "faviconFetched": "Favicon převzat z {site}.",
+      "faviconNoFile": "Vyberte soubor s ikonou.",
+      "faviconTooBig": "Ikona může mít nejvýše 200 kB.",
+      "faviconBadType": "Tento soubor není obrázek. Použijte PNG, SVG, ICO, JPEG, GIF nebo WebP.",
+      "faviconSaved": "Favicon uložen.",
+      "faviconCleared": "Board znovu používá písmeno v barvě akcentu."
     },
     "tokens": {
       "gateTitle": "API tokeny jsou pro tým",
@@ -668,6 +677,19 @@
       "copy": "Kopírovat",
       "copied": "Zkopírováno",
       "copyFailed": "Kopírování selhalo. Označte text a zkopírujte ho ručně."
+    },
+    "favicon": {
+      "title": "Favicon",
+      "custom": "Board má vlastní ikonu. Zobrazí se v kartě prohlížeče a v záložkách.",
+      "letter": "Zatím se zobrazuje první písmeno projektu v barvě akcentu.",
+      "site": "Web vaší aplikace",
+      "siteHint": "Ozvi z něj převezme ikonu jednou a uloží si ji. Board pak na váš server neodkazuje.",
+      "fetch": "Převzít z aplikace",
+      "fetching": "Přebírám…",
+      "upload": "Nahrát vlastní",
+      "uploading": "Nahrávám…",
+      "uploadHint": "PNG, SVG nebo ICO, nejvýše 200 kB.",
+      "clear": "Použít písmeno"
     }
   },
   "ai": {

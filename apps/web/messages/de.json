@@ -511,7 +511,16 @@
       "badOrigin": "„{o}“ ist kein gültiger Origin. Verwenden Sie das Format https://app.example.com ohne Pfad.",
       "saved": "Einstellungen gespeichert.",
       "confirmRotate": "Bestätigen Sie, dass Sie die Folgen des Austauschs des Secrets verstehen.",
-      "rotated": "Das neue Secret ist aktiv. Das alte funktioniert nicht mehr."
+      "rotated": "Das neue Secret ist aktiv. Das alte funktioniert nicht mehr.",
+      "faviconBadSite": "Geben Sie die Adresse Ihrer App ein, z. B. https://app.ihrefirma.de.",
+      "faviconBlocked": "Ozvi verbindet sich nicht mit dieser Adresse (intern oder nicht öffentlich).",
+      "faviconNotFound": "Auf {site} haben wir kein brauchbares Icon gefunden. Laden Sie es selbst hoch.",
+      "faviconFetched": "Favicon von {site} übernommen.",
+      "faviconNoFile": "Wählen Sie eine Icon-Datei.",
+      "faviconTooBig": "Das Icon darf höchstens 200 kB groß sein.",
+      "faviconBadType": "Diese Datei ist kein Bild. Verwenden Sie PNG, SVG, ICO, JPEG, GIF oder WebP.",
+      "faviconSaved": "Favicon gespeichert.",
+      "faviconCleared": "Das Board nutzt wieder seinen Buchstaben in der Akzentfarbe."
     },
     "tokens": {
       "gateTitle": "API-Tokens sind für das Team",
@@ -668,6 +677,19 @@
       "copy": "Kopieren",
       "copied": "Kopiert",
       "copyFailed": "Kopieren fehlgeschlagen. Markieren Sie den Text und kopieren Sie ihn von Hand."
+    },
+    "favicon": {
+      "title": "Favicon",
+      "custom": "Das Board hat ein eigenes Icon. Es erscheint im Browser-Tab und in Lesezeichen.",
+      "letter": "Vorerst zeigt das Board seinen ersten Buchstaben in der Akzentfarbe.",
+      "site": "Website Ihrer App",
+      "siteHint": "Ozvi übernimmt das Icon einmal und speichert eine Kopie. Das Board verweist danach nicht auf Ihren Server.",
+      "fetch": "Aus meiner App übernehmen",
+      "fetching": "Übernehme…",
+      "upload": "Eigenes hochladen",
+      "uploading": "Lade hoch…",
+      "uploadHint": "PNG, SVG oder ICO, höchstens 200 kB.",
+      "clear": "Buchstaben verwenden"
     }
   },
   "ai": {

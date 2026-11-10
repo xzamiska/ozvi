@@ -12,6 +12,8 @@ import { DeleteProjectForm } from "@/components/PrivacyForms";
 import { cnameTarget, domainToken } from "@/lib/domains";
 import { ago } from "@/lib/format";
 import { ThemeEditor } from "@/components/ThemeEditor";
+import { FaviconForm } from "@/components/FaviconForm";
+import { appSite } from "@/lib/favicon";
 import { Page, PageHead, Panel } from "@/components/ozvi/page";
 import { hint, preBox, SettingsBlock, SettingsSection } from "@/components/settings-base";
 import { SectionNav } from "@/components/settings";
@@ -174,6 +176,7 @@ export default async function Admin({ params }: { params: Promise<{ project: str
 
           <SettingsSection id="appearance" title={t("nav.look")} text={t("look.text")}>
             <ThemeEditor slug={slug} initial={theme} />
+            <FaviconForm slug={slug} site={appSite(project) ?? ""} version={project.faviconKey?.split("/").pop() ?? "letter"} custom={!!project.faviconKey} />
           </SettingsSection>
 
           <SettingsSection id="project" title={t("nav.project")} text={t("project.text")}>

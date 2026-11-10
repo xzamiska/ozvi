@@ -10,6 +10,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Ozvi",
   description: "Hlásenia chýb a board s nápadmi, ktoré vyzerajú ako vaša appka.",
+  // Ozvi's own icon by config, not by an app/icon file: file-based icons win over every segment's
+  // metadata, and a board must be able to show its own (app/[project]/layout.tsx).
+  icons: { icon: "/ozvi-icon.svg" },
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

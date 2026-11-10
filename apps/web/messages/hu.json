@@ -511,7 +511,16 @@
       "badOrigin": "„{o}” nem érvényes origin. Használd a https://app.example.com formát útvonal nélkül.",
       "saved": "Beállítások mentve.",
       "confirmRotate": "Erősítsd meg, hogy érted a titkos kulcs cseréjének következményeit.",
-      "rotated": "Az új titkos kulcs aktív. A régi már nem működik."
+      "rotated": "Az új titkos kulcs aktív. A régi már nem működik.",
+      "faviconBadSite": "Add meg az alkalmazásod címét, pl. https://app.cegetek.hu.",
+      "faviconBlocked": "Az Ozvi nem csatlakozik ehhez a címhez (belső vagy nem nyilvános cím).",
+      "faviconNotFound": "A(z) {site} oldalon nem találtunk használható ikont. Töltsd fel kézzel.",
+      "faviconFetched": "Favicon átvéve innen: {site}.",
+      "faviconNoFile": "Válassz ikonfájlt.",
+      "faviconTooBig": "Az ikon legfeljebb 200 kB lehet.",
+      "faviconBadType": "Ez a fájl nem kép. Használj PNG, SVG, ICO, JPEG, GIF vagy WebP formátumot.",
+      "faviconSaved": "Favicon mentve.",
+      "faviconCleared": "A tábla újra a kiemelőszínű betűt használja."
     },
     "tokens": {
       "gateTitle": "Az API-tokenek a csapatnak szólnak",
@@ -668,6 +677,19 @@
       "copy": "Másolás",
       "copied": "Másolva",
       "copyFailed": "A másolás nem sikerült. Jelölje ki a szöveget, és másolja kézzel."
+    },
+    "favicon": {
+      "title": "Favicon",
+      "custom": "A táblának saját ikonja van. A böngészőfülön és a könyvjelzőkben látszik.",
+      "letter": "Egyelőre a projekt első betűje látszik a kiemelőszínben.",
+      "site": "Az alkalmazásod webcíme",
+      "siteHint": "Az Ozvi egyszer átveszi innen az ikont, és eltárol egy másolatot. A tábla utána nem hivatkozik a szerveredre.",
+      "fetch": "Átvétel az alkalmazásból",
+      "fetching": "Átvétel…",
+      "upload": "Saját feltöltése",
+      "uploading": "Feltöltés…",
+      "uploadHint": "PNG, SVG vagy ICO, legfeljebb 200 kB.",
+      "clear": "Betű használata"
     }
   },
   "ai": {

@@ -511,7 +511,16 @@
       "badOrigin": "“{o}” isn’t a valid origin. Use the form https://app.example.com without a path.",
       "saved": "Settings saved.",
       "confirmRotate": "Confirm that you understand the impact of replacing the secret.",
-      "rotated": "The new secret is active. The old one no longer works."
+      "rotated": "The new secret is active. The old one no longer works.",
+      "faviconBadSite": "Enter your app's address, e.g. https://app.yourcompany.com.",
+      "faviconBlocked": "Ozvi won't connect to this address (internal or non-public).",
+      "faviconNotFound": "We found no usable icon on {site}. Upload it by hand.",
+      "faviconFetched": "Favicon taken from {site}.",
+      "faviconNoFile": "Choose an icon file.",
+      "faviconTooBig": "The icon can be at most 200 kB.",
+      "faviconBadType": "This file isn't an image. Use PNG, SVG, ICO, JPEG, GIF or WebP.",
+      "faviconSaved": "Favicon saved.",
+      "faviconCleared": "The board uses its letter in the accent colour again."
     },
     "tokens": {
       "gateTitle": "API tokens are for the team",
@@ -668,6 +677,19 @@
       "copy": "Copy",
       "copied": "Copied",
       "copyFailed": "Copying failed. Select the text and copy it by hand."
+    },
+    "favicon": {
+      "title": "Favicon",
+      "custom": "The board has its own icon. It shows in the browser tab and in bookmarks.",
+      "letter": "For now the board shows its first letter in the accent colour.",
+      "site": "Your app's website",
+      "siteHint": "Ozvi takes the icon from it once and keeps a copy. The board never links to your server for it.",
+      "fetch": "Take from my app",
+      "fetching": "Taking…",
+      "upload": "Upload my own",
+      "uploading": "Uploading…",
+      "uploadHint": "PNG, SVG or ICO, at most 200 kB.",
+      "clear": "Use the letter"
     }
   },
   "ai": {
