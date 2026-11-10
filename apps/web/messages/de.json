@@ -1863,6 +1863,24 @@
         "busy": "Eine Aktualisierung läuft bereits.",
         "notifyOnly": "Im Modus Nur benachrichtigen installiert der Updater nichts. Ändern Sie zuerst den Modus."
       }
+    },
+    "validation": {
+      "thisField": "Dieses Feld",
+      "required": "„{label}“ ist ein Pflichtfeld.",
+      "choose": "Wählen Sie eine Option in „{label}“.",
+      "check": "Bitte setzen Sie hier ein Häkchen.",
+      "file": "Fügen Sie eine Datei hinzu: {label}.",
+      "email": "Geben Sie eine E-Mail-Adresse ein, z. B. name@firma.de.",
+      "url": "Geben Sie die vollständige Adresse mit https:// ein.",
+      "format": "Der Wert hat nicht das richtige Format.",
+      "tooShort": "Geben Sie mindestens {n, plural, one {# Zeichen} other {# Zeichen}} ein.",
+      "tooLong": "Geben Sie höchstens {n, plural, one {# Zeichen} other {# Zeichen}} ein.",
+      "number": "Geben Sie eine Zahl ein.",
+      "min": "Der kleinste erlaubte Wert ist {n}.",
+      "max": "Der größte erlaubte Wert ist {n}.",
+      "repo": "Geben Sie das Repository als Besitzer/Name ein, z. B. firma/app.",
+      "slug": "Verwenden Sie 2 bis 41 Zeichen: Kleinbuchstaben ohne Umlaute, Ziffern und Bindestriche, beginnend mit Buchstabe oder Ziffer.",
+      "code": "Geben Sie den 6-stelligen Code aus der E-Mail ein."
     }
   },
   "integrations": {

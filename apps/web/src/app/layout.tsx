@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
+import { FormGuard } from "@/components/FormGuard";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { translator } from "@/i18n/messages";
@@ -20,6 +21,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <a href="#main" className="oz-skip">{translator(locale, "a11y")("skip")}</a>
         <NextIntlClientProvider>
           <TooltipProvider delayDuration={300}>{children}</TooltipProvider>
+          <FormGuard />
         </NextIntlClientProvider>
         <Toaster position="bottom-right" />
       </body>

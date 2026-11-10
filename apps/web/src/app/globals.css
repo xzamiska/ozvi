@@ -242,3 +242,6 @@
   .oz-hl-mail { animation: oz-hl-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 3.1s both; }
 }
 @media (prefers-reduced-motion: reduce) { .oz-hl-was { display: none; } }
+
+/* Field errors written by components/FormGuard.tsx under an invalid control (our text, not the browser's bubble). */
+.oz-field-error { margin-top: 2px; font-size: 13px; line-height: 1.4; font-weight: 500; color: var(--oz-danger); text-wrap: pretty; }

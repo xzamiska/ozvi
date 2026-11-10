@@ -20,6 +20,7 @@ export function NewProjectForm({ workspaces, swatches, base, initial }: {
 }) {
   const [state, action, pending] = useActionState<NewProjectState, FormData>(createProject, {});
   const t = useTranslations("account.newProject");
+  const v = useTranslations("forms.validation");
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [touched, setTouched] = useState(false);
@@ -39,11 +40,11 @@ export function NewProjectForm({ workspaces, swatches, base, initial }: {
 
       <div className="grid gap-2">
         <Label htmlFor="np-slug" className={labelCls}>{t("address")}</Label>
-        <div className="flex items-stretch overflow-hidden rounded-md border border-input shadow-xs focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50">
+        <div data-field-control className="flex items-stretch overflow-hidden rounded-md border border-input shadow-xs has-[[aria-invalid=true]]:border-destructive focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50">
           <span id="np-prefix" className="hidden shrink-0 items-center border-r bg-wash px-3 font-mono text-[13px] whitespace-nowrap text-muted-foreground sm:flex">
             {prefix}
           </span>
-          <input id="np-slug" name="slug" required pattern="[a-z0-9][a-z0-9\-]{1,40}" value={shown} spellCheck={false} autoComplete="off"
+          <input id="np-slug" name="slug" required pattern="[a-z0-9][a-z0-9\-]{1,40}" data-error={v("slug")} value={shown} spellCheck={false} autoComplete="off"
             aria-describedby="np-prefix np-slug-hint"
             onChange={(e) => { setTouched(true); setSlug(slugify(e.target.value)); }}
             className="h-11 min-w-0 flex-1 bg-transparent px-3 font-mono text-[15px] outline-none" />

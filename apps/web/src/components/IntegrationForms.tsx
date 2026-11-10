@@ -170,12 +170,13 @@ export function WebhookActions({ slug, id }: { slug: string; id: string }) {
 export function GithubForm({ slug, repo, onClose, connected, hookUrl }: { slug: string; repo: string; onClose: string; connected: boolean; hookUrl: string }) {
   const T = useTranslations("integrations");
   const t = useTranslations("integrations.github");
+  const v = useTranslations("forms.validation");
   const [state, action, pending] = useActionState((p: ActState, f: FormData) => saveGithub(slug, p, f), {});
   return (
     <form action={action} className={panel}>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field id="gh-repo" label={t("repo")} hint={t("repoHint")}>
-          <Input id="gh-repo" name="repo" required defaultValue={repo} placeholder="firma/app" pattern="[A-Za-z0-9_.\-]+/[A-Za-z0-9_.\-]+" spellCheck={false} {...noFill} />
+          <Input id="gh-repo" name="repo" required defaultValue={repo} placeholder="firma/app" pattern="[A-Za-z0-9_.\-]+/[A-Za-z0-9_.\-]+" data-error={v("repo")} spellCheck={false} {...noFill} />
         </Field>
         <Field id="gh-token" label={t("token")} hint={connected ? t("keepToken") : t("tokenHint")}>
           <Input id="gh-token" name="token" type="password" autoComplete="off" placeholder={connected ? "••••••••" : "github_pat_…"} required={!connected} />

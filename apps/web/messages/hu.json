@@ -1863,6 +1863,24 @@
         "busy": "Már fut egy frissítés.",
         "notifyOnly": "Csak értesítés módban az updater semmit sem telepít. Előbb módosítsa a módot."
       }
+    },
+    "validation": {
+      "thisField": "Ez a mező",
+      "required": "A(z) „{label}” mező kötelező.",
+      "choose": "Válassz egy lehetőséget: „{label}”.",
+      "check": "Pipáld be ezt a mezőt.",
+      "file": "Adj hozzá fájlt: {label}.",
+      "email": "Adj meg egy e-mail-címet, pl. nev@ceg.hu.",
+      "url": "Add meg a teljes címet https://-sel együtt.",
+      "format": "Az érték formátuma nem megfelelő.",
+      "tooShort": "Adj meg legalább {n} karaktert.",
+      "tooLong": "Legfeljebb {n} karaktert adj meg.",
+      "number": "Adj meg egy számot.",
+      "min": "A legkisebb megengedett érték: {n}.",
+      "max": "A legnagyobb megengedett érték: {n}.",
+      "repo": "A tárolót tulajdonos/név formában add meg, pl. ceg/app.",
+      "slug": "2–41 karaktert használj: ékezet nélküli kisbetűket, számjegyeket és kötőjelet, betűvel vagy számmal kezdve.",
+      "code": "Add meg az e-mailben kapott 6 jegyű kódot."
     }
   },
   "integrations": {

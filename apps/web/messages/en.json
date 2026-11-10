@@ -1863,6 +1863,24 @@
         "busy": "An update is already running.",
         "notifyOnly": "In Notify only mode the updater installs nothing. Change the mode first."
       }
+    },
+    "validation": {
+      "thisField": "This field",
+      "required": "“{label}” is required.",
+      "choose": "Choose an option in “{label}”.",
+      "check": "Please tick this box.",
+      "file": "Add a file: {label}.",
+      "email": "Enter an e-mail address, e.g. name@company.com.",
+      "url": "Enter the full address including https://.",
+      "format": "This value isn't in the right format.",
+      "tooShort": "Enter at least {n, plural, one {# character} other {# characters}}.",
+      "tooLong": "Enter at most {n, plural, one {# character} other {# characters}}.",
+      "number": "Enter a number.",
+      "min": "The smallest allowed value is {n}.",
+      "max": "The largest allowed value is {n}.",
+      "repo": "Enter the repository as owner/name, e.g. acme/app.",
+      "slug": "Use 2 to 41 characters: lowercase letters without accents, digits and hyphens, starting with a letter or digit.",
+      "code": "Enter the 6-digit code from the e-mail."
     }
   },
   "integrations": {

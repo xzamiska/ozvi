@@ -1863,6 +1863,24 @@
         "busy": "Aktualizácia už beží.",
         "notifyOnly": "V režime Len upozorniť updater nič neinštaluje. Najprv zmeňte režim."
       }
+    },
+    "validation": {
+      "thisField": "Toto pole",
+      "required": "Pole „{label}“ je povinné.",
+      "choose": "Vyberte možnosť v poli „{label}“.",
+      "check": "Toto políčko treba zaškrtnúť.",
+      "file": "Pridajte súbor: {label}.",
+      "email": "Zadajte e-mailovú adresu, napríklad meno@firma.sk.",
+      "url": "Zadajte celú adresu vrátane https://.",
+      "format": "Hodnota nemá správny tvar.",
+      "tooShort": "Zadajte aspoň {n, plural, one {# znak} few {# znaky} other {# znakov}}.",
+      "tooLong": "Zadajte najviac {n, plural, one {# znak} few {# znaky} other {# znakov}}.",
+      "number": "Zadajte číslo.",
+      "min": "Najmenšia povolená hodnota je {n}.",
+      "max": "Najväčšia povolená hodnota je {n}.",
+      "repo": "Zadajte repozitár v tvare vlastník/názov, napríklad firma/app.",
+      "slug": "Použite 2 až 41 znakov: malé písmená bez diakritiky, číslice a pomlčky. Na začiatku písmeno alebo číslica.",
+      "code": "Zadajte 6-miestny kód z e-mailu."
     }
   },
   "integrations": {

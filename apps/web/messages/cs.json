@@ -1863,6 +1863,24 @@
         "busy": "Aktualizace už běží.",
         "notifyOnly": "V režimu Jen upozornit updater nic neinstaluje. Nejdřív změňte režim."
       }
+    },
+    "validation": {
+      "thisField": "Toto pole",
+      "required": "Pole „{label}“ je povinné.",
+      "choose": "Vyberte možnost v poli „{label}“.",
+      "check": "Toto políčko je potřeba zaškrtnout.",
+      "file": "Přidejte soubor: {label}.",
+      "email": "Zadejte e-mailovou adresu, například jmeno@firma.cz.",
+      "url": "Zadejte celou adresu včetně https://.",
+      "format": "Hodnota nemá správný tvar.",
+      "tooShort": "Zadejte alespoň {n, plural, one {# znak} few {# znaky} other {# znaků}}.",
+      "tooLong": "Zadejte nejvýše {n, plural, one {# znak} few {# znaky} other {# znaků}}.",
+      "number": "Zadejte číslo.",
+      "min": "Nejmenší povolená hodnota je {n}.",
+      "max": "Největší povolená hodnota je {n}.",
+      "repo": "Zadejte repozitář ve tvaru vlastník/název, například firma/app.",
+      "slug": "Použijte 2 až 41 znaků: malá písmena bez diakritiky, číslice a pomlčky. Na začátku písmeno nebo číslice.",
+      "code": "Zadejte 6místný kód z e-mailu."
     }
   },
   "integrations": {

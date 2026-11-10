@@ -1863,6 +1863,24 @@
         "busy": "Aktualizacja już trwa.",
         "notifyOnly": "W trybie Tylko powiadom updater niczego nie instaluje. Najpierw zmień tryb."
       }
+    },
+    "validation": {
+      "thisField": "To pole",
+      "required": "Pole „{label}” jest wymagane.",
+      "choose": "Wybierz opcję w polu „{label}”.",
+      "check": "Zaznacz to pole.",
+      "file": "Dodaj plik: {label}.",
+      "email": "Wpisz adres e-mail, np. imie@firma.pl.",
+      "url": "Wpisz pełny adres razem z https://.",
+      "format": "Wartość ma nieprawidłowy format.",
+      "tooShort": "Wpisz co najmniej {n, plural, one {# znak} few {# znaki} other {# znaków}}.",
+      "tooLong": "Wpisz najwyżej {n, plural, one {# znak} few {# znaki} other {# znaków}}.",
+      "number": "Wpisz liczbę.",
+      "min": "Najmniejsza dozwolona wartość to {n}.",
+      "max": "Największa dozwolona wartość to {n}.",
+      "repo": "Wpisz repozytorium w formacie właściciel/nazwa, np. firma/app.",
+      "slug": "Użyj od 2 do 41 znaków: małe litery bez polskich znaków, cyfry i myślniki, na początku litera lub cyfra.",
+      "code": "Wpisz 6-cyfrowy kod z e-maila."
     }
   },
   "integrations": {

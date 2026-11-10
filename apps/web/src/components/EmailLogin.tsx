@@ -36,6 +36,7 @@ export function AuthShell({ title, lede, children, foot, className }: {
  */
 export function EmailLogin({ request, verify, cta, expired }: { request: Act; verify: Act; cta?: string; expired?: boolean }) {
   const t = useTranslations("account.emailLogin");
+  const v = useTranslations("forms.validation");
   const [state, action, pending] = useActionState<LoginState, FormData>(async (prev, f) => {
     if (f.get("restart")) return { step: "email", email: prev.email };
     if (f.get("resend")) {
@@ -75,7 +76,7 @@ export function EmailLogin({ request, verify, cta, expired }: { request: Act; ve
         <Label htmlFor="login-code" className="text-[14px] font-semibold">{t("codeLabel")}</Label>
         <Input id="login-code" name="code" required autoFocus inputMode="numeric"
           // Six digits typed or pasted: submit right away (the button stays for keyboard users).
-          onChange={(e) => { if (!pending && e.currentTarget.value.replace(/\D/g, "").length === 6) e.currentTarget.form?.requestSubmit(); }} autoComplete="one-time-code" pattern="[0-9 ]{6,7}" maxLength={7}
+          onChange={(e) => { if (!pending && e.currentTarget.value.replace(/\D/g, "").length === 6) e.currentTarget.form?.requestSubmit(); }} autoComplete="one-time-code" pattern="[0-9 ]{6,7}" maxLength={7} data-error={v("code")}
           placeholder="000000" aria-invalid={state.error ? true : undefined} aria-describedby={state.error ? "login-error" : undefined}
           className="h-14 text-center font-mono text-[26px] font-semibold tracking-[0.4em] tabular-nums placeholder:text-line-strong md:text-[26px]" />
       </div>
