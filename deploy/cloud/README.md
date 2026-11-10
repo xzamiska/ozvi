@@ -15,6 +15,7 @@ Prostredia majú vlastnú databázu, prílohy, kľúče a zálohy. Spája ich ib
 ```sh
 git clone https://github.com/xzamiska/ozvi /srv/ozvi
 cd /srv/ozvi/deploy/cloud/edge && cp .env.example .env   # doplňte meno a hash pre basic auth
+ln -s ../sites/staging.caddy sites-enabled/              # live.caddy až keď DNS ozvi.io ukazuje sem
 docker compose up -d
 mkdir -p /srv/ozvi-env/staging && cp ../app/.env.example /srv/ozvi-env/staging/.env   # doplňte kľúče
 /srv/ozvi/deploy/cloud/ozvi-env.sh staging up -d
@@ -28,6 +29,8 @@ DNS (bez proxy Cloudflare, certifikáty vydáva Caddy):
 | `ozvi.io`, `*.ozvi.io`, `domains.ozvi.io` | A | IP VM (live) |
 
 ## Certifikáty
+
+- Prostredie sa na edge zapína odkazom v `sites-enabled/` (`staging.caddy`, `live.caddy`). Bez DNS by Caddy iba zbieral neúspešné pokusy o certifikát a narazil na limity Let's Encrypt.
 
 - `ozvi.io` a `staging.ozvi.io` dostanú certifikát hneď.
 - `<projekt>.ozvi.io`, `<projekt>.staging.ozvi.io` a vlastné domény zákazníkov ho dostanú pri prvej návšteve. Caddy sa najprv spýta toho prostredia, ktorému meno patrí (`/api/domains/ask`), a to súhlasí iba so svojimi projektmi a overenými doménami.

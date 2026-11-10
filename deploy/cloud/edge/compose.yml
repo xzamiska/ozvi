@@ -4,6 +4,7 @@ services:
   caddy:
     image: caddy:2.10-alpine
     restart: unless-stopped
+    working_dir: /etc/caddy
     ports:
       - "80:80"
       - "443:443"
@@ -17,6 +18,8 @@ services:
       STAGING_AUTH_HASH: ${STAGING_AUTH_HASH:?set STAGING_AUTH_HASH}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./sites:/etc/caddy/sites:ro
+      - ./sites-enabled:/etc/caddy/sites-enabled:ro
       - caddy_data:/data
       - caddy_config:/config
     networks: [edge]

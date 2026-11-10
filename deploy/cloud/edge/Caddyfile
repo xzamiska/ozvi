@@ -49,32 +49,7 @@ http://127.0.0.1:9180 {
 	}
 }
 
-{$STAGING_DOMAIN} {
-	import staging
-}
-
-*.{$STAGING_DOMAIN} {
-	tls {
-		on_demand
-	}
-	import staging
-}
-
-{$LIVE_DOMAIN} {
-	import live
-}
-
-*.{$LIVE_DOMAIN} {
-	tls {
-		on_demand
-	}
-	import live
-}
-
-# Customers' own domains (CNAME to OZVI_CNAME_TARGET), live only.
-https:// {
-	tls {
-		on_demand
-	}
-	import live
-}
+# Environments are switched on by linking their file into sites-enabled/ (see README):
+#   ln -s ../sites/staging.caddy sites-enabled/   (and later live.caddy)
+# A name whose DNS does not point here yet would only collect failed ACME attempts.
+import sites-enabled/*.caddy

@@ -1,0 +1,19 @@
+# Live: the apex, <slug>.<domain> and customers' own domains.
+{$LIVE_DOMAIN} {
+	import live
+}
+
+*.{$LIVE_DOMAIN} {
+	tls {
+		on_demand
+	}
+	import live
+}
+
+# Customers' own domains (CNAME to OZVI_CNAME_TARGET), live only.
+https:// {
+	tls {
+		on_demand
+	}
+	import live
+}

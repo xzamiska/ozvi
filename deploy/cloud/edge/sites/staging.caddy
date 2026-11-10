@@ -1,0 +1,11 @@
+# staging.<domain> and <slug>.staging.<domain>, behind basic auth.
+{$STAGING_DOMAIN} {
+	import staging
+}
+
+*.{$STAGING_DOMAIN} {
+	tls {
+		on_demand
+	}
+	import staging
+}
