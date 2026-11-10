@@ -69,7 +69,7 @@ function Panel({ items, feature }: { items: NavItem[]; feature: NavItem }) {
  * Landing header: transparent over the hero, a solid bar with a reading-progress hairline once
  * the page scrolls. Product and Developers open panels (hover with intent delay, click, Escape).
  */
-export function SiteHeader({ locale, signedIn }: { locale: Locale; signedIn: boolean }) {
+export function SiteHeader({ locale, signedIn, soon = false }: { locale: Locale; signedIn: boolean; soon?: boolean }) {
   const t = useTranslations("landing");
   const productItems = t.raw("nav.productItems") as NavItem[], devItems = t.raw("nav.devItems") as NavItem[];
 
@@ -128,8 +128,10 @@ export function SiteHeader({ locale, signedIn }: { locale: Locale; signedIn: boo
 
         <div className="ml-auto flex items-center gap-1.5">
           <LangSwitch locale={locale} label={t("nav.language")} className="max-sm:hidden" />
-          {!signedIn && <Link href="/app/login" className="hidden h-9 items-center rounded-md px-3 text-[14px] font-medium hover:bg-wash sm:inline-flex">{t("nav.signIn")}</Link>}
-          <Link href={start.href} className="inline-flex h-9 items-center rounded-lg bg-foreground px-4 text-[14px] font-semibold whitespace-nowrap text-background transition-opacity hover:opacity-85">{start.label}</Link>
+          {!signedIn && !soon && <Link href="/app/login" className="hidden h-9 items-center rounded-md px-3 text-[14px] font-medium hover:bg-wash sm:inline-flex">{t("nav.signIn")}</Link>}
+          {soon
+            ? <span className="inline-flex h-9 items-center rounded-lg border border-dashed border-line-strong px-4 text-[14px] font-medium whitespace-nowrap text-muted-foreground">{t("nav.soon")}</span>
+            : <Link href={start.href} className="inline-flex h-9 items-center rounded-lg bg-foreground px-4 text-[14px] font-semibold whitespace-nowrap text-background transition-opacity hover:opacity-85">{start.label}</Link>}
           <Sheet open={sheet} onOpenChange={setSheet}>
             <SheetTrigger className="grid size-9 place-items-center rounded-md hover:bg-wash lg:hidden" aria-label={t("nav.menu")}><Menu className="size-5" /></SheetTrigger>
             <SheetContent side="right" className="w-[320px] gap-0 overflow-y-auto bg-surface p-0">
@@ -146,7 +148,7 @@ export function SiteHeader({ locale, signedIn }: { locale: Locale; signedIn: boo
                 <div className="grid gap-0.5 border-t pt-4">
                   <a href="#pricing" className="rounded-md px-2 py-2 text-[15px] font-medium hover:bg-wash">{t("nav.pricing")}</a>
                   <a href="#self-host" className="rounded-md px-2 py-2 text-[15px] font-medium hover:bg-wash">{t("nav.selfHost")}</a>
-                  {!signedIn && <Link href="/app/login" className="rounded-md px-2 py-2 text-[15px] font-medium hover:bg-wash">{t("nav.signIn")}</Link>}
+                  {!signedIn && !soon && <Link href="/app/login" className="rounded-md px-2 py-2 text-[15px] font-medium hover:bg-wash">{t("nav.signIn")}</Link>}
                 </div>
                 <LangSwitch locale={locale} label={t("nav.language")} align="start" className="justify-self-start" />
               </nav>

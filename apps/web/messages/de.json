@@ -2335,7 +2335,8 @@
         "href": "#self-host",
         "title": "Self-Hosting",
         "text": "Ein Docker-Image und Postgres. Alle Funktionen, 0 €."
-      }
+      },
+      "soon": "Start in Kürze"
     },
     "hero": {
       "title": "Feedback, das nicht verloren geht.",

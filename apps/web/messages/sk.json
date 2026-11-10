@@ -2335,7 +2335,8 @@
         "href": "#self-host",
         "title": "Vlastný server",
         "text": "Jeden Docker image a Postgres. Všetky funkcie, 0 €."
-      }
+      },
+      "soon": "Spúšťame čoskoro"
     },
     "hero": {
       "title": "Spätná väzba, ktorá sa nestratí.",

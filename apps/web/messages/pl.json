@@ -2335,7 +2335,8 @@
         "href": "#self-host",
         "title": "Własny hosting",
         "text": "Jeden obraz Dockera i Postgres. Wszystkie funkcje za 0 €."
-      }
+      },
+      "soon": "Startujemy wkrótce"
     },
     "hero": {
       "title": "Opinie, które nie giną.",

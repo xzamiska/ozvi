@@ -8,6 +8,7 @@ import { Reveal } from "@/components/landing/Reveal";
 import { Echo } from "@/components/landing/Echo";
 import { Playground } from "@/components/landing/Playground";
 import { LangSwitch, SiteHeader, type NavItem } from "@/components/landing/SiteHeader";
+import { signupClosed } from "@/lib/account-rules";
 import { Story } from "@/components/landing/Story";
 import { OzviLogo, OzviMark } from "@/components/ozvi/Logo";
 import { StatusMark } from "@/components/ozvi/route";
@@ -107,6 +108,8 @@ function Flow({ kind, title, text, stops }: { kind: Kind; title: string; text: s
 const h2 = "text-[32px] leading-[1.06] font-semibold tracking-[-0.04em] text-balance md:text-[44px]";
 const lede = "text-[16.5px] leading-relaxed text-muted-foreground";
 const primary = "inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-foreground px-5 text-[14.5px] font-semibold text-background transition-opacity hover:opacity-85";
+/** Before launch (OZVI_SIGNUP=closed) the sign-up buttons become this plain label. */
+const soonLabel = "inline-flex h-11 items-center justify-center rounded-lg border border-dashed border-line-strong px-5 text-[14.5px] font-medium text-muted-foreground";
 const ghost = "inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-line-strong bg-surface px-5 text-[14.5px] font-medium text-foreground transition-colors hover:border-foreground/40";
 
 export async function Landing({ locale, signedIn = false }: { locale: Locale; signedIn?: boolean }) {
@@ -135,6 +138,11 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
   const priceNote = (p: (typeof PLANS)[number]) => (p === "free" ? t("pricing.forever") : t("pricing.yearly", { q: eur(PRICES[p].quarter) }));
   const cta = (p: (typeof PLANS)[number]) => (p === "free" ? t("nav.start") : t("pricing.choose", { p: PLAN_NAME[p] }));
   const start = signedIn ? { href: "/app", label: t("nav.console") } : { href: "/app/login", label: t("nav.start") };
+  const soon = !signedIn && signupClosed();
+  /** The sign-up button, or before launch a plain "launching soon" label in the same place and size. */
+  const go = (label: string, className: string, extra?: string) => soon
+    ? <span className={cn(soonLabel, extra)}>{t("nav.soon")}</span>
+    : <Link href={start.href} className={cn(className, extra)}>{label}</Link>;
   const flowStops = t.raw("flows.stops") as Record<string, [string, string]>;
   const fonts = [...new Set([site, host].map((th) => fontsHref(th, { skipBundled: true })).filter(Boolean))] as string[];
 
@@ -144,7 +152,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
       <style>{toCss(site) + toCss(term, ".look-term") + toCss(host, ".look-host")}</style>
 
       <div className="min-h-dvh overflow-x-clip bg-background font-brand text-foreground">
-        <SiteHeader locale={locale} signedIn={signedIn} />
+        <SiteHeader locale={locale} signedIn={signedIn} soon={soon} />
 
         <main id="main" tabIndex={-1}>
           {/* hero: the promise, then straight into the story */}
@@ -155,7 +163,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
                 <p className={cn(lede, "max-w-[58ch] text-[18px] md:text-[19px]")}>{t("hero.lede")}</p>
                 <div className="flex flex-wrap gap-3">
-                  <Link href={start.href} className={primary}>{start.label}</Link>
+                  {go(start.label, primary)}
                   <a href="#how" className={ghost}>{t("hero.secondary")}</a>
                 </div>
               </div>
@@ -260,7 +268,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                         </div>
                       ))}
                     </dl>
-                    <Link href={start.href} className={cn(p === "pro" ? primary : ghost, "mt-5 h-10 w-full")}>{cta(p)}</Link>
+                    {go(cta(p), p === "pro" ? primary : ghost, "mt-5 h-10 w-full")}
                   </div>
                 ))}
               </div>
@@ -289,7 +297,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                       <td />
                       {PLANS.map((p) => (
                         <td key={p} className={cn("px-5 py-6", p === "pro" && "bg-primary/[0.05]")}>
-                          <Link href={start.href} className={cn(p === "pro" ? primary : ghost, "h-10 w-full")}>{cta(p)}</Link>
+                          {go(cta(p), p === "pro" ? primary : ghost, "h-10 w-full")}
                         </td>
                       ))}
                     </tr>
@@ -319,7 +327,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               <h2 data-r className={cn(h2, "max-w-[18ch]")}>{t("closing.title")}</h2>
               <p data-r className={cn(lede, "-mt-2")}>{t("closing.text")}</p>
               <div data-r className="flex flex-wrap justify-center gap-3">
-                <Link href={start.href} className={primary}>{start.label}</Link>
+                {go(start.label, primary)}
                 <a href="#pricing" className={ghost}>{t("closing.compare")}</a>
               </div>
             </Reveal>

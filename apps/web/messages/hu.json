@@ -2335,7 +2335,8 @@
         "href": "#self-host",
         "title": "Saját üzemeltetés",
         "text": "Egy Docker-image és Postgres. Minden funkció, 0 €."
-      }
+      },
+      "soon": "Hamarosan indulunk"
     },
     "hero": {
       "title": "Visszajelzés, ami nem vész el.",
