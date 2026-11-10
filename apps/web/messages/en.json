@@ -2806,7 +2806,9 @@
     ],
     "try": {
       "title": "Try it. In your app's colours.",
-      "lede": "This is the real board with sample data. Vote, add an idea, switch to the team view and change its colours, just like you will in your project settings."
+      "lede": "This is the real board with sample data. Vote, add an idea, switch to the team view and change its colours, just like you will in your project settings.",
+      "demo": "Try the widget in a sample app",
+      "demoNote": "Report a bug with a screenshot and see what the team would get."
     }
   },
   "net": {
@@ -3599,5 +3601,47 @@
     "empty": "No version has been released yet.",
     "breaking": "Major change",
     "breakingText": "Read the full notes before updating a self-hosted server. The updater does not install this version automatically."
+  },
+  "demo": {
+    "badge": "Demo",
+    "back": "Back to ozvi.io",
+    "title": "Try the widget inside someone else's app.",
+    "steps": [
+      "Click “Save booking”. It fails on purpose, so there's something to report.",
+      "Open the widget at the bottom right and report the bug with a screenshot, or suggest an idea.",
+      "On the right you'll see what the team would get. Nothing is sent; it all happens in your browser."
+    ],
+    "masked": "The phone, note and PIN are blurred in the screenshot, right in the browser.",
+    "embeds": "Embeds",
+    "app": {
+      "title": "Booking 14 Nov · 10:30",
+      "client": "Client",
+      "phone": "Phone",
+      "note": "Note",
+      "noteText": "Sensitive skin, allergic to ammonia",
+      "service": "Service",
+      "serviceText": "Colouring · Lucy · €65.00",
+      "pin": "Branch PIN",
+      "detail": "Detail",
+      "history": "History",
+      "save": "Save booking",
+      "failed": "The booking couldn't be saved."
+    },
+    "inspector": {
+      "title": "What the team would get",
+      "note": "Demo: nothing was sent, the data stayed in your browser.",
+      "empty": "Report a bug with the button at the bottom right and see what Ozvi attaches to it.",
+      "untitled": "Untitled",
+      "bug": "Bug report · only the author and the team see it",
+      "idea": "Idea · on the public board",
+      "shot": "Screenshot with blurred fields",
+      "page": "Page",
+      "version": "Version",
+      "browser": "Browser",
+      "errors": "Console errors",
+      "network": "Failed requests",
+      "noFailed": "None",
+      "actions": "Steps before the bug"
+    }
   }
 }

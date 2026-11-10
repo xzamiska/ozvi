@@ -2806,7 +2806,9 @@
     ],
     "try": {
       "title": "Próbáld ki. Az alkalmazásod színeiben.",
-      "lede": "Ez a valódi tábla mintaadatokkal. Szavazz, adj hozzá ötletet, válts a csapat nézetére, és állítsd be a színeit, ahogy a projekt beállításaiban is teszed majd."
+      "lede": "Ez a valódi tábla mintaadatokkal. Szavazz, adj hozzá ötletet, válts a csapat nézetére, és állítsd be a színeit, ahogy a projekt beállításaiban is teszed majd.",
+      "demo": "A widget kipróbálása egy mintaalkalmazásban",
+      "demoNote": "Jelents hibát képernyőképpel, és nézd meg, mit kapna a csapat."
     }
   },
   "net": {
@@ -3599,5 +3601,47 @@
     "empty": "Még nem adtunk ki verziót.",
     "breaking": "Jelentős változás",
     "breakingText": "Saját szerver frissítése előtt olvassa el a teljes megjegyzést. Az updater ezt a verziót nem telepíti automatikusan."
+  },
+  "demo": {
+    "badge": "Bemutató",
+    "back": "Vissza az ozvi.io-ra",
+    "title": "Próbáld ki a widgetet egy idegen alkalmazásban.",
+    "steps": [
+      "Kattints a „Foglalás mentése” gombra. Szándékosan nem sikerül, hogy legyen mit jelenteni.",
+      "Nyisd meg a widgetet jobbra lent, és jelentsd a hibát képernyőképpel, vagy javasolj ötletet.",
+      "Jobb oldalon látod, mit kapna a csapat. Semmi sem megy el, minden a böngésződben történik."
+    ],
+    "masked": "A telefonszám, a megjegyzés és a PIN már a böngészőben elmosódik a képernyőképen.",
+    "embeds": "Beágyazott elemek",
+    "app": {
+      "title": "Foglalás nov. 14. · 10:30",
+      "client": "Ügyfél",
+      "phone": "Telefon",
+      "note": "Megjegyzés",
+      "noteText": "Érzékeny bőr, ammónia-allergia",
+      "service": "Szolgáltatás",
+      "serviceText": "Festés · Lúcia · 65,00 €",
+      "pin": "Fiók PIN",
+      "detail": "Részletek",
+      "history": "Előzmények",
+      "save": "Foglalás mentése",
+      "failed": "A foglalást nem sikerült menteni."
+    },
+    "inspector": {
+      "title": "Ezt kapná a csapat",
+      "note": "Bemutató: semmi sem ment el, az adatok a böngésződben maradtak.",
+      "empty": "Jelents hibát a jobb alsó gombbal, és nézd meg, mit csatol hozzá az Ozvi.",
+      "untitled": "Cím nélkül",
+      "bug": "Hibajelentés · csak a bejelentő és a csapat látja",
+      "idea": "Ötlet · a nyilvános táblán",
+      "shot": "Képernyőkép elmosott mezőkkel",
+      "page": "Oldal",
+      "version": "Verzió",
+      "browser": "Böngésző",
+      "errors": "Konzolhibák",
+      "network": "Sikertelen kérések",
+      "noFailed": "Nincs",
+      "actions": "Lépések a hiba előtt"
+    }
   }
 }

@@ -205,6 +205,10 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("try.lede")}</p>
               </div>
               <div data-r className="mt-12"><ProductTour /></div>
+              <div data-r className="mt-8 flex flex-wrap items-center gap-4">
+                <Link href="/demo" className={ghost}>{t("try.demo")}</Link>
+                <span className="text-[14px] text-muted-foreground">{t("try.demoNote")}</span>
+              </div>
               <dl className="mt-16 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
                 {(pg.raw("scope.items") as { k: string; v: string }[]).map((i) => (
                   <div key={i.k} data-r className="grid content-start gap-1.5 border-t pt-4">

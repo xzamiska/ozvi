@@ -3,6 +3,7 @@ import Script from "next/script";
 import { devEnabled } from "@/lib/dev";
 import { DemoActions } from "./DemoActions";
 import { DemoApi } from "./DemoApi";
+import { PublicDemo } from "./PublicDemo";
 
 export const dynamic = "force-dynamic";
 
@@ -10,8 +11,9 @@ export const dynamic = "force-dynamic";
 const STUB = `(function(w,m){var o=w.Ozvi=w.Ozvi||function(){(o.q=o.q||[]).push(arguments)};o.q=o.q||[];m.forEach(function(k){o[k]=o[k]||function(){o.q.push([k].concat([].slice.call(arguments)))}})})(window,["init","open","close","toggle","prefill","identify","logout","setTraits","setLanguage","on","off","configure"])`;
 
 /** A fake host app (a booking in a salon calendar) to try the widget the way a customer would embed it. */
-export default function Demo() {
-  if (!devEnabled()) notFound();
+export default async function Demo() {
+  // ozvi.io/demo: the same host app, but the widget only pretends to send (mock.ts).
+  if (!devEnabled()) return process.env.OZVI_MODE === "cloud" ? <PublicDemo /> : notFound();
   return (
     <main id="main" tabIndex={-1} style={{ fontFamily: "system-ui, sans-serif", background: "#f4f5f9", minHeight: "100vh", padding: "32px clamp(16px, 4vw, 32px) 120px", color: "#1B1830" }}>
       <script dangerouslySetInnerHTML={{ __html: STUB }} />

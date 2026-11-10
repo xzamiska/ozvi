@@ -2806,7 +2806,9 @@
     ],
     "try": {
       "title": "Probieren Sie es aus. In den Farben Ihrer App.",
-      "lede": "Das ist das echte Board mit Beispieldaten. Stimmen Sie ab, schlagen Sie eine Idee vor, wechseln Sie zur Ansicht des Teams und ändern Sie die Farben, so wie später in den Projekteinstellungen."
+      "lede": "Das ist das echte Board mit Beispieldaten. Stimmen Sie ab, schlagen Sie eine Idee vor, wechseln Sie zur Ansicht des Teams und ändern Sie die Farben, so wie später in den Projekteinstellungen.",
+      "demo": "Widget in einer Beispiel-App ausprobieren",
+      "demoNote": "Melden Sie einen Fehler mit Screenshot und sehen Sie, was das Team bekäme."
     }
   },
   "net": {
@@ -3599,5 +3601,47 @@
     "empty": "Es wurde noch keine Version veröffentlicht.",
     "breaking": "Grundlegende Änderung",
     "breakingText": "Lesen Sie vor der Aktualisierung eines selbst gehosteten Servers die vollständigen Hinweise. Der Updater installiert diese Version nicht automatisch."
+  },
+  "demo": {
+    "badge": "Demo",
+    "back": "Zurück zu ozvi.io",
+    "title": "Probieren Sie das Widget in einer fremden App aus.",
+    "steps": [
+      "Klicken Sie auf „Buchung speichern“. Das schlägt absichtlich fehl, damit es etwas zu melden gibt.",
+      "Öffnen Sie das Widget unten rechts und melden Sie den Fehler mit Screenshot oder schlagen Sie eine Idee vor.",
+      "Rechts sehen Sie, was das Team bekäme. Nichts wird gesendet, alles passiert in Ihrem Browser."
+    ],
+    "masked": "Telefon, Notiz und PIN werden im Screenshot schon im Browser verwischt.",
+    "embeds": "Eingebettete Elemente",
+    "app": {
+      "title": "Buchung 14.11. · 10:30",
+      "client": "Kundin",
+      "phone": "Telefon",
+      "note": "Notiz",
+      "noteText": "Empfindliche Haut, Ammoniak-Allergie",
+      "service": "Leistung",
+      "serviceText": "Färben · Lucia · 65,00 €",
+      "pin": "Filial-PIN",
+      "detail": "Detail",
+      "history": "Verlauf",
+      "save": "Buchung speichern",
+      "failed": "Die Buchung konnte nicht gespeichert werden."
+    },
+    "inspector": {
+      "title": "Das bekäme das Team",
+      "note": "Demo: Nichts wurde gesendet, die Daten blieben in Ihrem Browser.",
+      "empty": "Melden Sie einen Fehler über den Knopf unten rechts und sehen Sie, was Ozvi anhängt.",
+      "untitled": "Ohne Titel",
+      "bug": "Fehlermeldung · nur Meldende und das Team sehen sie",
+      "idea": "Idee · auf dem öffentlichen Board",
+      "shot": "Screenshot mit verwischten Feldern",
+      "page": "Seite",
+      "version": "Version",
+      "browser": "Browser",
+      "errors": "Konsolenfehler",
+      "network": "Fehlgeschlagene Anfragen",
+      "noFailed": "Keine",
+      "actions": "Schritte vor dem Fehler"
+    }
   }
 }

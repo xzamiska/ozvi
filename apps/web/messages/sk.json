@@ -2806,7 +2806,9 @@
     ],
     "try": {
       "title": "Vyskúšajte si to. Vo farbách vašej aplikácie.",
-      "lede": "Toto je skutočný board s ukážkovými dátami. Hlasujte, pridajte nápad, prepnite na pohľad tímu a nastavte mu farby. Rovnako to urobíte v nastaveniach projektu."
+      "lede": "Toto je skutočný board s ukážkovými dátami. Hlasujte, pridajte nápad, prepnite na pohľad tímu a nastavte mu farby. Rovnako to urobíte v nastaveniach projektu.",
+      "demo": "Vyskúšať widget v ukážkovej aplikácii",
+      "demoNote": "Nahláste chybu so screenshotom a uvidíte, čo by dostal tím."
     }
   },
   "net": {
@@ -3599,5 +3601,47 @@
     "empty": "Zatiaľ sme nevydali žiadnu verziu.",
     "breaking": "Zásadná zmena",
     "breakingText": "Pred aktualizáciou vlastného servera si prečítajte celé poznámky. Updater túto verziu nenainštaluje automaticky."
+  },
+  "demo": {
+    "badge": "Ukážka",
+    "back": "Späť na ozvi.io",
+    "title": "Vyskúšajte widget v cudzej aplikácii.",
+    "steps": [
+      "Kliknite na „Uložiť rezerváciu“. Zlyhá naschvál, aby bolo čo nahlásiť.",
+      "Otvorte widget vpravo dole a nahláste chybu so screenshotom alebo navrhnite nápad.",
+      "Vpravo uvidíte, čo by dostal tím. Nič sa neodosiela, všetko sa deje iba vo vašom prehliadači."
+    ],
+    "masked": "Telefón, poznámka a PIN sú na screenshote rozmazané ešte v prehliadači.",
+    "embeds": "Vložené prvky",
+    "app": {
+      "title": "Rezervácia 14. 11. · 10:30",
+      "client": "Klient",
+      "phone": "Telefón",
+      "note": "Poznámka",
+      "noteText": "Citlivá pokožka, alergia na amoniak",
+      "service": "Služba",
+      "serviceText": "Farbenie · Lucia · 65,00 €",
+      "pin": "PIN pobočky",
+      "detail": "Detail",
+      "history": "História",
+      "save": "Uložiť rezerváciu",
+      "failed": "Rezerváciu sa nepodarilo uložiť."
+    },
+    "inspector": {
+      "title": "Toto by dostal tím",
+      "note": "Ukážka: nič sa neodoslalo, údaje ostali vo vašom prehliadači.",
+      "empty": "Nahláste chybu cez tlačidlo vpravo dole a uvidíte, čo k nej Ozvi pribalí.",
+      "untitled": "Bez názvu",
+      "bug": "Hlásenie chyby · vidí len autor a tím",
+      "idea": "Nápad · na verejnom boarde",
+      "shot": "Screenshot s rozmazanými poľami",
+      "page": "Stránka",
+      "version": "Verzia",
+      "browser": "Prehliadač",
+      "errors": "Chyby z konzoly",
+      "network": "Zlyhané požiadavky",
+      "noFailed": "Žiadne",
+      "actions": "Kroky pred chybou"
+    }
   }
 }

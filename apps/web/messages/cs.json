@@ -2806,7 +2806,9 @@
     ],
     "try": {
       "title": "Vyzkoušejte si to. V barvách vaší aplikace.",
-      "lede": "Tohle je skutečný board s ukázkovými daty. Hlasujte, přidejte nápad, přepněte na pohled týmu a nastavte mu barvy. Stejně to uděláte v nastavení projektu."
+      "lede": "Tohle je skutečný board s ukázkovými daty. Hlasujte, přidejte nápad, přepněte na pohled týmu a nastavte mu barvy. Stejně to uděláte v nastavení projektu.",
+      "demo": "Vyzkoušet widget v ukázkové aplikaci",
+      "demoNote": "Nahlaste chybu se screenshotem a uvidíte, co by dostal tým."
     }
   },
   "net": {
@@ -3599,5 +3601,47 @@
     "empty": "Zatím jsme nevydali žádnou verzi.",
     "breaking": "Zásadní změna",
     "breakingText": "Před aktualizací vlastního serveru si přečtěte celé poznámky. Updater tuto verzi nenainstaluje automaticky."
+  },
+  "demo": {
+    "badge": "Ukázka",
+    "back": "Zpět na ozvi.io",
+    "title": "Vyzkoušejte widget v cizí aplikaci.",
+    "steps": [
+      "Klikněte na „Uložit rezervaci“. Selže schválně, aby bylo co nahlásit.",
+      "Otevřete widget vpravo dole a nahlaste chybu se screenshotem nebo navrhněte nápad.",
+      "Vpravo uvidíte, co by dostal tým. Nic se neodesílá, vše se děje jen ve vašem prohlížeči."
+    ],
+    "masked": "Telefon, poznámka a PIN jsou na screenshotu rozmazané už v prohlížeči.",
+    "embeds": "Vložené prvky",
+    "app": {
+      "title": "Rezervace 14. 11. · 10:30",
+      "client": "Klient",
+      "phone": "Telefon",
+      "note": "Poznámka",
+      "noteText": "Citlivá pokožka, alergie na amoniak",
+      "service": "Služba",
+      "serviceText": "Barvení · Lucie · 65,00 €",
+      "pin": "PIN pobočky",
+      "detail": "Detail",
+      "history": "Historie",
+      "save": "Uložit rezervaci",
+      "failed": "Rezervaci se nepodařilo uložit."
+    },
+    "inspector": {
+      "title": "Tohle by dostal tým",
+      "note": "Ukázka: nic se neodeslalo, data zůstala ve vašem prohlížeči.",
+      "empty": "Nahlaste chybu tlačítkem vpravo dole a uvidíte, co k ní Ozvi přibalí.",
+      "untitled": "Bez názvu",
+      "bug": "Hlášení chyby · vidí jen autor a tým",
+      "idea": "Nápad · na veřejném boardu",
+      "shot": "Screenshot s rozmazanými poli",
+      "page": "Stránka",
+      "version": "Verze",
+      "browser": "Prohlížeč",
+      "errors": "Chyby z konzole",
+      "network": "Selhané požadavky",
+      "noFailed": "Žádné",
+      "actions": "Kroky před chybou"
+    }
   }
 }

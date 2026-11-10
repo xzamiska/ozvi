@@ -2806,7 +2806,9 @@
     ],
     "try": {
       "title": "Wypróbuj. W kolorach twojej aplikacji.",
-      "lede": "To prawdziwa tablica z przykładowymi danymi. Zagłosuj, dodaj pomysł, przełącz na widok zespołu i zmień kolory, tak jak zrobisz to w ustawieniach projektu."
+      "lede": "To prawdziwa tablica z przykładowymi danymi. Zagłosuj, dodaj pomysł, przełącz na widok zespołu i zmień kolory, tak jak zrobisz to w ustawieniach projektu.",
+      "demo": "Wypróbuj widget w przykładowej aplikacji",
+      "demoNote": "Zgłoś błąd ze zrzutem ekranu i zobacz, co dostałby zespół."
     }
   },
   "net": {
@@ -3599,5 +3601,47 @@
     "empty": "Nie wydaliśmy jeszcze żadnej wersji.",
     "breaking": "Zasadnicza zmiana",
     "breakingText": "Przed aktualizacją własnego serwera przeczytaj całe informacje. Updater nie zainstaluje tej wersji automatycznie."
+  },
+  "demo": {
+    "badge": "Demo",
+    "back": "Wróć do ozvi.io",
+    "title": "Wypróbuj widget w cudzej aplikacji.",
+    "steps": [
+      "Kliknij „Zapisz rezerwację”. Celowo się nie uda, żeby było co zgłosić.",
+      "Otwórz widget w prawym dolnym rogu i zgłoś błąd ze zrzutem ekranu albo zaproponuj pomysł.",
+      "Po prawej zobaczysz, co dostałby zespół. Nic nie jest wysyłane, wszystko dzieje się w twojej przeglądarce."
+    ],
+    "masked": "Telefon, notatka i PIN są rozmyte na zrzucie już w przeglądarce.",
+    "embeds": "Osadzone elementy",
+    "app": {
+      "title": "Rezerwacja 14.11 · 10:30",
+      "client": "Klient",
+      "phone": "Telefon",
+      "note": "Notatka",
+      "noteText": "Wrażliwa skóra, alergia na amoniak",
+      "service": "Usługa",
+      "serviceText": "Koloryzacja · Łucja · 65,00 €",
+      "pin": "PIN oddziału",
+      "detail": "Szczegóły",
+      "history": "Historia",
+      "save": "Zapisz rezerwację",
+      "failed": "Nie udało się zapisać rezerwacji."
+    },
+    "inspector": {
+      "title": "To dostałby zespół",
+      "note": "Demo: nic nie wysłano, dane zostały w twojej przeglądarce.",
+      "empty": "Zgłoś błąd przyciskiem w prawym dolnym rogu i zobacz, co Ozvi do niego dołączy.",
+      "untitled": "Bez tytułu",
+      "bug": "Zgłoszenie błędu · widzi je tylko autor i zespół",
+      "idea": "Pomysł · na publicznej tablicy",
+      "shot": "Zrzut ekranu z rozmytymi polami",
+      "page": "Strona",
+      "version": "Wersja",
+      "browser": "Przeglądarka",
+      "errors": "Błędy z konsoli",
+      "network": "Nieudane żądania",
+      "noFailed": "Brak",
+      "actions": "Kroki przed błędem"
+    }
   }
 }
