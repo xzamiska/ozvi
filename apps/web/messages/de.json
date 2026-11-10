@@ -2593,7 +2593,6 @@
             "Ein Widget in Ihrer App, auch als React-Komponente",
             "Screenshots mit Anmerkungen",
             "Version, Browser, Adresse und Konsolenfehler automatisch",
-            "Passwörter und markierte Felder werden schon im Browser verwischt",
             "Anmeldung über Ihre App: signiertes Token oder OIDC"
           ]
         },
@@ -2622,15 +2621,12 @@
             "GitHub: Issues, Pull Requests und Entwürfe aus Releases",
             "Linear und Jira Cloud",
             "Slack, Discord und signierte Webhooks",
-            "MCP-Server für KI-Assistenten (Claude Code, Cursor, VS Code)",
             "REST-API und eigene Domain"
           ]
         },
         {
           "title": "Datenschutz",
           "items": [
-            "Fehlermeldungen sehen nur Meldende und Ihr Team",
-            "Daten in der EU (Rechenzentrum in Deutschland)",
             "Export und Löschung von Nutzerdaten",
             "Texte für Ihre Datenschutzerklärung",
             "Öffentlicher Quellcode (FSL)"
@@ -2645,6 +2641,101 @@
             "Nutzer werden bei der ersten Anmeldung ihrem Konto zugeordnet"
           ]
         }
+      ],
+      "tiles": {
+        "stream": {
+          "title": "Meldungen kommen mit Kontext",
+          "text": "Screenshot, Version, Browser und Konsolenfehler hängt das Widget selbst an. Niemand muss etwas erklären.",
+          "items": [
+            {
+              "title": "Rechnungsdruck schneidet die Fußzeile ab",
+              "meta": "Chrome 141 · v2.14.0 · 1 Konsolenfehler"
+            },
+            {
+              "title": "Gewählte Sprache geht nach der Anmeldung verloren",
+              "meta": "Safari 19 · v2.14.0"
+            },
+            {
+              "title": "Rechnungs-PDF verliert Umlaute in der Adresse",
+              "meta": "Chrome 141 · v2.14.0 · Screenshot"
+            },
+            {
+              "title": "Export in die Buchhaltung",
+              "meta": "41 Stimmen · Geplant"
+            },
+            {
+              "title": "Wiederkehrende Zahlungen mit anderem Fälligkeitstag",
+              "meta": "17 Stimmen · In Arbeit"
+            }
+          ]
+        },
+        "mcp": {
+          "title": "Ein KI-Assistent in Ihrem Editor",
+          "text": "Ein MCP-Server mit 11 Werkzeugen. Schritte, die etwas zusammenführen oder veröffentlichen, warten auf Ihre Bestätigung.",
+          "lines": [
+            {
+              "who": "you",
+              "text": "Was wurde Neues zu Rechnungen gemeldet?"
+            },
+            {
+              "who": "tool",
+              "text": "search_items „Rechnung“ · 3 Treffer"
+            },
+            {
+              "who": "ai",
+              "text": "#128 PDF verliert Umlaute, #126 Druck schneidet die Fußzeile ab. #119 sieht wie ein Duplikat von #128 aus."
+            },
+            {
+              "who": "you",
+              "text": "Führe #119 mit #128 zusammen und setze #128 auf Behoben in 2.15."
+            },
+            {
+              "who": "tool",
+              "text": "merge_items wartet auf Bestätigung"
+            }
+          ]
+        },
+        "route": {
+          "title": "Meldende wissen, wo ihre Meldung steht",
+          "text": "Bei „Behoben“ kommt eine E-Mail mit der Frage, ob es jetzt funktioniert.",
+          "stops": [
+            "Eingegangen",
+            "Bestätigt",
+            "In Arbeit",
+            "Behoben in 2.15"
+          ]
+        },
+        "privacy": {
+          "title": "Passwörter verlassen die Seite nie",
+          "text": "Das Widget verwischt Passwortfelder und markierte Bereiche schon im Browser.",
+          "email": "E-Mail",
+          "password": "Passwort"
+        },
+        "eu": {
+          "title": "Daten in der EU",
+          "text": "Die Cloud läuft in einem Rechenzentrum in Deutschland. Fehlermeldungen sehen nur Meldende und Ihr Team."
+        },
+        "self": {
+          "title": "Oder auf dem eigenen Server",
+          "text": "Ein Docker-Image und Postgres. Alle Funktionen, 0 €."
+        }
+      },
+      "moreTitle": "Und außerdem"
+    },
+    "flow": {
+      "title": "Egal woher sie kommen, sie landen dort, wo Sie arbeiten.",
+      "lede": "Ozvi sammelt Meldungen und Ideen aus dem Widget, per E-Mail, über die API und von KI-Assistenten und gibt sie an die Werkzeuge Ihres Teams weiter. Die meldende Person erfährt, wenn es erledigt ist.",
+      "sources": [
+        "Widget in der App",
+        "E-Mail",
+        "REST-API",
+        "Claude, Cursor (MCP)"
+      ],
+      "tools": [
+        "GitHub",
+        "Linear und Jira",
+        "Slack, Discord, Webhooks",
+        "Antwort an Meldende"
       ]
     }
   },

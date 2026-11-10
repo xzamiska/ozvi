@@ -1,9 +1,10 @@
 import { PLAN_LIMITS, PRICES } from "@ozvi/db";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
-import { Check, Minus } from "lucide-react";
+import { Bot, Check, Code, EyeOff, GitPullRequest, Globe, Inbox, Mail, MessageSquare, Minus, Server, Sparkles, Webhook } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
+import { Beams, ReportStream, RouteFill, Terminal } from "@/components/landing/Live";
 import { Reveal } from "@/components/landing/Reveal";
 import { HeroLoop } from "@/components/landing/HeroLoop";
 import { LangSwitch, SiteHeader, type NavItem } from "@/components/landing/SiteHeader";
@@ -87,6 +88,10 @@ const lede = "text-[16.5px] leading-relaxed text-muted-foreground";
 const primary = "inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-foreground px-5 text-[14.5px] font-semibold text-background transition-opacity hover:opacity-85";
 /** Before launch (OZVI_SIGNUP=closed) the sign-up buttons become this plain label. */
 const soonLabel = "inline-flex h-11 items-center justify-center rounded-lg border border-dashed border-line-strong px-5 text-[14.5px] font-medium text-muted-foreground";
+const flowChip = "inline-flex items-center gap-2.5 rounded-xl border bg-background px-3.5 py-2.5 text-[13.5px] font-medium whitespace-nowrap shadow-[0_8px_24px_-16px_rgb(13_12_20/0.35)]";
+const tile = "relative overflow-hidden rounded-2xl border bg-surface p-6 shadow-[0_1px_0_rgb(13_12_20/0.03)]";
+const tileH = "text-[18px] font-semibold tracking-tight";
+const tileP = "mt-2 max-w-[48ch] text-[14.5px] leading-relaxed text-muted-foreground";
 const ghost = "inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-line-strong bg-surface px-5 text-[14.5px] font-medium text-foreground transition-colors hover:border-foreground/40";
 
 export async function Landing({ locale, signedIn = false }: { locale: Locale; signedIn?: boolean }) {
@@ -156,16 +161,76 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             <div data-r className="mt-12"><ProductTour /></div>
           </Reveal>
 
-          {/* everything it does, grouped by the job */}
+          {/* where reports come from and where they end up */}
+          <section id="flow" aria-labelledby="flow-h" className="scroll-mt-16 border-y bg-surface">
+            <Reveal className="oz-frame py-24 lg:py-28">
+              <h2 id="flow-h" data-r className={cn(h2, "mx-auto max-w-[19ch] text-center")}>{t("flow.title")}</h2>
+              <p data-r className={cn(lede, "mx-auto mt-5 max-w-[58ch] text-center")}>{t("flow.lede")}</p>
+              <div data-r className="mt-14 overflow-x-auto pb-2 [scrollbar-width:none]">
+                <Beams className="mx-auto min-w-[640px] max-w-[900px]"
+                  left={(t.raw("flow.sources") as string[]).map((label, i) => {
+                    const Icon = [MessageSquare, Mail, Code, Bot][i]!;
+                    return <span key={label} className={flowChip}><Icon className="size-4 text-brand-text" aria-hidden />{label}</span>;
+                  })}
+                  hub={<span className="grid size-24 place-items-center rounded-3xl border bg-background shadow-[0_20px_50px_-20px_color-mix(in_oklab,var(--oz-accent)_55%,transparent)]"><OzviMark className="size-12" /></span>}
+                  right={(t.raw("flow.tools") as string[]).map((label, i) => {
+                    const Icon = [GitPullRequest, Sparkles, Webhook, Inbox][i]!;
+                    return <span key={label} className={flowChip}><Icon className="size-4 text-success" aria-hidden />{label}</span>;
+                  })} />
+              </div>
+            </Reveal>
+          </section>
+
+          {/* everything it does: live tiles for the essentials, the rest by job */}
           <Reveal as="section" id="features" aria-labelledby="features-h" className="oz-frame scroll-mt-20 py-24 lg:py-32">
             <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
               <h2 id="features-h" data-r className={cn(h2, "max-w-[15ch]")}>{t("features.title")}</h2>
               <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("features.lede")}</p>
             </div>
-            <div className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-14 grid gap-4 md:grid-cols-6">
+              <div data-r className={cn(tile, "md:col-span-3 md:row-span-2")}>
+                <h3 className={tileH}>{t("features.tiles.stream.title")}</h3>
+                <p className={tileP}>{t("features.tiles.stream.text")}</p>
+                <div className="mt-6"><ReportStream items={(t.raw("features.tiles.stream.items") as { title: string; meta: string }[]).map((r, i) => ({ ...r, n: 126 + i, tone: i < 3 ? "bug" as const : "idea" as const }))} /></div>
+              </div>
+              <div data-r className={cn(tile, "md:col-span-3")}>
+                <h3 className={tileH}>{t("features.tiles.mcp.title")}</h3>
+                <p className={tileP}>{t("features.tiles.mcp.text")}</p>
+                <div className="look-term oz-scope mt-5 rounded-xl bg-background p-4 text-foreground"><Terminal lines={t.raw("features.tiles.mcp.lines") as { who: "you" | "ai" | "tool"; text: string }[]} /></div>
+              </div>
+              <div data-r className={cn(tile, "md:col-span-3")}>
+                <h3 className={tileH}>{t("features.tiles.route.title")}</h3>
+                <div className="mt-5 grid gap-6 sm:grid-cols-[auto_1fr]">
+                  <RouteFill stops={t.raw("features.tiles.route.stops") as string[]} />
+                  <p className={cn(tileP, "mt-0 self-end")}>{t("features.tiles.route.text")}</p>
+                </div>
+              </div>
+              <div data-r className={cn(tile, "md:col-span-2")}>
+                <EyeOff className="size-5 text-brand-text" aria-hidden />
+                <h3 className={cn(tileH, "mt-4")}>{t("features.tiles.privacy.title")}</h3>
+                <p className={tileP}>{t("features.tiles.privacy.text")}</p>
+                <div aria-hidden className="mt-4 grid gap-2 rounded-xl border bg-background p-3 text-[12.5px]">
+                  <span className="flex justify-between text-muted-foreground">{t("features.tiles.privacy.email")}<span className="text-foreground">jana@firma.sk</span></span>
+                  <span className="flex justify-between text-muted-foreground">{t("features.tiles.privacy.password")}<span className="rounded bg-foreground/15 px-6 blur-[3px]">heslo123</span></span>
+                </div>
+              </div>
+              <div data-r className={cn(tile, "md:col-span-2")}>
+                <Globe className="size-5 text-brand-text" aria-hidden />
+                <h3 className={cn(tileH, "mt-4")}>{t("features.tiles.eu.title")}</h3>
+                <p className={tileP}>{t("features.tiles.eu.text")}</p>
+              </div>
+              <div data-r className={cn(tile, "md:col-span-2")}>
+                <Server className="size-5 text-brand-text" aria-hidden />
+                <h3 className={cn(tileH, "mt-4")}>{t("features.tiles.self.title")}</h3>
+                <p className={tileP}>{t("features.tiles.self.text")}</p>
+              </div>
+            </div>
+
+            <h3 data-r className="mt-20 text-[20px] font-semibold tracking-tight">{t("features.moreTitle")}</h3>
+            <div className="mt-8 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
               {(t.raw("features.groups") as { title: string; items: string[] }[]).map((g) => (
                 <div key={g.title} data-r className="grid content-start gap-4 border-t border-line-strong pt-5">
-                  <h3 className="text-[17px] font-semibold tracking-tight">{g.title}</h3>
+                  <h4 className="text-[16px] font-semibold tracking-tight">{g.title}</h4>
                   <ul className="grid gap-2.5 text-[14.5px] leading-snug text-foreground/85">
                     {g.items.map((i) => (
                       <li key={i} className="grid grid-cols-[auto_1fr] gap-2.5"><Check className="mt-0.5 size-4 text-primary" strokeWidth={2.5} aria-hidden />{i}</li>

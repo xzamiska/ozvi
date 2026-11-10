@@ -245,3 +245,24 @@
 
 /* Field errors written by components/FormGuard.tsx under an invalid control (our text, not the browser's bubble). */
 .oz-field-error { margin-top: 2px; font-size: 13px; line-height: 1.4; font-weight: 500; color: var(--oz-danger); text-wrap: pretty; }
+
+/* Landing live pieces (components/landing/Live.tsx): beams, incoming reports, an MCP session, a route. */
+@keyframes oz-live-dash { from { stroke-dashoffset: 112; } to { stroke-dashoffset: -12; } }
+@keyframes oz-live-pop { from { opacity: 0; transform: translateY(-10px) scale(.98); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes oz-live-fill { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes oz-live-stop { to { background: var(--oz-st-done); border-color: var(--oz-st-done); box-shadow: 0 0 0 4px color-mix(in oklab, var(--oz-st-done) 20%, transparent); } }
+@keyframes oz-live-blink { 50% { opacity: 0; } }
+.oz-live-beam { stroke-dasharray: 12 100; stroke-dashoffset: 112; opacity: 0; }
+.oz-live-fill { transform: scaleY(0); }
+.oz-live-caret { display: inline-block; width: .55em; height: 1.05em; margin-left: 1px; vertical-align: -2px; background: currentColor; }
+@media (prefers-reduced-motion: no-preference) {
+  .oz-live-beam-on { opacity: 1; animation: oz-live-dash 2.2s cubic-bezier(.45, 0, .55, 1) 3 both; }
+  .oz-live-pop { animation: oz-live-pop .55s cubic-bezier(.16, 1, .3, 1) both; }
+  .oz-live-fill-on { animation: oz-live-fill .45s ease-out both; }
+  .oz-live-stop-on { animation: oz-live-stop .3s ease-out both; }
+  .oz-live-caret { animation: oz-live-blink 1s steps(1) infinite; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oz-live-fill { transform: none; }
+  .oz-live-stop-on { background: var(--oz-st-done); border-color: var(--oz-st-done); }
+}

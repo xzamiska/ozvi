@@ -2593,7 +2593,6 @@
             "Widget do vaší aplikace, i jako React komponenta",
             "Screenshot s anotací",
             "Verze, prohlížeč, adresa a chyby z konzole automaticky",
-            "Hesla a označená pole se rozmažou už v prohlížeči",
             "Přihlášení přes vaši aplikaci: podepsaný token nebo OIDC"
           ]
         },
@@ -2622,15 +2621,12 @@
             "GitHub: issues, pull requesty a koncepty novinek z releasů",
             "Linear a Jira Cloud",
             "Slack, Discord a podepsané webhooky",
-            "MCP server pro AI asistenty (Claude Code, Cursor, VS Code)",
             "REST API a vlastní doména"
           ]
         },
         {
           "title": "Soukromí",
           "items": [
-            "Hlášení chyb vidí jen autor a tým",
-            "Data v EU (datové centrum v Německu)",
             "Export a smazání dat uživatele",
             "Texty pro vaše zásady ochrany soukromí",
             "Veřejný zdrojový kód (FSL)"
@@ -2645,6 +2641,101 @@
             "Uživatelé se po prvním přihlášení spojí se svým účtem"
           ]
         }
+      ],
+      "tiles": {
+        "stream": {
+          "title": "Hlášení přicházejí s kontextem",
+          "text": "Screenshot, verzi, prohlížeč a chyby z konzole přibalí widget sám. Uživatel nic nevysvětluje.",
+          "items": [
+            {
+              "title": "Tisk faktury ořízne patičku",
+              "meta": "Chrome 141 · v2.14.0 · 1 chyba z konzole"
+            },
+            {
+              "title": "Po přihlášení se ztratí vybraný jazyk",
+              "meta": "Safari 19 · v2.14.0"
+            },
+            {
+              "title": "PDF faktury nemá diakritiku v adrese",
+              "meta": "Chrome 141 · v2.14.0 · screenshot"
+            },
+            {
+              "title": "Export do účetnictví",
+              "meta": "41 hlasů · Plánované"
+            },
+            {
+              "title": "Opakované platby s jinou splatností",
+              "meta": "17 hlasů · Rozpracované"
+            }
+          ]
+        },
+        "mcp": {
+          "title": "AI asistent ve vašem editoru",
+          "text": "MCP server s 11 nástroji. Kroky, které něco sloučí nebo zveřejní, čekají na vaše potvrzení.",
+          "lines": [
+            {
+              "who": "you",
+              "text": "Co nového nahlásili k fakturám?"
+            },
+            {
+              "who": "tool",
+              "text": "search_items „faktura“ · 3 výsledky"
+            },
+            {
+              "who": "ai",
+              "text": "#128 PDF nemá diakritiku, #126 tisk ořízne patičku. #119 vypadá jako duplicita #128."
+            },
+            {
+              "who": "you",
+              "text": "Slouč #119 do #128 a dej #128 na Opraveno ve 2.15."
+            },
+            {
+              "who": "tool",
+              "text": "merge_items čeká na potvrzení"
+            }
+          ]
+        },
+        "route": {
+          "title": "Autor ví, kde je jeho hlášení",
+          "text": "U „Opraveno“ mu přijde e-mail s otázkou, jestli mu to už funguje.",
+          "stops": [
+            "Přijato",
+            "Potvrzeno",
+            "Rozpracováno",
+            "Opraveno ve 2.15"
+          ]
+        },
+        "privacy": {
+          "title": "Hesla se nikam nedostanou",
+          "text": "Pole s heslem a označené části stránky rozmaže widget už v prohlížeči.",
+          "email": "E-mail",
+          "password": "Heslo"
+        },
+        "eu": {
+          "title": "Data v EU",
+          "text": "Cloud běží v datovém centru v Německu. Hlášení chyb vidí jen autor a tým."
+        },
+        "self": {
+          "title": "Nebo na vlastním serveru",
+          "text": "Jeden Docker image a Postgres. Všechny funkce, 0 €."
+        }
+      },
+      "moreTitle": "A dále"
+    },
+    "flow": {
+      "title": "Odkudkoli přijdou, skončí tam, kde pracujete.",
+      "lede": "Ozvi sbírá hlášení a nápady z widgetu, e-mailu, API i od AI asistentů a posílá je dál do nástrojů týmu. Autorovi dá vědět, až bude hotovo.",
+      "sources": [
+        "Widget v aplikaci",
+        "E-mail",
+        "REST API",
+        "Claude, Cursor (MCP)"
+      ],
+      "tools": [
+        "GitHub",
+        "Linear a Jira",
+        "Slack, Discord, webhooky",
+        "Odpověď autorovi"
       ]
     }
   },

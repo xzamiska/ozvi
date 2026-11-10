@@ -2593,7 +2593,6 @@
             "A widget in your app, also as a React component",
             "Annotated screenshots",
             "Version, browser, URL and console errors, automatically",
-            "Passwords and marked fields are blurred in the browser",
             "Sign-in through your app: a signed token or OIDC"
           ]
         },
@@ -2622,15 +2621,12 @@
             "GitHub: issues, pull requests and changelog drafts from releases",
             "Linear and Jira Cloud",
             "Slack, Discord and signed webhooks",
-            "An MCP server for AI assistants (Claude Code, Cursor, VS Code)",
             "REST API and your own domain"
           ]
         },
         {
           "title": "Privacy",
           "items": [
-            "Only the author and your team see bug reports",
-            "Data in the EU (data centre in Germany)",
             "Export and erasure of a user's data",
             "Ready texts for your privacy policy",
             "Source-available code (FSL)"
@@ -2645,6 +2641,101 @@
             "Users are matched to their account on first sign-in"
           ]
         }
+      ],
+      "tiles": {
+        "stream": {
+          "title": "Reports arrive with context",
+          "text": "The widget attaches a screenshot, version, browser and console errors. Users don't have to explain anything.",
+          "items": [
+            {
+              "title": "Printing an invoice cuts off the footer",
+              "meta": "Chrome 141 · v2.14.0 · 1 console error"
+            },
+            {
+              "title": "Chosen language is lost after sign-in",
+              "meta": "Safari 19 · v2.14.0"
+            },
+            {
+              "title": "Invoice PDF loses accents in the address",
+              "meta": "Chrome 141 · v2.14.0 · screenshot"
+            },
+            {
+              "title": "Export to accounting",
+              "meta": "41 votes · Planned"
+            },
+            {
+              "title": "Recurring payments with a different due date",
+              "meta": "17 votes · In progress"
+            }
+          ]
+        },
+        "mcp": {
+          "title": "An AI assistant in your editor",
+          "text": "An MCP server with 11 tools. Steps that merge or publish something wait for your confirmation.",
+          "lines": [
+            {
+              "who": "you",
+              "text": "What's new about invoices?"
+            },
+            {
+              "who": "tool",
+              "text": "search_items “invoice” · 3 results"
+            },
+            {
+              "who": "ai",
+              "text": "#128 PDF loses accents, #126 printing cuts the footer. #119 looks like a duplicate of #128."
+            },
+            {
+              "who": "you",
+              "text": "Merge #119 into #128 and set #128 to Fixed in 2.15."
+            },
+            {
+              "who": "tool",
+              "text": "merge_items awaiting confirmation"
+            }
+          ]
+        },
+        "route": {
+          "title": "Authors know where their report is",
+          "text": "At “Fixed” they get an e-mail asking whether it works for them now.",
+          "stops": [
+            "Received",
+            "Confirmed",
+            "In progress",
+            "Fixed in 2.15"
+          ]
+        },
+        "privacy": {
+          "title": "Passwords never leave the page",
+          "text": "The widget blurs password fields and marked parts of the page in the browser.",
+          "email": "E-mail",
+          "password": "Password"
+        },
+        "eu": {
+          "title": "Data in the EU",
+          "text": "The cloud runs in a data centre in Germany. Only the author and your team see bug reports."
+        },
+        "self": {
+          "title": "Or on your own server",
+          "text": "One Docker image and Postgres. Every feature, €0."
+        }
+      },
+      "moreTitle": "And more"
+    },
+    "flow": {
+      "title": "Wherever they come from, they end up where you work.",
+      "lede": "Ozvi collects reports and ideas from the widget, e-mail, the API and AI assistants, and passes them on to your team's tools. It tells the author when it's done.",
+      "sources": [
+        "Widget in your app",
+        "E-mail",
+        "REST API",
+        "Claude, Cursor (MCP)"
+      ],
+      "tools": [
+        "GitHub",
+        "Linear and Jira",
+        "Slack, Discord, webhooks",
+        "Reply to the author"
       ]
     }
   },

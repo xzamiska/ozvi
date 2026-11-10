@@ -2593,7 +2593,6 @@
             "Widget do vašej aplikácie, aj ako React komponent",
             "Screenshot s anotáciou",
             "Verzia, prehliadač, adresa a chyby z konzoly automaticky",
-            "Heslá a označené polia sa rozmažú ešte v prehliadači",
             "Prihlásenie cez vašu aplikáciu: podpísaný token alebo OIDC"
           ]
         },
@@ -2622,15 +2621,12 @@
             "GitHub: issues, pull requesty a koncepty noviniek z releasov",
             "Linear a Jira Cloud",
             "Slack, Discord a podpísané webhooky",
-            "MCP server pre AI asistentov (Claude Code, Cursor, VS Code)",
             "REST API a vlastná doména"
           ]
         },
         {
           "title": "Súkromie",
           "items": [
-            "Hlásenia chýb vidí len autor a tím",
-            "Dáta v EÚ (dátové centrum v Nemecku)",
             "Export a zmazanie dát používateľa",
             "Texty pre vaše zásady ochrany súkromia",
             "Verejný zdrojový kód (FSL)"
@@ -2645,6 +2641,101 @@
             "Používatelia sa po prvom prihlásení spoja so svojím účtom"
           ]
         }
+      ],
+      "tiles": {
+        "stream": {
+          "title": "Hlásenia prichádzajú s kontextom",
+          "text": "Screenshot, verziu, prehliadač a chyby z konzoly pribalí widget sám. Používateľ nič nevysvetľuje.",
+          "items": [
+            {
+              "title": "Tlač faktúry oreže pätičku",
+              "meta": "Chrome 141 · v2.14.0 · 1 chyba z konzoly"
+            },
+            {
+              "title": "Po prihlásení sa stratí vybraný jazyk",
+              "meta": "Safari 19 · v2.14.0"
+            },
+            {
+              "title": "PDF faktúry nemá diakritiku v adrese",
+              "meta": "Chrome 141 · v2.14.0 · screenshot"
+            },
+            {
+              "title": "Export do účtovníctva",
+              "meta": "41 hlasov · Plánované"
+            },
+            {
+              "title": "Opakované platby s inou splatnosťou",
+              "meta": "17 hlasov · Rozpracované"
+            }
+          ]
+        },
+        "mcp": {
+          "title": "AI asistent vo vašom editore",
+          "text": "MCP server s 11 nástrojmi. Kroky, ktoré niečo zlúčia alebo zverejnia, čakajú na vaše potvrdenie.",
+          "lines": [
+            {
+              "who": "you",
+              "text": "Čo nové nahlásili k faktúram?"
+            },
+            {
+              "who": "tool",
+              "text": "search_items „faktúra“ · 3 výsledky"
+            },
+            {
+              "who": "ai",
+              "text": "#128 PDF nemá diakritiku, #126 tlač oreže pätičku. #119 vyzerá ako duplicita #128."
+            },
+            {
+              "who": "you",
+              "text": "Zlúč #119 do #128 a daj #128 na Opravené vo 2.15."
+            },
+            {
+              "who": "tool",
+              "text": "merge_items čaká na potvrdenie"
+            }
+          ]
+        },
+        "route": {
+          "title": "Autor vie, kde je jeho hlásenie",
+          "text": "Pri „Opravené“ mu príde e-mail s otázkou, či mu to už funguje.",
+          "stops": [
+            "Prijaté",
+            "Potvrdené",
+            "Rozpracované",
+            "Opravené vo 2.15"
+          ]
+        },
+        "privacy": {
+          "title": "Heslá sa nikam nedostanú",
+          "text": "Polia s heslom a označené časti stránky rozmaže widget ešte v prehliadači.",
+          "email": "E-mail",
+          "password": "Heslo"
+        },
+        "eu": {
+          "title": "Dáta v EÚ",
+          "text": "Cloud beží v dátovom centre v Nemecku. Hlásenia chýb vidí len autor a tím."
+        },
+        "self": {
+          "title": "Alebo na vlastnom serveri",
+          "text": "Jeden Docker image a Postgres. Všetky funkcie, 0 €."
+        }
+      },
+      "moreTitle": "A ďalej"
+    },
+    "flow": {
+      "title": "Odkiaľkoľvek prídu, skončia tam, kde pracujete.",
+      "lede": "Ozvi zbiera hlásenia a nápady z widgetu, e-mailu, API aj od AI asistentov a posiela ich ďalej do nástrojov tímu. Autorovi dá vedieť, keď je hotovo.",
+      "sources": [
+        "Widget v aplikácii",
+        "E-mail",
+        "REST API",
+        "Claude, Cursor (MCP)"
+      ],
+      "tools": [
+        "GitHub",
+        "Linear a Jira",
+        "Slack, Discord, webhooky",
+        "Odpoveď autorovi"
       ]
     }
   },

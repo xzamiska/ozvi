@@ -2593,7 +2593,6 @@
             "Widget az alkalmazásodban, React-komponensként is",
             "Jelölt képernyőkép",
             "Verzió, böngésző, cím és konzolhibák automatikusan",
-            "A jelszavak és a megjelölt mezők már a böngészőben elmosódnak",
             "Bejelentkezés az alkalmazásodon át: aláírt token vagy OIDC"
           ]
         },
@@ -2622,15 +2621,12 @@
             "GitHub: issue-k, pull requestek és újdonság-vázlatok kiadásokból",
             "Linear és Jira Cloud",
             "Slack, Discord és aláírt webhookok",
-            "MCP-szerver MI-asszisztenseknek (Claude Code, Cursor, VS Code)",
             "REST API és saját domain"
           ]
         },
         {
           "title": "Adatvédelem",
           "items": [
-            "A hibajelentéseket csak a bejelentő és a csapat látja",
-            "Adatok az EU-ban (adatközpont Németországban)",
             "Felhasználói adatok exportja és törlése",
             "Szövegek az adatvédelmi tájékoztatódhoz",
             "Nyilvános forráskód (FSL)"
@@ -2645,6 +2641,101 @@
             "A felhasználók első bejelentkezéskor a saját fiókjukhoz kapcsolódnak"
           ]
         }
+      ],
+      "tiles": {
+        "stream": {
+          "title": "A jelentések kontextussal érkeznek",
+          "text": "A widget magától csatolja a képernyőképet, a verziót, a böngészőt és a konzolhibákat. A felhasználónak semmit sem kell magyaráznia.",
+          "items": [
+            {
+              "title": "A számla nyomtatása levágja a láblécet",
+              "meta": "Chrome 141 · v2.14.0 · 1 konzolhiba"
+            },
+            {
+              "title": "Bejelentkezés után elvész a választott nyelv",
+              "meta": "Safari 19 · v2.14.0"
+            },
+            {
+              "title": "A számla PDF-jéből eltűnnek az ékezetek",
+              "meta": "Chrome 141 · v2.14.0 · képernyőkép"
+            },
+            {
+              "title": "Exportálás a könyveléshez",
+              "meta": "41 szavazat · Tervezett"
+            },
+            {
+              "title": "Ismétlődő fizetés eltérő határidővel",
+              "meta": "17 szavazat · Folyamatban"
+            }
+          ]
+        },
+        "mcp": {
+          "title": "MI-asszisztens a szerkesztődben",
+          "text": "MCP-szerver 11 eszközzel. Az összevonó vagy közzétevő lépések a te jóváhagyásodra várnak.",
+          "lines": [
+            {
+              "who": "you",
+              "text": "Mi újat jelentettek a számlákról?"
+            },
+            {
+              "who": "tool",
+              "text": "search_items „számla” · 3 találat"
+            },
+            {
+              "who": "ai",
+              "text": "#128 a PDF-ből eltűnnek az ékezetek, #126 a nyomtatás levágja a láblécet. #119 a #128 duplikátumának tűnik."
+            },
+            {
+              "who": "you",
+              "text": "Vond össze a #119-et a #128-cal, és állítsd a #128-at Javítva 2.15-re."
+            },
+            {
+              "who": "tool",
+              "text": "merge_items jóváhagyásra vár"
+            }
+          ]
+        },
+        "route": {
+          "title": "A bejelentő tudja, hol tart a jelentése",
+          "text": "„Javítva” állapotnál e-mailt kap, hogy működik-e már.",
+          "stops": [
+            "Beérkezett",
+            "Megerősítve",
+            "Folyamatban",
+            "Javítva a 2.15-ben"
+          ]
+        },
+        "privacy": {
+          "title": "A jelszavak sehova sem jutnak el",
+          "text": "A widget már a böngészőben elmossa a jelszómezőket és a megjelölt részeket.",
+          "email": "E-mail",
+          "password": "Jelszó"
+        },
+        "eu": {
+          "title": "Adatok az EU-ban",
+          "text": "A felhő egy németországi adatközpontban fut. A hibajelentéseket csak a bejelentő és a csapat látja."
+        },
+        "self": {
+          "title": "Vagy saját szerveren",
+          "text": "Egy Docker-kép és Postgres. Minden funkció, 0 €."
+        }
+      },
+      "moreTitle": "És még"
+    },
+    "flow": {
+      "title": "Bárhonnan jönnek, oda kerülnek, ahol dolgoztok.",
+      "lede": "Az Ozvi összegyűjti a jelentéseket és ötleteket a widgetből, e-mailből, az API-ból és MI-asszisztensektől, majd továbbítja a csapat eszközeibe. A bejelentőnek szól, ha kész.",
+      "sources": [
+        "Widget az alkalmazásban",
+        "E-mail",
+        "REST API",
+        "Claude, Cursor (MCP)"
+      ],
+      "tools": [
+        "GitHub",
+        "Linear és Jira",
+        "Slack, Discord, webhookok",
+        "Válasz a bejelentőnek"
       ]
     }
   },

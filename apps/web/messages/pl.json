@@ -2593,7 +2593,6 @@
             "Widget w twojej aplikacji, także jako komponent React",
             "Zrzut ekranu z adnotacją",
             "Wersja, przeglądarka, adres i błędy z konsoli automatycznie",
-            "Hasła i oznaczone pola są rozmywane już w przeglądarce",
             "Logowanie przez twoją aplikację: podpisany token lub OIDC"
           ]
         },
@@ -2622,15 +2621,12 @@
             "GitHub: issues, pull requesty i szkice nowości z releasów",
             "Linear i Jira Cloud",
             "Slack, Discord i podpisane webhooki",
-            "Serwer MCP dla asystentów AI (Claude Code, Cursor, VS Code)",
             "REST API i własna domena"
           ]
         },
         {
           "title": "Prywatność",
           "items": [
-            "Zgłoszenia błędów widzi tylko autor i zespół",
-            "Dane w UE (centrum danych w Niemczech)",
             "Eksport i usunięcie danych użytkownika",
             "Teksty do twojej polityki prywatności",
             "Publiczny kod źródłowy (FSL)"
@@ -2645,6 +2641,101 @@
             "Użytkownicy łączą się ze swoim kontem przy pierwszym logowaniu"
           ]
         }
+      ],
+      "tiles": {
+        "stream": {
+          "title": "Zgłoszenia przychodzą z kontekstem",
+          "text": "Widget sam dołącza zrzut ekranu, wersję, przeglądarkę i błędy z konsoli. Użytkownik niczego nie tłumaczy.",
+          "items": [
+            {
+              "title": "Wydruk faktury obcina stopkę",
+              "meta": "Chrome 141 · v2.14.0 · 1 błąd z konsoli"
+            },
+            {
+              "title": "Po zalogowaniu znika wybrany język",
+              "meta": "Safari 19 · v2.14.0"
+            },
+            {
+              "title": "PDF faktury traci polskie znaki w adresie",
+              "meta": "Chrome 141 · v2.14.0 · zrzut ekranu"
+            },
+            {
+              "title": "Eksport do księgowości",
+              "meta": "41 głosów · Zaplanowane"
+            },
+            {
+              "title": "Płatności cykliczne z innym terminem",
+              "meta": "17 głosów · W toku"
+            }
+          ]
+        },
+        "mcp": {
+          "title": "Asystent AI w twoim edytorze",
+          "text": "Serwer MCP z 11 narzędziami. Kroki, które coś scalają lub publikują, czekają na twoje potwierdzenie.",
+          "lines": [
+            {
+              "who": "you",
+              "text": "Co nowego zgłosili w sprawie faktur?"
+            },
+            {
+              "who": "tool",
+              "text": "search_items „faktura” · 3 wyniki"
+            },
+            {
+              "who": "ai",
+              "text": "#128 PDF traci polskie znaki, #126 wydruk obcina stopkę. #119 wygląda na duplikat #128."
+            },
+            {
+              "who": "you",
+              "text": "Scal #119 z #128 i ustaw #128 jako Naprawione w 2.15."
+            },
+            {
+              "who": "tool",
+              "text": "merge_items czeka na potwierdzenie"
+            }
+          ]
+        },
+        "route": {
+          "title": "Autor wie, gdzie jest jego zgłoszenie",
+          "text": "Przy „Naprawione” dostaje e-mail z pytaniem, czy już działa.",
+          "stops": [
+            "Przyjęte",
+            "Potwierdzone",
+            "W toku",
+            "Naprawione w 2.15"
+          ]
+        },
+        "privacy": {
+          "title": "Hasła nigdzie nie trafiają",
+          "text": "Widget rozmywa pola z hasłem i oznaczone części strony już w przeglądarce.",
+          "email": "E-mail",
+          "password": "Hasło"
+        },
+        "eu": {
+          "title": "Dane w UE",
+          "text": "Chmura działa w centrum danych w Niemczech. Zgłoszenia błędów widzi tylko autor i zespół."
+        },
+        "self": {
+          "title": "Albo na własnym serwerze",
+          "text": "Jeden obraz Docker i Postgres. Wszystkie funkcje, 0 €."
+        }
+      },
+      "moreTitle": "I jeszcze"
+    },
+    "flow": {
+      "title": "Skądkolwiek przyjdą, trafią tam, gdzie pracujesz.",
+      "lede": "Ozvi zbiera zgłoszenia i pomysły z widgetu, e-maila, API i od asystentów AI, a potem przekazuje je do narzędzi zespołu. Autorowi daje znać, gdy jest gotowe.",
+      "sources": [
+        "Widget w aplikacji",
+        "E-mail",
+        "REST API",
+        "Claude, Cursor (MCP)"
+      ],
+      "tools": [
+        "GitHub",
+        "Linear i Jira",
+        "Slack, Discord, webhooki",
+        "Odpowiedź autorowi"
       ]
     }
   },
