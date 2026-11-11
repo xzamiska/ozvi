@@ -1,12 +1,13 @@
 "use server";
 
 import { PLAN_LIMITS, PRICES, schema, withSystem, type Interval, type PaidPlan, type PlanName } from "@ozvi/db";
-import { applyCreemEvent, BillingError, changeSubscription, createCheckout, creemConfig, DEV_CREEM, devBilling, portalLink } from "./creem";
+import { applyCreemEvent, BillingError, cancelSubscription, changeSubscription, createCheckout, creemConfig, DEV_CREEM, devBilling, isUpgrade, portalLink, resumeSubscription, type CreemConfig, type Sub } from "./creem";
 import { roleIn } from "./workspace";
 import { presets, themeSchema } from "@ozvi/theme";
 import { and, eq, sql } from "drizzle-orm";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { logActivity, who } from "./activity";
 import type { LoginState } from "@/components/EmailLogin";
 import { signupClosed } from "./account-rules";
@@ -170,22 +171,47 @@ export async function startCheckout(workspaceId: string, plan: PaidPlan, interva
   redirect(url);
 }
 
-/** A paying workspace switches plan or interval: the same Creem subscription moves to the new product. */
-export async function changePlan(workspaceId: string, plan: PaidPlan, interval: Interval) {
+export interface BillingResult { error?: string }
+
+/** Runs one subscription change against Creem and applies the returned state at once (the webhook confirms it). */
+async function onSubscription(workspaceId: string, call: (cfg: CreemConfig, subscriptionId: string, ws: typeof schema.workspaces.$inferSelect) => Promise<Sub | null>, done: string): Promise<BillingResult> {
   await owner(workspaceId);
-  if (!(plan in PRICES) || !["year", "quarter"].includes(interval)) throw new Error((await server())("invalidPlan"));
-  if (devBilling()) redirect(`/app/billing/${workspaceId}/simulate?plan=${plan}&i=${interval}`);
   const ws = await db.query.workspaces.findFirst({ where: eq(schema.workspaces.id, workspaceId) });
   const cfg = creemConfig();
-  const productId = cfg?.products[`${plan}_${interval}`];
-  if (!cfg || !ws?.creemSubscriptionId) throw new Error((await server())("noSubscription"));
-  if (!productId) throw new Error((await server())("invalidPlan"));
+  if (!cfg || !ws?.creemSubscriptionId || (ws.plan !== "pro" && ws.plan !== "studio")) return { error: (await server())("noSubscription") };
   const subscription = ws.creemSubscriptionId;
-  const upgrade = PRICES[plan][interval] * (interval === "quarter" ? 4 : 1) > (ws.plan === "pro" || ws.plan === "studio" ? PRICES[ws.plan].year : 0);
-  const sub = await billing(() => changeSubscription(cfg, subscription, productId, upgrade));
-  // Show the new plan right away; Creem's subscription.update webhook confirms the same state.
-  await applyCreemEvent(cfg, { id: `change:${sub.id}:${Date.now()}`, eventType: "subscription.update", object: { ...sub, metadata: { ...(sub.metadata ?? {}), workspace_id: workspaceId } } });
-  redirect(`/app/w/${workspaceId}/plan?changed=${plan}`);
+  let sub: Sub | null;
+  try { sub = await call(cfg, subscription, ws); } catch (e) {
+    if (e instanceof BillingError) return { error: e.text(await requestLocale()) };
+    throw e;
+  }
+  if (sub) await applyCreemEvent(cfg, { id: `console:${sub.id}:${Date.now()}`, eventType: "subscription.update", object: { ...sub, metadata: { ...(sub.metadata ?? {}), workspace_id: workspaceId } } });
+  revalidatePath(`/app/w/${workspaceId}/plan`);
+  redirect(`/app/w/${workspaceId}/plan?done=${done}`);
+}
+
+/** A paying workspace moves its Creem subscription to another plan or interval (after the owner confirmed the charge). */
+export async function changePlan(workspaceId: string, plan: PaidPlan, interval: Interval): Promise<BillingResult> {
+  if (!(plan in PRICES) || !["year", "quarter"].includes(interval)) return { error: (await server())("invalidPlan") };
+  if (devBilling()) redirect(`/app/billing/${workspaceId}/simulate?plan=${plan}&i=${interval}`);
+  return onSubscription(workspaceId, async (cfg, id, ws) => {
+    // A second click (or a stale tab) asking for what is already in place charges nothing.
+    if (ws.plan === plan && ws.planInterval === interval) return null;
+    if (ws.planStatus === "scheduled_cancel") throw new BillingError("resume_first");
+    const productId = cfg.products[`${plan}_${interval}`];
+    if (!productId) throw new BillingError("not_for_sale");
+    return changeSubscription(cfg, id, productId, isUpgrade(ws, plan, interval));
+  }, `${plan}-${interval}`);
+}
+
+/** Cancel at the end of the paid period; the plan stays until then. */
+export async function cancelPlan(workspaceId: string): Promise<BillingResult> {
+  return onSubscription(workspaceId, (cfg, id, ws) => (ws.planStatus === "scheduled_cancel" ? Promise.resolve(null) : cancelSubscription(cfg, id)), "canceled");
+}
+
+/** Take back a scheduled cancellation. */
+export async function resumePlan(workspaceId: string): Promise<BillingResult> {
+  return onSubscription(workspaceId, (cfg, id, ws) => (ws.planStatus !== "scheduled_cancel" ? Promise.resolve(null) : resumeSubscription(cfg, id)), "resumed");
 }
 
 export async function openPortal(workspaceId: string) {

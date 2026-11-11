@@ -176,6 +176,13 @@
       "when": 1794359049739,
       "tag": "0024_powerful_frank_castle",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1794410484349,
+      "tag": "0025_typical_retro_girl",
+      "breakpoints": true
     }
   ]
 }

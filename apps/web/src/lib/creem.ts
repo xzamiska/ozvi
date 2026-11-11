@@ -1,5 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { PLAN_LIMITS, schema, type PaidPlan, type Interval, type PlanName } from "@ozvi/db";
+import { PLAN_LIMITS, PRICES, schema, type PaidPlan, type Interval, type PlanName } from "@ozvi/db";
 import { eq } from "drizzle-orm";
 import { logActivity } from "./activity";
 import type { Locale } from "@/i18n/locales";
@@ -40,6 +40,12 @@ export const DEV_CREEM: CreemConfig = {
   products: { pro_year: "dev_pro_year", pro_quarter: "dev_pro_quarter", studio_year: "dev_studio_year", studio_quarter: "dev_studio_quarter" },
 };
 export const billingEnabled = () => !!creemConfig() || devBilling();
+
+/** The interval a product bills in ("pro_quarter" → "quarter"). */
+export function intervalForProduct(cfg: CreemConfig, productId: string | undefined): Interval | null {
+  for (const [k, v] of Object.entries(cfg.products)) if (v && v === productId) return k.split("_")[1] as Interval;
+  return null;
+}
 
 export function planForProduct(cfg: CreemConfig, productId: string | undefined): PaidPlan | null {
   for (const [k, v] of Object.entries(cfg.products)) if (v && v === productId) return k.split("_")[0] as PaidPlan;
@@ -91,6 +97,40 @@ export async function changeSubscription(cfg: CreemConfig, subscriptionId: strin
     product_id: productId,
     update_behavior: upgrade ? "proration-charge-immediately" : "proration-charge",
   }, f);
+  if (!r?.id) throw new BillingError("gateway_down");
+  return r;
+}
+
+const PERIOD_DAYS: Record<Interval, number> = { year: 365, quarter: 91 };
+/** Per day, the new plan costs more: Creem charges the prorated difference now; otherwise it is credited. */
+export function isUpgrade(ws: { plan: string; planInterval: string | null }, plan: PaidPlan, interval: Interval): boolean {
+  if (ws.plan !== "pro" && ws.plan !== "studio") return true;
+  const from = (ws.planInterval === "quarter" ? "quarter" : "year") as Interval;
+  return PRICES[plan][interval] / PERIOD_DAYS[interval] > PRICES[ws.plan][from] / PERIOD_DAYS[from];
+}
+
+/**
+ * About what Creem charges now for the rest of the period (euro cents, before VAT), when only the
+ * plan changes; null when the interval changes too (Creem settles that its own way).
+ */
+export function prorationEstimate(ws: { plan: string; planInterval: string | null; planPeriodEnd: Date | null }, plan: PaidPlan, interval: Interval, now = Date.now()): number | null {
+  if ((ws.plan !== "pro" && ws.plan !== "studio") || !ws.planPeriodEnd) return null;
+  const from = (ws.planInterval === "quarter" ? "quarter" : "year") as Interval;
+  if (from !== interval) return null;
+  const left = Math.min(1, Math.max(0, (ws.planPeriodEnd.getTime() - now) / (PERIOD_DAYS[interval] * 86_400_000)));
+  return Math.round((PRICES[plan][interval] - PRICES[ws.plan][interval]) * left);
+}
+
+/** Cancels at the end of the paid period (status scheduled_cancel); the plan stays until then. */
+export async function cancelSubscription(cfg: CreemConfig, subscriptionId: string, f?: typeof fetch): Promise<Sub> {
+  const r = await creem<Sub>(cfg, `/subscriptions/${encodeURIComponent(subscriptionId)}/cancel`, { mode: "scheduled", onExecute: "cancel" }, f);
+  if (!r?.id) throw new BillingError("gateway_down");
+  return r;
+}
+
+/** Takes back a scheduled cancellation. */
+export async function resumeSubscription(cfg: CreemConfig, subscriptionId: string, f?: typeof fetch): Promise<Sub> {
+  const r = await creem<Sub>(cfg, `/subscriptions/${encodeURIComponent(subscriptionId)}/resume`, {}, f);
   if (!r?.id) throw new BillingError("gateway_down");
   return r;
 }
@@ -158,6 +198,7 @@ export async function applyCreemEvent(cfg: CreemConfig, ev: Event): Promise<stri
     plan,
     planStatus: status,
     planPeriodEnd: sub.current_period_end_date ? new Date(sub.current_period_end_date) : ws.planPeriodEnd,
+    planInterval: intervalForProduct(cfg, idOf(sub.product)) ?? ws.planInterval,
     creemSubscriptionId: sub.id,
     creemCustomerId: idOf(sub.customer) ?? ws.creemCustomerId,
     ...(at && !Number.isNaN(at.getTime()) && { creemEventAt: at }),

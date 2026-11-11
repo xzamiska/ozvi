@@ -35,6 +35,8 @@ export const workspaces = pgTable("workspaces", {
   creemSubscriptionId: text("creem_subscription_id").unique(),
   planStatus: text("plan_status"),
   planPeriodEnd: timestamp("plan_period_end", { withTimezone: true }),
+  /** Billing interval of the Creem subscription ("year" | "quarter"), from its product. */
+  planInterval: text("plan_interval"),
   /** created_at of the last applied Creem event: older (late or replayed) events are ignored. */
   creemEventAt: timestamp("creem_event_at", { withTimezone: true }),
   createdAt: createdAt(),

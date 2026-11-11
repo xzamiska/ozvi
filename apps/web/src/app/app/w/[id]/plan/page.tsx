@@ -10,8 +10,9 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { getAccount } from "@/lib/account";
 import { consoleWorkspace, usageOf } from "@/lib/console";
-import { changePlan, openPortal, startCheckout } from "@/lib/app-actions";
-import { billingEnabled, devBilling } from "@/lib/creem";
+import { cancelPlan, changePlan, openPortal, resumePlan, startCheckout } from "@/lib/app-actions";
+import { BillingDialog, PendingSubmit } from "@/components/ozvi/BillingDialog";
+import { billingEnabled, devBilling, isUpgrade, prorationEstimate } from "@/lib/creem";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/locales";
 import { requestLocale } from "@/i18n/server";
@@ -36,7 +37,7 @@ const FEATURES = (p: "free" | PaidPlan, t: PlanT, locale: Locale) => {
   ];
 };
 
-export default async function Billing({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ paid?: string; i?: string; changed?: string }> }) {
+export default async function Billing({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ paid?: string; i?: string; done?: string }> }) {
   const { id } = await params;
   const sp = await searchParams;
   const account = await getAccount();
@@ -50,6 +51,37 @@ export default async function Billing({ params, searchParams }: { params: Promis
   const owner = ws.role === "owner";
   const locale = await requestLocale();
   const t = await getTranslations("console.plan");
+  const paying = (ws.plan === "pro" || ws.plan === "studio") && !!ws.creemSubscriptionId;
+  const curPlan = ws.plan as PaidPlan;
+  const curInterval: Interval = ws.planInterval === "quarter" ? "quarter" : "year";
+  const cancelling = ws.planStatus === "scheduled_cancel";
+  const end = ws.planPeriodEnd ? day(ws.planPeriodEnd, locale) : null;
+  const per = (i: Interval) => (i === "year" ? t("perYear") : t("perQuarter"));
+  const priceOf = (p: PaidPlan, i: Interval) => `${eur(PRICES[p][i], locale)} ${per(i)}`;
+  const doneKey = sp.done ?? "";
+  const donePlan = /^(pro|studio)-(year|quarter)$/.exec(doneKey);
+  const done = donePlan ? { title: t("doneChangeTitle", { plan: PLAN_NAME[donePlan[1] as PaidPlan] }), text: t("doneChange", { price: priceOf(donePlan[1] as PaidPlan, donePlan[2] as Interval) }) }
+    : doneKey === "canceled" ? { title: t("doneCancelTitle"), text: t("doneCancel", { plan: PLAN_NAME[curPlan] ?? ws.plan, date: end ?? "" }) }
+    : doneKey === "resumed" ? { title: t("doneResumeTitle"), text: t("doneResume", { date: end ?? "" }) } : null;
+  const keep = t("dlg.keep");
+  /** The confirm dialog for moving the subscription to plan p, interval i. */
+  const changeDialog = (p: PaidPlan, i: Interval, label: string, variant: "outline" | "default" = "outline") => {
+    const up = isUpgrade(ws, p, i);
+    const est = prorationEstimate(ws, p, i);
+    return (
+      <BillingDialog trigger={label} triggerVariant={variant} className="w-full" keep={keep}
+        title={t("dlg.changeTitle", { plan: `${PLAN_NAME[p]} · ${i === "year" ? t("yearly") : t("quarterly")}` })}
+        lines={[
+          t("dlg.changeFrom", { from: `${PLAN_NAME[curPlan]} (${priceOf(curPlan, curInterval)})`, to: `${PLAN_NAME[p]} (${priceOf(p, i)})` }),
+          up ? (est !== null && est > 0 ? t("dlg.chargeNow", { amount: eur(est, locale) }) : t("dlg.chargeNowNoAmount")) : t("dlg.credit"),
+          t("dlg.limitsNow"),
+          ...(end ? [t("dlg.nextCharge", { date: end, price: priceOf(p, i) })] : []),
+        ]}
+        confirm={up ? t("dlg.payAndSwitch", { plan: PLAN_NAME[p] }) : t("dlg.switch", { plan: PLAN_NAME[p] })}
+        pending={up ? t("dlg.paying") : t("dlg.working")}
+        action={changePlan.bind(null, ws.id, p, i)} />
+    );
+  };
 
   return (
     <div>
@@ -66,11 +98,11 @@ export default async function Billing({ params, searchParams }: { params: Promis
             <AlertDescription>{t("paid")}</AlertDescription>
           </Alert>
         )}
-        {sp.changed && (sp.changed === "pro" || sp.changed === "studio") && (
+        {done && (
           <Alert role="status" className="border-success/30">
             <CircleCheck className="text-success" />
-            <AlertTitle>{t("changedTitle", { plan: PLAN_NAME[sp.changed] })}</AlertTitle>
-            <AlertDescription>{t("changed")}</AlertDescription>
+            <AlertTitle>{done.title}</AlertTitle>
+            <AlertDescription>{done.text}</AlertDescription>
           </Alert>
         )}
         {ws.planStatus === "past_due" && (
@@ -80,14 +112,33 @@ export default async function Billing({ params, searchParams }: { params: Promis
             <AlertDescription>{t("pastDue")}</AlertDescription>
           </Alert>
         )}
-        {ws.planStatus === "scheduled_cancel" && ws.planPeriodEnd && (
-          <Alert role="status">
-            <CalendarClock />
-            <AlertTitle>{t("canceledTitle")}</AlertTitle>
-            <AlertDescription>{t("canceled", { plan: PLAN_NAME[ws.plan as PaidPlan] ?? ws.plan, date: day(ws.planPeriodEnd, locale) })}</AlertDescription>
-          </Alert>
-        )}
       </div>
+
+      {paying && (
+        <section aria-labelledby="sub-h" className="mb-10 grid gap-4 rounded-xl border bg-surface p-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-6">
+          <div className="grid gap-1">
+            <h2 id="sub-h" className="text-[13px] font-semibold text-muted-foreground">{t("sub.title")}</h2>
+            <p className="text-[19px] font-semibold tracking-tight">{PLAN_NAME[curPlan]} · {curInterval === "year" ? t("yearly") : t("quarterly")}
+              <span className="ml-2 text-[14px] font-normal text-muted-foreground">{priceOf(curPlan, curInterval)} {t("sub.vat")}</span></p>
+            <p className={cn("flex items-center gap-1.5 text-[14px]", cancelling ? "text-st-ack" : "text-muted-foreground")}>
+              <CalendarClock className="size-4 shrink-0" aria-hidden />
+              {cancelling ? t("sub.ends", { plan: PLAN_NAME[curPlan], date: end ?? "" }) : end ? t("sub.next", { date: end, price: priceOf(curPlan, curInterval) }) : t("sub.active")}
+            </p>
+          </div>
+          {owner && (
+            <div className="flex flex-wrap gap-2 sm:justify-end">
+              {cancelling
+                ? <BillingDialog trigger={t("sub.resume")} triggerVariant="default" keep={keep} title={t("dlg.resumeTitle")}
+                    lines={[t("dlg.resumeText", { plan: PLAN_NAME[curPlan], date: end ?? "", price: priceOf(curPlan, curInterval) })]}
+                    confirm={t("sub.resume")} pending={t("dlg.working")} action={resumePlan.bind(null, ws.id)} />
+                : <BillingDialog trigger={t("sub.cancel")} triggerVariant="ghost" tone="destructive" keep={t("dlg.keepPlan", { plan: PLAN_NAME[curPlan] })} title={t("dlg.cancelTitle")}
+                    lines={[t("dlg.cancelText", { plan: PLAN_NAME[curPlan], date: end ?? "" }), t("dlg.cancelData")]}
+                    confirm={t("sub.cancel")} pending={t("dlg.working")} action={cancelPlan.bind(null, ws.id)} />}
+              <form action={openPortal.bind(null, ws.id)}><PendingSubmit variant="outline" pending={t("dlg.opening")}>{t("sub.invoices")}</PendingSubmit></form>
+            </div>
+          )}
+        </section>
+      )}
 
       <section aria-labelledby="usage-h" className="mb-10 grid gap-4">
         <h2 id="usage-h" className="text-[15px] font-semibold tracking-tight">{t("usageTitle")}</h2>
@@ -129,26 +180,33 @@ export default async function Billing({ params, searchParams }: { params: Promis
                   <li key={f} className="grid grid-cols-[16px_1fr] gap-2.5"><Check className="mt-0.5 size-4 text-brand-text" aria-hidden />{f}</li>
                 ))}
               </ul>
-              {current || !owner ? null
-                : p === "free"
-                  ? ws.creemCustomerId
-                    ? <form action={openPortal.bind(null, ws.id)}><Button type="submit" variant="outline" className="w-full">{t("switchTo", { plan: "Free" })}</Button></form>
+              {!owner ? null
+                : current
+                  // The current plan in the other interval: switch how often you pay.
+                  ? paying && !cancelling && p !== "free" && interval !== curInterval
+                    ? changeDialog(p, interval, interval === "year" ? t("payYearly") : t("payQuarterly"))
                     : null
-                  : ws.plan !== "free" && ws.creemCustomerId
-                    // An active subscription moves to the new product (no second subscription, no second checkout).
-                    ? <form action={changePlan.bind(null, ws.id, p, interval)}><Button type="submit" variant="outline" className="w-full">{t("switchTo", { plan: PLAN_NAME[p] })}</Button></form>
-                    : <form action={startCheckout.bind(null, ws.id, p, interval)}><Button type="submit" className="w-full" disabled={!enabled}>{t("switchTo", { plan: PLAN_NAME[p] })}</Button></form>}
+                  : p === "free"
+                    ? paying
+                      ? cancelling
+                        ? <p className="text-[13.5px] text-muted-foreground">{t("freeFrom", { date: end ?? "" })}</p>
+                        : <BillingDialog trigger={t("switchTo", { plan: "Free" })} className="w-full" tone="destructive" keep={t("dlg.keepPlan", { plan: PLAN_NAME[curPlan] })} title={t("dlg.cancelTitle")}
+                            lines={[t("dlg.cancelText", { plan: PLAN_NAME[curPlan], date: end ?? "" }), t("dlg.cancelData")]}
+                            confirm={t("sub.cancel")} pending={t("dlg.working")} action={cancelPlan.bind(null, ws.id)} />
+                      : null
+                    : paying
+                      ? cancelling
+                        ? <p className="text-[13.5px] text-muted-foreground">{t("resumeFirst")}</p>
+                        : changeDialog(p, interval, t("switchTo", { plan: PLAN_NAME[p] }))
+                      : <form action={startCheckout.bind(null, ws.id, p, interval)}><PendingSubmit className="w-full" disabled={!enabled} pending={t("dlg.opening")}>{t("switchTo", { plan: PLAN_NAME[p] })}</PendingSubmit></form>}
             </div>
           );
         })}
       </Panel>
 
       <div className="mt-6 grid gap-4">
-        <p className="text-[14px] text-muted-foreground">{t("everyPlan")}{owner && ws.creemCustomerId ? t("portalHint") : ""}{owner && ws.creemSubscriptionId && ws.plan !== "free" ? t("changeHint") : ""}</p>
+        <p className="text-[14px] text-muted-foreground">{t("everyPlan")}{owner && paying ? t("changeHint") : ""}</p>
         {!owner && <p className="text-[14px] text-muted-foreground">{t("memberNote")}</p>}
-        {owner && ws.creemCustomerId && (
-          <form action={openPortal.bind(null, ws.id)}><Button type="submit" variant="outline">{t("manage")}</Button></form>
-        )}
         <p className="max-w-[68ch] border-t pt-4 text-[13px] text-muted-foreground">
           {t("vat")}
           {!enabled && t("notEnabled")}{devBilling() && t("simulated")}
