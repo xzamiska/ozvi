@@ -258,7 +258,7 @@
       "invalid": "Wybierz język z listy.",
       "translation": "Tłumaczenie wpisów",
       "translationHint": "Pomysły, komentarze i aktualizacje napisane w innym języku AI tłumaczy na język czytelnika. Tłumaczenie jest zawsze oznaczone, a oryginał jest o jedno kliknięcie. Prywatne zgłoszenia błędów i notatki zespołu są tłumaczone tylko dla osób, które mogą je widzieć.",
-      "translationNoAi": "Tłumaczenie wymaga AI, które nie jest włączone w tym projekcie (plan z AI albo skonfigurowany dostawca AI przy własnym hostingu).",
+      "translationNoAi": "Tłumaczeń nie ma w twoim planie. Pro ma 500, a Studio 2 000 nowych tłumaczeń miesięcznie; przy własnym hostingu trzeba ustawić dostawcę AI.",
       "mode": {
         "off": "Wyłączone",
         "offHint": "Wpisy są wyświetlane tylko w oryginalnym języku.",
@@ -1221,7 +1221,8 @@
       "projectsFull": "Więcej projektów dodasz w wyższym planie.",
       "recent": "Ostatnia aktywność",
       "all": "Pokaż wszystko",
-      "noActivity": "Na razie nic. Tutaj pojawią się zaproszenia, zmiany ustawień, tokeny i płatności."
+      "noActivity": "Na razie nic. Tutaj pojawią się zaproszenia, zmiany ustawień, tokeny i płatności.",
+      "translations": "Tłumaczenia AI"
     },
     "activity": {
       "title": "Aktywność",
@@ -1476,7 +1477,10 @@
         "cancelData": "Projekty, pomysły ani zgłoszenia nie zostaną usunięte. Przekroczenie limitów Free niczego nie blokuje, tylko cię powiadomimy.",
         "refund": "Niewykorzystaną część okresu Creem od razu zwróci na kartę, około {amount} + VAT.",
         "refundNoAmount": "Niewykorzystaną część okresu Creem od razu zwróci na kartę; dokładną kwotę zobaczysz na potwierdzeniu."
-      }
+      },
+      "translations": "Tłumaczenia AI",
+      "fTranslations": "{n} tłumaczeń AI miesięcznie",
+      "fTranslationsUnlimited": "Nieograniczone tłumaczenia AI"
     },
     "simulate": {
       "devOnly": "Tylko lokalne środowisko deweloperskie",

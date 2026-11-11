@@ -144,8 +144,8 @@ describe("translateFor (cache, permissions, limits; Claude mocked)", () => {
       .rejects.toBeInstanceOf(AiError);
   });
 
-  it("caps the daily number of new translations per project", async () => {
-    process.env.OZVI_TRANSLATE_DAILY_CAP = "0";
+  it("caps the monthly number of new translations per workspace", async () => {
+    process.env.OZVI_TRANSLATE_MONTHLY_CAP = "0";
     try {
       const { r, translate } = await run(viewer(team, true), [{ subject: "changelog", id: pub }], mock(), "cap");
       // Cached translations still come back; only new ones are refused.
@@ -155,7 +155,7 @@ describe("translateFor (cache, permissions, limits; Claude mocked)", () => {
       const again = await run(viewer(team, true), [{ subject: "changelog", id: pub }], mock(), "cap");
       expect(again.r.errors).toEqual([{ id: pub, code: "cap" }]);
     } finally {
-      delete process.env.OZVI_TRANSLATE_DAILY_CAP;
+      delete process.env.OZVI_TRANSLATE_MONTHLY_CAP;
     }
   });
 

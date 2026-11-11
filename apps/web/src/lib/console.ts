@@ -3,6 +3,7 @@ import { PLAN_LIMITS, schema, withProject, type PlanName } from "@ozvi/db";
 import { and, desc, eq, gte, inArray, max, ne, sql } from "drizzle-orm";
 import { workspacesOf } from "./account";
 import { db } from "./db";
+import { translationsUsed } from "./translate";
 
 /**
  * Read models for the console (/app/w/[id]/…). Every function takes a workspace the caller already
@@ -64,6 +65,8 @@ export interface Usage {
   emails: { used: number; limit: number };
   storage: { used: number; limit: number };
   projects: { used: number; limit: number };
+  /** New AI translations this month (cached ones are free). */
+  translations: { used: number; limit: number };
 }
 
 /** What the plan limits, measured the same way the worker and uploads enforce it. */
@@ -87,6 +90,7 @@ export async function usageOf(ws: ConsoleWorkspace): Promise<Usage> {
     emails: { used: emails, limit: limits.emailsPerMonth },
     storage: { used: storage, limit: limits.attachmentBytes },
     projects: { used: ws.projects.length, limit: limits.projects },
+    translations: { used: limits.translationsPerMonth > 0 ? await translationsUsed(db, ws.id) : 0, limit: limits.translationsPerMonth },
   };
 }
 

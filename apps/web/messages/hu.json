@@ -258,7 +258,7 @@
       "invalid": "Válassz nyelvet a listából.",
       "translation": "Bejegyzések fordítása",
       "translationHint": "Az AI az olvasó nyelvére fordítja a más nyelven írt ötleteket, hozzászólásokat és bejelentéseket. A fordítások mindig meg vannak jelölve, az eredeti pedig egy kattintásra van. A privát hibajelentéseket és a csapat megjegyzéseit csak azoknak fordítjuk le, akik láthatják őket.",
-      "translationNoAi": "A fordításhoz AI kell, amely ennél a projektnél nincs bekapcsolva (AI-t tartalmazó csomag, vagy saját üzemeltetésnél beállított AI-szolgáltató).",
+      "translationNoAi": "A fordítás nincs benne a csomagodban. A Pro havi 500, a Studio havi 2 000 új fordítást tartalmaz; saját tárhelyen AI-szolgáltatót kell beállítani.",
       "mode": {
         "off": "Ki",
         "offHint": "A bejegyzések csak eredeti nyelvükön jelennek meg.",
@@ -1221,7 +1221,8 @@
       "projectsFull": "Magasabb csomagban több projektet adhatsz hozzá.",
       "recent": "Legutóbbi tevékenység",
       "all": "Összes megtekintése",
-      "noActivity": "Még semmi. Itt jelennek meg a meghívások, a beállítások módosításai, a tokenek és a fizetések."
+      "noActivity": "Még semmi. Itt jelennek meg a meghívások, a beállítások módosításai, a tokenek és a fizetések.",
+      "translations": "AI-fordítások"
     },
     "activity": {
       "title": "Tevékenység",
@@ -1476,7 +1477,10 @@
         "cancelData": "A projektek, ötletek és jelentések nem törlődnek. A Free keretek túllépése semmit sem blokkol, csak értesítünk.",
         "refund": "Az időszak fel nem használt részét a Creem azonnal visszautalja a kártyádra, kb. {amount} + ÁFA.",
         "refundNoAmount": "Az időszak fel nem használt részét a Creem azonnal visszautalja a kártyádra; a pontos összeg a bizonylaton lesz."
-      }
+      },
+      "translations": "AI-fordítások",
+      "fTranslations": "havi {n} AI-fordítás",
+      "fTranslationsUnlimited": "Korlátlan AI-fordítás"
     },
     "simulate": {
       "devOnly": "Csak helyi fejlesztéshez",

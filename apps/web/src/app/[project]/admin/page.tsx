@@ -49,6 +49,7 @@ import { kitConfig } from "@/lib/privacy-kit-config";
 import { LEGAL } from "@/lib/legal";
 import { MESSAGES } from "@/i18n/messages";
 import { enabledSections, homeSection } from "@/lib/sections";
+import { translationsInPlan } from "@/lib/translate";
 
 export const generateMetadata = boardTitle("admin");
 
@@ -204,7 +205,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
 
           <SettingsSection id="languages" title={t("nav.languages")} text={t("languages.text")}>
             <LanguagesForm slug={slug} defaultLocale={project.defaultLocale} locales={project.locales}
-              translationMode={project.translationMode} aiReady={aiAvailable(plan)} />
+              translationMode={project.translationMode} aiReady={translationsInPlan(plan)} />
           </SettingsSection>
 
           <SettingsSection id="tags" title={t("nav.tags")} text={t("tags.text")}>

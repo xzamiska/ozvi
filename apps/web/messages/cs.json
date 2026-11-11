@@ -258,7 +258,7 @@
       "invalid": "Vyberte jazyk ze seznamu.",
       "translation": "Překlad příspěvků",
       "translationHint": "Nápady, komentáře a novinky napsané v jiném jazyce přeloží AI do jazyka čtenáře. Překlad je vždy označený a originál je na jedno kliknutí. Soukromá hlášení a poznámky týmu se překládají jen těm, kdo je smí vidět.",
-      "translationNoAi": "Překlad potřebuje AI, které tento projekt nemá zapnuté (tarif s AI nebo nastavený poskytovatel AI při vlastním hostingu).",
+      "translationNoAi": "Překlady nejsou ve vašem plánu. Pro má 500 a Studio 2 000 nových překladů měsíčně; při vlastním hostingu je potřeba nastavit AI poskytovatele.",
       "mode": {
         "off": "Vypnutý",
         "offHint": "Příspěvky se zobrazují jen v originále.",
@@ -1221,7 +1221,8 @@
       "projectsFull": "Další projekt přidáte ve vyšším plánu.",
       "recent": "Poslední aktivita",
       "all": "Vše",
-      "noActivity": "Zatím nic. Tady uvidíte pozvánky, změny nastavení, tokeny a platby."
+      "noActivity": "Zatím nic. Tady uvidíte pozvánky, změny nastavení, tokeny a platby.",
+      "translations": "AI překlady"
     },
     "activity": {
       "title": "Aktivita",
@@ -1476,7 +1477,10 @@
         "cancelData": "Projekty, nápady ani hlášení se nesmažou. Při překročení limitů Free se nic nezablokuje, jen vás upozorníme.",
         "refund": "Nevyužitou část za zbytek období vám Creem hned vrátí na kartu, přibližně {amount} + DPH.",
         "refundNoAmount": "Nevyužitou část za zbytek období vám Creem hned vrátí na kartu. Přesnou částku uvidíte na dokladu."
-      }
+      },
+      "translations": "AI překlady",
+      "fTranslations": "{n} AI překladů měsíčně",
+      "fTranslationsUnlimited": "Neomezené AI překlady"
     },
     "simulate": {
       "devOnly": "Jen lokální vývoj",

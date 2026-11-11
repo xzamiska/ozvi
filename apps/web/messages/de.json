@@ -258,7 +258,7 @@
       "invalid": "Wählen Sie eine Sprache aus der Liste.",
       "translation": "Übersetzung von Beiträgen",
       "translationHint": "KI übersetzt Ideen, Kommentare und Neuigkeiten, die in einer anderen Sprache verfasst wurden, in die Sprache der lesenden Person. Übersetzungen sind immer gekennzeichnet, und das Original ist nur einen Klick entfernt. Private Fehlermeldungen und Team-Notizen werden nur für Personen übersetzt, die sie sehen dürfen.",
-      "translationNoAi": "Die Übersetzung benötigt KI, die für dieses Projekt nicht aktiviert ist (ein Tarif mit KI oder ein konfigurierter KI-Anbieter beim Self-Hosting).",
+      "translationNoAi": "Übersetzungen sind nicht in Ihrem Plan. Pro hat 500 und Studio 2.000 neue Übersetzungen pro Monat; bei eigenem Hosting muss ein KI-Anbieter eingerichtet sein.",
       "mode": {
         "off": "Aus",
         "offHint": "Beiträge werden nur in ihrer Originalsprache angezeigt.",
@@ -1221,7 +1221,8 @@
       "projectsFull": "Mit einem höheren Tarif können Sie weitere Projekte hinzufügen.",
       "recent": "Letzte Aktivität",
       "all": "Alle ansehen",
-      "noActivity": "Noch nichts. Einladungen, Änderungen an Einstellungen, Tokens und Zahlungen erscheinen hier."
+      "noActivity": "Noch nichts. Einladungen, Änderungen an Einstellungen, Tokens und Zahlungen erscheinen hier.",
+      "translations": "KI-Übersetzungen"
     },
     "activity": {
       "title": "Aktivität",
@@ -1476,7 +1477,10 @@
         "cancelData": "Projekte, Ideen und Meldungen werden nicht gelöscht. Überschreiten der Free-Limits blockiert nichts, wir sagen Ihnen nur Bescheid.",
         "refund": "Den ungenutzten Teil des Zeitraums erstattet Creem sofort auf Ihre Karte, etwa {amount} + MwSt.",
         "refundNoAmount": "Den ungenutzten Teil des Zeitraums erstattet Creem sofort auf Ihre Karte; den genauen Betrag sehen Sie auf dem Beleg."
-      }
+      },
+      "translations": "KI-Übersetzungen",
+      "fTranslations": "{n} KI-Übersetzungen pro Monat",
+      "fTranslationsUnlimited": "Unbegrenzte KI-Übersetzungen"
     },
     "simulate": {
       "devOnly": "Nur lokale Entwicklung",

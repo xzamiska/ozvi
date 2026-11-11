@@ -1,7 +1,7 @@
 import { PLAN_LIMITS, schema, withProject, withSystem, type Db, type PlanName, type Tx } from "@ozvi/db";
-import { and, eq, gt, inArray, sql } from "drizzle-orm";
+import { and, eq, gte, inArray, sql } from "drizzle-orm";
 import { createHash } from "node:crypto";
-import { AI_MODEL_FAST, AiError, aiAvailable, aiConfigured, pivotTitles, translatePost, type AiErrorCode, type TranslatedText } from "./ai";
+import { AI_MODEL_FAST, AiError, aiConfigured, pivotTitles, translatePost, type AiErrorCode, type TranslatedText } from "./ai";
 import { detectLanguage, type Lang } from "./lang-detect";
 import { take } from "./ratelimit";
 
@@ -13,7 +13,7 @@ import { take } from "./ratelimit";
  * only for their author and the team, nothing deleted. A post that the viewer cannot read is never
  * sent to the model. Translations are cached per (post, version = hash of its text, target language),
  * so each version is translated once per language however many people read it; only cache misses
- * count against the viewer's hourly limit and the project's daily cap.
+ * count against the viewer's hourly limit and the workspace's monthly allowance (plan).
  *
  * Labelling (AI Act art. 50): every translation is shown as "translated with AI" with the original a
  * click away, and carries `model` for machine-readable output.
@@ -29,20 +29,41 @@ export function translationModeOf(p: { translationMode?: string | null }): Trans
   return (TRANSLATION_MODES as readonly string[]).includes(p.translationMode ?? "") ? p.translationMode as TranslationMode : "off";
 }
 
-/** Translation is offered when the board turned it on and AI is available (key + plan). */
+/** The plan includes translations (cloud: Pro and Studio; self-host always) and a model is configured. */
+export function translationsInPlan(plan: PlanName): boolean {
+  return aiConfigured() && PLAN_LIMITS[plan].translationsPerMonth > 0;
+}
+
+/** Translation is offered when the board turned it on and the plan includes it. */
 export function translationEnabled(p: { translationMode?: string | null }, plan: PlanName): boolean {
-  return translationModeOf(p) !== "off" && aiAvailable(plan);
+  return translationModeOf(p) !== "off" && translationsInPlan(plan);
 }
 
 /** Longest source text we translate (title + body); longer posts keep only the original. */
 export const MAX_SOURCE_CHARS = 12_000;
 /** Most posts one request may ask for (a thread with its comments). */
 export const MAX_BATCH = 30;
-/** New translations per project per 24 hours (cost cap); OZVI_TRANSLATE_DAILY_CAP overrides. */
-export const dailyCap = (env = process.env) => {
-  const n = Number(env.OZVI_TRANSLATE_DAILY_CAP);
-  return Number.isInteger(n) && n >= 0 ? n : 500;
+/** New translations per workspace and calendar month: the plan's allowance; OZVI_TRANSLATE_MONTHLY_CAP overrides (self-host). */
+export const monthlyCap = (plan: PlanName, env = process.env) => {
+  const n = Number(env.OZVI_TRANSLATE_MONTHLY_CAP);
+  return env.OZVI_TRANSLATE_MONTHLY_CAP !== undefined && Number.isInteger(n) && n >= 0 ? n : PLAN_LIMITS[plan].translationsPerMonth;
 };
+
+const monthStart = (now: number) => { const d = new Date(now); return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)); };
+
+/** New translations this month across the workspace's boards (each in its own RLS scope; pivots not counted). */
+export async function translationsUsed(db: Db, workspaceId: string, now = Date.now()): Promise<number> {
+  const boards = await db.select({ id: schema.projects.id }).from(schema.projects).where(eq(schema.projects.workspaceId, workspaceId));
+  let n = 0;
+  for (const b of boards) {
+    n += await withProject(db, b.id, async (tx) => {
+      const [c] = await tx.select({ n: sql<number>`count(*)::int` }).from(ct)
+        .where(and(gte(ct.createdAt, monthStart(now)), sql`${ct.targetLocale} <> ${PIVOT}`, sql`${ct.model} <> 'none'`));
+      return c?.n ?? 0;
+    });
+  }
+  return n;
+}
 
 /** Version of a post's text: an edit changes it, so the cached translation of the old text is not reused. */
 export function sourceHash(title: string | null, body: string): string {
@@ -153,23 +174,23 @@ const defaultDeps: TranslateDeps = { translate: translatePost, model: AI_MODEL_F
  * `rateKey` identifies the viewer for the limiter (user id, else client IP).
  */
 export async function translateFor(db: Db, opts: {
-  project: BoardFlags & { id: string; translationMode?: string | null }; plan: PlanName; viewer: Viewer; target: string; rateKey: string;
+  project: BoardFlags & { id: string; workspaceId: string; translationMode?: string | null }; plan: PlanName; viewer: Viewer; target: string; rateKey: string;
   wanted: { subject: Subject; id: string }[]; deps?: Partial<TranslateDeps>;
 }): Promise<TranslateResult> {
   const deps = { ...defaultDeps, ...opts.deps };
   const { project, viewer, target } = opts;
   if (!translationEnabled(project, opts.plan)) throw new AiError("off");
   const wanted = opts.wanted.slice(0, MAX_BATCH);
-  const { sources, cached, usedToday } = await withProject(db, project.id, async (tx) => {
+  const { sources, cached } = await withProject(db, project.id, async (tx) => {
     const sources = await readableSources(tx, project, viewer, wanted);
-    const cached = await cachedTranslations(tx, sources, target);
-    const [c] = await tx.select({ n: sql<number>`count(*)::int` }).from(ct)
-      .where(and(eq(ct.projectId, project.id), gt(ct.createdAt, new Date(deps.now() - 86_400_000)), sql`${ct.targetLocale} <> ${PIVOT}`));
-    return { sources, cached, usedToday: c?.n ?? 0 };
+    return { sources, cached: await cachedTranslations(tx, sources, target) };
   });
 
   const result: TranslateResult = { translations: [...cached.values()], errors: [] };
-  let budget = Math.max(0, dailyCap() - usedToday);
+  const cap = monthlyCap(opts.plan);
+  const misses = sources.some((s) => !cached.has(s.id));
+  // Only counted when something new is asked for (reading cached translations is free).
+  let budget = !misses ? 0 : Number.isFinite(cap) ? Math.max(0, cap - await translationsUsed(db, project.workspaceId, deps.now())) : Infinity;
   const todo: Source[] = [];
   for (const s of sources) {
     if (cached.has(s.id)) continue;
@@ -211,8 +232,8 @@ export async function forgetTranslations(tx: Tx, subjectIds: string[]): Promise<
 
 /* ── English pivots for duplicate search across languages ─────────────────────────────────────── */
 
-/** Plans whose projects may spend AI on pivots (same as embeddings). */
-const AI_PLANS = (Object.keys(PLAN_LIMITS) as PlanName[]).filter((p) => PLAN_LIMITS[p].ai);
+/** Plans whose boards get pivots: those with translations (titles only, a small cost). */
+const AI_PLANS = (Object.keys(PLAN_LIMITS) as PlanName[]).filter((p) => PLAN_LIMITS[p].translationsPerMonth > 0);
 
 /**
  * Worker step: English titles of public, non-English ideas on boards with translation on, so a

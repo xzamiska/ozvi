@@ -152,6 +152,7 @@ export default async function Overview({ params, searchParams }: { params: Promi
               <Meter label={t("emailsMonth")} used={usage.emails.used} limit={usage.emails.limit} locale={locale} />
               <Meter label={t("attachments")} used={usage.storage.used} limit={usage.storage.limit} format={bytes} locale={locale} />
               <Meter label={t("projectsMeter")} used={usage.projects.used} limit={usage.projects.limit} full={t("projectsFull")} locale={locale} />
+          {usage.translations.limit > 0 && <Meter label={t("translations")} used={usage.translations.used} limit={usage.translations.limit} locale={locale} />}
             </Card>
           ) : null}
           <Card title={t("recent")} action={<Link href={`/app/w/${ws.id}/activity`} className="text-[13px] font-medium text-brand-text hover:underline">{t("all")}</Link>}>

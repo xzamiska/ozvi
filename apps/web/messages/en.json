@@ -258,7 +258,7 @@
       "invalid": "Pick a language from the list.",
       "translation": "Post translation",
       "translationHint": "AI translates ideas, comments and updates written in another language into the reader’s language. Translations are always labelled and the original is one click away. Private bug reports and team notes are only translated for people allowed to see them.",
-      "translationNoAi": "Translation needs AI, which isn’t enabled for this project (a plan with AI, or an AI provider configured when self-hosting).",
+      "translationNoAi": "Translations aren't in your plan. Pro has 500 and Studio 2,000 new translations a month; self-hosted instances need an AI provider set up.",
       "mode": {
         "off": "Off",
         "offHint": "Posts are shown in their original language only.",
@@ -1221,7 +1221,8 @@
       "projectsFull": "Add more projects on a higher plan.",
       "recent": "Recent activity",
       "all": "View all",
-      "noActivity": "Nothing yet. Invitations, settings changes, tokens and payments will show up here."
+      "noActivity": "Nothing yet. Invitations, settings changes, tokens and payments will show up here.",
+      "translations": "AI translations"
     },
     "activity": {
       "title": "Activity",
@@ -1476,7 +1477,10 @@
         "cancelData": "Projects, ideas and reports are not deleted. Going over the Free limits blocks nothing; we just let you know.",
         "refund": "Creem refunds the unused part of the period to your card right away, about {amount} + VAT.",
         "refundNoAmount": "Creem refunds the unused part of the period to your card right away; the exact amount is on the receipt."
-      }
+      },
+      "translations": "AI translations",
+      "fTranslations": "{n} AI translations a month",
+      "fTranslationsUnlimited": "Unlimited AI translations"
     },
     "simulate": {
       "devOnly": "Local development only",

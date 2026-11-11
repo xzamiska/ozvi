@@ -33,6 +33,7 @@ const FEATURES = (p: "free" | PaidPlan, t: PlanT, locale: Locale) => {
     t("fStorage", { size: bytes(l.attachmentBytes, locale) }),
     l.customDomain ? t("fDomain") : t("fOzviAddress"),
     l.badge ? t("fBadge") : t("fNoBadge"),
+    ...(l.translationsPerMonth > 0 ? [Number.isFinite(l.translationsPerMonth) ? t("fTranslations", { n: num(l.translationsPerMonth, locale) }) : t("fTranslationsUnlimited")] : []),
     ...(l.ai ? [t("fAi")] : []),
   ];
 };
@@ -146,6 +147,7 @@ export default async function Billing({ params, searchParams }: { params: Promis
           <Meter label={t("emails")} used={usage.emails.used} limit={usage.emails.limit} locale={locale} />
           <Meter label={t("attachments")} used={usage.storage.used} limit={usage.storage.limit} format={bytes} locale={locale} />
           <Meter label={t("projects")} used={usage.projects.used} limit={usage.projects.limit} full={t("projectsFull")} locale={locale} />
+          {usage.translations.limit > 0 && <Meter label={t("translations")} used={usage.translations.used} limit={usage.translations.limit} locale={locale} />}
         </div>
         <p className="text-[13px] text-muted-foreground">{t("usageNote")}</p>
       </section>
