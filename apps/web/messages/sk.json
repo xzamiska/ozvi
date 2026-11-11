@@ -3051,6 +3051,10 @@
         }
       ],
       "note": "Zlúčený pull request s „Fixes #412“ sa k hláseniu pridá sám ako dôkaz opravy. Linear a Jira sa pripájajú API kľúčom a stav synchronizujú podobne. Na vlastnom serveri si appku pre GitHub vytvoríte jedným príkazom."
+    },
+    "star": {
+      "text": "Ozvi má verejný zdrojový kód. Ak sa vám páči, dajte mu hviezdičku na GitHube. Pomôže ďalším ľuďom ho nájsť.",
+      "cta": "Hviezdička na GitHube"
     }
   },
   "net": {

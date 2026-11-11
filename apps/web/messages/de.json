@@ -3051,6 +3051,10 @@
         }
       ],
       "note": "Ein gemergter Pull Request mit „Fixes #412“ wird der Meldung von selbst als Nachweis der Behebung hinzugefügt. Linear und Jira werden per API-Schlüssel verbunden und synchronisieren den Status genauso. Auf dem eigenen Server erstellen Sie die GitHub-App mit einem Befehl."
+    },
+    "star": {
+      "text": "Der Quellcode von Ozvi ist öffentlich. Wenn er Ihnen gefällt, geben Sie ihm einen Stern auf GitHub. So finden ihn auch andere.",
+      "cta": "Stern auf GitHub"
     }
   },
   "net": {

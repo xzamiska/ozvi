@@ -3051,6 +3051,10 @@
         }
       ],
       "note": "Az összevont pull request „Fixes #412” sorral magától a bejelentéshez kerül a javítás bizonyítékaként. A Linear és a Jira API-kulccsal csatlakozik, és hasonlóan szinkronizálja az állapotot. Saját szerveren egyetlen paranccsal hozod létre a GitHub-alkalmazást."
+    },
+    "star": {
+      "text": "Az Ozvi forráskódja nyilvános. Ha tetszik, adj neki csillagot a GitHubon. Így mások is könnyebben megtalálják.",
+      "cta": "Csillag a GitHubon"
     }
   },
   "net": {

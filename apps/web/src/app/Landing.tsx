@@ -1,6 +1,6 @@
 import { PLAN_LIMITS, PRICES } from "@ozvi/db";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
-import { Accessibility, ArrowRightLeft, Bot, Check, Code, EyeOff, GitMerge, GitPullRequest, Inbox, Languages, Mail, MessageSquare, Minus, Server, Sparkles, Webhook } from "lucide-react";
+import { Accessibility, ArrowRightLeft, Bot, Check, Code, EyeOff, GitMerge, GitPullRequest, Inbox, Languages, Mail, MessageSquare, Minus, Server, Sparkles, Star, Webhook } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
@@ -18,6 +18,8 @@ import { compareLinks } from "@/components/compare/links";
 import { OzviLogo, OzviMark } from "@/components/ozvi/Logo";
 import { LOCALE_TAG, type Locale } from "@/i18n/locales";
 import { cn } from "@/lib/utils";
+import { githubStars } from "@/lib/github-stars";
+import { GITHUB_REPO } from "@/lib/seo";
 
 /*
  * Ozvi's landing wears the same Ozvi preset as the console (light, dark with the system), so the
@@ -101,8 +103,19 @@ const tileH = "text-[18px] font-semibold tracking-tight";
 const tileP = "mt-2 max-w-[48ch] text-[14.5px] leading-relaxed text-muted-foreground";
 const ghost = "inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-line-strong bg-surface px-5 text-[14.5px] font-medium text-foreground transition-colors hover:border-foreground/40";
 
+/** "Star us on GitHub": an outlined link, the count only once it means something (lib/github-stars.ts). */
+function StarLink({ label, stars, tag, className }: { label: string; stars: number | null; tag: string; className?: string }) {
+  return (
+    <a href={GITHUB_REPO} target="_blank" rel="noopener" className={cn("inline-flex h-10 w-fit items-center gap-2 rounded-lg border border-line-strong bg-surface px-3.5 text-[14px] font-semibold transition-colors hover:bg-accent", className)}>
+      <Star className="size-4 text-warn" aria-hidden />{label}
+      {stars !== null && <span className="rounded-md bg-muted px-1.5 text-[12.5px] font-medium text-muted-foreground tabular-nums">{stars.toLocaleString(tag)}</span>}
+    </a>
+  );
+}
+
 export async function Landing({ locale, signedIn = false }: { locale: Locale; signedIn?: boolean }) {
   const t = await getTranslations({ locale, namespace: "landing" });
+  const stars = await githubStars();
   const pg = await getTranslations({ locale, namespace: "playground" });
   const tA11y = await getTranslations({ locale, namespace: "a11y" });
   const tSub = await getTranslations({ locale, namespace: "subprocessors" });
@@ -465,6 +478,8 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 <div>
                   <h3 className="text-[22px] font-semibold tracking-[-0.03em]">{t("self.title")}</h3>
                   <p className="mt-3 max-w-[52ch] text-[15px] leading-relaxed text-muted-foreground">{t("self.text")}</p>
+                  <p className="mt-4 max-w-[52ch] text-[14px] leading-relaxed text-muted-foreground">{t("star.text")}</p>
+                  <StarLink label={t("star.cta")} stars={stars} tag={LOCALE_TAG[locale]} className="mt-3" />
                 </div>
                 <pre tabIndex={0} role="region" aria-label={t("self.title")} className="look-term oz-scope overflow-x-auto rounded-lg bg-background p-4 font-mono text-[12.5px] leading-[1.75] text-foreground"><code>
                   <span className="text-foreground/65"># {t("self.c1")}</span>{"\n"}
@@ -522,7 +537,10 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
           </div>
           <div className="oz-frame flex flex-wrap justify-between gap-3 border-t py-6 text-[13px] text-muted-foreground">
             <span>© {new Date().getFullYear()} Ozvi</span>
-            <span>{t("footer.license")}</span>
+            <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <a href={GITHUB_REPO} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 hover:text-foreground"><Star className="size-3.5" aria-hidden />{t("star.cta")}</a>
+              <span>{t("footer.license")}</span>
+            </span>
           </div>
         </footer>
       </div>

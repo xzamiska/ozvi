@@ -3051,6 +3051,10 @@
         }
       ],
       "note": "Scalony pull request z „Fixes #412” sam dołączy się do zgłoszenia jako dowód poprawki. Linear i Jira łączą się kluczem API i synchronizują status podobnie. Na własnym serwerze aplikację dla GitHuba utworzysz jednym poleceniem."
+    },
+    "star": {
+      "text": "Kod źródłowy Ozvi jest publiczny. Jeśli ci się podoba, daj mu gwiazdkę na GitHubie. Pomoże to innym go znaleźć.",
+      "cta": "Gwiazdka na GitHubie"
     }
   },
   "net": {

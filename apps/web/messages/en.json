@@ -3051,6 +3051,10 @@
         }
       ],
       "note": "A merged pull request with “Fixes #412” is added to the report by itself as proof of the fix. Linear and Jira connect with an API key and sync statuses the same way. On your own server you create the GitHub app with one command."
+    },
+    "star": {
+      "text": "Ozvi's source code is public. If you like it, give it a star on GitHub. It helps others find it.",
+      "cta": "Star on GitHub"
     }
   },
   "net": {
