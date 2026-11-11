@@ -236,7 +236,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
               <div className="mt-3 flex items-center gap-2 text-[13.5px] text-muted-foreground">
                 {system
                   ? <span className="inline-grid size-6 shrink-0 place-items-center rounded-full border bg-muted text-muted-foreground" aria-hidden><MessagesSquare className="size-3.5" /></span>
-                  : <Avatar name={authorName} url={authorAvatar} size={24} />}
+                  : <Avatar name={authorName ?? authorEmail} url={authorAvatar} size={24} />}
                 <span className="font-medium text-foreground">{byline ?? b("user")}</span>
                 <time dateTime={item.createdAt.toISOString()} title={item.createdAt.toLocaleString(tag)}>{ago(item.createdAt, locale)}</time>
                 {item.editedAt && <Edited at={item.editedAt} label={m("edited")} tag={tag} />}
