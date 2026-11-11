@@ -2380,7 +2380,7 @@
     },
     "hero": {
       "title": "Feedback that doesn’t get lost.",
-      "lede": "Ozvi collects bug reports and ideas inside your app, delivers them to your team where it already works, and tells the reporter how it turned out. In your brand’s language and colours.",
+      "lede": "Ozvi collects bug reports and ideas on your own board and right inside your app, delivers them to the team where it works, and tells the author how it turned out. In your brand's language and colours.",
       "secondary": "How it works",
       "note": "The Free plan needs no card. Self-hosted, it’s free with every feature.",
       "loop": {
@@ -2834,6 +2834,35 @@
         "Chrome · 1396×783",
         "3 steps"
       ]
+    },
+    "ways": {
+      "title": "The board is enough. Add the widget when you want to.",
+      "lede": "Ozvi works without a single line of code. The board runs on your address, and you take into your app only what makes sense.",
+      "tabs": [
+        "Ideas",
+        "Roadmap",
+        "News",
+        "Bugs"
+      ],
+      "launcher": "Feedback",
+      "items": [
+        {
+          "tag": "No code",
+          "title": "A board on your address",
+          "text": "Ideas, voting, roadmap, news and bug reports on feedback.yourcompany.com. Send the link by email or put it in your app's menu."
+        },
+        {
+          "tag": "Optional · one line",
+          "title": "The widget in your app",
+          "text": "A button right in your app. It adds a screenshot, the version and console errors to the report; your app signs the user in."
+        },
+        {
+          "tag": "Optional · two lines",
+          "title": "Roadmap and news on your site",
+          "text": "Embed the roadmap or the news on your own site or in your app. They look like your page; links lead to the board."
+        }
+      ],
+      "note": "Without the widget, people report bugs right on the board. They only miss the context the widget adds by itself: a screenshot, console errors and the steps before the bug."
     }
   },
   "net": {

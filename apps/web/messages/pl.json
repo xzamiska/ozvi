@@ -2380,7 +2380,7 @@
     },
     "hero": {
       "title": "Opinie, które nie giną.",
-      "lede": "Ozvi zbiera zgłoszenia błędów i pomysły bezpośrednio w twojej aplikacji, dostarcza je zespołowi tam, gdzie już pracuje, i informuje zgłaszającego, jak sprawa się zakończyła. W języku i kolorach twojej marki.",
+      "lede": "Ozvi zbiera zgłoszenia błędów i pomysły na własnej tablicy i prosto w twojej aplikacji, dostarcza je zespołowi tam, gdzie pracuje, i mówi autorowi, jak się skończyło. W języku i kolorach twojej marki.",
       "secondary": "Jak to działa",
       "note": "Plan Free nie wymaga karty. Na własnym serwerze jest bezpłatny i ze wszystkimi funkcjami.",
       "loop": {
@@ -2834,6 +2834,35 @@
         "Chrome · 1396×783",
         "3 kroki"
       ]
+    },
+    "ways": {
+      "title": "Wystarczy tablica. Widget dodasz, kiedy zechcesz.",
+      "lede": "Ozvi działa bez ani jednej linii kodu. Tablica działa pod twoim adresem, a do aplikacji bierzesz z niej tylko to, co ma sens.",
+      "tabs": [
+        "Pomysły",
+        "Roadmapa",
+        "Nowości",
+        "Błędy"
+      ],
+      "launcher": "Opinie",
+      "items": [
+        {
+          "tag": "Bez kodu",
+          "title": "Tablica pod twoim adresem",
+          "text": "Pomysły, głosowanie, roadmapa, nowości i zgłoszenia błędów na feedback.twojafirma.pl. Link wyślesz e-mailem albo dodasz do menu aplikacji."
+        },
+        {
+          "tag": "Opcjonalnie · jedna linia",
+          "title": "Widget w twojej aplikacji",
+          "text": "Przycisk prosto w aplikacji. Do zgłoszenia dołączy zrzut ekranu, wersję i błędy z konsoli, użytkownika zaloguje twoja aplikacja."
+        },
+        {
+          "tag": "Opcjonalnie · dwie linie",
+          "title": "Roadmapa i nowości u ciebie",
+          "text": "Osadź roadmapę lub nowości na własnej stronie albo w aplikacji. Wyglądają jak twoja strona, linki prowadzą do tablicy."
+        }
+      ],
+      "note": "Bez widgetu użytkownicy zgłaszają błędy prosto na tablicy. Brakuje im tylko kontekstu, który widget dołącza sam: zrzutu ekranu, błędów z konsoli i kroków przed błędem."
     }
   },
   "net": {

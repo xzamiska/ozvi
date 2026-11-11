@@ -2380,7 +2380,7 @@
     },
     "hero": {
       "title": "Spätná väzba, ktorá sa nestratí.",
-      "lede": "Ozvi zbiera hlásenia chýb a nápady priamo vo vašej aplikácii, doručí ich tímu tam, kde pracuje, a autorovi povie, ako to dopadlo. V jazyku a farbách vašej značky.",
+      "lede": "Ozvi zbiera hlásenia chýb a nápady na vlastnom boarde aj priamo vo vašej aplikácii, doručí ich tímu tam, kde pracuje, a autorovi povie, ako to dopadlo. V jazyku a farbách vašej značky.",
       "secondary": "Ako to funguje",
       "note": "Plán Free je bez karty. Na vlastnom serveri zadarmo a so všetkými funkciami.",
       "loop": {
@@ -2834,6 +2834,35 @@
         "Chrome · 1396×783",
         "3 kroky"
       ]
+    },
+    "ways": {
+      "title": "Stačí vám board. Widget pridáte, keď budete chcieť.",
+      "lede": "Ozvi funguje aj bez jediného riadku kódu. Board beží na vašej adrese a do aplikácie si z neho vezmete len to, čo dáva zmysel.",
+      "tabs": [
+        "Nápady",
+        "Roadmapa",
+        "Novinky",
+        "Chyby"
+      ],
+      "launcher": "Spätná väzba",
+      "items": [
+        {
+          "tag": "Bez kódu",
+          "title": "Board na vašej adrese",
+          "text": "Nápady, hlasovanie, roadmapa, novinky aj hlásenia chýb na feedback.vasafirma.sk. Odkaz pošlete e-mailom alebo ho dáte do menu aplikácie."
+        },
+        {
+          "tag": "Voliteľné · jeden riadok",
+          "title": "Widget vo vašej aplikácii",
+          "text": "Tlačidlo priamo v aplikácii. K hláseniu pribalí screenshot, verziu a chyby z konzoly, používateľa prihlási vaša aplikácia."
+        },
+        {
+          "tag": "Voliteľné · dva riadky",
+          "title": "Roadmapa a novinky u vás",
+          "text": "Vložte roadmapu alebo novinky na vlastný web či do aplikácie. Vyzerajú ako vaša stránka, odkazy vedú na board."
+        }
+      ],
+      "note": "Bez widgetu hlásia používatelia chyby priamo na boarde. Chýba im len kontext, ktorý widget pribalí sám: screenshot, chyby z konzoly a kroky pred chybou."
     }
   },
   "net": {

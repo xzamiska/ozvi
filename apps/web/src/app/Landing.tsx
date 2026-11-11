@@ -200,6 +200,42 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             ][i] }))} />
           </section>
 
+          {/* where it lives: the board alone is enough; the widget and the embeds are optional */}
+          <section id="ways" aria-labelledby="ways-h" className="oz-frame scroll-mt-24 pb-24 lg:pb-28">
+            <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+              <h2 id="ways-h" className={cn(h2, "max-w-[18ch]")}>{t("ways.title")}</h2>
+              <p className={cn(lede, "max-w-[52ch]")}>{t("ways.lede")}</p>
+            </div>
+            <ol className="mt-10 grid overflow-hidden rounded-3xl border bg-surface md:grid-cols-3">
+              {(t.raw("ways.items") as { tag: string; title: string; text: string }[]).map((w, i) => (
+                <li key={w.title} className={cn("grid content-start gap-4 p-6 sm:p-8", i > 0 && "max-md:border-t md:border-l")}>
+                  <div aria-hidden className="grid h-[132px] content-center rounded-2xl border bg-background p-4">
+                    {i === 0 ? (
+                      <div className="overflow-hidden rounded-lg border bg-surface text-[12px]">
+                        <div className="flex items-center gap-1.5 border-b px-2.5 py-1.5"><span className="size-1.5 rounded-full bg-line-strong" /><span className="size-1.5 rounded-full bg-line-strong" /><span className="ml-1.5 truncate rounded bg-wash px-2 py-0.5 font-mono text-[11px] text-muted-foreground">feedback.vasafirma.sk</span></div>
+                        <div className="flex gap-3 px-2.5 py-2 font-medium">{(t.raw("ways.tabs") as string[]).map((x, k) => <span key={x} className={k === 0 ? "text-foreground underline decoration-primary decoration-2 underline-offset-[6px]" : "text-muted-foreground"}>{x}</span>)}</div>
+                      </div>
+                    ) : i === 1 ? (
+                      <div className="grid gap-3">
+                        <code className="truncate rounded-md bg-wash px-2.5 py-1.5 font-mono text-[11.5px] text-muted-foreground">&lt;script src=&quot;…/widget.js&quot; defer&gt;</code>
+                        <span className="ml-auto inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-[12px] font-semibold text-primary-foreground"><MessageSquare className="size-3.5" />{t("ways.launcher")}</span>
+                      </div>
+                    ) : (
+                      <div className="grid gap-2">
+                        <code className="truncate rounded-md bg-wash px-2.5 py-1.5 font-mono text-[11.5px] text-muted-foreground">&lt;ozvi-roadmap project=&quot;…&quot;&gt;</code>
+                        <code className="truncate rounded-md bg-wash px-2.5 py-1.5 font-mono text-[11.5px] text-muted-foreground">&lt;ozvi-changelog project=&quot;…&quot;&gt;</code>
+                      </div>
+                    )}
+                  </div>
+                  <span className={cn("w-fit rounded-full px-2.5 py-0.5 text-[12px] font-semibold", i === 0 ? "bg-brand-soft text-brand-text" : "bg-wash text-muted-foreground")}>{w.tag}</span>
+                  <h3 className="text-[19px] leading-snug font-semibold tracking-tight">{w.title}</h3>
+                  <p className="text-[14.5px] leading-relaxed text-muted-foreground">{w.text}</p>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-5 max-w-[80ch] text-[14px] leading-relaxed text-muted-foreground">{t("ways.note")}</p>
+          </section>
+
           {/* the demo: report a bug in someone else's app and see what the team gets */}
           <section id="demo" aria-labelledby="demo-h" className="oz-frame scroll-mt-24 pb-24 lg:pb-28">
             <div className="grid overflow-hidden rounded-3xl border bg-surface shadow-[0_40px_100px_-60px_color-mix(in_oklab,var(--oz-accent)_60%,transparent)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">

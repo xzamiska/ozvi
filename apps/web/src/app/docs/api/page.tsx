@@ -80,7 +80,7 @@ const { data, nextCursor } = await res.json();`} />
       <ul>
         <li><code>author.trust</code> on every item and comment says how much Ozvi knows about the writer: <code>anonymous</code> &lt; <code>email_verified</code> &lt; <code>sso_customer</code> &lt; <code>team</code>; <code>system</code> marks ideas filed from customer feedback by the team&apos;s agent.</li>
         <li><code>source</code> says where it came in: <code>board</code>, <code>widget</code>, <code>mcp</code>, <code>import</code> or <code>api</code>. Everything created through this API is <code>api</code>.</li>
-        <li><strong>Lockdown</strong>: send <code>X-Ozvi-Lockdown: verified</code> (or <code>team</code>) and text from less trusted authors is withheld: the item keeps its number, status and votes, its title becomes a placeholder, <code>body</code> is empty and <code>withheld: true</code> is set. A project can turn lockdown on for every token (admin → Integrácie); the stricter setting wins.</li>
+        <li><strong>Lockdown</strong>: send <code>X-Ozvi-Lockdown: verified</code> (or <code>team</code>) and text from less trusted authors is withheld: the item keeps its number, status and votes, its title becomes a placeholder, <code>body</code> is empty and <code>withheld: true</code> is set. A project can turn lockdown on for every token (admin → Integrations); the stricter setting wins.</li>
         <li><strong>AI label</strong> (EU AI Act art. 50): changelog entries and duplicate suggestions carry <code>ai</code>: <code>null</code> when people wrote it, otherwise <code>{"{ generated: true, model, reviewedBy }"}</code>. <code>reviewedBy</code> stays null until a person approves the text. Show the label wherever you republish such text.</li>
       </ul>
 
@@ -98,6 +98,7 @@ do {
 
       <h2 id="errors">Errors</h2>
       <p>Errors are <a href="https://www.rfc-editor.org/rfc/rfc9457">RFC 9457</a> problem details (<code>application/problem+json</code>). Branch on <code>code</code>, which never changes; <code>detail</code> is for people. Invalid requests list the fields in <code>errors</code>.</p>
+      <p>Everything the API says is in English. To get the human-readable fields (stage labels, <code>detail</code>) in one of the board&apos;s languages, send <code>Accept-Language</code>; the response&apos;s <code>Content-Language</code> says which one you got.</p>
       <Code title="401" code={`
 {
   "type": "${host}/docs/api#error-unauthorized",

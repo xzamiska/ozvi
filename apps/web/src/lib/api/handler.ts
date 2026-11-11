@@ -186,7 +186,9 @@ export async function handleApi(req: Request, slug: string, segments: string[], 
 async function execute(req: Request, route: Route, auth: TokenAuth, rawParams: Record<string, string>, query: Record<string, unknown>,
   body: Record<string, unknown>, rh: Record<string, string>, instance: string): Promise<Response> {
   const lockdown = parseLockdown(req.headers.get("x-ozvi-lockdown") ?? req.headers.get("ozvi-lockdown"));
-  const locale = resolveBoardLocale(auth.project, null, req.headers.get("accept-language"));
+  // The API speaks English, like its docs and problem titles. A client that asks for another of the
+  // board's languages (Accept-Language) gets the human-readable fields (labels, details) in it.
+  const locale = req.headers.get("accept-language") ? resolveBoardLocale({ ...auth.project, defaultLocale: "en" }, null, req.headers.get("accept-language")) : "en";
   const b = await mcpBackend({ ...auth, lockdown }, "api", locale);
   const params = route.params ? (route.params.parse(rawParams) as Record<string, unknown>) : {};
   const ctx: Ctx = { b, auth, lockdown: b.lockdown, locale, params, query, body, req };

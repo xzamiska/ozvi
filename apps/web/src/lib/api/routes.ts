@@ -294,7 +294,7 @@ export const ROUTES: Route[] = [
   {
     id: "listWebhooks", method: "GET", path: "/webhooks", tag: "Integrations", scope: "triage", admin: true,
     summary: "List webhooks",
-    description: "Admins only. Webhooks are added in admin → Integrácie; secrets are never returned.",
+    description: "Admins only. Webhooks are added in admin → Integrations; secrets are never returned.",
     response: { status: 200, schema: S.WebhookList, description: "Webhooks." },
     run: async ({ b }) => ({ body: { data: await b.api.webhooks() } }),
   },

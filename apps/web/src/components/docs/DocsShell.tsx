@@ -31,24 +31,26 @@ export async function DocsShell({ page, title, lede, toc, children }: {
 }) {
   const locale = await requestLocale();
   const t = await getTranslations({ locale, namespace: "docs" });
+  // The docs are English end to end, their chrome too; only the note says so in the reader's language.
+  const en = await getTranslations({ locale: "en", namespace: "docs" });
   const pages: DocsPage[] = ["api", "webhooks", "automation"];
   return (
     <>
       <style>{toCss(theme)}</style>
       <div className="flex min-h-dvh flex-col bg-background">
-        <header className="sticky top-0 z-30 border-b bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
+        <header lang="en" className="sticky top-0 z-30 border-b bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
           <div className="oz-frame flex min-h-14 flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 md:min-h-16">
             <div className="flex items-center gap-3">
-              <Link href="/" aria-label={t("home")}><OzviLogo /></Link>
+              <Link href="/" aria-label={en("home")}><OzviLogo /></Link>
               <span aria-hidden className="h-5 w-px bg-line" />
               <span className="font-mono text-[12.5px] text-muted-foreground">docs</span>
             </div>
-            <nav aria-label={t("navLabel")} className="flex flex-wrap items-center gap-x-1 text-[14px] font-medium">
+            <nav aria-label={en("navLabel")} className="flex flex-wrap items-center gap-x-1 text-[14px] font-medium">
               {pages.map((p) => (
                 <Link key={p} href={`/docs/${p}`} aria-current={p === page ? "page" : undefined}
                   className={cn("inline-flex min-h-9 items-center rounded-md px-2.5 text-muted-foreground hover:bg-wash hover:text-foreground",
                     p === page && "bg-wash font-semibold text-foreground")}>
-                  {t(p)}
+                  {en(p)}
                 </Link>
               ))}
             </nav>
@@ -67,9 +69,9 @@ export async function DocsShell({ page, title, lede, toc, children }: {
               <div className="mt-3 max-w-[68ch] text-[16.5px] leading-relaxed text-muted-foreground">{lede}</div>
               <article className={PROSE}>{children}</article>
             </main>
-            <nav aria-label={t("toc")} className="max-lg:hidden">
+            <nav lang="en" aria-label={en("toc")} className="max-lg:hidden">
               <div className="lg:sticky lg:top-24 lg:max-h-[calc(100dvh-8rem)] lg:overflow-y-auto">
-                <h2 className="mb-2 text-[13px] font-semibold text-muted-foreground">{t("toc")}</h2>
+                <h2 className="mb-2 text-[13px] font-semibold text-muted-foreground">{en("toc")}</h2>
                 <ol className="grid border-l text-[13.5px]" lang="en">
                   {toc.map((e) => (
                     <li key={e.id}>

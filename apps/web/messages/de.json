@@ -2380,7 +2380,7 @@
     },
     "hero": {
       "title": "Feedback, das nicht verloren geht.",
-      "lede": "Ozvi sammelt Fehlermeldungen und Ideen direkt in Ihrer App, liefert sie Ihrem Team dorthin, wo es ohnehin arbeitet, und sagt der meldenden Person, was daraus geworden ist. In der Sprache und den Farben Ihrer Marke.",
+      "lede": "Ozvi sammelt Fehlermeldungen und Ideen auf Ihrem eigenen Board und direkt in Ihrer App, bringt sie dorthin, wo das Team arbeitet, und sagt der meldenden Person, wie es ausging. In der Sprache und den Farben Ihrer Marke.",
       "secondary": "So funktioniert’s",
       "note": "Der Free-Tarif kommt ohne Kreditkarte aus. Selbst gehostet ist Ozvi mit allen Funktionen kostenlos.",
       "loop": {
@@ -2834,6 +2834,35 @@
         "Chrome · 1396×783",
         "3 Schritte"
       ]
+    },
+    "ways": {
+      "title": "Das Board reicht. Das Widget kommt dazu, wann Sie wollen.",
+      "lede": "Ozvi funktioniert ohne eine einzige Zeile Code. Das Board läuft unter Ihrer Adresse, und in Ihre App übernehmen Sie nur, was sinnvoll ist.",
+      "tabs": [
+        "Ideen",
+        "Roadmap",
+        "Neuigkeiten",
+        "Fehler"
+      ],
+      "launcher": "Feedback",
+      "items": [
+        {
+          "tag": "Ohne Code",
+          "title": "Ein Board unter Ihrer Adresse",
+          "text": "Ideen, Abstimmungen, Roadmap, Neuigkeiten und Fehlermeldungen auf feedback.ihrefirma.de. Den Link verschicken Sie per E-Mail oder setzen ihn ins Menü Ihrer App."
+        },
+        {
+          "tag": "Optional · eine Zeile",
+          "title": "Das Widget in Ihrer App",
+          "text": "Ein Button direkt in der App. Er fügt der Meldung einen Screenshot, die Version und Konsolenfehler hinzu; angemeldet wird über Ihre App."
+        },
+        {
+          "tag": "Optional · zwei Zeilen",
+          "title": "Roadmap und Neuigkeiten bei Ihnen",
+          "text": "Binden Sie Roadmap oder Neuigkeiten auf Ihrer Website oder in Ihrer App ein. Sie sehen aus wie Ihre Seite, Links führen zum Board."
+        }
+      ],
+      "note": "Ohne Widget melden Nutzer Fehler direkt auf dem Board. Ihnen fehlt nur der Kontext, den das Widget selbst hinzufügt: Screenshot, Konsolenfehler und die Schritte vor dem Fehler."
     }
   },
   "net": {

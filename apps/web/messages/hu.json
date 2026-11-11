@@ -2380,7 +2380,7 @@
     },
     "hero": {
       "title": "Visszajelzés, ami nem vész el.",
-      "lede": "Az Ozvi az alkalmazásodon belül gyűjti a hibajelentéseket és az ötleteket, oda juttatja el őket, ahol a csapatod már amúgy is dolgozik, és tudatja a bejelentővel, mi lett a sorsuk. A márkád nyelvén és színeiben.",
+      "lede": "Az Ozvi a saját tábládon és közvetlenül az alkalmazásodban gyűjti a hibajelentéseket és ötleteket, oda juttatja őket, ahol a csapat dolgozik, és elmondja a bejelentőnek, mi lett a vége. A márkád nyelvén és színeiben.",
       "secondary": "Hogyan működik",
       "note": "Az ingyenes csomaghoz nem kell bankkártya. Saját üzemeltetésben minden funkcióval ingyenes.",
       "loop": {
@@ -2834,6 +2834,35 @@
         "Chrome · 1396×783",
         "3 lépés"
       ]
+    },
+    "ways": {
+      "title": "Elég a tábla. A widgetet akkor adod hozzá, amikor akarod.",
+      "lede": "Az Ozvi egyetlen sor kód nélkül is működik. A tábla a saját címeden fut, az alkalmazásodba pedig csak azt veszed át belőle, aminek értelme van.",
+      "tabs": [
+        "Ötletek",
+        "Ütemterv",
+        "Újdonságok",
+        "Hibák"
+      ],
+      "launcher": "Visszajelzés",
+      "items": [
+        {
+          "tag": "Kód nélkül",
+          "title": "Tábla a saját címeden",
+          "text": "Ötletek, szavazás, ütemterv, újdonságok és hibajelentések a feedback.cegednev.hu címen. A linket elküldöd e-mailben, vagy beteszed az alkalmazás menüjébe."
+        },
+        {
+          "tag": "Opcionális · egy sor",
+          "title": "Widget az alkalmazásodban",
+          "text": "Gomb közvetlenül az alkalmazásban. A jelentéshez csatolja a képernyőképet, a verziót és a konzolhibákat, a felhasználót az alkalmazásod jelentkezteti be."
+        },
+        {
+          "tag": "Opcionális · két sor",
+          "title": "Ütemterv és újdonságok nálad",
+          "text": "Ágyazd be az ütemtervet vagy az újdonságokat a saját weboldaladra vagy alkalmazásodba. Úgy néznek ki, mint az oldalad, a linkek a táblára vezetnek."
+        }
+      ],
+      "note": "Widget nélkül a felhasználók közvetlenül a táblán jelentik a hibákat. Csak az a kontextus hiányzik, amit a widget magától csatol: képernyőkép, konzolhibák és a hiba előtti lépések."
     }
   },
   "net": {

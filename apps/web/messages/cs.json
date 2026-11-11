@@ -2380,7 +2380,7 @@
     },
     "hero": {
       "title": "Zpětná vazba, která se neztratí.",
-      "lede": "Ozvi sbírá hlášení chyb a nápady přímo ve vaší aplikaci, doručí je týmu tam, kde pracuje, a autorovi řekne, jak to dopadlo. V jazyce a barvách vaší značky.",
+      "lede": "Ozvi sbírá hlášení chyb a nápady na vlastním boardu i přímo ve vaší aplikaci, doručí je týmu tam, kde pracuje, a autorovi řekne, jak to dopadlo. V jazyce a barvách vaší značky.",
       "secondary": "Jak to funguje",
       "note": "Plán Free je bez karty. Na vlastním serveru zdarma a se všemi funkcemi.",
       "loop": {
@@ -2834,6 +2834,35 @@
         "Chrome · 1396×783",
         "3 kroky"
       ]
+    },
+    "ways": {
+      "title": "Stačí vám board. Widget přidáte, až budete chtít.",
+      "lede": "Ozvi funguje i bez jediného řádku kódu. Board běží na vaší adrese a do aplikace si z něj vezmete jen to, co dává smysl.",
+      "tabs": [
+        "Nápady",
+        "Roadmapa",
+        "Novinky",
+        "Chyby"
+      ],
+      "launcher": "Zpětná vazba",
+      "items": [
+        {
+          "tag": "Bez kódu",
+          "title": "Board na vaší adrese",
+          "text": "Nápady, hlasování, roadmapa, novinky i hlášení chyb na feedback.vasafirma.cz. Odkaz pošlete e-mailem nebo ho dáte do menu aplikace."
+        },
+        {
+          "tag": "Volitelné · jeden řádek",
+          "title": "Widget ve vaší aplikaci",
+          "text": "Tlačítko přímo v aplikaci. K hlášení přibalí screenshot, verzi a chyby z konzole, uživatele přihlásí vaše aplikace."
+        },
+        {
+          "tag": "Volitelné · dva řádky",
+          "title": "Roadmapa a novinky u vás",
+          "text": "Vložte roadmapu nebo novinky na vlastní web či do aplikace. Vypadají jako vaše stránka, odkazy vedou na board."
+        }
+      ],
+      "note": "Bez widgetu hlásí uživatelé chyby přímo na boardu. Chybí jim jen kontext, který widget přibalí sám: screenshot, chyby z konzole a kroky před chybou."
     }
   },
   "net": {

@@ -39,7 +39,7 @@ export default function WebhookDocs() {
       {" "}<a href="https://www.standardwebhooks.com/" className="oz-link">Standard Webhooks</a>, so any of its libraries can verify them.
     </>}>
       <h2 id="setup">Set up</h2>
-      <p>An admin adds a webhook in the board&apos;s settings, <strong>admin → Integrácie → Webhooky</strong>: the URL (HTTPS), the events (none = all) and whether bug reports are included (bugs are private; send them only to systems your team controls). Ozvi shows the signing <strong>secret once</strong>; store it in your receiver&apos;s configuration. The test button sends a sample <code>item.created</code> with <code>&quot;test&quot;: true</code>.</p>
+      <p>An admin adds a webhook in the board&apos;s settings, <strong>admin → Integrations → Webhooks</strong>: the URL (HTTPS), the events (none = all) and whether bug reports are included (bugs are private; send them only to systems your team controls). Ozvi shows the signing <strong>secret once</strong>; store it in your receiver&apos;s configuration. The test button sends a sample <code>item.created</code> with <code>&quot;test&quot;: true</code>.</p>
       <p>Chat formats (Slack, Microsoft Teams, Discord) post a readable message instead of JSON and are not signed; everything below is about the JSON format.</p>
 
       <h2 id="events">Events</h2>
@@ -178,7 +178,7 @@ http_response_code(204);`} />
         <li>Anything else is retried: Ozvi tries six times in all, after 1, 4, 9, 16 and 25 minutes. Redirects are not followed.</li>
         <li>The order of deliveries is not guaranteed; use <code>at</code> and the item&apos;s current state (<code>GET /items/&#123;number&#125;</code>) when order matters.</li>
         <li>The same delivery can arrive twice (a retry after a timeout): dedupe by <code>webhook-id</code>.</li>
-        <li>Delivery history (30 days) and failures are in admin → Integrácie.</li>
+        <li>Delivery history (30 days) and failures are in admin → Integrations.</li>
       </ul>
 
       <h2 id="legacy">Ozvi-Signature</h2>

@@ -50,7 +50,7 @@ export default function AutomationDocs() {
     </>}>
       <h2 id="pattern">Two building blocks</h2>
       <ul>
-        <li><strong>Ozvi → your tool</strong>: add the tool&apos;s webhook URL in Ozvi (admin → Integrácie → Webhooky, format JSON). Every event arrives as one JSON body: <code>event</code>, <code>item</code>, <code>actor</code>… (<a href="/docs/webhooks#payload">payload</a>).</li>
+        <li><strong>Ozvi → your tool</strong>: add the tool&apos;s webhook URL in Ozvi (admin → Integrations → Webhooks, format JSON). Every event arrives as one JSON body: <code>event</code>, <code>item</code>, <code>actor</code>… (<a href="/docs/webhooks#payload">payload</a>).</li>
         <li><strong>Your tool → Ozvi</strong>: an HTTP request to <code>{base}</code> with the header <code>Authorization: Bearer ozvi_pat_…</code>. Create the token on a dedicated team account with the smallest scope that works, and keep it in the tool&apos;s credentials, not in a plain field.</li>
       </ul>
       <Note title="Text from your users" tone="warn">Titles, bodies and comments are your users&apos; words. When a flow hands them to an AI step, pass them as data (a separate input), never as part of the instructions, and look at <code>item.author.trust</code>.</Note>
