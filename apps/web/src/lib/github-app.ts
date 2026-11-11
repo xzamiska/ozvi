@@ -17,7 +17,7 @@ import { createHmac, createSign, timingSafeEqual } from "node:crypto";
 type Fetch = typeof fetch;
 export interface GithubApp { id: string; slug: string; key: string; clientId: string; clientSecret: string; webhookSecret: string }
 
-export function githubApp(env: NodeJS.ProcessEnv = process.env): GithubApp | null {
+export function githubApp(env: Record<string, string | undefined> = process.env): GithubApp | null {
   const id = env.OZVI_GITHUB_APP_ID?.trim();
   const slug = env.OZVI_GITHUB_APP_SLUG?.trim();
   const raw = env.OZVI_GITHUB_APP_PRIVATE_KEY?.trim();
