@@ -436,7 +436,9 @@
         "loginUrlHint": "Stránka vaší aplikace, kam pošleme člověka, který na boardu klikne na „Přihlásit se“. Připojíme parametr ozvi_return s adresou, na kterou ho po přihlášení vraťte. Prázdné: použije se přihlášení e-mailem, pokud je zapnuté.",
         "origins": "Adresy vaší aplikace",
         "originsHint": "Kde běží aplikace, do které vkládáte widget nebo roadmapu, například https://app.billiwo.com. Jedna adresa na řádek, bez cesty. Na jiných stránkách widget nebude fungovat.",
-        "save": "Uložit nastavení"
+        "save": "Uložit nastavení",
+        "trustTitle": "Aplikace ověřuje e-maily uživatelů",
+        "trustText": "Zapnuto: člověk, kterého přihlásí vaše aplikace, a člověk se stejným e-mailem přihlášený kódem nebo z konzole je jeden účet. Vypněte, pokud se ve vaší aplikaci lze zaregistrovat s cizím e-mailem bez ověření: takový účet by jinak převzal board účet skutečného majitele e-mailu. Pro jednotlivce to může aplikace určit i v tokenu (emailVerified)."
       },
       "saving": "Ukládám…",
       "sso": {
@@ -2612,7 +2614,7 @@
       "tabs": {
         "widget": {
           "label": "Widget",
-          "note": "Tlačítko, formulář na chybu se screenshotem a nápady. Jazyk určí atribut lang nebo jazyk stránky."
+          "note": "Tlačítko, formulář na chybu se screenshotem a nápady. Jazyk určí Ozvi.setLanguage(), atribut lang nebo jazyk stránky. Žádné cookies ani třetí strany."
         },
         "sso": {
           "label": "Přihlášení",
@@ -2879,8 +2881,8 @@
           "password": "Heslo"
         },
         "eu": {
-          "title": "Data v EU",
-          "text": "Cloud běží v datovém centru v Německu. Hlášení chyb vidí jen autor a tým."
+          "title": "Data v EU, bez cookies",
+          "text": "Cloud běží v datovém centru v Německu. Widget ve vaší aplikaci nenastavuje žádné cookies, nic nesleduje a nevolá třetí strany, v cloudu i na vlastním serveru."
         },
         "self": {
           "title": "Nebo na vlastním serveru",

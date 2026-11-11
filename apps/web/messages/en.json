@@ -436,7 +436,9 @@
         "loginUrlHint": "The page of your app we send someone to when they click “Sign in” on the board. We add an ozvi_return parameter with the address to send them back to after signing in. Empty: e-mail sign-in is used, if it's on.",
         "origins": "Your app's addresses",
         "originsHint": "Where the app you put the widget or roadmap into runs, e.g. https://app.billiwo.com. One address per line, no path. The widget won't work on other sites.",
-        "save": "Save settings"
+        "save": "Save settings",
+        "trustTitle": "Your app verifies users' e-mails",
+        "trustText": "On: someone your app signs in and someone signing in with the same e-mail by code or from the console are one account. Turn it off if people can register in your app with someone else's e-mail without verifying it: such an account would otherwise take over the real owner's board account. Your app can also decide per person in the token (emailVerified)."
       },
       "saving": "Saving…",
       "sso": {
@@ -2612,7 +2614,7 @@
       "tabs": {
         "widget": {
           "label": "Widget",
-          "note": "A button, a bug form with screenshot, and ideas. The language follows the lang attribute or the page."
+          "note": "A button, a bug form with a screenshot, and ideas. The language comes from Ozvi.setLanguage(), the lang attribute or the page. No cookies, no third parties."
         },
         "sso": {
           "label": "Sign-in",
@@ -2879,8 +2881,8 @@
           "password": "Password"
         },
         "eu": {
-          "title": "Data in the EU",
-          "text": "The cloud runs in a data centre in Germany. Only the author and your team see bug reports."
+          "title": "Data in the EU, no cookies",
+          "text": "The cloud runs in a data centre in Germany. The widget in your app sets no cookies, tracks nothing and calls no third parties, in the cloud and on your own server alike."
         },
         "self": {
           "title": "Or on your own server",

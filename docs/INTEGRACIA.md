@@ -84,7 +84,9 @@ verejné údaje): `GET /<projekt>/api/widget/ideas?q=&limit=`, `POST /<projekt>/
 
 - Secret sa v Ozvi ukladá šifrovane (AES-256-GCM, `OZVI_SECRET_KEY`).
 - Používatelia sú per projekt a kľúčovaní podľa `id`, nikdy len podľa e-mailu.
+- **Jeden človek, jeden účet.** Ak sa niekto na board prihlási aj e-mailom (kódom) alebo z konzoly Ozvi, spojí sa s používateľom z aplikácie s rovnakým e-mailom, pokiaľ e-mail považujeme za overený: nastavenie projektu „Aplikácia overuje e-maily používateľov“ (predvolene zapnuté) alebo `emailVerified` v tokene, ktoré má prednosť. Ak sa vo vašej aplikácii dá registrovať s cudzím e-mailom bez overenia, nastavenie vypnite alebo posielajte `emailVerified: false`; inak by taký účet prevzal board účet skutočného majiteľa e-mailu.
 - Session cookie je `httpOnly`, `SameSite=Lax` a obmedzená na cestu `/<projekt>`.
+- **Cookies a widget:** widget nenastavuje žiadne cookies (v cloude ani na vlastnom serveri) a do Ozvi sa prihlasuje tokenom v hlavičke, nie cookie. Cookies posiela len na vašu `token-url` (vaše vlastné). V `localStorage` vašej domény si pamätá jediný údaj: dátum poslednej videnej novinky (`ozvi:seen:…`), kvôli odznaku „nové“. Písma idú z Ozvi, nie z Google; tretie strany widget nevolá. Session cookie existuje len na samotnom boarde po prihlásení.
 
 ## Roly
 

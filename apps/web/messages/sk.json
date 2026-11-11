@@ -436,7 +436,9 @@
         "loginUrlHint": "Stránka vašej aplikácie, kam pošleme človeka, ktorý na boarde klikne na „Prihlásiť sa“. Pripojíme parameter ozvi_return s adresou, na ktorú ho po prihlásení vráťte. Prázdne: použije sa prihlásenie e-mailom, ak je zapnuté.",
         "origins": "Adresy vašej aplikácie",
         "originsHint": "Kde beží aplikácia, do ktorej vkladáte widget alebo roadmapu, napríklad https://app.billiwo.com. Jedna adresa na riadok, bez cesty. Na iných stránkach widget nebude fungovať.",
-        "save": "Uložiť nastavenia"
+        "save": "Uložiť nastavenia",
+        "trustTitle": "Aplikácia overuje e-maily používateľov",
+        "trustText": "Zapnuté: človek, ktorého prihlási vaša aplikácia, a človek s rovnakým e-mailom prihlásený kódom alebo z konzoly je jeden účet. Vypnite, ak sa vo vašej aplikácii dá zaregistrovať s cudzím e-mailom bez overenia: taký účet by inak prevzal board účet skutočného majiteľa e-mailu. Pre jednotlivca to môže aplikácia určiť aj v tokene (emailVerified)."
       },
       "saving": "Ukladám…",
       "sso": {
@@ -2612,7 +2614,7 @@
       "tabs": {
         "widget": {
           "label": "Widget",
-          "note": "Tlačidlo, formulár na chybu so screenshotom a nápady. Jazyk určí atribút lang alebo jazyk stránky."
+          "note": "Tlačidlo, formulár na chybu so screenshotom a nápady. Jazyk určí Ozvi.setLanguage(), atribút lang alebo jazyk stránky. Žiadne cookies ani tretie strany."
         },
         "sso": {
           "label": "Prihlásenie",
@@ -2879,8 +2881,8 @@
           "password": "Heslo"
         },
         "eu": {
-          "title": "Dáta v EÚ",
-          "text": "Cloud beží v dátovom centre v Nemecku. Hlásenia chýb vidí len autor a tím."
+          "title": "Dáta v EÚ, bez cookies",
+          "text": "Cloud beží v dátovom centre v Nemecku. Widget vo vašej aplikácii nenastavuje žiadne cookies, nič nesleduje a nevolá tretie strany, v cloude aj na vlastnom serveri."
         },
         "self": {
           "title": "Alebo na vlastnom serveri",

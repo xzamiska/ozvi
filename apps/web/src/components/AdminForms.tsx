@@ -28,8 +28,8 @@ function SwitchRow({ id, name, defaultChecked, title, text }: { id: string; name
   );
 }
 
-export function SettingsForm({ slug, name, loginUrl, origins, ideasPublic, emailLogin, moderateIdeas }: {
-  slug: string; name: string; loginUrl: string; origins: string[]; ideasPublic: boolean; emailLogin: boolean; moderateIdeas: boolean;
+export function SettingsForm({ slug, name, loginUrl, origins, ideasPublic, emailLogin, moderateIdeas, trustAppEmails }: {
+  slug: string; name: string; loginUrl: string; origins: string[]; ideasPublic: boolean; emailLogin: boolean; moderateIdeas: boolean; trustAppEmails: boolean;
 }) {
   const t = useTranslations("admin.settings");
   const tm = useTranslations("moderation");
@@ -45,6 +45,8 @@ export function SettingsForm({ slug, name, loginUrl, origins, ideasPublic, email
         title={tm("settingTitle")} text={tm("settingText")} />
       <SwitchRow id="s-email" name="emailLogin" defaultChecked={emailLogin}
         title={t("project.emailTitle")} text={t("project.emailText")} />
+      <SwitchRow id="s-trust" name="trustAppEmails" defaultChecked={trustAppEmails}
+        title={t("project.trustTitle")} text={t("project.trustText")} />
       <Field id="s-login" label={t("project.loginUrl")} optional hint={t("project.loginUrlHint")}>
         <Input id="s-login" name="loginUrl" type="url" defaultValue={loginUrl} placeholder="https://app.billiwo.com/feedback-login" {...noFill} />
       </Field>

@@ -16,6 +16,13 @@ export interface OzviUser {
   /** Stable id in YOUR system. Ozvi keys the user on (project, id), never on e-mail alone. */
   id: string;
   email?: string;
+  /**
+   * true only if YOUR app has verified that this person owns `email` (a confirmation link or code).
+   * Ozvi then treats them as the same person as someone who signs in to the board with that e-mail
+   * (one account, not two). Never set it for addresses you have not verified: whoever registered an
+   * unverified address in your app would take over that person's board account.
+   */
+  emailVerified?: boolean;
   name?: string;
   avatarUrl?: string;
   /** "team" can triage and write internal notes, "admin" can also change settings. Defaults to "member". */

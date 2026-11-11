@@ -436,7 +436,9 @@
         "loginUrlHint": "Die Seite Ihrer App, zu der wir jemanden schicken, der am Board auf „Anmelden“ klickt. Wir hängen den Parameter ozvi_return an, mit der Adresse, zu der Sie die Person nach der Anmeldung zurückschicken. Leer: Es wird die Anmeldung per E-Mail genutzt, falls eingeschaltet.",
         "origins": "Adressen Ihrer App",
         "originsHint": "Wo die App läuft, in die Sie Widget oder Roadmap einbinden, z. B. https://app.billiwo.com. Eine Adresse pro Zeile, ohne Pfad. Auf anderen Seiten funktioniert das Widget nicht.",
-        "save": "Einstellungen speichern"
+        "save": "Einstellungen speichern",
+        "trustTitle": "Ihre App prüft die E-Mail-Adressen",
+        "trustText": "Ein: Wen Ihre App anmeldet und wer sich mit derselben E-Mail per Code oder aus der Konsole anmeldet, ist ein Konto. Schalten Sie es aus, wenn man sich in Ihrer App mit einer fremden E-Mail ohne Bestätigung registrieren kann: Ein solches Konto würde sonst das Board-Konto der echten Inhaberin übernehmen. Pro Person kann Ihre App das auch im Token festlegen (emailVerified)."
       },
       "saving": "Wird gespeichert …",
       "sso": {
@@ -2612,7 +2614,7 @@
       "tabs": {
         "widget": {
           "label": "Widget",
-          "note": "Eine Schaltfläche, ein Fehlerformular mit Screenshot und Ideen. Die Sprache richtet sich nach dem lang-Attribut oder der Seite."
+          "note": "Ein Button, ein Fehlerformular mit Screenshot und Ideen. Die Sprache kommt von Ozvi.setLanguage(), dem lang-Attribut oder der Seite. Keine Cookies, keine Drittanbieter."
         },
         "sso": {
           "label": "Anmeldung",
@@ -2879,8 +2881,8 @@
           "password": "Passwort"
         },
         "eu": {
-          "title": "Daten in der EU",
-          "text": "Die Cloud läuft in einem Rechenzentrum in Deutschland. Fehlermeldungen sehen nur Meldende und Ihr Team."
+          "title": "Daten in der EU, ohne Cookies",
+          "text": "Die Cloud läuft in einem Rechenzentrum in Deutschland. Das Widget in Ihrer App setzt keine Cookies, verfolgt nichts und ruft keine Drittanbieter auf, in der Cloud wie auf dem eigenen Server."
         },
         "self": {
           "title": "Oder auf dem eigenen Server",

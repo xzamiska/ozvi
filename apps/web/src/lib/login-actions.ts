@@ -52,19 +52,21 @@ export async function requestBoardLogin(slug: string, ret: string, _: LoginState
 }
 
 /**
- * The code proved the mailbox, so the person is whoever in this project already has that e-mail
- * (usually the user the host app signed in via SSO): same reports, same name, one identity.
+ * The code proved the mailbox, so the person is whoever in this project already has that e-mail proven
+ * (an e-mail user, or one the host app signed in with emailVerified): same reports, same name, one identity.
  * Only a brand-new e-mail gets its own `email:` user, without a made-up name.
  */
 async function signIn(slug: string, projectId: string, email: string, locale?: Locale) {
   const user = await withProject(db, projectId, async (tx) => {
+    // Only an account whose e-mail is proven too: an app that did not verify the address (no emailVerified
+    // in its token) must not put this person into an account someone else opened with their address.
     const [known] = await tx.select().from(schema.users)
-      .where(sql`lower(${schema.users.email}) = ${email}`)
+      .where(sql`lower(${schema.users.email}) = ${email} and (${schema.users.externalId} like 'email:%' or ${schema.users.emailVerified})`)
       .orderBy(sql`${schema.users.externalId} like 'email:%'`, asc(schema.users.createdAt)).limit(1);
     // Signing in makes an imported placeholder a real person: retention never anonymises them.
     if (known) return (await tx.update(schema.users).set({ lastSeenAt: new Date() }).where(eq(schema.users.id, known.id)).returning())[0] ?? known;
     const [created] = await tx.insert(schema.users)
-      .values({ projectId, externalId: `email:${email}`, email, name: null, lastSeenAt: new Date() })
+      .values({ projectId, externalId: `email:${email}`, email, emailVerified: true, name: null, lastSeenAt: new Date() })
       .onConflictDoUpdate({ target: [schema.users.projectId, schema.users.externalId], set: { email, lastSeenAt: new Date() } })
       .returning();
     return created!;

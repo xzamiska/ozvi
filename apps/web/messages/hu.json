@@ -436,7 +436,9 @@
         "loginUrlHint": "Az alkalmazásod oldala, ahová azt küldjük, aki a táblán a „Bejelentkezés” gombra kattint. Hozzáadjuk az ozvi_return paramétert azzal a címmel, ahová bejelentkezés után vissza kell küldeni. Üresen: az e-mailes bejelentkezés lesz használva, ha be van kapcsolva.",
         "origins": "Az alkalmazásod címei",
         "originsHint": "Ahol az az alkalmazás fut, amelybe a widgetet vagy az ütemtervet beteszed, pl. https://app.billiwo.com. Soronként egy cím, útvonal nélkül. Más oldalakon a widget nem fog működni.",
-        "save": "Beállítások mentése"
+        "save": "Beállítások mentése",
+        "trustTitle": "Az alkalmazás ellenőrzi a felhasználók e-mail-címét",
+        "trustText": "Bekapcsolva: akit az alkalmazásod jelentkeztet be, és aki ugyanazzal az e-maillel kóddal vagy a konzolból jelentkezik be, az egy fiók. Kapcsold ki, ha az alkalmazásodban ellenőrzés nélkül lehet más e-mail-címével regisztrálni: egy ilyen fiók átvenné az e-mail valódi tulajdonosának táblafiókját. Személyenként a tokenben is megadhatja az alkalmazás (emailVerified)."
       },
       "saving": "Mentés…",
       "sso": {
@@ -2612,7 +2614,7 @@
       "tabs": {
         "widget": {
           "label": "Widget",
-          "note": "Egy gomb, egy hibabejelentő űrlap képernyőképpel, és az ötletek. A nyelv a lang attribútumot vagy az oldal nyelvét követi."
+          "note": "Gomb, hibajelentő űrlap képernyőképpel és ötletek. A nyelvet az Ozvi.setLanguage(), a lang attribútum vagy az oldal nyelve adja. Sütik és harmadik felek nélkül."
         },
         "sso": {
           "label": "Bejelentkezés",
@@ -2879,8 +2881,8 @@
           "password": "Jelszó"
         },
         "eu": {
-          "title": "Adatok az EU-ban",
-          "text": "A felhő egy németországi adatközpontban fut. A hibajelentéseket csak a bejelentő és a csapat látja."
+          "title": "Adatok az EU-ban, sütik nélkül",
+          "text": "A felhő egy németországi adatközpontban fut. Az alkalmazásodban lévő widget nem állít be sütiket, semmit sem követ, és harmadik feleket sem hív, a felhőben és saját szerveren egyaránt."
         },
         "self": {
           "title": "Vagy saját szerveren",

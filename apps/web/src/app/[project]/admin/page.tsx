@@ -192,7 +192,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
           </SettingsSection>
 
           <SettingsSection id="project" title={t("nav.project")} text={t("project.text")}>
-            <SettingsForm slug={slug} name={project.name} loginUrl={project.loginUrl ?? ""} origins={project.allowedOrigins} ideasPublic={project.ideasPublic} emailLogin={project.emailLogin} moderateIdeas={project.moderateIdeas} />
+            <SettingsForm slug={slug} name={project.name} loginUrl={project.loginUrl ?? ""} origins={project.allowedOrigins} ideasPublic={project.ideasPublic} emailLogin={project.emailLogin} moderateIdeas={project.moderateIdeas} trustAppEmails={project.trustAppEmails} />
           </SettingsSection>
 
           <SettingsSection id="sections" title={t("nav.sections")} text={t("sections.text")}>

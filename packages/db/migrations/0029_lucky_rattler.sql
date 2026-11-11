@@ -1,0 +1,1 @@
+ALTER TABLE "projects" ADD COLUMN "trust_app_emails" boolean DEFAULT true NOT NULL;

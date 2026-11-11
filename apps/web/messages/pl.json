@@ -436,7 +436,9 @@
         "loginUrlHint": "Strona twojej aplikacji, na którą wyślemy osobę klikającą „Zaloguj się” na tablicy. Dodamy parametr ozvi_return z adresem, na który ją po zalogowaniu odeślesz. Puste: użyte zostanie logowanie e-mailem, jeśli jest włączone.",
         "origins": "Adresy twojej aplikacji",
         "originsHint": "Gdzie działa aplikacja, w której osadzasz widget lub roadmapę, np. https://app.billiwo.com. Jeden adres w wierszu, bez ścieżki. Na innych stronach widget nie zadziała.",
-        "save": "Zapisz ustawienia"
+        "save": "Zapisz ustawienia",
+        "trustTitle": "Aplikacja weryfikuje e-maile użytkowników",
+        "trustText": "Włączone: osoba zalogowana przez twoją aplikację i osoba z tym samym e-mailem zalogowana kodem lub z konsoli to jedno konto. Wyłącz, jeśli w twojej aplikacji można się zarejestrować z cudzym e-mailem bez weryfikacji: takie konto przejęłoby konto prawdziwego właściciela e-maila. Aplikacja może to też określić dla konkretnej osoby w tokenie (emailVerified)."
       },
       "saving": "Zapisywanie…",
       "sso": {
@@ -2612,7 +2614,7 @@
       "tabs": {
         "widget": {
           "label": "Widżet",
-          "note": "Przycisk, formularz zgłoszenia błędu ze zrzutem ekranu i pomysły. Język wynika z atrybutu lang albo ze strony."
+          "note": "Przycisk, formularz błędu ze zrzutem ekranu i pomysły. Język ustala Ozvi.setLanguage(), atrybut lang albo język strony. Bez cookies i firm trzecich."
         },
         "sso": {
           "label": "Logowanie",
@@ -2879,8 +2881,8 @@
           "password": "Hasło"
         },
         "eu": {
-          "title": "Dane w UE",
-          "text": "Chmura działa w centrum danych w Niemczech. Zgłoszenia błędów widzi tylko autor i zespół."
+          "title": "Dane w UE, bez cookies",
+          "text": "Chmura działa w centrum danych w Niemczech. Widget w twojej aplikacji nie ustawia żadnych cookies, niczego nie śledzi i nie łączy się z firmami trzecimi, w chmurze i na własnym serwerze."
         },
         "self": {
           "title": "Albo na własnym serwerze",

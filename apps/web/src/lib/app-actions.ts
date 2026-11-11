@@ -128,7 +128,7 @@ export async function createProject(_: NewProjectState, form: FormData): Promise
       // No SSO secret yet: it is created (and shown once) when the owner turns SSO on in settings.
       workspaceId, slug, name, theme, ssoSecretEnc: null, emailLogin: true,
     }).returning();
-    await tx.insert(schema.users).values({ projectId: p!.id, externalId: `email:${account.email}`, email: account.email, name: account.name ?? null, role: "admin" });
+    await tx.insert(schema.users).values({ projectId: p!.id, externalId: `email:${account.email}`, email: account.email, emailVerified: true, name: account.name ?? null, role: "admin" });
     return { slug };
   });
   if (!("slug" in result)) return result;

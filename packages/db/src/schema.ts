@@ -56,6 +56,8 @@ export const projects = pgTable("projects", {
   customDomainVerifiedAt: timestamp("custom_domain_verified_at", { withTimezone: true }),
   /** People can sign in with an e-mailed code / link (for boards without a host app). */
   emailLogin: boolean("email_login").notNull().default(false),
+  /** The host app verifies e-mails: its sign-ins join the account of whoever signs in with that e-mail (token emailVerified overrides). */
+  trustAppEmails: boolean("trust_app_emails").notNull().default(true),
   /** Last weekly team digest e-mail (Mondays), so it goes out once per week per project. */
   teamDigestAt: timestamp("team_digest_at", { withTimezone: true }),
   /** Board sections the project uses (ideas, roadmap, changelog, bugs); lib/sections normalizes them. Off = hidden everywhere, data kept. */
@@ -129,6 +131,8 @@ export const users = pgTable("users", {
   /** Id in the host app (SSO/OIDC) or our own account id (magic link). */
   externalId: text("external_id").notNull(),
   email: text("email"),
+  /** Ownership of `email` proven: e-mail sign-in and console hand-off always; SSO when the app says so (emailVerified). Only verified e-mails join accounts. */
+  emailVerified: boolean("email_verified").notNull().default(false),
   name: text("name"),
   avatarUrl: text("avatar_url"),
   traits: jsonb("traits").notNull().default({}),
