@@ -18,6 +18,7 @@ import { compareLinks } from "@/components/compare/links";
 import { OzviLogo, OzviMark } from "@/components/ozvi/Logo";
 import { LOCALE_TAG, type Locale } from "@/i18n/locales";
 import { cn } from "@/lib/utils";
+import { LEGAL } from "@/lib/legal";
 import { githubStars } from "@/lib/github-stars";
 import { GITHUB_REPO } from "@/lib/seo";
 
@@ -510,6 +511,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             <div className="grid content-start gap-4 sm:col-span-2 md:col-span-1">
               <OzviLogo markClassName="size-6" />
               <p className="max-w-[32ch] text-[14px] text-muted-foreground">{t("footer.tagline")}</p>
+              <p className="text-[14px] text-muted-foreground">{t("footer.contact")}: <a href={`mailto:${LEGAL.email}`} className="font-medium text-foreground underline-offset-4 hover:underline">{LEGAL.email}</a></p>
               <LangSwitch locale={locale} label={t("nav.language")} align="start" className="-ml-2 justify-self-start" />
             </div>
             {([
