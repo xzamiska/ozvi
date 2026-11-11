@@ -41,8 +41,8 @@ describe("usage alerts (DB)", () => {
   afterAll(() => { process.env.OZVI_MODE = mode; });
 
   it("writes to the owners once at 80 % and once at 100 % of the translations", async () => {
-    const send = vi.fn(async () => true);
-    const mine = () => send.mock.calls.filter((c) => (c[0] as { to: string }).to === `${tag}@example.com`).map((c) => (c[0] as { kind: string; subject: string }));
+    const send = vi.fn(async (_m: { to: string; kind: string; subject: string }) => true);
+    const mine = () => send.mock.calls.map((c) => c[0]).filter((m) => m.to === `${tag}@example.com`);
     await addTranslations(399);
     await usageAlertsTick(db, { send });
     expect(mine()).toHaveLength(0);
