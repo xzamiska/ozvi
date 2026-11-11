@@ -2883,6 +2883,34 @@
         }
       ],
       "note": "Widget nélkül a felhasználók közvetlenül a táblán jelentik a hibákat. Csak az a kontextus hiányzik, amit a widget magától csatol: képernyőkép, konzolhibák és a hiba előtti lépések."
+    },
+    "github": {
+      "title": "A bejelentéstől a javításig. A többit a GitHub intézi.",
+      "lede": "A csapat ugyanúgy a GitHubon dolgozik. Az Ozvi a bejelentésből issue-t készít, követi, és amikor kint a javítás, szól a bejelentőnek. Senki semmit nem másol kézzel.",
+      "ui": {
+        "connect": "GitHub csatlakoztatása",
+        "bug": "Naptár mobilon",
+        "create": "Issue létrehozása"
+      },
+      "steps": [
+        {
+          "title": "Két kattintással csatlakoztatod a GitHubot",
+          "text": "A GitHubon kiválasztod a tárolókat az Ozvi alkalmazásnak, az Ozviban pedig egyet közülük. Nem kell token, és kézi webhook sem."
+        },
+        {
+          "title": "A bejelentésből issue lesz",
+          "text": "Egy kattintással létrejön az issue a leírással és a technikai adatokkal. Vagy összekapcsolod egy már meglévő issue-val."
+        },
+        {
+          "title": "Lezárod az issue-t vagy kiadsz egy verziót",
+          "text": "Az Ozvi magától észreveszi. A hiba a „Javítva a 2.15-ös verzióban” állapotba kerül, vagy rögtön az issue lezárásakor, ha nem adsz ki verziókat."
+        },
+        {
+          "title": "A bejelentő e-mailt kap",
+          "text": "Megírjuk neki, hogy javítva, és egy kattintással jelzi, működik-e már."
+        }
+      ],
+      "note": "Az összevont pull request „Fixes #412” sorral magától a bejelentéshez kerül a javítás bizonyítékaként. A Linear és a Jira API-kulccsal csatlakozik, és hasonlóan szinkronizálja az állapotot. Saját szerveren egyetlen paranccsal hozod létre a GitHub-alkalmazást."
     }
   },
   "net": {

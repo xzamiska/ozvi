@@ -2883,6 +2883,34 @@
         }
       ],
       "note": "Ohne Widget melden Nutzer Fehler direkt auf dem Board. Ihnen fehlt nur der Kontext, den das Widget selbst hinzufügt: Screenshot, Konsolenfehler und die Schritte vor dem Fehler."
+    },
+    "github": {
+      "title": "Von der Meldung bis zur Behebung. Den Rest erledigt GitHub.",
+      "lede": "Das Team arbeitet weiter in GitHub. Ozvi macht aus der Meldung ein Issue, verfolgt es und sagt der meldenden Person Bescheid, sobald die Behebung draußen ist. Niemand überträgt etwas von Hand.",
+      "ui": {
+        "connect": "GitHub verbinden",
+        "bug": "Kalender auf dem Handy",
+        "create": "Issue erstellen"
+      },
+      "steps": [
+        {
+          "title": "GitHub mit zwei Klicks verbinden",
+          "text": "Auf GitHub wählen Sie die Repositories für die Ozvi-App, in Ozvi eines davon. Kein Token, kein Webhook von Hand."
+        },
+        {
+          "title": "Aus der Meldung wird ein Issue",
+          "text": "Ein Klick erstellt das Issue mit Beschreibung und technischen Daten. Oder Sie verknüpfen die Meldung mit einem vorhandenen Issue."
+        },
+        {
+          "title": "Issue schließen oder Release veröffentlichen",
+          "text": "Ozvi bemerkt es selbst. Der Fehler wechselt auf „Behoben in 2.15“, oder gleich beim Schließen des Issues, wenn Sie keine Releases machen."
+        },
+        {
+          "title": "Die meldende Person bekommt eine E-Mail",
+          "text": "Wir schreiben ihr, dass es behoben ist, und ein Klick bestätigt, ob es jetzt funktioniert."
+        }
+      ],
+      "note": "Ein gemergter Pull Request mit „Fixes #412“ wird der Meldung von selbst als Nachweis der Behebung hinzugefügt. Linear und Jira werden per API-Schlüssel verbunden und synchronisieren den Status genauso. Auf dem eigenen Server erstellen Sie die GitHub-App mit einem Befehl."
     }
   },
   "net": {

@@ -2883,6 +2883,34 @@
         }
       ],
       "note": "Bez widgetu hlásí uživatelé chyby přímo na boardu. Chybí jim jen kontext, který widget přibalí sám: screenshot, chyby z konzole a kroky před chybou."
+    },
+    "github": {
+      "title": "Od hlášení po opravu. GitHub se postará o zbytek.",
+      "lede": "Tým pracuje v GitHubu jako dosud. Ozvi z hlášení udělá issue, sleduje ho, a když je oprava venku, dá autorovi vědět. Nikdo nic nepřepisuje ručně.",
+      "ui": {
+        "connect": "Připojit GitHub",
+        "bug": "Kalendář na mobilu",
+        "create": "Vytvořit issue"
+      },
+      "steps": [
+        {
+          "title": "Připojíte GitHub dvěma kliky",
+          "text": "Na GitHubu vyberete repozitáře pro aplikaci Ozvi a v Ozvi jeden zvolíte. Žádný token ani ručně nastavený webhook."
+        },
+        {
+          "title": "Z hlášení je issue",
+          "text": "Jedním klikem vznikne issue i s popisem a technickými údaji. Nebo hlášení propojíte s issue, které už máte."
+        },
+        {
+          "title": "Zavřete issue nebo vydáte release",
+          "text": "Ozvi to zachytí samo. Chyba se posune na „Opraveno ve verzi 2.15“, případně hned po zavření issue, pokud releasy neděláte."
+        },
+        {
+          "title": "Autor dostane e-mail",
+          "text": "Napíšeme mu, že je to opravené, a jedním klikem potvrdí, jestli mu to už funguje."
+        }
+      ],
+      "note": "Sloučený pull request s „Fixes #412“ se k hlášení přidá sám jako důkaz opravy. Linear a Jira se připojují API klíčem a stav synchronizují podobně. Na vlastním serveru si aplikaci pro GitHub vytvoříte jedním příkazem."
     }
   },
   "net": {

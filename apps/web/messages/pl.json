@@ -2883,6 +2883,34 @@
         }
       ],
       "note": "Bez widgetu użytkownicy zgłaszają błędy prosto na tablicy. Brakuje im tylko kontekstu, który widget dołącza sam: zrzutu ekranu, błędów z konsoli i kroków przed błędem."
+    },
+    "github": {
+      "title": "Od zgłoszenia do poprawki. Resztą zajmie się GitHub.",
+      "lede": "Zespół pracuje w GitHubie jak dotąd. Ozvi robi ze zgłoszenia issue, śledzi je, a gdy poprawka wyjdzie, daje znać autorowi. Nikt niczego nie przepisuje ręcznie.",
+      "ui": {
+        "connect": "Połącz GitHub",
+        "bug": "Kalendarz na telefonie",
+        "create": "Utwórz issue"
+      },
+      "steps": [
+        {
+          "title": "Połączysz GitHub dwoma kliknięciami",
+          "text": "Na GitHubie wybierasz repozytoria dla aplikacji Ozvi, a w Ozvi wskazujesz jedno. Bez tokenu i ręcznie ustawianego webhooka."
+        },
+        {
+          "title": "Ze zgłoszenia powstaje issue",
+          "text": "Jednym kliknięciem powstaje issue z opisem i danymi technicznymi. Albo łączysz zgłoszenie z istniejącym issue."
+        },
+        {
+          "title": "Zamykasz issue albo publikujesz wydanie",
+          "text": "Ozvi wychwyci to samo. Błąd przechodzi na „Poprawione w wersji 2.15”, a jeśli nie robisz wydań, od razu po zamknięciu issue."
+        },
+        {
+          "title": "Autor dostaje e-mail",
+          "text": "Piszemy mu, że jest poprawione, a on jednym kliknięciem potwierdza, czy już działa."
+        }
+      ],
+      "note": "Scalony pull request z „Fixes #412” sam dołączy się do zgłoszenia jako dowód poprawki. Linear i Jira łączą się kluczem API i synchronizują status podobnie. Na własnym serwerze aplikację dla GitHuba utworzysz jednym poleceniem."
     }
   },
   "net": {

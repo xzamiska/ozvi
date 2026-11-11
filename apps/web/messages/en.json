@@ -2883,6 +2883,34 @@
         }
       ],
       "note": "Without the widget, people report bugs right on the board. They only miss the context the widget adds by itself: a screenshot, console errors and the steps before the bug."
+    },
+    "github": {
+      "title": "From the report to the fix. GitHub does the rest.",
+      "lede": "The team keeps working in GitHub. Ozvi turns the report into an issue, follows it, and when the fix is out, tells the author. Nobody copies anything by hand.",
+      "ui": {
+        "connect": "Connect GitHub",
+        "bug": "Calendar on mobile",
+        "create": "Create issue"
+      },
+      "steps": [
+        {
+          "title": "Connect GitHub in two clicks",
+          "text": "Choose repositories for the Ozvi app on GitHub and pick one in Ozvi. No token and no webhook to set up by hand."
+        },
+        {
+          "title": "The report becomes an issue",
+          "text": "One click creates an issue with the description and technical details. Or link the report to an issue you already have."
+        },
+        {
+          "title": "Close the issue or publish a release",
+          "text": "Ozvi notices on its own. The bug moves to “Fixed in 2.15”, or right when the issue closes if you don't do releases."
+        },
+        {
+          "title": "The author gets an email",
+          "text": "We tell them it's fixed, and one click confirms whether it works for them now."
+        }
+      ],
+      "note": "A merged pull request with “Fixes #412” is added to the report by itself as proof of the fix. Linear and Jira connect with an API key and sync statuses the same way. On your own server you create the GitHub app with one command."
     }
   },
   "net": {

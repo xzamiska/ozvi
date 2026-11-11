@@ -338,6 +338,42 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             </div>
           </Reveal>
 
+          {/* GitHub: from the report to the fix and back to the author, as it really runs */}
+          <section id="github" aria-labelledby="github-h" className="scroll-mt-16 border-t">
+            <Reveal className="oz-frame py-24 lg:py-28">
+              <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
+                <h2 id="github-h" data-r className={cn(h2, "max-w-[17ch]")}>{t("github.title")}</h2>
+                <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("github.lede")}</p>
+              </div>
+              <ol className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                {(t.raw("github.steps") as { title: string; text: string }[]).map((st, i) => (
+                  <li key={st.title} data-r className="grid content-start gap-4 rounded-2xl border bg-surface p-5">
+                    <div aria-hidden className="grid h-[118px] content-center gap-2 rounded-xl border bg-background p-3.5 text-[12.5px]">
+                      {i === 0 ? (<>
+                        <span className="inline-flex w-fit items-center gap-1.5 rounded-md bg-foreground px-2.5 py-1.5 font-semibold text-background"><GitPullRequest className="size-3.5" />{t("github.ui.connect")}</span>
+                        <span className="flex items-center justify-between rounded-md border bg-surface px-2.5 py-1.5 font-mono text-[11.5px]">vasafirma/app<Check className="size-3.5 text-success" strokeWidth={2.5} /></span>
+                      </>) : i === 1 ? (<>
+                        <span className="truncate font-semibold">#128 · {t("github.ui.bug")}</span>
+                        <span className="w-fit rounded-md border bg-surface px-2 py-1 font-semibold whitespace-nowrap">{t("github.ui.create")}</span>
+                        <span className="truncate font-mono text-[11.5px] text-muted-foreground">→ vasafirma/app#412</span>
+                      </>) : i === 2 ? (<>
+                        <span className="flex items-center gap-1.5 font-mono text-[11.5px]"><span className="size-2 rounded-full bg-foreground/50" />#412 closed · completed</span>
+                        <span className="flex items-center gap-1.5 font-mono text-[11.5px]"><span className="size-2 rounded-full bg-success" />release v2.15</span>
+                      </>) : (<>
+                        <span className="text-[11.5px] text-muted-foreground">→ jana@firma.sk</span>
+                        <span className="font-semibold">{t("hero.loop.mailSubject")}</span>
+                        <span className="truncate text-muted-foreground">{t("hero.loop.mailBody")}</span>
+                      </>)}
+                    </div>
+                    <h3 className="flex items-baseline gap-2 text-[16.5px] leading-snug font-semibold"><span className="font-mono text-[13px] text-muted-foreground tabular-nums">{i + 1}</span>{st.title}</h3>
+                    <p className="text-[14px] leading-relaxed text-muted-foreground">{st.text}</p>
+                  </li>
+                ))}
+              </ol>
+              <p data-r className="mt-8 max-w-[80ch] text-[14px] leading-relaxed text-muted-foreground">{t("github.note")}</p>
+            </Reveal>
+          </section>
+
           {/* developers */}
           <section id="developers" aria-labelledby="dev-h" className="scroll-mt-16 border-t bg-surface">
             <Reveal className="oz-frame grid gap-12 py-24 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:py-32">
