@@ -72,6 +72,22 @@ Ozvi vychádza vo verziách (semver) s poznámkami na [ozvi.io/releases](https:/
 
 Nastavenia boardu ukazujú bežiacu verziu. Raz denne ju porovnajú s verejným zoznamom vydaní (`OZVI_RELEASES_URL`, predvolene `https://ozvi.io/releases.json`). Ide o obyčajný GET a o inštancii sa nič neposiela. Vypnete ho cez `OZVI_UPDATE_CHECK=0`.
 
+### Anonymná štatistika (dobrovoľná, predvolene vypnutá)
+
+Ozvi bez vášho súhlasu nič o vašej inštancii neposiela. Ak nám chcete pomôcť vedieť, koľko ľudí Ozvi na vlastných serveroch používa, nastavte `OZVI_TELEMETRY=1`. Server potom raz denne pošle na `https://ozvi.io/api/telemetry` (`OZVI_TELEMETRY_URL`) presne toto:
+
+| Pole | Význam |
+|---|---|
+| `instance` | 32 znakov: jednosmerný hash z vášho `OZVI_SECRET_KEY`. Je stále rovnaký, ale nedá sa z neho zistiť kľúč ani nič iné. |
+| `version` | bežiaca verzia Ozvi |
+| `projects` | počet projektov (boardov) |
+| `users` | počet používateľov boardov |
+| `activeUsers30` | z nich aktívni za posledných 30 dní |
+| `items` | počet záznamov (nápady a hlásenia) |
+| `items30` | z nich za posledných 30 dní |
+
+Nikdy sa neposielajú mená, e-maily, adresy, názvy projektov ani obsah. Ozvi.io si pre každú inštanciu drží jeden riadok s poslednými počtami a dátumom posledného hlásenia. Vypnete to odstránením premennej; riadok vám na požiadanie zmažeme (support@ozvi.io). Rozhodnutie: [ADR-0012](adr/0012-opt-in-telemetry.md).
+
 ### Ručná aktualizácia
 
 1. Zálohujte databázu: `docker compose exec postgres pg_dump -U postgres -Fc ozvi > ozvi-$(date +%F).dump`.

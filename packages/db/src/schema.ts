@@ -659,3 +659,21 @@ export const importRecords = pgTable("import_records", {
   targetId: text("target_id").notNull(),
   createdAt: createdAt(),
 }, (t) => [uniqueIndex("import_records_source").on(t.projectId, t.source, t.sourceType, t.sourceId), index("import_records_run").on(t.runId)]);
+
+/**
+ * Anonymous usage counts that self-hosted servers send to the cloud only after their operator opted in
+ * (OZVI_TELEMETRY=1, ADR-0012). Not tenant data: one row per instance (a one-way hash, not reversible),
+ * no names, addresses or content.
+ */
+export const telemetryInstances = pgTable("telemetry_instances", {
+  id: text("id").primaryKey(),
+  version: text("version").notNull(),
+  projects: integer("projects").notNull().default(0),
+  users: integer("users").notNull().default(0),
+  activeUsers30: integer("active_users_30").notNull().default(0),
+  items: integer("items").notNull().default(0),
+  items30: integer("items_30").notNull().default(0),
+  reports: integer("reports").notNull().default(1),
+  firstSeen: timestamp("first_seen", { withTimezone: true }).notNull().defaultNow(),
+  lastSeen: timestamp("last_seen", { withTimezone: true }).notNull().defaultNow(),
+});

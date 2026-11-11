@@ -8,6 +8,7 @@ import { embedPending } from "./similar";
 import { pivotPending } from "./translate";
 import { usageAlertsTick } from "./usage-alerts";
 import { expireManualPlans } from "./manual-plans";
+import { telemetryTick } from "./telemetry";
 import { webhookTick } from "./webhooks";
 import { trackerTick } from "./tracker-sync";
 import { jiraPollTick } from "./jira";
@@ -24,6 +25,11 @@ export function startJobs(db: Db) {
     t.unref?.();
     return () => clearInterval(t);
   };
+  const once = (ms: number, name: string, fn: () => Promise<unknown>) => {
+    const t = setTimeout(() => { fn().catch((e) => console.error(`[ozvi] ${name}`, e)); }, ms);
+    t.unref?.();
+    return () => clearTimeout(t);
+  };
   const stops = [
     every(5_000, "webhooks", () => webhookTick(db)),
     // Linear/Jira: Ozvi status moves and mirrored comments; Jira polling for sites without an admin webhook.
@@ -37,6 +43,9 @@ export function startJobs(db: Db) {
     every(15 * 60_000, "team digest", () => teamDigests(db)),
     every(3_600_000, "usage alerts", () => usageAlertsTick(db)),
     every(3_600_000, "manual plans", () => expireManualPlans(db)),
+    every(86_400_000, "telemetry", () => telemetryTick(db)),
+    // The first report soon after start: a server restarted every night would otherwise never send one.
+    once(10 * 60_000, "telemetry", () => telemetryTick(db)),
     // Retention (admin → Dáta): once a night per project, 02:00–06:00 Central European time.
     every(30 * 60_000, "retention", () => retentionTick(db)),
     // Sign-in codes and OAuth codes are short-lived; keep a day for debugging, then drop.

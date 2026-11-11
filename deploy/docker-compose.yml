@@ -83,6 +83,8 @@ services:
       OZVI_DIR: ${OZVI_DIR:-${PWD}}
       OZVI_WEB_URL: http://ozvi:3000
       OZVI_RELEASES_URL: ${OZVI_RELEASES_URL:-https://ozvi.io/releases.json}
+      # Anonymous statistics, off unless you set 1 (docs/SELFHOST.md → Anonymná štatistika).
+      OZVI_TELEMETRY: ${OZVI_TELEMETRY:-}
       # Only for a private mirror of the images (ghcr.io/xzamiska is public).
       OZVI_REGISTRY: ${OZVI_REGISTRY:-ghcr.io}
       OZVI_REGISTRY_USER: ${OZVI_REGISTRY_USER:-}

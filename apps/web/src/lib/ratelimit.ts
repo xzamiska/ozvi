@@ -29,6 +29,8 @@ export const LIMITS = {
   signup: { max: 5, windowMs: 60 * 60_000 },
   cimd: { max: 30, windowMs: 10 * 60_000 },
   invite: { max: 20, windowMs: 60 * 60_000 },
+  /** Opt-in statistics from self-hosted servers: one a day is normal, a few per IP is plenty. */
+  telemetryIp: { max: 10, windowMs: 60 * 60_000 },
   /** Team CSV exports (each one reads the whole filtered list). */
   export: { max: 60, windowMs: 10 * 60_000 },
   /** Import previews and starts (parsing files, calling Canny). */
