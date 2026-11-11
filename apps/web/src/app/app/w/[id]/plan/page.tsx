@@ -70,7 +70,7 @@ export default async function Billing({ params, searchParams }: { params: Promis
     const est = prorationEstimate(ws, p, i);
     return (
       <BillingDialog trigger={label} triggerVariant={variant} className="w-full" keep={keep}
-        title={t("dlg.changeTitle", { plan: `${PLAN_NAME[p]} · ${i === "year" ? t("yearly") : t("quarterly")}` })}
+        title={t("dlg.changeTitle", { plan: `${PLAN_NAME[p]} (${per(i)})` })}
         lines={[
           t("dlg.changeFrom", { from: `${PLAN_NAME[curPlan]} (${priceOf(curPlan, curInterval)})`, to: `${PLAN_NAME[p]} (${priceOf(p, i)})` }),
           up ? (est !== null && est > 0 ? t("dlg.chargeNow", { amount: eur(est, locale) }) : t("dlg.chargeNowNoAmount")) : t("dlg.credit"),
@@ -118,7 +118,7 @@ export default async function Billing({ params, searchParams }: { params: Promis
         <section aria-labelledby="sub-h" className="mb-10 grid gap-4 rounded-xl border bg-surface p-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-6">
           <div className="grid gap-1">
             <h2 id="sub-h" className="text-[13px] font-semibold text-muted-foreground">{t("sub.title")}</h2>
-            <p className="text-[19px] font-semibold tracking-tight">{PLAN_NAME[curPlan]} · {curInterval === "year" ? t("yearly") : t("quarterly")}
+            <p className="text-[19px] font-semibold tracking-tight">{PLAN_NAME[curPlan]} · {per(curInterval)}
               <span className="ml-2 text-[14px] font-normal text-muted-foreground">{priceOf(curPlan, curInterval)} {t("sub.vat")}</span></p>
             <p className={cn("flex items-center gap-1.5 text-[14px]", cancelling ? "text-st-ack" : "text-muted-foreground")}>
               <CalendarClock className="size-4 shrink-0" aria-hidden />
