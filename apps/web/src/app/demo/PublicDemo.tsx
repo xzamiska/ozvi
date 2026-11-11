@@ -29,10 +29,10 @@ export async function PublicDemo() {
   const data: DemoData = {
     config: { name: host.name, css: toCss(host, ":host"), fonts: null, ideasPublic: true },
     ideas,
-    roadmap: { url: "#", lanes: (["planned", "in_progress", "shipped"] as const).map((s) => ({ status: s, label: route(`label.${s}`), total: 1, rows: s === "shipped"
-      ? [{ number: 118, title: news[0]!.title, votes: 23, sub: null, tags: [], url: "#" }]
-      : ideas.filter((i) => i.status === s).map((i) => ({ number: i.number, title: i.title, votes: i.votes, sub: null, tags: [], url: "#" })) })) },
-    changelog: { url: "#", entries: news.map((n, k) => ({ id: `n${k}`, title: `${n.v} · ${n.title}`, html: `<p>${n.text.replace(/[<>&]/g, "")}</p>`, publishedAt: new Date(Date.now() - (k * 17 + 3) * 86400_000).toISOString(), url: "#", ai: false, aiNote: null, items: [] })) },
+    roadmap: { url: `/${DEMO_PROJECT}/roadmap`, lanes: (["planned", "in_progress", "shipped"] as const).map((s) => ({ status: s, label: route(`label.${s}`), total: 1, rows: s === "shipped"
+      ? [{ number: 118, title: news[0]!.title, votes: 23, sub: null, tags: [], url: `/${DEMO_PROJECT}/changelog` }]
+      : ideas.filter((i) => i.status === s).map((i) => ({ number: i.number, title: i.title, votes: i.votes, sub: null, tags: [], url: `/${DEMO_PROJECT}/i/${i.number}` })) })) },
+    changelog: { url: `/${DEMO_PROJECT}/changelog`, entries: news.map((n, k) => ({ id: `n${k}`, title: `${n.v} · ${n.title}`, html: `<p>${n.text.replace(/[<>&]/g, "")}</p>`, publishedAt: new Date(Date.now() - (k * 17 + 3) * 86400_000).toISOString(), url: `/${DEMO_PROJECT}/changelog`, ai: false, aiNote: null, items: [] })) },
   };
 
   return (
@@ -80,7 +80,7 @@ export async function PublicDemo() {
           <p className="mt-3 max-w-[70ch] text-[13px] leading-relaxed text-muted-foreground">{t("embedsNote")}</p>
 
         </div>
-        <div className="lg:sticky lg:top-6"><DemoInspector /></div>
+        <div className="lg:sticky lg:top-6"><DemoInspector sample={{ ideas: data.ideas, lanes: data.roadmap.lanes, news }} /></div>
       </main>
       {/* @ts-expect-error custom element */}
       <ozvi-widget project={DEMO_PROJECT} token-url="/demo/token" app-version="2.15.0" lang={locale} />

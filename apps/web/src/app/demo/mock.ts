@@ -28,6 +28,9 @@ window.open=function(u,t,f){
     Object.defineProperty(loc,"href",{set:function(v){if(String(v).indexOf("/${DEMO_PROJECT}/")>=0)board(v);else ro(v,t,f)}});w.location=loc;return w}
   if(String(u).indexOf("/${DEMO_PROJECT}/")>=0){board(u);return null}
   return ro(u,t,f)};
+// Links in the embeds (whole roadmap, all news, an item) open the demo board too.
+document.addEventListener("click",function(e){var a=e.composedPath().find(function(n){return n&&n.tagName==="A"});
+  if(a&&a.href&&a.href.indexOf("/${DEMO_PROJECT}/")>=0){e.preventDefault();board(a.href)}},true);
 window.fetch=function(input,init){
   var url=typeof input==="string"?input:(input&&input.url)||String(input);
   if(url.indexOf("/demo/token")>=0)return res({token:"demo"});

@@ -155,7 +155,8 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               <p className={cn(lede, "oz-rise mx-auto mt-6 max-w-[56ch] text-[18px] [animation-delay:160ms] md:text-[19px]")}>{t("hero.lede")}</p>
               <div className="oz-rise mt-8 flex flex-wrap justify-center gap-3 [animation-delay:240ms]">
                 {go(start.label, primary)}
-                <a href="#how" className={ghost}>{t("hero.secondary")}</a>
+                <Link href="/demo" className={soon ? primary : ghost}>{t("demo.hero")}</Link>
+                <a href="#how" className={cn(ghost, "border-transparent bg-transparent")}>{t("hero.secondary")}</a>
               </div>
               <p className="mt-5 text-[13.5px] text-muted-foreground">{t("hero.note")}</p>
             </div>
@@ -197,6 +198,39 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 </div>
               </div>,
             ][i] }))} />
+          </section>
+
+          {/* the demo: report a bug in someone else's app and see what the team gets */}
+          <section id="demo" aria-labelledby="demo-h" className="oz-frame scroll-mt-24 pb-24 lg:pb-28">
+            <div className="grid overflow-hidden rounded-3xl border bg-surface shadow-[0_40px_100px_-60px_color-mix(in_oklab,var(--oz-accent)_60%,transparent)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+              <div className="p-7 sm:p-10 lg:p-12">
+                <h2 id="demo-h" className={cn(h2, "max-w-[16ch]")}>{t("demo.title")}</h2>
+                <p className={cn(lede, "mt-5 max-w-[48ch]")}>{t("demo.lede")}</p>
+                <ul className="mt-6 grid gap-2.5 text-[14.5px] text-foreground/85">
+                  {(t.raw("demo.points") as string[]).map((x) => <li key={x} className="grid grid-cols-[auto_1fr] gap-2.5"><Check className="mt-0.5 size-4 text-primary" strokeWidth={2.5} aria-hidden />{x}</li>)}
+                </ul>
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <Link href="/demo" className={primary}>{t("demo.cta")}</Link>
+                  <span className="text-[13.5px] text-muted-foreground">{t("demo.note")}</span>
+                </div>
+              </div>
+              {/* a still of the demo: the app with masked fields, and what the team gets */}
+              <div aria-hidden className="relative min-h-[320px] border-t bg-[radial-gradient(60%_60%_at_70%_30%,color-mix(in_oklab,var(--oz-accent)_14%,transparent),transparent_70%)] p-6 lg:border-t-0 lg:border-l">
+                <div className={cn(hostPanel, "max-w-[360px] p-5 text-[13px]")}>
+                  <p className="text-[15px] font-semibold">{t("demo.app")}</p>
+                  <p className="mt-2 flex justify-between text-muted-foreground">{t("demo.phone")}<span className="rounded bg-foreground/15 px-10 blur-[3px]">+421 905</span></p>
+                  <p className="mt-1.5 flex justify-between text-muted-foreground">{t("demo.noteLabel")}<span className="rounded bg-foreground/15 px-14 blur-[3px]">alergia</span></p>
+                  <p className="mt-3 font-medium text-destructive">{t("demo.failed")}</p>
+                </div>
+                <div className="absolute right-6 bottom-6 left-16 max-w-[380px] rounded-2xl border bg-background p-4 shadow-[0_30px_60px_-30px_rgb(13_12_20/0.45)] sm:left-auto sm:w-[360px]">
+                  <p className="text-[13px] font-semibold">{t("demo.teamGets")}</p>
+                  <p className="mt-2 font-mono text-[11.5px] text-destructive">500 PUT /api/bookings/2026-11-14</p>
+                  <div className="mt-3 flex flex-wrap gap-1.5 text-[11.5px] text-muted-foreground">
+                    {(t.raw("demo.chips") as string[]).map((c) => <span key={c} className="rounded bg-wash px-1.5 py-0.5">{c}</span>)}
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* try it: the working board in the visitor's colours, and what a theme covers */}

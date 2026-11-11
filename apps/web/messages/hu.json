@@ -2345,9 +2345,9 @@
         }
       ],
       "productFeature": {
-        "href": "#how",
-        "title": "Termékbemutató",
-        "text": "A felhasználók táblája és a csapat nézete, mintaadatokkal."
+        "href": "/demo",
+        "title": "Próbáld ki a demót",
+        "text": "Jelents hibát egy mintaalkalmazásban, és nézd meg, mit kap a csapat."
       },
       "devItems": [
         {
@@ -2811,6 +2811,29 @@
       "lede": "Ez a valódi tábla mintaadatokkal. Szavazz, adj hozzá ötletet, válts a csapat nézetére, és állítsd be a színeit, ahogy a projekt beállításaiban is teszed majd.",
       "demo": "A widget kipróbálása egy mintaalkalmazásban",
       "demoNote": "Jelents hibát képernyőképpel, és nézd meg, mit kapna a csapat."
+    },
+    "demo": {
+      "hero": "Demó kipróbálása",
+      "title": "Jelents hibát egy idegen alkalmazásban. Fél perc alatt.",
+      "lede": "A demó egy minta foglalási alkalmazás valódi Ozvi widgettel. Jelents benne hibát, és pontosan azt látod, amit a csapatod kapna.",
+      "points": [
+        "Képernyőkép, amelyen az érzékeny adatok már a böngészőben elmosódnak",
+        "A konzolhiba, a sikertelen kérés és a hiba előtti lépések",
+        "A csapat táblája és a bejelentő nézete, állapottal és válasszal"
+      ],
+      "cta": "Demó megnyitása",
+      "note": "Regisztráció nélkül. Semmi sem megy el.",
+      "app": "Foglalás nov. 14. · 10:30",
+      "phone": "Telefon",
+      "noteLabel": "Megjegyzés",
+      "failed": "A foglalást nem sikerült menteni.",
+      "teamGets": "Ezt kapja a csapat",
+      "chips": [
+        "képernyőkép",
+        "v2.15.0",
+        "Chrome · 1396×783",
+        "3 lépés"
+      ]
     }
   },
   "net": {
@@ -3662,7 +3685,8 @@
       "seeAuthor": "Nézd meg, mit lát a bejelentő",
       "authorNote": "Ezt látja a bejelentő: hol tart a jelentése, és mit válaszolt a csapat.",
       "now": "most",
-      "noReply": "A csapat még nem válaszolt. Válts a csapat nézetére, módosítsd az állapotot, és értesítsd a bejelentőt."
+      "noReply": "A csapat még nem válaszolt. Válts a csapat nézetére, módosítsd az állapotot, és értesítsd a bejelentőt.",
+      "noBugs": "Még nem jelentettél semmit. Zárd be az előnézetet, és jelents hibát a jobb alsó widgettel."
     }
   }
 }

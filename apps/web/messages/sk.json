@@ -2345,9 +2345,9 @@
         }
       ],
       "productFeature": {
-        "href": "#how",
-        "title": "Prehliadka produktu",
-        "text": "Board pre používateľov aj pohľad tímu, na ukážkových dátach."
+        "href": "/demo",
+        "title": "Vyskúšajte demo",
+        "text": "Nahláste chybu v ukážkovej aplikácii a uvidíte, čo dostane tím."
       },
       "devItems": [
         {
@@ -2811,6 +2811,29 @@
       "lede": "Toto je skutočný board s ukážkovými dátami. Hlasujte, pridajte nápad, prepnite na pohľad tímu a nastavte mu farby. Rovnako to urobíte v nastaveniach projektu.",
       "demo": "Vyskúšať widget v ukážkovej aplikácii",
       "demoNote": "Nahláste chybu so screenshotom a uvidíte, čo by dostal tím."
+    },
+    "demo": {
+      "hero": "Vyskúšať demo",
+      "title": "Nahláste chybu v cudzej aplikácii. Za pol minúty.",
+      "lede": "Demo je ukážková rezervačná aplikácia so skutočným widgetom Ozvi. Nahláste v nej chybu a uvidíte presne to, čo by dostal váš tím.",
+      "points": [
+        "Screenshot, na ktorom sú citlivé údaje rozmazané ešte v prehliadači",
+        "Chyba z konzoly, zlyhaná požiadavka a kroky pred chybou",
+        "Board tímu aj pohľad autora, so stavom a odpoveďou"
+      ],
+      "cta": "Otvoriť demo",
+      "note": "Bez registrácie. Nič sa neodosiela.",
+      "app": "Rezervácia 14. 11. · 10:30",
+      "phone": "Telefón",
+      "noteLabel": "Poznámka",
+      "failed": "Rezerváciu sa nepodarilo uložiť.",
+      "teamGets": "Toto dostane tím",
+      "chips": [
+        "screenshot",
+        "v2.15.0",
+        "Chrome · 1396×783",
+        "3 kroky"
+      ]
     }
   },
   "net": {
@@ -3662,7 +3685,8 @@
       "seeAuthor": "Pozrieť, čo vidí autor",
       "authorNote": "Toto vidí autor hlásenia: kde sa nachádza a čo mu tím odpísal.",
       "now": "teraz",
-      "noReply": "Tím zatiaľ neodpísal. Prepnite na pohľad tímu, zmeňte stav a dajte autorovi vedieť."
+      "noReply": "Tím zatiaľ neodpísal. Prepnite na pohľad tímu, zmeňte stav a dajte autorovi vedieť.",
+      "noBugs": "Zatiaľ ste nič nenahlásili. Zavrite ukážku a nahláste chybu cez widget vpravo dole."
     }
   }
 }

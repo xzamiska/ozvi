@@ -2345,9 +2345,9 @@
         }
       ],
       "productFeature": {
-        "href": "#how",
-        "title": "Produkttour",
-        "text": "Das Board der Nutzer und die Ansicht des Teams, mit Beispieldaten."
+        "href": "/demo",
+        "title": "Demo ausprobieren",
+        "text": "Melden Sie einen Fehler in einer Beispiel-App und sehen Sie, was das Team bekommt."
       },
       "devItems": [
         {
@@ -2811,6 +2811,29 @@
       "lede": "Das ist das echte Board mit Beispieldaten. Stimmen Sie ab, schlagen Sie eine Idee vor, wechseln Sie zur Ansicht des Teams und ändern Sie die Farben, so wie später in den Projekteinstellungen.",
       "demo": "Widget in einer Beispiel-App ausprobieren",
       "demoNote": "Melden Sie einen Fehler mit Screenshot und sehen Sie, was das Team bekäme."
+    },
+    "demo": {
+      "hero": "Demo ausprobieren",
+      "title": "Melden Sie einen Fehler in einer fremden App. In einer halben Minute.",
+      "lede": "Die Demo ist eine Beispiel-Buchungs-App mit dem echten Ozvi-Widget. Melden Sie darin einen Fehler und sehen Sie genau, was Ihr Team bekäme.",
+      "points": [
+        "Ein Screenshot, in dem sensible Daten schon im Browser verwischt sind",
+        "Der Konsolenfehler, die fehlgeschlagene Anfrage und die Schritte davor",
+        "Das Board des Teams und die Sicht der meldenden Person, mit Status und Antwort"
+      ],
+      "cta": "Demo öffnen",
+      "note": "Ohne Registrierung. Nichts wird gesendet.",
+      "app": "Buchung 14.11. · 10:30",
+      "phone": "Telefon",
+      "noteLabel": "Notiz",
+      "failed": "Die Buchung konnte nicht gespeichert werden.",
+      "teamGets": "Das bekommt das Team",
+      "chips": [
+        "Screenshot",
+        "v2.15.0",
+        "Chrome · 1396×783",
+        "3 Schritte"
+      ]
     }
   },
   "net": {
@@ -3662,7 +3685,8 @@
       "seeAuthor": "Ansehen, was die meldende Person sieht",
       "authorNote": "Das sieht die meldende Person: wo die Meldung steht und was das Team geantwortet hat.",
       "now": "jetzt",
-      "noReply": "Das Team hat noch nicht geantwortet. Wechseln Sie zur Ansicht des Teams, ändern Sie den Status und informieren Sie die meldende Person."
+      "noReply": "Das Team hat noch nicht geantwortet. Wechseln Sie zur Ansicht des Teams, ändern Sie den Status und informieren Sie die meldende Person.",
+      "noBugs": "Sie haben noch nichts gemeldet. Schließen Sie die Vorschau und melden Sie einen Fehler über das Widget unten rechts."
     }
   }
 }

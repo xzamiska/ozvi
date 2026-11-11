@@ -1,6 +1,6 @@
 "use client";
 
-import { Bug, Check, Lightbulb, Lock, Mail, X } from "lucide-react";
+import { Bug, Check, ChevronUp, Lightbulb, Lock, Mail, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { StatusMark } from "@/components/ozvi/route";
@@ -23,17 +23,31 @@ interface Sent {
   files: { name: string; url: string }[];
 }
 type Status = "new" | "confirmed" | "in_progress" | "fixed" | "verified";
+type Tab = "ideas" | "roadmap" | "news" | "bugs";
+export interface Sample {
+  ideas: { number: number; title: string; votes: number; status: string; label: string }[];
+  lanes: { status: string; label: string; rows: { number: number; title: string; votes: number }[] }[];
+  news: { v: string; title: string; text: string }[];
+}
+/** Which tab and report a board path ("/ukazka/roadmap", "/ukazka/i/132", "/ukazka/bugs") means. */
+function target(path: string, reports: Sent[]): { tab: Tab; n: number | null } {
+  const n = Number(/\/i\/(\d+)/.exec(path)?.[1] ?? NaN);
+  if (Number.isFinite(n)) return reports.some((r) => r.number === n && r.kind !== "idea") ? { tab: "bugs", n } : { tab: "ideas", n };
+  if (path.includes("/roadmap")) return { tab: "roadmap", n: null };
+  if (path.includes("/changelog")) return { tab: "news", n: null };
+  if (path.includes("/ideas")) return { tab: "ideas", n: null };
+  return { tab: "bugs", n: null };
+}
 const STOPS: Status[] = ["new", "confirmed", "in_progress", "fixed", "verified"];
 
-export function DemoInspector() {
+export function DemoInspector({ sample }: { sample: Sample }) {
   const t = useTranslations("demo");
   const [all, setAll] = useState<Sent[]>([]);
-  const [open, setOpen] = useState<number | null>(null);
+  const [open, setOpen] = useState<string | null>(null);
   useEffect(() => {
     const sent = (e: Event) => setAll((xs) => [(e as CustomEvent<Sent>).detail, ...xs]);
     const show = (e: Event) => {
-      const m = /\/i\/(\d+)/.exec((e as CustomEvent<{ path: string }>).detail.path);
-      setOpen(m ? Number(m[1]) : -1);
+      setOpen((e as CustomEvent<{ path: string }>).detail.path);
       (window as unknown as { Ozvi?: { close?: () => void } }).Ozvi?.close?.(); // the widget panel would sit on top
     };
     window.addEventListener("ozvi-demo", sent);
@@ -68,23 +82,25 @@ export function DemoInspector() {
                 <div className={row}><dt className="text-muted-foreground">{t("inspector.network")}</dt><dd className="grid gap-1 font-mono text-[12px]">{failed.length ? failed.map((r, i) => <span key={i} className="truncate"><b className="text-destructive">{r.status || "—"}</b> {r.method} {r.url}</span>) : <span className="text-muted-foreground">{t("inspector.noFailed")}</span>}</dd></div>
               </dl>
             )}
-            <button type="button" onClick={() => { setOpen(last.number); (window as unknown as { Ozvi?: { close?: () => void } }).Ozvi?.close?.(); }} className="mt-4 inline-flex h-10 w-full items-center justify-center rounded-lg bg-foreground px-4 text-[14px] font-semibold text-background hover:opacity-85">
+            <button type="button" onClick={() => { setOpen(`/i/${last.number}`); (window as unknown as { Ozvi?: { close?: () => void } }).Ozvi?.close?.(); }} className="mt-4 inline-flex h-10 w-full items-center justify-center rounded-lg bg-foreground px-4 text-[14px] font-semibold text-background hover:opacity-85">
               {t("board.open")}
             </button>
           </div>
         )}
       </aside>
-      {open !== null && all.length > 0 && <DemoBoard reports={all} first={open} onClose={() => setOpen(null)} />}
+      {open !== null && <DemoBoard reports={all} sample={sample} path={open} onClose={() => setOpen(null)} />}
     </>
   );
 }
 
-function DemoBoard({ reports, first, onClose }: { reports: Sent[]; first: number; onClose: () => void }) {
+function DemoBoard({ reports, sample, path, onClose }: { reports: Sent[]; sample: Sample; path: string; onClose: () => void }) {
   const t = useTranslations("demo");
   const tl = useTranslations("landing");
   const tt = (k: string, v?: Record<string, string>) => tl(`product.team.${k}` as never, v as never);
   const tr = useTranslations("route");
-  const [sel, setSel] = useState(reports.some((r) => r.number === first) ? first : reports[0]!.number);
+  const start = target(path, reports);
+  const [tab, setTab] = useState<Tab>(start.tab);
+  const [sel, setSel] = useState(start.tab === "bugs" && start.n ? start.n : reports.find((r) => r.kind !== "idea")?.number ?? 0);
   const [view, setView] = useState<"team" | "author">("team");
   const [status, setStatus] = useState<Record<number, Status>>({});
   const [told, setTold] = useState<Record<number, string>>({});
@@ -96,12 +112,14 @@ function DemoBoard({ reports, first, onClose }: { reports: Sent[]; first: number
     document.body.style.overflow = "hidden";
     return () => { window.removeEventListener("keydown", esc); document.body.style.overflow = ""; };
   }, [onClose]);
-  const cur = reports.find((r) => r.number === sel) ?? reports[0]!;
-  const st = status[cur.number] ?? "new";
+  const bugs = reports.filter((r) => r.kind !== "idea");
+  const cur = bugs.find((r) => r.number === sel) ?? bugs[0];
+  const ideas = [...reports.filter((r) => r.kind === "idea").map((r) => ({ number: r.number, title: r.title, votes: 1, status: "open", label: routeText(tr, "label", "open"), mine: true })), ...sample.ideas.map((i) => ({ ...i, mine: false }))];
+  const st = (cur && status[cur.number]) || "new";
   const label = (s: Status) => routeText(tr, "label", s);
   const r = { borderRadius: "var(--oz-radius)" };
   const chip = "inline-flex items-center gap-1 rounded bg-wash px-1.5 py-0.5 text-[11.5px] text-muted-foreground";
-  const failed = cur.context.network?.filter((x) => x.failed) ?? [];
+  const failed = cur?.context.network?.filter((x) => x.failed) ?? [];
 
   return (
     <div role="dialog" aria-modal="true" aria-labelledby="demo-board-h" className="fixed inset-0 z-[2147483000] grid bg-ink/40 p-2 backdrop-blur-sm sm:p-6">
@@ -109,7 +127,7 @@ function DemoBoard({ reports, first, onClose }: { reports: Sent[]; first: number
         <div className="flex flex-wrap items-center gap-3 border-b px-4 py-2.5">
           <h2 id="demo-board-h" className="text-[14.5px] font-semibold">{t("board.title")}</h2>
           <span className="text-[13px] text-muted-foreground">{t("board.note")}</span>
-          <span role="group" aria-label={t("board.title")} className="ml-auto flex rounded-lg border bg-background p-0.5 text-[12.5px] font-medium">
+          <span role="group" aria-label={t("board.title")} className={cn("ml-auto flex rounded-lg border bg-background p-0.5 text-[12.5px] font-medium", tab !== "bugs" && "invisible")}>
             {(["team", "author"] as const).map((v) => (
               <button key={v} type="button" aria-pressed={view === v} onClick={() => setView(v)}
                 className={cn("h-7 rounded-md px-2.5", view === v ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground")}>{t(`board.${v}`)}</button>
@@ -122,15 +140,50 @@ function DemoBoard({ reports, first, onClose }: { reports: Sent[]; first: number
         <div className="look-host oz-scope flex min-h-0 flex-1 flex-col bg-background font-sans text-foreground">
           <div className="flex h-12 shrink-0 items-center gap-5 border-b bg-surface px-4 text-[13px]">
             <span className="flex items-center gap-2"><span className="grid size-6 place-items-center rounded bg-primary text-[11px] font-bold text-primary-foreground">R</span><b className="text-[14.5px] font-semibold">{t("app.brand")}</b></span>
-            {(t.raw("board.tabs") as string[]).map((x, i) => (
-              <span key={x} className={cn("relative flex h-12 items-center text-muted-foreground", i === 3 && "font-medium text-foreground after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-primary")}>{x}</span>
-            ))}
+            {(t.raw("board.tabs") as string[]).map((x, i) => {
+              const k = (["ideas", "roadmap", "news", "bugs"] as const)[i]!;
+              return (
+                <button key={x} type="button" aria-current={tab === k ? "page" : undefined} onClick={() => setTab(k)}
+                  className={cn("relative flex h-12 items-center text-muted-foreground hover:text-foreground", tab === k && "font-medium text-foreground after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-primary")}>{x}</button>
+              );
+            })}
           </div>
 
-          {view === "team" ? (
+          {tab === "ideas" ? (
+            <div className="min-h-0 flex-1 overflow-y-auto p-5"><ul className="mx-auto grid max-w-[760px] divide-y overflow-hidden rounded-xl border bg-surface">
+              {ideas.map((i) => (
+                <li key={i.number} className={cn("grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3.5", start.n === i.number && "bg-wash")}>
+                  <span className="grid h-11 w-10 place-items-center content-center rounded-lg border border-line-strong text-[13px] leading-none font-bold tabular-nums"><ChevronUp className="size-3.5" strokeWidth={2.5} />{i.votes}</span>
+                  <span className="min-w-0"><b className="block truncate text-[14.5px] font-semibold">{i.title}</b><small className="text-[12px] text-muted-foreground">#{i.number}{i.mine ? ` · ${t("board.you")}` : ""}</small></span>
+                  <span className="hidden items-center gap-1.5 text-[12.5px] font-semibold sm:inline-flex"><StatusMark kind="idea" status={i.status} />{i.label}</span>
+                </li>
+              ))}
+            </ul></div>
+          ) : tab === "roadmap" ? (
+            <div className="grid min-h-0 flex-1 content-start gap-4 overflow-y-auto p-5 sm:grid-cols-3">
+              {sample.lanes.map((l) => (
+                <section key={l.status} className="grid content-start gap-2">
+                  <h3 className="flex items-center gap-1.5 text-[13px] font-semibold"><StatusMark kind="idea" status={l.status} />{l.label}</h3>
+                  {l.rows.map((x) => <div key={x.number} className="rounded-lg border bg-surface p-3 text-[13.5px] font-medium">{x.title}<span className="mt-1 block text-[12px] font-normal text-muted-foreground">#{x.number} · <ChevronUp className="inline size-3" strokeWidth={2.5} />{x.votes}</span></div>)}
+                </section>
+              ))}
+            </div>
+          ) : tab === "news" ? (
+            <div className="min-h-0 flex-1 overflow-y-auto p-5"><ol className="mx-auto grid max-w-[720px] gap-3">
+              {sample.news.map((n) => (
+                <li key={n.v} className="rounded-xl border bg-surface p-5">
+                  <span className="rounded bg-primary px-1.5 py-0.5 font-mono text-[11px] font-semibold text-primary-foreground">{n.v}</span>
+                  <h3 className="mt-2 text-[16px] font-semibold">{n.title}</h3>
+                  <p className="mt-1 text-[14px] leading-relaxed text-muted-foreground">{n.text}</p>
+                </li>
+              ))}
+            </ol></div>
+          ) : !cur ? (
+            <p className="m-auto max-w-[44ch] p-8 text-center text-[14px] leading-relaxed text-muted-foreground">{t("board.noBugs")}</p>
+          ) : view === "team" ? (
             <div className="grid min-h-0 flex-1 md:grid-cols-[240px_minmax(0,1fr)]">
               <ul className="hidden divide-y overflow-y-auto border-r bg-surface md:block">
-                {reports.map((x) => (
+                {bugs.map((x) => (
                   <li key={x.number}>
                     <button type="button" onClick={() => setSel(x.number)} aria-current={x.number === cur.number ? "true" : undefined}
                       className={cn("grid w-full gap-1 px-3.5 py-3 text-left hover:bg-wash", x.number === cur.number && "bg-wash shadow-[inset_2px_0_0_var(--oz-accent)]")}>

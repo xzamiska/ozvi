@@ -2345,9 +2345,9 @@
         }
       ],
       "productFeature": {
-        "href": "#how",
-        "title": "Product tour",
-        "text": "The users' board and the team's view, on sample data."
+        "href": "/demo",
+        "title": "Try the demo",
+        "text": "Report a bug in a sample app and see what the team gets."
       },
       "devItems": [
         {
@@ -2811,6 +2811,29 @@
       "lede": "This is the real board with sample data. Vote, add an idea, switch to the team view and change its colours, just like you will in your project settings.",
       "demo": "Try the widget in a sample app",
       "demoNote": "Report a bug with a screenshot and see what the team would get."
+    },
+    "demo": {
+      "hero": "Try the demo",
+      "title": "Report a bug in someone else's app. In half a minute.",
+      "lede": "The demo is a sample booking app with the real Ozvi widget. Report a bug in it and see exactly what your team would get.",
+      "points": [
+        "A screenshot with sensitive data blurred right in the browser",
+        "The console error, the failed request and the steps before the bug",
+        "The team's board and the author's view, with status and reply"
+      ],
+      "cta": "Open the demo",
+      "note": "No sign-up. Nothing is sent.",
+      "app": "Booking 14 Nov · 10:30",
+      "phone": "Phone",
+      "noteLabel": "Note",
+      "failed": "The booking couldn't be saved.",
+      "teamGets": "What the team gets",
+      "chips": [
+        "screenshot",
+        "v2.15.0",
+        "Chrome · 1396×783",
+        "3 steps"
+      ]
     }
   },
   "net": {
@@ -3662,7 +3685,8 @@
       "seeAuthor": "See what the author sees",
       "authorNote": "This is what the reporter sees: where the report is and what the team replied.",
       "now": "now",
-      "noReply": "The team hasn't replied yet. Switch to the team view, change the status and tell the author."
+      "noReply": "The team hasn't replied yet. Switch to the team view, change the status and tell the author.",
+      "noBugs": "You haven't reported anything yet. Close the preview and report a bug with the widget at the bottom right."
     }
   }
 }

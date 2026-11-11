@@ -2345,9 +2345,9 @@
         }
       ],
       "productFeature": {
-        "href": "#how",
-        "title": "Prohlídka produktu",
-        "text": "Board pro uživatele i pohled týmu, na ukázkových datech."
+        "href": "/demo",
+        "title": "Vyzkoušejte demo",
+        "text": "Nahlaste chybu v ukázkové aplikaci a uvidíte, co dostane tým."
       },
       "devItems": [
         {
@@ -2811,6 +2811,29 @@
       "lede": "Tohle je skutečný board s ukázkovými daty. Hlasujte, přidejte nápad, přepněte na pohled týmu a nastavte mu barvy. Stejně to uděláte v nastavení projektu.",
       "demo": "Vyzkoušet widget v ukázkové aplikaci",
       "demoNote": "Nahlaste chybu se screenshotem a uvidíte, co by dostal tým."
+    },
+    "demo": {
+      "hero": "Vyzkoušet demo",
+      "title": "Nahlaste chybu v cizí aplikaci. Za půl minuty.",
+      "lede": "Demo je ukázková rezervační aplikace se skutečným widgetem Ozvi. Nahlaste v ní chybu a uvidíte přesně to, co by dostal váš tým.",
+      "points": [
+        "Screenshot, na kterém jsou citlivé údaje rozmazané už v prohlížeči",
+        "Chyba z konzole, selhaný požadavek a kroky před chybou",
+        "Board týmu i pohled autora, se stavem a odpovědí"
+      ],
+      "cta": "Otevřít demo",
+      "note": "Bez registrace. Nic se neodesílá.",
+      "app": "Rezervace 14. 11. · 10:30",
+      "phone": "Telefon",
+      "noteLabel": "Poznámka",
+      "failed": "Rezervaci se nepodařilo uložit.",
+      "teamGets": "Tohle dostane tým",
+      "chips": [
+        "screenshot",
+        "v2.15.0",
+        "Chrome · 1396×783",
+        "3 kroky"
+      ]
     }
   },
   "net": {
@@ -3662,7 +3685,8 @@
       "seeAuthor": "Podívat se, co vidí autor",
       "authorNote": "Tohle vidí autor hlášení: kde se nachází a co mu tým odepsal.",
       "now": "teď",
-      "noReply": "Tým zatím neodepsal. Přepněte na pohled týmu, změňte stav a dejte autorovi vědět."
+      "noReply": "Tým zatím neodepsal. Přepněte na pohled týmu, změňte stav a dejte autorovi vědět.",
+      "noBugs": "Zatím jste nic nenahlásili. Zavřete ukázku a nahlaste chybu přes widget vpravo dole."
     }
   }
 }
