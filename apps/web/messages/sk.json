@@ -1526,7 +1526,9 @@
       },
       "translations": "AI preklady",
       "fTranslations": "{n} AI prekladov mesačne",
-      "fTranslationsUnlimited": "Neobmedzené AI preklady"
+      "fTranslationsUnlimited": "Neobmedzené AI preklady",
+      "manual": "Plán vám pridelil tím Ozvi, bez platby.",
+      "manualUntil": "Plán vám pridelil tím Ozvi, bez platby, do {date}. Potom prejdete na Free, ak si plán nekúpite."
     },
     "simulate": {
       "devOnly": "Len lokálny vývoj",

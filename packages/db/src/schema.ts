@@ -37,6 +37,12 @@ export const workspaces = pgTable("workspaces", {
   planPeriodEnd: timestamp("plan_period_end", { withTimezone: true }),
   /** Billing interval of the Creem subscription ("year" | "quarter"), from its product. */
   planInterval: text("plan_interval"),
+  /** "manual" = granted by the operator (no payment; Creem events don't touch it until the owner buys); null/"creem" = billing. */
+  planSource: text("plan_source"),
+  /** A manual plan ends here (back to Free); null = until revoked. */
+  planUntil: timestamp("plan_until", { withTimezone: true }),
+  /** Operator's note on a manual plan (why, deal, contact); never shown to the customer. */
+  planNote: text("plan_note"),
   /** created_at of the last applied Creem event: older (late or replayed) events are ignored. */
   creemEventAt: timestamp("creem_event_at", { withTimezone: true }),
   createdAt: createdAt(),

@@ -1526,7 +1526,9 @@
       },
       "translations": "Tłumaczenia AI",
       "fTranslations": "{n} tłumaczeń AI miesięcznie",
-      "fTranslationsUnlimited": "Nieograniczone tłumaczenia AI"
+      "fTranslationsUnlimited": "Nieograniczone tłumaczenia AI",
+      "manual": "Ten plan przyznał ci zespół Ozvi, bez opłat.",
+      "manualUntil": "Ten plan przyznał ci zespół Ozvi, bez opłat, do {date}. Potem przejdziesz na Free, jeśli nie kupisz planu."
     },
     "simulate": {
       "devOnly": "Tylko lokalne środowisko deweloperskie",

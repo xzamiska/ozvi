@@ -185,6 +185,8 @@ export async function applyCreemEvent(cfg: CreemConfig, ev: Event): Promise<stri
     : await db.query.workspaces.findFirst({ where: eq(schema.workspaces.creemSubscriptionId, sub.id) });
   if (!ws) return "unknown workspace";
   if (ws.plan === "self") return "self-hosted workspace";
+  // A plan the operator granted by hand stays until the owner buys one themselves (a new checkout).
+  if (ws.planSource === "manual" && ev.eventType !== "checkout.completed") return "manual plan, ignored";
   if (ws.creemSubscriptionId && ws.creemSubscriptionId !== sub.id && ev.eventType !== "checkout.completed") return "stale subscription";
   // A second checkout while one subscription still pays must not orphan it (the first would keep billing unseen).
   if (ev.eventType === "checkout.completed" && ws.creemSubscriptionId && ws.creemSubscriptionId !== sub.id && (ws.plan === "pro" || ws.plan === "studio")) {
@@ -206,6 +208,7 @@ export async function applyCreemEvent(cfg: CreemConfig, ev: Event): Promise<stri
     planPeriodEnd: sub.current_period_end_date ? new Date(sub.current_period_end_date) : ws.planPeriodEnd,
     planInterval: intervalForProduct(cfg, idOf(sub.product)) ?? ws.planInterval,
     creemSubscriptionId: sub.id,
+    planSource: "creem", planUntil: null,
     creemCustomerId: idOf(sub.customer) ?? ws.creemCustomerId,
     ...(at && !Number.isNaN(at.getTime()) && { creemEventAt: at }),
   }).where(eq(schema.workspaces.id, ws.id));

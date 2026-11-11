@@ -115,6 +115,14 @@ export default async function Billing({ params, searchParams }: { params: Promis
         )}
       </div>
 
+      {ws.planSource === "manual" && (ws.plan === "pro" || ws.plan === "studio") && (
+        <section aria-labelledby="sub-h" className="mb-10 grid gap-1 rounded-xl border bg-surface p-5 sm:p-6">
+          <h2 id="sub-h" className="text-[13px] font-semibold text-muted-foreground">{t("sub.title")}</h2>
+          <p className="text-[19px] font-semibold tracking-tight">{PLAN_NAME[curPlan]}</p>
+          <p className="flex items-center gap-1.5 text-[14px] text-muted-foreground"><CalendarClock className="size-4 shrink-0" aria-hidden />
+            {ws.planUntil ? t("manualUntil", { date: day(ws.planUntil, locale) }) : t("manual")}</p>
+        </section>
+      )}
       {paying && (
         <section aria-labelledby="sub-h" className="mb-10 grid gap-4 rounded-xl border bg-surface p-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-6">
           <div className="grid gap-1">

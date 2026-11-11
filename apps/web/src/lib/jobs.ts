@@ -7,6 +7,7 @@ import { retentionTick } from "./retention";
 import { embedPending } from "./similar";
 import { pivotPending } from "./translate";
 import { usageAlertsTick } from "./usage-alerts";
+import { expireManualPlans } from "./manual-plans";
 import { webhookTick } from "./webhooks";
 import { trackerTick } from "./tracker-sync";
 import { jiraPollTick } from "./jira";
@@ -35,6 +36,7 @@ export function startJobs(db: Db) {
     every(60_000, "translation pivots", () => pivotPending(db)),
     every(15 * 60_000, "team digest", () => teamDigests(db)),
     every(3_600_000, "usage alerts", () => usageAlertsTick(db)),
+    every(3_600_000, "manual plans", () => expireManualPlans(db)),
     // Retention (admin → Dáta): once a night per project, 02:00–06:00 Central European time.
     every(30 * 60_000, "retention", () => retentionTick(db)),
     // Sign-in codes and OAuth codes are short-lived; keep a day for debugging, then drop.

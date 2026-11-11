@@ -1526,7 +1526,9 @@
       },
       "translations": "KI-Übersetzungen",
       "fTranslations": "{n} KI-Übersetzungen pro Monat",
-      "fTranslationsUnlimited": "Unbegrenzte KI-Übersetzungen"
+      "fTranslationsUnlimited": "Unbegrenzte KI-Übersetzungen",
+      "manual": "Diesen Plan hat Ihnen das Ozvi-Team kostenlos freigeschaltet.",
+      "manualUntil": "Diesen Plan hat Ihnen das Ozvi-Team kostenlos bis {date} freigeschaltet. Danach wechseln Sie zu Free, sofern Sie keinen Plan kaufen."
     },
     "simulate": {
       "devOnly": "Nur lokale Entwicklung",

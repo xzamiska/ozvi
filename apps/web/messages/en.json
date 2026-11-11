@@ -1526,7 +1526,9 @@
       },
       "translations": "AI translations",
       "fTranslations": "{n} AI translations a month",
-      "fTranslationsUnlimited": "Unlimited AI translations"
+      "fTranslationsUnlimited": "Unlimited AI translations",
+      "manual": "The Ozvi team granted you this plan, free of charge.",
+      "manualUntil": "The Ozvi team granted you this plan, free of charge, until {date}. After that you move to Free unless you buy a plan."
     },
     "simulate": {
       "devOnly": "Local development only",

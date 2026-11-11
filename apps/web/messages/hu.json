@@ -1526,7 +1526,9 @@
       },
       "translations": "AI-fordítások",
       "fTranslations": "havi {n} AI-fordítás",
-      "fTranslationsUnlimited": "Korlátlan AI-fordítás"
+      "fTranslationsUnlimited": "Korlátlan AI-fordítás",
+      "manual": "Ezt a csomagot az Ozvi csapata adta, díjmentesen.",
+      "manualUntil": "Ezt a csomagot az Ozvi csapata adta, díjmentesen, {date}-ig. Utána Free-re váltasz, ha nem veszel csomagot."
     },
     "simulate": {
       "devOnly": "Csak helyi fejlesztéshez",
