@@ -17,9 +17,9 @@ services:
       # caddy hash-password; in .env write every $ as $$
       STAGING_AUTH_HASH: ${STAGING_AUTH_HASH:?set STAGING_AUTH_HASH}
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./sites:/etc/caddy/sites:ro
-      - ./sites-enabled:/etc/caddy/sites-enabled:ro
+      # The whole folder, not single files: a deploy replaces Caddyfile with a new file, and a
+      # single-file bind mount would keep showing the old one until the container is recreated.
+      - .:/etc/caddy:ro
       - caddy_data:/data
       - caddy_config:/config
     networks: [edge]
