@@ -2512,7 +2512,7 @@
         {
           "href": "#developers",
           "title": "Widget",
-          "text": "Ein Skript, Shadow DOM, 10,5 kB"
+          "text": "Ein Skript, Shadow DOM, unter 20 kB"
         },
         {
           "href": "#developers",
@@ -2611,7 +2611,7 @@
     },
     "spec": [
       {
-        "k": "10,5 kB",
+        "k": "< 20 kB",
         "v": "Widget, gzip-komprimiert. Läuft im Shadow DOM und berührt nie Ihre Styles oder Skripte."
       },
       {
@@ -2619,7 +2619,7 @@
         "v": "Anmeldung aus Ihrer App. Niemand muss ein weiteres Konto anlegen."
       },
       {
-        "k": "11 Tools",
+        "k": "17 Tools",
         "v": "MCP-Server für KI-Assistenten: Suche, Duplikate, Status, Release Notes."
       },
       {
@@ -2867,7 +2867,7 @@
         },
         "mcp": {
           "title": "Ein KI-Assistent in Ihrem Editor",
-          "text": "Ein MCP-Server mit 11 Werkzeugen. Schritte, die etwas zusammenführen oder veröffentlichen, warten auf Ihre Bestätigung.",
+          "text": "Ein MCP-Server mit 17 Werkzeugen. Schritte, die etwas zusammenführen oder veröffentlichen, warten auf Ihre Bestätigung.",
           "lines": [
             {
               "who": "you",

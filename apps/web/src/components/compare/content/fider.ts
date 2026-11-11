@@ -37,7 +37,7 @@ export const fider: PageContent = {
     table: {
       caption: "Porovnanie Ozvi a Fideru podľa funkcií",
       rows: [
-        { label: "Widget do aplikácie", ozvi: { text: "Jeden skript, 10,5 kB gzip, shadow DOM; aj ako React komponent", mark: "yes" }, them: { text: "Nie; požiadavka je otvorená od roku 2018 a od v0.38.2 sa Fider nedá vložiť ani do iframe", mark: "no" } },
+        { label: "Widget do aplikácie", ozvi: { text: "Jeden skript, menej ako 20 kB gzip, shadow DOM; aj ako React komponent", mark: "yes" }, them: { text: "Nie; požiadavka je otvorená od roku 2018 a od v0.38.2 sa Fider nedá vložiť ani do iframe", mark: "no" } },
         { label: "Súkromné hlásenia chýb so screenshotom a chybami z konzoly", ozvi: { text: "Áno; hlásenie vidí len autor a tím, autor dostane e-mail, keď je opravené", mark: "yes" }, them: { text: "Nie; chyby sú bežné verejné príspevky", mark: "no" } },
         { label: "Prihlásenie z vašej aplikácie", ozvi: { text: "Podpísaný token (HS256) alebo OIDC; používateľ sa prihlási sám", mark: "yes" }, them: { text: "Len ak sa vaša appka stane OAuth/OIDC poskytovateľom; automatické prihlásenie chýba", mark: "partial" } },
         { label: "Obmedzenie počtu hlasov", ozvi: { text: "Áno, aj hlasovanie podľa dôležitosti", mark: "yes" }, them: { text: "Nie; najžiadanejšia funkcia na ich boarde (155 hlasov od roku 2017)", mark: "no" } },
@@ -103,7 +103,7 @@ export const fider: PageContent = {
     table: {
       caption: "Ozvi and Fider compared by feature",
       rows: [
-        { label: "Widget for your app", ozvi: { text: "One script, 10.5 kB gzip, shadow DOM; also as a React component", mark: "yes" }, them: { text: "No; the request has been open since 2018, and since v0.38.2 Fider cannot be embedded in an iframe either", mark: "no" } },
+        { label: "Widget for your app", ozvi: { text: "One script, under 20 kB gzip, shadow DOM; also as a React component", mark: "yes" }, them: { text: "No; the request has been open since 2018, and since v0.38.2 Fider cannot be embedded in an iframe either", mark: "no" } },
         { label: "Private bug reports with screenshot and console errors", ozvi: { text: "Yes; only the reporter and the team see them, and the reporter is e-mailed when it is fixed", mark: "yes" }, them: { text: "No; bugs are ordinary public posts", mark: "no" } },
         { label: "Sign-in from your app", ozvi: { text: "Signed token (HS256) or OIDC; users are signed in automatically", mark: "yes" }, them: { text: "Only if your app becomes an OAuth/OIDC provider; automatic sign-in is missing", mark: "partial" } },
         { label: "Vote limits", ozvi: { text: "Yes, plus voting by importance", mark: "yes" }, them: { text: "No; the most wanted request on its board (155 votes since 2017)", mark: "no" } },

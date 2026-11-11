@@ -2512,7 +2512,7 @@
         {
           "href": "#developers",
           "title": "Widżet",
-          "text": "Jeden skrypt, shadow DOM, 10,5 kB"
+          "text": "Jeden skrypt, shadow DOM, do 20 kB"
         },
         {
           "href": "#developers",
@@ -2611,7 +2611,7 @@
     },
     "spec": [
       {
-        "k": "10,5 kB",
+        "k": "< 20 kB",
         "v": "Widżet po kompresji gzip. Działa w shadow DOM i nigdy nie rusza twoich stylów ani skryptów."
       },
       {
@@ -2619,7 +2619,7 @@
         "v": "Logowanie z twojej aplikacji. Użytkownicy nie zakładają kolejnego konta."
       },
       {
-        "k": "11 narzędzi",
+        "k": "17 narzędzi",
         "v": "Serwer MCP dla asystentów AI: wyszukiwanie, duplikaty, statusy, informacje o wydaniach."
       },
       {
@@ -2867,7 +2867,7 @@
         },
         "mcp": {
           "title": "Asystent AI w twoim edytorze",
-          "text": "Serwer MCP z 11 narzędziami. Kroki, które coś scalają lub publikują, czekają na twoje potwierdzenie.",
+          "text": "Serwer MCP z 17 narzędziami. Kroki, które coś scalają lub publikują, czekają na twoje potwierdzenie.",
           "lines": [
             {
               "who": "you",

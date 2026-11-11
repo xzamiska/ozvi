@@ -2512,7 +2512,7 @@
         {
           "href": "#developers",
           "title": "Widget",
-          "text": "One script, shadow DOM, 10.5 kB"
+          "text": "One script, shadow DOM, under 20 kB"
         },
         {
           "href": "#developers",
@@ -2611,7 +2611,7 @@
     },
     "spec": [
       {
-        "k": "10.5 kB",
+        "k": "< 20 kB",
         "v": "Widget, gzipped. Runs in shadow DOM and never touches your styles or scripts."
       },
       {
@@ -2619,7 +2619,7 @@
         "v": "Sign-in from your app. Users never create another account."
       },
       {
-        "k": "11 tools",
+        "k": "17 tools",
         "v": "MCP server for AI assistants: search, duplicates, statuses, release notes."
       },
       {
@@ -2867,7 +2867,7 @@
         },
         "mcp": {
           "title": "An AI assistant in your editor",
-          "text": "An MCP server with 11 tools. Steps that merge or publish something wait for your confirmation.",
+          "text": "An MCP server with 17 tools. Steps that merge or publish something wait for your confirmation.",
           "lines": [
             {
               "who": "you",

@@ -2512,7 +2512,7 @@
         {
           "href": "#developers",
           "title": "Widget",
-          "text": "Jeden skript, shadow DOM, 10,5 kB"
+          "text": "Jeden skript, shadow DOM, do 20 kB"
         },
         {
           "href": "#developers",
@@ -2611,7 +2611,7 @@
     },
     "spec": [
       {
-        "k": "10,5 kB",
+        "k": "< 20 kB",
         "v": "Widget po gzip. Beží v shadow DOM, vaše štýly ani skripty nemení."
       },
       {
@@ -2619,7 +2619,7 @@
         "v": "Prihlásenie z vašej aplikácie. Používateľ si nezakladá ďalší účet."
       },
       {
-        "k": "11 nástrojov",
+        "k": "17 nástrojov",
         "v": "MCP server pre AI asistentov: hľadanie, duplicity, stavy, novinky."
       },
       {
@@ -2867,7 +2867,7 @@
         },
         "mcp": {
           "title": "AI asistent vo vašom editore",
-          "text": "MCP server s 11 nástrojmi. Kroky, ktoré niečo zlúčia alebo zverejnia, čakajú na vaše potvrdenie.",
+          "text": "MCP server s 17 nástrojmi. Kroky, ktoré niečo zlúčia alebo zverejnia, čakajú na vaše potvrdenie.",
           "lines": [
             {
               "who": "you",

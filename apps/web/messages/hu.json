@@ -2512,7 +2512,7 @@
         {
           "href": "#developers",
           "title": "Widget",
-          "text": "Egy szkript, shadow DOM, 10,5 kB"
+          "text": "Egy szkript, shadow DOM, 20 kB alatt"
         },
         {
           "href": "#developers",
@@ -2611,7 +2611,7 @@
     },
     "spec": [
       {
-        "k": "10,5 kB",
+        "k": "< 20 kB",
         "v": "A widget gzippel tömörítve. Shadow DOM-ban fut, és soha nem nyúl a stílusaidhoz vagy szkriptjeidhez."
       },
       {
@@ -2619,7 +2619,7 @@
         "v": "Bejelentkezés az alkalmazásodból. A felhasználóknak soha nem kell újabb fiókot létrehozniuk."
       },
       {
-        "k": "11 eszköz",
+        "k": "17 eszköz",
         "v": "MCP-szerver AI-asszisztenseknek: keresés, duplikátumok, állapotok, kiadási jegyzetek."
       },
       {
@@ -2867,7 +2867,7 @@
         },
         "mcp": {
           "title": "MI-asszisztens a szerkesztődben",
-          "text": "MCP-szerver 11 eszközzel. Az összevonó vagy közzétevő lépések a te jóváhagyásodra várnak.",
+          "text": "MCP-szerver 17 eszközzel. Az összevonó vagy közzétevő lépések a te jóváhagyásodra várnak.",
           "lines": [
             {
               "who": "you",
