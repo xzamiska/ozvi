@@ -18,3 +18,7 @@ data
 .impeccable/review
 .impeccable/decision
 .impeccable/mocks
+
+# GitHub App keys written by scripts/create-github-app.mjs
+github-app.env
+*.github-app.env
