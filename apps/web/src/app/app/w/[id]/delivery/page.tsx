@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { ago, ConsoleHead } from "@/components/ozvi/console";
 import { EmptyState, Segments } from "@/components/ozvi/page";
@@ -83,7 +84,7 @@ export default async function Delivery({ params, searchParams }: { params: Promi
             {mails.map((m) => (
               <li key={m.id} className="grid gap-1 px-4 py-3 text-[13.5px]">
                 <div className="flex items-center justify-between gap-3"><Chip {...mail(m.status)} /><span className="text-[12.5px] text-muted-foreground">{at(m.at)}</span></div>
-                <div className="font-medium break-words">{m.subject}</div>
+                <Link href={`/app/w/${ws.id}/delivery/${m.id}`} className="font-medium break-words hover:underline">{m.subject}</Link>
                 <div className="text-[12.5px] break-all text-muted-foreground">{m.to}{multi ? `, ${m.project}` : ""}</div>
                 {m.error && m.status !== "sent" && <div className="mt-1 rounded-md bg-destructive/[0.06] px-2.5 py-1.5 font-mono text-[11.5px] break-words text-destructive">{m.error}</div>}
               </li>
@@ -101,7 +102,7 @@ export default async function Delivery({ params, searchParams }: { params: Promi
                     <td className="px-4 py-3 whitespace-nowrap text-muted-foreground" title={full(m.at)}>{at(m.at)}</td>
                     <td className="truncate px-4 py-3" title={m.to}>{m.to}</td>
                     <td className="px-4 py-3">
-                      <div className="truncate font-medium" title={m.subject}>{m.subject}</div>
+                      <Link href={`/app/w/${ws.id}/delivery/${m.id}`} className="block truncate font-medium hover:underline" title={m.subject}>{m.subject}</Link>
                       <div className="text-[12.5px] text-muted-foreground">{kind(m.kind)}</div>
                     </td>
                     {multi && <td className="truncate px-4 py-3 text-muted-foreground">{m.project}</td>}

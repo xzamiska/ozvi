@@ -5,7 +5,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 /* Landing: small live pieces (beams, incoming reports, an MCP session, a route). Every motion plays
-   once (beams three times) and stops; reduced motion sees the finished state. Styles: globals.css oz-live-*. */
+   once; the beams keep flowing (reports travel to Ozvi and on to the tools); reduced motion sees the finished state. Styles: globals.css oz-live-*. */
 
 const reduced = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -34,6 +34,9 @@ export function Beams({ left, right, hub, className }: { left: React.ReactNode[]
   const hubRef = useRef<HTMLDivElement>(null);
   const [paths, setPaths] = useState<{ d: string; side: "in" | "out" }[]>([]);
   const [size, setSize] = useState({ w: 0, h: 0 });
+  // Reduced motion keeps the still picture (lines only).
+  const [moving, setMoving] = useState(false);
+  useEffect(() => setMoving(!reduced()), []);
 
   useLayoutEffect(() => {
     const root = box.current, h = hubRef.current;
@@ -67,16 +70,27 @@ export function Beams({ left, right, hub, className }: { left: React.ReactNode[]
             <stop offset="1" stopColor="var(--oz-st-done)" />
           </linearGradient>
         </defs>
-        {paths.map((p, i) => (
-          <g key={i}>
-            <path d={p.d} stroke="var(--oz-line-strong)" strokeWidth="1.5" />
-            <path d={p.d} pathLength={100} stroke="url(#oz-beam)" strokeWidth="2.5" strokeLinecap="round"
-              className={cn("oz-live-beam", seen && "oz-live-beam-on")} style={{ animationDelay: `${(p.side === "out" ? 900 : 0) + (i % 4) * 220}ms` }} />
-          </g>
-        ))}
+        {paths.map((p, i) => {
+          // Reports travel in from the sources, then out to the tools: a continuous flow, staggered per line.
+          const k = p.side === "in" ? i : i - paths.filter((x) => x.side === "in").length;
+          const begin = `${(p.side === "out" ? 1.2 : 0) + k * 0.55}s`;
+          return (
+            <g key={i}>
+              <path d={p.d} stroke="var(--oz-line-strong)" strokeWidth="1.5" />
+              <path d={p.d} pathLength={100} stroke="url(#oz-beam)" strokeWidth="2.5" strokeLinecap="round"
+                className={cn("oz-live-beam", seen && "oz-live-beam-on")} style={{ animationDelay: begin }} />
+              {seen && moving && (
+                <circle r="4" fill={p.side === "in" ? "var(--oz-accent)" : "var(--oz-st-done)"} opacity="0">
+                  <animateMotion dur="2.4s" begin={begin} repeatCount="indefinite" path={p.d} keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" />
+                  <animate attributeName="opacity" dur="2.4s" begin={begin} repeatCount="indefinite" values="0;1;1;0" keyTimes="0;.12;.85;1" />
+                </circle>
+              )}
+            </g>
+          );
+        })}
       </svg>
       <ul className="relative grid gap-4 justify-self-end">{left.map((n, i) => <li key={i} data-beam="in">{n}</li>)}</ul>
-      <div ref={hubRef} className="relative">{hub}</div>
+      <div ref={hubRef} className={cn("relative", seen && moving && "oz-live-hub")}>{hub}</div>
       <ul className="relative grid gap-4 justify-self-start">{right.map((n, i) => <li key={i} data-beam="out">{n}</li>)}</ul>
     </div>
   );

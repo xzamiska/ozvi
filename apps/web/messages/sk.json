@@ -260,7 +260,7 @@
       "done": "Hotovo",
       "sso": {
         "title": "Prepojte prihlásenie",
-        "text": "Zapnite SSO (aplikácia podpíše používateľa) alebo OIDC. Dovtedy sa ľudia prihlasujú kódom z e-mailu."
+        "text": "Zapnite SSO (aplikácia podpíše používateľa) alebo OIDC. Dovtedy sa na board dá prihlásiť len e-mailom, ak ho zapnete v sekcii Projekt."
       },
       "origin": {
         "title": "Povoľte adresu aplikácie",
@@ -429,13 +429,13 @@
         "name": "Názov projektu",
         "nameHint": "Zobrazuje sa v hlavičke boardu a v e-mailoch.",
         "publicTitle": "Nápady vidí každý",
-        "publicText": "Aj neprihlásení návštevníci si môžu prečítať nápady, roadmapu a novinky. Hlasovať môžu len prihlásení.",
+        "publicText": "Zapnuté: nápady, roadmapu a novinky si prečíta ktokoľvek, aj bez prihlásenia; hlasovať a písať môžu len prihlásení. Vypnuté: board uvidia len prihlásení ľudia. Hlásenia chýb sú súkromné vždy.",
         "emailTitle": "Prihlásenie e-mailom",
-        "emailText": "Kód alebo odkaz do schránky, pre ľudí, ktorí nemajú účet v aplikácii.",
-        "loginUrl": "Adresa prihlásenia v aplikácii",
-        "loginUrlHint": "Sem pošleme neprihlásených. Pridáme parameter ozvi_return, aby ste ich vedeli vrátiť späť.",
-        "origins": "Stránky, ktoré môžu vložiť widget",
-        "originsHint": "Jedna adresa na riadok, bez cesty, napr. https://app.billiwo.com.",
+        "emailText": "Zapnuté: na board sa dá prihlásiť aj bez účtu vo vašej aplikácii. Človek zadá e-mail a pošleme mu jednorazový kód alebo odkaz. Vypnuté: prihlásiť sa dá len cez vašu aplikáciu (SSO alebo OIDC).",
+        "loginUrl": "Kam poslať ľudí na prihlásenie",
+        "loginUrlHint": "Stránka vašej aplikácie, kam pošleme človeka, ktorý na boarde klikne na „Prihlásiť sa“. Pripojíme parameter ozvi_return s adresou, na ktorú ho po prihlásení vráťte. Prázdne: použije sa prihlásenie e-mailom, ak je zapnuté.",
+        "origins": "Adresy vašej aplikácie",
+        "originsHint": "Kde beží aplikácia, do ktorej vkladáte widget alebo roadmapu, napríklad https://app.billiwo.com. Jedna adresa na riadok, bez cesty. Na iných stránkach widget nebude fungovať.",
         "save": "Uložiť nastavenia"
       },
       "saving": "Ukladám…",
@@ -1395,7 +1395,12 @@
         "sent": "Doručený",
         "queued": "Čaká",
         "failed": "Zlyhal"
-      }
+      },
+      "backToList": "Späť na doručovanie",
+      "mailLede": "Presne to, čo dostal príjemca.",
+      "error": "Chyba",
+      "asHtml": "Ako e-mail",
+      "asText": "Textová verzia"
     },
     "people": {
       "title": "Tím",

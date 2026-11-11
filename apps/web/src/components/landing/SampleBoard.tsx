@@ -32,7 +32,11 @@ const IDEAS: { votes: number; status: IdeaStatus }[] = [{ votes: 41, status: "pl
 const BUGS: { n: number; status: "new" | "fixed"; v: string | null }[] = [{ n: 128, status: "fixed", v: "2.15" }, { n: 131, status: "new", v: null }];
 
 /** The sample board. `view`/`onView` let a parent (the landing's product tour) drive the tabs. */
-export function MiniBoard({ name, compact, view: shown, onView }: { name: string; compact: boolean; view?: View; onView?: (v: View) => void }) {
+export function MiniBoard({ name, compact, view: shown, onView, fit = false }: {
+  name: string; compact: boolean; view?: View; onView?: (v: View) => void;
+  /** As tall as its content (a still picture) instead of the fixed frame the interactive tour needs. */
+  fit?: boolean;
+}) {
   const t = useTranslations("playground.board");
   const locale = useLocale();
   const sample = (): Idea[] => (t.raw("ideas") as IdeaText[]).map((i, id) => ({ ...i, ...IDEAS[id]!, id, voted: false, comments: [...i.comments] }));
@@ -66,7 +70,7 @@ export function MiniBoard({ name, compact, view: shown, onView }: { name: string
   );
 
   return (
-    <div className="flex h-[520px] flex-col">
+    <div className={cn("flex flex-col", !fit && "h-[520px]")}>
       <div className="flex h-12 shrink-0 items-center gap-5 border-b bg-surface px-4">
         <span className="flex min-w-0 shrink-0 items-center gap-2">
           <span className="grid size-6 place-items-center bg-primary text-[11px] font-bold text-primary-foreground" style={{ borderRadius: "calc(var(--oz-radius) * 0.6)" }}>{name.charAt(0).toUpperCase()}</span>

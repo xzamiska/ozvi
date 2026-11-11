@@ -260,7 +260,7 @@
       "done": "Gotowe",
       "sso": {
         "title": "Podłącz logowanie",
-        "text": "Włącz SSO (twoja aplikacja podpisuje użytkownika) albo OIDC. Do tego czasu osoby logują się kodem wysłanym e-mailem."
+        "text": "Włącz SSO (aplikacja podpisuje użytkownika) albo OIDC. Do tego czasu do tablicy można się zalogować tylko e-mailem, jeśli włączysz go w sekcji Projekt."
       },
       "origin": {
         "title": "Zezwól na adres swojej aplikacji",
@@ -429,13 +429,13 @@
         "name": "Nazwa projektu",
         "nameHint": "Wyświetlana w nagłówku tablicy i w e-mailach.",
         "publicTitle": "Pomysły są publiczne",
-        "publicText": "Niezalogowani odwiedzający też mogą czytać pomysły, roadmapę i aktualizacje. Głosować mogą tylko zalogowani.",
+        "publicText": "Włączone: pomysły, roadmapę i nowości przeczyta każdy, także bez logowania; głosować i pisać mogą tylko zalogowani. Wyłączone: tablicę widzą tylko zalogowani. Zgłoszenia błędów są zawsze prywatne.",
         "emailTitle": "Logowanie e-mailem",
-        "emailText": "Kod lub link wysłany e-mailem, dla osób bez konta w twojej aplikacji.",
-        "loginUrl": "Adres logowania w twojej aplikacji",
-        "loginUrlHint": "Tam kierujemy niezalogowanych. Dodajemy parametr ozvi_return, żeby można było ich odesłać z powrotem.",
-        "origins": "Witryny, które mogą osadzać widżet",
-        "originsHint": "Jeden adres w wierszu, bez ścieżki, np. https://app.billiwo.com.",
+        "emailText": "Włączone: do tablicy można się zalogować bez konta w twojej aplikacji. Wystarczy podać e-mail, a wyślemy jednorazowy kod lub link. Wyłączone: logowanie działa tylko przez twoją aplikację (SSO lub OIDC).",
+        "loginUrl": "Dokąd kierować do logowania",
+        "loginUrlHint": "Strona twojej aplikacji, na którą wyślemy osobę klikającą „Zaloguj się” na tablicy. Dodamy parametr ozvi_return z adresem, na który ją po zalogowaniu odeślesz. Puste: użyte zostanie logowanie e-mailem, jeśli jest włączone.",
+        "origins": "Adresy twojej aplikacji",
+        "originsHint": "Gdzie działa aplikacja, w której osadzasz widget lub roadmapę, np. https://app.billiwo.com. Jeden adres w wierszu, bez ścieżki. Na innych stronach widget nie zadziała.",
         "save": "Zapisz ustawienia"
       },
       "saving": "Zapisywanie…",
@@ -1395,7 +1395,12 @@
         "sent": "Dostarczono",
         "queued": "W kolejce",
         "failed": "Nieudane"
-      }
+      },
+      "backToList": "Wróć do dostarczania",
+      "mailLede": "Dokładnie to, co dostał odbiorca.",
+      "error": "Błąd",
+      "asHtml": "Jako e-mail",
+      "asText": "Wersja tekstowa"
     },
     "people": {
       "title": "Zespół",

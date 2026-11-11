@@ -260,7 +260,7 @@
       "done": "Erledigt",
       "sso": {
         "title": "Anmeldung verbinden",
-        "text": "Aktivieren Sie SSO (Ihre App signiert die Person) oder OIDC. Bis dahin melden sich Personen mit einem per E-Mail gesendeten Code an."
+        "text": "Schalten Sie SSO (Ihre App meldet die Person an) oder OIDC ein. Bis dahin ist die Anmeldung am Board nur per E-Mail möglich, falls Sie sie unter Projekt einschalten."
       },
       "origin": {
         "title": "Adresse Ihrer App zulassen",
@@ -429,13 +429,13 @@
         "name": "Projektname",
         "nameHint": "Wird in der Kopfzeile des Boards und in E-Mails angezeigt.",
         "publicTitle": "Ideen sind öffentlich",
-        "publicText": "Auch nicht angemeldete Besucher können Ideen, die Roadmap und Neuigkeiten lesen. Abstimmen können nur angemeldete Personen.",
+        "publicText": "Ein: Ideen, Roadmap und Neuigkeiten kann jede Person lesen, auch ohne Anmeldung; abstimmen und schreiben können nur Angemeldete. Aus: Das Board sehen nur angemeldete Personen. Fehlermeldungen sind immer privat.",
         "emailTitle": "Anmeldung per E-Mail",
-        "emailText": "Ein per E-Mail gesendeter Code oder Link, für Personen ohne Konto in Ihrer App.",
-        "loginUrl": "Anmelde-URL in Ihrer App",
-        "loginUrlHint": "Wohin wir nicht angemeldete Personen schicken. Wir hängen den Parameter ozvi_return an, damit Sie sie zurückleiten können.",
-        "origins": "Websites, die das Widget einbetten dürfen",
-        "originsHint": "Eine Adresse pro Zeile, ohne Pfad, z. B. https://app.billiwo.com.",
+        "emailText": "Ein: Man kann sich am Board auch ohne Konto in Ihrer App anmelden. Die Person gibt ihre E-Mail ein und wir senden einen Einmalcode oder Link. Aus: Anmelden geht nur über Ihre App (SSO oder OIDC).",
+        "loginUrl": "Wohin Menschen zur Anmeldung geschickt werden",
+        "loginUrlHint": "Die Seite Ihrer App, zu der wir jemanden schicken, der am Board auf „Anmelden“ klickt. Wir hängen den Parameter ozvi_return an, mit der Adresse, zu der Sie die Person nach der Anmeldung zurückschicken. Leer: Es wird die Anmeldung per E-Mail genutzt, falls eingeschaltet.",
+        "origins": "Adressen Ihrer App",
+        "originsHint": "Wo die App läuft, in die Sie Widget oder Roadmap einbinden, z. B. https://app.billiwo.com. Eine Adresse pro Zeile, ohne Pfad. Auf anderen Seiten funktioniert das Widget nicht.",
         "save": "Einstellungen speichern"
       },
       "saving": "Wird gespeichert …",
@@ -1395,7 +1395,12 @@
         "sent": "Zugestellt",
         "queued": "In der Warteschlange",
         "failed": "Fehlgeschlagen"
-      }
+      },
+      "backToList": "Zurück zur Zustellung",
+      "mailLede": "Genau das, was die empfangende Person bekam.",
+      "error": "Fehler",
+      "asHtml": "Als E-Mail",
+      "asText": "Textversion"
     },
     "people": {
       "title": "Team",

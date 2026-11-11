@@ -123,3 +123,13 @@ export async function deliveriesOf(ws: ConsoleWorkspace, opts: { problems?: bool
 function safeHost(url: string) {
   try { return new URL(url).host; } catch { return url; }
 }
+
+/** One e-mail of the workspace in full (what the recipient got), looked up in each board's own scope. */
+export async function mailOf(ws: ConsoleWorkspace, mailId: string) {
+  if (!/^[0-9a-f-]{36}$/i.test(mailId)) return null;
+  for (const p of ws.projects) {
+    const row = await withProject(db, p.id, async (tx) => (await tx.select().from(schema.emails).where(eq(schema.emails.id, mailId)).limit(1))[0]);
+    if (row) return { ...row, project: p.name };
+  }
+  return null;
+}

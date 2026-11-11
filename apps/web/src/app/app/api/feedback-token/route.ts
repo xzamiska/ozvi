@@ -17,7 +17,8 @@ export async function GET() {
   if (!own?.project.ssoSecretEnc) return Response.json({ error: "no board" }, { status: 404 });
   const team = (process.env.OZVI_ADMIN_EMAILS ?? "").split(",").map((e) => e.trim().toLowerCase()).includes(account.email.toLowerCase());
   const token = signOzviToken(
-    { id: `console-${account.id}`, email: account.email, name: account.name ?? undefined, ...(team ? { role: "admin" } : {}) },
+    // The same id the console → board hand-off uses, so one person is one user there (admin or not).
+    { id: `email:${account.email.toLowerCase()}`, email: account.email, name: account.name ?? undefined, ...(team ? { role: "admin" } : {}) },
     decryptSecret(own.project.ssoSecretEnc),
   );
   return Response.json({ token }, { headers: { "cache-control": "no-store" } });

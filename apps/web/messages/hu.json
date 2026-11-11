@@ -260,7 +260,7 @@
       "done": "Kész",
       "sso": {
         "title": "Bejelentkezés bekötése",
-        "text": "Kapcsold be az SSO-t (az alkalmazásod aláírja a felhasználót) vagy az OIDC-t. Addig a felhasználók e-mailben kapott kóddal jelentkeznek be."
+        "text": "Kapcsold be az SSO-t (az alkalmazás írja alá a felhasználót) vagy az OIDC-t. Addig a táblára csak e-maillel lehet bejelentkezni, ha bekapcsolod a Projekt részben."
       },
       "origin": {
         "title": "Engedélyezd az alkalmazásod címét",
@@ -429,13 +429,13 @@
         "name": "Projekt neve",
         "nameHint": "A tábla fejlécében és az e-mailekben jelenik meg.",
         "publicTitle": "Az ötletek nyilvánosak",
-        "publicText": "A be nem jelentkezett látogatók is olvashatják az ötleteket, az ütemtervet és az újdonságokat. Szavazni csak bejelentkezve lehet.",
+        "publicText": "Bekapcsolva: az ötleteket, az ütemtervet és az újdonságokat bárki olvashatja, bejelentkezés nélkül is; szavazni és írni csak bejelentkezve lehet. Kikapcsolva: a táblát csak bejelentkezett emberek látják. A hibajelentések mindig privátak.",
         "emailTitle": "E-mailes bejelentkezés",
-        "emailText": "E-mailben küldött kód vagy link azoknak, akiknek nincs fiókjuk az alkalmazásodban.",
-        "loginUrl": "Bejelentkezési URL az alkalmazásodban",
-        "loginUrlHint": "Ide küldjük a be nem jelentkezett felhasználókat. Hozzáadunk egy ozvi_return paramétert, hogy visszaküldhesd őket.",
-        "origins": "A widget beágyazására jogosult webhelyek",
-        "originsHint": "Soronként egy cím, útvonal nélkül, pl. https://app.billiwo.com.",
+        "emailText": "Bekapcsolva: a táblára az alkalmazásodbeli fiók nélkül is be lehet jelentkezni. Az illető megadja az e-mail-címét, mi pedig egyszeri kódot vagy linket küldünk. Kikapcsolva: csak az alkalmazásodon keresztül (SSO vagy OIDC) lehet bejelentkezni.",
+        "loginUrl": "Hová küldjük az embereket bejelentkezni",
+        "loginUrlHint": "Az alkalmazásod oldala, ahová azt küldjük, aki a táblán a „Bejelentkezés” gombra kattint. Hozzáadjuk az ozvi_return paramétert azzal a címmel, ahová bejelentkezés után vissza kell küldeni. Üresen: az e-mailes bejelentkezés lesz használva, ha be van kapcsolva.",
+        "origins": "Az alkalmazásod címei",
+        "originsHint": "Ahol az az alkalmazás fut, amelybe a widgetet vagy az ütemtervet beteszed, pl. https://app.billiwo.com. Soronként egy cím, útvonal nélkül. Más oldalakon a widget nem fog működni.",
         "save": "Beállítások mentése"
       },
       "saving": "Mentés…",
@@ -1395,7 +1395,12 @@
         "sent": "Kézbesítve",
         "queued": "Sorban",
         "failed": "Sikertelen"
-      }
+      },
+      "backToList": "Vissza a kézbesítéshez",
+      "mailLede": "Pontosan az, amit a címzett kapott.",
+      "error": "Hiba",
+      "asHtml": "E-mailként",
+      "asText": "Szöveges változat"
     },
     "people": {
       "title": "Csapat",

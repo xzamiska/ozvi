@@ -11,8 +11,11 @@ import { db } from "./db";
 export async function userFromToken(project: Project, token: string) {
   if (!project.ssoSecretEnc) throw new Error("SSO is not configured for this project");
   const claims: OzviClaims = verifyOzviToken(token, decryptSecret(project.ssoSecretEnc));
-  // "email:" ids belong to e-mail sign-in and workspace owners; a host app must not be able to claim them.
-  if (/^(email|account):/i.test(claims.id)) throw new Error("SSO user id must not start with email: or account:");
+  // "email:" ids belong to e-mail sign-in and workspace owners; a host app must not be able to claim them
+  // (an app account opened with someone else's address would take over their board account). The one
+  // exception is Ozvi's own board: its tokens come from the console, for an address the console verified.
+  const ownBoard = process.env.OZVI_MODE === "cloud" && !!process.env.OZVI_FEEDBACK_PROJECT && project.slug === process.env.OZVI_FEEDBACK_PROJECT.trim();
+  if (/^account:/i.test(claims.id) || (/^email:/i.test(claims.id) && !ownBoard)) throw new Error("SSO user id must not start with email: or account:");
   // The host app may force the user's language; honoured only when the board offers it.
   const locale = isLocale(claims.locale) && boardLocales(project).allowed.includes(claims.locale) ? claims.locale : null;
   const values = {

@@ -260,7 +260,7 @@
       "done": "Done",
       "sso": {
         "title": "Connect sign-in",
-        "text": "Turn on SSO (your app signs the user) or OIDC. Until then, people sign in with a code sent by e-mail."
+        "text": "Turn on SSO (your app signs the user in) or OIDC. Until then, people can only sign in to the board by e-mail, if you turn it on under Project."
       },
       "origin": {
         "title": "Allow your app’s address",
@@ -429,13 +429,13 @@
         "name": "Project name",
         "nameHint": "Shown in the board header and in e-mails.",
         "publicTitle": "Ideas are public",
-        "publicText": "Signed-out visitors can read ideas, the roadmap and updates too. Only signed-in people can vote.",
+        "publicText": "On: anyone can read ideas, the roadmap and news, signed in or not; only signed-in people can vote and write. Off: only signed-in people see the board. Bug reports are always private.",
         "emailTitle": "E-mail sign-in",
-        "emailText": "A code or link sent by e-mail, for people without an account in your app.",
-        "loginUrl": "Sign-in URL in your app",
-        "loginUrlHint": "Where we send signed-out people. We add an ozvi_return parameter so you can send them back.",
-        "origins": "Sites allowed to embed the widget",
-        "originsHint": "One address per line, no path, e.g. https://app.billiwo.com.",
+        "emailText": "On: people can sign in to the board without an account in your app. They enter their e-mail and we send a one-time code or link. Off: signing in only works through your app (SSO or OIDC).",
+        "loginUrl": "Where to send people to sign in",
+        "loginUrlHint": "The page of your app we send someone to when they click “Sign in” on the board. We add an ozvi_return parameter with the address to send them back to after signing in. Empty: e-mail sign-in is used, if it's on.",
+        "origins": "Your app's addresses",
+        "originsHint": "Where the app you put the widget or roadmap into runs, e.g. https://app.billiwo.com. One address per line, no path. The widget won't work on other sites.",
         "save": "Save settings"
       },
       "saving": "Saving…",
@@ -1395,7 +1395,12 @@
         "sent": "Delivered",
         "queued": "Queued",
         "failed": "Failed"
-      }
+      },
+      "backToList": "Back to delivery",
+      "mailLede": "Exactly what the recipient got.",
+      "error": "Error",
+      "asHtml": "As e-mail",
+      "asText": "Plain text"
     },
     "people": {
       "title": "Team",

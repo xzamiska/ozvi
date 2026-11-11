@@ -181,7 +181,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             <StickySteps steps={(t.raw("steps") as { title: string; text: string }[]).map((s, i) => ({ ...s, panel: [
               <div key="s" className="rounded-2xl border bg-surface p-5 sm:p-6"><ReportStream items={(t.raw("features.tiles.stream.items") as { title: string; meta: string }[]).map((r, k) => ({ ...r, n: 126 + k, tone: k < 3 ? "bug" as const : "idea" as const }))} /></div>,
               <div key="t" className={hostPanel}><TeamDesk /></div>,
-              <div key="i" inert className={cn(hostPanel, "pointer-events-none select-none")}><MiniBoard name={t("product.app")} compact={false} view="roadmap" /></div>,
+              <div key="i" inert className={cn(hostPanel, "pointer-events-none select-none")}><MiniBoard name={t("product.app")} compact={false} view="roadmap" fit /></div>,
               <div key="b" className="grid gap-6">
                 <div className="overflow-x-auto pb-1 [scrollbar-width:none]"><Beams className="min-w-[560px]"
                   left={(t.raw("flow.sources") as string[]).map((l, k) => { const Icon = [MessageSquare, Mail, Code, Bot][k]!; return <span key={l} className={flowChip}><Icon className="size-4 text-brand-text" aria-hidden />{l}</span>; })}

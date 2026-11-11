@@ -239,11 +239,13 @@
 @keyframes oz-live-fill { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @keyframes oz-live-stop { to { background: var(--oz-st-done); border-color: var(--oz-st-done); box-shadow: 0 0 0 4px color-mix(in oklab, var(--oz-st-done) 20%, transparent); } }
 @keyframes oz-live-blink { 50% { opacity: 0; } }
+@keyframes oz-live-hub { 0%, 100% { transform: scale(1); } 45% { transform: scale(1.06); filter: drop-shadow(0 0 18px color-mix(in oklab, var(--oz-accent) 45%, transparent)); } }
 .oz-live-beam { stroke-dasharray: 12 100; stroke-dashoffset: 112; opacity: 0; }
 .oz-live-fill { transform: scaleY(0); }
 .oz-live-caret { display: inline-block; width: .55em; height: 1.05em; margin-left: 1px; vertical-align: -2px; background: currentColor; }
 @media (prefers-reduced-motion: no-preference) {
-  .oz-live-beam-on { opacity: 1; animation: oz-live-dash 2.2s cubic-bezier(.45, 0, .55, 1) 3 both; }
+  .oz-live-beam-on { opacity: 1; animation: oz-live-dash 2.4s cubic-bezier(.45, 0, .55, 1) infinite both; }
+  .oz-live-hub { animation: oz-live-hub 2.4s ease-in-out 1.1s infinite; }
   .oz-live-pop { animation: oz-live-pop .55s cubic-bezier(.16, 1, .3, 1) both; }
   .oz-live-fill-on { animation: oz-live-fill .45s ease-out both; }
   .oz-live-stop-on { animation: oz-live-stop .3s ease-out both; }

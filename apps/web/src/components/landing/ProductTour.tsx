@@ -3,7 +3,7 @@
 import { parseTheme, toCss } from "@ozvi/theme";
 import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ACCENTS, BASES, MiniBoard, type View } from "./SampleBoard";
 import { TeamDesk } from "./TeamDesk";
@@ -84,9 +84,30 @@ export function ProductTour() {
           </span>
         </div>
         <div id="tour-panel" role="tabpanel" aria-labelledby={`tour-${part}`} className="tour-board oz-scope overflow-hidden rounded-xl border bg-background font-sans text-foreground shadow-[0_20px_50px_-30px_rgb(13_12_20/0.35)] transition-colors">
-          {part === "team" ? <TeamDesk /> : <MiniBoard name={t("product.app")} compact={false} view={part} onView={setPart} />}
+          <AutoHeight>{part === "team" ? <TeamDesk /> : <MiniBoard name={t("product.app")} compact={false} view={part} onView={setPart} fit />}</AutoHeight>
         </div>
       </div>
+    </div>
+  );
+}
+
+/**
+ * As tall as what it shows, and when that changes (another tab, an opened idea) the height glides
+ * instead of jumping. Reduced motion: no glide.
+ */
+function AutoHeight({ children }: { children: React.ReactNode }) {
+  const inner = useRef<HTMLDivElement>(null);
+  const [h, setH] = useState<number | null>(null);
+  useEffect(() => {
+    const el = inner.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setH(el.offsetHeight));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div style={{ height: h ?? undefined }} className="overflow-hidden transition-[height] duration-300 ease-out motion-reduce:transition-none">
+      <div ref={inner}>{children}</div>
     </div>
   );
 }
