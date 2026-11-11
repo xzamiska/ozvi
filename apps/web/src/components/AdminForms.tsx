@@ -10,8 +10,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { useTranslations } from "next-intl";
-import { LOCALE_NAME, LOCALES } from "@/i18n/locales";
+import { useLocale, useTranslations } from "next-intl";
+import { LOCALE_NAME, LOCALE_TAG, LOCALES, type Locale } from "@/i18n/locales";
 import { rotateSecret, saveLanguages, saveMcpLockdown, saveSections, saveSettings, type AdminState } from "@/lib/admin-actions";
 import { SECTIONS, type Section } from "@/lib/sections";
 import { Field, hint, noFill, panel, Result, SecretBox } from "./settings";
@@ -185,6 +185,7 @@ export function LanguagesForm({ slug, defaultLocale, locales, translationMode = 
 }) {
   const all = useTranslations("admin");
   const t = useTranslations("admin.languages");
+  const uiLocale = useLocale();
   const [def, setDef] = useState(defaultLocale);
   const [state, action, pending] = useActionState((p: AdminState, f: FormData) => saveLanguages(slug, p, f), {});
   return (
@@ -219,7 +220,7 @@ export function LanguagesForm({ slug, defaultLocale, locales, translationMode = 
       <fieldset className="grid gap-2.5" disabled={!aiReady}>
         <legend className="mb-1 text-[14px] font-semibold">{t("translation")}</legend>
         <p className={hint} id="lang-translation-hint">{aiReady ? t("translationHint") : t("translationNoAi")}</p>
-        {aiReady && allowance && <p className={hint}>{t("allowance", { used: allowance.used.toLocaleString(), limit: allowance.limit.toLocaleString() })}</p>}
+        {aiReady && allowance && <p className={hint}>{t("allowance", { used: allowance.used.toLocaleString(LOCALE_TAG[uiLocale as Locale] ?? "sk-SK"), limit: allowance.limit.toLocaleString(LOCALE_TAG[uiLocale as Locale] ?? "sk-SK") })}</p>}
         <RadioGroup name="translationMode" defaultValue={aiReady ? translationMode : "off"} disabled={!aiReady} aria-describedby="lang-translation-hint" className="grid gap-3">
           {(["off", "on_demand", "auto"] as const).map((m) => (
             <div key={m} className="flex items-start gap-2.5">
