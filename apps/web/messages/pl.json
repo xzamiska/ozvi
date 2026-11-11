@@ -1557,7 +1557,15 @@
       "saving": "Zapisuję…",
       "saved": "Nazwa przestrzeni zapisana.",
       "nameLength": "Nazwa musi mieć od 2 do 60 znaków.",
-      "ownerOnly": "Nazwę zmienia właściciel przestrzeni."
+      "ownerOnly": "Nazwę zmienia właściciel przestrzeni.",
+      "danger": "Usunięcie przestrzeni",
+      "deleteText": "Trwale usuwa przestrzeń ze wszystkimi projektami: pomysłami, zgłoszeniami błędów, komentarzami, załącznikami, osobami i zaproszeniami. Członkowie stracą dostęp. Nie da się tego cofnąć.",
+      "deleteBlocked": "Przestrzeń ma płatną subskrypcję. Najpierw ją anuluj w sekcji Plan i wykorzystanie; po zakończeniu okresu usuniesz przestrzeń.",
+      "deleteConfirm": "Aby potwierdzić, wpisz nazwę przestrzeni:",
+      "deleteButton": "Usuń przestrzeń na stałe",
+      "deleting": "Usuwam…",
+      "deleteTypeName": "Wpisz dokładną nazwę przestrzeni.",
+      "deleted": "Przestrzeń została usunięta."
     }
   },
   "release": {

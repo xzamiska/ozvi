@@ -232,6 +232,25 @@ export async function deletionPlan(accountId: string, locale: Locale = DEFAULT_L
   return plan;
 }
 
+/**
+ * Deletes a workspace the account owns: every project with its files, members, invites and activity go
+ * with it (cascades). Not while a paid Creem subscription runs (cancel it first, it would keep billing);
+ * a plan granted by hand ends with the workspace.
+ */
+export async function deleteWorkspace(account: Account, workspaceId: string): Promise<{ name: string; projects: number }> {
+  await requireOwner(account, workspaceId);
+  const [ws] = await db.select().from(workspaces).where(eq(workspaces.id, workspaceId));
+  if (!ws) throw new WorkspaceError("no_workspace");
+  if (ws.plan !== "free" && ws.plan !== "self" && ws.planSource !== "manual" && PAYING.has(ws.planStatus ?? "")) {
+    throw new WorkspaceError("subscription", ws.name);
+  }
+  const projects = await db.select().from(schema.projects).where(eq(schema.projects.workspaceId, ws.id));
+  for (const p of projects) await deleteProject(p);
+  await db.delete(workspaces).where(eq(workspaces.id, ws.id));
+  console.info(`[ozvi] workspace ${ws.id} (${projects.length} projects) deleted by ${account.id}`);
+  return { name: ws.name, projects: projects.length };
+}
+
 /** Deletes the account: its solo workspaces with every project and file, memberships elsewhere, open codes. */
 export async function deleteAccount(account: Account) {
   const plan = await deletionPlan(account.id);

@@ -14,7 +14,7 @@ import { consumeEmailChange, EMAIL, issueEmailChange, LoginError, normalizeEmail
 import { publicUrl } from "./email/url";
 import { allow } from "./ratelimit";
 import {
-  acceptInvite, applyEmailChange, deleteAccount, invite, removeMember, requireOwner, revokeInvite, setRole, signOutEverywhere,
+  acceptInvite, applyEmailChange, deleteAccount, deleteWorkspace, invite, removeMember, requireOwner, revokeInvite, setRole, signOutEverywhere,
   WorkspaceError, type WorkspaceRole,
 } from "./workspace";
 
@@ -161,6 +161,23 @@ export async function confirmEmailChangeAction(token: string) {
     throw e;
   }
   redirect("/app/account?changed=1");
+}
+
+/** Owner only, confirmed by typing the workspace's name. Then the console's first other workspace (or a new one). */
+export async function deleteWorkspaceAction(workspaceId: string, _: FormState, form: FormData): Promise<FormState> {
+  const account = await me();
+  const { locale } = await msg();
+  const t = await getTranslations({ locale, namespace: "console.settings" });
+  if (!UUID.test(workspaceId)) return { error: new WorkspaceError("no_workspace").text(locale) };
+  const [ws] = await db.select({ name: schema.workspaces.name }).from(schema.workspaces).where(eq(schema.workspaces.id, workspaceId));
+  if (!ws) return { error: new WorkspaceError("no_workspace").text(locale) };
+  if (String(form.get("confirm") ?? "").replace(/\s+/g, " ").trim() !== ws.name) return { error: t("deleteTypeName") };
+  try { await deleteWorkspace(account, workspaceId); } catch (e) {
+    if (e instanceof WorkspaceError) return { error: e.text(locale) };
+    throw e;
+  }
+  revalidatePath("/app", "layout");
+  redirect("/app?workspaceDeleted=1");
 }
 
 export async function signOutEverywhereAction() {

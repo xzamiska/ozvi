@@ -1557,7 +1557,15 @@
       "saving": "Saving…",
       "saved": "The workspace name is saved.",
       "nameLength": "The name needs 2 to 60 characters.",
-      "ownerOnly": "The workspace owner changes the name."
+      "ownerOnly": "The workspace owner changes the name.",
+      "danger": "Delete workspace",
+      "deleteText": "Permanently deletes the workspace with every project: ideas, bug reports, comments, attachments, people and invites. Members lose access. This cannot be undone.",
+      "deleteBlocked": "The workspace has a paid subscription. Cancel it under Plan and usage first; once the period ends you can delete the workspace.",
+      "deleteConfirm": "To confirm, type the workspace name:",
+      "deleteButton": "Delete workspace permanently",
+      "deleting": "Deleting…",
+      "deleteTypeName": "Type the exact workspace name.",
+      "deleted": "The workspace is deleted."
     }
   },
   "release": {

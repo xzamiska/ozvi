@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { WorkspaceNameForm } from "@/components/AccountForms";
+import { DeleteWorkspaceForm, WorkspaceNameForm } from "@/components/AccountForms";
 import { ConsoleHead } from "@/components/ozvi/console";
 import { Panel } from "@/components/ozvi/page";
 import { getAccount } from "@/lib/account";
@@ -19,6 +19,8 @@ export default async function WorkspaceSettings({ params }: { params: Promise<{ 
   if (!ws) notFound();
   const t = await getTranslations("console.settings");
   const owner = ws.role === "owner";
+  // A running paid subscription blocks deletion (it would keep billing); same rule as lib/workspace.ts.
+  const paying = ws.plan !== "free" && ws.plan !== "self" && ws.planSource !== "manual" && ["active", "trialing", "paid", "past_due"].includes(ws.planStatus ?? "");
   return (
     <div>
       <ConsoleHead title={t("title")} lede={t("lede")} />
@@ -34,6 +36,14 @@ export default async function WorkspaceSettings({ params }: { params: Promise<{ 
           )}
         </Panel>
       </section>
+      {owner && (
+        <section aria-labelledby="ws-danger" className="mt-10 grid gap-3">
+          <h2 id="ws-danger" className="text-[15px] font-semibold tracking-tight text-destructive">{t("danger")}</h2>
+          <Panel>
+            <DeleteWorkspaceForm workspaceId={ws.id} name={ws.name} blocked={paying} />
+          </Panel>
+        </section>
+      )}
     </div>
   );
 }

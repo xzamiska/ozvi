@@ -1557,7 +1557,15 @@
       "saving": "Wird gespeichert…",
       "saved": "Der Name des Arbeitsbereichs ist gespeichert.",
       "nameLength": "Der Name braucht 2 bis 60 Zeichen.",
-      "ownerOnly": "Den Namen ändert die Inhaberin oder der Inhaber des Arbeitsbereichs."
+      "ownerOnly": "Den Namen ändert die Inhaberin oder der Inhaber des Arbeitsbereichs.",
+      "danger": "Arbeitsbereich löschen",
+      "deleteText": "Löscht den Arbeitsbereich dauerhaft mit allen Projekten: Ideen, Fehlermeldungen, Kommentare, Anhänge, Personen und Einladungen. Mitglieder verlieren den Zugriff. Das lässt sich nicht rückgängig machen.",
+      "deleteBlocked": "Der Arbeitsbereich hat ein bezahltes Abonnement. Kündigen Sie es zuerst unter Plan und Nutzung; nach Ablauf des Zeitraums können Sie den Arbeitsbereich löschen.",
+      "deleteConfirm": "Geben Sie zur Bestätigung den Namen des Arbeitsbereichs ein:",
+      "deleteButton": "Arbeitsbereich endgültig löschen",
+      "deleting": "Wird gelöscht…",
+      "deleteTypeName": "Geben Sie den genauen Namen des Arbeitsbereichs ein.",
+      "deleted": "Der Arbeitsbereich ist gelöscht."
     }
   },
   "release": {

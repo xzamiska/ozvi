@@ -1557,7 +1557,15 @@
       "saving": "Ukladám…",
       "saved": "Názov priestoru je uložený.",
       "nameLength": "Názov musí mať 2 až 60 znakov.",
-      "ownerOnly": "Názov mení vlastník priestoru."
+      "ownerOnly": "Názov mení vlastník priestoru.",
+      "danger": "Zmazanie priestoru",
+      "deleteText": "Natrvalo zmaže priestor so všetkými projektmi: nápady, hlásenia chýb, komentáre, prílohy, ľudí a pozvánky. Členovia stratia prístup. Vrátiť sa to nedá.",
+      "deleteBlocked": "Priestor má platené predplatné. Najprv ho zrušte v časti Plán a využitie; po skončení obdobia priestor zmažete.",
+      "deleteConfirm": "Na potvrdenie napíšte názov priestoru:",
+      "deleteButton": "Zmazať priestor natrvalo",
+      "deleting": "Mažem…",
+      "deleteTypeName": "Napíšte presný názov priestoru.",
+      "deleted": "Priestor je zmazaný."
     }
   },
   "release": {

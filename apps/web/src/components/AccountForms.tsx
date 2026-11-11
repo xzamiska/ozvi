@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-  deleteAccountAction, inviteAction, renameAction, requestEmailChangeAction, type FormState, renameWorkspaceAction } from "@/lib/account-actions";
+  deleteAccountAction, deleteWorkspaceAction, inviteAction, renameAction, requestEmailChangeAction, type FormState, renameWorkspaceAction } from "@/lib/account-actions";
 import { signOutApp } from "@/lib/app-actions";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
@@ -144,6 +144,32 @@ export function WorkspaceNameForm({ workspaceId, name }: { workspaceId: string; 
       </div>
       <Status state={state} />
       <div><Button type="submit" disabled={pending} aria-busy={pending || undefined}>{pending ? t("saving") : t("save")}</Button></div>
+    </form>
+  );
+}
+
+/** Deleting a workspace: typed name, destructive button; blocked while a paid subscription runs. */
+export function DeleteWorkspaceForm({ workspaceId, name, blocked }: { workspaceId: string; name: string; blocked: boolean }) {
+  const [state, action, pending] = useActionState<FormState, FormData>((p, f) => deleteWorkspaceAction(workspaceId, p, f), {});
+  const [typed, setTyped] = useState("");
+  const t = useTranslations("console.settings");
+  const match = typed.replace(/\s+/g, " ").trim() === name;
+  return (
+    <form action={action} className="grid gap-3 p-4 sm:p-5">
+      <p className="max-w-[64ch] text-[14px] leading-relaxed text-muted-foreground">{blocked ? t("deleteBlocked") : t("deleteText")}</p>
+      <div className="grid gap-2">
+        <Label htmlFor="ws-confirm" className={cn(labelCls, "block leading-snug")}>
+          {t("deleteConfirm")} <code className="rounded bg-muted px-1 py-0.5 font-mono text-[13px] font-medium break-all">{name}</code>
+        </Label>
+        <Input id="ws-confirm" name="confirm" autoComplete="off" spellCheck={false} disabled={blocked} value={typed}
+          onChange={(e) => setTyped(e.target.value)} className="h-10 bg-surface sm:max-w-sm" />
+      </div>
+      <Status state={state} />
+      <div>
+        <Button type="submit" variant="destructive" disabled={pending || blocked || !match} aria-busy={pending || undefined}>
+          {pending ? t("deleting") : t("deleteButton")}
+        </Button>
+      </div>
     </form>
   );
 }

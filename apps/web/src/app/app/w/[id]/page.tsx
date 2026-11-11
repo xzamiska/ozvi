@@ -17,9 +17,10 @@ export const generateMetadata = consoleTitle("overview");
 
 export const dynamic = "force-dynamic";
 
-export default async function Overview({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ created?: string }> }) {
+export default async function Overview({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ created?: string; workspaceDeleted?: string }> }) {
   const { id } = await params;
-  const { created } = await searchParams;
+  const { created, workspaceDeleted } = await searchParams;
+  const tSet = await getTranslations("console.settings");
   const account = await getAccount();
   if (!account) redirect("/app/login");
   const ws = await consoleWorkspace(account.id, id);
@@ -54,6 +55,9 @@ export default async function Overview({ params, searchParams }: { params: Promi
       />
 
       <div className="mb-8 grid gap-3 empty:hidden">
+        {workspaceDeleted && (
+          <p role="status" className="flex items-center gap-2 rounded-xl border bg-surface px-5 py-3 text-[14px] font-medium"><CheckCircle2 className="size-4 text-success" aria-hidden />{tSet("deleted")}</p>
+        )}
         {fresh && (
           <div role="status" className="grid gap-4 rounded-xl border border-brand-line bg-brand-soft/50 px-5 py-4 sm:grid-cols-[auto_1fr_auto] sm:items-center">
             <CheckCircle2 className="hidden size-5 text-brand-text sm:block" aria-hidden />

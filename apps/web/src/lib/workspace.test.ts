@@ -130,3 +130,28 @@ describe("account deletion", () => {
     expect(await db.query.projects.findFirst({ where: eq(schema.projects.slug, `s-${tag}`) })).toBeUndefined();
   });
 });
+
+describe("deleteWorkspace", () => {
+  it("lets the owner delete a workspace with its projects, never a member, never a paid one", async () => {
+    const t2 = `d${Date.now().toString(36)}`;
+    const [boss] = await db.insert(schema.accounts).values({ email: `boss-${t2}@firma.test` }).returning();
+    const [guest] = await db.insert(schema.accounts).values({ email: `guest-${t2}@firma.test` }).returning();
+    const [free, paid] = await withSystem(db, async (tx) => {
+      const made = await tx.insert(schema.workspaces).values([
+        { slug: `df-${t2}`, name: "Na zmazanie", plan: "free" },
+        { slug: `dp-${t2}`, name: "Platený", plan: "pro", planStatus: "active", creemSubscriptionId: `sub_${t2}` },
+      ]).returning();
+      for (const w of made) await tx.insert(schema.workspaceMembers).values([{ workspaceId: w.id, accountId: boss!.id, role: "owner" }, { workspaceId: w.id, accountId: guest!.id, role: "member" }]);
+      await tx.insert(schema.projects).values({ workspaceId: made[0]!.id, slug: `dp-proj-${t2}`, name: "Projekt", theme: presets.ozvi });
+      return made;
+    });
+    await expect(ws.deleteWorkspace(guest!, free!.id)).rejects.toThrow();
+    await expect(ws.deleteWorkspace(boss!, paid!.id)).rejects.toThrow();
+    expect(await ws.deleteWorkspace(boss!, free!.id)).toEqual({ name: "Na zmazanie", projects: 1 });
+    expect(await db.query.workspaces.findFirst({ where: eq(schema.workspaces.id, free!.id) })).toBeUndefined();
+    expect(await db.query.projects.findFirst({ where: eq(schema.projects.slug, `dp-proj-${t2}`) })).toBeUndefined();
+    expect(await db.query.workspaceMembers.findFirst({ where: eq(schema.workspaceMembers.workspaceId, free!.id) })).toBeUndefined();
+    await withSystem(db, (tx) => tx.delete(schema.workspaces).where(eq(schema.workspaces.id, paid!.id)));
+    await db.delete(schema.accounts).where(inArray(schema.accounts.id, [boss!.id, guest!.id]));
+  });
+});

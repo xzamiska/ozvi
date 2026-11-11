@@ -1557,7 +1557,15 @@
       "saving": "Mentés…",
       "saved": "A munkaterület neve elmentve.",
       "nameLength": "A név 2–60 karakter hosszú legyen.",
-      "ownerOnly": "A nevet a munkaterület tulajdonosa módosítja."
+      "ownerOnly": "A nevet a munkaterület tulajdonosa módosítja.",
+      "danger": "Munkaterület törlése",
+      "deleteText": "Véglegesen törli a munkaterületet minden projekttel együtt: ötletek, hibajelentések, hozzászólások, mellékletek, személyek és meghívók. A tagok elveszítik a hozzáférést. Nem vonható vissza.",
+      "deleteBlocked": "A munkaterületnek fizetős előfizetése van. Először mondd le a Csomag és használat részben; az időszak végén törölheted a munkaterületet.",
+      "deleteConfirm": "A megerősítéshez írd be a munkaterület nevét:",
+      "deleteButton": "Munkaterület végleges törlése",
+      "deleting": "Törlés…",
+      "deleteTypeName": "Írd be a munkaterület pontos nevét.",
+      "deleted": "A munkaterület törölve."
     }
   },
   "release": {

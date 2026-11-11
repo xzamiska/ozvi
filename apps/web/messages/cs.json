@@ -1557,7 +1557,15 @@
       "saving": "Ukládám…",
       "saved": "Název prostoru je uložen.",
       "nameLength": "Název musí mít 2 až 60 znaků.",
-      "ownerOnly": "Název mění vlastník prostoru."
+      "ownerOnly": "Název mění vlastník prostoru.",
+      "danger": "Smazání prostoru",
+      "deleteText": "Natrvalo smaže prostor se všemi projekty: nápady, hlášení chyb, komentáře, přílohy, lidi a pozvánky. Členové ztratí přístup. Vrátit to nejde.",
+      "deleteBlocked": "Prostor má placené předplatné. Nejprve ho zrušte v části Plán a využití; po skončení období prostor smažete.",
+      "deleteConfirm": "Pro potvrzení napište název prostoru:",
+      "deleteButton": "Smazat prostor natrvalo",
+      "deleting": "Mažu…",
+      "deleteTypeName": "Napište přesný název prostoru.",
+      "deleted": "Prostor je smazán."
     }
   },
   "release": {
