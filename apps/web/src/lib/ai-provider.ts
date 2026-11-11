@@ -239,6 +239,12 @@ async function openaiCall(cfg: AiConfig, req: CompletionRequest, schema: Record<
     const choice = json?.choices?.[0];
     if (choice?.message?.refusal || choice?.finish_reason === "content_filter") throw new ProviderError("refused");
     const content = choice?.message?.content;
+    // Cut off at max_tokens (a reasoning model can spend them all thinking): half a summary or draft
+    // must not pass as a whole one.
+    if (choice?.finish_reason === "length") {
+      console.warn(`[ozvi] ai: ${model} hit max_tokens (${req.maxTokens}); use a model without reasoning (docs/AI.md)`);
+      throw new ProviderError("failed");
+    }
     if (typeof content !== "string" || !content.trim()) throw new ProviderError("empty");
     return content;
   }

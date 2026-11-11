@@ -139,6 +139,10 @@ describe("OpenAI-compatible adapter", () => {
     handler = (_b, _q, res) => reply(res, 200, ok(""));
     await expect(completeText(cfg, text)).rejects.toMatchObject({ code: "empty" });
   });
+  it("an answer cut off at max_tokens fails instead of passing as whole", async () => {
+    handler = (_b, _q, res) => reply(res, 200, { choices: [{ message: { content: "- Prvý bod\n- Druhý b" }, finish_reason: "length" }] });
+    await expect(completeText(cfg, text)).rejects.toMatchObject({ code: "failed" });
+  });
   it("refusals map to refused", async () => {
     handler = (_b, _q, res) => reply(res, 200, ok(null, { refusal: "I can't help with that" }));
     await expect(completeJson(cfg, json)).rejects.toMatchObject({ code: "refused" });
