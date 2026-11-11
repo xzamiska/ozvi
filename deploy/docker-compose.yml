@@ -49,6 +49,8 @@ services:
       OZVI_EMBEDDINGS_KEY: ${OZVI_EMBEDDINGS_KEY:-}
       OZVI_FONTS_PREFETCH: ${OZVI_FONTS_PREFETCH:-}
       OZVI_FONTS_REMOTE: ${OZVI_FONTS_REMOTE:-}
+      # Anonymous statistics, off unless you set 1 (docs/SELFHOST.md → Anonymná štatistika).
+      OZVI_TELEMETRY: ${OZVI_TELEMETRY:-}
       # Operators: may create accounts, get an e-mail when an update fails (comma-separated).
       OZVI_ADMIN_EMAILS: ${OZVI_ADMIN_EMAILS:-}
       OZVI_ADMIN_LOCALE: ${OZVI_ADMIN_LOCALE:-sk}
@@ -83,8 +85,6 @@ services:
       OZVI_DIR: ${OZVI_DIR:-${PWD}}
       OZVI_WEB_URL: http://ozvi:3000
       OZVI_RELEASES_URL: ${OZVI_RELEASES_URL:-https://ozvi.io/releases.json}
-      # Anonymous statistics, off unless you set 1 (docs/SELFHOST.md → Anonymná štatistika).
-      OZVI_TELEMETRY: ${OZVI_TELEMETRY:-}
       # Only for a private mirror of the images (ghcr.io/xzamiska is public).
       OZVI_REGISTRY: ${OZVI_REGISTRY:-ghcr.io}
       OZVI_REGISTRY_USER: ${OZVI_REGISTRY_USER:-}
