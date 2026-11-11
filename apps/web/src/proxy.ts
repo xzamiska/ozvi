@@ -1,5 +1,6 @@
 import { isIP } from "node:net";
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
+import { pageviewFor, sendPageview } from "@/lib/analytics";
 import { primaryHost, slugForHost } from "@/lib/domains";
 import { hostOrigin } from "@/lib/email/url";
 import { indexable, NOINDEX } from "@/lib/indexing";
@@ -21,10 +22,16 @@ function next(req: NextRequest) {
 }
 
 /** Every response except Ozvi's own public pages carries noindex (ADR-0010). */
-export async function proxy(req: NextRequest) {
+export async function proxy(req: NextRequest, event: NextFetchEvent) {
   const res = await route(req);
   const host = (req.headers.get("host") ?? "").toLowerCase().replace(/:\d+$/, "");
-  if (!indexable({ cloud: process.env.OZVI_MODE === "cloud", primary: host === primaryHost(), path: req.nextUrl.pathname })) res.headers.set("X-Robots-Tag", NOINDEX);
+  const pub = indexable({ cloud: process.env.OZVI_MODE === "cloud", primary: host === primaryHost(), path: req.nextUrl.pathname });
+  if (!pub) res.headers.set("X-Robots-Tag", NOINDEX);
+  // Ozvi's own public pages only (lib/analytics): counted server-side, never boards, console or widget.
+  else if (res.status < 400) {
+    const pv = pageviewFor(req, host);
+    if (pv) event.waitUntil(sendPageview(pv));
+  }
   return res;
 }
 
@@ -37,7 +44,7 @@ async function route(req: NextRequest) {
   if (!slug) return new NextResponse("Neznáma doména.", { status: 404, headers: { "content-type": "text/plain; charset=utf-8" } });
 
   const path = req.nextUrl.pathname;
-  if (path === "/") return NextResponse.redirect(new URL(`/${slug}/ideas`, hostOrigin(host)));
+  if (path === "/") return NextResponse.redirect(new URL(`/${slug}`, hostOrigin(host)));
   // Browsers ask a board's domain for /favicon.ico: the board's icon, not Ozvi's.
   if (path === "/favicon.ico") return NextResponse.rewrite(new URL(`/${slug}/favicon`, req.url));
   if (path === `/${slug}` || path.startsWith(`/${slug}/`) || SHARED.has(path) || WIDGET_FILE.test(path) || path.startsWith("/fonts/") || path.startsWith("/_next/") || path.startsWith(`/.well-known/oauth-`)) {
