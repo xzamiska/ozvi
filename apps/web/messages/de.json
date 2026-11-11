@@ -1395,7 +1395,7 @@
       "fNoBadge": "Ohne Badge",
       "fAi": "KI-Erkennung von Duplikaten und Zusammenfassungen",
       "everyPlan": "MCP, GitHub, Webhooks und SSO sind in jedem Tarif enthalten.",
-      "portalHint": " Rechnungen, Ihre Karte, Tarifwechsel und Kündigung finden Sie in der Abonnementverwaltung.",
+      "portalHint": " Rechnungen, Karte und Kündigung finden Sie in der Abo-Verwaltung.",
       "memberNote": "Tarif und Zahlungen verwaltet der Inhaber des Workspace.",
       "manage": "Abonnement verwalten",
       "vat": "Preise zzgl. MwSt. Die Zahlungen wickelt Creem als Merchant of Record ab, der auch die Rechnung ausstellt.",
@@ -1408,7 +1408,10 @@
         "request": "DPA per E-Mail anfordern",
         "subprocessors": "Liste der Unterauftragsverarbeiter",
         "kit": "Texte für Ihre Datenschutzerklärung finden Sie in den Einstellungen jedes Projekts unter Projektdaten."
-      }
+      },
+      "changedTitle": "Sie nutzen jetzt {plan}",
+      "changed": "Die neuen Limits gelten sofort. Creem berechnet die Differenz jetzt oder zieht sie von der nächsten Zahlung ab; die Rechnung finden Sie in der Abo-Verwaltung.",
+      "changeHint": " Ein Planwechsel gilt sofort: Bei einem höheren Plan berechnet Creem die anteilige Differenz, bei einem niedrigeren zieht es sie von der nächsten Zahlung ab."
     },
     "simulate": {
       "devOnly": "Nur lokale Entwicklung",

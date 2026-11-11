@@ -1,7 +1,7 @@
 "use server";
 
 import { PLAN_LIMITS, PRICES, schema, withSystem, type Interval, type PaidPlan, type PlanName } from "@ozvi/db";
-import { applyCreemEvent, BillingError, createCheckout, creemConfig, DEV_CREEM, devBilling, portalLink } from "./creem";
+import { applyCreemEvent, BillingError, changeSubscription, createCheckout, creemConfig, DEV_CREEM, devBilling, portalLink } from "./creem";
 import { roleIn } from "./workspace";
 import { presets, themeSchema } from "@ozvi/theme";
 import { and, eq, sql } from "drizzle-orm";
@@ -168,6 +168,24 @@ export async function startCheckout(workspaceId: string, plan: PaidPlan, interva
   if (!cfg) throw new Error((await server())("billingOff"));
   const url = await billing(() => createCheckout(cfg, { workspaceId, plan, interval, email: account.email, successUrl: `${publicUrl()}/app/w/${workspaceId}/plan?paid=1` }));
   redirect(url);
+}
+
+/** A paying workspace switches plan or interval: the same Creem subscription moves to the new product. */
+export async function changePlan(workspaceId: string, plan: PaidPlan, interval: Interval) {
+  await owner(workspaceId);
+  if (!(plan in PRICES) || !["year", "quarter"].includes(interval)) throw new Error((await server())("invalidPlan"));
+  if (devBilling()) redirect(`/app/billing/${workspaceId}/simulate?plan=${plan}&i=${interval}`);
+  const ws = await db.query.workspaces.findFirst({ where: eq(schema.workspaces.id, workspaceId) });
+  const cfg = creemConfig();
+  const productId = cfg?.products[`${plan}_${interval}`];
+  if (!cfg || !ws?.creemSubscriptionId) throw new Error((await server())("noSubscription"));
+  if (!productId) throw new Error((await server())("invalidPlan"));
+  const subscription = ws.creemSubscriptionId;
+  const upgrade = PRICES[plan][interval] * (interval === "quarter" ? 4 : 1) > (ws.plan === "pro" || ws.plan === "studio" ? PRICES[ws.plan].year : 0);
+  const sub = await billing(() => changeSubscription(cfg, subscription, productId, upgrade));
+  // Show the new plan right away; Creem's subscription.update webhook confirms the same state.
+  await applyCreemEvent(cfg, { id: `change:${sub.id}:${Date.now()}`, eventType: "subscription.update", object: { ...sub, metadata: { ...(sub.metadata ?? {}), workspace_id: workspaceId } } });
+  redirect(`/app/w/${workspaceId}/plan?changed=${plan}`);
 }
 
 export async function openPortal(workspaceId: string) {

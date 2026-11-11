@@ -1395,7 +1395,7 @@
       "fNoBadge": "Bez plakietki",
       "fAi": "Wykrywanie duplikatów i podsumowania z AI",
       "everyPlan": "MCP, GitHub, webhooki i SSO są w każdym planie.",
-      "portalHint": " Faktury, karta, zmiana planu i anulowanie są w zarządzaniu subskrypcją.",
+      "portalHint": " Faktury, kartę i anulowanie znajdziesz w zarządzaniu subskrypcją.",
       "memberNote": "Planem i płatnościami zarządza właściciel przestrzeni roboczej.",
       "manage": "Zarządzaj subskrypcją",
       "vat": "Ceny nie zawierają VAT. Płatności obsługuje Creem jako merchant of record, który wystawia też fakturę.",
@@ -1408,7 +1408,10 @@
         "request": "Poproś o DPA e-mailem",
         "subprocessors": "Lista podwykonawców",
         "kit": "Teksty do polityki prywatności znajdziesz w ustawieniach każdego projektu, w sekcji Dane projektu."
-      }
+      },
+      "changedTitle": "Przeszedłeś na {plan}",
+      "changed": "Nowe limity obowiązują od razu. Różnicę w cenie Creem dolicza teraz albo odejmuje od kolejnej płatności, fakturę znajdziesz w zarządzaniu subskrypcją.",
+      "changeHint": " Zmiana planu działa od razu: przy wyższym planie Creem dolicza proporcjonalną różnicę, przy niższym odejmuje ją od kolejnej płatności."
     },
     "simulate": {
       "devOnly": "Tylko lokalne środowisko deweloperskie",

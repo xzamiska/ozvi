@@ -1395,7 +1395,7 @@
       "fNoBadge": "No badge",
       "fAi": "AI duplicate detection and summaries",
       "everyPlan": "MCP, GitHub, webhooks and SSO are included in every plan.",
-      "portalHint": " Invoices, your card, plan changes and cancellation are in subscription management.",
+      "portalHint": " Invoices, your card and cancelling are in subscription management.",
       "memberNote": "The workspace owner manages the plan and payments.",
       "manage": "Manage subscription",
       "vat": "Prices exclude VAT. Payments are handled by Creem as the merchant of record, which also issues the invoice.",
@@ -1408,7 +1408,10 @@
         "request": "Request the DPA by e-mail",
         "subprocessors": "List of sub-processors",
         "kit": "Text for your privacy policy is in each project’s settings, under Project data."
-      }
+      },
+      "changedTitle": "You're on {plan} now",
+      "changed": "The new limits apply right away. Creem charges the difference now or takes it off your next payment; the invoice is in subscription management.",
+      "changeHint": " Changing plan takes effect right away: for a higher plan Creem charges the prorated difference, for a lower one it takes it off your next payment."
     },
     "simulate": {
       "devOnly": "Local development only",

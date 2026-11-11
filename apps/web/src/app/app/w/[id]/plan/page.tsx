@@ -10,7 +10,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { getAccount } from "@/lib/account";
 import { consoleWorkspace, usageOf } from "@/lib/console";
-import { openPortal, startCheckout } from "@/lib/app-actions";
+import { changePlan, openPortal, startCheckout } from "@/lib/app-actions";
 import { billingEnabled, devBilling } from "@/lib/creem";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/locales";
@@ -36,7 +36,7 @@ const FEATURES = (p: "free" | PaidPlan, t: PlanT, locale: Locale) => {
   ];
 };
 
-export default async function Billing({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ paid?: string; i?: string }> }) {
+export default async function Billing({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ paid?: string; i?: string; changed?: string }> }) {
   const { id } = await params;
   const sp = await searchParams;
   const account = await getAccount();
@@ -64,6 +64,13 @@ export default async function Billing({ params, searchParams }: { params: Promis
             <CircleCheck className="text-success" />
             <AlertTitle>{t("paidTitle")}</AlertTitle>
             <AlertDescription>{t("paid")}</AlertDescription>
+          </Alert>
+        )}
+        {sp.changed && (sp.changed === "pro" || sp.changed === "studio") && (
+          <Alert role="status" className="border-success/30">
+            <CircleCheck className="text-success" />
+            <AlertTitle>{t("changedTitle", { plan: PLAN_NAME[sp.changed] })}</AlertTitle>
+            <AlertDescription>{t("changed")}</AlertDescription>
           </Alert>
         )}
         {ws.planStatus === "past_due" && (
@@ -128,8 +135,8 @@ export default async function Billing({ params, searchParams }: { params: Promis
                     ? <form action={openPortal.bind(null, ws.id)}><Button type="submit" variant="outline" className="w-full">{t("switchTo", { plan: "Free" })}</Button></form>
                     : null
                   : ws.plan !== "free" && ws.creemCustomerId
-                    // An active subscription changes plan in Creem's portal (no second subscription).
-                    ? <form action={openPortal.bind(null, ws.id)}><Button type="submit" variant="outline" className="w-full">{t("switchTo", { plan: PLAN_NAME[p] })}</Button></form>
+                    // An active subscription moves to the new product (no second subscription, no second checkout).
+                    ? <form action={changePlan.bind(null, ws.id, p, interval)}><Button type="submit" variant="outline" className="w-full">{t("switchTo", { plan: PLAN_NAME[p] })}</Button></form>
                     : <form action={startCheckout.bind(null, ws.id, p, interval)}><Button type="submit" className="w-full" disabled={!enabled}>{t("switchTo", { plan: PLAN_NAME[p] })}</Button></form>}
             </div>
           );
@@ -137,7 +144,7 @@ export default async function Billing({ params, searchParams }: { params: Promis
       </Panel>
 
       <div className="mt-6 grid gap-4">
-        <p className="text-[14px] text-muted-foreground">{t("everyPlan")}{owner && ws.creemCustomerId ? t("portalHint") : ""}</p>
+        <p className="text-[14px] text-muted-foreground">{t("everyPlan")}{owner && ws.creemCustomerId ? t("portalHint") : ""}{owner && ws.creemSubscriptionId && ws.plan !== "free" ? t("changeHint") : ""}</p>
         {!owner && <p className="text-[14px] text-muted-foreground">{t("memberNote")}</p>}
         {owner && ws.creemCustomerId && (
           <form action={openPortal.bind(null, ws.id)}><Button type="submit" variant="outline">{t("manage")}</Button></form>

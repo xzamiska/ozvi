@@ -82,6 +82,19 @@ export async function createCheckout(
   return r.checkout_url;
 }
 
+/**
+ * Moves the existing subscription to another product (plan or interval) instead of a second
+ * checkout. Upgrades are prorated and charged now; downgrades are prorated into the next charge.
+ */
+export async function changeSubscription(cfg: CreemConfig, subscriptionId: string, productId: string, upgrade: boolean, f?: typeof fetch): Promise<Sub> {
+  const r = await creem<Sub>(cfg, `/subscriptions/${encodeURIComponent(subscriptionId)}/upgrade`, {
+    product_id: productId,
+    update_behavior: upgrade ? "proration-charge-immediately" : "proration-charge",
+  }, f);
+  if (!r?.id) throw new BillingError("gateway_down");
+  return r;
+}
+
 export async function portalLink(cfg: CreemConfig, customerId: string, f?: typeof fetch): Promise<string> {
   const r = await creem<{ customer_portal_link?: string }>(cfg, "/customers/billing", { customer_id: customerId }, f);
   if (!r.customer_portal_link) throw new BillingError("no_portal");
@@ -95,7 +108,7 @@ export function verifyCreemSignature(secret: string, body: string, header: strin
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
-interface Sub {
+export interface Sub {
   id: string; status: string; current_period_end_date?: string;
   customer?: { id: string } | string; product?: { id: string } | string; metadata?: Record<string, unknown>;
 }

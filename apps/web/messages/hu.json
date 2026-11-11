@@ -1395,7 +1395,7 @@
       "fNoBadge": "Jelvény nélkül",
       "fAi": "AI-alapú duplikátumkeresés és összefoglalók",
       "everyPlan": "Az MCP, a GitHub, a webhookok és az SSO minden csomagban benne vannak.",
-      "portalHint": " A számlák, a kártyád, a csomagváltás és a lemondás az előfizetés kezelésében található.",
+      "portalHint": " A számlák, a kártya és a lemondás az előfizetés kezelésében találhatók.",
       "memberNote": "A csomagot és a fizetéseket a munkaterület tulajdonosa kezeli.",
       "manage": "Előfizetés kezelése",
       "vat": "Az árak nem tartalmazzák az áfát. A fizetéseket a Creem kezeli forgalmazóként (merchant of record), és ő állítja ki a számlát is.",
@@ -1408,7 +1408,10 @@
         "request": "DPA kérése e-mailben",
         "subprocessors": "Alvállalkozók listája",
         "kit": "Az adatvédelmi tájékoztatóhoz való szövegeket minden projekt beállításaiban, a Projektadatok részben találja."
-      }
+      },
+      "changedTitle": "Átváltottál erre: {plan}",
+      "changed": "Az új keretek azonnal érvényesek. A különbözetet a Creem most kiszámlázza, vagy levonja a következő fizetésből; a számlát az előfizetés kezelésében találod.",
+      "changeHint": " A csomagváltás azonnal érvényes: magasabb csomagnál a Creem kiszámlázza az időarányos különbözetet, alacsonyabbnál levonja a következő fizetésből."
     },
     "simulate": {
       "devOnly": "Csak helyi fejlesztéshez",

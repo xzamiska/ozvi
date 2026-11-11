@@ -1395,7 +1395,7 @@
       "fNoBadge": "Bez odznaku",
       "fAi": "AI duplicity a souhrny",
       "everyPlan": "MCP, GitHub, webhooky a SSO jsou ve všech plánech.",
-      "portalHint": " Faktury, kartu, změnu plánu i zrušení najdete ve správě předplatného.",
+      "portalHint": " Faktury, kartu i zrušení najdete ve správě předplatného.",
       "memberNote": "Plán a platby mění vlastník prostoru.",
       "manage": "Spravovat předplatné",
       "vat": "Ceny jsou bez DPH. Platby zpracovává Creem jako prodejce (merchant of record) a fakturu vystaví on.",
@@ -1408,7 +1408,10 @@
         "request": "Vyžádat DPA e-mailem",
         "subprocessors": "Seznam subdodavatelů",
         "kit": "Texty pro vaše zásady ochrany soukromí najdete v nastavení každého projektu v části Data projektu."
-      }
+      },
+      "changedTitle": "Přešli jste na {plan}",
+      "changed": "Nové limity platí hned. Rozdíl v ceně Creem doúčtuje nebo odečte z další platby, fakturu najdete ve správě předplatného.",
+      "changeHint": " Změna plánu se projeví hned: u vyššího plánu Creem doúčtuje poměrnou část, u nižšího ji odečte z další platby."
     },
     "simulate": {
       "devOnly": "Jen lokální vývoj",
