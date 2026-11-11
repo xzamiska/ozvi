@@ -195,7 +195,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
           </SettingsSection>
 
           <SettingsSection id="sections" title={t("nav.sections")} text={t("sections.text")}>
-            <SectionsForm slug={slug} sections={enabledSections(project)} home={homeSection(project)} />
+            <SectionsForm key={`${enabledSections(project).join()}:${homeSection(project)}`} slug={slug} sections={enabledSections(project)} home={homeSection(project)} />
           </SettingsSection>
 
           <SettingsSection id="voting" title={t("nav.voting")} text={t("voting.text")}>

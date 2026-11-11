@@ -88,10 +88,12 @@ export function SectionsForm({ slug, sections, home }: { slug: string; sections:
         })}
       </div>
       {effective.length > 1 && (
-        <fieldset className="grid gap-2.5 border-t pt-4">
-          <legend className="mb-1 text-[14px] font-semibold">{t("home")}</legend>
-          <p className={hint}>{t("homeText")}</p>
-          <RadioGroup name="home" value={opening} onValueChange={(v) => setStart(v as Section)} className="flex flex-wrap gap-x-5 gap-y-2">
+        <div role="group" aria-labelledby="home-h" className="grid gap-2.5 border-t pt-4">
+          <div className="grid gap-0.5">
+            <p id="home-h" className="text-[14px] font-semibold">{t("home")}</p>
+            <p className={hint}>{t("homeText")}</p>
+          </div>
+          <RadioGroup name="home" aria-labelledby="home-h" value={opening} onValueChange={(v) => setStart(v as Section)} className="flex flex-wrap gap-x-5 gap-y-2">
             {effective.map((s) => (
               <div key={s} className="flex items-center gap-2">
                 <RadioGroupItem id={`home-${s}`} value={s} />
@@ -99,7 +101,7 @@ export function SectionsForm({ slug, sections, home }: { slug: string; sections:
               </div>
             ))}
           </RadioGroup>
-        </fieldset>
+        </div>
       )}
       {effective.length <= 1 && <input type="hidden" name="home" value={opening} />}
       {effective.length === 0 && <p role="alert" className="text-[13.5px] text-destructive">{t("needOne")}</p>}
