@@ -3613,8 +3613,6 @@
       "Open the widget at the bottom right and report the bug with a screenshot, or suggest an idea.",
       "On the right you'll see what the team would get. Nothing is sent; it all happens in your browser."
     ],
-    "masked": "The phone, note and PIN are blurred in the screenshot, right in the browser.",
-    "embeds": "Embeds",
     "app": {
       "title": "Booking 14 Nov · 10:30",
       "client": "Client",
@@ -3627,7 +3625,8 @@
       "detail": "Detail",
       "history": "History",
       "save": "Save booking",
-      "failed": "The booking couldn't be saved."
+      "failed": "The booking couldn't be saved.",
+      "brand": "Bookings"
     },
     "inspector": {
       "title": "What the team would get",
@@ -3644,6 +3643,26 @@
       "network": "Failed requests",
       "noFailed": "None",
       "actions": "Steps before the bug"
+    },
+    "embedsNote": "The roadmap and changelog above are Ozvi too: the app embeds them with two lines of HTML, and they show what you plan and what shipped, in the app's style. The phone, note and PIN are blurred in the screenshot, right in the browser.",
+    "board": {
+      "open": "Open in the team's board",
+      "title": "Board preview",
+      "note": "One-off: the report exists only in this tab.",
+      "close": "Close the preview",
+      "team": "Team view",
+      "author": "Author's view",
+      "tabs": [
+        "Ideas",
+        "Roadmap",
+        "Changelog",
+        "Bugs"
+      ],
+      "you": "You · just now",
+      "seeAuthor": "See what the author sees",
+      "authorNote": "This is what the reporter sees: where the report is and what the team replied.",
+      "now": "now",
+      "noReply": "The team hasn't replied yet. Switch to the team view, change the status and tell the author."
     }
   }
 }

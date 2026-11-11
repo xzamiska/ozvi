@@ -3613,8 +3613,6 @@
       "Nyisd meg a widgetet jobbra lent, és jelentsd a hibát képernyőképpel, vagy javasolj ötletet.",
       "Jobb oldalon látod, mit kapna a csapat. Semmi sem megy el, minden a böngésződben történik."
     ],
-    "masked": "A telefonszám, a megjegyzés és a PIN már a böngészőben elmosódik a képernyőképen.",
-    "embeds": "Beágyazott elemek",
     "app": {
       "title": "Foglalás nov. 14. · 10:30",
       "client": "Ügyfél",
@@ -3627,7 +3625,8 @@
       "detail": "Részletek",
       "history": "Előzmények",
       "save": "Foglalás mentése",
-      "failed": "A foglalást nem sikerült menteni."
+      "failed": "A foglalást nem sikerült menteni.",
+      "brand": "Foglalások"
     },
     "inspector": {
       "title": "Ezt kapná a csapat",
@@ -3644,6 +3643,26 @@
       "network": "Sikertelen kérések",
       "noFailed": "Nincs",
       "actions": "Lépések a hiba előtt"
+    },
+    "embedsNote": "A fenti ütemterv és újdonságok is Ozvi: az alkalmazás két sor HTML-lel ágyazza be őket, és az alkalmazás stílusában mutatják, mit terveztek és mit adtatok ki. A telefonszám, a megjegyzés és a PIN már a böngészőben elmosódik a képernyőképen.",
+    "board": {
+      "open": "Megnyitás a csapat tábláján",
+      "title": "Tábla-előnézet",
+      "note": "Egyszeri: a jelentés csak ezen a fülön létezik.",
+      "close": "Előnézet bezárása",
+      "team": "A csapat nézete",
+      "author": "A bejelentő nézete",
+      "tabs": [
+        "Ötletek",
+        "Ütemterv",
+        "Újdonságok",
+        "Hibák"
+      ],
+      "you": "Te · az imént",
+      "seeAuthor": "Nézd meg, mit lát a bejelentő",
+      "authorNote": "Ezt látja a bejelentő: hol tart a jelentése, és mit válaszolt a csapat.",
+      "now": "most",
+      "noReply": "A csapat még nem válaszolt. Válts a csapat nézetére, módosítsd az állapotot, és értesítsd a bejelentőt."
     }
   }
 }

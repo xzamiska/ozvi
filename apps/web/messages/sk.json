@@ -3613,8 +3613,6 @@
       "Otvorte widget vpravo dole a nahláste chybu so screenshotom alebo navrhnite nápad.",
       "Vpravo uvidíte, čo by dostal tím. Nič sa neodosiela, všetko sa deje iba vo vašom prehliadači."
     ],
-    "masked": "Telefón, poznámka a PIN sú na screenshote rozmazané ešte v prehliadači.",
-    "embeds": "Vložené prvky",
     "app": {
       "title": "Rezervácia 14. 11. · 10:30",
       "client": "Klient",
@@ -3627,7 +3625,8 @@
       "detail": "Detail",
       "history": "História",
       "save": "Uložiť rezerváciu",
-      "failed": "Rezerváciu sa nepodarilo uložiť."
+      "failed": "Rezerváciu sa nepodarilo uložiť.",
+      "brand": "Rezervácie"
     },
     "inspector": {
       "title": "Toto by dostal tím",
@@ -3644,6 +3643,26 @@
       "network": "Zlyhané požiadavky",
       "noFailed": "Žiadne",
       "actions": "Kroky pred chybou"
+    },
+    "embedsNote": "Roadmapa a novinky vyššie sú tiež Ozvi: aplikácia si ich vloží dvoma riadkami HTML a ukážu, čo plánujete a čo ste vydali, v štýle aplikácie. Telefón, poznámka a PIN sú na screenshote rozmazané ešte v prehliadači.",
+    "board": {
+      "open": "Otvoriť v boarde tímu",
+      "title": "Ukážka boardu",
+      "note": "Jednorazová: hlásenie existuje len v tejto karte.",
+      "close": "Zavrieť ukážku",
+      "team": "Pohľad tímu",
+      "author": "Pohľad autora",
+      "tabs": [
+        "Nápady",
+        "Roadmapa",
+        "Novinky",
+        "Chyby"
+      ],
+      "you": "Vy · pred chvíľou",
+      "seeAuthor": "Pozrieť, čo vidí autor",
+      "authorNote": "Toto vidí autor hlásenia: kde sa nachádza a čo mu tím odpísal.",
+      "now": "teraz",
+      "noReply": "Tím zatiaľ neodpísal. Prepnite na pohľad tímu, zmeňte stav a dajte autorovi vedieť."
     }
   }
 }

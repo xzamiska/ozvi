@@ -37,7 +37,7 @@ export async function PublicDemo() {
 
   return (
     <div className="min-h-dvh bg-background font-brand text-foreground">
-      <style>{toCss(site)}</style>
+      <style>{toCss(site) + toCss(host, ".look-host")}</style>
       <script dangerouslySetInnerHTML={{ __html: demoMockScript(data) }} />
       <header className="border-b bg-surface">
         <div className="oz-frame flex h-14 items-center gap-4">
@@ -69,15 +69,16 @@ export async function PublicDemo() {
               <label style={{ display: "inline-flex", gap: 8, alignItems: "center", marginTop: 6 }}>{t("app.pin")} <input type="password" defaultValue="4711" style={{ border: "1px solid #D1D5DB", borderRadius: 6, padding: "4px 8px" }} /></label>
               <DemoActions labels={{ detail: t("app.detail"), history: t("app.history"), save: t("app.save"), failed: t("app.failed") }} />
             </div>
+            {/* the app's own "What's new" page: two Ozvi embeds, styled as the app */}
+            <div style={{ background: "#fff", borderRadius: 12, padding: 20, border: "1px solid #E5E7EB", marginTop: 16, display: "grid", gap: 24 }}>
+              {/* @ts-expect-error custom element */}
+              <ozvi-roadmap project={DEMO_PROJECT} limit="3" />
+              {/* @ts-expect-error custom element */}
+              <ozvi-changelog project={DEMO_PROJECT} limit="2" />
+            </div>
           </div>
-          <p className="mt-3 text-[13px] text-muted-foreground">{t("masked")}</p>
+          <p className="mt-3 max-w-[70ch] text-[13px] leading-relaxed text-muted-foreground">{t("embedsNote")}</p>
 
-          <section aria-label={t("embeds")} className="mt-10 grid gap-8">
-            {/* @ts-expect-error custom element */}
-            <ozvi-roadmap project={DEMO_PROJECT} limit="3" />
-            {/* @ts-expect-error custom element */}
-            <ozvi-changelog project={DEMO_PROJECT} limit="2" />
-          </section>
         </div>
         <div className="lg:sticky lg:top-6"><DemoInspector /></div>
       </main>

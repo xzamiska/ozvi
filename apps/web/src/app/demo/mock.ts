@@ -20,6 +20,14 @@ export function demoMockScript(data: DemoData): string {
 var D=${json},P="/${DEMO_PROJECT}/api/widget/",real=window.fetch.bind(window),n=131;
 function res(o,s){return Promise.resolve(new Response(JSON.stringify(o),{status:s||200,headers:{"content-type":"application/json"}}))}
 function tell(d){setTimeout(function(){window.dispatchEvent(new CustomEvent("ozvi-demo",{detail:d}))},0)}
+// "Pozrieť hlásenie" / "Moje hlásenia" open the board in a new tab: here they open the demo board in the page.
+var ro=window.open.bind(window);
+function board(u){var x=new URL(u,location.href);window.dispatchEvent(new CustomEvent("ozvi-demo-open",{detail:{path:x.searchParams.get("return")||x.pathname}}))}
+window.open=function(u,t,f){
+  if(u==="about:blank"){var w={closed:false,close:function(){},focus:function(){}},loc={};
+    Object.defineProperty(loc,"href",{set:function(v){if(String(v).indexOf("/${DEMO_PROJECT}/")>=0)board(v);else ro(v,t,f)}});w.location=loc;return w}
+  if(String(u).indexOf("/${DEMO_PROJECT}/")>=0){board(u);return null}
+  return ro(u,t,f)};
 window.fetch=function(input,init){
   var url=typeof input==="string"?input:(input&&input.url)||String(input);
   if(url.indexOf("/demo/token")>=0)return res({token:"demo"});
@@ -35,7 +43,7 @@ window.fetch=function(input,init){
     var f=init.body,files=[];f.getAll("files").forEach(function(v){if(v instanceof Blob)files.push({name:v.name||"",url:URL.createObjectURL(v)})});
     var ctx={};try{ctx=JSON.parse(f.get("context")||"{}")}catch(e){}
     n++;tell({kind:f.get("kind")||"bug",number:n,title:f.get("title")||"",body:f.get("body")||"",context:ctx,files:files});
-    return res({number:n,url:"#",pending:null});
+    return res({number:n,url:"/${DEMO_PROJECT}/i/"+n,pending:null});
   }
   return res({error:"not in the demo"},404);
 };})();`;

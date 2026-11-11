@@ -3613,8 +3613,6 @@
       "Otwórz widget w prawym dolnym rogu i zgłoś błąd ze zrzutem ekranu albo zaproponuj pomysł.",
       "Po prawej zobaczysz, co dostałby zespół. Nic nie jest wysyłane, wszystko dzieje się w twojej przeglądarce."
     ],
-    "masked": "Telefon, notatka i PIN są rozmyte na zrzucie już w przeglądarce.",
-    "embeds": "Osadzone elementy",
     "app": {
       "title": "Rezerwacja 14.11 · 10:30",
       "client": "Klient",
@@ -3627,7 +3625,8 @@
       "detail": "Szczegóły",
       "history": "Historia",
       "save": "Zapisz rezerwację",
-      "failed": "Nie udało się zapisać rezerwacji."
+      "failed": "Nie udało się zapisać rezerwacji.",
+      "brand": "Rezerwacje"
     },
     "inspector": {
       "title": "To dostałby zespół",
@@ -3644,6 +3643,26 @@
       "network": "Nieudane żądania",
       "noFailed": "Brak",
       "actions": "Kroki przed błędem"
+    },
+    "embedsNote": "Roadmapa i nowości powyżej to także Ozvi: aplikacja osadza je dwiema linijkami HTML i pokazują, co planujesz i co wydałeś, w stylu aplikacji. Telefon, notatka i PIN są rozmyte na zrzucie już w przeglądarce.",
+    "board": {
+      "open": "Otwórz na tablicy zespołu",
+      "title": "Podgląd tablicy",
+      "note": "Jednorazowy: zgłoszenie istnieje tylko w tej karcie.",
+      "close": "Zamknij podgląd",
+      "team": "Widok zespołu",
+      "author": "Widok autora",
+      "tabs": [
+        "Pomysły",
+        "Roadmapa",
+        "Nowości",
+        "Błędy"
+      ],
+      "you": "Ty · przed chwilą",
+      "seeAuthor": "Zobacz, co widzi autor",
+      "authorNote": "To widzi autor zgłoszenia: gdzie ono jest i co odpisał zespół.",
+      "now": "teraz",
+      "noReply": "Zespół jeszcze nie odpisał. Przełącz na widok zespołu, zmień status i powiadom autora."
     }
   }
 }
