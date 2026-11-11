@@ -1206,7 +1206,8 @@
       "myAccount": "Saját fiók",
       "website": "Az Ozvi webhelye",
       "signOut": "Kijelentkezés",
-      "language": "Nyelv"
+      "language": "Nyelv",
+      "settings": "Beállítások"
     },
     "units": {
       "unlimited": "korlátlan",
@@ -1342,6 +1343,9 @@
         "updater": {
           "mode": "Frissítési mód módosítva",
           "start": "Ozvi-frissítés elindítva"
+        },
+        "workspace": {
+          "renamed": "Átnevezett munkaterület"
         }
       }
     },
@@ -1536,6 +1540,18 @@
       "cancel": "Lemondás az időszak végén",
       "expire": "Az időszak lejárt",
       "none": "Ennek a munkaterületnek nincs előfizetése. Válassz csomagot a Csomag oldalon."
+    },
+    "settings": {
+      "title": "A munkaterület beállításai",
+      "lede": "A munkaterület összefogja a projekteket, a csapatot és az előfizetést.",
+      "general": "Általános",
+      "name": "A munkaterület neve",
+      "nameHint": "A konzolban, a csapatmeghívókban és a számlázásban látszik. A táblákon nem, ott a projekt neve jelenik meg.",
+      "save": "Név mentése",
+      "saving": "Mentés…",
+      "saved": "A munkaterület neve elmentve.",
+      "nameLength": "A név 2–60 karakter hosszú legyen.",
+      "ownerOnly": "A nevet a munkaterület tulajdonosa módosítja."
     }
   },
   "release": {

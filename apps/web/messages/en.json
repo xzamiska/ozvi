@@ -1206,7 +1206,8 @@
       "myAccount": "My account",
       "website": "Ozvi website",
       "signOut": "Sign out",
-      "language": "Language"
+      "language": "Language",
+      "settings": "Settings"
     },
     "units": {
       "unlimited": "unlimited",
@@ -1342,6 +1343,9 @@
         "updater": {
           "mode": "Changed update mode",
           "start": "Started an Ozvi update"
+        },
+        "workspace": {
+          "renamed": "Workspace renamed"
         }
       }
     },
@@ -1536,6 +1540,18 @@
       "cancel": "Cancel at period end",
       "expire": "Period expired",
       "none": "This workspace has no subscription. Pick a plan on the Plan page."
+    },
+    "settings": {
+      "title": "Workspace settings",
+      "lede": "A workspace holds your projects, team and subscription.",
+      "general": "General",
+      "name": "Workspace name",
+      "nameHint": "Shown in the console, in team invitations and in billing. Boards don't show it; they show the project name.",
+      "save": "Save name",
+      "saving": "Saving…",
+      "saved": "The workspace name is saved.",
+      "nameLength": "The name needs 2 to 60 characters.",
+      "ownerOnly": "The workspace owner changes the name."
     }
   },
   "release": {

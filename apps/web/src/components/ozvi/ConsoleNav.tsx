@@ -1,6 +1,6 @@
 "use client";
 
-import { Activity, ArrowUpRight, Check, ChevronsUpDown, CreditCard, LayoutGrid, LogOut, Menu, Plus, Send, UserRound, Users } from "lucide-react";
+import { Activity, ArrowUpRight, Check, ChevronsUpDown, CreditCard, LayoutGrid, LogOut, Menu, Plus, Send, UserRound, Users, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -19,7 +19,8 @@ export interface NavWorkspace { id: string; name: string; plan: string }
 export interface ShellProps {
   ws: NavWorkspace;
   all: NavWorkspace[];
-  projects: { slug: string; name: string }[];
+  /** icon: the board's own favicon when it has one (else the letter tile). */
+  projects: { slug: string; name: string; icon?: string | null }[];
   account: { name: string | null; email: string };
   cloud: boolean;
   attention: { delivery?: number; plan?: boolean };
@@ -96,6 +97,7 @@ function NavBody({ ws, all, projects, account, cloud, attention }: ShellProps) {
     ...(cloud ? [{ href: `${base}/plan`, label: t("plan"), icon: CreditCard, dot: attention.plan }] : []),
     { href: `${base}/delivery`, to: attention.delivery ? `${base}/delivery?f=problems` : undefined, label: t("delivery"), icon: Send, count: attention.delivery },
     { href: `${base}/activity`, label: t("activity"), icon: Activity },
+    { href: `${base}/settings`, label: t("settings"), icon: Settings },
   ];
   return (
     <div className="flex h-full flex-col gap-5">
@@ -128,7 +130,10 @@ function NavBody({ ws, all, projects, account, cloud, attention }: ShellProps) {
           {projects.map((p) => (
             <li key={p.slug}>
               <a href={`/app/open/${p.slug}`} className="group flex h-8 items-center gap-2.5 rounded-md px-2 text-[13.5px] text-muted-foreground hover:bg-wash hover:text-foreground">
-                <span aria-hidden className="grid size-4 shrink-0 place-items-center rounded-[4px] border text-[9.5px] font-semibold">{p.name.charAt(0).toUpperCase()}</span>
+                {p.icon
+                  // eslint-disable-next-line @next/next/no-img-element
+                  ? <img src={p.icon} alt="" width={16} height={16} loading="lazy" className="size-4 shrink-0 rounded-[4px] object-contain" />
+                  : <span aria-hidden className="grid size-4 shrink-0 place-items-center rounded-[4px] border text-[9.5px] font-semibold">{p.name.charAt(0).toUpperCase()}</span>}
                 <span className="min-w-0 flex-1 truncate">{p.name}</span>
                 <ArrowUpRight className="size-3.5 opacity-0 transition-opacity group-hover:opacity-100" aria-label={t("openBoard")} />
               </a>

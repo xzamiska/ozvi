@@ -1206,7 +1206,8 @@
       "myAccount": "Mein Konto",
       "website": "Ozvi-Website",
       "signOut": "Abmelden",
-      "language": "Sprache"
+      "language": "Sprache",
+      "settings": "Einstellungen"
     },
     "units": {
       "unlimited": "unbegrenzt",
@@ -1342,6 +1343,9 @@
         "updater": {
           "mode": "Aktualisierungsmodus geändert",
           "start": "Ozvi-Aktualisierung gestartet"
+        },
+        "workspace": {
+          "renamed": "Arbeitsbereich umbenannt"
         }
       }
     },
@@ -1536,6 +1540,18 @@
       "cancel": "Zum Ende des Zeitraums kündigen",
       "expire": "Zeitraum abgelaufen",
       "none": "Dieser Workspace hat kein Abonnement. Wählen Sie einen Tarif auf der Seite „Tarif“."
+    },
+    "settings": {
+      "title": "Einstellungen des Arbeitsbereichs",
+      "lede": "Ein Arbeitsbereich umfasst Ihre Projekte, Ihr Team und Ihr Abo.",
+      "general": "Allgemein",
+      "name": "Name des Arbeitsbereichs",
+      "nameHint": "Sichtbar in der Konsole, in Team-Einladungen und in der Abrechnung. Boards zeigen ihn nicht, dort steht der Projektname.",
+      "save": "Name speichern",
+      "saving": "Wird gespeichert…",
+      "saved": "Der Name des Arbeitsbereichs ist gespeichert.",
+      "nameLength": "Der Name braucht 2 bis 60 Zeichen.",
+      "ownerOnly": "Den Namen ändert die Inhaberin oder der Inhaber des Arbeitsbereichs."
     }
   },
   "release": {

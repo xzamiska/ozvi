@@ -1206,7 +1206,8 @@
       "myAccount": "Moje konto",
       "website": "Strona Ozvi",
       "signOut": "Wyloguj się",
-      "language": "Język"
+      "language": "Język",
+      "settings": "Ustawienia"
     },
     "units": {
       "unlimited": "bez limitu",
@@ -1342,6 +1343,9 @@
         "updater": {
           "mode": "Zmieniono tryb aktualizacji",
           "start": "Uruchomiono aktualizację Ozvi"
+        },
+        "workspace": {
+          "renamed": "Zmieniona nazwa przestrzeni"
         }
       }
     },
@@ -1536,6 +1540,18 @@
       "cancel": "Anuluj z końcem okresu",
       "expire": "Okres wygasł",
       "none": "Ta przestrzeń robocza nie ma subskrypcji. Wybierz plan na stronie Plan."
+    },
+    "settings": {
+      "title": "Ustawienia przestrzeni",
+      "lede": "Przestrzeń robocza łączy projekty, zespół i subskrypcję.",
+      "general": "Ogólne",
+      "name": "Nazwa przestrzeni",
+      "nameHint": "Widać ją w konsoli, w zaproszeniach do zespołu i w rozliczeniach. Na tablicach się nie pojawia, tam jest nazwa projektu.",
+      "save": "Zapisz nazwę",
+      "saving": "Zapisuję…",
+      "saved": "Nazwa przestrzeni zapisana.",
+      "nameLength": "Nazwa musi mieć od 2 do 60 znaków.",
+      "ownerOnly": "Nazwę zmienia właściciel przestrzeni."
     }
   },
   "release": {

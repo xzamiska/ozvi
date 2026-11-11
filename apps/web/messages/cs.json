@@ -1206,7 +1206,8 @@
       "myAccount": "Můj účet",
       "website": "Web Ozvi",
       "signOut": "Odhlásit se",
-      "language": "Jazyk"
+      "language": "Jazyk",
+      "settings": "Nastavení"
     },
     "units": {
       "unlimited": "neomezeně",
@@ -1342,6 +1343,9 @@
         "updater": {
           "mode": "Změněn režim aktualizací",
           "start": "Spuštěna aktualizace Ozvi"
+        },
+        "workspace": {
+          "renamed": "Přejmenovaný prostor"
         }
       }
     },
@@ -1536,6 +1540,18 @@
       "cancel": "Zrušit ke konci období",
       "expire": "Období vypršelo",
       "none": "Prostor nemá předplatné. Vyberte plán na stránce Plán."
+    },
+    "settings": {
+      "title": "Nastavení prostoru",
+      "lede": "Pracovní prostor sdružuje projekty, tým a předplatné.",
+      "general": "Obecné",
+      "name": "Název prostoru",
+      "nameHint": "Vidíte ho v konzoli, v pozvánkách do týmu a ve fakturaci. Na boardech se nezobrazuje, tam je název projektu.",
+      "save": "Uložit název",
+      "saving": "Ukládám…",
+      "saved": "Název prostoru je uložen.",
+      "nameLength": "Název musí mít 2 až 60 znaků.",
+      "ownerOnly": "Název mění vlastník prostoru."
     }
   },
   "release": {

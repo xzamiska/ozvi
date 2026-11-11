@@ -9,11 +9,12 @@ import { APP_COOKIE, appCookie, getAccount } from "./account";
 import { requestLocale } from "@/i18n/server";
 import { getTranslations } from "next-intl/server";
 import { db } from "./db";
+import { logActivity, who } from "./activity";
 import { consumeEmailChange, EMAIL, issueEmailChange, LoginError, normalizeEmail } from "./email-login";
 import { publicUrl } from "./email/url";
 import { allow } from "./ratelimit";
 import {
-  acceptInvite, applyEmailChange, deleteAccount, invite, removeMember, revokeInvite, setRole, signOutEverywhere,
+  acceptInvite, applyEmailChange, deleteAccount, invite, removeMember, requireOwner, revokeInvite, setRole, signOutEverywhere,
   WorkspaceError, type WorkspaceRole,
 } from "./workspace";
 
@@ -37,6 +38,30 @@ const role = (v: unknown): WorkspaceRole => (v === "owner" ? "owner" : "member")
 
 /** Short codes in the URL (never free text) for errors of buttons without a form state. */
 const code = (e: WorkspaceError) => (e.code === "last_owner" ? "last_owner" : "not_owner");
+
+/* ---------- Workspace settings ---------- */
+
+/** Owners rename the workspace (the console, invitations and billing show the name; boards don't). */
+export async function renameWorkspaceAction(workspaceId: string, _: FormState, form: FormData): Promise<FormState> {
+  const account = await me();
+  const { locale } = await msg();
+  const t = await getTranslations({ locale, namespace: "console.settings" });
+  if (!UUID.test(workspaceId)) return { error: new WorkspaceError("no_workspace").text(locale) };
+  const name = String(form.get("name") ?? "").replace(/\s+/g, " ").trim();
+  if (name.length < 2 || name.length > 60) return { error: t("nameLength") };
+  try {
+    await requireOwner(account, workspaceId);
+  } catch (e) {
+    if (e instanceof WorkspaceError) return { error: e.text(locale) };
+    throw e;
+  }
+  const [old] = await db.select({ name: schema.workspaces.name }).from(schema.workspaces).where(eq(schema.workspaces.id, workspaceId));
+  if (old?.name === name) return { info: t("saved") };
+  await db.update(schema.workspaces).set({ name }).where(eq(schema.workspaces.id, workspaceId));
+  await logActivity({ workspaceId, actor: who(account), action: "workspace.renamed", detail: `${old?.name ?? ""} → ${name}` });
+  revalidatePath(`/app/w/${workspaceId}`, "layout");
+  return { info: t("saved") };
+}
 
 /* ---------- People ---------- */
 

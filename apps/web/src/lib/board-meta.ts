@@ -17,7 +17,7 @@ export function boardTitle(ns: string, key = "title") {
 }
 
 /** Console page <title>: "<section> – Ozvi – console" (WCAG 2.4.2). `key` is a console.nav message. */
-export function consoleTitle(key: "overview" | "team" | "plan" | "delivery" | "activity") {
+export function consoleTitle(key: "overview" | "team" | "plan" | "delivery" | "activity" | "settings") {
   return async (): Promise<Metadata> => {
     const nav = await getTranslations("console.nav");
     const meta = await getTranslations("account.meta");

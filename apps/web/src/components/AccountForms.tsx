@@ -15,8 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-  deleteAccountAction, inviteAction, renameAction, requestEmailChangeAction, type FormState,
-} from "@/lib/account-actions";
+  deleteAccountAction, inviteAction, renameAction, requestEmailChangeAction, type FormState, renameWorkspaceAction } from "@/lib/account-actions";
 import { signOutApp } from "@/lib/app-actions";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
@@ -128,6 +127,23 @@ export function InviteForm({ workspaceId }: { workspaceId: string }) {
       <p className="-mt-1 text-[13px] text-muted-foreground">{t("roleHint")}</p>
       <Status state={state} />
       <div><Button type="submit" disabled={pending} aria-busy={pending || undefined}>{pending ? t("sending") : t("sendInvite")}</Button></div>
+    </form>
+  );
+}
+
+/** Workspace name (owners); members see it read-only on the same page. */
+export function WorkspaceNameForm({ workspaceId, name }: { workspaceId: string; name: string }) {
+  const [state, action, pending] = useActionState<FormState, FormData>((p, f) => renameWorkspaceAction(workspaceId, p, f), {});
+  const t = useTranslations("console.settings");
+  return (
+    <form action={action} className="grid gap-4 p-4 sm:p-5">
+      <div className="grid max-w-md gap-2">
+        <Label htmlFor="ws-name" className={labelCls}>{t("name")}</Label>
+        <Input id="ws-name" name="name" defaultValue={name} required minLength={2} maxLength={60} autoComplete="off" className="h-10 bg-surface" />
+        <p className="text-[13px] text-muted-foreground">{t("nameHint")}</p>
+      </div>
+      <Status state={state} />
+      <div><Button type="submit" disabled={pending} aria-busy={pending || undefined}>{pending ? t("saving") : t("save")}</Button></div>
     </form>
   );
 }

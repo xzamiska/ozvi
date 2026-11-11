@@ -38,7 +38,7 @@ export default async function ConsoleLayout({ children, params }: { children: Re
   const own = await ownFeedback();
 
   return (
-    <ConsoleShell ws={{ id: ws.id, name: ws.name, plan: ws.plan }} all={ws.all} projects={ws.projects.map((p) => ({ slug: p.slug, name: p.name }))}
+    <ConsoleShell ws={{ id: ws.id, name: ws.name, plan: ws.plan }} all={ws.all} projects={ws.projects.map((p) => ({ slug: p.slug, name: p.name, icon: p.faviconKey ? `/${p.slug}/favicon?v=${encodeURIComponent(p.faviconKey.slice(-12))}` : null }))}
       account={{ name: account.name, email: account.email }} cloud={cloud} attention={{ delivery: failures, plan: ws.planStatus === "past_due" }}>
       <main id="main" tabIndex={-1} className="mx-auto w-full max-w-[1120px] px-4 pt-6 pb-20 md:px-10 md:pt-10">{children}</main>
       {own && <>
