@@ -3671,7 +3671,7 @@
     "board": {
       "open": "Open in the team's board",
       "title": "Board preview",
-      "note": "One-off: the report exists only in this tab.",
+      "note": "One-off: everything you do here stays in this tab.",
       "close": "Close the preview",
       "team": "Team view",
       "author": "Author's view",
@@ -3686,7 +3686,55 @@
       "authorNote": "This is what the reporter sees: where the report is and what the team replied.",
       "now": "now",
       "noReply": "The team hasn't replied yet. Switch to the team view, change the status and tell the author.",
-      "noBugs": "You haven't reported anything yet. Close the preview and report a bug with the widget at the bottom right."
+      "noBugs": "You haven't reported anything yet. Close the preview and report a bug with the widget at the bottom right.",
+      "similar": "Similar ideas, it may already exist:",
+      "why": "Why would it help you? (optional)",
+      "search": "Search ideas",
+      "noMatch": "Nothing found. Try another word or suggest a new idea.",
+      "sort": {
+        "top": "Most votes",
+        "new": "Newest"
+      },
+      "trail": "The idea's route",
+      "backNews": "Back to news",
+      "related": "Related ideas",
+      "extraIdeas": [
+        {
+          "title": "",
+          "text": "",
+          "author": "Tom R.",
+          "comments": [
+            [
+              "Team",
+              "Shipped in 2.15. Thanks for the tip!"
+            ]
+          ]
+        },
+        {
+          "title": "Export bookings to CSV",
+          "text": "At the end of the month I need an overview for my accountant.",
+          "author": "Susan P.",
+          "comments": [
+            [
+              "Martin D.",
+              "With the client's name too, please."
+            ]
+          ]
+        },
+        {
+          "title": "Online payment when booking",
+          "text": "Clients would pay a deposit right away, fewer no-shows.",
+          "author": "Ivy M.",
+          "comments": []
+        },
+        {
+          "title": "Several locations in one account",
+          "text": "We run two locations and switch between accounts.",
+          "author": "Roman K.",
+          "comments": []
+        }
+      ],
+      "teamBadge": "Team"
     }
   }
 }

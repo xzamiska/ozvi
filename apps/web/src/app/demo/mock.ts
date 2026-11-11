@@ -17,7 +17,7 @@ export function demoMockScript(data: DemoData): string {
   // JSON in a <script>: never let user-controlled-looking text close the tag.
   const json = JSON.stringify(data).replace(/</g, "\\u003c");
   return `(function(){
-var D=${json},P="/${DEMO_PROJECT}/api/widget/",real=window.fetch.bind(window),n=131;
+var D=${json};window.__ozviDemoData=D;var P="/${DEMO_PROJECT}/api/widget/",real=window.fetch.bind(window),n=131;
 function res(o,s){return Promise.resolve(new Response(JSON.stringify(o),{status:s||200,headers:{"content-type":"application/json"}}))}
 function tell(d){setTimeout(function(){window.dispatchEvent(new CustomEvent("ozvi-demo",{detail:d}))},0)}
 // "Pozrieť hlásenie" / "Moje hlásenia" open the board in a new tab: here they open the demo board in the page.

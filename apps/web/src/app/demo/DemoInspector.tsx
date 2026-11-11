@@ -3,9 +3,8 @@
 import { Bug, Check, ChevronUp, Lightbulb, Lock, Mail, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { StatusMark } from "@/components/ozvi/route";
-import { routeText } from "@/lib/route";
 import { cn } from "@/lib/utils";
+import { DemoBoard, type BoardSample } from "./DemoBoard";
 
 /**
  * The demo's "server": what the widget "sent" (mock.ts) lives only in this component's state.
@@ -13,7 +12,7 @@ import { cn } from "@/lib/utils";
  * widget's "view report") is a one-off board with exactly these reports, as the team and as the
  * author see it. Nothing is stored anywhere; closing the tab forgets it.
  */
-interface Sent {
+export interface Sent {
   kind: string; number: number; title: string; body: string;
   context: {
     url?: string; browser?: string; viewport?: string; appVersion?: string;
@@ -22,25 +21,7 @@ interface Sent {
   };
   files: { name: string; url: string }[];
 }
-type Status = "new" | "confirmed" | "in_progress" | "fixed" | "verified";
-type Tab = "ideas" | "roadmap" | "news" | "bugs";
-export interface Sample {
-  ideas: { number: number; title: string; votes: number; status: string; label: string }[];
-  lanes: { status: string; label: string; rows: { number: number; title: string; votes: number }[] }[];
-  news: { v: string; title: string; text: string }[];
-}
-/** Which tab and report a board path ("/ukazka/roadmap", "/ukazka/i/132", "/ukazka/bugs") means. */
-function target(path: string, reports: Sent[]): { tab: Tab; n: number | null } {
-  const n = Number(/\/i\/(\d+)/.exec(path)?.[1] ?? NaN);
-  if (Number.isFinite(n)) return reports.some((r) => r.number === n && r.kind !== "idea") ? { tab: "bugs", n } : { tab: "ideas", n };
-  if (path.includes("/roadmap")) return { tab: "roadmap", n: null };
-  if (path.includes("/changelog")) return { tab: "news", n: null };
-  if (path.includes("/ideas")) return { tab: "ideas", n: null };
-  return { tab: "bugs", n: null };
-}
-const STOPS: Status[] = ["new", "confirmed", "in_progress", "fixed", "verified"];
-
-export function DemoInspector({ sample }: { sample: Sample }) {
+export function DemoInspector({ sample }: { sample: BoardSample }) {
   const t = useTranslations("demo");
   const [all, setAll] = useState<Sent[]>([]);
   const [open, setOpen] = useState<string | null>(null);
@@ -90,186 +71,5 @@ export function DemoInspector({ sample }: { sample: Sample }) {
       </aside>
       {open !== null && <DemoBoard reports={all} sample={sample} path={open} onClose={() => setOpen(null)} />}
     </>
-  );
-}
-
-function DemoBoard({ reports, sample, path, onClose }: { reports: Sent[]; sample: Sample; path: string; onClose: () => void }) {
-  const t = useTranslations("demo");
-  const tl = useTranslations("landing");
-  const tt = (k: string, v?: Record<string, string>) => tl(`product.team.${k}` as never, v as never);
-  const tr = useTranslations("route");
-  const start = target(path, reports);
-  const [tab, setTab] = useState<Tab>(start.tab);
-  const [sel, setSel] = useState(start.tab === "bugs" && start.n ? start.n : reports.find((r) => r.kind !== "idea")?.number ?? 0);
-  const [view, setView] = useState<"team" | "author">("team");
-  const [status, setStatus] = useState<Record<number, Status>>({});
-  const [told, setTold] = useState<Record<number, string>>({});
-  const box = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    box.current?.focus();
-    const esc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", esc);
-    document.body.style.overflow = "hidden";
-    return () => { window.removeEventListener("keydown", esc); document.body.style.overflow = ""; };
-  }, [onClose]);
-  const bugs = reports.filter((r) => r.kind !== "idea");
-  const cur = bugs.find((r) => r.number === sel) ?? bugs[0];
-  const ideas = [...reports.filter((r) => r.kind === "idea").map((r) => ({ number: r.number, title: r.title, votes: 1, status: "open", label: routeText(tr, "label", "open"), mine: true })), ...sample.ideas.map((i) => ({ ...i, mine: false }))];
-  const st = (cur && status[cur.number]) || "new";
-  const label = (s: Status) => routeText(tr, "label", s);
-  const r = { borderRadius: "var(--oz-radius)" };
-  const chip = "inline-flex items-center gap-1 rounded bg-wash px-1.5 py-0.5 text-[11.5px] text-muted-foreground";
-  const failed = cur?.context.network?.filter((x) => x.failed) ?? [];
-
-  return (
-    <div role="dialog" aria-modal="true" aria-labelledby="demo-board-h" className="fixed inset-0 z-[2147483000] grid bg-ink/40 p-2 backdrop-blur-sm sm:p-6">
-      <div ref={box} tabIndex={-1} className="mx-auto flex h-full w-full max-w-[1200px] flex-col overflow-hidden rounded-2xl border bg-surface shadow-2xl outline-none">
-        <div className="flex flex-wrap items-center gap-3 border-b px-4 py-2.5">
-          <h2 id="demo-board-h" className="text-[14.5px] font-semibold">{t("board.title")}</h2>
-          <span className="text-[13px] text-muted-foreground">{t("board.note")}</span>
-          <span role="group" aria-label={t("board.title")} className={cn("ml-auto flex rounded-lg border bg-background p-0.5 text-[12.5px] font-medium", tab !== "bugs" && "invisible")}>
-            {(["team", "author"] as const).map((v) => (
-              <button key={v} type="button" aria-pressed={view === v} onClick={() => setView(v)}
-                className={cn("h-7 rounded-md px-2.5", view === v ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground")}>{t(`board.${v}`)}</button>
-            ))}
-          </span>
-          <button type="button" onClick={onClose} aria-label={t("board.close")} className="grid size-8 place-items-center rounded-md hover:bg-wash"><X className="size-4" /></button>
-        </div>
-
-        {/* the board, in the host app's brand */}
-        <div className="look-host oz-scope flex min-h-0 flex-1 flex-col bg-background font-sans text-foreground">
-          <div className="flex h-12 shrink-0 items-center gap-5 border-b bg-surface px-4 text-[13px]">
-            <span className="flex items-center gap-2"><span className="grid size-6 place-items-center rounded bg-primary text-[11px] font-bold text-primary-foreground">R</span><b className="text-[14.5px] font-semibold">{t("app.brand")}</b></span>
-            {(t.raw("board.tabs") as string[]).map((x, i) => {
-              const k = (["ideas", "roadmap", "news", "bugs"] as const)[i]!;
-              return (
-                <button key={x} type="button" aria-current={tab === k ? "page" : undefined} onClick={() => setTab(k)}
-                  className={cn("relative flex h-12 items-center text-muted-foreground hover:text-foreground", tab === k && "font-medium text-foreground after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-primary")}>{x}</button>
-              );
-            })}
-          </div>
-
-          {tab === "ideas" ? (
-            <div className="min-h-0 flex-1 overflow-y-auto p-5"><ul className="mx-auto grid max-w-[760px] divide-y overflow-hidden rounded-xl border bg-surface">
-              {ideas.map((i) => (
-                <li key={i.number} className={cn("grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3.5", start.n === i.number && "bg-wash")}>
-                  <span className="grid h-11 w-10 place-items-center content-center rounded-lg border border-line-strong text-[13px] leading-none font-bold tabular-nums"><ChevronUp className="size-3.5" strokeWidth={2.5} />{i.votes}</span>
-                  <span className="min-w-0"><b className="block truncate text-[14.5px] font-semibold">{i.title}</b><small className="text-[12px] text-muted-foreground">#{i.number}{i.mine ? ` · ${t("board.you")}` : ""}</small></span>
-                  <span className="hidden items-center gap-1.5 text-[12.5px] font-semibold sm:inline-flex"><StatusMark kind="idea" status={i.status} />{i.label}</span>
-                </li>
-              ))}
-            </ul></div>
-          ) : tab === "roadmap" ? (
-            <div className="grid min-h-0 flex-1 content-start gap-4 overflow-y-auto p-5 sm:grid-cols-3">
-              {sample.lanes.map((l) => (
-                <section key={l.status} className="grid content-start gap-2">
-                  <h3 className="flex items-center gap-1.5 text-[13px] font-semibold"><StatusMark kind="idea" status={l.status} />{l.label}</h3>
-                  {l.rows.map((x) => <div key={x.number} className="rounded-lg border bg-surface p-3 text-[13.5px] font-medium">{x.title}<span className="mt-1 block text-[12px] font-normal text-muted-foreground">#{x.number} · <ChevronUp className="inline size-3" strokeWidth={2.5} />{x.votes}</span></div>)}
-                </section>
-              ))}
-            </div>
-          ) : tab === "news" ? (
-            <div className="min-h-0 flex-1 overflow-y-auto p-5"><ol className="mx-auto grid max-w-[720px] gap-3">
-              {sample.news.map((n) => (
-                <li key={n.v} className="rounded-xl border bg-surface p-5">
-                  <span className="rounded bg-primary px-1.5 py-0.5 font-mono text-[11px] font-semibold text-primary-foreground">{n.v}</span>
-                  <h3 className="mt-2 text-[16px] font-semibold">{n.title}</h3>
-                  <p className="mt-1 text-[14px] leading-relaxed text-muted-foreground">{n.text}</p>
-                </li>
-              ))}
-            </ol></div>
-          ) : !cur ? (
-            <p className="m-auto max-w-[44ch] p-8 text-center text-[14px] leading-relaxed text-muted-foreground">{t("board.noBugs")}</p>
-          ) : view === "team" ? (
-            <div className="grid min-h-0 flex-1 md:grid-cols-[240px_minmax(0,1fr)]">
-              <ul className="hidden divide-y overflow-y-auto border-r bg-surface md:block">
-                {bugs.map((x) => (
-                  <li key={x.number}>
-                    <button type="button" onClick={() => setSel(x.number)} aria-current={x.number === cur.number ? "true" : undefined}
-                      className={cn("grid w-full gap-1 px-3.5 py-3 text-left hover:bg-wash", x.number === cur.number && "bg-wash shadow-[inset_2px_0_0_var(--oz-accent)]")}>
-                      <span className="flex items-center justify-between gap-2">
-                        <span className="flex items-center gap-1.5 text-[13px] font-extrabold tabular-nums">{x.kind === "idea" ? <Lightbulb className="size-3.5" /> : <Bug className="size-3.5" />}#{x.number}</span>
-                        <StatusMark kind="bug" status={status[x.number] ?? "new"} className="size-3.5" />
-                      </span>
-                      <span className="line-clamp-2 text-[12.5px] leading-snug font-medium">{x.title || t("inspector.untitled")}</span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-              <div className="min-w-0 overflow-y-auto p-5">
-                <p className="flex items-baseline gap-2">
-                  <span data-num className="text-[22px] leading-none font-extrabold tracking-tight">#{cur.number}</span>
-                  <span className="text-[17px] font-semibold">{cur.title || t("inspector.untitled")}</span>
-                </p>
-                <p className="mt-1 text-[12.5px] text-muted-foreground">{t("board.you")} · <Lock className="inline size-3" /> {tt("private")}</p>
-                {cur.body && <p className="mt-3 max-w-[70ch] text-[14.5px] leading-relaxed whitespace-pre-wrap">{cur.body}</p>}
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  <span className={cn(chip, "font-mono")}>v{cur.context.appVersion || "?"}</span>
-                  <span className={chip}>{cur.context.viewport}</span>
-                  <span className={cn(chip, "max-w-full truncate")}>{cur.context.browser}</span>
-                </div>
-                {cur.files.map((f) => (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img key={f.url} src={f.url} alt={t("inspector.shot")} className="mt-4 w-full max-w-[720px] rounded-lg border" />
-                ))}
-                {cur.kind !== "idea" && (
-                  <div className="mt-5 grid max-w-[720px] gap-4">
-                    <Block title={t("inspector.errors")}>{cur.context.errors?.length ? cur.context.errors.map((e, i) => <p key={i} className="font-mono text-[12px] text-destructive">{e.text}</p>) : <p className="text-[13px] text-muted-foreground">–</p>}</Block>
-                    <Block title={t("inspector.network")}>{failed.length ? failed.map((x, i) => <p key={i} className="truncate font-mono text-[12px]"><b className="text-destructive">{x.status || "—"}</b> {x.method} {x.url}</p>) : <p className="text-[13px] text-muted-foreground">{t("inspector.noFailed")}</p>}</Block>
-                    <Block title={t("inspector.actions")}>{cur.context.actions?.length ? <ol className="grid gap-1 text-[13px]">{cur.context.actions.map((a, i) => <li key={i}><span className="text-muted-foreground">{i + 1}.</span> {a.label}</li>)}</ol> : <p className="text-[13px] text-muted-foreground">–</p>}</Block>
-                  </div>
-                )}
-                <div className="mt-5 flex flex-wrap items-center gap-2 border-t pt-4">
-                  <label className="inline-flex h-9 items-center gap-1.5 border border-input bg-surface pr-2 pl-2.5 text-[13px] font-semibold" style={r}>
-                    <StatusMark kind="bug" status={st} />
-                    <span className="sr-only">{tt("statusLabel")}</span>
-                    <select value={st} onChange={(e) => setStatus((x) => ({ ...x, [cur.number]: e.target.value as Status }))} className="cursor-pointer appearance-none bg-transparent pr-1 outline-none">
-                      {STOPS.map((s) => <option key={s} value={s}>{label(s)}{s === "fixed" ? " · 2.15" : ""}</option>)}
-                    </select>
-                  </label>
-                  <button type="button" style={r} onClick={() => setTold((x) => ({ ...x, [cur.number]: st === "fixed" ? tt("sentFixed") : tt("sentStatus", { status: label(st) }) }))}
-                    className="inline-flex h-9 items-center bg-primary px-3.5 text-[13px] font-semibold text-primary-foreground hover:opacity-90">{tt("save")}</button>
-                </div>
-                {told[cur.number] && <p role="status" className="mt-2.5 flex items-start gap-1.5 text-[13px] text-success"><Mail className="mt-0.5 size-3.5 shrink-0" />{told[cur.number]} <button type="button" onClick={() => setView("author")} className="font-semibold underline">{t("board.seeAuthor")}</button></p>}
-              </div>
-            </div>
-          ) : (
-            <div className="min-h-0 flex-1 overflow-y-auto p-5">
-              <div className="mx-auto max-w-[680px]">
-                <p className="text-[13px] text-muted-foreground">{t("board.authorNote")}</p>
-                <div className="mt-4 rounded-xl border bg-surface p-5">
-                  <p className="flex items-baseline gap-2"><span data-num className="text-[22px] font-extrabold">#{cur.number}</span><span className="text-[17px] font-semibold">{cur.title || t("inspector.untitled")}</span></p>
-                  <p className="mt-1 text-[12.5px] text-muted-foreground"><Lock className="inline size-3" /> {tt("private")}</p>
-                  <ol className="mt-5 grid gap-3">
-                    {STOPS.map((s, i) => {
-                      const reached = i <= STOPS.indexOf(st);
-                      return (
-                        <li key={s} className={cn("flex items-center gap-3 text-[14px]", !reached && "text-muted-foreground")}>
-                          <StatusMark kind="bug" status={reached ? s : "new"} className={cn("size-[18px]", !reached && "opacity-40")} />
-                          <span className={cn(s === st && "font-semibold")}>{label(s)}{s === "fixed" ? " · 2.15" : ""}</span>
-                          {s === st && <span className="ml-auto text-[12px] text-muted-foreground">{t("board.now")}</span>}
-                        </li>
-                      );
-                    })}
-                  </ol>
-                  {told[cur.number]
-                    ? <p className="mt-5 flex items-start gap-2 rounded-lg border bg-wash p-3 text-[13.5px]"><Check className="mt-0.5 size-4 shrink-0 text-success" />{told[cur.number]}</p>
-                    : <p className="mt-5 text-[13px] text-muted-foreground">{t("board.noReply")}</p>}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Block({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="grid gap-1.5 rounded-lg border bg-surface p-3">
-      <h3 className="text-[12px] font-semibold text-muted-foreground">{title}</h3>
-      {children}
-    </section>
   );
 }

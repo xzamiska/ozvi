@@ -3671,7 +3671,7 @@
     "board": {
       "open": "Megnyitás a csapat tábláján",
       "title": "Tábla-előnézet",
-      "note": "Egyszeri: a jelentés csak ezen a fülön létezik.",
+      "note": "Egyszeri: minden, amit itt teszel, csak ezen a lapon marad.",
       "close": "Előnézet bezárása",
       "team": "A csapat nézete",
       "author": "A bejelentő nézete",
@@ -3686,7 +3686,55 @@
       "authorNote": "Ezt látja a bejelentő: hol tart a jelentése, és mit válaszolt a csapat.",
       "now": "most",
       "noReply": "A csapat még nem válaszolt. Válts a csapat nézetére, módosítsd az állapotot, és értesítsd a bejelentőt.",
-      "noBugs": "Még nem jelentettél semmit. Zárd be az előnézetet, és jelents hibát a jobb alsó widgettel."
+      "noBugs": "Még nem jelentettél semmit. Zárd be az előnézetet, és jelents hibát a jobb alsó widgettel.",
+      "similar": "Hasonló ötletek, lehet, hogy már létezik:",
+      "why": "Miért segítene? (nem kötelező)",
+      "search": "Keresés az ötletekben",
+      "noMatch": "Nincs találat. Próbálj más szót, vagy javasolj új ötletet.",
+      "sort": {
+        "top": "Legtöbb szavazat",
+        "new": "Legújabb"
+      },
+      "trail": "Az ötlet útja",
+      "backNews": "Vissza az újdonságokhoz",
+      "related": "Kapcsolódó ötletek",
+      "extraIdeas": [
+        {
+          "title": "",
+          "text": "",
+          "author": "Tamás R.",
+          "comments": [
+            [
+              "Csapat",
+              "Megjelent a 2.15-ös verzióban. Köszönjük a tippet!"
+            ]
+          ]
+        },
+        {
+          "title": "Foglalások exportja CSV-be",
+          "text": "A hónap végén kimutatás kell a könyvelőnek.",
+          "author": "Zsuzsa P.",
+          "comments": [
+            [
+              "Márton D.",
+              "Az ügyfél nevével együtt, kérem."
+            ]
+          ]
+        },
+        {
+          "title": "Online fizetés foglaláskor",
+          "text": "Az ügyfelek azonnal fizetnének előleget, kevesebben maradnának el.",
+          "author": "Ivett M.",
+          "comments": []
+        },
+        {
+          "title": "Több telephely egy fiókban",
+          "text": "Két üzletünk van, és fiókok között váltogatunk.",
+          "author": "Roman K.",
+          "comments": []
+        }
+      ],
+      "teamBadge": "Csapat"
     }
   }
 }

@@ -3671,7 +3671,7 @@
     "board": {
       "open": "Otvoriť v boarde tímu",
       "title": "Ukážka boardu",
-      "note": "Jednorazová: hlásenie existuje len v tejto karte.",
+      "note": "Jednorazová: všetko, čo tu urobíte, ostáva len v tejto karte.",
       "close": "Zavrieť ukážku",
       "team": "Pohľad tímu",
       "author": "Pohľad autora",
@@ -3686,7 +3686,55 @@
       "authorNote": "Toto vidí autor hlásenia: kde sa nachádza a čo mu tím odpísal.",
       "now": "teraz",
       "noReply": "Tím zatiaľ neodpísal. Prepnite na pohľad tímu, zmeňte stav a dajte autorovi vedieť.",
-      "noBugs": "Zatiaľ ste nič nenahlásili. Zavrite ukážku a nahláste chybu cez widget vpravo dole."
+      "noBugs": "Zatiaľ ste nič nenahlásili. Zavrite ukážku a nahláste chybu cez widget vpravo dole.",
+      "similar": "Podobné nápady, možno už existuje:",
+      "why": "Prečo by vám to pomohlo? (nepovinné)",
+      "search": "Hľadať v nápadoch",
+      "noMatch": "Nič sa nenašlo. Skúste iné slovo alebo navrhnite nový nápad.",
+      "sort": {
+        "top": "Najviac hlasov",
+        "new": "Najnovšie"
+      },
+      "trail": "Cesta nápadu",
+      "backNews": "Späť na novinky",
+      "related": "Súvisiace nápady",
+      "extraIdeas": [
+        {
+          "title": "",
+          "text": "",
+          "author": "Tomáš R.",
+          "comments": [
+            [
+              "Tím",
+              "Vydané vo verzii 2.15. Ďakujeme za tip!"
+            ]
+          ]
+        },
+        {
+          "title": "Export rezervácií do CSV",
+          "text": "Na konci mesiaca potrebujem prehľad pre účtovníčku.",
+          "author": "Zuzana P.",
+          "comments": [
+            [
+              "Martin D.",
+              "Aj s menom klienta, prosím."
+            ]
+          ]
+        },
+        {
+          "title": "Online platba pri rezervácii",
+          "text": "Klienti by zaplatili zálohu hneď, menej by ich neprišlo.",
+          "author": "Ivana M.",
+          "comments": []
+        },
+        {
+          "title": "Viac pobočiek v jednom účte",
+          "text": "Máme dve prevádzky a prepíname sa medzi účtami.",
+          "author": "Roman K.",
+          "comments": []
+        }
+      ],
+      "teamBadge": "Tím"
     }
   }
 }

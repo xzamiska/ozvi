@@ -5,6 +5,7 @@ import Script from "next/script";
 import { OzviLogo } from "@/components/ozvi/Logo";
 import { requestLocale } from "@/i18n/server";
 import { DemoActions } from "./DemoActions";
+import type { BoardSample } from "./DemoBoard";
 import { DemoInspector } from "./DemoInspector";
 import { DEMO_PROJECT, demoMockScript, type DemoData } from "./mock";
 
@@ -22,15 +23,26 @@ export async function PublicDemo() {
   const t = await getTranslations({ locale, namespace: "demo" });
   const board = await getTranslations({ locale, namespace: "playground.board" });
   const route = await getTranslations({ locale, namespace: "route" });
-  const ideas = (board.raw("ideas") as { title: string }[]).map((i, k) => ({
+  const raw = board.raw("ideas") as { title: string; text: string; author: string; comments: [string, string][] }[];
+  const ideas = raw.map((i, k) => ({
     id: `demo-${k}`, number: [129, 130, 124][k]!, title: i.title, votes: [41, 17, 9][k]!, status: STATUS[k]!, label: route(`label.${STATUS[k]!}`), weight: 0, pending: false,
   }));
-  const news = board.raw("news") as { v: string; title: string; text: string }[];
+  const news = board.raw("news") as { v: string; date: string; title: string; text: string }[];
+  const extra = t.raw("board.extraIdeas") as { title: string; text: string; author: string; comments: [string, string][] }[];
+  // The board's ideas: the widget's three (same ids, so votes carry over), the shipped one, a few more.
+  const sample: BoardSample = {
+    ideas: [
+      ...ideas.map((i, k) => ({ id: i.id, number: i.number, title: i.title, text: raw[k]!.text, author: raw[k]!.author, votes: i.votes, status: i.status, comments: raw[k]!.comments })),
+      { id: "demo-shipped", number: 118, title: news[0]!.title, text: news[0]!.text, author: extra[0]!.author, votes: 23, status: "shipped", comments: extra[0]!.comments },
+      ...extra.slice(1).map((e, k) => ({ id: `demo-x${k}`, number: [121, 126, 127][k] ?? 110 + k, title: e.title, text: e.text, author: e.author, votes: [12, 6, 3][k] ?? 1, status: "open", comments: e.comments })),
+    ],
+    news: news.map((n, k) => ({ v: n.v, date: n.date, title: n.title, text: n.text, related: k === 0 ? [118] : [] })),
+  };
   const data: DemoData = {
     config: { name: host.name, css: toCss(host, ":host"), fonts: null, ideasPublic: true },
     ideas,
     roadmap: { url: `/${DEMO_PROJECT}/roadmap`, lanes: (["planned", "in_progress", "shipped"] as const).map((s) => ({ status: s, label: route(`label.${s}`), total: 1, rows: s === "shipped"
-      ? [{ number: 118, title: news[0]!.title, votes: 23, sub: null, tags: [], url: `/${DEMO_PROJECT}/changelog` }]
+      ? [{ number: 118, title: news[0]!.title, votes: 23, sub: null, tags: [], url: `/${DEMO_PROJECT}/i/118` }]
       : ideas.filter((i) => i.status === s).map((i) => ({ number: i.number, title: i.title, votes: i.votes, sub: null, tags: [], url: `/${DEMO_PROJECT}/i/${i.number}` })) })) },
     changelog: { url: `/${DEMO_PROJECT}/changelog`, entries: news.map((n, k) => ({ id: `n${k}`, title: `${n.v} · ${n.title}`, html: `<p>${n.text.replace(/[<>&]/g, "")}</p>`, publishedAt: new Date(Date.now() - (k * 17 + 3) * 86400_000).toISOString(), url: `/${DEMO_PROJECT}/changelog`, ai: false, aiNote: null, items: [] })) },
   };
@@ -80,7 +92,7 @@ export async function PublicDemo() {
           <p className="mt-3 max-w-[70ch] text-[13px] leading-relaxed text-muted-foreground">{t("embedsNote")}</p>
 
         </div>
-        <div className="lg:sticky lg:top-6"><DemoInspector sample={{ ideas: data.ideas, lanes: data.roadmap.lanes, news }} /></div>
+        <div className="lg:sticky lg:top-6"><DemoInspector sample={sample} /></div>
       </main>
       {/* @ts-expect-error custom element */}
       <ozvi-widget project={DEMO_PROJECT} token-url="/demo/token" app-version="2.15.0" lang={locale} />

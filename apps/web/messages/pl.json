@@ -3671,7 +3671,7 @@
     "board": {
       "open": "Otwórz na tablicy zespołu",
       "title": "Podgląd tablicy",
-      "note": "Jednorazowy: zgłoszenie istnieje tylko w tej karcie.",
+      "note": "Jednorazowa: wszystko, co tu zrobisz, zostaje tylko w tej karcie.",
       "close": "Zamknij podgląd",
       "team": "Widok zespołu",
       "author": "Widok autora",
@@ -3686,7 +3686,55 @@
       "authorNote": "To widzi autor zgłoszenia: gdzie ono jest i co odpisał zespół.",
       "now": "teraz",
       "noReply": "Zespół jeszcze nie odpisał. Przełącz na widok zespołu, zmień status i powiadom autora.",
-      "noBugs": "Na razie nic nie zgłoszono. Zamknij podgląd i zgłoś błąd przez widget w prawym dolnym rogu."
+      "noBugs": "Na razie nic nie zgłoszono. Zamknij podgląd i zgłoś błąd przez widget w prawym dolnym rogu.",
+      "similar": "Podobne pomysły, może już istnieje:",
+      "why": "Dlaczego by to pomogło? (opcjonalnie)",
+      "search": "Szukaj w pomysłach",
+      "noMatch": "Nic nie znaleziono. Spróbuj innego słowa albo zaproponuj nowy pomysł.",
+      "sort": {
+        "top": "Najwięcej głosów",
+        "new": "Najnowsze"
+      },
+      "trail": "Droga pomysłu",
+      "backNews": "Wróć do nowości",
+      "related": "Powiązane pomysły",
+      "extraIdeas": [
+        {
+          "title": "",
+          "text": "",
+          "author": "Tomasz R.",
+          "comments": [
+            [
+              "Zespół",
+              "Wydane w wersji 2.15. Dzięki za podpowiedź!"
+            ]
+          ]
+        },
+        {
+          "title": "Eksport rezerwacji do CSV",
+          "text": "Na koniec miesiąca potrzebuję zestawienia dla księgowej.",
+          "author": "Zuzanna P.",
+          "comments": [
+            [
+              "Marcin D.",
+              "Z imieniem klienta, proszę."
+            ]
+          ]
+        },
+        {
+          "title": "Płatność online przy rezerwacji",
+          "text": "Klienci zapłaciliby zaliczkę od razu, mniej by nie przyszło.",
+          "author": "Iwona M.",
+          "comments": []
+        },
+        {
+          "title": "Kilka placówek na jednym koncie",
+          "text": "Mamy dwa lokale i przełączamy się między kontami.",
+          "author": "Roman K.",
+          "comments": []
+        }
+      ],
+      "teamBadge": "Zespół"
     }
   }
 }

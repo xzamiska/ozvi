@@ -3671,7 +3671,7 @@
     "board": {
       "open": "Im Board des Teams öffnen",
       "title": "Board-Vorschau",
-      "note": "Einmalig: Die Meldung existiert nur in diesem Tab.",
+      "note": "Einmalig: Alles, was Sie hier tun, bleibt nur in diesem Tab.",
       "close": "Vorschau schließen",
       "team": "Ansicht des Teams",
       "author": "Ansicht der meldenden Person",
@@ -3686,7 +3686,55 @@
       "authorNote": "Das sieht die meldende Person: wo die Meldung steht und was das Team geantwortet hat.",
       "now": "jetzt",
       "noReply": "Das Team hat noch nicht geantwortet. Wechseln Sie zur Ansicht des Teams, ändern Sie den Status und informieren Sie die meldende Person.",
-      "noBugs": "Sie haben noch nichts gemeldet. Schließen Sie die Vorschau und melden Sie einen Fehler über das Widget unten rechts."
+      "noBugs": "Sie haben noch nichts gemeldet. Schließen Sie die Vorschau und melden Sie einen Fehler über das Widget unten rechts.",
+      "similar": "Ähnliche Ideen, vielleicht gibt es sie schon:",
+      "why": "Warum würde es Ihnen helfen? (optional)",
+      "search": "Ideen durchsuchen",
+      "noMatch": "Nichts gefunden. Versuchen Sie ein anderes Wort oder schlagen Sie eine neue Idee vor.",
+      "sort": {
+        "top": "Meiste Stimmen",
+        "new": "Neueste"
+      },
+      "trail": "Der Weg der Idee",
+      "backNews": "Zurück zu den Neuigkeiten",
+      "related": "Verwandte Ideen",
+      "extraIdeas": [
+        {
+          "title": "",
+          "text": "",
+          "author": "Thomas R.",
+          "comments": [
+            [
+              "Team",
+              "Erschienen in Version 2.15. Danke für den Tipp!"
+            ]
+          ]
+        },
+        {
+          "title": "Buchungen als CSV exportieren",
+          "text": "Am Monatsende brauche ich eine Übersicht für die Buchhaltung.",
+          "author": "Susanne P.",
+          "comments": [
+            [
+              "Martin D.",
+              "Bitte auch mit dem Namen der Kundschaft."
+            ]
+          ]
+        },
+        {
+          "title": "Online-Zahlung bei der Buchung",
+          "text": "Kundschaft würde gleich eine Anzahlung leisten, weniger würden nicht erscheinen.",
+          "author": "Ivana M.",
+          "comments": []
+        },
+        {
+          "title": "Mehrere Standorte in einem Konto",
+          "text": "Wir haben zwei Standorte und wechseln zwischen Konten.",
+          "author": "Roman K.",
+          "comments": []
+        }
+      ],
+      "teamBadge": "Team"
     }
   }
 }
