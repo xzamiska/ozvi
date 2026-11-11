@@ -195,6 +195,36 @@
       "changedHeading": "A fiók e-mail-címe módosult",
       "changedBody": "Az Ozvi-fiókodba mostantól ezzel a címmel lehet bejelentkezni: {email}, nem pedig ezzel.",
       "changedNotYou": "Ha nem te voltál, válaszolj erre az e-mailre, vagy fordulj az Ozvi ügyfélszolgálatához."
+    },
+    "usage": {
+      "emails80": {
+        "subject": "{ws}: az e-mailek a havi keret 80%-án",
+        "summary": "{used} / {limit} e-mail ebben a hónapban.",
+        "heading": "Közeleg a havi e-mail-keret",
+        "body": "A(z) {ws} munkaterület ebben a hónapban {used} e-mailt küldött a csomagodban lévő {limit}-ből."
+      },
+      "emails100": {
+        "subject": "{ws}: elfogyott a havi e-mail-keret",
+        "summary": "{used} / {limit} e-mail ebben a hónapban.",
+        "heading": "Elfogyott a havi e-mail-keret",
+        "body": "A(z) {ws} munkaterület ebben a hónapban {used} e-mailt küldött, a csomag {limit}-et tartalmaz."
+      },
+      "translations80": {
+        "subject": "{ws}: az AI-fordítások a havi keret 80%-án",
+        "summary": "{used} / {limit} új fordítás ebben a hónapban.",
+        "heading": "Fogy a havi AI-fordítási keret",
+        "body": "A(z) {ws} munkaterület tábláin ebben a hónapban {used} új fordítás készült a csomagodban lévő {limit}-ből."
+      },
+      "translations100": {
+        "subject": "{ws}: elfogyott a havi AI-fordítási keret",
+        "summary": "Mind a {limit} új fordítás elfogyott.",
+        "heading": "Elfogyott a havi AI-fordítási keret",
+        "body": "A(z) {ws} munkaterület tábláin ebben a hónapban elkészült mind a {limit} új fordítás, amelyet a csomagod tartalmaz."
+      },
+      "emailsWhat": "Semmi sem blokkolódik. A keret felett az értesítések naponta egyszer, összesítőben mennek ki. A keret a hónap 1. napján újraindul.",
+      "translationsWhat": "A már elkészült fordítások továbbra is látszanak. Az új bejegyzések eredeti nyelven jelennek meg, amíg a keret a hónap 1. napján újra nem indul.",
+      "upgrade": "Ha ez rendszeres, egy magasabb csomag többet tartalmaz. A csomagváltás azonnal érvényes.",
+      "cta": "Csomag és használat megtekintése"
     }
   },
   "admin": {
@@ -1403,7 +1433,7 @@
       "attachments": "Mellékletek",
       "projects": "Projektek",
       "projectsFull": "Magasabb csomagban több projektet adhatsz hozzá.",
-      "usageNote": "Az e-maileket a munkaterület összes projektjében a hónap 1. napjától számoljuk. A túllépés semmit sem blokkol; az értesítések naponta egyszer, összesítőként mennek ki.",
+      "usageNote": "Az e-maileket és AI-fordításokat a munkaterület összes projektjére a hónap 1. napjától számoljuk. A túllépés semmit sem blokkol: az értesítések naponta egyszer, összesítőben mennek, az új fordítások a következő hónapig várnak. A munkaterület tulajdonosainak 80%-nál és 100%-nál írunk.",
       "plans": "Csomagok",
       "billing": "Számlázás",
       "yearly": "Éves",

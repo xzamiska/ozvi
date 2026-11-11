@@ -195,6 +195,36 @@
       "changedHeading": "E-mail účtu bol zmenený",
       "changedBody": "Účet v Ozvi sa odteraz prihlasuje adresou {email}, nie touto.",
       "changedNotYou": "Ak ste to neboli vy, odpovedzte na tento e-mail alebo napíšte na podporu Ozvi."
+    },
+    "usage": {
+      "emails80": {
+        "subject": "{ws}: e-maily sú na 80 % mesačného limitu",
+        "summary": "{used} z {limit} e-mailov tento mesiac.",
+        "heading": "Mesačný limit e-mailov sa blíži",
+        "body": "Priestor {ws} tento mesiac poslal {used} z {limit} e-mailov, ktoré obsahuje váš plán."
+      },
+      "emails100": {
+        "subject": "{ws}: mesačný limit e-mailov je vyčerpaný",
+        "summary": "{used} z {limit} e-mailov tento mesiac.",
+        "heading": "Mesačný limit e-mailov je vyčerpaný",
+        "body": "Priestor {ws} tento mesiac poslal {used} e-mailov, plán ich obsahuje {limit}."
+      },
+      "translations80": {
+        "subject": "{ws}: AI preklady sú na 80 % mesačného počtu",
+        "summary": "{used} z {limit} nových prekladov tento mesiac.",
+        "heading": "Mesačný počet AI prekladov sa blíži",
+        "body": "Na boardoch priestoru {ws} tento mesiac vzniklo {used} z {limit} nových prekladov, ktoré obsahuje váš plán."
+      },
+      "translations100": {
+        "subject": "{ws}: mesačný počet AI prekladov je vyčerpaný",
+        "summary": "Všetkých {limit} nových prekladov je použitých.",
+        "heading": "Mesačný počet AI prekladov je vyčerpaný",
+        "body": "Na boardoch priestoru {ws} tento mesiac vzniklo všetkých {limit} nových prekladov, ktoré obsahuje váš plán."
+      },
+      "emailsWhat": "Nič sa nezablokuje. Po prekročení limitu dostanú ľudia upozornenia raz denne v súhrne namiesto jednotlivých e-mailov. Limit sa obnoví 1. dňa v mesiaci.",
+      "translationsWhat": "Preklady, ktoré už vznikli, sa zobrazujú ďalej. Nové príspevky sa po vyčerpaní ukážu v origináli, kým sa počet 1. dňa v mesiaci neobnoví.",
+      "upgrade": "Ak to tak bude pravidelne, vyšší plán má viac. Zmena plánu sa prejaví hneď.",
+      "cta": "Pozrieť plán a využitie"
     }
   },
   "admin": {
@@ -1403,7 +1433,7 @@
       "attachments": "Prílohy",
       "projects": "Projekty",
       "projectsFull": "Ďalší projekt pridáte vo vyššom pláne.",
-      "usageNote": "E-maily sa rátajú za všetky projekty priestoru od 1. dňa v mesiaci. Po prekročení sa nič nezablokuje, upozornenia odídu raz denne v súhrne.",
+      "usageNote": "E-maily a AI preklady sa rátajú za všetky projekty priestoru od 1. dňa v mesiaci. Po prekročení sa nič nezablokuje: ľuďom pôjdu upozornenia raz denne v súhrne a nové preklady počkajú do ďalšieho mesiaca. Vlastníkom priestoru napíšeme pri 80 % a pri 100 %.",
       "plans": "Plány",
       "billing": "Platba",
       "yearly": "Ročne",

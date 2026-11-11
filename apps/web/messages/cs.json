@@ -195,6 +195,36 @@
       "changedHeading": "E-mail účtu byl změněn",
       "changedBody": "Účet v Ozvi se od teď přihlašuje adresou {email}, ne touto.",
       "changedNotYou": "Pokud jste to nebyli vy, odpovězte na tento e-mail nebo napište podpoře Ozvi."
+    },
+    "usage": {
+      "emails80": {
+        "subject": "{ws}: e-maily jsou na 80 % měsíčního limitu",
+        "summary": "{used} z {limit} e-mailů tento měsíc.",
+        "heading": "Měsíční limit e-mailů se blíží",
+        "body": "Prostor {ws} tento měsíc poslal {used} z {limit} e-mailů, které obsahuje váš plán."
+      },
+      "emails100": {
+        "subject": "{ws}: měsíční limit e-mailů je vyčerpán",
+        "summary": "{used} z {limit} e-mailů tento měsíc.",
+        "heading": "Měsíční limit e-mailů je vyčerpán",
+        "body": "Prostor {ws} tento měsíc poslal {used} e-mailů, plán jich obsahuje {limit}."
+      },
+      "translations80": {
+        "subject": "{ws}: AI překlady jsou na 80 % měsíčního počtu",
+        "summary": "{used} z {limit} nových překladů tento měsíc.",
+        "heading": "Měsíční počet AI překladů se blíží",
+        "body": "Na boardech prostoru {ws} tento měsíc vzniklo {used} z {limit} nových překladů, které obsahuje váš plán."
+      },
+      "translations100": {
+        "subject": "{ws}: měsíční počet AI překladů je vyčerpán",
+        "summary": "Všech {limit} nových překladů je použito.",
+        "heading": "Měsíční počet AI překladů je vyčerpán",
+        "body": "Na boardech prostoru {ws} tento měsíc vzniklo všech {limit} nových překladů, které obsahuje váš plán."
+      },
+      "emailsWhat": "Nic se nezablokuje. Po překročení limitu dostanou lidé upozornění jednou denně v souhrnu místo jednotlivých e-mailů. Limit se obnoví 1. dne v měsíci.",
+      "translationsWhat": "Překlady, které už vznikly, se zobrazují dál. Nové příspěvky se po vyčerpání ukážou v originále, dokud se počet 1. dne v měsíci neobnoví.",
+      "upgrade": "Pokud to tak bude pravidelně, vyšší plán má víc. Změna plánu se projeví hned.",
+      "cta": "Zobrazit plán a využití"
     }
   },
   "admin": {
@@ -1403,7 +1433,7 @@
       "attachments": "Přílohy",
       "projects": "Projekty",
       "projectsFull": "Další projekt přidáte ve vyšším plánu.",
-      "usageNote": "E-maily se počítají za všechny projekty prostoru od 1. dne v měsíci. Po překročení se nic nezablokuje, upozornění odejdou jednou denně v souhrnu.",
+      "usageNote": "E-maily a AI překlady se počítají za všechny projekty prostoru od 1. dne v měsíci. Po překročení se nic nezablokuje: lidem půjdou upozornění jednou denně v souhrnu a nové překlady počkají do dalšího měsíce. Vlastníkům prostoru napíšeme při 80 % a při 100 %.",
       "plans": "Plány",
       "billing": "Platba",
       "yearly": "Ročně",

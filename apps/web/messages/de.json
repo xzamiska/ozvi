@@ -195,6 +195,36 @@
       "changedHeading": "E-Mail-Adresse des Kontos geändert",
       "changedBody": "Ihr Ozvi-Konto meldet sich jetzt mit {email} an, nicht mehr mit dieser Adresse.",
       "changedNotYou": "Wenn Sie das nicht waren, antworten Sie auf diese E-Mail oder wenden Sie sich an den Ozvi-Support."
+    },
+    "usage": {
+      "emails80": {
+        "subject": "{ws}: E-Mails bei 80 % des Monatslimits",
+        "summary": "{used} von {limit} E-Mails in diesem Monat.",
+        "heading": "Das monatliche E-Mail-Limit ist bald erreicht",
+        "body": "Der Arbeitsbereich {ws} hat diesen Monat {used} der {limit} E-Mails versendet, die Ihr Plan enthält."
+      },
+      "emails100": {
+        "subject": "{ws}: Das monatliche E-Mail-Limit ist erreicht",
+        "summary": "{used} von {limit} E-Mails in diesem Monat.",
+        "heading": "Das monatliche E-Mail-Limit ist erreicht",
+        "body": "Der Arbeitsbereich {ws} hat diesen Monat {used} E-Mails versendet; Ihr Plan enthält {limit}."
+      },
+      "translations80": {
+        "subject": "{ws}: KI-Übersetzungen bei 80 % des Monatskontingents",
+        "summary": "{used} von {limit} neuen Übersetzungen in diesem Monat.",
+        "heading": "Das monatliche Kontingent an KI-Übersetzungen wird knapp",
+        "body": "Auf den Boards von {ws} sind diesen Monat {used} der {limit} neuen Übersetzungen entstanden, die Ihr Plan enthält."
+      },
+      "translations100": {
+        "subject": "{ws}: Die KI-Übersetzungen dieses Monats sind aufgebraucht",
+        "summary": "Alle {limit} neuen Übersetzungen sind verbraucht.",
+        "heading": "Die KI-Übersetzungen dieses Monats sind aufgebraucht",
+        "body": "Auf den Boards von {ws} sind diesen Monat alle {limit} neuen Übersetzungen entstanden, die Ihr Plan enthält."
+      },
+      "emailsWhat": "Nichts wird blockiert. Über dem Limit erhalten Menschen ihre Benachrichtigungen einmal täglich gesammelt statt einzeln. Das Limit beginnt am 1. des Monats neu.",
+      "translationsWhat": "Bestehende Übersetzungen werden weiter angezeigt. Neue Beiträge erscheinen im Original, bis das Kontingent am 1. des Monats neu beginnt.",
+      "upgrade": "Wenn das öfter passiert, enthält ein höherer Plan mehr. Ein Planwechsel gilt sofort.",
+      "cta": "Plan und Nutzung ansehen"
     }
   },
   "admin": {
@@ -1403,7 +1433,7 @@
       "attachments": "Anhänge",
       "projects": "Projekte",
       "projectsFull": "Mit einem höheren Tarif können Sie weitere Projekte hinzufügen.",
-      "usageNote": "E-Mails werden über alle Projekte des Workspace ab dem 1. des Monats gezählt. Ein Überschreiten blockiert nichts; Benachrichtigungen werden dann einmal täglich als Zusammenfassung gesendet.",
+      "usageNote": "E-Mails und KI-Übersetzungen zählen für alle Projekte des Arbeitsbereichs ab dem 1. des Monats. Ein Überschreiten blockiert nichts: Benachrichtigungen gehen einmal täglich gesammelt raus, neue Übersetzungen warten bis zum nächsten Monat. Den Inhabern des Arbeitsbereichs schreiben wir bei 80 % und 100 %.",
       "plans": "Tarife",
       "billing": "Abrechnung",
       "yearly": "Jährlich",

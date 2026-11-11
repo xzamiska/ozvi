@@ -195,6 +195,36 @@
       "changedHeading": "Adres e-mail konta zmieniony",
       "changedBody": "Do twojego konta Ozvi logujesz się teraz adresem {email}, a nie tym.",
       "changedNotYou": "Jeśli to nie ty, odpowiedz na tę wiadomość albo skontaktuj się z pomocą Ozvi."
+    },
+    "usage": {
+      "emails80": {
+        "subject": "{ws}: e-maile na 80% miesięcznego limitu",
+        "summary": "{used} z {limit} e-maili w tym miesiącu.",
+        "heading": "Miesięczny limit e-maili się zbliża",
+        "body": "Przestrzeń {ws} wysłała w tym miesiącu {used} z {limit} e-maili, które obejmuje twój plan."
+      },
+      "emails100": {
+        "subject": "{ws}: miesięczny limit e-maili wyczerpany",
+        "summary": "{used} z {limit} e-maili w tym miesiącu.",
+        "heading": "Miesięczny limit e-maili jest wyczerpany",
+        "body": "Przestrzeń {ws} wysłała w tym miesiącu {used} e-maili, plan obejmuje {limit}."
+      },
+      "translations80": {
+        "subject": "{ws}: tłumaczenia AI na 80% miesięcznej puli",
+        "summary": "{used} z {limit} nowych tłumaczeń w tym miesiącu.",
+        "heading": "Miesięczna pula tłumaczeń AI się kończy",
+        "body": "Na tablicach przestrzeni {ws} powstało w tym miesiącu {used} z {limit} nowych tłumaczeń, które obejmuje twój plan."
+      },
+      "translations100": {
+        "subject": "{ws}: miesięczna pula tłumaczeń AI wyczerpana",
+        "summary": "Wykorzystano wszystkie {limit} nowe tłumaczenia.",
+        "heading": "Miesięczna pula tłumaczeń AI jest wyczerpana",
+        "body": "Na tablicach przestrzeni {ws} powstały w tym miesiącu wszystkie {limit} nowe tłumaczenia, które obejmuje twój plan."
+      },
+      "emailsWhat": "Nic nie zostanie zablokowane. Po przekroczeniu limitu ludzie dostają powiadomienia raz dziennie w podsumowaniu zamiast pojedynczo. Limit odnawia się 1. dnia miesiąca.",
+      "translationsWhat": "Istniejące tłumaczenia nadal się wyświetlają. Nowe wpisy są pokazywane w oryginale, dopóki pula nie odnowi się 1. dnia miesiąca.",
+      "upgrade": "Jeśli to się powtarza, wyższy plan obejmuje więcej. Zmiana planu działa od razu.",
+      "cta": "Zobacz plan i wykorzystanie"
     }
   },
   "admin": {
@@ -1403,7 +1433,7 @@
       "attachments": "Załączniki",
       "projects": "Projekty",
       "projectsFull": "Więcej projektów dodasz w wyższym planie.",
-      "usageNote": "E-maile liczymy łącznie dla wszystkich projektów w przestrzeni roboczej od 1. dnia miesiąca. Przekroczenie niczego nie blokuje; powiadomienia są wtedy wysyłane raz dziennie jako podsumowanie.",
+      "usageNote": "E-maile i tłumaczenia AI liczą się dla wszystkich projektów przestrzeni od 1. dnia miesiąca. Przekroczenie niczego nie blokuje: ludzie dostają powiadomienia raz dziennie w podsumowaniu, a nowe tłumaczenia czekają do kolejnego miesiąca. Do właścicieli przestrzeni napiszemy przy 80% i 100%.",
       "plans": "Plany",
       "billing": "Rozliczenie",
       "yearly": "Rocznie",

@@ -195,6 +195,36 @@
       "changedHeading": "Account e-mail changed",
       "changedBody": "Your Ozvi account now signs in with {email}, not this address.",
       "changedNotYou": "If this wasn’t you, reply to this e-mail or contact Ozvi support."
+    },
+    "usage": {
+      "emails80": {
+        "subject": "{ws}: e-mails at 80% of the monthly limit",
+        "summary": "{used} of {limit} e-mails this month.",
+        "heading": "The monthly e-mail limit is near",
+        "body": "Workspace {ws} has sent {used} of the {limit} e-mails your plan includes this month."
+      },
+      "emails100": {
+        "subject": "{ws}: the monthly e-mail limit is reached",
+        "summary": "{used} of {limit} e-mails this month.",
+        "heading": "The monthly e-mail limit is reached",
+        "body": "Workspace {ws} has sent {used} e-mails this month; your plan includes {limit}."
+      },
+      "translations80": {
+        "subject": "{ws}: AI translations at 80% of the monthly allowance",
+        "summary": "{used} of {limit} new translations this month.",
+        "heading": "The monthly AI translations are running low",
+        "body": "The boards of workspace {ws} have made {used} of the {limit} new translations your plan includes this month."
+      },
+      "translations100": {
+        "subject": "{ws}: the monthly AI translations are used up",
+        "summary": "All {limit} new translations are used.",
+        "heading": "The monthly AI translations are used up",
+        "body": "The boards of workspace {ws} have made all {limit} new translations your plan includes this month."
+      },
+      "emailsWhat": "Nothing is blocked. Over the limit, people get their notifications once a day in a digest instead of one by one. The limit resets on the 1st of the month.",
+      "translationsWhat": "Translations made so far keep showing. New posts are shown in their original language until the allowance resets on the 1st of the month.",
+      "upgrade": "If this happens regularly, a higher plan includes more. A plan change takes effect right away.",
+      "cta": "See plan and usage"
     }
   },
   "admin": {
@@ -1403,7 +1433,7 @@
       "attachments": "Attachments",
       "projects": "Projects",
       "projectsFull": "Add more projects on a higher plan.",
-      "usageNote": "E-mails count across all projects in the workspace from the 1st of the month. Going over blocks nothing; notifications are sent once a day as a digest.",
+      "usageNote": "E-mails and AI translations count across all the workspace's projects from the 1st of the month. Going over blocks nothing: people get notifications once a day in a digest and new translations wait for next month. We write to the workspace's owners at 80% and at 100%.",
       "plans": "Plans",
       "billing": "Billing",
       "yearly": "Yearly",

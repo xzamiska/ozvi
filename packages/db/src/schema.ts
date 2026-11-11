@@ -480,6 +480,20 @@ export const trackerSyncs = pgTable("tracker_syncs", {
  * Cloud accounts: people who own workspaces (sign in at /app with an e-mailed code).
  * Not tenant data — global like workspaces/projects, no RLS. Board users stay per project (users).
  */
+/**
+ * Usage alerts already sent to a workspace's owners: one per limit, month and threshold (80 %, 100 %).
+ * Workspace-level like workspaces itself (no project, no RLS).
+ */
+export const usageAlerts = pgTable("usage_alerts", {
+  workspaceId: uuid("workspace_id").notNull().references(() => workspaces.id, { onDelete: "cascade" }),
+  /** "emails" | "translations" */
+  kind: text("kind").notNull(),
+  /** Calendar month, "2026-11" (UTC). */
+  period: text("period").notNull(),
+  level: smallint("level").notNull(),
+  sentAt: timestamp("sent_at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [primaryKey({ columns: [t.workspaceId, t.kind, t.period, t.level] })]);
+
 export const accounts = pgTable("accounts", {
   id: id(),
   email: text("email").notNull().unique(),
