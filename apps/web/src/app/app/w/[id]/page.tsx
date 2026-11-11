@@ -116,7 +116,7 @@ export default async function Overview({ params, searchParams }: { params: Promi
                       <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-lg border bg-wash text-[14px] font-semibold">{p.name.charAt(0).toUpperCase()}</span>
                       <div className="min-w-0">
                         <h3 id={`p-${p.id}`} className="truncate text-[15px] font-semibold tracking-tight">{p.name}</h3>
-                        <a href={`${url}/ideas`} className="inline-flex max-w-full items-center gap-1 font-mono text-[12px] text-muted-foreground hover:text-foreground">
+                        <a href={url} className="inline-flex max-w-full items-center gap-1 font-mono text-[12px] text-muted-foreground hover:text-foreground">
                           <span className="truncate">{url.replace(/^https?:\/\//, "")}</span><ArrowUpRight className="size-3 shrink-0" aria-hidden />
                         </a>
                       </div>

@@ -21,6 +21,7 @@ import { hasTag, listTags } from "@/lib/tags";
 import { tagFromParam } from "@/lib/tag-rules";
 import { decorateRows } from "@/lib/row-extras";
 import { boardTitle } from "@/lib/board-meta";
+import { needSection } from "@/lib/sections-server";
 
 export const generateMetadata = boardTitle("board.nav", "bugs");
 
@@ -35,6 +36,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
   const { project: slug } = await params;
   const sp = await searchParams;
   const { project, user, isTeam, locale } = await getCtx(slug);
+  needSection(project, "bugs");
   const t = await getTranslations("board.bugs");
   const tb = await getTranslations("board");
 

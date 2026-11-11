@@ -8,7 +8,7 @@ import { cookieName } from "@/lib/session";
 export async function POST(req: NextRequest, { params }: { params: Promise<{ project: string }> }) {
   const { project: slug } = await params;
   const project = await db.query.projects.findFirst({ where: eq(schema.projects.slug, slug) });
-  const res = NextResponse.redirect(new URL(`/${slug}/ideas`, requestOrigin(project, req)), 303);
+  const res = NextResponse.redirect(new URL(`/${slug}`, requestOrigin(project, req)), 303);
   res.cookies.set({ name: cookieName(slug), value: "", path: `/${slug}`, maxAge: 0 });
   return res;
 }

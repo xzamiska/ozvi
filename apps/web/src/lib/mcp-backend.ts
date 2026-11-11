@@ -32,6 +32,7 @@ import { readCustomer } from "./traits";
 import { ApiNotFound, CursorError, decodeCursor, encodeCursor, type ApiBackend, type ApiComment, type ApiUser } from "./api/types";
 import type { ItemSource } from "./provenance";
 import type { Locale } from "@/i18n/locales";
+import { sectionOfKind, sectionOn, type Section } from "./sections";
 
 const { items, users, comments, attachments, itemLinks } = schema;
 const NONE = "00000000-0000-0000-0000-000000000000";
@@ -56,10 +57,17 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
    * Members see ideas and their own bugs. Nobody gets deleted posts or ideas waiting in the
    * moderation queue through MCP (the queue is handled on the board).
    */
-  const published: SQL = and(isNull(items.deletedAt), eq(items.pending, false))!;
+  // Items of a switched-off section (lib/sections) are out of every list and lookup.
+  const kindsOn = (["idea", "bug"] as const).filter((k) => sectionOn(project, sectionOfKind(k)));
+  const published: SQL = and(isNull(items.deletedAt), eq(items.pending, false), inArray(items.kind, [...kindsOn]))!;
   const visible: SQL = team ? published : and(published, or(eq(items.kind, "idea"), eq(items.authorId, user.id)))!;
   const suggestModel = embeddingsConfig()?.model ?? null;
-  const reachable = (i: Item) => canSee(i, user) && !i.pending && !i.deletedAt;
+  const reachable = (i: Item) => canSee(i, user) && !i.pending && !i.deletedAt && (kindsOn as readonly string[]).includes(i.kind);
+  const sectionOff = (s: Section) => channel === "api"
+    ? new ApiNotFound(`The ${s} section is switched off for this project.`)
+    : new ToolError(`Časť ${s} je v tomto projekte vypnutá (nastavenia → Časti boardu).`);
+  /** Changelog tools only while the changelog section is on. */
+  const changelogRun = <T>(fn: (tx: Tx) => Promise<T>) => (sectionOn(project, "changelog") ? run(fn) : Promise.reject(sectionOff("changelog")));
 
   type AuthorRow = (TrustSubject & { name: string | null }) | null;
   const authorCols = { name: users.name, role: users.role, externalId: users.externalId, traits: users.traits };
@@ -326,9 +334,9 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
       return fresh(tx, item.id);
     }),
 
-    getUpdate: (id) => run(async (tx) => (await mcpUpdates(tx, project, customers, 1, id))[0] ?? null),
+    getUpdate: (id) => changelogRun(async (tx) => (await mcpUpdates(tx, project, customers, 1, id))[0] ?? null),
 
-    createDraft: (input) => run(async (tx) => {
+    createDraft: (input) => changelogRun(async (tx) => {
       if (!customers) throw new ToolError("Drafts are for team tokens with the triage scope.");
       const ideas = await ideasFor(tx, input.items);
       const entry = await saveEntry(tx, project, user, { title: input.title, body: input.body, itemIds: ideas.map((i) => i.id) }, undefined, apiLoc);
@@ -503,6 +511,7 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
 
     submitInsight: async (a) => {
       if (!customers) throw new ToolError("Insights are for team tokens with the triage scope.");
+      if (!sectionOn(project, "ideas")) throw sectionOff("ideas");
       if (!allow("item", user.id)) throw new ToolError(new RateLimitError().message);
       const queryVector = !a.match && aiAllowed ? await embedQuery(`${a.title}\n\n${a.text}`) : null;
       return run(async (tx) => {
@@ -532,11 +541,11 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
       return (await withAuthors(tx, [(await changeStatus(tx, project, user, item, status, version)) ?? item]))[0]!;
     }),
 
-    listUpdates: (a) => run(async (tx) => {
+    listUpdates: (a) => changelogRun(async (tx) => {
       if (a.drafts && !customers) throw new ToolError("Drafts are for team tokens with the triage scope.");
       return mcpUpdates(tx, project, a.drafts, a.limit);
     }),
-    getDraft: (id) => run(async (tx) => {
+    getDraft: (id) => changelogRun(async (tx) => {
       if (!customers) throw new ToolError("Drafts are for team tokens with the triage scope.");
       const [d] = await mcpUpdates(tx, project, true, 1, id);
       if (!d) return null;
@@ -547,7 +556,7 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
           sql`${users.email} is not null`, eq(users.emailOptOut, false), sql`${users.id} <> ${user.id}`)) : [{ n: 0 }];
       return { ...d, recipients: r?.n ?? 0 };
     }),
-    publishDraft: (id) => run(async (tx) => {
+    publishDraft: (id) => changelogRun(async (tx) => {
       if (!customers) throw new ToolError("Drafts are for team tokens with the triage scope.");
       const r = await publishEntry(tx, project, user, id);
       return { url: `${base}/changelog#e-${r.entry.id}`, emailed: r.emailed };
@@ -556,7 +565,7 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
     linkIssue: (n, issue) => run(async (tx) => linkIssue(tx, project, user, await mustGet(tx, n), issue)),
     createIssue: (n) => run(async (tx) => createIssue(tx, project, user, await mustGet(tx, n))),
 
-    previewUpdate: (input) => run(async (tx) => {
+    previewUpdate: (input) => changelogRun(async (tx) => {
       const ideas = await ideasFor(tx, input.items);
       const ids = ideas.map((i) => i.id);
       // Same rule as the e-mail: voters and authors, with an address, not opted out, not you.
@@ -566,7 +575,7 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
       return { ideas: await withAuthors(tx, ideas), recipients: r?.n ?? 0 };
     }),
 
-    publishUpdate: (input) => run(async (tx) => {
+    publishUpdate: (input) => changelogRun(async (tx) => {
       // Idempotent within 30 minutes: a retried or repeated confirm must not publish (and e-mail) twice.
       const [dup] = await tx.select({ id: schema.changelogEntries.id }).from(schema.changelogEntries)
         .where(and(eq(schema.changelogEntries.title, input.title.trim()), gte(schema.changelogEntries.publishedAt, new Date(Date.now() - 30 * 60_000)))).limit(1);

@@ -14,6 +14,7 @@ import { randomUUID } from "node:crypto";
 import { appSite, fetchSiteIcon, iconType, MAX_ICON_BYTES } from "./favicon";
 import { BlockedAddressError } from "./net";
 import { storage } from "./storage";
+import { normalizeSections } from "./sections";
 
 async function requireAdmin(slug: string) {
   const ctx = await getCtx(slug);
@@ -59,6 +60,19 @@ export async function saveSettings(slug: string, _: AdminState, form: FormData):
     const icon = await Promise.race([fetchSiteIcon(site).catch(() => null), new Promise<null>((r) => setTimeout(() => r(null), 6000))]);
     if (icon) await storeIcon({ id: project.id, faviconKey: null }, icon.bytes, icon.type).catch(() => {});
   }
+  revalidatePath(`/${slug}`, "layout");
+  return { ok: t("saved") };
+}
+
+/** Board sections (lib/sections): which the project uses and which the board opens on. Data is never deleted. */
+export async function saveSections(slug: string, _: AdminState, form: FormData): Promise<AdminState> {
+  const { project, user, locale } = await requireAdmin(slug);
+  const t = await getTranslations({ locale, namespace: "admin.sections" });
+  const picked = form.getAll("sections").map(String);
+  if (picked.length === 0) return { error: t("needOne") };
+  const { sections, homeSection } = normalizeSections(picked, String(form.get("home") ?? ""));
+  await db.update(schema.projects).set({ sections, homeSection }).where(eq(schema.projects.id, project.id));
+  await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "project.settings", detail: `sections ${sections.join(",")}, home ${homeSection}` });
   revalidatePath(`/${slug}`, "layout");
   return { ok: t("saved") };
 }

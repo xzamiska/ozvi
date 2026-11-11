@@ -14,7 +14,7 @@ export const generateMetadata = () => landingMetadata("sk");
 export default async function Home() {
   if (process.env.OZVI_MODE === "cloud") return <Landing locale="sk" signedIn={!!(await getAccount())} />;
   const [p] = await db.select({ slug: schema.projects.slug }).from(schema.projects).orderBy(asc(schema.projects.createdAt)).limit(1);
-  if (p) redirect(`/${p.slug}/ideas`);
+  if (p) redirect(`/${p.slug}`);
   return (
     <main id="main" tabIndex={-1} className="oz-frame grid min-h-dvh place-content-center gap-3 py-16">
       <h1 className="font-heading text-2xl font-bold">Ozvi beží</h1>

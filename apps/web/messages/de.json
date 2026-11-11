@@ -222,7 +222,8 @@
       "import": "Import",
       "tags": "Tags",
       "statuses": "Status",
-      "statusesSub": "Namen, Unterstatus, Unbeantwortet"
+      "statusesSub": "Namen, Unterstatus, Unbeantwortet",
+      "sections": "Bereiche des Boards"
     },
     "setup": {
       "text": "Drei Schritte, und das Feedback fließt direkt aus Ihrer App. Das Aussehen können Sie jederzeit feinjustieren.",
@@ -691,6 +692,32 @@
       "uploading": "Lade hoch…",
       "uploadHint": "PNG, SVG oder ICO, höchstens 200 kB.",
       "clear": "Buchstaben verwenden"
+    },
+    "sections": {
+      "text": "Schalten Sie Bereiche aus, die Sie nicht nutzen. Sie verschwinden aus Board, Widget, Einbettungen, API und MCP. Nichts wird gelöscht; eingeschaltet ist alles wieder da.",
+      "ideas": {
+        "title": "Ideen",
+        "text": "Nutzer schlagen vor und stimmen ab."
+      },
+      "roadmap": {
+        "title": "Roadmap",
+        "text": "Was Sie planen und woran Sie arbeiten, aus Ideen."
+      },
+      "changelog": {
+        "title": "Neuigkeiten",
+        "text": "Veröffentlichte Neuigkeiten und RSS. Ohne sie erzeugt ein GitHub-Release keinen Entwurf."
+      },
+      "bugs": {
+        "title": "Fehler",
+        "text": "Private Fehlermeldungen, nur für die meldende Person und das Team sichtbar."
+      },
+      "roadmapNeedsIdeas": "Die Roadmap besteht aus Ideen; schalten Sie zuerst Ideen ein.",
+      "home": "Startbereich",
+      "homeText": "Wohin die Adresse des Boards und das Logo im Kopf führen.",
+      "needOne": "Lassen Sie mindestens einen Bereich eingeschaltet.",
+      "save": "Bereiche speichern",
+      "saving": "Wird gespeichert…",
+      "saved": "Die Bereiche des Boards sind gespeichert."
     }
   },
   "ai": {
@@ -744,7 +771,8 @@
     "gate": {
       "signIn": "Anmelden",
       "backToIdeas": "Zurück zu den Ideen",
-      "viaApp": "Öffnen Sie das Feedback direkt in {app}, dann werden Sie automatisch angemeldet."
+      "viaApp": "Öffnen Sie das Feedback direkt in {app}, dann werden Sie automatisch angemeldet.",
+      "backToBoard": "Zurück zum Board"
     },
     "notFound": {
       "title": "Diese Seite gibt es nicht",
@@ -1666,7 +1694,8 @@
     "deleteConfirm": "Geben Sie zur Bestätigung genau „{slug}“ ein.",
     "blocked": "Sie können auf diesem Board derzeit keine Beiträge verfassen und nicht abstimmen.",
     "voteBudget": "Dafür haben Sie nicht mehr genug Stimmen ({n} übrig). Entfernen Sie eine Stimme von einer anderen Idee oder wählen Sie eine geringere Wichtigkeit.",
-    "adminOnly": "Das kann nur ein Board-Admin."
+    "adminOnly": "Das kann nur ein Board-Admin.",
+    "sectionOff": "Dieser Bereich ist in diesem Projekt ausgeschaltet."
   },
   "forms": {
     "optional": "optional",
@@ -3129,7 +3158,8 @@
     "who": "Wir konnten die Person nicht verifizieren.",
     "form": "Ungültiges Formular.",
     "failed": "Die Meldung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
-    "private": "Die Ideen dieses Projekts sehen nur angemeldete Personen. Melden Sie sich in der App an und versuchen Sie es erneut."
+    "private": "Die Ideen dieses Projekts sehen nur angemeldete Personen. Melden Sie sich in der App an und versuchen Sie es erneut.",
+    "sectionOff": "Dieser Bereich ist in diesem Projekt ausgeschaltet."
   },
   "moderation": {
     "menu": "Optionen für den Beitrag",

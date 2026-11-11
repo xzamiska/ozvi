@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { boardTitle } from "@/lib/board-meta";
 import { TranslateBar, TranslatedBody, TranslatedTitle, TranslationScope } from "@/components/ozvi/Translate";
 import { translationView } from "@/lib/translate-view";
+import { needSection } from "@/lib/sections-server";
 
 export const generateMetadata = boardTitle("board.changelog");
 
@@ -31,6 +32,7 @@ export default async function Changelog({ params, searchParams }: { params: Prom
   const { project: slug } = await params;
   const sp = await searchParams;
   const { project, user, isTeam, locale, plan } = await getCtx(slug);
+  needSection(project, "changelog");
   const t = await getTranslations("board.changelog");
   const tb = await getTranslations("board");
   if (!project.ideasPublic && !user) {

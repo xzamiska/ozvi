@@ -15,6 +15,7 @@ import { getTranslations } from "next-intl/server";
 import { stopHint, stopLabel } from "@/lib/route-text";
 import { parseStatusLabels } from "@/lib/statuses";
 import { boardTitle } from "@/lib/board-meta";
+import { needSection } from "@/lib/sections-server";
 
 export const generateMetadata = boardTitle("board.roadmap");
 
@@ -33,6 +34,7 @@ export default async function Roadmap({ params, searchParams }: {
   // Each column pages on its own (?pl=2&sh=3), so loading more in one keeps the others as they are.
   const pages = Object.fromEntries(COLUMNS.map((c) => [c.key, pageParam(sp[c.key])])) as Record<(typeof COLUMNS)[number]["key"], number>;
   const { project, user, isTeam, locale } = await getCtx(slug);
+  needSection(project, "roadmap");
   const t = await getTranslations("board.roadmap");
   const tb = await getTranslations("board");
   if (!project.ideasPublic && !user) {

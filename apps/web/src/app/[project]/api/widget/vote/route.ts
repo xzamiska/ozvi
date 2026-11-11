@@ -19,7 +19,7 @@ export async function OPTIONS(req: NextRequest, { params }: P) {
  * weight from the vote mode and guards the budget). weight 0 removes the vote. Voting never subscribes.
  */
 export async function POST(req: NextRequest, { params }: P) {
-  const r = await widgetRead(req, (await params).project);
+  const r = await widgetRead(req, (await params).project, "ideas");
   if (!r.ok) return r.res;
   const { project, user, locale, json } = r;
   const te = translator(locale, "errors");

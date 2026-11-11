@@ -13,6 +13,7 @@ import type { Project, User } from "./project";
 import { moderationWhere } from "./queries";
 import { userFromToken } from "./sso";
 import { readCors, searchWords } from "./widget-rules";
+import { sectionOn, type Section } from "./sections";
 
 /** The widget sends ?lang= (its own language); otherwise Accept-Language, both within the board's languages. */
 export function widgetLocale(project: { defaultLocale: string; locales: string[] } | undefined, req: NextRequest): Locale {
@@ -33,12 +34,14 @@ export type WidgetRead =
  * Shared start of every widget GET: project, language, CORS, and the person from `Authorization: Bearer <SSO token>`
  * when a trusted origin sends one. Private boards (ideas not public) answer only to a signed-in person.
  */
-export async function widgetRead(req: NextRequest, slug: string): Promise<WidgetRead> {
+export async function widgetRead(req: NextRequest, slug: string, section?: Section): Promise<WidgetRead> {
   const project = await projectFor(slug);
   const locale = widgetLocale(project, req);
   const t = translator(locale, "widget");
   if (!project) return { ok: false, res: Response.json({ error: t("noProject") }, { status: 404, headers: { "access-control-allow-origin": "*" } }) };
   const { headers } = readCors(project.allowedOrigins, ownOrigins(project, req), req.headers.get("origin"));
+  // A section the project switched off answers like a missing page (embeds then render nothing).
+  if (section && !sectionOn(project, section)) return { ok: false, res: Response.json({ error: t("sectionOff"), sectionOff: true }, { status: 404, headers }) };
   const token = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "") ?? "";
   let user: User | null = null;
   if (token) {

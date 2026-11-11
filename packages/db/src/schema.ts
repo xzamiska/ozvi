@@ -58,6 +58,10 @@ export const projects = pgTable("projects", {
   emailLogin: boolean("email_login").notNull().default(false),
   /** Last weekly team digest e-mail (Mondays), so it goes out once per week per project. */
   teamDigestAt: timestamp("team_digest_at", { withTimezone: true }),
+  /** Board sections the project uses (ideas, roadmap, changelog, bugs); lib/sections normalizes them. Off = hidden everywhere, data kept. */
+  sections: text("sections").array().notNull().default(sql`'{ideas,roadmap,changelog,bugs}'::text[]`),
+  /** The section the board opens on (falls back to the first enabled one). */
+  homeSection: text("home_section").notNull().default("ideas"),
   /** Public ideas board on/off; the bug space is always private. */
   ideasPublic: boolean("ideas_public").notNull().default(true),
   /** The board's own favicon (storage key, changes with every new icon, so it doubles as a cache key). Null = a letter in the accent colour. */

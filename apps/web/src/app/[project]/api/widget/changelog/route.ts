@@ -18,7 +18,7 @@ export async function OPTIONS(req: NextRequest, { params }: P) {
  * "written with AI · reviewed by …" note (EU AI Act art. 50).
  */
 export async function GET(req: NextRequest, { params }: P) {
-  const r = await widgetRead(req, (await params).project);
+  const r = await widgetRead(req, (await params).project, "changelog");
   if (!r.ok) return r.res;
   const { project, locale } = r;
   const limit = clampLimit(req.nextUrl.searchParams.get("limit"), 5, 20);

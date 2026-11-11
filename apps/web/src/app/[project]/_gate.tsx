@@ -14,10 +14,10 @@ export async function Gate({ project, locale, title, text, returnTo, signedIn = 
 }) {
   const t = await getTranslations({ locale, namespace: "board.gate" });
   const login = signedIn ? null : loginHref(project, returnTo);
-  const back = project.ideasPublic || signedIn ? `/${project.slug}/ideas` : null;
+  const back = project.ideasPublic || signedIn ? `/${project.slug}` : null;
   const action = login
     ? <Button asChild size="lg"><a href={login}>{t("signIn")}</a></Button>
-    : back ? <Button asChild size="lg" variant="outline"><Link href={back}>{t("backToIdeas")}</Link></Button>
+    : back ? <Button asChild size="lg" variant="outline"><Link href={back}>{t("backToBoard")}</Link></Button>
     : null;
   return (
     <Page>

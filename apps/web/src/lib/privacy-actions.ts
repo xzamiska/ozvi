@@ -36,7 +36,7 @@ export async function deleteWholeProject(slug: string, _: PrivacyState, form: Fo
 /** "My data" → e-mails: the same switch as the unsubscribe link in every e-mail. */
 export async function setEmails(slug: string, on: boolean) {
   const { project, user } = await getCtx(slug);
-  if (!user) redirect(`/${slug}/ideas`);
+  if (!user) redirect(`/${slug}`);
   await withProject(db, project.id, (tx) => tx.update(schema.users).set({ emailOptOut: !on }).where(eq(schema.users.id, user.id)));
   revalidatePath(`/${slug}/me`);
 }

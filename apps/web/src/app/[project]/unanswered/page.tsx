@@ -1,5 +1,6 @@
 import { schema, withProject } from "@ozvi/db";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
+import { sectionOfKind, sectionOn } from "@/lib/sections";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ItemRow } from "@/components/ItemRow";
@@ -32,11 +33,13 @@ export default async function Unanswered({ params, searchParams }: {
   if (!user || !isTeam) {
     return <Gate project={project} locale={locale} signedIn={!!user} returnTo={`/${slug}/unanswered`} title={t("gateTitle")} text={t("gateText")} />;
   }
-  const kind = sp.k === "idea" || sp.k === "bug" ? sp.k : null;
+  // Only the kinds whose section is on (a switched-off section's items wait elsewhere: nowhere).
+  const kinds = (["idea", "bug"] as const).filter((k) => sectionOn(project, sectionOfKind(k)));
+  const kind = (sp.k === "idea" || sp.k === "bug") && kinds.includes(sp.k) && kinds.length > 1 ? sp.k : null;
   const page = pageParam(sp.p);
   const days = project.unansweredDays;
   const { items } = schema;
-  const base = [unansweredWhere(days)];
+  const base = [unansweredWhere(days), inArray(items.kind, [...kinds])];
   const { rows, hasMore, counts, allTags, weights, left } = await withProject(db, project.id, async (tx) => {
     const where = [...base, ...(kind ? [eq(items.kind, kind)] : [])];
     const r = takePage(await listItems(tx, where, "waiting", true, { limit: fetchLimit(page), team: true }), page);
@@ -62,7 +65,7 @@ export default async function Unanswered({ params, searchParams }: {
         <div className="min-w-0">
           {total > 0 && (
             <FilterBar className="mb-3">
-              <Segments label={t("kind")} items={[seg(null, t("all"), total), seg("idea", t("ideas"), counts.idea), seg("bug", t("bugs"), counts.bug)]} />
+              {kinds.length > 1 && <Segments label={t("kind")} items={[seg(null, t("all"), total), seg("idea", t("ideas"), counts.idea), seg("bug", t("bugs"), counts.bug)]} />}
             </FilterBar>
           )}
           {rows.length === 0 ? (

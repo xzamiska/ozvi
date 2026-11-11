@@ -7,7 +7,8 @@ import { emit } from "./events";
 import type { Project, User } from "./project";
 import { allow, RateLimitError } from "./ratelimit";
 import { translator } from "@/i18n/messages";
-import { assertCanParticipate } from "./domain";
+import { assertCanParticipate, DomainError } from "./domain";
+import { sectionOfKind, sectionOn } from "./sections";
 import { DUPLICATE_ITEM_WINDOW_MS, pendingReason, sameTitle, type PendingReason } from "./moderation-rules";
 import type { Locale } from "@/i18n/locales";
 import { cleanCapture, type Capture } from "./bug-context";
@@ -57,6 +58,8 @@ export async function createItem(project: Project, user: User, input: NewItem, l
   if (title.length > 200) throw new ValidationError(t("titleLong"));
   if (body.length > 10_000) throw new ValidationError(t("bodyLong"));
   assertCanParticipate(user);
+  // A switched-off section takes nothing new, from any door (board, widget, API, MCP).
+  if (!sectionOn(project, sectionOfKind(input.kind))) throw new DomainError((l) => translator(l, "errors")("sectionOff"));
   const recent = await withProject(db, project.id, (tx) => tx.select({ number: schema.items.number, title: schema.items.title, pending: schema.items.pendingReason })
     .from(schema.items).where(and(eq(schema.items.authorId, user.id), eq(schema.items.kind, input.kind), isNull(schema.items.deletedAt),
       gte(schema.items.createdAt, new Date(Date.now() - DUPLICATE_ITEM_WINDOW_MS)))).orderBy(desc(schema.items.createdAt)).limit(10));

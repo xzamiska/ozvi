@@ -9,6 +9,7 @@ import { getCtx } from "@/lib/project";
 import { getTranslations } from "next-intl/server";
 import { Gate } from "../../_gate";
 import { boardTitle } from "@/lib/board-meta";
+import { needSection } from "@/lib/sections-server";
 
 export const generateMetadata = boardTitle("board.changelog", "newTitle");
 
@@ -16,6 +17,7 @@ export default async function NewEntry({ params, searchParams }: { params: Promi
   const { project: slug } = await params;
   const sp = await searchParams;
   const { project, user, isTeam, plan, locale } = await getCtx(slug);
+  needSection(project, "changelog");
   const t = await getTranslations("board.changelog");
   if (!isTeam) return <Gate project={project} locale={locale} signedIn={!!user} returnTo={`/${slug}/changelog/new`} title={t("teamOnlyTitle")}
       text={user ? t("teamOnlyNoRole") : t("teamOnlySignIn")} />;

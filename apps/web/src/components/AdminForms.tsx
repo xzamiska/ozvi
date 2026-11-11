@@ -12,7 +12,8 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useTranslations } from "next-intl";
 import { LOCALE_NAME, LOCALES } from "@/i18n/locales";
-import { rotateSecret, saveLanguages, saveMcpLockdown, saveSettings, type AdminState } from "@/lib/admin-actions";
+import { rotateSecret, saveLanguages, saveMcpLockdown, saveSections, saveSettings, type AdminState } from "@/lib/admin-actions";
+import { SECTIONS, type Section } from "@/lib/sections";
 import { Field, hint, noFill, panel, Result, SecretBox } from "./settings";
 
 function SwitchRow({ id, name, defaultChecked, title, text }: { id: string; name: string; defaultChecked: boolean; title: string; text: string }) {
@@ -53,6 +54,58 @@ export function SettingsForm({ slug, name, loginUrl, origins, ideasPublic, email
       <div className="grid gap-3">
         <Result error={state.error} ok={state.ok} />
         <div><Button type="submit" disabled={pending} aria-busy={pending || undefined}>{pending ? t("saving") : t("project.save")}</Button></div>
+      </div>
+    </form>
+  );
+}
+
+/** Board sections: switch parts of the board off (hidden everywhere, data kept) and pick where it opens. */
+export function SectionsForm({ slug, sections, home }: { slug: string; sections: Section[]; home: Section }) {
+  const t = useTranslations("admin.sections");
+  const [state, action, pending] = useActionState((p: AdminState, f: FormData) => saveSections(slug, p, f), {});
+  const [on, setOn] = useState<Section[]>(sections);
+  const [start, setStart] = useState<Section>(home);
+  // The roadmap is made of ideas; without ideas it goes off too.
+  const effective = SECTIONS.filter((s) => on.includes(s) && (s !== "roadmap" || on.includes("ideas")));
+  const opening = effective.includes(start) ? start : effective[0];
+  const toggle = (s: Section, v: boolean) => setOn((xs) => (v ? [...xs, s] : xs.filter((x) => x !== s)));
+  return (
+    <form action={action} className={panel}>
+      <div className="grid gap-4">
+        {SECTIONS.map((s) => {
+          const blocked = s === "roadmap" && !on.includes("ideas");
+          return (
+            <div key={s} className="flex items-start justify-between gap-4">
+              <div className="grid gap-0.5">
+                <Label htmlFor={`sec-${s}`} className="text-[14px] font-semibold">{t(`${s}.title`)}</Label>
+                <p className={hint} id={`sec-${s}-hint`}>{blocked ? t("roadmapNeedsIdeas") : t(`${s}.text`)}</p>
+              </div>
+              <Switch id={`sec-${s}`} checked={effective.includes(s)} disabled={blocked} onCheckedChange={(v) => toggle(s, v)}
+                aria-describedby={`sec-${s}-hint`} className="mt-0.5" />
+              {effective.includes(s) && <input type="hidden" name="sections" value={s} />}
+            </div>
+          );
+        })}
+      </div>
+      {effective.length > 1 && (
+        <fieldset className="grid gap-2.5 border-t pt-4">
+          <legend className="mb-1 text-[14px] font-semibold">{t("home")}</legend>
+          <p className={hint}>{t("homeText")}</p>
+          <RadioGroup name="home" value={opening} onValueChange={(v) => setStart(v as Section)} className="flex flex-wrap gap-x-5 gap-y-2">
+            {effective.map((s) => (
+              <div key={s} className="flex items-center gap-2">
+                <RadioGroupItem id={`home-${s}`} value={s} />
+                <Label htmlFor={`home-${s}`} className="text-[14px] font-normal">{t(`${s}.title`)}</Label>
+              </div>
+            ))}
+          </RadioGroup>
+        </fieldset>
+      )}
+      {effective.length <= 1 && <input type="hidden" name="home" value={opening} />}
+      {effective.length === 0 && <p role="alert" className="text-[13.5px] text-destructive">{t("needOne")}</p>}
+      <div className="grid gap-3">
+        <Result error={state.error} ok={state.ok} />
+        <div><Button type="submit" disabled={pending || effective.length === 0} aria-busy={pending || undefined}>{pending ? t("saving") : t("save")}</Button></div>
       </div>
     </form>
   );

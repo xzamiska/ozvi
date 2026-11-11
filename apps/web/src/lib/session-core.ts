@@ -43,7 +43,7 @@ export function decodeSession(value: string | undefined, now = Date.now()): Sess
 
 /** Only same-project relative paths; blocks //evil.com and backslash tricks. */
 export function safeReturn(slug: string, ret: string | null | undefined): string {
-  const fallback = `/${slug}/ideas`;
+  const fallback = `/${slug}`;
   if (!ret || !ret.startsWith(`/${slug}/`) || ret.startsWith("//") || ret.includes("\\")) return fallback;
   return ret;
 }

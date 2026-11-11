@@ -152,7 +152,7 @@ export async function digests(db: Db, t: Transporter | null, olderThanHours = DI
         summary: "",
         heading: msg("digestHeading"),
         paragraphs: rows.map((r) => `• ${r.summary}`),
-        cta: { label: msg("openFeedback"), href: `${projectOrigin(p)}/${p.slug}/ideas` },
+        cta: { label: msg("openFeedback"), href: `${projectOrigin(p)}/${p.slug}` },
       }, theme, p.name, unsub, locale);
       try {
         await t.sendMail({ from: from(p.name), to: u.email, subject: mail.subject, html: mail.html, text: mail.text,

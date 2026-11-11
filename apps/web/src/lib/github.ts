@@ -7,6 +7,7 @@ import { emit } from "./events";
 import { attachProof, cleanProofUrl, parsePrBody } from "./proof";
 import { createReleaseDraft } from "./release";
 import { githubApp, installationToken } from "./github-app";
+import { sectionOn } from "./sections";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
 import type { Project, User } from "./project";
@@ -269,7 +270,8 @@ export async function handleGithubEvent(tx: Tx, project: Project, g: Github, eve
         if (u) changed.push(u);
       }
     }
-    const draftId = await createReleaseDraft(tx, project, release, changed, { ai: !!opts.ai });
+    // No changelog section, no draft to publish (the bugs above still became "fixed in <tag>").
+    const draftId = sectionOn(project, "changelog") ? await createReleaseDraft(tx, project, release, changed, { ai: !!opts.ai }) : null;
     if (draftId) opts.onDraft?.(draftId, (p.release.body ?? "").slice(0, 8000));
     return `release ${tag}: ${changed.length} item(s)${draftId ? ", draft" : ""}`;
   }

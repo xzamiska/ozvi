@@ -7,6 +7,7 @@ import { getCtx } from "@/lib/project";
 import { getTranslations } from "next-intl/server";
 import { Gate, signInText } from "../_gate";
 import { boardTitle } from "@/lib/board-meta";
+import { needSection } from "@/lib/sections-server";
 
 export const generateMetadata = async ({ params, searchParams }: { params: Promise<{ project: string }>; searchParams: Promise<{ kind?: string }> }) =>
   boardTitle("board.newItem", (await searchParams).kind === "bug" ? "titleBug" : "titleIdea")({ params });
@@ -22,6 +23,7 @@ export default async function NewItem({ params, searchParams }: {
   const t = await getTranslations("board.newItem");
   const tb = await getTranslations("board");
   const kind = sp.kind === "bug" ? "bug" : "idea";
+  needSection(project, kind === "bug" ? "bugs" : "ideas");
   const bug = kind === "bug";
 
   if (!user) {

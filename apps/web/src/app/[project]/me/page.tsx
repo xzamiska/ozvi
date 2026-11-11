@@ -15,7 +15,7 @@ export const generateMetadata = boardTitle("board.me");
 export default async function Me({ params }: { params: Promise<{ project: string }> }) {
   const { project: slug } = await params;
   const { project, user, locale } = await getCtx(slug);
-  if (!user) redirect(`/${slug}/ideas`);
+  if (!user) redirect(`/${slug}`);
   const t = await getTranslations("board.me");
   const tb = await getTranslations("board");
   return (

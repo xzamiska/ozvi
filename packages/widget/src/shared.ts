@@ -6,7 +6,8 @@ import type { OzviLang } from "./types";
  * the one Preact instance (hooks only work with the copy that renders them), the CSP nonce, the script
  * loader and the cached project config. Chunks import "preact" normally; build.mjs maps it to this object.
  */
-export interface ProjectConfig { name: string; css: string; fonts: string | null; ideasPublic?: boolean }
+/** sections: the board sections the project uses (missing on older servers = all). */
+export interface ProjectConfig { name: string; css: string; fonts: string | null; ideasPublic?: boolean; sections?: string[] }
 
 export interface Shared {
   preact: unknown; hooks: unknown; jsx: unknown;

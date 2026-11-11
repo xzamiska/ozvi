@@ -5,6 +5,7 @@ import { clientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { getCtx } from "@/lib/project";
 import { PIVOT, pivotQuery } from "@/lib/translate";
+import { sectionOn } from "@/lib/sections";
 
 const words = (q: string) => q.toLowerCase().split(/\s+/).filter((w) => w.length >= 3).slice(0, 6);
 const esc = (w: string) => `%${w.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
@@ -18,7 +19,7 @@ const esc = (w: string) => `%${w.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
 export async function GET(req: NextRequest, { params }: { params: Promise<{ project: string }> }) {
   const { project: slug } = await params;
   const { project, user, plan } = await getCtx(slug);
-  if (!project.ideasPublic && !user) return Response.json([]);
+  if ((!project.ideasPublic && !user) || !sectionOn(project, "ideas")) return Response.json([]);
   const q = req.nextUrl.searchParams.get("q") ?? "";
   const typed = words(q);
   if (typed.length === 0) return Response.json([]);

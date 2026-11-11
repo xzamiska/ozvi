@@ -222,7 +222,8 @@
       "import": "Importálás",
       "tags": "Címkék",
       "statuses": "Állapotok",
-      "statusesSub": "Nevek, alállapotok, megválaszolatlanok"
+      "statusesSub": "Nevek, alállapotok, megválaszolatlanok",
+      "sections": "A tábla részei"
     },
     "setup": {
       "text": "Három lépés, és a visszajelzések közvetlenül az alkalmazásodból érkeznek. A megjelenést bármikor finomhangolhatod.",
@@ -691,6 +692,32 @@
       "uploading": "Feltöltés…",
       "uploadHint": "PNG, SVG vagy ICO, legfeljebb 200 kB.",
       "clear": "Betű használata"
+    },
+    "sections": {
+      "text": "Kapcsold ki azokat a részeket, amelyeket nem használsz. Eltűnnek a tábláról, a widgetből, a beágyazásokból, az API-ból és az MCP-ből. Semmi sem törlődik, visszakapcsolva minden visszatér.",
+      "ideas": {
+        "title": "Ötletek",
+        "text": "A felhasználók javasolnak és szavaznak."
+      },
+      "roadmap": {
+        "title": "Ütemterv",
+        "text": "Amit terveztek és amin dolgoztok, ötletekből."
+      },
+      "changelog": {
+        "title": "Újdonságok",
+        "text": "Közzétett újdonságok és RSS. Nélkülük a GitHub-kiadás nem készít újdonság-vázlatot."
+      },
+      "bugs": {
+        "title": "Hibák",
+        "text": "Privát hibajelentések, csak a bejelentő és a csapat látja."
+      },
+      "roadmapNeedsIdeas": "Az ütemterv ötletekből áll, előbb kapcsold be az Ötleteket.",
+      "home": "Kezdő rész",
+      "homeText": "Ide vezet a tábla címe és a fejlécben lévő logó.",
+      "needOne": "Legalább egy részt hagyj bekapcsolva.",
+      "save": "Részek mentése",
+      "saving": "Mentés…",
+      "saved": "A tábla részei elmentve."
     }
   },
   "ai": {
@@ -744,7 +771,8 @@
     "gate": {
       "signIn": "Bejelentkezés",
       "backToIdeas": "Vissza az ötletekhez",
-      "viaApp": "Nyisd meg a visszajelzést ebből az alkalmazásból: {app}, és automatikusan bejelentkezel."
+      "viaApp": "Nyisd meg a visszajelzést ebből az alkalmazásból: {app}, és automatikusan bejelentkezel.",
+      "backToBoard": "Vissza a táblára"
     },
     "notFound": {
       "title": "Ez az oldal nem található",
@@ -1666,7 +1694,8 @@
     "deleteConfirm": "A megerősítéshez írd be pontosan ezt: „{slug}”.",
     "blocked": "Ezen a táblán jelenleg nem tehetsz közzé bejegyzést, és nem szavazhatsz.",
     "voteBudget": "Ehhez nincs elég szavazatod (maradt: {n}). Vonj vissza egy szavazatot egy másik ötletről, vagy válassz kisebb fontosságot.",
-    "adminOnly": "Ezt csak a tábla adminisztrátora teheti meg."
+    "adminOnly": "Ezt csak a tábla adminisztrátora teheti meg.",
+    "sectionOff": "Ez a rész ki van kapcsolva ebben a projektben."
   },
   "forms": {
     "optional": "nem kötelező",
@@ -3129,7 +3158,8 @@
     "who": "Nem sikerült ellenőrizni a felhasználót.",
     "form": "Érvénytelen űrlap.",
     "failed": "Nem sikerült menteni a bejelentést. Próbáld újra.",
-    "private": "Ennek a projektnek az ötleteit csak bejelentkezett felhasználók láthatják. Jelentkezz be az alkalmazásba, és próbáld újra."
+    "private": "Ennek a projektnek az ötleteit csak bejelentkezett felhasználók láthatják. Jelentkezz be az alkalmazásba, és próbáld újra.",
+    "sectionOff": "Ez a rész ki van kapcsolva ebben a projektben."
   },
   "moderation": {
     "menu": "Bejegyzés beállításai",

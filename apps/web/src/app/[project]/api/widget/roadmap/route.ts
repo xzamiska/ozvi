@@ -13,7 +13,7 @@ export async function OPTIONS(req: NextRequest, { params }: P) {
 
 /** GET ?limit=&lang= — the public roadmap for <ozvi-roadmap>: three lanes, top `limit` cards each, public tags only. */
 export async function GET(req: NextRequest, { params }: P) {
-  const r = await widgetRead(req, (await params).project);
+  const r = await widgetRead(req, (await params).project, "roadmap");
   if (!r.ok) return r.res;
   const { project, locale } = r;
   const limit = clampLimit(req.nextUrl.searchParams.get("limit"), 5, 20);

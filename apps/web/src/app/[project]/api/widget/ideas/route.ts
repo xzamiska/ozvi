@@ -15,7 +15,7 @@ export async function OPTIONS(req: NextRequest, { params }: P) {
  * With `Authorization: Bearer <SSO token>` also the person's votes and remaining vote budget.
  */
 export async function GET(req: NextRequest, { params }: P) {
-  const r = await widgetRead(req, (await params).project);
+  const r = await widgetRead(req, (await params).project, "ideas");
   if (!r.ok) return r.res;
   const { project, user, locale } = r;
   const q = req.nextUrl.searchParams.get("q")?.slice(0, 200) ?? null;

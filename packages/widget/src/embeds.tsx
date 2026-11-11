@@ -104,6 +104,8 @@ function useEmbed<D>(el: HTMLElement, path: (lang: Lang) => string) {
   const [config, setConfig] = useState<ProjectConfig | null>(null);
   const [data, setData] = useState<D | null>(null);
   const [err, setErr] = useState("");
+  // The project switched this section off: the embed takes no room on the host page.
+  const [off, setOff] = useState(false);
   const attr = (n: string) => el.getAttribute(n) ?? "";
   const host = (attr("host") || s.origin).replace(/\/$/, "");
   const project = attr("project");
@@ -119,16 +121,21 @@ function useEmbed<D>(el: HTMLElement, path: (lang: Lang) => string) {
       }
       const d = await getJson<D>(`${host}/${project}/api/widget/${path(lang)}${path(lang).includes("?") ? "&" : "?"}lang=${lang}`, { headers: auth });
       if (live) { setData(d); setErr(""); }
-    })().catch((e: Error & { status?: number }) => live && setErr(e.status === 401 ? e.message : strings(lang).fail));
+    })().catch((e: Error & { status?: number; data?: { sectionOff?: boolean } }) => {
+      if (!live) return;
+      if (e.data?.sectionOff) return void setOff(true);
+      setErr(e.status === 401 ? e.message : strings(lang).fail);
+    });
     return () => { live = false; };
   }, [host, project, lang, s.api.__.state.identity]);
   const styles = <><style nonce={s.nonce}>{CSS}</style>{config && <style nonce={s.nonce}>{config.css}</style>}</>;
-  return { t: strings(lang), lang, host, project, data, err, styles, attr };
+  return { t: strings(lang), lang, host, project, data, err, off, styles, attr };
 }
 
 function Roadmap({ el }: { el: HTMLElement }) {
   const limit = el.getAttribute("limit") || "5";
-  const { t, data, err, styles, attr } = useEmbed<{ url: string; lanes: Lane[] }>(el, () => `roadmap?limit=${encodeURIComponent(limit)}`);
+  const { t, data, err, styles, attr, off } = useEmbed<{ url: string; lanes: Lane[] }>(el, () => `roadmap?limit=${encodeURIComponent(limit)}`);
+  if (off) return null;
   const want = attr("lanes").split(",").map((x) => x.trim()).filter(Boolean);
   const lanes = data?.lanes.filter((l) => !want.length || want.includes(l.status)) ?? [];
   const heading = attr("heading");
@@ -189,7 +196,7 @@ function Entries({ entries, seen, t, lang }: { entries: Entry[]; seen: string | 
 
 function Changelog({ el }: { el: HTMLElement }) {
   const limit = el.getAttribute("limit") || "5";
-  const { t, lang, host, project, data, err, styles, attr } = useEmbed<{ url: string; entries: Entry[] }>(el, () => `changelog?limit=${encodeURIComponent(limit)}`);
+  const { t, lang, host, project, data, err, styles, attr, off } = useEmbed<{ url: string; entries: Entry[] }>(el, () => `changelog?limit=${encodeURIComponent(limit)}`);
   const badge = attr("mode") === "badge";
   const key = seenKey(host, project, shared().api.__.uid());
   const store = (() => { try { return localStorage; } catch { return null; } })();
@@ -257,6 +264,7 @@ function Changelog({ el }: { el: HTMLElement }) {
       </div>
     );
   }
+  if (off) return null;
   return (
     <section ref={box} aria-labelledby="oz-cl" aria-busy={!data && !err}>
       {styles}

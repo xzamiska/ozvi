@@ -36,7 +36,7 @@ export default async function Unsubscribe({ params, searchParams }: {
   if (done) {
     return (
       <AuthShell title={m("unsubDoneTitle")} lede={m("unsubDoneLede")}>
-        <Button asChild variant="outline" size="lg" className="w-full"><Link href={`/${slug}/ideas`}>{m("backToFeedback")}</Link></Button>
+        <Button asChild variant="outline" size="lg" className="w-full"><Link href={`/${slug}`}>{m("backToFeedback")}</Link></Button>
       </AuthShell>
     );
   }

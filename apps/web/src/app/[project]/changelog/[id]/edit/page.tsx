@@ -12,6 +12,7 @@ import { LOCALE_TAG } from "@/i18n/locales";
 import { getTranslations } from "next-intl/server";
 import { Gate } from "../../../_gate";
 import { boardTitle } from "@/lib/board-meta";
+import { needSection } from "@/lib/sections-server";
 
 export const generateMetadata = boardTitle("board.changelog", "editTitle");
 
@@ -19,6 +20,7 @@ export default async function EditEntry({ params, searchParams }: { params: Prom
   const { project: slug, id } = await params;
   const sp = await searchParams;
   const { project, user, isTeam, plan, locale } = await getCtx(slug);
+  needSection(project, "changelog");
   const t = await getTranslations("board.changelog");
   if (!isTeam) return <Gate project={project} locale={locale} signedIn={!!user} returnTo={`/${slug}/changelog/${id}/edit`} title={t("teamOnlyTitle")}
       text={user ? t("teamOnlyNoRole") : t("teamOnlySignIn")} />;

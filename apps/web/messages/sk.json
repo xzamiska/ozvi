@@ -222,7 +222,8 @@
       "import": "Import",
       "tags": "Štítky",
       "statuses": "Stavy",
-      "statusesSub": "Názvy, podstavy, bez odpovede"
+      "statusesSub": "Názvy, podstavy, bez odpovede",
+      "sections": "Časti boardu"
     },
     "setup": {
       "text": "Tri kroky a spätná väzba pôjde priamo z vašej aplikácie. Vzhľad môžete doladiť kedykoľvek.",
@@ -691,6 +692,32 @@
       "uploading": "Nahrávam…",
       "uploadHint": "PNG, SVG alebo ICO, najviac 200 kB.",
       "clear": "Použiť písmeno"
+    },
+    "sections": {
+      "text": "Vypnite časti, ktoré nepoužívate. Zmiznú z boardu, widgetu, vložených prvkov, API aj MCP. Nič sa nezmaže a po zapnutí je všetko späť.",
+      "ideas": {
+        "title": "Nápady",
+        "text": "Používatelia navrhujú a hlasujú."
+      },
+      "roadmap": {
+        "title": "Roadmapa",
+        "text": "Čo plánujete a na čom pracujete, z nápadov."
+      },
+      "changelog": {
+        "title": "Novinky",
+        "text": "Zverejnené novinky a RSS. Bez nich GitHub release nevytvorí koncept novinky."
+      },
+      "bugs": {
+        "title": "Chyby",
+        "text": "Súkromné hlásenia chýb, vidí ich len autor a tím."
+      },
+      "roadmapNeedsIdeas": "Roadmapa sa skladá z nápadov, zapnite najprv Nápady.",
+      "home": "Úvodná časť",
+      "homeText": "Kam vedie adresa boardu a logo v jeho hlavičke.",
+      "needOne": "Nechajte zapnutú aspoň jednu časť.",
+      "save": "Uložiť časti",
+      "saving": "Ukladám…",
+      "saved": "Časti boardu sú uložené."
     }
   },
   "ai": {
@@ -744,7 +771,8 @@
     "gate": {
       "signIn": "Prihlásiť sa",
       "backToIdeas": "Späť na nápady",
-      "viaApp": "Otvorte spätnú väzbu z aplikácie {app}, prihlási vás automaticky."
+      "viaApp": "Otvorte spätnú väzbu z aplikácie {app}, prihlási vás automaticky.",
+      "backToBoard": "Späť na úvod"
     },
     "notFound": {
       "title": "Táto stránka tu nie je",
@@ -1666,7 +1694,8 @@
     "deleteConfirm": "Na potvrdenie napíšte presne „{slug}“.",
     "blocked": "Na tomto boarde teraz nemôžete pridávať príspevky ani hlasovať.",
     "voteBudget": "Na tento hlas vám nezostáva dosť hlasov (zostáva {n}). Odoberte hlas z iného nápadu alebo zvoľte nižšiu dôležitosť.",
-    "adminOnly": "Toto môže urobiť len admin boardu."
+    "adminOnly": "Toto môže urobiť len admin boardu.",
+    "sectionOff": "Táto časť je v projekte vypnutá."
   },
   "forms": {
     "optional": "nepovinné",
@@ -3129,7 +3158,8 @@
     "who": "Nepodarilo sa overiť používateľa.",
     "form": "Neplatný formulár.",
     "failed": "Hlásenie sa nepodarilo uložiť. Skúste to prosím znova.",
-    "private": "Nápady tohto projektu vidia len prihlásení. Prihláste sa v aplikácii a skúste to znova."
+    "private": "Nápady tohto projektu vidia len prihlásení. Prihláste sa v aplikácii a skúste to znova.",
+    "sectionOff": "Táto časť je v projekte vypnutá."
   },
   "moderation": {
     "menu": "Možnosti príspevku",

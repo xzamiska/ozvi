@@ -1,0 +1,2 @@
+ALTER TABLE "projects" ADD COLUMN "sections" text[] DEFAULT '{ideas,roadmap,changelog,bugs}'::text[] NOT NULL;--> statement-breakpoint
+ALTER TABLE "projects" ADD COLUMN "home_section" text DEFAULT 'ideas' NOT NULL;

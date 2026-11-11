@@ -222,7 +222,8 @@
       "import": "Import",
       "tags": "Tagi",
       "statuses": "Statusy",
-      "statusesSub": "Nazwy, podstatusy, bez odpowiedzi"
+      "statusesSub": "Nazwy, podstatusy, bez odpowiedzi",
+      "sections": "Części tablicy"
     },
     "setup": {
       "text": "Trzy kroki i opinie zaczną płynąć prosto z twojej aplikacji. Wygląd możesz dopracować w każdej chwili.",
@@ -691,6 +692,32 @@
       "uploading": "Przesyłam…",
       "uploadHint": "PNG, SVG lub ICO, najwyżej 200 kB.",
       "clear": "Użyj litery"
+    },
+    "sections": {
+      "text": "Wyłącz części, których nie używasz. Znikną z tablicy, widgetu, osadzeń, API i MCP. Nic nie zostanie usunięte, po włączeniu wszystko wraca.",
+      "ideas": {
+        "title": "Pomysły",
+        "text": "Użytkownicy proponują i głosują."
+      },
+      "roadmap": {
+        "title": "Roadmapa",
+        "text": "Co planujesz i nad czym pracujesz, z pomysłów."
+      },
+      "changelog": {
+        "title": "Nowości",
+        "text": "Opublikowane nowości i RSS. Bez nich wydanie na GitHubie nie utworzy szkicu nowości."
+      },
+      "bugs": {
+        "title": "Błędy",
+        "text": "Prywatne zgłoszenia błędów, widzą je tylko autor i zespół."
+      },
+      "roadmapNeedsIdeas": "Roadmapa składa się z pomysłów, najpierw włącz Pomysły.",
+      "home": "Część startowa",
+      "homeText": "Dokąd prowadzi adres tablicy i logo w nagłówku.",
+      "needOne": "Zostaw włączoną przynajmniej jedną część.",
+      "save": "Zapisz części",
+      "saving": "Zapisuję…",
+      "saved": "Części tablicy zapisane."
     }
   },
   "ai": {
@@ -744,7 +771,8 @@
     "gate": {
       "signIn": "Zaloguj się",
       "backToIdeas": "Wróć do pomysłów",
-      "viaApp": "Otwórz opinie z poziomu {app}, a zalogujesz się automatycznie."
+      "viaApp": "Otwórz opinie z poziomu {app}, a zalogujesz się automatycznie.",
+      "backToBoard": "Wróć na tablicę"
     },
     "notFound": {
       "title": "Tej strony tu nie ma",
@@ -1666,7 +1694,8 @@
     "deleteConfirm": "Aby potwierdzić, wpisz dokładnie „{slug}”.",
     "blocked": "Obecnie nie możesz publikować ani głosować na tej tablicy.",
     "voteBudget": "Nie masz na to wystarczająco dużo głosów (zostało: {n}). Cofnij głos z innego pomysłu albo wybierz niższą ważność.",
-    "adminOnly": "Może to zrobić tylko administrator tablicy."
+    "adminOnly": "Może to zrobić tylko administrator tablicy.",
+    "sectionOff": "Ta część jest w projekcie wyłączona."
   },
   "forms": {
     "optional": "opcjonalnie",
@@ -3129,7 +3158,8 @@
     "who": "Nie udało się zweryfikować użytkownika.",
     "form": "Nieprawidłowy formularz.",
     "failed": "Nie udało się zapisać zgłoszenia. Spróbuj ponownie.",
-    "private": "Pomysły tego projektu widzą tylko zalogowani. Zaloguj się w aplikacji i spróbuj ponownie."
+    "private": "Pomysły tego projektu widzą tylko zalogowani. Zaloguj się w aplikacji i spróbuj ponownie.",
+    "sectionOff": "Ta część jest w projekcie wyłączona."
   },
   "moderation": {
     "menu": "Opcje wpisu",

@@ -9,11 +9,12 @@ import { boardLocales } from "@/i18n/board";
 import { LOCALE_TAG } from "@/i18n/locales";
 import { getTranslations } from "next-intl/server";
 import { renderMarkdownWith } from "@/lib/markdown";
+import { sectionOn } from "@/lib/sections";
 
 /** RSS 2.0 of published changelog entries (public boards only). */
 export async function GET(_: NextRequest, { params }: { params: Promise<{ project: string }> }) {
   const project = await projectFor((await params).project);
-  if (!project || !project.ideasPublic) return new Response("not found", { status: 404 });
+  if (!project || !project.ideasPublic || !sectionOn(project, "changelog")) return new Response("not found", { status: 404 });
   const entries = await withProject(db, project.id, (tx) => listEntries(tx, false, 50));
   const base = `${projectOrigin(project)}/${project.slug}`;
   // Publicly cached, so always in the board's default language rather than the requester's.

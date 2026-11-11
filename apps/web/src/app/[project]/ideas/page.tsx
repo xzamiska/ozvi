@@ -26,6 +26,7 @@ import { hasTag, listTags } from "@/lib/tags";
 import { tagFromParam } from "@/lib/tag-rules";
 import { decorateRows } from "@/lib/row-extras";
 import { boardTitle } from "@/lib/board-meta";
+import { needSection } from "@/lib/sections-server";
 
 export const generateMetadata = boardTitle("board.ideas");
 
@@ -42,6 +43,7 @@ export default async function Ideas({ params, searchParams }: {
   const { project: slug } = await params;
   const sp = await searchParams;
   const { project, user, isTeam, locale } = await getCtx(slug);
+  needSection(project, "ideas");
   const t = await getTranslations("board.ideas");
   const tb = await getTranslations("board");
   // "mrr" (by customers' revenue) and the plan filter are team-only: they read customer traits.

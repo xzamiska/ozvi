@@ -21,10 +21,10 @@ describe("session cookie", () => {
 describe("safeReturn", () => {
   it.each([
     ["/billiwo/i/4", "/billiwo/i/4"],
-    ["//evil.com/billiwo/", "/billiwo/ideas"],
-    ["https://evil.com", "/billiwo/ideas"],
-    ["/apinido/ideas", "/billiwo/ideas"],
-    ["/billiwo/\\evil.com", "/billiwo/ideas"],
-    [null, "/billiwo/ideas"],
+    ["//evil.com/billiwo/", "/billiwo"],
+    ["https://evil.com", "/billiwo"],
+    ["/apinido/ideas", "/billiwo"],
+    ["/billiwo/\\evil.com", "/billiwo"],
+    [null, "/billiwo"],
   ])("%s → %s", (input, out) => expect(safeReturn("billiwo", input)).toBe(out));
 });

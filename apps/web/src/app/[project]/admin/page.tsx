@@ -1,7 +1,7 @@
 import { PLAN_LIMITS, schema, withProject, type PlanName } from "@ozvi/db";
 import { and, desc, eq, gte, inArray, isNull, sql } from "drizzle-orm";
 import { Check, Download, TriangleAlert } from "lucide-react";
-import { LockdownForm, SecretForm, SettingsForm } from "@/components/AdminForms";
+import { LockdownForm, SecretForm, SectionsForm, SettingsForm } from "@/components/AdminForms";
 import { BlockToggle } from "@/components/Moderation";
 import { DomainForm, GithubAppForm, GithubForm, OidcForm, PersonActions, RevokeToken, WebhookActions, WebhookForm } from "@/components/IntegrationForms";
 import { installationOf, parseGithubConfig } from "@/lib/github";
@@ -48,6 +48,7 @@ import { PrivacyKit } from "@/components/PrivacyKit";
 import { kitConfig } from "@/lib/privacy-kit-config";
 import { LEGAL } from "@/lib/legal";
 import { MESSAGES } from "@/i18n/messages";
+import { enabledSections, homeSection } from "@/lib/sections";
 
 export const generateMetadata = boardTitle("admin");
 
@@ -139,6 +140,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
     ...(setup ? [{ id: "start", label: t("nav.start") }] : []),
     { id: "appearance", label: t("nav.look") },
     { id: "project", label: t("nav.project") },
+    { id: "sections", label: t("nav.sections") },
     { id: "voting", label: t("nav.voting") },
     { id: "languages", label: t("nav.languages") },
     { id: "tags", label: t("nav.tags") },
@@ -190,6 +192,10 @@ export default async function Admin({ params, searchParams }: { params: Promise<
 
           <SettingsSection id="project" title={t("nav.project")} text={t("project.text")}>
             <SettingsForm slug={slug} name={project.name} loginUrl={project.loginUrl ?? ""} origins={project.allowedOrigins} ideasPublic={project.ideasPublic} emailLogin={project.emailLogin} moderateIdeas={project.moderateIdeas} />
+          </SettingsSection>
+
+          <SettingsSection id="sections" title={t("nav.sections")} text={t("sections.text")}>
+            <SectionsForm slug={slug} sections={enabledSections(project)} home={homeSection(project)} />
           </SettingsSection>
 
           <SettingsSection id="voting" title={t("nav.voting")} text={t("voting.text")}>

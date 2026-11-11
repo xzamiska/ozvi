@@ -7,8 +7,10 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 /** Board sections. Underline tabs; on phones the row scrolls sideways under the brand. */
-export function BoardNav({ slug, className, unanswered = null }: {
+export function BoardNav({ slug, className, unanswered = null, sections }: {
   slug: string; className?: string;
+  /** The enabled sections (lib/sections), in board order. */
+  sections: readonly string[];
   /** Team only: reports waiting for a reply (null = not team, no tab). */
   unanswered?: number | null;
 }) {
@@ -18,10 +20,10 @@ export function BoardNav({ slug, className, unanswered = null }: {
   // The new-report form belongs to the section it files into.
   const onNew = path === `/${slug}/new`;
   const items = [
-    { href: `/${slug}/ideas`, label: t("ideas"), match: [`/${slug}/ideas`], newKind: true },
-    { href: `/${slug}/roadmap`, label: t("roadmap"), match: [`/${slug}/roadmap`], newKind: false },
-    { href: `/${slug}/changelog`, label: t("changelog"), match: [`/${slug}/changelog`], newKind: false },
-    { href: `/${slug}/bugs`, label: t("bugs"), match: [`/${slug}/bugs`], newKind: false },
+    ...(sections.includes("ideas") ? [{ href: `/${slug}/ideas`, label: t("ideas"), match: [`/${slug}/ideas`], newKind: true }] : []),
+    ...(sections.includes("roadmap") ? [{ href: `/${slug}/roadmap`, label: t("roadmap"), match: [`/${slug}/roadmap`], newKind: false }] : []),
+    ...(sections.includes("changelog") ? [{ href: `/${slug}/changelog`, label: t("changelog"), match: [`/${slug}/changelog`], newKind: false }] : []),
+    ...(sections.includes("bugs") ? [{ href: `/${slug}/bugs`, label: t("bugs"), match: [`/${slug}/bugs`], newKind: false }] : []),
     ...(unanswered !== null ? [{
       href: `/${slug}/unanswered`, match: [`/${slug}/unanswered`], newKind: false,
       label: (

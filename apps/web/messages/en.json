@@ -222,7 +222,8 @@
       "import": "Import",
       "tags": "Tags",
       "statuses": "Statuses",
-      "statusesSub": "Names, sub-statuses, unanswered"
+      "statusesSub": "Names, sub-statuses, unanswered",
+      "sections": "Board sections"
     },
     "setup": {
       "text": "Three steps and feedback will flow straight from your app. You can fine-tune the look any time.",
@@ -691,6 +692,32 @@
       "uploading": "Uploading…",
       "uploadHint": "PNG, SVG or ICO, at most 200 kB.",
       "clear": "Use the letter"
+    },
+    "sections": {
+      "text": "Switch off the sections you don't use. They disappear from the board, the widget, the embeds, the API and MCP. Nothing is deleted; switching back on brings it all back.",
+      "ideas": {
+        "title": "Ideas",
+        "text": "People suggest and vote."
+      },
+      "roadmap": {
+        "title": "Roadmap",
+        "text": "What you plan and work on, made of ideas."
+      },
+      "changelog": {
+        "title": "News",
+        "text": "Published news and RSS. Without it a GitHub release makes no news draft."
+      },
+      "bugs": {
+        "title": "Bugs",
+        "text": "Private bug reports, seen only by the author and the team."
+      },
+      "roadmapNeedsIdeas": "The roadmap is made of ideas; switch Ideas on first.",
+      "home": "Opening section",
+      "homeText": "Where the board address and the logo in its header lead.",
+      "needOne": "Keep at least one section on.",
+      "save": "Save sections",
+      "saving": "Saving…",
+      "saved": "Board sections are saved."
     }
   },
   "ai": {
@@ -744,7 +771,8 @@
     "gate": {
       "signIn": "Sign in",
       "backToIdeas": "Back to ideas",
-      "viaApp": "Open feedback from within {app} and you’ll be signed in automatically."
+      "viaApp": "Open feedback from within {app} and you’ll be signed in automatically.",
+      "backToBoard": "Back to the board"
     },
     "notFound": {
       "title": "This page isn’t here",
@@ -1666,7 +1694,8 @@
     "deleteConfirm": "To confirm, type exactly “{slug}”.",
     "blocked": "You can't post or vote on this board at the moment.",
     "voteBudget": "You don't have enough votes left for this ({n} left). Remove a vote from another idea or pick a lower importance.",
-    "adminOnly": "Only a board admin can do this."
+    "adminOnly": "Only a board admin can do this.",
+    "sectionOff": "This section is switched off for this project."
   },
   "forms": {
     "optional": "optional",
@@ -3129,7 +3158,8 @@
     "who": "We couldn’t verify the user.",
     "form": "Invalid form.",
     "failed": "The report couldn’t be saved. Please try again.",
-    "private": "Only signed-in people can see this project’s ideas. Sign in to the app and try again."
+    "private": "Only signed-in people can see this project’s ideas. Sign in to the app and try again.",
+    "sectionOff": "This section is switched off for this project."
   },
   "moderation": {
     "menu": "Post options",

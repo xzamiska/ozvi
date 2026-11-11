@@ -52,6 +52,8 @@ import { Gate, signInText } from "../../_gate";
 import { TranslateBar, TranslatedBody, TranslatedTitle, TranslationScope } from "@/components/ozvi/Translate";
 import { translationView } from "@/lib/translate-view";
 import { titlePivot } from "@/lib/translate";
+import { needSection } from "@/lib/sections-server";
+import { sectionOfKind } from "@/lib/sections";
 
 const { items, comments, users, attachments, itemLinks, itemEvents, changelogEntries, changelogItems } = schema;
 
@@ -169,6 +171,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
   const m = await getTranslations("moderation");
   const { authorBlocked, authorRole, deletedBy } = data;
   const { item, authorName, authorEmail, authorAvatar, isAuthor, thread, voted, vote, files, mergedInto, history, links, releases, team, itemTagList, subName, translation } = data;
+  needSection(project, sectionOfKind(item.kind));
   const bug = item.kind === "bug";
   // Ideas Ozvi filed from customer feedback have no person as author (the customers are voters, team-only).
   const system = isSystemItem(item);

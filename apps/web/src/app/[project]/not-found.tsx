@@ -14,7 +14,7 @@ export default function BoardNotFound() {
     <Page>
       <EmptyState level={1} className="mx-auto max-w-[640px]" title={t("notFound.title")}
         text={t("notFound.text")}
-        action={<Button asChild size="lg" variant="outline"><Link href={`/${project}/ideas`}>{t("gate.backToIdeas")}</Link></Button>} />
+        action={<Button asChild size="lg" variant="outline"><Link href={`/${project}`}>{t("gate.backToBoard")}</Link></Button>} />
     </Page>
   );
 }

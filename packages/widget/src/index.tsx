@@ -283,11 +283,13 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
 
   const token = () => api.__.token({ token: attr("token"), url: attr("token-url") });
 
+  // Sections the project switched off are not offered; with one left the menu is skipped.
+  const has = (sec: string) => !config?.sections || config.sections.includes(sec);
   function openTab(tab: OzviTab) {
     setError("");
-    if (tab === "bug") return void startBug();
-    if (tab === "mine") return void openBoard("/bugs");
-    if (tab === "ideas" || tab === "idea") return void showIdeas(tab);
+    if ((tab === "bug" || tab === "mine") && has("bugs")) return void (tab === "bug" ? startBug() : openBoard("/bugs"));
+    if ((tab === "ideas" || tab === "idea") && has("ideas")) return void showIdeas(tab);
+    if (config && has("bugs") !== has("ideas")) return void (has("bugs") ? startBug() : showIdeas("ideas"));
     setView("menu"); setOpen(true);
   }
 
@@ -433,9 +435,9 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
 
           {view === "menu" && (
             <>
-              <button class="opt" onClick={startBug}><i>{svg(ICON.bug)}</i><b>{t.bug}</b> <span>{t.bugSub}</span></button>
-              <button class="opt" onClick={() => showIdeas("ideas")}><i>{svg(ICON.idea)}</i><b>{t.idea}</b> <span>{t.ideaSub}</span></button>
-              <button class="opt" onClick={() => openBoard("/bugs")}><i>{svg(ICON.list)}</i><b>{t.mine}</b> <span>{t.mineSub}</span></button>
+              {has("bugs") && <button class="opt" onClick={startBug}><i>{svg(ICON.bug)}</i><b>{t.bug}</b> <span>{t.bugSub}</span></button>}
+              {has("ideas") && <button class="opt" onClick={() => showIdeas("ideas")}><i>{svg(ICON.idea)}</i><b>{t.idea}</b> <span>{t.ideaSub}</span></button>}
+              {has("bugs") && <button class="opt" onClick={() => openBoard("/bugs")}><i>{svg(ICON.list)}</i><b>{t.mine}</b> <span>{t.mineSub}</span></button>}
             </>
           )}
 

@@ -15,6 +15,7 @@ import { withProject } from "@ozvi/db";
 import { db } from "@/lib/db";
 import { countItems } from "@/lib/queries";
 import { unansweredWhere } from "@/lib/unanswered";
+import { enabledSections } from "@/lib/sections";
 
 /** Every board page is titled "<page> – <project>" (WCAG 2.4.2); the board never shows Ozvi's name. */
 export async function generateMetadata({ params }: { params: Promise<{ project: string }> }) {
@@ -31,7 +32,7 @@ export default async function ProjectLayout({ children, params }: { children: Re
   const tA11y = await getTranslations({ locale, namespace: "a11y" });
   const { allowed } = boardLocales(project);
   const fonts = fontsHref(theme, { skipBundled: true });
-  const login = loginHref(project, `/${slug}/ideas`);
+  const login = loginHref(project, `/${slug}`);
   // People who came from the Ozvi console get a way back to it (the board may live on another domain).
   // Team: the "Bez odpovede" tab with how many reports wait longer than the project's N days.
   const unanswered = isTeam ? await withProject(db, project.id, (tx) => countItems(tx, [unansweredWhere(project.unansweredDays)])).catch(() => 0) : null;
@@ -44,11 +45,11 @@ export default async function ProjectLayout({ children, params }: { children: Re
       <div className="flex min-h-dvh flex-col">
         <header className="sticky top-0 z-30 border-b bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
           <div className="oz-frame grid grid-cols-[1fr_auto] items-stretch gap-x-6 md:grid-cols-[auto_1fr_auto]">
-            <Link href={`/${slug}/ideas`} className="flex h-14 min-w-0 items-center gap-2.5 md:h-16">
+            <Link href={`/${slug}`} className="flex h-14 min-w-0 items-center gap-2.5 md:h-16">
               {theme.logoUrl ? <img src={theme.logoUrl} alt="" className="h-7 w-auto max-w-[140px] object-contain" /> : null}
               <span className="truncate font-heading text-[17px] font-bold tracking-tight">{project.name}</span>
             </Link>
-            <BoardNav slug={slug} unanswered={unanswered} className="col-span-2 row-start-2 h-11 md:col-span-1 md:col-start-2 md:row-start-1 md:h-16" />
+            <BoardNav slug={slug} unanswered={unanswered} sections={enabledSections(project)} className="col-span-2 row-start-2 h-11 md:col-span-1 md:col-start-2 md:row-start-1 md:h-16" />
             <div className="col-start-2 row-start-1 flex items-center justify-end gap-1.5 md:col-start-3">
               {user ? (
                 <>
