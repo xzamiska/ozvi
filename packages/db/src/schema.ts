@@ -1,6 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
-  boolean, check, index, integer, jsonb, pgEnum, pgTable, primaryKey, smallint, text, timestamp, uniqueIndex, uuid,
+  bigint, boolean, check, index, integer, jsonb, pgEnum, pgTable, primaryKey, smallint, text, timestamp, uniqueIndex, uuid,
 } from "drizzle-orm/pg-core";
 
 /**
@@ -61,6 +61,8 @@ export const projects = pgTable("projects", {
   /** The board's own favicon (storage key, changes with every new icon, so it doubles as a cache key). Null = a letter in the accent colour. */
   faviconKey: text("favicon_key"),
   faviconType: text("favicon_type"),
+  /** GitHub App installation this board is connected through: lets the app's one webhook find the board. */
+  githubInstallationId: bigint("github_installation_id", { mode: "number" }),
   /** Where "Prihlásiť sa" sends people: a host-app URL that redirects back to /<slug>/sso?token=… */
   loginUrl: text("login_url"),
   /** SSO signing secret, AES-256-GCM encrypted with OZVI_SECRET_KEY (see crypto.ts). */
@@ -103,6 +105,7 @@ export const projects = pgTable("projects", {
   translationMode: text("translation_mode").notNull().default("off"),
   createdAt: createdAt(),
 }, (t) => [
+  index("projects_github_installation").on(t.githubInstallationId),
   check("projects_retention_capture", sql`${t.retentionCaptureDays} is null or ${t.retentionCaptureDays} in (30, 90, 180, 365)`),
   check("projects_retention_closed_files", sql`${t.retentionClosedFilesDays} is null or ${t.retentionClosedFilesDays} in (30, 90, 180, 365)`),
   check("projects_translation_mode", sql`${t.translationMode} in ('off','on_demand','auto')`),

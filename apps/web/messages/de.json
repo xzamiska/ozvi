@@ -2156,7 +2156,23 @@
       "disconnectTitle": "GitHub trennen?",
       "disconnectText": "Neue Issues werden nicht mehr verknüpft und der Status wird nicht mehr synchronisiert. Bestehende Verknüpfungen bleiben erhalten.",
       "disconnectConfirm": "GitHub trennen",
-      "disconnecting": "Wird getrennt …"
+      "disconnecting": "Wird getrennt …",
+      "app": {
+        "intro": "Klicken Sie auf GitHub verbinden, wählen Sie auf GitHub die Repositories für die Ozvi-App und hier eines davon. Kein Token und kein Webhook, den Sie von Hand einrichten müssen.",
+        "opening": "GitHub wird geöffnet…",
+        "installed": "Die Ozvi-App ist auf GitHub installiert. Wählen Sie ein Repository.",
+        "requested": "Die Installationsanfrage wartet auf die Freigabe durch die Inhaberin oder den Inhaber der Organisation auf GitHub. Versuchen Sie es danach erneut.",
+        "failed": "Die Verbindung mit GitHub hat nicht geklappt. Versuchen Sie es erneut; wenn es weiter scheitert, deinstallieren Sie die App auf GitHub und installieren Sie sie neu.",
+        "via": "Verbunden über die Ozvi-App im Konto {account}.",
+        "viaUnknown": "Verbunden über die Ozvi-App.",
+        "change": "Repositories ändern",
+        "unreachable": "Die Liste der Repositories konnte nicht geladen werden. Wenn Sie die App auf GitHub deinstalliert haben, verbinden Sie sie erneut.",
+        "noRepos": "Die Ozvi-App hat noch keinen Zugriff auf ein Repository. Fügen Sie eines über „Repositories ändern“ hinzu.",
+        "repoHint": "Angezeigt werden nur Repositories, auf die Sie der App Zugriff gegeben haben.",
+        "pick": "Repository wählen",
+        "connectRepo": "Repository verbinden",
+        "disconnectText": "Neue Issues werden nicht mehr verknüpft, Status werden nicht mehr synchronisiert. Verknüpfungen bestehender Einträge bleiben. Die App deinstallieren Sie auf GitHub in den Einstellungen des Kontos oder der Organisation."
+      }
     },
     "oidc": {
       "issuerHint": "Leer lassen, um die OIDC-Anmeldung auszuschalten.",
@@ -2229,7 +2245,11 @@
       "domainFirst": "Geben Sie zuerst eine Domain ein.",
       "noCname": "Der CNAME für {d} zeigt noch nicht auf uns. DNS-Änderungen können bis zu einer Stunde dauern.",
       "noTxt": "Der TXT-Eintrag _ozvi.{d} mit dem Verifizierungscode fehlt (oder ist noch nicht überall angekommen).",
-      "domainVerified": "Domain verifiziert."
+      "domainVerified": "Domain verifiziert.",
+      "ghPickRepo": "Wählen Sie ein Repository.",
+      "ghAppUnreachable": "GitHub antwortet gerade nicht. Versuchen Sie es gleich noch einmal.",
+      "ghNotGranted": "Die Ozvi-App hat keinen Zugriff auf {repo}. Fügen Sie es auf GitHub über „Repositories ändern“ hinzu.",
+      "ghAppConnected": "GitHub ist mit {repo} verbunden. Issues, Pull Requests und Releases synchronisieren sich von selbst."
     },
     "gh": {
       "notFound": "Das Issue oder Repository existiert nicht, oder das Token hat keinen Zugriff darauf.",

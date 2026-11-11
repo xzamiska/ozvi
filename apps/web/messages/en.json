@@ -2156,7 +2156,23 @@
       "disconnectTitle": "Disconnect GitHub?",
       "disconnectText": "New issues will no longer be linked and status won’t sync. Links on existing items stay.",
       "disconnectConfirm": "Disconnect GitHub",
-      "disconnecting": "Disconnecting…"
+      "disconnecting": "Disconnecting…",
+      "app": {
+        "intro": "Click Connect GitHub, choose repositories for the Ozvi app on GitHub, and pick one of them here. No token and no webhook to set up by hand.",
+        "opening": "Opening GitHub…",
+        "installed": "The Ozvi app is installed on GitHub. Pick a repository.",
+        "requested": "The installation request is waiting for the organisation owner's approval on GitHub. Try again after that.",
+        "failed": "Connecting GitHub didn't work. Try again; if it keeps failing, uninstall the app on GitHub and install it again.",
+        "via": "Connected through the Ozvi app on {account}.",
+        "viaUnknown": "Connected through the Ozvi app.",
+        "change": "Change repositories",
+        "unreachable": "The repository list couldn't be loaded. If you uninstalled the app on GitHub, connect it again.",
+        "noRepos": "The Ozvi app can't access any repository yet. Add one with “Change repositories”.",
+        "repoHint": "Only repositories you gave the app access to are listed.",
+        "pick": "Pick a repository",
+        "connectRepo": "Connect repository",
+        "disconnectText": "New issues stop being linked and statuses stop syncing. Links on existing items stay. To uninstall the app on GitHub, use your account's or organisation's settings."
+      }
     },
     "oidc": {
       "issuerHint": "Leave empty to turn OIDC sign-in off.",
@@ -2229,7 +2245,11 @@
       "domainFirst": "Enter a domain first.",
       "noCname": "The CNAME for {d} doesn’t point to us yet. DNS changes can take up to an hour.",
       "noTxt": "The TXT record _ozvi.{d} with the verification code is missing (or hasn’t spread yet).",
-      "domainVerified": "Domain verified."
+      "domainVerified": "Domain verified.",
+      "ghPickRepo": "Pick a repository.",
+      "ghAppUnreachable": "GitHub isn't answering right now. Try again in a moment.",
+      "ghNotGranted": "The Ozvi app can't access {repo}. Add it on GitHub with “Change repositories”.",
+      "ghAppConnected": "GitHub is connected to {repo}. Issues, pull requests and releases sync on their own."
     },
     "gh": {
       "notFound": "The issue or repository doesn’t exist, or the token can’t access it.",

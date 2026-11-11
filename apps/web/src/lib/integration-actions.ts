@@ -6,11 +6,13 @@ import { dnsPointsHere, forgetHost, normalizeDomain, ownsDomain } from "./domain
 import type { Scope } from "@ozvi/mcp";
 import { and, eq, isNotNull, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { logActivity, who } from "./activity";
 import { db } from "./db";
 import { DomainError, isTeamRole } from "./domain";
 import { EVENTS } from "./events";
-import { createIssue, gh, linkIssue, parseGithubConfig } from "./github";
+import { createIssue, gh, installationOf, linkIssue, parseGithubConfig } from "./github";
+import { githubApp, installationRepos, installState, installUrl, readInstallTicket } from "./github-app";
 import { discoverOidc } from "./oidc";
 import { getTranslations } from "next-intl/server";
 import { getCtx } from "./project";
@@ -120,11 +122,25 @@ export async function testWebhook(slug: string, id: string): Promise<ActState> {
 
 export async function saveGithub(slug: string, _: ActState, form: FormData): Promise<ActState> {
   const { project, user, t, locale } = await requireAdmin(slug);
-  const config = parseGithubConfig({ repo: str(form, "repo"), onClose: str(form, "onClose") });
-  if (!config) return { error: t("repoFormat") };
-  const token = str(form, "token");
   return domain(locale, async () => withProject(db, project.id, async (tx) => {
     const existing = await tx.query.integrations.findFirst({ where: eq(schema.integrations.provider, "github") });
+    const installationId = installationOf(existing?.config);
+    const app = githubApp();
+    // Through the GitHub App: the repository must be one the admin gave the app on GitHub.
+    if (installationId && app) {
+      const config = parseGithubConfig({ repo: str(form, "repo"), onClose: str(form, "onClose"), installationId });
+      if (!config) return { error: t("ghPickRepo") };
+      const repos = await installationRepos(app, installationId).catch(() => null);
+      if (!repos) return { error: t("ghAppUnreachable") };
+      if (!repos.includes(config.repo)) return { error: t("ghNotGranted", { repo: config.repo }) };
+      await tx.update(schema.integrations).set({ config }).where(eq(schema.integrations.id, existing!.id));
+      await log(project, user, "github.connected", config.repo);
+      revalidatePath(`/${slug}`, "layout");
+      return { ok: t("ghAppConnected", { repo: config.repo }) };
+    }
+    const config = parseGithubConfig({ repo: str(form, "repo"), onClose: str(form, "onClose") });
+    if (!config) return { error: t("repoFormat") };
+    const token = str(form, "token");
     if (!token && !existing?.tokenEnc) return { error: t("needToken") };
     if (token) await gh(token, `/repos/${config.repo}`);
     const secret = existing?.webhookSecretEnc ? null : newSecret();
@@ -141,9 +157,37 @@ export async function saveGithub(slug: string, _: ActState, form: FormData): Pro
   }));
 }
 
+/** GitHub App: off to GitHub to install the app (or change which repositories it may see). */
+export async function startGithubInstall(slug: string) {
+  const { project, user } = await requireAdmin(slug);
+  const app = githubApp();
+  if (!app) throw new Error("GitHub App is not configured");
+  redirect(installUrl(app, installState({ p: project.id, u: user.id, s: slug })));
+}
+
+/** GitHub App, back from GitHub (via /api/github/callback): store the installation under the admin's session. */
+export async function finishGithubInstall(slug: string, ticket: string): Promise<"ok" | "invalid"> {
+  const { project, user } = await requireAdmin(slug);
+  const tk = readInstallTicket(ticket);
+  if (!tk || tk.p !== project.id || tk.u !== user.id) return "invalid";
+  await withProject(db, project.id, async (tx) => {
+    const existing = await tx.query.integrations.findFirst({ where: eq(schema.integrations.provider, "github") });
+    const prev = parseGithubConfig(existing?.config);
+    // A repository picked before stays if the same installation still covers it (checked on save).
+    const config = { ...(prev && prev.installationId === tk.i ? { repo: prev.repo, onClose: prev.onClose } : {}), installationId: tk.i };
+    if (existing) await tx.update(schema.integrations).set({ config, tokenEnc: null, webhookSecretEnc: null }).where(eq(schema.integrations.id, existing.id));
+    else await tx.insert(schema.integrations).values({ projectId: project.id, provider: "github", config });
+  });
+  await db.update(schema.projects).set({ githubInstallationId: tk.i }).where(eq(schema.projects.id, project.id));
+  await log(project, user, "github.connected", `app:${tk.i}`);
+  revalidatePath(`/${slug}`, "layout");
+  return "ok";
+}
+
 export async function disconnectGithub(slug: string) {
   const { project, user } = await requireAdmin(slug);
   await withProject(db, project.id, (tx) => tx.delete(schema.integrations).where(eq(schema.integrations.provider, "github")));
+  await db.update(schema.projects).set({ githubInstallationId: null }).where(eq(schema.projects.id, project.id));
   await log(project, user, "github.disconnected");
   revalidatePath(`/${slug}`, "layout");
 }

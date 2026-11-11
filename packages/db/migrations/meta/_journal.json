@@ -169,6 +169,13 @@
       "when": 1794352810335,
       "tag": "0023_mushy_invaders",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1794359049739,
+      "tag": "0024_powerful_frank_castle",
+      "breakpoints": true
     }
   ]
 }

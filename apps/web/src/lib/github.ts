@@ -6,6 +6,7 @@ import { projectOrigin } from "./email/url";
 import { emit } from "./events";
 import { attachProof, cleanProofUrl, parsePrBody } from "./proof";
 import { createReleaseDraft } from "./release";
+import { githubApp, installationToken } from "./github-app";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
 import type { Project, User } from "./project";
@@ -26,7 +27,8 @@ const boardText = (project: Project) => M(isLocale(project.defaultLocale) ? proj
 
 const { integrations, itemLinks, items, comments } = schema;
 
-export interface GithubConfig { repo: string; onClose: "release" | "fixed" }
+/** installationId: connected through the GitHub App (lib/github-app); otherwise a stored token. */
+export interface GithubConfig { repo: string; onClose: "release" | "fixed"; installationId?: number }
 export interface Github { config: GithubConfig; token: string; webhookSecret: string | null }
 
 const REPO = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
@@ -34,13 +36,25 @@ const REPO = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
 export function parseGithubConfig(raw: unknown): GithubConfig | null {
   const c = (raw ?? {}) as Partial<GithubConfig>;
   if (!c.repo || !REPO.test(c.repo)) return null;
-  return { repo: c.repo, onClose: c.onClose === "fixed" ? "fixed" : "release" };
+  const installationId = installationOf(c);
+  return { repo: c.repo, onClose: c.onClose === "fixed" ? "fixed" : "release", ...(installationId && { installationId }) };
+}
+/** The app installation on a GitHub row (also before a repository is picked). */
+export function installationOf(raw: unknown): number | null {
+  const n = Number((raw as { installationId?: unknown } | null)?.installationId);
+  return Number.isSafeInteger(n) && n > 0 ? n : null;
 }
 
 export async function getGithub(tx: Tx): Promise<Github | null> {
   const row = await tx.query.integrations.findFirst({ where: eq(integrations.provider, "github") });
   const config = parseGithubConfig(row?.config);
-  if (!row || !config || !row.tokenEnc) return null;
+  if (!row || !config) return null;
+  if (config.installationId) {
+    const app = githubApp();
+    if (!app) return null;
+    return { config, token: await installationToken(app, config.installationId), webhookSecret: app.webhookSecret };
+  }
+  if (!row.tokenEnc) return null;
   return { config, token: decryptSecret(row.tokenEnc), webhookSecret: row.webhookSecretEnc ? decryptSecret(row.webhookSecretEnc) : null };
 }
 

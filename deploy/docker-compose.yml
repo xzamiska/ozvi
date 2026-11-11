@@ -52,6 +52,13 @@ services:
       # Operators: may create accounts, get an e-mail when an update fails (comma-separated).
       OZVI_ADMIN_EMAILS: ${OZVI_ADMIN_EMAILS:-}
       OZVI_ADMIN_LOCALE: ${OZVI_ADMIN_LOCALE:-sk}
+      # GitHub App (docs/SELFHOST.md#github): scripts/create-github-app.mjs prints these
+      OZVI_GITHUB_APP_ID: ${OZVI_GITHUB_APP_ID:-}
+      OZVI_GITHUB_APP_SLUG: ${OZVI_GITHUB_APP_SLUG:-}
+      OZVI_GITHUB_APP_PRIVATE_KEY: ${OZVI_GITHUB_APP_PRIVATE_KEY:-}
+      OZVI_GITHUB_APP_CLIENT_ID: ${OZVI_GITHUB_APP_CLIENT_ID:-}
+      OZVI_GITHUB_APP_CLIENT_SECRET: ${OZVI_GITHUB_APP_CLIENT_SECRET:-}
+      OZVI_GITHUB_APP_WEBHOOK_SECRET: ${OZVI_GITHUB_APP_WEBHOOK_SECRET:-}
       OZVI_UPDATER_URL: ${OZVI_UPDATER_URL:-}
       OZVI_UPDATER_TOKEN: ${OZVI_UPDATER_TOKEN:-}
     ports: ["${OZVI_PORT:-3000}:3000"]

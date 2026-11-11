@@ -3,8 +3,9 @@ import { and, desc, eq, gte, inArray, isNull, sql } from "drizzle-orm";
 import { Check, Download, TriangleAlert } from "lucide-react";
 import { LockdownForm, SecretForm, SettingsForm } from "@/components/AdminForms";
 import { BlockToggle } from "@/components/Moderation";
-import { DomainForm, GithubForm, OidcForm, PersonActions, RevokeToken, WebhookActions, WebhookForm } from "@/components/IntegrationForms";
-import { parseGithubConfig } from "@/lib/github";
+import { DomainForm, GithubAppForm, GithubForm, OidcForm, PersonActions, RevokeToken, WebhookActions, WebhookForm } from "@/components/IntegrationForms";
+import { installationOf, parseGithubConfig } from "@/lib/github";
+import { githubApp, installationAccount, installationRepos } from "@/lib/github-app";
 import { parseLinearConfig } from "@/lib/linear";
 import { parseJiraConfig } from "@/lib/jira";
 import { JiraForm, LinearForm } from "@/components/TrackerForms";
@@ -50,7 +51,7 @@ import { MESSAGES } from "@/i18n/messages";
 
 export const generateMetadata = boardTitle("admin");
 
-export default async function Admin({ params }: { params: Promise<{ project: string }> }) {
+export default async function Admin({ params, searchParams }: { params: Promise<{ project: string }>; searchParams: Promise<{ github?: string }> }) {
   const { project: slug } = await params;
   const { project, theme, user, locale } = await getCtx(slug);
   const t = await getTranslations({ locale, namespace: "admin" });
@@ -95,6 +96,14 @@ export default async function Admin({ params }: { params: Promise<{ project: str
   const editLocales = [boardLangs.fallback, ...boardLangs.allowed.filter((l) => l !== boardLangs.fallback)];
   const stopDefaults = Object.fromEntries(LOCALES.map((l) => [l, Object.fromEntries(ALL_STAGES.map((st) => [st, routeText(translator(l, "route"), "label", st)]))])) as Record<Locale, Record<string, string>>;
   const gh = parseGithubConfig(extra.github?.config);
+  // GitHub App: the installation (also before a repository is picked) and what it may see.
+  const ghApp = githubApp();
+  const ghInstall = ghApp ? installationOf(extra.github?.config) : null;
+  const [ghRepos, ghAccount] = ghApp && ghInstall
+    ? await Promise.all([installationRepos(ghApp, ghInstall).catch(() => null), installationAccount(ghApp, ghInstall)])
+    : [null, null];
+  const ghParam = (await searchParams).github;
+  const ghResult = (["connected", "failed", "requested"] as const).find((r) => r === ghParam) ?? null;
   const lin = parseLinearConfig(extra.linearRow?.config);
   const jir = parseJiraConfig(extra.jiraRow?.config);
   const team = extra.people.filter((p) => p.role !== "member");
@@ -110,7 +119,7 @@ export default async function Admin({ params }: { params: Promise<{ project: str
   const kit = kitConfig({
     project, origin: base, aiOn: aiAvailable(plan), operator: LEGAL.operator, publicUrl: publicUrl(),
     integrations: {
-      github: !!extra.github?.tokenEnc, linear: !!extra.linearRow?.tokenEnc && !!lin, jira: !!extra.jiraRow?.tokenEnc && !!jir,
+      github: !!gh && (!!extra.github?.tokenEnc || !!gh.installationId), linear: !!extra.linearRow?.tokenEnc && !!lin, jira: !!extra.jiraRow?.tokenEnc && !!jir,
       hooks: extra.hooks.filter(({ hook }) => hook.active).map(({ hook }) => ({ format: hook.format, bugs: hook.includeBugs })),
     },
   });
@@ -279,7 +288,9 @@ app.get("/api/ozvi-token", requireLogin, (req, res) => {
 
           <SettingsSection id="integrations" title={t("nav.integrations")} text={t("integrations.text")}>
             <SettingsBlock id="github" title="GitHub" text={t("integrations.githubText")}>
-              <GithubForm slug={slug} repo={gh?.repo ?? ""} onClose={gh?.onClose ?? "release"} connected={!!extra.github?.tokenEnc} hookUrl={`${base}/${slug}/api/github`} />
+              {ghApp
+                ? <GithubAppForm slug={slug} repo={gh?.repo ?? ""} onClose={gh?.onClose ?? "release"} repos={ghRepos} account={ghAccount} installed={!!ghInstall} result={ghResult} />
+                : <GithubForm slug={slug} repo={gh?.repo ?? ""} onClose={gh?.onClose ?? "release"} connected={!!extra.github?.tokenEnc} hookUrl={`${base}/${slug}/api/github`} />}
             </SettingsBlock>
 
             <SettingsBlock id="linear" title="Linear" text={t("integrations.linearText")}>

@@ -39,6 +39,13 @@ docker compose exec ozvi node ozvi.mjs project:create mojaappka "Moja appka" --o
 
   `OZVI_AI_MODEL_FAST` = voliteľný lacnejší model na preklady. Starší `ANTHROPIC_API_KEY` funguje ďalej ako `anthropic`. Bez nastavenia (alebo `OZVI_AI_PROVIDER=off`) appka funguje bez AI. Pri `openai` musí model zvládať aspoň JSON v odpovedi; štruktúrovaný výstup (`json_schema`) sa použije, keď ho server podporuje. Poskytovateľa uveďte vo svojich zásadách ochrany súkromia ako subdodávateľa (lokálny model nie).
 - **AI duplicity (voliteľné):** `OZVI_EMBEDDINGS_URL` + `OZVI_EMBEDDINGS_MODEL` (+ `OZVI_EMBEDDINGS_KEY`) — ľubovoľné API kompatibilné s OpenAI `/embeddings` (OpenAI, Ollama, LM Studio, vLLM). Pri `OZVI_AI_PROVIDER=openai` stačí `OZVI_EMBEDDINGS_MODEL` (adresa a kľúč sa prevezmú). Worker zaindexuje záznamy na pozadí; bez nastavenia sa duplicity hľadajú fuzzy porovnaním textu (pg_trgm). Rozšírenie `vector` vytvára `initdb` skript; ak chýba, embeddingy sa preskočia.
+- <a id="github"></a>**GitHub (voliteľné):** najjednoduchšie cez vlastnú GitHub App. Admin boardu potom len klikne na Pripojiť GitHub, appku nainštaluje na zvolené repozitáre a v Ozvi jeden vyberie, bez tokenu a webhooku ([ADR-0011](adr/0011-github-app.md)). Appku vytvoríte jedným potvrdením na GitHube:
+
+  ```
+  node scripts/create-github-app.mjs --url https://feedback.vasafirma.sk [--org vasa-organizacia]
+  ```
+
+  Skript zapíše `OZVI_GITHUB_APP_*` do `github-app.env`. Riadky pridajte do `.env` a Ozvi reštartujte. Server musí byť dostupný z internetu (webhooky z GitHubu). Bez appky sa GitHub pripája fine-grained tokenom a webhookom v nastaveniach projektu.
 - **Webhooky:** v self-hoste smú smerovať aj do internej siete (Mattermost, n8n na LAN); v cloud režime (`OZVI_MODE=cloud`) sú interné adresy blokované.
 - **Správa cez `/app` (voliteľné):** `OZVI_ADMIN_EMAILS=vy@firma.sk` — tieto e-maily sa prihlásia kódom do `/app`, vidia všetky projekty, zakladajú nové a jedným klikom sa dostanú do ich nastavení. Bez nastavenia sa projekty zakladajú CLI príkazom ako doteraz.
 - **Prihlásenie e-mailom na boarde:** Nastavenia → Projekt → „Prihlásenie e-mailom“ (pre ľudí bez účtu v appke). Potrebuje `SMTP_URL`.

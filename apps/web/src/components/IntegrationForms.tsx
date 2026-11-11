@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-  addWebhook, createToken, deleteWebhook, disconnectGithub, revokeToken, saveDomain, saveGithub, saveOidc,
+  addWebhook, createToken, deleteWebhook, disconnectGithub, revokeToken, saveDomain, saveGithub, saveOidc, startGithubInstall,
   setRole, signOutEverywhere, testWebhook, verifyDomain, type ActState,
 } from "@/lib/integration-actions";
 import { useTranslations } from "next-intl";
@@ -196,6 +196,60 @@ export function GithubForm({ slug, repo, onClose, connected, hookUrl }: { slug: 
             title={t("disconnectTitle")} text={t("disconnectText")}
             confirm={t("disconnectConfirm")} pending={t("disconnecting")} />
         )}
+      </div>
+    </form>
+  );
+}
+
+/** GitHub through the GitHub App: install on GitHub, pick a repository here. No token, no webhook to add. */
+export function GithubAppForm({ slug, repo, onClose, repos, account, installed, result }: {
+  slug: string; repo: string; onClose: string; repos: string[] | null; account: { login: string; org: boolean } | null; installed: boolean;
+  result: "connected" | "failed" | "requested" | null;
+}) {
+  const T = useTranslations("integrations");
+  const t = useTranslations("integrations.github");
+  const [state, action, pending] = useActionState((p: ActState, f: FormData) => saveGithub(slug, p, f), {});
+  const [going, go] = useTransition();
+  const install = () => go(async () => { await startGithubInstall(slug); });
+  const notice = result === "connected" ? { ok: t("app.installed") } : result === "requested" ? { ok: t("app.requested") } : result === "failed" ? { error: t("app.failed") } : {};
+  const connected = installed && !!repo && !!repos?.includes(repo);
+
+  if (!installed) {
+    return (
+      <div className={panel}>
+        <p className="max-w-[64ch] text-[14px] leading-relaxed text-muted-foreground">{t("app.intro")}</p>
+        <Result {...notice} />
+        <div><Button type="button" onClick={install} disabled={going} aria-busy={going || undefined}><Plug />{going ? t("app.opening") : t("connect")}</Button></div>
+      </div>
+    );
+  }
+  return (
+    <form action={action} className={panel}>
+      <p className="text-[14px] leading-relaxed text-muted-foreground">
+        {account ? t("app.via", { account: account.login }) : t("app.viaUnknown")}{" "}
+        <button type="button" onClick={install} disabled={going} className="font-medium text-foreground underline underline-offset-2 hover:no-underline">{t("app.change")}</button>
+      </p>
+      <Result {...notice} />
+      {repos === null ? <Result error={t("app.unreachable")} /> : repos.length === 0 ? <Result error={t("app.noRepos")} /> : (
+        <>
+          <Field id="gh-repo" label={t("repo")} hint={t("app.repoHint")}>
+            <Select name="repo" defaultValue={repos.includes(repo) ? repo : undefined} required>
+              <SelectTrigger id="gh-repo" className="w-full max-w-[420px]"><SelectValue placeholder={t("app.pick")} /></SelectTrigger>
+              <SelectContent>{repos.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}</SelectContent>
+            </Select>
+          </Field>
+          <Choices legend={t("onClose")} name="onClose" defaultValue={onClose === "fixed" ? "fixed" : "release"} options={[
+            { value: "release", title: t("release.title"), text: t("release.text") },
+            { value: "fixed", title: t("fixed.title"), text: t("fixed.text") },
+          ]} />
+          <Feedback state={state} />
+        </>
+      )}
+      <div className="flex flex-wrap items-center gap-2">
+        {repos && repos.length > 0 && <Submit pending={pending} pendingLabel={T("verifying")}>{connected ? t("save") : <><Plug />{t("app.connectRepo")}</>}</Submit>}
+        <ConfirmAction run={async () => { await disconnectGithub(slug); toast(t("disconnected")); }} trigger={t("disconnect")} variant="ghost" size="default"
+          title={t("disconnectTitle")} text={t("app.disconnectText")}
+          confirm={t("disconnectConfirm")} pending={t("disconnecting")} />
       </div>
     </form>
   );

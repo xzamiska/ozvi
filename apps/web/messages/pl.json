@@ -2156,7 +2156,23 @@
       "disconnectTitle": "Odłączyć GitHub?",
       "disconnectText": "Nowe issue nie będą już łączone, a status przestanie się synchronizować. Linki przy istniejących wpisach zostaną.",
       "disconnectConfirm": "Odłącz GitHub",
-      "disconnecting": "Odłączanie…"
+      "disconnecting": "Odłączanie…",
+      "app": {
+        "intro": "Kliknij Połącz GitHub, wybierz na GitHubie repozytoria dla aplikacji Ozvi i tutaj wskaż jedno z nich. Bez tokenu i bez ręcznego ustawiania webhooka.",
+        "opening": "Otwieram GitHub…",
+        "installed": "Aplikacja Ozvi jest zainstalowana na GitHubie. Wybierz repozytorium.",
+        "requested": "Prośba o instalację czeka na zatwierdzenie przez właściciela organizacji na GitHubie. Potem spróbuj ponownie.",
+        "failed": "Nie udało się połączyć GitHuba. Spróbuj ponownie; jeśli problem nie zniknie, odinstaluj aplikację na GitHubie i zainstaluj ją jeszcze raz.",
+        "via": "Połączono przez aplikację Ozvi na koncie {account}.",
+        "viaUnknown": "Połączono przez aplikację Ozvi.",
+        "change": "Zmień repozytoria",
+        "unreachable": "Nie udało się wczytać listy repozytoriów. Jeśli aplikacja została odinstalowana na GitHubie, połącz ją ponownie.",
+        "noRepos": "Aplikacja Ozvi nie ma jeszcze dostępu do żadnego repozytorium. Dodaj je przez „Zmień repozytoria”.",
+        "repoHint": "Pokazujemy tylko repozytoria, do których dałeś aplikacji dostęp.",
+        "pick": "Wybierz repozytorium",
+        "connectRepo": "Połącz repozytorium",
+        "disconnectText": "Nowe issues przestaną być łączone, a statusy przestaną się synchronizować. Powiązania przy istniejących wpisach zostaną. Aplikację na GitHubie odinstalujesz w ustawieniach konta lub organizacji."
+      }
     },
     "oidc": {
       "issuerHint": "Zostaw puste, aby wyłączyć logowanie przez OIDC.",
@@ -2229,7 +2245,11 @@
       "domainFirst": "Najpierw wpisz domenę.",
       "noCname": "Rekord CNAME dla {d} jeszcze na nas nie wskazuje. Zmiany DNS mogą potrwać do godziny.",
       "noTxt": "Brakuje rekordu TXT _ozvi.{d} z kodem weryfikacyjnym (albo jeszcze się nie rozpropagował).",
-      "domainVerified": "Domena zweryfikowana."
+      "domainVerified": "Domena zweryfikowana.",
+      "ghPickRepo": "Wybierz repozytorium.",
+      "ghAppUnreachable": "GitHub teraz nie odpowiada. Spróbuj ponownie za chwilę.",
+      "ghNotGranted": "Aplikacja Ozvi nie ma dostępu do {repo}. Dodaj je na GitHubie przez „Zmień repozytoria”.",
+      "ghAppConnected": "GitHub jest połączony z {repo}. Issues, pull requesty i wydania synchronizują się same."
     },
     "gh": {
       "notFound": "Issue lub repozytorium nie istnieje albo token nie ma do niego dostępu.",

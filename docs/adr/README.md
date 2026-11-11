@@ -12,3 +12,4 @@
 | [0008](0008-fsl-source-available.md) | Licencia FSL-1.1-ALv2 namiesto AGPL (kód verejný, bez konkurenčného SaaS, po 2 rokoch Apache 2.0) | 2026-11-07 |
 | [0009](0009-releases-registry-updater.md) | Vydania tagom na súkromný ghcr.io, zoznam vydaní na ozvi.io, voliteľný updater so zálohou a návratom | 2026-11-09 |
 | [0010](0010-boards-never-indexed.md) | Boardy sa nikdy neindexujú (bez nastavenia); indexuje sa len web Ozvi v cloude | 2026-11-10 |
+| [0011](0011-github-app.md) | GitHub cez GitHub App (bez tokenu a ručného webhooku); token ostáva ako záloha | 2026-11-11 |

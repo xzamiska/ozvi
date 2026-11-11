@@ -2156,7 +2156,23 @@
       "disconnectTitle": "Odpojiť GitHub?",
       "disconnectText": "Nové issues sa prestanú prepájať a stav sa nebude synchronizovať. Prepojenia pri existujúcich záznamoch zostanú.",
       "disconnectConfirm": "Odpojiť GitHub",
-      "disconnecting": "Odpájam…"
+      "disconnecting": "Odpájam…",
+      "app": {
+        "intro": "Kliknite na Pripojiť GitHub, na GitHube vyberte repozitáre pre appku Ozvi a tu jeden z nich zvoľte. Netreba žiadny token ani ručne nastavovať webhook.",
+        "opening": "Otváram GitHub…",
+        "installed": "Appka Ozvi je na GitHube nainštalovaná. Vyberte repozitár.",
+        "requested": "Žiadosť o inštaláciu čaká na schválenie vlastníkom organizácie na GitHube. Potom to skúste znova.",
+        "failed": "Pripojenie GitHubu sa nepodarilo. Skúste to znova; ak problém pretrvá, appku na GitHube odinštalujte a nainštalujte nanovo.",
+        "via": "Pripojené cez appku Ozvi na účte {account}.",
+        "viaUnknown": "Pripojené cez appku Ozvi.",
+        "change": "Zmeniť repozitáre",
+        "unreachable": "Zoznam repozitárov sa nepodarilo načítať. Ak ste appku na GitHube odinštalovali, pripojte ju znova.",
+        "noRepos": "Appka Ozvi zatiaľ nemá prístup k žiadnemu repozitáru. Pridajte ho cez „Zmeniť repozitáre“.",
+        "repoHint": "Ponúkame len repozitáre, ku ktorým ste appke dali prístup.",
+        "pick": "Vyberte repozitár",
+        "connectRepo": "Pripojiť repozitár",
+        "disconnectText": "Nové issues sa prestanú prepájať a stav sa nebude synchronizovať. Prepojenia pri existujúcich záznamoch zostanú. Appku na GitHube odinštalujete v nastaveniach účtu alebo organizácie."
+      }
     },
     "oidc": {
       "issuerHint": "Prázdne = prihlásenie cez OIDC je vypnuté.",
@@ -2229,7 +2245,11 @@
       "domainFirst": "Najprv zadajte doménu.",
       "noCname": "CNAME pre {d} zatiaľ neukazuje na nás. Zmena DNS môže trvať aj hodinu.",
       "noTxt": "Chýba TXT záznam _ozvi.{d} s overovacím kódom (alebo sa ešte nerozšíril).",
-      "domainVerified": "Doména je overená."
+      "domainVerified": "Doména je overená.",
+      "ghPickRepo": "Vyberte repozitár.",
+      "ghAppUnreachable": "GitHub teraz neodpovedá. Skúste to o chvíľu znova.",
+      "ghNotGranted": "Appka Ozvi nemá prístup k {repo}. Pridajte ho na GitHube cez „Zmeniť repozitáre“.",
+      "ghAppConnected": "GitHub je pripojený k {repo}. Issues, pull requesty a releasy sa synchronizujú samé."
     },
     "gh": {
       "notFound": "Issue alebo repozitár neexistuje, alebo k nemu token nemá prístup.",

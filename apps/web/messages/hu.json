@@ -2156,7 +2156,23 @@
       "disconnectTitle": "Leválasztod a GitHubot?",
       "disconnectText": "Az új issue-k nem lesznek összekapcsolva, és az állapot nem szinkronizálódik. A meglévő bejegyzések kapcsolatai megmaradnak.",
       "disconnectConfirm": "GitHub leválasztása",
-      "disconnecting": "Leválasztás…"
+      "disconnecting": "Leválasztás…",
+      "app": {
+        "intro": "Kattints a GitHub csatlakoztatása gombra, a GitHubon válaszd ki a tárolókat az Ozvi alkalmazásnak, itt pedig válassz közülük egyet. Nem kell token, és webhookot sem kell kézzel beállítani.",
+        "opening": "GitHub megnyitása…",
+        "installed": "Az Ozvi alkalmazás telepítve van a GitHubon. Válassz egy tárolót.",
+        "requested": "A telepítési kérelem a szervezet tulajdonosának jóváhagyására vár a GitHubon. Utána próbáld újra.",
+        "failed": "A GitHub csatlakoztatása nem sikerült. Próbáld újra; ha továbbra sem megy, távolítsd el az alkalmazást a GitHubon, és telepítsd újra.",
+        "via": "Csatlakoztatva az Ozvi alkalmazáson keresztül, fiók: {account}.",
+        "viaUnknown": "Csatlakoztatva az Ozvi alkalmazáson keresztül.",
+        "change": "Tárolók módosítása",
+        "unreachable": "A tárolók listáját nem sikerült betölteni. Ha eltávolítottad az alkalmazást a GitHubon, csatlakoztasd újra.",
+        "noRepos": "Az Ozvi alkalmazás még egyetlen tárolóhoz sem fér hozzá. Adj hozzá egyet a „Tárolók módosítása” gombbal.",
+        "repoHint": "Csak azokat a tárolókat mutatjuk, amelyekhez hozzáférést adtál az alkalmazásnak.",
+        "pick": "Válassz tárolót",
+        "connectRepo": "Tároló csatlakoztatása",
+        "disconnectText": "Az új issue-k nem kapcsolódnak össze, és az állapotok sem szinkronizálódnak. A meglévő bejegyzések kapcsolatai megmaradnak. Az alkalmazást a GitHubon a fiók vagy a szervezet beállításaiban távolíthatod el."
+      }
     },
     "oidc": {
       "issuerHint": "Hagyd üresen az OIDC-bejelentkezés kikapcsolásához.",
@@ -2229,7 +2245,11 @@
       "domainFirst": "Előbb adj meg egy domaint.",
       "noCname": "A CNAME rekord ({d}) még nem ránk mutat. A DNS-módosítások akár egy óráig is tarthatnak.",
       "noTxt": "Hiányzik az _ozvi.{d} TXT rekord az ellenőrzőkóddal (vagy még nem terjedt el).",
-      "domainVerified": "Domain ellenőrizve."
+      "domainVerified": "Domain ellenőrizve.",
+      "ghPickRepo": "Válassz egy tárolót.",
+      "ghAppUnreachable": "A GitHub most nem válaszol. Próbáld újra egy kicsit később.",
+      "ghNotGranted": "Az Ozvi alkalmazás nem fér hozzá ehhez: {repo}. Add hozzá a GitHubon a „Tárolók módosítása” gombbal.",
+      "ghAppConnected": "A GitHub csatlakoztatva ehhez: {repo}. Az issue-k, pull requestek és kiadások maguktól szinkronizálódnak."
     },
     "gh": {
       "notFound": "Az issue vagy a repository nem létezik, vagy a token nem fér hozzá.",
