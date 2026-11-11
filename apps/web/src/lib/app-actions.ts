@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { logActivity, who } from "./activity";
 import type { LoginState } from "@/components/EmailLogin";
-import { signupClosed } from "./account-rules";
+import { isAdminEmail, signupClosed } from "./account-rules";
 import { accountForVerifiedEmail, APP_COOKIE, mayCreateAccount, appCookie, getAccount, isMember, newWorkspaceSlug } from "./account";
 import { clientIp } from "./client-ip";
 import { getTranslations } from "next-intl/server";
@@ -51,7 +51,7 @@ async function finish(email: string): Promise<string | null> {
 
 export async function verifyAccountLogin(prev: LoginState, form: FormData): Promise<LoginState> {
   try {
-    await verifyCode(db, prev.email ?? "", String(form.get("code") ?? ""), null, await requestLocale());
+    await verifyCode(db, prev.email ?? "", String(form.get("code") ?? ""), null, await requestLocale(), clientIp(await headers()));
   } catch (e) {
     if (e instanceof LoginError) return { ...prev, error: e.message, info: undefined };
     throw e;
@@ -97,7 +97,10 @@ export async function createProject(_: NewProjectState, form: FormData): Promise
   const preset = String(form.get("preset") ?? "ozvi") as keyof typeof presets;
   let workspaceId = String(form.get("workspace") ?? "");
   if (name.length < 2 || name.length > 60) return { error: t("nameLength") };
-  if (!SLUG.test(slug) || RESERVED.has(slug)) return { error: t("slugInvalid") };
+  // Ozvi's own board (OZVI_FEEDBACK_PROJECT) is reserved too: if it were missing, someone could create it and
+  // receive every console account's feedback and identity.
+  const own = process.env.OZVI_FEEDBACK_PROJECT?.trim().toLowerCase();
+  if (!SLUG.test(slug) || RESERVED.has(slug) || (own && slug === own && !isAdminEmail(account.email))) return { error: t("slugInvalid") };
   if (!presets[preset]) return { error: t("pickLook") };
 
   if (workspaceId) {
@@ -167,6 +170,9 @@ export async function startCheckout(workspaceId: string, plan: PaidPlan, interva
   if (devBilling()) redirect(`/app/billing/${workspaceId}/simulate?plan=${plan}&i=${interval}`);
   const cfg = creemConfig();
   if (!cfg) throw new Error((await server())("billingOff"));
+  // A paying workspace changes plan on its subscription (changePlan); a second checkout would bill twice.
+  const ws = await db.query.workspaces.findFirst({ where: eq(schema.workspaces.id, workspaceId) });
+  if (ws?.creemSubscriptionId && (ws.plan === "pro" || ws.plan === "studio")) throw new Error((await server())("alreadySubscribed"));
   const url = await billing(() => createCheckout(cfg, { workspaceId, plan, interval, email: account.email, successUrl: `${publicUrl()}/app/w/${workspaceId}/plan?paid=1` }));
   redirect(url);
 }

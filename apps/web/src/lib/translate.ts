@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { AI_MODEL_FAST, AiError, aiConfigured, pivotTitles, translatePost, type AiErrorCode, type TranslatedText } from "./ai";
 import { detectLanguage, type Lang } from "./lang-detect";
 import { take } from "./ratelimit";
+import { sectionOfKind, sectionOn } from "./sections";
 
 /**
  * Post translation on boards (ideas, comments, changelog) by the configured AI model, for projects with AI.
@@ -79,9 +80,10 @@ export const PIVOT = "en:title";
 /* ── Visibility (mirrors the item page, changelog page and the comment thread) ────────────────── */
 
 export interface Viewer { userId: string | null; isTeam: boolean }
-interface BoardFlags { ideasPublic: boolean }
+interface BoardFlags { ideasPublic: boolean; sections?: readonly string[] | null }
 
 export function itemReadable(item: { kind: string; authorId: string | null; pending: boolean; deletedAt: Date | null }, p: BoardFlags, v: Viewer): boolean {
+  if (p.sections && !sectionOn(p, sectionOfKind(item.kind))) return false; // a switched-off section
   if (item.deletedAt) return false;
   if (v.isTeam) return true;
   const author = !!v.userId && item.authorId === v.userId;
@@ -98,6 +100,7 @@ export function commentReadable(c: { authorId: string | null; internal: boolean;
 }
 
 export function changelogReadable(e: { publishedAt: Date | null }, p: BoardFlags, v: Viewer): boolean {
+  if (p.sections && !sectionOn(p, "changelog")) return false;
   if (!p.ideasPublic && !v.userId) return false;
   return !!e.publishedAt || v.isTeam;
 }

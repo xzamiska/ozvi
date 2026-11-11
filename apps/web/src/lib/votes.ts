@@ -1,5 +1,6 @@
 import { schema, type Tx } from "@ozvi/db";
 import { and, eq, inArray, isNull, ne, sql } from "drizzle-orm";
+import { sectionOn } from "./sections";
 
 const { items, votes } = schema;
 
@@ -38,8 +39,9 @@ export type VoteResult = { ok: true; weight: number } | { ok: false; reason: "mi
  * project's mode and enforces the budget, whatever the client sent. weight 0 removes the vote.
  * A vote on an inactive (shipped/declined) idea costs nothing, so the budget only guards active ideas.
  */
-export async function applyVote(tx: Tx, project: { id: string; voteMode: string; voteBudget: number | null },
+export async function applyVote(tx: Tx, project: { id: string; voteMode: string; voteBudget: number | null; sections?: readonly string[] | null },
   userId: string, itemId: string, requested: number): Promise<VoteResult> {
+  if (project.sections && !sectionOn(project, "ideas")) return { ok: false, reason: "missing" };
   const item = await tx.query.items.findFirst({ where: and(eq(items.id, itemId), eq(items.kind, "idea")) });
   // Deleted and queued (moderation) ideas take no votes.
   if (!item || item.deletedAt || item.pending) return { ok: false, reason: "missing" };

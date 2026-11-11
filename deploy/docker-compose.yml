@@ -61,7 +61,10 @@ services:
       OZVI_GITHUB_APP_WEBHOOK_SECRET: ${OZVI_GITHUB_APP_WEBHOOK_SECRET:-}
       OZVI_UPDATER_URL: ${OZVI_UPDATER_URL:-}
       OZVI_UPDATER_TOKEN: ${OZVI_UPDATER_TOKEN:-}
-    ports: ["${OZVI_PORT:-3000}:3000"]
+    # Only on this machine by default: the TLS proxy in front (Caddy, Traefik) sets X-Forwarded-For, which
+    # Ozvi trusts (OZVI_TRUSTED_PROXIES). Open to the network (OZVI_BIND=0.0.0.0) only without a proxy,
+    # and then set OZVI_TRUSTED_PROXIES=0, or anyone can fake their IP and skip the rate limits.
+    ports: ["${OZVI_BIND:-127.0.0.1}:${OZVI_PORT:-3000}:3000"]
     volumes: [uploads:/data]
   # Optional. It needs the Docker socket (= control of this server), so it only runs with COMPOSE_PROFILES=updater.
   # It changes nothing but the "ozvi" service of this project and always backs up the database first.

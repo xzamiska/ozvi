@@ -60,8 +60,9 @@ async function signIn(slug: string, projectId: string, email: string, locale?: L
   const user = await withProject(db, projectId, async (tx) => {
     // Only an account whose e-mail is proven too: an app that did not verify the address (no emailVerified
     // in its token) must not put this person into an account someone else opened with their address.
+    // An app account with team or admin rights is never joined this way.
     const [known] = await tx.select().from(schema.users)
-      .where(sql`lower(${schema.users.email}) = ${email} and (${schema.users.externalId} like 'email:%' or ${schema.users.emailVerified})`)
+      .where(sql`lower(${schema.users.email}) = ${email} and (${schema.users.externalId} like 'email:%' or (${schema.users.emailVerified} and ${schema.users.role} = 'member'))`)
       .orderBy(sql`${schema.users.externalId} like 'email:%'`, asc(schema.users.createdAt)).limit(1);
     // Signing in makes an imported placeholder a real person: retention never anonymises them.
     if (known) return (await tx.update(schema.users).set({ lastSeenAt: new Date() }).where(eq(schema.users.id, known.id)).returning())[0] ?? known;
@@ -80,7 +81,7 @@ export async function verifyBoardLogin(slug: string, ret: string, prev: LoginSta
   const p = await project(slug);
   const email = prev.email ?? "";
   try {
-    await verifyCode(db, email, String(form.get("code") ?? ""), p.id, await boardLocale(p));
+    await verifyCode(db, email, String(form.get("code") ?? ""), p.id, await boardLocale(p), clientIp(await headers()));
   } catch (e) {
     if (e instanceof LoginError) return { ...prev, error: e.message, info: undefined };
     throw e;

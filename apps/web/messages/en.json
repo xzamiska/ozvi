@@ -163,7 +163,8 @@
       "noSmtpLink": "E-mail isn’t configured (SMTP). The link is in the server log.",
       "selfHostDelete": "On a self-hosted server, the admin manages accounts (OZVI_ADMIN_EMAILS).",
       "typeEmail": "To confirm, type your e-mail exactly.",
-      "signupClosed": "Sign-up isn’t open yet. Write to support@ozvi.io and we’ll let you know when we launch."
+      "signupClosed": "Sign-up isn’t open yet. Write to support@ozvi.io and we’ll let you know when we launch.",
+      "alreadySubscribed": "This workspace already has a subscription. Change the plan on it, without paying twice."
     },
     "workspace": {
       "not_owner": "Only a workspace owner can do this.",
@@ -436,9 +437,7 @@
         "loginUrlHint": "The page of your app we send someone to when they click “Sign in” on the board. We add an ozvi_return parameter with the address to send them back to after signing in. Empty: e-mail sign-in is used, if it's on.",
         "origins": "Your app's addresses",
         "originsHint": "Where the app you put the widget or roadmap into runs, e.g. https://app.billiwo.com. One address per line, no path. The widget won't work on other sites.",
-        "save": "Save settings",
-        "trustTitle": "Your app verifies users' e-mails",
-        "trustText": "On: someone your app signs in and someone signing in with the same e-mail by code or from the console are one account. Turn it off if people can register in your app with someone else's e-mail without verifying it: such an account would otherwise take over the real owner's board account. Your app can also decide per person in the token (emailVerified)."
+        "save": "Save settings"
       },
       "saving": "Saving…",
       "sso": {
@@ -1166,7 +1165,12 @@
     "backToFeedback": "Back to feedback",
     "unsubTitle": "Unsubscribe from e-mails?",
     "unsubLede": "Feedback for {project} will stop e-mailing you about the status of reports and ideas, and about comments.",
-    "unsubButton": "Unsubscribe from e-mails"
+    "unsubButton": "Unsubscribe from e-mails",
+    "signInTitle": "Sign in?",
+    "signInHeading": "Sign in as {who}?",
+    "signInText": "A link from another site wants to sign you in to this feedback board. Continue only if you opened it from your own app.",
+    "signInNo": "No, thanks",
+    "signInYes": "Sign in"
   },
   "console": {
     "planName": {
@@ -1716,7 +1720,10 @@
     },
     "loginValid": "Valid for 15 minutes, single use.",
     "loginOr": "Or sign in with one click:",
-    "loginPreheader": "Your sign-in code for {brand}. Valid for 15 minutes."
+    "loginPreheader": "Your sign-in code for {brand}. Valid for 15 minutes.",
+    "loginSubjectLink": "Your sign-in link for {brand}",
+    "loginBodyLink": "There were too many wrong codes for this address today, so we're not sending a code. Sign in with the link below.",
+    "errTooManyTries": "Too many attempts from this network. Try again in an hour or use the link from the e-mail."
   },
   "errors": {
     "signIn": "Please sign in to do this.",
@@ -1753,7 +1760,9 @@
     "blocked": "You can't post or vote on this board at the moment.",
     "voteBudget": "You don't have enough votes left for this ({n} left). Remove a vote from another idea or pick a lower importance.",
     "adminOnly": "Only a board admin can do this.",
-    "sectionOff": "This section is switched off for this project."
+    "sectionOff": "This section is switched off for this project.",
+    "deleteOwnerOnly": "Only the workspace owner can delete the whole project, coming here from the Ozvi console.",
+    "operatorOnly": "Only the instance operators (OZVI_ADMIN_EMAILS) control server updates, coming here from the Ozvi console."
   },
   "forms": {
     "optional": "optional",
@@ -3649,12 +3658,13 @@
         "when": "Always; in the cloud, we send the e-mails."
       },
       {
-        "name": "Anthropic",
-        "entity": "Anthropic, PBC",
-        "purpose": "AI features: feedback summaries, release note drafts from a release, post translation. The output is always a draft a person approves.",
-        "data": "The text of posts and comments the task needs. It isn’t used to train models.",
-        "location": "TODO: country of processing.",
-        "transfer": "TODO: transfer mechanism under Anthropic’s commercial terms and DPA.",
+        "name": "Scaleway",
+        "entity": "Scaleway SAS, France",
+        "purpose": "AI features: post translation, feedback summaries, release note drafts from a release. The output is always labelled and drafts are approved by a person.",
+        "data": "The text of posts and comments the task needs.",
+        "location": "Scaleway data centres in the EU (France).",
+        "transfer": "None, the data stays in the EU.",
+        "note": "TODO: confirm from the Scaleway contract that inputs and outputs are not stored or used to train models.",
         "when": "Only in projects with AI features switched on."
       },
       {
@@ -3776,7 +3786,8 @@
         "discord": "Discord"
       },
       "noTrackingCloud": "The feedback tool uses no analytics or advertising tools. Fonts are served by Ozvi itself, so your browser does not connect to Google or other third parties.",
-      "noTrackingSelf": "The feedback tool uses no analytics or advertising tools. Fonts are served by our server, so your browser does not connect to Google or other third parties."
+      "noTrackingSelf": "The feedback tool uses no analytics or advertising tools. Fonts are served by our server, so your browser does not connect to Google or other third parties.",
+      "scaleway": "Scaleway SAS (France, EU): AI features ({task}); receives only the text the task needs and processes it in EU data centres;"
     },
     "retention": {
       "content": "We keep posts, comments and votes while the board is in use, or until you delete them or all your data (see Your rights).",

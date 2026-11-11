@@ -2,7 +2,7 @@ import "server-only";
 import { createHmac, randomBytes } from "node:crypto";
 import { schema, withProject, type Db, type Tx } from "@ozvi/db";
 import { parseTheme, presets } from "@ozvi/theme";
-import { and, asc, eq, gt, isNull, sql } from "drizzle-orm";
+import { and, asc, eq, gt, inArray, isNull, or, sql } from "drizzle-orm";
 import type { Account } from "./account";
 import { logActivity, who as label } from "./activity";
 import { DEFAULT_LOCALE, type Locale } from "@/i18n/locales";
@@ -148,9 +148,16 @@ async function ownerCount(d: Db | Tx, workspaceId: string) {
 export async function revokeBoardAccess(workspaceId: string, email: string) {
   const projects = await db.select({ id: schema.projects.id }).from(schema.projects).where(eq(schema.projects.workspaceId, workspaceId));
   for (const p of projects) {
-    await withProject(db, p.id, (tx) => tx.update(schema.users)
-      .set({ role: "member", sessionVersion: sql`${schema.users.sessionVersion} + 1` })
-      .where(eq(schema.users.externalId, `email:${email}`)));
+    await withProject(db, p.id, async (tx) => {
+      // The console account on the board, and any team/admin account with the same address (the hand-off
+      // used to promote app accounts): back to member, signed out, API tokens revoked.
+      const hit = await tx.update(schema.users)
+        .set({ role: "member", sessionVersion: sql`${schema.users.sessionVersion} + 1` })
+        .where(or(eq(schema.users.externalId, `email:${email}`), and(sql`lower(${schema.users.email}) = ${email.toLowerCase()}`, inArray(schema.users.role, ["team", "admin"]))))
+        .returning({ id: schema.users.id });
+      if (hit.length) await tx.update(schema.apiTokens).set({ revokedAt: new Date() })
+        .where(and(inArray(schema.apiTokens.userId, hit.map((h) => h.id)), isNull(schema.apiTokens.revokedAt)));
+    });
   }
 }
 
@@ -287,4 +294,16 @@ export async function applyEmailChange(accountId: string, email: string, locale:
 /** Ends every /app session of this account (the cookie carries the version). */
 export async function signOutEverywhere(accountId: string) {
   await db.update(accounts).set({ sessionVersion: sql`${accounts.sessionVersion} + 1` }).where(eq(accounts.id, accountId));
+}
+
+/**
+ * Is this board user the console account of an owner of the board's workspace? Only the console's own
+ * e-mail account counts (externalId email:…, proven by the hand-off), never an app account with the
+ * same address. For actions bigger than one board's settings (deleting the project).
+ */
+export async function boardUserIsOwner(project: { workspaceId: string }, user: { externalId: string; email: string | null } | null): Promise<boolean> {
+  if (!user?.email || !user.externalId.startsWith("email:")) return false;
+  const [m] = await db.select({ role: members.role }).from(members).innerJoin(accounts, eq(accounts.id, members.accountId))
+    .where(and(eq(members.workspaceId, project.workspaceId), eq(accounts.email, user.email.toLowerCase())));
+  return m?.role === "owner";
 }

@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 import { logActivity, who } from "./activity";
 import { getCtx } from "./project";
+import { isAdminEmail } from "./account-rules";
 import { allow, RateLimitError } from "./ratelimit";
 import { UPDATER_MODES, updaterCheck, updaterSetMode, updaterStart, type UpdaterMode } from "./updater";
 
@@ -16,6 +17,9 @@ async function adminCtx(slug: string) {
   const t = await getTranslations({ locale: ctx.locale, namespace: "errors" });
   if (process.env.OZVI_MODE === "cloud") return { error: t("adminOnly") } as const;
   if (!ctx.user || ctx.user.role !== "admin") return { error: t("adminOnly") } as const;
+  // Updates change the whole instance, not one board: only the operators (OZVI_ADMIN_EMAILS) through
+  // their own e-mail account, not any board's admin.
+  if (!ctx.user.externalId.startsWith("email:") || !ctx.user.email || !isAdminEmail(ctx.user.email)) return { error: t("operatorOnly") } as const;
   if (!allow("edit", ctx.user.id)) return { error: new RateLimitError(ctx.locale).message } as const;
   return { ctx } as const;
 }

@@ -4,7 +4,7 @@ import { schema } from "@ozvi/db";
 import { and, asc, eq, inArray } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { cache } from "react";
-import { mayCreateAccount } from "./account-rules";
+import { mayCreateAccount, isAdminEmail } from "./account-rules";
 import { db } from "./db";
 
 export { mayCreateAccount };
@@ -66,7 +66,8 @@ export async function accountForVerifiedEmail(email: string): Promise<Account | 
   const [account] = existing
     ? await db.update(schema.accounts).set({ lastLoginAt: new Date() }).where(eq(schema.accounts.id, existing.id)).returning()
     : await db.insert(schema.accounts).values({ email, lastLoginAt: new Date() }).returning();
-  if (process.env.OZVI_MODE !== "cloud" && mayCreateAccount(email)) {
+  // Only the operators: with OZVI_SIGNUP=open anyone may sign up, but must not own other people's workspaces.
+  if (process.env.OZVI_MODE !== "cloud" && isAdminEmail(email)) {
     // Self-host: operators listed in OZVI_ADMIN_EMAILS own every workspace on the instance.
     const all = await db.select({ id: schema.workspaces.id }).from(schema.workspaces);
     if (all.length) {

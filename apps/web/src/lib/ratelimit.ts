@@ -25,6 +25,7 @@ export const LIMITS = {
   /** English pivots of typed idea titles (cross-language "similar ideas"), per viewer. */
   pivot: { max: 40, windowMs: 60 * 60_000 },
   loginIp: { max: 20, windowMs: 60 * 60_000 },
+  loginVerifyIp: { max: 40, windowMs: 60 * 60_000 },
   signup: { max: 5, windowMs: 60 * 60_000 },
   cimd: { max: 30, windowMs: 10 * 60_000 },
   invite: { max: 20, windowMs: 60 * 60_000 },

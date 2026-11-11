@@ -8,8 +8,9 @@ import { createHmac, createSign, timingSafeEqual } from "node:crypto";
  *
  * Connecting runs through GitHub's callback, which reaches the instance's main host, not the board's:
  * 1. the board signs a state (project, admin, 30 min) and sends the admin to GitHub;
- * 2. the callback checks the state and that the GitHub user who installed can see the installation
- *    (OAuth during installation), so nobody can attach someone else's installation to their board;
+ * 2. the callback checks the state, that the GitHub user who installed can see the installation (OAuth
+ *    during installation) and which of its repositories they may write to: only those can be picked,
+ *    so nobody attaches someone else's installation (or repositories they only read) to their board;
  * 3. it hands the board a short ticket for that installation, and the board stores it under the
  *    admin's own session.
  */
@@ -83,8 +84,12 @@ export async function installationAccount(app: GithubApp, installationId: number
   } catch { return null; }
 }
 
-/** Step 2: the code from GitHub's callback belongs to someone who can see this installation. */
-export async function installerCanSee(app: GithubApp, code: string, installationId: number, f: Fetch = fetch): Promise<boolean> {
+/**
+ * Step 2: the code from GitHub's callback belongs to someone who can see this installation, and the
+ * repositories in it they may WRITE to (only those can be connected: seeing a repo is not enough, an
+ * outside collaborator with read access must not attach the owner's installation). null = no access.
+ */
+export async function installerRepos(app: GithubApp, code: string, installationId: number, f: Fetch = fetch): Promise<string[] | null> {
   const res = await f("https://github.com/login/oauth/access_token", {
     method: "POST",
     headers: { accept: "application/json", "content-type": "application/json", "user-agent": "ozvi" },
@@ -92,14 +97,25 @@ export async function installerCanSee(app: GithubApp, code: string, installation
     signal: AbortSignal.timeout(15_000),
   });
   const { access_token: user } = (await res.json().catch(() => ({}))) as { access_token?: string };
-  if (!res.ok || !user) return false;
-  for (let page = 1; page <= 5; page++) {
+  if (!res.ok || !user) return null;
+  let sees = false;
+  for (let page = 1; page <= 5 && !sees; page++) {
     const r = await api<{ installations: { id: number }[] }>(user, `/user/installations?per_page=100&page=${page}`, {}, f);
-    if (r.installations.some((i) => i.id === installationId)) return true;
+    sees = r.installations.some((i) => i.id === installationId);
     if (r.installations.length < 100) break;
   }
-  return false;
+  if (!sees) return null;
+  const out: string[] = [];
+  for (let page = 1; page <= 3; page++) {
+    const r = await api<{ repositories: { full_name: string; permissions?: { admin?: boolean; push?: boolean } }[] }>(user, `/user/installations/${installationId}/repositories?per_page=100&page=${page}`, {}, f);
+    out.push(...r.repositories.filter((x) => x.permissions?.push || x.permissions?.admin).map((x) => x.full_name));
+    if (r.repositories.length < 100) break;
+  }
+  return out.slice(0, MAX_TICKET_REPOS);
 }
+
+/** Repositories carried in the ticket (and kept on the board): plenty for one board, short enough for a URL. */
+export const MAX_TICKET_REPOS = 150;
 
 /* ---------- signed state and ticket ---------- */
 
@@ -127,7 +143,8 @@ function read<T>(kind: string, v: string | null | undefined, now = Date.now()): 
 export interface InstallState { p: string; u: string; s: string }
 export const installState = (s: InstallState, now?: number) => sign("state", s, 30 * 60_000, now);
 export const readInstallState = (v: string | null | undefined, now?: number) => read<InstallState>("state", v, now);
-export interface InstallTicket { p: string; u: string; i: number }
+/** r: repositories the installer may write to (owner/name), the only ones the board can pick. */
+export interface InstallTicket { p: string; u: string; i: number; r: string[] }
 export const installTicket = (t: InstallTicket, now?: number) => sign("ticket", t, 5 * 60_000, now);
 export const readInstallTicket = (v: string | null | undefined, now?: number) => read<InstallTicket>("ticket", v, now);
 

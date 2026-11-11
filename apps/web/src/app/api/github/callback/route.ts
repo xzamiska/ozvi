@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { projectOrigin } from "@/lib/email/url";
-import { githubApp, installerCanSee, installTicket, readInstallState } from "@/lib/github-app";
+import { githubApp, installerRepos, installTicket, readInstallState } from "@/lib/github-app";
 
 /**
  * Where GitHub sends the admin after installing the app (step 2 in lib/github-app). It reaches the
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
   // An organisation owner still has to approve the request; nothing to connect yet.
   if (url.searchParams.get("setup_action") === "request") return back("github=requested");
   if (!Number.isSafeInteger(installationId) || installationId <= 0 || !code) return back("github=failed");
-  const ok = await installerCanSee(app, code, installationId).catch((e) => { console.error("[ozvi] github callback", e); return false; });
-  if (!ok) return back("github=failed");
-  return back(`ticket=${encodeURIComponent(installTicket({ p: project.id, u: state.u, i: installationId }))}`);
+  const repos = await installerRepos(app, code, installationId).catch((e) => { console.error("[ozvi] github callback", e); return null; });
+  if (!repos) return back("github=failed");
+  return back(`ticket=${encodeURIComponent(installTicket({ p: project.id, u: state.u, i: installationId, r: repos }))}`);
 }

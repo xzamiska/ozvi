@@ -163,7 +163,8 @@
       "noSmtpLink": "Az e-mail-küldés nincs beállítva (SMTP). A link a szerver naplójában található.",
       "selfHostDelete": "Saját üzemeltetésű szerveren a fiókokat az adminisztrátor kezeli (OZVI_ADMIN_EMAILS).",
       "typeEmail": "A megerősítéshez írd be pontosan az e-mail-címedet.",
-      "signupClosed": "A regisztráció még nem nyílt meg. Írjon a support@ozvi.io címre, és szólunk, amikor elindulunk."
+      "signupClosed": "A regisztráció még nem nyílt meg. Írjon a support@ozvi.io címre, és szólunk, amikor elindulunk.",
+      "alreadySubscribed": "Ennek a munkaterületnek már van előfizetése. A csomagot abban váltsd, dupla fizetés nélkül."
     },
     "workspace": {
       "not_owner": "Ezt csak a munkaterület tulajdonosa teheti meg.",
@@ -436,9 +437,7 @@
         "loginUrlHint": "Az alkalmazásod oldala, ahová azt küldjük, aki a táblán a „Bejelentkezés” gombra kattint. Hozzáadjuk az ozvi_return paramétert azzal a címmel, ahová bejelentkezés után vissza kell küldeni. Üresen: az e-mailes bejelentkezés lesz használva, ha be van kapcsolva.",
         "origins": "Az alkalmazásod címei",
         "originsHint": "Ahol az az alkalmazás fut, amelybe a widgetet vagy az ütemtervet beteszed, pl. https://app.billiwo.com. Soronként egy cím, útvonal nélkül. Más oldalakon a widget nem fog működni.",
-        "save": "Beállítások mentése",
-        "trustTitle": "Az alkalmazás ellenőrzi a felhasználók e-mail-címét",
-        "trustText": "Bekapcsolva: akit az alkalmazásod jelentkeztet be, és aki ugyanazzal az e-maillel kóddal vagy a konzolból jelentkezik be, az egy fiók. Kapcsold ki, ha az alkalmazásodban ellenőrzés nélkül lehet más e-mail-címével regisztrálni: egy ilyen fiók átvenné az e-mail valódi tulajdonosának táblafiókját. Személyenként a tokenben is megadhatja az alkalmazás (emailVerified)."
+        "save": "Beállítások mentése"
       },
       "saving": "Mentés…",
       "sso": {
@@ -1166,7 +1165,12 @@
     "backToFeedback": "Vissza a visszajelzésekhez",
     "unsubTitle": "Leiratkozol az e-mailekről?",
     "unsubLede": "A(z) {project} visszajelzési táblája többé nem küld e-mailt a bejelentések és ötletek állapotáról, sem a hozzászólásokról.",
-    "unsubButton": "Leiratkozás az e-mailekről"
+    "unsubButton": "Leiratkozás az e-mailekről",
+    "signInTitle": "Bejelentkezel?",
+    "signInHeading": "Bejelentkezel mint {who}?",
+    "signInText": "Egy másik oldalról érkezett link be akar jelentkeztetni ebbe a visszajelzésbe. Csak akkor folytasd, ha a saját alkalmazásodból nyitottad meg.",
+    "signInNo": "Nem, köszönöm",
+    "signInYes": "Bejelentkezés"
   },
   "console": {
     "planName": {
@@ -1716,7 +1720,10 @@
     },
     "loginValid": "15 percig érvényes, egyszer használható.",
     "loginOr": "Vagy jelentkezz be egy kattintással:",
-    "loginPreheader": "Bejelentkezési kódod ({brand}). 15 percig érvényes."
+    "loginPreheader": "Bejelentkezési kódod ({brand}). 15 percig érvényes.",
+    "loginSubjectLink": "Bejelentkezési link: {brand}",
+    "loginBodyLink": "Ma túl sok hibás kód érkezett ehhez a címhez, ezért nem küldünk kódot. Jelentkezz be az alábbi linkkel.",
+    "errTooManyTries": "Túl sok próbálkozás erről a hálózatról. Próbáld újra egy óra múlva, vagy használd az e-mailben kapott linket."
   },
   "errors": {
     "signIn": "Ehhez jelentkezz be.",
@@ -1753,7 +1760,9 @@
     "blocked": "Ezen a táblán jelenleg nem tehetsz közzé bejegyzést, és nem szavazhatsz.",
     "voteBudget": "Ehhez nincs elég szavazatod (maradt: {n}). Vonj vissza egy szavazatot egy másik ötletről, vagy válassz kisebb fontosságot.",
     "adminOnly": "Ezt csak a tábla adminisztrátora teheti meg.",
-    "sectionOff": "Ez a rész ki van kapcsolva ebben a projektben."
+    "sectionOff": "Ez a rész ki van kapcsolva ebben a projektben.",
+    "deleteOwnerOnly": "Az egész projektet csak a munkaterület tulajdonosa törölheti, az Ozvi konzolból érkezve.",
+    "operatorOnly": "A szerver frissítéseit csak a példány üzemeltetői (OZVI_ADMIN_EMAILS) irányítják, az Ozvi konzolból érkezve."
   },
   "forms": {
     "optional": "nem kötelező",
@@ -3649,12 +3658,13 @@
         "when": "Mindig; a felhőben mi küldjük az e-maileket."
       },
       {
-        "name": "Anthropic",
-        "entity": "Anthropic, PBC",
-        "purpose": "AI-funkciók: visszajelzés-összefoglalók, kiadási jegyzetek vázlatai egy kiadásból, bejegyzések fordítása. Az eredmény mindig vázlat, amelyet egy ember hagy jóvá.",
-        "data": "A feladathoz szükséges bejegyzések és hozzászólások szövege. Modellek tanítására nem használják.",
-        "location": "TODO: a feldolgozás országa.",
-        "transfer": "TODO: a továbbítás jogalapja az Anthropic kereskedelmi feltételei és adatfeldolgozási megállapodása (DPA) szerint.",
+        "name": "Scaleway",
+        "entity": "Scaleway SAS, Franciaország",
+        "purpose": "AI-funkciók: bejegyzések fordítása, visszajelzések összefoglalása, újdonság-vázlat egy kiadásból. A kimenet mindig jelölt, a vázlatokat ember hagyja jóvá.",
+        "data": "A bejegyzések és megjegyzések feladathoz szükséges szövege.",
+        "location": "Scaleway adatközpontok az EU-ban (Franciaország).",
+        "transfer": "Nincs, az adatok az EU-ban maradnak.",
+        "note": "TODO: a Scaleway-szerződés alapján megerősíteni, hogy a bemeneteket és kimeneteket nem tárolja és nem használja modellek tanítására.",
         "when": "Csak azokban a projektekben, ahol az AI-funkciók be vannak kapcsolva."
       },
       {
@@ -3776,7 +3786,8 @@
         "discord": "Discord"
       },
       "noTrackingCloud": "A visszajelzési eszköz nem használ analitikai vagy hirdetési eszközöket. A betűtípusokat maga az Ozvi szolgálja ki, így böngészője nem kapcsolódik a Google-hoz vagy más harmadik félhez.",
-      "noTrackingSelf": "A visszajelzési eszköz nem használ analitikai vagy hirdetési eszközöket. A betűtípusokat a saját szerverünk szolgálja ki, így böngészője nem kapcsolódik a Google-hoz vagy más harmadik félhez."
+      "noTrackingSelf": "A visszajelzési eszköz nem használ analitikai vagy hirdetési eszközöket. A betűtípusokat a saját szerverünk szolgálja ki, így böngészője nem kapcsolódik a Google-hoz vagy más harmadik félhez.",
+      "scaleway": "Scaleway SAS (Franciaország, EU): AI-funkciók ({task}); csak a feladathoz szükséges szöveget kapja meg, és EU-s adatközpontokban dolgozza fel;"
     },
     "retention": {
       "content": "A bejegyzéseket, hozzászólásokat és szavazatokat addig őrizzük, amíg a táblát használjuk, vagy amíg Ön azokat vagy az összes adatát nem törli (lásd: Az Ön jogai).",

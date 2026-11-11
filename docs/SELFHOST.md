@@ -1,6 +1,6 @@
 # Self-host
 
-Dva kontajnery: Postgres 17 a Ozvi (plus voliteľný updater, pozri [Aktualizácie](#aktualizácie)). Pred port 3000 dajte TLS proxy (Caddy, Traefik).
+Dva kontajnery: Postgres 17 a Ozvi (plus voliteľný updater, pozri [Aktualizácie](#aktualizácie)). Pred port 3000 dajte TLS proxy (Caddy, Traefik). Port je predvolene otvorený len na tom istom stroji (`OZVI_BIND=127.0.0.1`); ak proxy beží inde, nastavte `OZVI_BIND` na adresu, ktorú proxy vidí. Bez proxy (`OZVI_BIND=0.0.0.0`) nastavte aj `OZVI_TRUSTED_PROXIES=0`, inak si klient vie podvrhnúť IP adresu a obísť limity.
 
 ```sh
 cd deploy

@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { getCtx } from "@/lib/project";
 import { storage } from "@/lib/storage";
 import { getTranslations } from "next-intl/server";
+import { sectionOfKind, sectionOn } from "@/lib/sections";
 
 /** Serves an attachment only to people who may see its item (bugs: author + team). */
 export async function GET(_: Request, { params }: { params: Promise<{ project: string; id: string }> }) {
@@ -19,7 +20,7 @@ export async function GET(_: Request, { params }: { params: Promise<{ project: s
   });
   const own = isTeam || (!!user && row?.authorId === user.id);
   // Deleted posts keep their files for the team only; queued ideas show them to their author and the team.
-  const allowed = row && (row.deletedAt ? isTeam : row.kind === "bug" || row.pending ? own : project.ideasPublic || !!user);
+  const allowed = row && sectionOn(project, sectionOfKind(row.kind)) && (row.deletedAt ? isTeam : row.kind === "bug" || row.pending ? own : project.ideasPublic || !!user);
   if (!row || !allowed) return new Response(t("notFound"), { status: 404 });
   const body = await storage().get(row.a.storageKey);
   if (!body) return new Response(t("fileMissing"), { status: 404 });

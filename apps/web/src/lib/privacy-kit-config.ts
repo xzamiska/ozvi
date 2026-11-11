@@ -28,7 +28,7 @@ export function isPrivateHost(h: string): boolean {
 }
 
 /**
- * Who receives text for the AI features. Cloud: always Anthropic (our sub-processor). Self-host: the provider
+ * Who receives text for the AI features. Cloud: Scaleway (our sub-processor, EU; the kit lists it). Self-host: the provider
  * the operator configured (aiProviderName(): "Anthropic", an API host such as api.mistral.ai, or a host on the
  * operator's own network such as ollama:11434 = a local model, no third party). Takes the name so tests can stub it.
  */

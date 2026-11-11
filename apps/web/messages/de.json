@@ -163,7 +163,8 @@
       "noSmtpLink": "E-Mail ist nicht konfiguriert (SMTP). Der Link steht im Serverlog.",
       "selfHostDelete": "Auf einem selbst gehosteten Server verwaltet der Admin die Konten (OZVI_ADMIN_EMAILS).",
       "typeEmail": "Geben Sie zur Bestätigung genau Ihre E-Mail-Adresse ein.",
-      "signupClosed": "Die Registrierung ist noch nicht geöffnet. Schreiben Sie an support@ozvi.io, wir melden uns zum Start."
+      "signupClosed": "Die Registrierung ist noch nicht geöffnet. Schreiben Sie an support@ozvi.io, wir melden uns zum Start.",
+      "alreadySubscribed": "Dieser Arbeitsbereich hat bereits ein Abo. Wechseln Sie den Plan darin, ohne doppelt zu zahlen."
     },
     "workspace": {
       "not_owner": "Das kann nur ein Inhaber des Workspace.",
@@ -436,9 +437,7 @@
         "loginUrlHint": "Die Seite Ihrer App, zu der wir jemanden schicken, der am Board auf „Anmelden“ klickt. Wir hängen den Parameter ozvi_return an, mit der Adresse, zu der Sie die Person nach der Anmeldung zurückschicken. Leer: Es wird die Anmeldung per E-Mail genutzt, falls eingeschaltet.",
         "origins": "Adressen Ihrer App",
         "originsHint": "Wo die App läuft, in die Sie Widget oder Roadmap einbinden, z. B. https://app.billiwo.com. Eine Adresse pro Zeile, ohne Pfad. Auf anderen Seiten funktioniert das Widget nicht.",
-        "save": "Einstellungen speichern",
-        "trustTitle": "Ihre App prüft die E-Mail-Adressen",
-        "trustText": "Ein: Wen Ihre App anmeldet und wer sich mit derselben E-Mail per Code oder aus der Konsole anmeldet, ist ein Konto. Schalten Sie es aus, wenn man sich in Ihrer App mit einer fremden E-Mail ohne Bestätigung registrieren kann: Ein solches Konto würde sonst das Board-Konto der echten Inhaberin übernehmen. Pro Person kann Ihre App das auch im Token festlegen (emailVerified)."
+        "save": "Einstellungen speichern"
       },
       "saving": "Wird gespeichert …",
       "sso": {
@@ -1166,7 +1165,12 @@
     "backToFeedback": "Zurück zum Feedback",
     "unsubTitle": "E-Mails abbestellen?",
     "unsubLede": "Sie erhalten vom Feedback für {project} keine E-Mails mehr zum Status von Meldungen und Ideen und zu Kommentaren.",
-    "unsubButton": "E-Mails abbestellen"
+    "unsubButton": "E-Mails abbestellen",
+    "signInTitle": "Anmelden?",
+    "signInHeading": "Als {who} anmelden?",
+    "signInText": "Ein Link von einer anderen Website möchte Sie bei diesem Feedback-Board anmelden. Fahren Sie nur fort, wenn Sie ihn aus Ihrer eigenen App geöffnet haben.",
+    "signInNo": "Nein, danke",
+    "signInYes": "Anmelden"
   },
   "console": {
     "planName": {
@@ -1716,7 +1720,10 @@
     },
     "loginValid": "15 Minuten gültig, nur einmal verwendbar.",
     "loginOr": "Oder melden Sie sich mit einem Klick an:",
-    "loginPreheader": "Ihr Anmeldecode für {brand}. 15 Minuten gültig."
+    "loginPreheader": "Ihr Anmeldecode für {brand}. 15 Minuten gültig.",
+    "loginSubjectLink": "Ihr Anmeldelink für {brand}",
+    "loginBodyLink": "Für diese Adresse gab es heute zu viele falsche Codes, daher senden wir keinen Code. Melden Sie sich über den Link unten an.",
+    "errTooManyTries": "Zu viele Versuche aus diesem Netzwerk. Versuchen Sie es in einer Stunde erneut oder nutzen Sie den Link aus der E-Mail."
   },
   "errors": {
     "signIn": "Bitte melden Sie sich dafür an.",
@@ -1753,7 +1760,9 @@
     "blocked": "Sie können auf diesem Board derzeit keine Beiträge verfassen und nicht abstimmen.",
     "voteBudget": "Dafür haben Sie nicht mehr genug Stimmen ({n} übrig). Entfernen Sie eine Stimme von einer anderen Idee oder wählen Sie eine geringere Wichtigkeit.",
     "adminOnly": "Das kann nur ein Board-Admin.",
-    "sectionOff": "Dieser Bereich ist in diesem Projekt ausgeschaltet."
+    "sectionOff": "Dieser Bereich ist in diesem Projekt ausgeschaltet.",
+    "deleteOwnerOnly": "Nur die Inhaberin oder der Inhaber des Arbeitsbereichs kann das ganze Projekt löschen, aus der Ozvi-Konsole kommend.",
+    "operatorOnly": "Server-Updates steuern nur die Betreiber der Instanz (OZVI_ADMIN_EMAILS), aus der Ozvi-Konsole kommend."
   },
   "forms": {
     "optional": "optional",
@@ -3649,12 +3658,13 @@
         "when": "Immer; in der Cloud versenden wir die E-Mails."
       },
       {
-        "name": "Anthropic",
-        "entity": "Anthropic, PBC",
-        "purpose": "KI-Funktionen: Zusammenfassungen von Feedback, Entwürfe von Release Notes aus einem Release, Übersetzung von Beiträgen. Das Ergebnis ist immer ein Entwurf, den ein Mensch freigibt.",
-        "data": "Der Text von Beiträgen und Kommentaren, den die Aufgabe benötigt. Er wird nicht zum Training von Modellen verwendet.",
-        "location": "TODO: Land der Verarbeitung.",
-        "transfer": "TODO: Übermittlungsmechanismus gemäß den kommerziellen Bedingungen und dem AVV von Anthropic.",
+        "name": "Scaleway",
+        "entity": "Scaleway SAS, Frankreich",
+        "purpose": "KI-Funktionen: Übersetzung von Beiträgen, Zusammenfassungen von Feedback, Entwürfe von Neuigkeiten aus einem Release. Das Ergebnis ist immer gekennzeichnet, Entwürfe gibt ein Mensch frei.",
+        "data": "Der Text von Beiträgen und Kommentaren, den die Aufgabe benötigt.",
+        "location": "Scaleway-Rechenzentren in der EU (Frankreich).",
+        "transfer": "Keine, die Daten bleiben in der EU.",
+        "note": "TODO: aus dem Scaleway-Vertrag bestätigen, dass Ein- und Ausgaben weder gespeichert noch zum Training von Modellen verwendet werden.",
         "when": "Nur in Projekten mit aktivierten KI-Funktionen."
       },
       {
@@ -3776,7 +3786,8 @@
         "discord": "Discord"
       },
       "noTrackingCloud": "Das Feedback-Tool verwendet keine Analyse- oder Werbetools. Schriften liefert Ozvi selbst aus, Ihr Browser verbindet sich daher nicht mit Google oder anderen Dritten.",
-      "noTrackingSelf": "Das Feedback-Tool verwendet keine Analyse- oder Werbetools. Schriften liefert unser Server aus, Ihr Browser verbindet sich daher nicht mit Google oder anderen Dritten."
+      "noTrackingSelf": "Das Feedback-Tool verwendet keine Analyse- oder Werbetools. Schriften liefert unser Server aus, Ihr Browser verbindet sich daher nicht mit Google oder anderen Dritten.",
+      "scaleway": "Scaleway SAS (Frankreich, EU): KI-Funktionen ({task}); erhält nur den für die Aufgabe nötigen Text und verarbeitet ihn in Rechenzentren in der EU;"
     },
     "retention": {
       "content": "Beiträge, Kommentare und Stimmen speichern wir, solange wir das Board nutzen oder bis Sie sie oder alle Ihre Daten löschen (siehe Ihre Rechte).",

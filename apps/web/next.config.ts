@@ -21,7 +21,11 @@ const config: NextConfig = {
   async headers() {
     // Dev only: allow same-origin frames so layouts can be checked at phone width side by side.
     if (process.env.NODE_ENV === "development") return [];
-    return [{ source: "/:path*", headers: [{ key: "X-Frame-Options", value: "DENY" }, { key: "Content-Security-Policy", value: "frame-ancestors 'none'" }] }];
+    return [{ source: "/:path*", headers: [
+      { key: "X-Frame-Options", value: "DENY" }, { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
+      // Types are never sniffed (attachments, favicons), and other sites get only our origin as referrer.
+      { key: "X-Content-Type-Options", value: "nosniff" }, { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+    ] }];
   },
   transpilePackages: ["@ozvi/theme", "@ozvi/db", "@ozvi/sdk", "@ozvi/mcp"],
 };

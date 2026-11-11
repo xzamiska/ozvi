@@ -1,5 +1,7 @@
 # Live: the apex, <slug>.<domain> and customers' own domains.
 {$LIVE_DOMAIN} {
+	# HTTPS only from now on (a year); only on our own names, never on customers' domains.
+	header Strict-Transport-Security "max-age=31536000"
 	import live
 }
 
@@ -16,6 +18,7 @@ www.{$LIVE_DOMAIN} {
 	tls {
 		on_demand
 	}
+	header Strict-Transport-Security "max-age=31536000"
 	import live
 }
 

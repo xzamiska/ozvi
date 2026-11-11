@@ -15,7 +15,7 @@ export const CAPTURES: readonly Capture[] = ["screenshot", "console", "network",
 /** What the widget sends by default (packages/widget/src/capture.ts); the host app can switch parts off. */
 export const DEFAULT_CAPTURE: Record<Capture, boolean> = { screenshot: true, console: true, network: true, steps: true, links: false };
 
-/** Who runs the model: cloud = Anthropic; self-host = whatever the operator configured (or their own server). */
+/** Who runs the model: cloud = Scaleway (EU); self-host = whatever the operator configured (or their own server). */
 export type AiRecipient = { kind: "anthropic" } | { kind: "remote"; host: string | null } | { kind: "local" };
 
 export interface StorageItem {
@@ -110,7 +110,7 @@ export function buildKit(cfg: KitConfig, t: KitT, locale: Locale): Kit {
   if (cfg.mode === "cloud") {
     rec.push({ kind: "p", text: t("recipients.cloud", { operator: cfg.operator ?? t("recipients.operatorPlaceholder") }) });
     rec.push({ kind: "p", text: t("recipients.cloudList") });
-    rec.push({ kind: "ul", items: [t("recipients.resend"), ...(ai ? [t("recipients.anthropic", { task: ai })] : [])] });
+    rec.push({ kind: "ul", items: [t("recipients.resend"), ...(ai ? [t("recipients.scaleway", { task: ai })] : [])] });
     rec.push({ kind: "p", text: t("recipients.cloudMore", { url: cfg.subprocessorsUrl }) });
   } else {
     rec.push({ kind: "p", text: t("recipients.self") });

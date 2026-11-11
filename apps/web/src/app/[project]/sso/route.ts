@@ -38,19 +38,32 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ proj
   if (user.forcedLocale) { locale = user.forcedLocale; t = await getTranslations({ locale, namespace: "boardAuth" }); }
   else await rememberLocale(project.id, user.id, locale);
 
-  // Login CSRF guard: a cross-site link must not silently swap an existing session for someone else's
-  // (the victim would then file reports into the attacker's account). Ask once instead.
+  // Login CSRF guard: a link from another site must not silently sign someone in as another person (they
+  // would then file reports into that account), whether or not they had a session. Coming from the host
+  // app itself (its addresses or its sign-in page) is the normal way in and goes straight through.
   const current = decodeSession(req.cookies.get(cookieName(slug))?.value);
   const crossSite = req.headers.get("sec-fetch-site") === "cross-site";
-  if (current && current.p === project.id && current.u !== user.id && crossSite && url.searchParams.get("confirm") !== "1") {
+  const fromApp = (() => {
+    try {
+      const from = new URL(req.headers.get("referer") ?? "").origin;
+      const own = [...project.allowedOrigins, ...(project.loginUrl ? [new URL(project.loginUrl).origin] : [])];
+      return own.includes(from);
+    } catch { return false; }
+  })();
+  const sameUser = current && current.p === project.id && current.u === user.id;
+  if (crossSite && !fromApp && !sameUser && url.searchParams.get("confirm") !== "1") {
     const next = new URL(url); next.searchParams.set("confirm", "1");
     const back = safeReturn(slug, null);
     const who = user.name ?? user.email ?? t("otherUser");
+    const signedIn = !!current && current.p === project.id;
+    const k = signedIn
+      ? { title: t("switchTitle"), heading: t("switchHeading", { who }), text: t("switchText"), stay: t("stay"), go: t("switch") }
+      : { title: t("signInTitle"), heading: t("signInHeading", { who }), text: t("signInText"), stay: t("signInNo"), go: t("signInYes") };
     return new NextResponse(`<!doctype html><html lang="${locale}"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>${esc(t("switchTitle"))}</title><body style="font-family:system-ui,sans-serif;max-width:480px;margin:64px auto;padding:0 16px;line-height:1.5">
-<h1 style="font-size:1.3rem">${esc(t("switchHeading", { who }))}</h1>
-<p>${esc(t("switchText"))}</p>
-<p><a href="${esc(back)}">${esc(t("stay"))}</a> &nbsp; <a href="${esc(next.pathname + next.search)}">${esc(t("switch"))}</a></p></body></html>`,
+<title>${esc(k.title)}</title><body style="font-family:system-ui,sans-serif;max-width:480px;margin:64px auto;padding:0 16px;line-height:1.5">
+<h1 style="font-size:1.3rem">${esc(k.heading)}</h1>
+<p>${esc(k.text)}</p>
+<p><a href="${esc(back)}">${esc(k.stay)}</a> &nbsp; <a href="${esc(next.pathname + next.search)}">${esc(k.go)}</a></p></body></html>`,
       { status: 200, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } });
   }
 

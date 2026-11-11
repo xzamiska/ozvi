@@ -26,10 +26,37 @@ export function isPrivateAddress(ip: string): boolean {
     const n = v4ToInt(ip);
     return PRIVATE_V4.some(([base, bits]) => (n & (~0 << (32 - bits)) >>> 0) >>> 0 === base);
   }
-  const v6 = ip.toLowerCase();
-  const mapped = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/.exec(v6);
-  if (mapped) return isPrivateAddress(mapped[1]!);
-  return v6 === "::1" || v6 === "::" || /^(fc|fd|fe[89ab]|fec|fed|fee|fef|ff)/.test(v6) || v6.startsWith("64:ff9b:") || v6.startsWith("2001:db8:");
+  const h = expandV6(ip);
+  if (!h) return true; // not an address we can read: refuse
+  const v4 = (a: number, b: number) => `${a >> 8}.${a & 255}.${b >> 8}.${b & 255}`;
+  const zero = (n: number) => h.slice(0, n).every((x) => x === 0);
+  if (zero(5) && h[5] === 0xffff) return isPrivateAddress(v4(h[6]!, h[7]!)); // ::ffff:a.b.c.d, also written ::ffff:7f00:1
+  if (zero(6)) return h[6] === 0 && h[7]! <= 1 ? true : isPrivateAddress(v4(h[6]!, h[7]!)); // ::, ::1, ::a.b.c.d
+  if (h[0] === 0x64 && h[1] === 0xff9b) return true; // NAT64
+  if (h[0] === 0x2002) return isPrivateAddress(v4(h[1]!, h[2]!)); // 6to4
+  if (h[0] === 0x2001 && h[1] === 0) return true; // Teredo
+  if (h[0] === 0x2001 && h[1] === 0xdb8) return true; // documentation
+  return (h[0]! & 0xfe00) === 0xfc00 || (h[0]! & 0xffc0) === 0xfe80 || (h[0]! & 0xffc0) === 0xfec0 || (h[0]! & 0xff00) === 0xff00;
+}
+
+/** Eight 16-bit groups of an IPv6 address in any notation (::, embedded IPv4, zone id), or null. */
+export function expandV6(ip: string): number[] | null {
+  let s = ip.toLowerCase().replace(/^\[|\]$/g, "").replace(/%.*$/, "");
+  const tail = /(\d+\.\d+\.\d+\.\d+)$/.exec(s);
+  if (tail) {
+    if (isIP(tail[1]!) !== 4) return null;
+    const o = tail[1]!.split(".").map(Number);
+    s = s.slice(0, -tail[1]!.length) + `${((o[0]! << 8) | o[1]!).toString(16)}:${((o[2]! << 8) | o[3]!).toString(16)}`;
+  }
+  const parts = s.split("::");
+  if (parts.length > 2) return null;
+  const head = parts[0] ? parts[0].split(":") : [];
+  const rest = parts.length === 2 ? (parts[1] ? parts[1].split(":") : []) : [];
+  const fill = parts.length === 2 ? 8 - head.length - rest.length : 0;
+  if (fill < 0 || (parts.length === 1 && head.length !== 8)) return null;
+  const groups = [...head, ...Array(fill).fill("0"), ...rest];
+  if (groups.length !== 8 || groups.some((g) => !/^[0-9a-f]{1,4}$/.test(g))) return null;
+  return groups.map((g) => parseInt(g, 16));
 }
 
 export const isCloud = (mode = process.env.OZVI_MODE ?? "self") => mode === "cloud";

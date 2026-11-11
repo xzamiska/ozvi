@@ -19,8 +19,8 @@ export interface OzviUser {
   /**
    * true only if YOUR app has verified that this person owns `email` (a confirmation link or code).
    * Ozvi then treats them as the same person as someone who signs in to the board with that e-mail
-   * (one account, not two). Never set it for addresses you have not verified: whoever registered an
-   * unverified address in your app would take over that person's board account.
+   * by code (one account, not two); accounts with team or admin rights are never joined. Omit it (or
+   * false) for addresses you have not verified: Ozvi then keeps the two accounts apart.
    */
   emailVerified?: boolean;
   name?: string;

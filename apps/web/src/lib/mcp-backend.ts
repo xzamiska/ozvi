@@ -487,7 +487,7 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
         text: source ? `${source.title}\n\n${source.body}` : a.text!,
         excludeId: source?.id,
         limit: a.limit,
-        where: [team ? sql`true` : sql`(${items.kind} = 'idea' or ${items.authorId} = ${user.id})`, ...(source ? [sql`${items.kind} = ${source.kind}`] : [])],
+        where: [team ? sql`true` : sql`(${items.kind} = 'idea' or ${items.authorId} = ${user.id})`, inArray(items.kind, [...kindsOn]), ...(source ? [sql`${items.kind} = ${source.kind}`] : [])],
       });
       const who = await authorsById(tx, rows.map((r) => r.authorId));
       return rows.map((r) => ({

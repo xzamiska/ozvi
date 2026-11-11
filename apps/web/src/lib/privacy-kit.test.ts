@@ -41,14 +41,15 @@ describe("privacy kit generator", () => {
     }
   });
 
-  it("AI off: no Anthropic or AI anywhere", () => {
+  it("AI off: no AI provider or AI anywhere", () => {
     const md = text(kitConfig(facts(), cloud));
-    expect(md).not.toMatch(/Anthropic|artificial intelligence|AI features/);
+    expect(md).not.toMatch(/Anthropic|Scaleway|artificial intelligence|AI features/);
   });
 
-  it("AI on in cloud: Anthropic with the features; translations only when switched on", () => {
+  it("AI on in cloud: Scaleway (EU) with the features; translations only when switched on", () => {
     const on = text(kitConfig({ ...facts(), aiOn: true }, cloud));
-    expect(on).toContain("Anthropic, PBC");
+    expect(on).toContain("Scaleway SAS");
+    expect(on).not.toContain("Anthropic");
     expect(on).toContain("drafts of release notes");
     expect(on).not.toContain("machine translation");
     expect(text(kitConfig({ ...facts({ translationMode: "auto" }), aiOn: true }, cloud))).toContain("machine translation");

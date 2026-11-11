@@ -163,7 +163,8 @@
       "noSmtpLink": "E-mail nie jest skonfigurowany (SMTP). Link znajdziesz w logu serwera.",
       "selfHostDelete": "Na własnym serwerze kontami zarządza administrator (OZVI_ADMIN_EMAILS).",
       "typeEmail": "Aby potwierdzić, wpisz dokładnie swój adres e-mail.",
-      "signupClosed": "Rejestracja nie jest jeszcze otwarta. Napisz na support@ozvi.io, a damy znać, gdy wystartujemy."
+      "signupClosed": "Rejestracja nie jest jeszcze otwarta. Napisz na support@ozvi.io, a damy znać, gdy wystartujemy.",
+      "alreadySubscribed": "Ta przestrzeń ma już subskrypcję. Zmień plan w niej, bez drugiej płatności."
     },
     "workspace": {
       "not_owner": "Może to zrobić tylko właściciel przestrzeni roboczej.",
@@ -436,9 +437,7 @@
         "loginUrlHint": "Strona twojej aplikacji, na którą wyślemy osobę klikającą „Zaloguj się” na tablicy. Dodamy parametr ozvi_return z adresem, na który ją po zalogowaniu odeślesz. Puste: użyte zostanie logowanie e-mailem, jeśli jest włączone.",
         "origins": "Adresy twojej aplikacji",
         "originsHint": "Gdzie działa aplikacja, w której osadzasz widget lub roadmapę, np. https://app.billiwo.com. Jeden adres w wierszu, bez ścieżki. Na innych stronach widget nie zadziała.",
-        "save": "Zapisz ustawienia",
-        "trustTitle": "Aplikacja weryfikuje e-maile użytkowników",
-        "trustText": "Włączone: osoba zalogowana przez twoją aplikację i osoba z tym samym e-mailem zalogowana kodem lub z konsoli to jedno konto. Wyłącz, jeśli w twojej aplikacji można się zarejestrować z cudzym e-mailem bez weryfikacji: takie konto przejęłoby konto prawdziwego właściciela e-maila. Aplikacja może to też określić dla konkretnej osoby w tokenie (emailVerified)."
+        "save": "Zapisz ustawienia"
       },
       "saving": "Zapisywanie…",
       "sso": {
@@ -1166,7 +1165,12 @@
     "backToFeedback": "Wróć do opinii",
     "unsubTitle": "Wypisać się z e-maili?",
     "unsubLede": "Opinie o {project} przestaną wysyłać ci e-maile o statusie zgłoszeń i pomysłów oraz o komentarzach.",
-    "unsubButton": "Wypisz się z e-maili"
+    "unsubButton": "Wypisz się z e-maili",
+    "signInTitle": "Zalogować się?",
+    "signInHeading": "Zalogować się jako {who}?",
+    "signInText": "Link z innej strony chce cię zalogować do tej tablicy opinii. Kontynuuj tylko, jeśli otworzyłeś go z własnej aplikacji.",
+    "signInNo": "Nie, dziękuję",
+    "signInYes": "Zaloguj się"
   },
   "console": {
     "planName": {
@@ -1716,7 +1720,10 @@
     },
     "loginValid": "Ważny 15 minut, jednorazowy.",
     "loginOr": "Albo zaloguj się jednym kliknięciem:",
-    "loginPreheader": "Twój kod logowania do {brand}. Ważny 15 minut."
+    "loginPreheader": "Twój kod logowania do {brand}. Ważny 15 minut.",
+    "loginSubjectLink": "Link do logowania w {brand}",
+    "loginBodyLink": "Dla tego adresu było dziś zbyt wiele błędnych kodów, więc nie wysyłamy kodu. Zaloguj się poniższym linkiem.",
+    "errTooManyTries": "Zbyt wiele prób z tej sieci. Spróbuj za godzinę albo użyj linku z e-maila."
   },
   "errors": {
     "signIn": "Zaloguj się, żeby to zrobić.",
@@ -1753,7 +1760,9 @@
     "blocked": "Obecnie nie możesz publikować ani głosować na tej tablicy.",
     "voteBudget": "Nie masz na to wystarczająco dużo głosów (zostało: {n}). Cofnij głos z innego pomysłu albo wybierz niższą ważność.",
     "adminOnly": "Może to zrobić tylko administrator tablicy.",
-    "sectionOff": "Ta część jest w projekcie wyłączona."
+    "sectionOff": "Ta część jest w projekcie wyłączona.",
+    "deleteOwnerOnly": "Cały projekt może usunąć tylko właściciel przestrzeni, przychodząc tu z konsoli Ozvi.",
+    "operatorOnly": "Aktualizacjami serwera sterują tylko administratorzy instancji (OZVI_ADMIN_EMAILS), przychodząc tu z konsoli Ozvi."
   },
   "forms": {
     "optional": "opcjonalnie",
@@ -3649,12 +3658,13 @@
         "when": "Zawsze; w chmurze e-maile wysyłamy my."
       },
       {
-        "name": "Anthropic",
-        "entity": "Anthropic, PBC",
-        "purpose": "Funkcje AI: podsumowania opinii, szkice informacji o wydaniu, tłumaczenie wpisów. Wynik jest zawsze szkicem, który zatwierdza człowiek.",
-        "data": "Tekst wpisów i komentarzy potrzebny do zadania. Nie jest używany do trenowania modeli.",
-        "location": "TODO: kraj przetwarzania.",
-        "transfer": "TODO: mechanizm przekazywania zgodnie z warunkami handlowymi i DPA Anthropic.",
+        "name": "Scaleway",
+        "entity": "Scaleway SAS, Francja",
+        "purpose": "Funkcje AI: tłumaczenie wpisów, podsumowania opinii, szkic nowości z wydania. Wynik jest zawsze oznaczony, a szkice zatwierdza człowiek.",
+        "data": "Tekst wpisów i komentarzy potrzebny do zadania.",
+        "location": "Centra danych Scaleway w UE (Francja).",
+        "transfer": "Brak, dane pozostają w UE.",
+        "note": "TODO: potwierdzić w umowie ze Scaleway, że wejścia i wyjścia nie są przechowywane ani używane do trenowania modeli.",
         "when": "Tylko w projektach z włączonymi funkcjami AI."
       },
       {
@@ -3776,7 +3786,8 @@
         "discord": "Discord"
       },
       "noTrackingCloud": "Narzędzie do opinii nie używa żadnych narzędzi analitycznych ani reklamowych. Czcionki serwuje bezpośrednio Ozvi, więc Twoja przeglądarka nie łączy się z Google ani innymi podmiotami trzecimi.",
-      "noTrackingSelf": "Narzędzie do opinii nie używa żadnych narzędzi analitycznych ani reklamowych. Czcionki serwuje nasz serwer, więc Twoja przeglądarka nie łączy się z Google ani innymi podmiotami trzecimi."
+      "noTrackingSelf": "Narzędzie do opinii nie używa żadnych narzędzi analitycznych ani reklamowych. Czcionki serwuje nasz serwer, więc Twoja przeglądarka nie łączy się z Google ani innymi podmiotami trzecimi.",
+      "scaleway": "Scaleway SAS (Francja, UE): funkcje AI ({task}); otrzymuje tylko tekst potrzebny do zadania i przetwarza go w centrach danych w UE;"
     },
     "retention": {
       "content": "Wpisy, komentarze i głosy przechowujemy, dopóki korzystamy z tablicy, albo dopóki ich lub wszystkich swoich danych nie usuniesz (zob. Twoje prawa).",

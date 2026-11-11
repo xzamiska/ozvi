@@ -4,6 +4,7 @@ import { parseTheme, presets, type Theme } from "@ozvi/theme";
 import { and, desc, eq, gt, isNull, sql } from "drizzle-orm";
 import { resolveBoardLocale } from "../i18n/board";
 import { isLocale, LOCALE_COOKIE, matchLocale, type Locale } from "../i18n/locales";
+import { allow } from "./ratelimit";
 import { translator } from "../i18n/messages";
 import { renderMail } from "./email/render";
 import { sendNow } from "./email/worker";
@@ -78,26 +79,28 @@ export async function issueLogin(i: IssueInput): Promise<{ sent: boolean }> {
   // Per board/app: 5 codes per 15 min. Per address across everything: 15 per hour (no mail-bombing via
   // many boards) and at most 20 wrong guesses a day, which keeps brute force far below 0.01 %.
   if ((c?.here ?? 0) >= 5 || (c?.hour ?? 0) >= 15) throw new LoginError(t("errTooManyCodes"));
-  if ((c?.failed ?? 0) >= 20) throw new LoginError(t("errTooManyWrong"));
+  // After 20 wrong guesses a day the code is off, but the link still comes: a stranger guessing codes
+  // must not be able to lock the owner of the inbox out (the link cannot be guessed).
+  const linkOnly = (c?.failed ?? 0) >= 20;
 
   const code = String(randomInt(0, 1_000_000)).padStart(6, "0");
   const link = randomBytes(24).toString("base64url");
   await i.db.insert(loginCodes).values({
     projectId: i.projectId, email, codeHash: h("code", code), linkHash: h("link", link),
     returnTo: i.returnTo ?? null, expiresAt: new Date(Date.now() + TTL_MS),
+    ...(linkOnly && { attempts: MAX_ATTEMPTS }),
   });
 
   let theme: Theme;
   try { theme = parseTheme(i.brand.theme ?? presets.ozvi); } catch { theme = parseTheme(presets.ozvi); }
   const url = `${i.linkBase}${i.linkBase.includes("?") ? "&" : "?"}t=${link}`;
   const mail = renderMail({
-    subject: t("loginSubject", { code, brand: i.brand.name }),
+    subject: linkOnly ? t("loginSubjectLink", { brand: i.brand.name }) : t("loginSubject", { code, brand: i.brand.name }),
     summary: "",
     preheader: t("loginPreheader", { brand: i.brand.name }),
     heading: t("loginHeading", { brand: i.brand.name }),
-    paragraphs: [t("loginBody")],
-    code: { value: code, note: t("loginValid") },
-    ctaLead: t("loginOr"),
+    paragraphs: [linkOnly ? t("loginBodyLink") : t("loginBody")],
+    ...(!linkOnly && { code: { value: code, note: t("loginValid") }, ctaLead: t("loginOr") }),
     cta: { label: t("signIn"), href: url },
     fine: [t("loginIgnore", { email })],
   }, theme, i.brand.name, null, locale);
@@ -109,8 +112,10 @@ export async function issueLogin(i: IssueInput): Promise<{ sent: boolean }> {
 type Row = typeof loginCodes.$inferSelect;
 
 /** Checks the newest open code for this e-mail + scope. Wrong guesses count; 5 burn the code. */
-export async function verifyCode(db: Db, emailIn: string, code: string, projectId: string | null, locale?: Locale): Promise<Row> {
+export async function verifyCode(db: Db, emailIn: string, code: string, projectId: string | null, locale?: Locale, ip?: string): Promise<Row> {
   const email = normalizeEmail(emailIn);
+  // Guessing across many addresses from one place is limited too (each code allows only 5 tries).
+  if (ip && !allow("loginVerifyIp", ip)) throw new LoginError(translator(locale ?? await ambientLocale(db, projectId), "email")("errTooManyTries"));
   const scope = projectId ? eq(loginCodes.projectId, projectId) : isNull(loginCodes.projectId);
   // The transaction must commit on a wrong guess too (so the attempt counts): errors are thrown after it.
   const r = await db.transaction(async (tx): Promise<{ row?: Row; error?: "errCodeExpired" | "errCodeBurned" | "errCodeWrong" }> => {
@@ -135,7 +140,8 @@ export async function verifyLink(db: Db, token: string, projectId: string | null
   const row = await db.transaction(async (tx) => {
     const [row] = await tx.select().from(loginCodes)
       .where(and(eq(loginCodes.linkHash, h("link", token)), scope)).limit(1).for("update");
-    if (!row || row.usedAt || row.expiresAt < new Date() || row.attempts >= MAX_ATTEMPTS) return null;
+    // Wrong code guesses never burn the link: it is 192 random bits, and burning it would let anyone lock the owner out.
+    if (!row || row.usedAt || row.expiresAt < new Date()) return null;
     await tx.update(loginCodes).set({ usedAt: new Date() }).where(eq(loginCodes.id, row.id));
     return row;
   });

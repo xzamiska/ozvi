@@ -8,3 +8,8 @@ data
 !.env.example
 apps/web/public/widget.js
 apps/web/public/widget-shot.js
+
+# GitHub App keys (scripts/create-github-app.mjs) never go into an image build
+github-app.env
+*.github-app.env
+*.pem

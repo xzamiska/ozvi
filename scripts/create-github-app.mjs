@@ -11,7 +11,7 @@
 //
 // Then add the lines to the instance's environment and restart it. Uses only Node's standard library.
 import { execFile } from "node:child_process";
-import { writeFileSync } from "node:fs";
+import { chmodSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { randomBytes } from "node:crypto";
 
@@ -71,6 +71,7 @@ const server = createServer(async (req, res) => {
     OZVI_GITHUB_APP_PRIVATE_KEY: Buffer.from(app.pem).toString("base64"),
   };
   writeFileSync(out, Object.entries(lines).map(([k, v]) => `${k}=${v}`).join("\n") + "\n", { mode: 0o600 });
+  chmodSync(out, 0o600); // mode applies only to a new file; an existing one keeps its permissions otherwise
   res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
   res.end(`<!doctype html><meta charset="utf-8"><title>Done</title><p>“${esc(app.name)}” is created. You can close this tab.</p>`);
   console.log(`Created ${app.html_url}`);

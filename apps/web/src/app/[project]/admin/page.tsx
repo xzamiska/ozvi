@@ -4,7 +4,7 @@ import { Check, Download, TriangleAlert } from "lucide-react";
 import { LockdownForm, SecretForm, SectionsForm, SettingsForm } from "@/components/AdminForms";
 import { BlockToggle } from "@/components/Moderation";
 import { DomainForm, GithubAppForm, GithubForm, OidcForm, PersonActions, RevokeToken, WebhookActions, WebhookForm } from "@/components/IntegrationForms";
-import { installationOf, parseGithubConfig } from "@/lib/github";
+import { allowedReposOf, installationOf, parseGithubConfig } from "@/lib/github";
 import { githubApp, installationAccount, installationRepos } from "@/lib/github-app";
 import { parseLinearConfig } from "@/lib/linear";
 import { parseJiraConfig } from "@/lib/jira";
@@ -102,7 +102,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
   const ghApp = githubApp();
   const ghInstall = ghApp ? installationOf(extra.github?.config) : null;
   const [ghRepos, ghAccount] = ghApp && ghInstall
-    ? await Promise.all([installationRepos(ghApp, ghInstall).catch(() => null), installationAccount(ghApp, ghInstall)])
+    ? await Promise.all([installationRepos(ghApp, ghInstall).then((rs) => rs.filter((r) => allowedReposOf(extra.github?.config).includes(r)), () => null), installationAccount(ghApp, ghInstall)])
     : [null, null];
   const ghParam = (await searchParams).github;
   const ghResult = (["connected", "failed", "requested"] as const).find((r) => r === ghParam) ?? null;
@@ -192,7 +192,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
           </SettingsSection>
 
           <SettingsSection id="project" title={t("nav.project")} text={t("project.text")}>
-            <SettingsForm slug={slug} name={project.name} loginUrl={project.loginUrl ?? ""} origins={project.allowedOrigins} ideasPublic={project.ideasPublic} emailLogin={project.emailLogin} moderateIdeas={project.moderateIdeas} trustAppEmails={project.trustAppEmails} />
+            <SettingsForm slug={slug} name={project.name} loginUrl={project.loginUrl ?? ""} origins={project.allowedOrigins} ideasPublic={project.ideasPublic} emailLogin={project.emailLogin} moderateIdeas={project.moderateIdeas} />
           </SettingsSection>
 
           <SettingsSection id="sections" title={t("nav.sections")} text={t("sections.text")}>

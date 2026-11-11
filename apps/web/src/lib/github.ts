@@ -30,6 +30,12 @@ const { integrations, itemLinks, items, comments } = schema;
 
 /** installationId: connected through the GitHub App (lib/github-app); otherwise a stored token. */
 export interface GithubConfig { repo: string; onClose: "release" | "fixed"; installationId?: number }
+
+/** The repositories the admin who installed the app may write to: the only ones this board may connect. */
+export function allowedReposOf(raw: unknown): string[] {
+  const r = (raw as { allowedRepos?: unknown } | null)?.allowedRepos;
+  return Array.isArray(r) ? r.filter((x): x is string => typeof x === "string") : [];
+}
 export interface Github { config: GithubConfig; token: string; webhookSecret: string | null }
 
 const REPO = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;

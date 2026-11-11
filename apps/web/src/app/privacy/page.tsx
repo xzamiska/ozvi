@@ -48,7 +48,7 @@ export default function Privacy() {
         <li><b>Vlastný dedikovaný server v dátovom centre Hetzner v EÚ</b> (Hetzner Online GmbH, Nemecko) — aplikácia, databáza a prílohy. Zálohy idú na samostatný disk toho istého servera a ďalšia kópia na vlastné úložisko prevádzkovateľa na Slovensku.</li>
         <li><b>Resend</b> — odosielanie e-mailov (prihlásenie, upozornenia).</li>
         <li><b>Creem</b> — platby a faktúry za platené plány (ako samostatný predajca).</li>
-        <li><b>Anthropic</b> — len pri projektoch so zapnutými AI funkciami (súhrny, návrhy noviniek, preklady); text sa posiela na spracovanie a nepoužíva sa na trénovanie modelov.</li>
+        <li><b>Scaleway</b> (Francúzsko, EÚ) — len pri projektoch so zapnutými AI funkciami (preklady, súhrny, návrhy noviniek); text sa spracúva v dátových centrách v EÚ.</li>
         <li><b>GitHub, Linear, Jira</b> — len ak ich zákazník v projekte sám pripojí.</li>
       </ul>
       <p>Údaje nepredávame a nepoužívame na reklamu.</p>
@@ -56,6 +56,7 @@ export default function Privacy() {
 
       <h2 id="cast-4">4. Cookies</h2>
       <p>Používame len nevyhnutné cookies na prihlásenie (do Ozvi a na jednotlivé boardy). Žiadne analytické ani reklamné cookies, preto sa vás na súhlas nepýtame.</p>
+      <p>Návštevnosť verejných stránok Ozvi (úvodná stránka, dokumentácia, cenník) počítame na našom serveri nástrojom Umami, ktorý prevádzkujeme sami v EÚ. Zaznamená sa adresa stránky (bez parametrov), odkiaľ ste prišli, jazyk a typ prehliadača; IP adresu Umami použije len na odhad krajiny a na denne sa meniaci anonymný odtlačok, neukladá ju. Nič sa neukladá vo vašom zariadení ani z neho nečíta. Ak má prehliadač zapnuté „nesledovať“ (Do Not Track alebo Global Privacy Control), nezaznamenáme nič. Boardy, konzolu ani widget nesledujeme. Právny základ: oprávnený záujem na tom, aby sme vedeli, ktoré stránky ľudia čítajú.</p>
 
       <h2 id="cast-5">5. Vaše práva</h2>
       <p>Máte právo na prístup k údajom, ich opravu, vymazanie, obmedzenie spracúvania, prenosnosť a právo namietať. E-mail a meno zmeníte v nastaveniach účtu, tam účet aj zrušíte. S ostatným napíšte na {LEGAL.email}. Sťažnosť môžete podať na Úrad na ochranu osobných údajov SR.</p>

@@ -211,6 +211,13 @@
       "when": 1794421100492,
       "tag": "0029_lucky_rattler",
       "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1794423622141,
+      "tag": "0030_warm_naoko",
+      "breakpoints": true
     }
   ]
 }

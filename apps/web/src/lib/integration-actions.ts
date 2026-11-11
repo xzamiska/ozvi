@@ -11,7 +11,7 @@ import { logActivity, who } from "./activity";
 import { db } from "./db";
 import { DomainError, isTeamRole } from "./domain";
 import { EVENTS } from "./events";
-import { createIssue, gh, installationOf, linkIssue, parseGithubConfig } from "./github";
+import { allowedReposOf, createIssue, gh, installationOf, linkIssue, parseGithubConfig } from "./github";
 import { githubApp, installationRepos, installState, installUrl, readInstallTicket } from "./github-app";
 import { discoverOidc } from "./oidc";
 import { getTranslations } from "next-intl/server";
@@ -128,11 +128,13 @@ export async function saveGithub(slug: string, _: ActState, form: FormData): Pro
     const app = githubApp();
     // Through the GitHub App: the repository must be one the admin gave the app on GitHub.
     if (installationId && app) {
-      const config = parseGithubConfig({ repo: str(form, "repo"), onClose: str(form, "onClose"), installationId });
-      if (!config) return { error: t("ghPickRepo") };
+      const parsed = parseGithubConfig({ repo: str(form, "repo"), onClose: str(form, "onClose"), installationId });
+      if (!parsed) return { error: t("ghPickRepo") };
+      const allowed = allowedReposOf(existing?.config);
       const repos = await installationRepos(app, installationId).catch(() => null);
       if (!repos) return { error: t("ghAppUnreachable") };
-      if (!repos.includes(config.repo)) return { error: t("ghNotGranted", { repo: config.repo }) };
+      if (!repos.includes(parsed.repo) || !allowed.includes(parsed.repo)) return { error: t("ghNotGranted", { repo: parsed.repo }) };
+      const config = { ...parsed, allowedRepos: allowed };
       await tx.update(schema.integrations).set({ config }).where(eq(schema.integrations.id, existing!.id));
       await log(project, user, "github.connected", config.repo);
       revalidatePath(`/${slug}`, "layout");
@@ -174,7 +176,8 @@ export async function finishGithubInstall(slug: string, ticket: string): Promise
     const existing = await tx.query.integrations.findFirst({ where: eq(schema.integrations.provider, "github") });
     const prev = parseGithubConfig(existing?.config);
     // A repository picked before stays if the same installation still covers it (checked on save).
-    const config = { ...(prev && prev.installationId === tk.i ? { repo: prev.repo, onClose: prev.onClose } : {}), installationId: tk.i };
+    const keep = prev && prev.installationId === tk.i && tk.r.includes(prev.repo);
+    const config = { ...(keep ? { repo: prev.repo, onClose: prev.onClose } : {}), installationId: tk.i, allowedRepos: tk.r };
     if (existing) await tx.update(schema.integrations).set({ config, tokenEnc: null, webhookSecretEnc: null }).where(eq(schema.integrations.id, existing.id));
     else await tx.insert(schema.integrations).values({ projectId: project.id, provider: "github", config });
   });

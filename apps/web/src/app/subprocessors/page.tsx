@@ -14,7 +14,7 @@ import { cloudOnly, LEGAL } from "@/lib/legal";
 export const dynamic = "force-dynamic";
 
 /** Date the list last changed. Update together with the messages (subprocessors.items) and docs/DPA.md. */
-const CHANGED = new Date("2026-11-08");
+const CHANGED = new Date("2026-11-11");
 
 const theme = parseTheme(presets.ozvi);
 

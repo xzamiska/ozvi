@@ -51,7 +51,7 @@ export async function saveSettings(slug: string, _: AdminState, form: FormData):
   if (bad) return { error: t("badOrigin", { o: bad }) };
   await db.update(schema.projects).set({
     name, loginUrl: loginUrl || null, allowedOrigins: [...new Set(origins)], ideasPublic: form.get("ideasPublic") === "on",
-    emailLogin: form.get("emailLogin") === "on", moderateIdeas: form.get("moderateIdeas") === "on", trustAppEmails: form.get("trustAppEmails") === "on",
+    emailLogin: form.get("emailLogin") === "on", moderateIdeas: form.get("moderateIdeas") === "on",
   }).where(eq(schema.projects.id, project.id));
   await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "project.settings" });
   // First time the host app is known and the board has no icon yet: take the app's favicon (best effort).

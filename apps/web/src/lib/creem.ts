@@ -186,6 +186,11 @@ export async function applyCreemEvent(cfg: CreemConfig, ev: Event): Promise<stri
   if (!ws) return "unknown workspace";
   if (ws.plan === "self") return "self-hosted workspace";
   if (ws.creemSubscriptionId && ws.creemSubscriptionId !== sub.id && ev.eventType !== "checkout.completed") return "stale subscription";
+  // A second checkout while one subscription still pays must not orphan it (the first would keep billing unseen).
+  if (ev.eventType === "checkout.completed" && ws.creemSubscriptionId && ws.creemSubscriptionId !== sub.id && (ws.plan === "pro" || ws.plan === "studio")) {
+    console.error(`[ozvi] creem: second subscription ${sub.id} for workspace ${ws.id} (has ${ws.creemSubscriptionId}); not applied, check Creem`);
+    return "second subscription ignored";
+  }
   // Late retries and replays must not undo newer state (e.g. "active" arriving after "expired").
   const at = ev.created_at !== undefined ? new Date(typeof ev.created_at === "number" && ev.created_at < 1e12 ? ev.created_at * 1000 : ev.created_at) : null;
   if (at && !Number.isNaN(at.getTime()) && ws.creemEventAt && at <= ws.creemEventAt) return "older than last applied event";

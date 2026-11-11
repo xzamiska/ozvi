@@ -1,4 +1,4 @@
-const admins = (env: Record<string, string | undefined>) =>
+export const admins = (env: Record<string, string | undefined> = process.env) =>
   (env.OZVI_ADMIN_EMAILS ?? "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
 
 /** Cloud before launch (OZVI_SIGNUP=closed): no new sign-ups, only OZVI_ADMIN_EMAILS. */
@@ -9,3 +9,6 @@ export function mayCreateAccount(email: string, env: Record<string, string | und
   if (!signupClosed(env) && (env.OZVI_MODE === "cloud" || env.OZVI_SIGNUP === "open")) return true;
   return admins(env).includes(email.toLowerCase());
 }
+
+/** Operators (OZVI_ADMIN_EMAILS): never decided by the sign-up mode. */
+export const isAdminEmail = (email: string, env: Record<string, string | undefined> = process.env) => admins(env).includes(email.toLowerCase());

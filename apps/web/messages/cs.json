@@ -163,7 +163,8 @@
       "noSmtpLink": "E-maily nejsou nastavené (SMTP). Odkaz je v logu serveru.",
       "selfHostDelete": "Na vlastním serveru účty spravuje správce (OZVI_ADMIN_EMAILS).",
       "typeEmail": "Pro potvrzení napište přesně svůj e-mail.",
-      "signupClosed": "Registrace ještě není otevřená. Napište nám na support@ozvi.io a ozveme se, až spustíme."
+      "signupClosed": "Registrace ještě není otevřená. Napište nám na support@ozvi.io a ozveme se, až spustíme.",
+      "alreadySubscribed": "Prostor už má předplatné. Plán změníte přímo v něm, bez další platby navíc."
     },
     "workspace": {
       "not_owner": "Tohle může udělat jen vlastník prostoru.",
@@ -436,9 +437,7 @@
         "loginUrlHint": "Stránka vaší aplikace, kam pošleme člověka, který na boardu klikne na „Přihlásit se“. Připojíme parametr ozvi_return s adresou, na kterou ho po přihlášení vraťte. Prázdné: použije se přihlášení e-mailem, pokud je zapnuté.",
         "origins": "Adresy vaší aplikace",
         "originsHint": "Kde běží aplikace, do které vkládáte widget nebo roadmapu, například https://app.billiwo.com. Jedna adresa na řádek, bez cesty. Na jiných stránkách widget nebude fungovat.",
-        "save": "Uložit nastavení",
-        "trustTitle": "Aplikace ověřuje e-maily uživatelů",
-        "trustText": "Zapnuto: člověk, kterého přihlásí vaše aplikace, a člověk se stejným e-mailem přihlášený kódem nebo z konzole je jeden účet. Vypněte, pokud se ve vaší aplikaci lze zaregistrovat s cizím e-mailem bez ověření: takový účet by jinak převzal board účet skutečného majitele e-mailu. Pro jednotlivce to může aplikace určit i v tokenu (emailVerified)."
+        "save": "Uložit nastavení"
       },
       "saving": "Ukládám…",
       "sso": {
@@ -1166,7 +1165,12 @@
     "backToFeedback": "Zpět na zpětnou vazbu",
     "unsubTitle": "Odhlásit se z e-mailů?",
     "unsubLede": "Zpětná vazba k aplikaci {project} vám přestane posílat zprávy o stavu hlášení, nápadů a o komentářích.",
-    "unsubButton": "Odhlásit se z e-mailů"
+    "unsubButton": "Odhlásit se z e-mailů",
+    "signInTitle": "Přihlásit se?",
+    "signInHeading": "Přihlásit se jako {who}?",
+    "signInText": "Odkaz z jiné stránky vás chce přihlásit do této zpětné vazby. Pokračujte, jen pokud jste ho otevřeli z vlastní aplikace.",
+    "signInNo": "Ne, děkuji",
+    "signInYes": "Přihlásit se"
   },
   "console": {
     "planName": {
@@ -1716,7 +1720,10 @@
     },
     "loginValid": "Platí 15 minut a použít se dá jednou.",
     "loginOr": "Nebo se přihlaste jedním kliknutím:",
-    "loginPreheader": "Váš přihlašovací kód do {brand}. Platí 15 minut."
+    "loginPreheader": "Váš přihlašovací kód do {brand}. Platí 15 minut.",
+    "loginSubjectLink": "Odkaz pro přihlášení do {brand}",
+    "loginBodyLink": "Pro tuto adresu bylo dnes příliš mnoho nesprávných kódů, proto kód neposíláme. Přihlaste se odkazem níže.",
+    "errTooManyTries": "Příliš mnoho pokusů z této sítě. Zkuste to za hodinu nebo použijte odkaz z e-mailu."
   },
   "errors": {
     "signIn": "K této akci se musíte přihlásit.",
@@ -1753,7 +1760,9 @@
     "blocked": "Na tomto boardu teď nemůžete přidávat příspěvky ani hlasovat.",
     "voteBudget": "Na tento hlas vám nezbývá dost hlasů (zbývá {n}). Odeberte hlas z jiného nápadu nebo zvolte nižší důležitost.",
     "adminOnly": "Tohle může udělat jen admin boardu.",
-    "sectionOff": "Tato část je v projektu vypnutá."
+    "sectionOff": "Tato část je v projektu vypnutá.",
+    "deleteOwnerOnly": "Celý projekt může smazat jen vlastník pracovního prostoru, když sem přijde z konzole Ozvi.",
+    "operatorOnly": "Aktualizace serveru řídí jen správci instance (OZVI_ADMIN_EMAILS), když sem přijdou z konzole Ozvi."
   },
   "forms": {
     "optional": "nepovinné",
@@ -3649,12 +3658,13 @@
         "when": "Vždy, e-maily v cloudu posíláme my."
       },
       {
-        "name": "Anthropic",
-        "entity": "Anthropic, PBC",
-        "purpose": "AI funkce: souhrny zpětné vazby, návrh novinky z vydání, překlad příspěvků. Výstup je vždy návrh, který schvaluje člověk.",
-        "data": "Text příspěvků a komentářů potřebný pro daný úkol. Nepoužívá se k trénování modelů.",
-        "location": "TODO: země zpracování.",
-        "transfer": "TODO: mechanismus předávání podle obchodních podmínek a DPA Anthropic.",
+        "name": "Scaleway",
+        "entity": "Scaleway SAS, Francie",
+        "purpose": "AI funkce: překlad příspěvků, souhrny zpětné vazby, návrh novinky z vydání. Výstup je vždy označený a návrhy schvaluje člověk.",
+        "data": "Text příspěvků a komentářů potřebný pro daný úkol.",
+        "location": "Datová centra Scaleway v EU (Francie).",
+        "transfer": "Žádný, data zůstávají v EU.",
+        "note": "TODO: potvrdit podle smlouvy se Scaleway, že vstupy a výstupy neukládá a nepoužívá k trénování modelů.",
         "when": "Jen v projektech, které mají AI funkce zapnuté."
       },
       {
@@ -3776,7 +3786,8 @@
         "discord": "Discord"
       },
       "noTrackingCloud": "Nástroj pro zpětnou vazbu nepoužívá žádné analytické ani reklamní nástroje. Písma servíruje přímo Ozvi, váš prohlížeč se proto nepřipojuje ke Google ani k jiným třetím stranám.",
-      "noTrackingSelf": "Nástroj pro zpětnou vazbu nepoužívá žádné analytické ani reklamní nástroje. Písma servíruje náš server, váš prohlížeč se proto nepřipojuje ke Google ani k jiným třetím stranám."
+      "noTrackingSelf": "Nástroj pro zpětnou vazbu nepoužívá žádné analytické ani reklamní nástroje. Písma servíruje náš server, váš prohlížeč se proto nepřipojuje ke Google ani k jiným třetím stranám.",
+      "scaleway": "Scaleway SAS (Francie, EU): funkce AI ({task}); dostane jen text potřebný pro daný úkol a zpracovává ho v datových centrech v EU;"
     },
     "retention": {
       "content": "Příspěvky, komentáře a hlasy uchováváme, dokud board používáme, nebo dokud je nebo všechny své údaje nesmažete (viz Vaše práva).",

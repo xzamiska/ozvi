@@ -22,8 +22,8 @@ export async function userFromToken(project: Project, token: string) {
     projectId: project.id,
     externalId: claims.id,
     email: claims.email ?? null,
-    // The token decides when it says; otherwise the project setting (default: the app verifies e-mails).
-    emailVerified: !!claims.email && (claims.emailVerified ?? project.trustAppEmails) === true,
+    // Only the app's explicit word: an address it did not verify must never join anyone's account.
+    emailVerified: !!claims.email && claims.emailVerified === true,
     name: claims.name ?? null,
     avatarUrl: claims.avatarUrl ?? null,
     traits: cleanTraits(claims.traits),
@@ -34,16 +34,16 @@ export async function userFromToken(project: Project, token: string) {
   // A token without a role leaves the role managed in Ozvi (admin → Ľudia) untouched.
   const hasRole = claims.role !== undefined;
 
-  // The app vouches for the e-mail: the same person as whoever signed in with it by e-mail or from the
-  // console (one account, not two). Only for a person the app has not signed in before; that account
-  // keeps its role, which Ozvi manages there.
+  // The app vouches for the e-mail: the same person as whoever signed in with it by e-mail (one account,
+  // not two). Only for a person the app has not signed in before, and only into a plain member account:
+  // team and admin accounts (the console owner's included) are never joined automatically.
   if (values.emailVerified) {
     const linked = await withProject(db, project.id, async (tx) => {
       const [mine] = await tx.select({ id: schema.users.id }).from(schema.users)
         .where(and(eq(schema.users.projectId, project.id), eq(schema.users.externalId, claims.id))).limit(1);
       if (mine) return null;
       const [same] = await tx.select().from(schema.users)
-        .where(and(sql`lower(${schema.users.email}) = ${claims.email!.toLowerCase()}`, sql`${schema.users.externalId} like 'email:%'`)).limit(1);
+        .where(and(sql`lower(${schema.users.email}) = ${claims.email!.toLowerCase()}`, sql`${schema.users.externalId} like 'email:%'`, eq(schema.users.role, "member"))).limit(1);
       if (!same) return null;
       return (await tx.update(schema.users).set({
         name: values.name ?? same.name, avatarUrl: values.avatarUrl ?? same.avatarUrl, lastSeenAt: values.lastSeenAt,

@@ -10,6 +10,7 @@ import type { Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
 import { canSeePost, commentNeedsApproval, DUPLICATE_COMMENT_WINDOW_MS, isBlocked } from "./moderation-rules";
 import type { ItemSource } from "./provenance";
+import { sectionOfKind, sectionOn } from "./sections";
 
 /**
  * Item changes shared by the board (server actions), MCP tools and integrations (GitHub).
@@ -113,6 +114,8 @@ export async function addCommentTo(
   const text = body.trim();
   assertCanParticipate(actor);
   if (item.deletedAt) throw fail((t) => t("deleted"));
+  // A switched-off section takes no new comments either (board, API, MCP).
+  if (!sectionOn(project, sectionOfKind(item.kind))) throw new DomainError((l) => translator(l, "errors")("sectionOff"));
   if (!text) throw fail((t) => t("emptyComment"));
   if (text.length > 5000) throw fail((t) => t("longComment"));
   const isInternal = internal && isTeamRole(actor.role);

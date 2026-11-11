@@ -10,6 +10,7 @@ import { getCtx } from "./project";
 import { deleteProject, eraseMe } from "./privacy";
 import { cookieName } from "./session";
 import { getTranslations } from "next-intl/server";
+import { boardUserIsOwner } from "./workspace";
 
 export interface PrivacyState { error?: string }
 
@@ -28,6 +29,8 @@ export async function deleteWholeProject(slug: string, _: PrivacyState, form: Fo
   const { project, user, locale } = await getCtx(slug);
   const t = await getTranslations({ locale, namespace: "errors" });
   if (user?.role !== "admin") return { error: t("deleteAdminOnly") };
+  // Deleting a whole project (and its audit trail) is the workspace owner's call, not any board admin's.
+  if (!(await boardUserIsOwner(project, user))) return { error: t("deleteOwnerOnly") };
   if (String(form.get("confirm") ?? "").trim() !== project.slug) return { error: t("deleteConfirm", { slug: project.slug }) };
   await deleteProject(project);
   redirect(process.env.OZVI_MODE === "cloud" ? "/app" : "/");

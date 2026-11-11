@@ -39,7 +39,11 @@ export const themeSchema = z.object({
     /** Optional monthly vote budget per user; null = unlimited. */
     budget: z.number().int().min(1).max(100).nullable().default(null),
   }).default({ style: "upvote", budget: null }),
-  logoUrl: z.url().optional(),
+  /** https only: anything else (javascript:, data:, http:) is dropped, not an error, so stored themes still load. */
+  logoUrl: z.string().optional().transform((v) => {
+    if (!v) return undefined;
+    try { return new URL(v).protocol === "https:" ? v : undefined; } catch { return undefined; }
+  }),
 });
 
 export type Theme = z.infer<typeof themeSchema>;

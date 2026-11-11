@@ -44,7 +44,7 @@ describe("sub-processors page", () => {
       Object.fromEntries(Object.entries(e).map(([k, v]) => [k, k === "name" ? null : v.startsWith("TODO:")])));
     expect(shape("cs")).toEqual(shape("sk"));
     expect(shape("en")).toEqual(shape("sk"));
-    expect((MESSAGES.sk.subprocessors.items as Entry[]).map((e) => e.name)).toEqual(["Server Ozvi (Hetzner)", "Resend", "Anthropic", "Creem", "GitHub", "Linear", "Jira Cloud"]);
+    expect((MESSAGES.sk.subprocessors.items as Entry[]).map((e) => e.name)).toEqual(["Server Ozvi (Hetzner)", "Resend", "Scaleway", "Creem", "GitHub", "Linear", "Jira Cloud"]);
   });
 
   it("is not served by a self-hosted instance", async () => {

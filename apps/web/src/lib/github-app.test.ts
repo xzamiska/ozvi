@@ -1,6 +1,6 @@
 import { createVerify, generateKeyPairSync } from "node:crypto";
 import { describe, expect, it } from "vitest";
-import { appJwt, githubApp, installationRepos, installerCanSee, installState, installTicket, readInstallState, readInstallTicket } from "./github-app";
+import { appJwt, githubApp, installationRepos, installerRepos, installState, installTicket, readInstallState, readInstallTicket } from "./github-app";
 
 process.env.OZVI_SESSION_SECRET ??= "test-session-secret-0123456789abcdef";
 const { privateKey, publicKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
@@ -30,23 +30,26 @@ describe("github app", () => {
     expect(readInstallState(s, 2000)).toMatchObject({ p: "proj", u: "user" });
     expect(readInstallState(s, 1000 + 31 * 60_000)).toBeNull();
     expect(readInstallTicket(s, 2000)).toBeNull(); // a state is not a ticket
-    const [body, sig] = installTicket({ p: "proj", u: "user", i: 7 }, 1000).split(".");
+    const [body, sig] = installTicket({ p: "proj", u: "user", i: 7, r: ["org/app"] }, 1000).split(".");
     const forged = Buffer.from(JSON.stringify({ p: "proj", u: "user", i: 8, exp: 9e15 })).toString("base64url");
     expect(readInstallTicket(`${forged}.${sig}`, 2000)).toBeNull();
     expect(readInstallTicket(`${body}.${sig}`, 2000)).toMatchObject({ i: 7 });
   });
 
-  it("accepts an installation only if the installer can see it", async () => {
+  it("an installation counts only if the installer sees it, and only repos they can write to", async () => {
     const f = (installations: number[]) => (async (url: string | URL | Request) => {
       const u = String(url);
       if (u.includes("login/oauth")) return json({ access_token: "user-token" });
-      if (u.includes("/user/installations")) return json({ installations: installations.map((id) => ({ id })) });
+      if (u.includes("/user/installations?")) return json({ installations: installations.map((id) => ({ id })) });
+      if (u.includes("/user/installations/7/repositories")) return json({ repositories: [
+        { full_name: "org/app", permissions: { push: true } }, { full_name: "org/secret", permissions: { pull: true } }, { full_name: "org/admin", permissions: { admin: true } },
+      ] });
       return json({}, 404);
     }) as typeof fetch;
-    expect(await installerCanSee(app, "code", 7, f([3, 7]))).toBe(true);
-    expect(await installerCanSee(app, "code", 7, f([3]))).toBe(false);
+    expect(await installerRepos(app, "code", 7, f([3, 7]))).toEqual(["org/app", "org/admin"]);
+    expect(await installerRepos(app, "code", 7, f([3]))).toBeNull();
     const bad = (async () => json({ error: "bad_verification_code" })) as unknown as typeof fetch;
-    expect(await installerCanSee(app, "code", 7, bad)).toBe(false);
+    expect(await installerRepos(app, "code", 7, bad)).toBeNull();
   });
 
   it("lists every repository the installation sees", async () => {
