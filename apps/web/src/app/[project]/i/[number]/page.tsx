@@ -73,7 +73,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
   const origin = projectOrigin(project);
 
   const data = await withProject(db, project.id, async (tx) => {
-    const [row] = await tx.select({ item: items, authorName: users.name, authorAvatar: users.avatarUrl, authorBlocked: users.blockedAt, authorRole: users.role }).from(items)
+    const [row] = await tx.select({ item: items, authorName: users.name, authorEmail: users.email, authorAvatar: users.avatarUrl, authorBlocked: users.blockedAt, authorRole: users.role }).from(items)
       .leftJoin(users, eq(users.id, items.authorId)).where(eq(items.number, n));
     if (!row) return null;
     const { item } = row;
@@ -137,7 +137,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
       { subject: "item", id: item.id, title: item.title, body: item.body },
       ...thread.filter((c) => !c.deletedAt).map((c) => ({ subject: "comment" as const, id: c.id, title: null, body: c.body })),
     ]);
-    return { item, authorName: row.authorName, authorAvatar: row.authorAvatar, authorBlocked: !!row.authorBlocked, authorRole: row.authorRole, deletedBy, isAuthor, thread, voted, vote, files, mergedInto, history, links, releases, team, itemTagList, subName, translation };
+    return { item, authorName: row.authorName, authorEmail: row.authorEmail, authorAvatar: row.authorAvatar, authorBlocked: !!row.authorBlocked, authorRole: row.authorRole, deletedBy, isAuthor, thread, voted, vote, files, mergedInto, history, links, releases, team, itemTagList, subName, translation };
   });
   if (!data) notFound();
   if (data === "signin") {
@@ -168,11 +168,14 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
   }
   const m = await getTranslations("moderation");
   const { authorBlocked, authorRole, deletedBy } = data;
-  const { item, authorName, authorAvatar, isAuthor, thread, voted, vote, files, mergedInto, history, links, releases, team, itemTagList, subName, translation } = data;
+  const { item, authorName, authorEmail, authorAvatar, isAuthor, thread, voted, vote, files, mergedInto, history, links, releases, team, itemTagList, subName, translation } = data;
   const bug = item.kind === "bug";
   // Ideas Ozvi filed from customer feedback have no person as author (the customers are voters, team-only).
   const system = isSystemItem(item);
-  const byline = system ? b("fromCustomers") : authorName;
+  // Without a name: the team sees the e-mail (it has it anyway), the author sees "You", everyone else "User".
+  const shown = (id: string | null, name: string | null, email: string | null) =>
+    name ?? (isTeam && email ? email : id && id === user?.id ? b("you") : null);
+  const byline = system ? b("fromCustomers") : shown(item.authorId, authorName, authorEmail);
   const ctx = (item.context ?? {}) as Record<string, string>;
   const ctxEntries = Object.entries(ctx).filter(([k]) => k in CONTEXT_LABEL && typeof ctx[k] === "string");
   // The widget's capture (steps, network log, session links): team only, never rendered for the reporter.
@@ -350,7 +353,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
                         author={person(c.authorId, c.name, c.role, !!c.blockedAt)}
                         header={
                       <header className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[13px]">
-                        <strong className="font-semibold">{c.name ?? (teamMember ? b("teamMember") : b("user"))}</strong>
+                        <strong className="font-semibold">{shown(c.authorId, c.name, c.email) ?? (teamMember ? b("teamMember") : b("user"))}</strong>
                         {teamMember && c.name && <span className="rounded-sm bg-brand-soft px-1.5 py-px text-[11.5px] font-semibold text-brand-text">{t("teamBadge")}</span>}
                         {c.internal && <span className="inline-flex items-center gap-1 rounded-sm bg-st-ack/12 px-1.5 py-px text-[11.5px] font-semibold text-st-ack"><Lock className="size-3" />{t("internal")}</span>}
                         {c.pending && <span className="inline-flex items-center gap-1 rounded-sm bg-st-ack/12 px-1.5 py-px text-[11.5px] font-semibold text-st-ack"><Hourglass className="size-3" aria-hidden />{b("pendingBadge")}</span>}

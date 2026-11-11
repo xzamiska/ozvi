@@ -25,6 +25,8 @@ export interface Row {
   affected?: number;
   /** Team only: author id (for the per-currency demand label). */
   authorId?: string | null;
+  /** Team views only (lib/queries listItems): shown when the author has no name. */
+  authorEmail?: string | null;
   /** Team only: comments on it waiting for approval (suspicious links). */
   pendingComments?: number;
   /** Team only: exact MRR per currency, formatted ("1 240 € + 2 900 Kč"); set by the page from demandFor. */
@@ -86,7 +88,7 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
           )}
           {row.pending && <span className="inline-flex shrink-0 items-center gap-1 font-medium text-st-ack"><Hourglass className="size-3.5" aria-hidden />{t("pendingBadge")}</span>}
           {!!row.pendingComments && <span className="inline-flex shrink-0 items-center gap-1 font-medium text-st-ack"><Hourglass className="size-3.5" aria-hidden />{t("pendingComments", { n: row.pendingComments })}</span>}
-          <span className="min-w-0 truncate max-sm:hidden">{row.system ? t("fromCustomers") : row.authorName ?? t("user")}</span>
+          <span className="min-w-0 truncate max-sm:hidden">{row.system ? t("fromCustomers") : row.authorName ?? row.authorEmail ?? t("user")}</span>
           <time className="shrink-0" dateTime={row.createdAt.toISOString()}>{ago(row.createdAt, locale)}</time>
           {row.comments > 0 && (
             <span className="inline-flex shrink-0 items-center gap-1" aria-label={t("comments", { n: row.comments })}>

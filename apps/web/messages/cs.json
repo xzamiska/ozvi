@@ -1062,7 +1062,8 @@
       "rule": "{n, plural, one {Když autor nebo jiný uživatel napíše a tým do # dne neodpoví veřejně ani nezmění stav.} other {Když autor nebo jiný uživatel napíše a tým do # dní neodpoví veřejně ani nezmění stav.}}",
       "ruleClears": "Interní poznámky se nepočítají. Vydaná, opravená a zamítnutá hlášení tu nejsou.",
       "change": "Změnit počet dní"
-    }
+    },
+    "you": "Vy"
   },
   "boardAuth": {
     "noProject": "Projekt neexistuje.",

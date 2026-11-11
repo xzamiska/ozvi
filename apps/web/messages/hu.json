@@ -1062,7 +1062,8 @@
       "rule": "{n, plural, one {Ha a szerző vagy egy másik felhasználó ír, és a csapat # napon belül nem válaszol nyilvánosan, és nem módosítja az állapotot.} other {Ha a szerző vagy egy másik felhasználó ír, és a csapat # napon belül nem válaszol nyilvánosan, és nem módosítja az állapotot.}}",
       "ruleClears": "A belső megjegyzések nem számítanak. Az elkészült, javított és elutasított bejelentések soha nem jelennek meg itt.",
       "change": "Napok számának módosítása"
-    }
+    },
+    "you": "Te"
   },
   "boardAuth": {
     "noProject": "Ez a projekt nem létezik.",

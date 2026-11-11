@@ -1062,7 +1062,8 @@
       "rule": "{n, plural, one {When the author or another user writes and the team doesn't reply publicly or change the status within # day.} other {When the author or another user writes and the team doesn't reply publicly or change the status within # days.}}",
       "ruleClears": "Internal notes don't count. Shipped, fixed and declined reports never appear here.",
       "change": "Change the number of days"
-    }
+    },
+    "you": "You"
   },
   "boardAuth": {
     "noProject": "This project doesn’t exist.",

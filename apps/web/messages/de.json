@@ -1062,7 +1062,8 @@
       "rule": "{n, plural, one {Wenn die verfassende Person oder jemand anderes schreibt und das Team nicht innerhalb von # Tag öffentlich antwortet oder den Status ändert.} other {Wenn die verfassende Person oder jemand anderes schreibt und das Team nicht innerhalb von # Tagen öffentlich antwortet oder den Status ändert.}}",
       "ruleClears": "Interne Notizen zählen nicht. Umgesetzte, behobene und abgelehnte Meldungen erscheinen hier nie.",
       "change": "Anzahl der Tage ändern"
-    }
+    },
+    "you": "Sie"
   },
   "boardAuth": {
     "noProject": "Dieses Projekt existiert nicht.",

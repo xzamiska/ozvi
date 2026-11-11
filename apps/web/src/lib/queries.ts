@@ -57,7 +57,7 @@ export async function listItems(tx: Tx, where: SQL[], order: ListOrder, includeI
     createdAt: items.createdAt, authorName: users.name, voters, pending: items.pending,
     // Filed by Ozvi from customer feedback (submit_insight): shown as "From customer feedback", never a person.
     system: sql<boolean>`(${items.authorId} is null and coalesce((${items.context}->>'insight')::boolean, false))`,
-    ...(team ? { mrr: itemMrrSql, affected: affectedSql, authorId: items.authorId, pendingComments: pendingCommentsSql } : {}),
+    ...(team ? { mrr: itemMrrSql, affected: affectedSql, authorId: items.authorId, authorEmail: users.email, pendingComments: pendingCommentsSql } : {}),
     ...(team && by === "waiting" ? { waitingSince: sql<Date | null>`${waitingSinceSql}`.mapWith((v: string | Date | null) => (v ? new Date(v) : null)) } : {}),
   }).from(items).leftJoin(users, eq(users.id, items.authorId))
     .where(and(isNull(items.mergedIntoId), moderationWhere(opts), ...where))

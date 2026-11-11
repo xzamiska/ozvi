@@ -1062,7 +1062,8 @@
       "rule": "{n, plural, one {Gdy autor lub inny użytkownik coś napisze, a zespół w ciągu # dnia nie odpowie publicznie ani nie zmieni statusu.} few {Gdy autor lub inny użytkownik coś napisze, a zespół w ciągu # dni nie odpowie publicznie ani nie zmieni statusu.} many {Gdy autor lub inny użytkownik coś napisze, a zespół w ciągu # dni nie odpowie publicznie ani nie zmieni statusu.} other {Gdy autor lub inny użytkownik coś napisze, a zespół w ciągu # dnia nie odpowie publicznie ani nie zmieni statusu.}}",
       "ruleClears": "Notatki wewnętrzne się nie liczą. Wdrożone, naprawione i odrzucone zgłoszenia nigdy się tu nie pojawiają.",
       "change": "Zmień liczbę dni"
-    }
+    },
+    "you": "Ty"
   },
   "boardAuth": {
     "noProject": "Ten projekt nie istnieje.",
