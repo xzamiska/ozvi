@@ -73,7 +73,7 @@ export default async function Billing({ params, searchParams }: { params: Promis
         title={t("dlg.changeTitle", { plan: `${PLAN_NAME[p]} (${per(i)})` })}
         lines={[
           t("dlg.changeFrom", { from: `${PLAN_NAME[curPlan]} (${priceOf(curPlan, curInterval)})`, to: `${PLAN_NAME[p]} (${priceOf(p, i)})` }),
-          up ? (est !== null && est > 0 ? t("dlg.chargeNow", { amount: eur(est, locale) }) : t("dlg.chargeNowNoAmount")) : t("dlg.credit"),
+          up ? (est !== null && est > 0 ? t("dlg.chargeNow", { amount: eur(est, locale) }) : t("dlg.chargeNowNoAmount")) : (est !== null && est < 0 ? t("dlg.refund", { amount: eur(-est, locale) }) : t("dlg.refundNoAmount")),
           t("dlg.limitsNow"),
           ...(end ? [t("dlg.nextCharge", { date: end, price: priceOf(p, i) })] : []),
         ]}

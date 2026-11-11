@@ -1408,7 +1408,7 @@
       },
       "changeHint": " Einen Planwechsel bestätigen Sie immer zuerst und sehen vorher, was Sie zahlen.",
       "doneChangeTitle": "Sie nutzen jetzt {plan}",
-      "doneChange": "Die neuen Limits gelten sofort. Ab jetzt zahlen Sie {price} + MwSt. Die Rechnung finden Sie unter Rechnungen und Karte.",
+      "doneChange": "Die neuen Limits gelten sofort. Ab jetzt zahlen Sie {price} + MwSt. Nachzahlung oder Erstattung finden Sie unter Rechnungen und Karte.",
       "doneCancelTitle": "Abo gekündigt",
       "doneCancel": "{plan} bleibt bis {date}, dann wechselt der Arbeitsbereich zu Free. Nichts wird gelöscht, und bis dahin können Sie das Abo fortsetzen.",
       "doneResumeTitle": "Das Abo läuft weiter",
@@ -1434,7 +1434,6 @@
         "changeFrom": "Von {from} zu {to}.",
         "chargeNow": "Sie zahlen jetzt die anteilige Differenz für den Rest des Zeitraums, etwa {amount} + MwSt., von der bei Creem hinterlegten Karte.",
         "chargeNowNoAmount": "Sie zahlen jetzt die Differenz für den Rest des Zeitraums von der bei Creem hinterlegten Karte; den genauen Betrag sehen Sie auf der Rechnung.",
-        "credit": "Sie zahlen jetzt nichts. Den ungenutzten Teil zieht Creem von der nächsten Zahlung ab.",
         "limitsNow": "Die neuen Limits gelten sofort.",
         "nextCharge": "Nächste Zahlung {date}: {price} + MwSt.",
         "payAndSwitch": "Bezahlen und zu {plan} wechseln",
@@ -1445,8 +1444,10 @@
         "resumeTitle": "Abo fortsetzen?",
         "resumeText": "{plan} läuft weiter und am {date} werden {price} + MwSt. abgebucht.",
         "cancelTitle": "Abo kündigen?",
-        "cancelText": "{plan} bleibt bis {date}. Dann wechselt der Arbeitsbereich zu Free und Sie zahlen nichts mehr.",
-        "cancelData": "Projekte, Ideen und Meldungen werden nicht gelöscht. Überschreiten der Free-Limits blockiert nichts, wir sagen Ihnen nur Bescheid."
+        "cancelText": "{plan} bleibt bis {date}; dieser Zeitraum ist bezahlt und wird nicht erstattet. Danach wechselt der Arbeitsbereich zu Free und Sie zahlen nichts mehr.",
+        "cancelData": "Projekte, Ideen und Meldungen werden nicht gelöscht. Überschreiten der Free-Limits blockiert nichts, wir sagen Ihnen nur Bescheid.",
+        "refund": "Den ungenutzten Teil des Zeitraums erstattet Creem sofort auf Ihre Karte, etwa {amount} + MwSt.",
+        "refundNoAmount": "Den ungenutzten Teil des Zeitraums erstattet Creem sofort auf Ihre Karte; den genauen Betrag sehen Sie auf dem Beleg."
       }
     },
     "simulate": {

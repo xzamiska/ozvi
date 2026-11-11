@@ -90,19 +90,20 @@ export async function createCheckout(
 
 /**
  * Moves the existing subscription to another product (plan or interval) instead of a second
- * checkout. Upgrades are prorated and charged now; downgrades are prorated into the next charge.
+ * checkout, effective now. Creem prorates both ways: an upgrade charges the difference for the rest
+ * of the period, a downgrade refunds the unused part (with its VAT) to the card.
  */
-export async function changeSubscription(cfg: CreemConfig, subscriptionId: string, productId: string, upgrade: boolean, f?: typeof fetch): Promise<Sub> {
+export async function changeSubscription(cfg: CreemConfig, subscriptionId: string, productId: string, f?: typeof fetch): Promise<Sub> {
   const r = await creem<Sub>(cfg, `/subscriptions/${encodeURIComponent(subscriptionId)}/upgrade`, {
     product_id: productId,
-    update_behavior: upgrade ? "proration-charge-immediately" : "proration-charge",
+    update_behavior: "proration-charge-immediately",
   }, f);
   if (!r?.id) throw new BillingError("gateway_down");
   return r;
 }
 
 const PERIOD_DAYS: Record<Interval, number> = { year: 365, quarter: 91 };
-/** Per day, the new plan costs more: Creem charges the prorated difference now; otherwise it is credited. */
+/** Per day, the new plan costs more: Creem charges the prorated difference now; otherwise it refunds it. */
 export function isUpgrade(ws: { plan: string; planInterval: string | null }, plan: PaidPlan, interval: Interval): boolean {
   if (ws.plan !== "pro" && ws.plan !== "studio") return true;
   const from = (ws.planInterval === "quarter" ? "quarter" : "year") as Interval;
@@ -110,8 +111,8 @@ export function isUpgrade(ws: { plan: string; planInterval: string | null }, pla
 }
 
 /**
- * About what Creem charges now for the rest of the period (euro cents, before VAT), when only the
- * plan changes; null when the interval changes too (Creem settles that its own way).
+ * About what Creem settles now for the rest of the period (euro cents, before VAT; negative = refund),
+ * when only the plan changes; null when the interval changes too (Creem settles that its own way).
  */
 export function prorationEstimate(ws: { plan: string; planInterval: string | null; planPeriodEnd: Date | null }, plan: PaidPlan, interval: Interval, now = Date.now()): number | null {
   if ((ws.plan !== "pro" && ws.plan !== "studio") || !ws.planPeriodEnd) return null;

@@ -1408,7 +1408,7 @@
       },
       "changeHint": " A csomagváltást mindig előbb megerősíted, és előre látod, mennyit fizetsz.",
       "doneChangeTitle": "Átváltottál erre: {plan}",
-      "doneChange": "Az új keretek azonnal érvényesek. Mostantól {price} + ÁFA a díj. A számlát a Számlák és kártya alatt találod.",
+      "doneChange": "Az új keretek azonnal érvényesek. Mostantól {price} + ÁFA a díj. A pótdíjat vagy a visszatérítést a Számlák és kártya alatt találod.",
       "doneCancelTitle": "Az előfizetés lemondva",
       "doneCancel": "A(z) {plan} {date}-ig megmarad, utána a munkaterület Free-re vált. Semmi sem törlődik, és addig visszaállíthatod az előfizetést.",
       "doneResumeTitle": "Az előfizetés folytatódik",
@@ -1434,7 +1434,6 @@
         "changeFrom": "Erről: {from}, erre: {to}.",
         "chargeNow": "Most kifizeted az időszak hátralévő részének időarányos különbözetét, kb. {amount} + ÁFA, a Creemnél mentett kártyáról.",
         "chargeNowNoAmount": "Most kifizeted a hátralévő időszak különbözetét a Creemnél mentett kártyáról; a pontos összeg a számlán lesz.",
-        "credit": "Most nem fizetsz semmit. A fel nem használt részt a Creem levonja a következő fizetésből.",
         "limitsNow": "Az új keretek azonnal érvényesek.",
         "nextCharge": "Következő fizetés {date}: {price} + ÁFA.",
         "payAndSwitch": "Fizetés és váltás erre: {plan}",
@@ -1445,8 +1444,10 @@
         "resumeTitle": "Visszaállítod az előfizetést?",
         "resumeText": "A(z) {plan} folytatódik, és {date}-án {price} + ÁFA kerül terhelésre.",
         "cancelTitle": "Lemondod az előfizetést?",
-        "cancelText": "A(z) {plan} {date}-ig megmarad. Utána a munkaterület Free-re vált, és többet nem fizetsz.",
-        "cancelData": "A projektek, ötletek és jelentések nem törlődnek. A Free keretek túllépése semmit sem blokkol, csak értesítünk."
+        "cancelText": "A(z) {plan} {date}-ig megmarad; ez az időszak ki van fizetve, és nincs visszatérítés. Utána a munkaterület Free-re vált, és többet nem fizetsz.",
+        "cancelData": "A projektek, ötletek és jelentések nem törlődnek. A Free keretek túllépése semmit sem blokkol, csak értesítünk.",
+        "refund": "Az időszak fel nem használt részét a Creem azonnal visszautalja a kártyádra, kb. {amount} + ÁFA.",
+        "refundNoAmount": "Az időszak fel nem használt részét a Creem azonnal visszautalja a kártyádra; a pontos összeg a bizonylaton lesz."
       }
     },
     "simulate": {

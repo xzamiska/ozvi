@@ -1408,7 +1408,7 @@
       },
       "changeHint": " Zmianę planu zawsze najpierw potwierdzasz i z góry widzisz, ile zapłacisz.",
       "doneChangeTitle": "Przeszedłeś na {plan}",
-      "doneChange": "Nowe limity obowiązują od razu. Od teraz płacisz {price} + VAT. Fakturę znajdziesz w Fakturach i karcie.",
+      "doneChange": "Nowe limity obowiązują od razu. Od teraz płacisz {price} + VAT. Dopłatę lub zwrot znajdziesz w Fakturach i karcie.",
       "doneCancelTitle": "Subskrypcja anulowana",
       "doneCancel": "{plan} zostaje do {date}, potem przestrzeń przechodzi na Free. Nic nie zostanie usunięte, a do tego dnia możesz subskrypcję wznowić.",
       "doneResumeTitle": "Subskrypcja trwa dalej",
@@ -1434,7 +1434,6 @@
         "changeFrom": "Z planu {from} na {to}.",
         "chargeNow": "Teraz zapłacisz proporcjonalną część za resztę okresu, około {amount} + VAT, z karty zapisanej w Creem.",
         "chargeNowNoAmount": "Teraz zapłacisz różnicę za resztę okresu z karty zapisanej w Creem; dokładną kwotę zobaczysz na fakturze.",
-        "credit": "Teraz nic nie płacisz. Niewykorzystaną część Creem odejmie od następnej płatności.",
         "limitsNow": "Nowe limity obowiązują od razu.",
         "nextCharge": "Następna płatność {date}: {price} + VAT.",
         "payAndSwitch": "Zapłać i przejdź na {plan}",
@@ -1445,8 +1444,10 @@
         "resumeTitle": "Wznowić subskrypcję?",
         "resumeText": "{plan} będzie trwać dalej, a {date} zostanie pobrane {price} + VAT.",
         "cancelTitle": "Anulować subskrypcję?",
-        "cancelText": "{plan} zostaje do {date}. Potem przestrzeń przechodzi na Free i nic więcej nie płacisz.",
-        "cancelData": "Projekty, pomysły ani zgłoszenia nie zostaną usunięte. Przekroczenie limitów Free niczego nie blokuje, tylko cię powiadomimy."
+        "cancelText": "{plan} zostaje do {date}; ten okres jest opłacony i nic nie jest zwracane. Potem przestrzeń przechodzi na Free i nic więcej nie płacisz.",
+        "cancelData": "Projekty, pomysły ani zgłoszenia nie zostaną usunięte. Przekroczenie limitów Free niczego nie blokuje, tylko cię powiadomimy.",
+        "refund": "Niewykorzystaną część okresu Creem od razu zwróci na kartę, około {amount} + VAT.",
+        "refundNoAmount": "Niewykorzystaną część okresu Creem od razu zwróci na kartę; dokładną kwotę zobaczysz na potwierdzeniu."
       }
     },
     "simulate": {

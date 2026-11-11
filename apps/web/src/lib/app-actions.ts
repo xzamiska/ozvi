@@ -1,7 +1,7 @@
 "use server";
 
 import { PLAN_LIMITS, PRICES, schema, withSystem, type Interval, type PaidPlan, type PlanName } from "@ozvi/db";
-import { applyCreemEvent, BillingError, cancelSubscription, changeSubscription, createCheckout, creemConfig, DEV_CREEM, devBilling, isUpgrade, portalLink, resumeSubscription, type CreemConfig, type Sub } from "./creem";
+import { applyCreemEvent, BillingError, cancelSubscription, changeSubscription, createCheckout, creemConfig, DEV_CREEM, devBilling, portalLink, resumeSubscription, type CreemConfig, type Sub } from "./creem";
 import { roleIn } from "./workspace";
 import { presets, themeSchema } from "@ozvi/theme";
 import { and, eq, sql } from "drizzle-orm";
@@ -200,7 +200,7 @@ export async function changePlan(workspaceId: string, plan: PaidPlan, interval: 
     if (ws.planStatus === "scheduled_cancel") throw new BillingError("resume_first");
     const productId = cfg.products[`${plan}_${interval}`];
     if (!productId) throw new BillingError("not_for_sale");
-    return changeSubscription(cfg, id, productId, isUpgrade(ws, plan, interval));
+    return changeSubscription(cfg, id, productId);
   }, `${plan}-${interval}`);
 }
 

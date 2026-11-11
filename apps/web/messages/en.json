@@ -1408,7 +1408,7 @@
       },
       "changeHint": " You always confirm a plan change first and see what you'll pay beforehand.",
       "doneChangeTitle": "You're on {plan} now",
-      "doneChange": "The new limits apply right away. From now on you pay {price} + VAT. The invoice is in Invoices and card.",
+      "doneChange": "The new limits apply right away. From now on you pay {price} + VAT. The charge or refund is in Invoices and card.",
       "doneCancelTitle": "Subscription cancelled",
       "doneCancel": "You keep {plan} until {date}, then the workspace moves to Free. Nothing is deleted, and you can resume until that day.",
       "doneResumeTitle": "Subscription continues",
@@ -1434,7 +1434,6 @@
         "changeFrom": "From {from} to {to}.",
         "chargeNow": "You pay the prorated difference for the rest of the period now, about {amount} + VAT, charged to the card saved with Creem.",
         "chargeNowNoAmount": "You pay the difference for the rest of the period now, charged to the card saved with Creem; the exact amount is on the invoice.",
-        "credit": "You pay nothing now. Creem takes the unused part off your next payment.",
         "limitsNow": "The new limits apply right away.",
         "nextCharge": "Next payment {date}: {price} + VAT.",
         "payAndSwitch": "Pay and switch to {plan}",
@@ -1445,8 +1444,10 @@
         "resumeTitle": "Resume the subscription?",
         "resumeText": "{plan} continues and {price} + VAT is charged on {date}.",
         "cancelTitle": "Cancel the subscription?",
-        "cancelText": "You keep {plan} until {date}. Then the workspace moves to Free and you pay nothing more.",
-        "cancelData": "Projects, ideas and reports are not deleted. Going over the Free limits blocks nothing; we just let you know."
+        "cancelText": "You keep {plan} until {date}; this period is paid and nothing is refunded. Then the workspace moves to Free and you pay nothing more.",
+        "cancelData": "Projects, ideas and reports are not deleted. Going over the Free limits blocks nothing; we just let you know.",
+        "refund": "Creem refunds the unused part of the period to your card right away, about {amount} + VAT.",
+        "refundNoAmount": "Creem refunds the unused part of the period to your card right away; the exact amount is on the receipt."
       }
     },
     "simulate": {

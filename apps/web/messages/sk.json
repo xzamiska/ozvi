@@ -1408,7 +1408,7 @@
       },
       "changeHint": " Zmenu plánu vždy najprv potvrdíte a vopred uvidíte, koľko zaplatíte.",
       "doneChangeTitle": "Prešli ste na {plan}",
-      "doneChange": "Nové limity platia hneď. Odteraz platíte {price} + DPH. Faktúru nájdete vo Faktúrach a karte.",
+      "doneChange": "Nové limity platia hneď. Odteraz platíte {price} + DPH. Doplatok alebo vrátenú sumu nájdete vo Faktúrach a karte.",
       "doneCancelTitle": "Predplatné je zrušené",
       "doneCancel": "{plan} vám ostane do {date}, potom priestor prejde na Free. Nič sa nezmaže a predplatné môžete do tohto dňa obnoviť.",
       "doneResumeTitle": "Predplatné pokračuje",
@@ -1434,7 +1434,6 @@
         "changeFrom": "Z plánu {from} na {to}.",
         "chargeNow": "Teraz zaplatíte pomernú časť za zvyšok obdobia, približne {amount} + DPH. Strhne sa z karty uloženej v Creem.",
         "chargeNowNoAmount": "Teraz zaplatíte rozdiel za zvyšok obdobia. Strhne sa z karty uloženej v Creem a presnú sumu uvidíte na faktúre.",
-        "credit": "Teraz neplatíte nič. Nevyužitú časť vám Creem odpočíta z ďalšej platby.",
         "limitsNow": "Nové limity platia hneď.",
         "nextCharge": "Ďalšia platba {date}: {price} + DPH.",
         "payAndSwitch": "Zaplatiť a prejsť na {plan}",
@@ -1445,8 +1444,10 @@
         "resumeTitle": "Obnoviť predplatné?",
         "resumeText": "{plan} bude pokračovať a {date} sa strhne {price} + DPH.",
         "cancelTitle": "Zrušiť predplatné?",
-        "cancelText": "{plan} vám ostane do {date}. Potom priestor prejde na Free a nič už nezaplatíte.",
-        "cancelData": "Projekty, nápady ani hlásenia sa nezmažú. Pri prekročení limitov Free sa nič nezablokuje, len vás upozorníme."
+        "cancelText": "{plan} vám ostane do {date}, za toto obdobie máte zaplatené a nič sa nevracia. Potom priestor prejde na Free a už nič nezaplatíte.",
+        "cancelData": "Projekty, nápady ani hlásenia sa nezmažú. Pri prekročení limitov Free sa nič nezablokuje, len vás upozorníme.",
+        "refund": "Nevyužitú časť za zvyšok obdobia vám Creem hneď vráti na kartu, približne {amount} + DPH.",
+        "refundNoAmount": "Nevyužitú časť za zvyšok obdobia vám Creem hneď vráti na kartu. Presnú sumu uvidíte na doklade."
       }
     },
     "simulate": {
