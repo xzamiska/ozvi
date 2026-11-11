@@ -1,9 +1,8 @@
 import { PLAN_LIMITS, schema, withProject, type Db, type PlanName } from "@ozvi/db";
-import { parseTheme, presets } from "@ozvi/theme";
 import { and, asc, eq, gte, inArray, sql } from "drizzle-orm";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
-import { renderMail } from "./email/render";
+import { ozviMailTheme, renderMail } from "./email/render";
 import { publicUrl } from "./email/url";
 import { sendNow } from "./email/worker";
 import { translationsUsed } from "./translate";
@@ -92,5 +91,5 @@ export function alertMail(ws: { id: string; name: string; plan: string }, kind: 
     heading: t(`${key}.heading`),
     paragraphs: [t(`${key}.body`, { used: n(used), limit: n(limit), ws: ws.name }), t(`usage.${kind}What`), ...(ws.plan === "studio" ? [] : [t("usage.upgrade")])],
     cta: { label: t("usage.cta"), href: `${publicUrl().replace(/\/$/, "")}/app/w/${ws.id}/plan` },
-  }, parseTheme(presets.ozvi), "Ozvi", null, locale);
+  }, ozviMailTheme(), "Ozvi", null, locale);
 }

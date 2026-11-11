@@ -1,14 +1,13 @@
 import "server-only";
 import { createHmac, randomBytes } from "node:crypto";
 import { schema, withProject, type Db, type Tx } from "@ozvi/db";
-import { parseTheme, presets } from "@ozvi/theme";
 import { and, asc, eq, gt, inArray, isNull, or, sql } from "drizzle-orm";
 import type { Account } from "./account";
 import { logActivity, who as label } from "./activity";
 import { DEFAULT_LOCALE, type Locale } from "@/i18n/locales";
 import { translator, type AppMessages } from "@/i18n/messages";
 import { db } from "./db";
-import { renderMail } from "./email/render";
+import { ozviMailTheme, renderMail } from "./email/render";
 import { publicUrl } from "./email/url";
 import { sendNow } from "./email/worker";
 import { deleteProject } from "./privacy";
@@ -98,7 +97,7 @@ export async function invite(account: Account, workspaceId: string, email: strin
     heading: t("mail.inviteHeading", { ws: ws.name }),
     paragraphs: [t(role === "owner" ? "mail.inviteBodyOwner" : "mail.inviteBodyMember", { who, ws: ws.name }), t("mail.inviteValidity")],
     cta: { label: t("mail.inviteCta"), href: url },
-  }, parseTheme(presets.ozvi), "Ozvi", null, locale);
+  }, ozviMailTheme(), "Ozvi", null, locale);
   const sent = await sendNow({ to: email, fromName: "Ozvi", subject: mail.subject, html: mail.html, text: mail.text, kind: "invite" });
   if (!sent && process.env.NODE_ENV !== "production") console.log(`[ozvi] invite for ${email}: ${url}`);
   return sent;
@@ -286,7 +285,7 @@ export async function applyEmailChange(accountId: string, email: string, locale:
     summary: "",
     heading: t("mail.changedHeading"),
     paragraphs: [t("mail.changedBody", { email }), t("mail.changedNotYou")],
-  }, parseTheme(presets.ozvi), "Ozvi", null, locale);
+  }, ozviMailTheme(), "Ozvi", null, locale);
   await sendNow({ to: old, fromName: "Ozvi", subject: mail.subject, html: mail.html, text: mail.text, kind: "login" }).catch(() => false);
   return updated!;
 }

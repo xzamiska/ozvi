@@ -1,12 +1,12 @@
 import { createHmac, randomBytes, randomInt, timingSafeEqual } from "node:crypto";
 import { schema, type Db } from "@ozvi/db";
-import { parseTheme, presets, type Theme } from "@ozvi/theme";
+import { parseTheme, type Theme } from "@ozvi/theme";
 import { and, desc, eq, gt, isNull, sql } from "drizzle-orm";
 import { resolveBoardLocale } from "../i18n/board";
 import { isLocale, LOCALE_COOKIE, matchLocale, type Locale } from "../i18n/locales";
 import { allow } from "./ratelimit";
 import { translator } from "../i18n/messages";
-import { renderMail } from "./email/render";
+import { ozviMailTheme, renderMail } from "./email/render";
 import { sendNow } from "./email/worker";
 
 /**
@@ -92,7 +92,7 @@ export async function issueLogin(i: IssueInput): Promise<{ sent: boolean }> {
   });
 
   let theme: Theme;
-  try { theme = parseTheme(i.brand.theme ?? presets.ozvi); } catch { theme = parseTheme(presets.ozvi); }
+  try { theme = i.brand.theme ? parseTheme(i.brand.theme) : ozviMailTheme(); } catch { theme = ozviMailTheme(); }
   const url = `${i.linkBase}${i.linkBase.includes("?") ? "&" : "?"}t=${link}`;
   const mail = renderMail({
     subject: linkOnly ? t("loginSubjectLink", { brand: i.brand.name }) : t("loginSubject", { code, brand: i.brand.name }),
@@ -182,7 +182,7 @@ export async function issueEmailChange(db: Db, accountId: string, newEmail: stri
     paragraphs: [t("changeBody")],
     cta: { label: t("confirmEmail"), href: url },
     fine: [t("changeIgnore")],
-  }, parseTheme(presets.ozvi), "Ozvi", null, loc);
+  }, ozviMailTheme(), "Ozvi", null, loc);
   const sent = await sendNow({ to: email, fromName: "Ozvi", subject: mail.subject, html: mail.html, text: mail.text, kind: "login" });
   if (!sent && process.env.NODE_ENV !== "production") console.log(`[ozvi] e-mail change to ${email}: ${url}`);
   return { sent, url };

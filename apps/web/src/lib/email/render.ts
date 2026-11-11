@@ -1,12 +1,24 @@
-import { MIX, mixOklab, onAccent, renderedPalettes, type Theme } from "@ozvi/theme";
+import { MIX, mixOklab, onAccent, parseTheme, presets, renderedPalettes, type Theme } from "@ozvi/theme";
 import type { Locale } from "../../i18n/locales";
 import { translator } from "../../i18n/messages";
 import { markdownToText, renderMarkdownWith } from "../markdown";
+import { publicUrl } from "./url";
 
 /** Themed, table-free e-mail: brand, one card, small print. Inline styles only; every dynamic string is escaped. */
 
 export const esc = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+
+/**
+ * Ozvi's own e-mails (sign-in to the console, account, usage, updates): the Ozvi preset with the logo as PNG
+ * (mail clients do not show SVG), served by this instance, so self-hosted servers send their own copy.
+ */
+export function ozviMailTheme(): Theme {
+  return { ...parseTheme(presets.ozvi), logoUrl: `${publicUrl()}/email/ozvi-logo.png` };
+}
+
+/** Gmail and Outlook show no SVG: such a logo would be a broken image, so the mark stands in for it. */
+const mailSafeLogo = (url: string | undefined) => !!url && !/\.svg(\?|#|$)/i.test(url) && !/^data:image\/svg/i.test(url);
 
 export interface Mail {
   subject: string;
@@ -64,10 +76,12 @@ export function renderMail(m: Mail, theme: Theme, projectName: string, unsubscri
   const font = `${esc(theme.font.body)},-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif`;
   const mono = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Courier New',monospace";
 
-  // The project's logo when it has one (alt text when images are blocked), otherwise its name next to an accent mark.
-  const brand = theme.logoUrl
-    ? `<img src="${esc(theme.logoUrl)}" alt="${esc(projectName)}" height="28" style="display:block;height:28px;width:auto;border:0">`
-    : `<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${c.accent};margin-right:8px;vertical-align:middle"></span><span style="font-size:15px;font-weight:700;vertical-align:middle">${esc(projectName)}</span>`;
+  // The project's logo when mail clients can show it (alt text when images are blocked); otherwise a tile with
+  // its initial in the accent (like the board's favicon) next to its name.
+  const initial = esc((Array.from(projectName.trim())[0] ?? "O").toUpperCase());
+  const brand = mailSafeLogo(theme.logoUrl)
+    ? `<img src="${esc(theme.logoUrl!)}" alt="${esc(projectName)}" height="28" style="display:block;height:28px;width:auto;border:0">`
+    : `<span style="display:inline-block;width:28px;height:28px;line-height:28px;border-radius:${Math.min(r, 8)}px;background:${c.accent};color:${onAccent(c.accent)};text-align:center;font-size:15px;font-weight:700;vertical-align:middle">${initial}</span><span style="display:inline-block;margin-left:10px;font-size:16px;font-weight:700;letter-spacing:-0.01em;vertical-align:middle">${esc(projectName)}</span>`;
   const code = m.code
     ? `<div style="margin:24px 0 8px;padding:20px 12px;background:${c.canvas};border:1px solid ${c.border};border-radius:${r}px;text-align:center">
 <div style="font-family:${mono};font-size:34px;line-height:1.1;font-weight:700;letter-spacing:10px;padding-left:10px;color:${c.ink}">${esc(m.code.value)}</div>

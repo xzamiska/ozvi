@@ -1,9 +1,8 @@
 import { schema } from "@ozvi/db";
-import { parseTheme, presets } from "@ozvi/theme";
 import { asc } from "drizzle-orm";
 import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/i18n/locales";
 import { db } from "@/lib/db";
-import { renderMail } from "@/lib/email/render";
+import { ozviMailTheme, renderMail } from "@/lib/email/render";
 import { projectOrigin, publicUrl } from "@/lib/email/url";
 import { sendNow } from "@/lib/email/worker";
 import { updaterTokenOk } from "@/lib/updater";
@@ -37,7 +36,7 @@ export async function POST(req: Request) {
   const mail = updaterMail(e, { server: publicUrl(), settingsUrl }, locale);
   if (!mail || !to.length) return Response.json({ ok: true, sent: 0 });
 
-  const rendered = renderMail(mail, parseTheme(presets.ozvi), "Ozvi", null, locale);
+  const rendered = renderMail(mail, ozviMailTheme(), "Ozvi", null, locale);
   let sent = 0;
   for (const addr of to) {
     try {
