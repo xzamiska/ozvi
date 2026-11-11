@@ -22,3 +22,6 @@ data
 # GitHub App keys written by scripts/create-github-app.mjs
 github-app.env
 *.github-app.env
+
+# Claude Code worktrees and local settings
+.claude/
