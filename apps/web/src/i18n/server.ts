@@ -1,5 +1,6 @@
 import "server-only";
 import { cookies, headers } from "next/headers";
+import { COMPARE_ROOTS, compareLocale } from "@/lib/compare";
 import { DEFAULT_LOCALE, isLocale, LOCALE_COOKIE, LOCALES, matchLocale, type Locale } from "./locales";
 
 /**
@@ -20,7 +21,7 @@ export function landingLocale(path: string): Locale | null {
 }
 
 /** Top-level routes that are never a board slug. */
-const NOT_BOARDS = new Set(["app", "api", "demo", "dev", "mcp", "terms", "privacy", "accessibility", "subprocessors", "releases", "releases.json", "podmienky", "sukromie", "pristupnost", "_next", ...LOCALES]);
+const NOT_BOARDS = new Set(["app", "api", "demo", "dev", "mcp", "terms", "privacy", "accessibility", "subprocessors", "releases", "releases.json", "podmienky", "sukromie", "pristupnost", "_next", ...COMPARE_ROOTS, ...LOCALES]);
 
 /** The board slug of this request (/<slug>/…), or null outside boards. */
 export async function boardSlugOfRequest(): Promise<string | null> {
@@ -36,7 +37,7 @@ export async function boardSlugOfRequest(): Promise<string | null> {
  */
 export async function htmlLocale(): Promise<Locale> {
   const path = (await headers()).get("x-ozvi-path") ?? "/";
-  const landing = landingLocale(path);
+  const landing = landingLocale(path) ?? compareLocale(path);
   if (landing) return landing;
   const first = path.split("/")[1];
   if (first && !NOT_BOARDS.has(first)) {

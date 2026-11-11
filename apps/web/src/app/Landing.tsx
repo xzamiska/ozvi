@@ -14,6 +14,7 @@ import { LangSwitch, SiteHeader, type NavItem } from "@/components/landing/SiteH
 import { signupClosed } from "@/lib/account-rules";
 import { ownFeedback } from "@/lib/own-feedback";
 import { ProductTour } from "@/components/landing/ProductTour";
+import { compareLinks } from "@/components/compare/links";
 import { OzviLogo, OzviMark } from "@/components/ozvi/Logo";
 import { LOCALE_TAG, type Locale } from "@/i18n/locales";
 import { cn } from "@/lib/utils";
@@ -133,6 +134,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
     ? <span className={cn(soonLabel, extra)}>{t("nav.soon")}</span>
     : <Link href={start.href} className={cn(className, extra)}>{label}</Link>;
   const own = await ownFeedback();
+  const compare = compareLinks(locale);
   const fonts = [...new Set([site, host].map((th) => fontsHref(th, { skipBundled: true })).filter(Boolean))] as string[];
 
   return (
@@ -489,7 +491,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
         </main>
 
         <footer className="border-t bg-surface">
-          <div className="oz-frame grid gap-10 py-14 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className={cn("oz-frame grid gap-10 py-14 sm:grid-cols-2", compare ? "md:grid-cols-[1.4fr_1fr_1fr_1fr] lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]" : "md:grid-cols-[1.4fr_1fr_1fr_1fr]")}>
             <div className="grid content-start gap-4 sm:col-span-2 md:col-span-1">
               <OzviLogo markClassName="size-6" />
               <p className="max-w-[32ch] text-[14px] text-muted-foreground">{t("footer.tagline")}</p>
@@ -498,6 +500,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             {([
               [t("footer.product"), [...(t.raw("nav.productItems") as NavItem[]).slice(0, 3), { href: "/demo", title: t("footer.demo"), text: "" }, ...(own ? [{ href: own.ideas, title: t("footer.feedback"), text: "" }] : [])]],
               [t("footer.developers"), [...(t.raw("nav.devItems") as NavItem[]), t.raw("nav.devFeature") as NavItem]],
+              ...(compare ? [[compare.title, compare.items.map((i) => ({ ...i, text: "" }))] as const] : []),
             ] as const).map(([h, items]) => (
               <nav key={h} aria-label={h}>
                 <h2 className="text-[13px] font-semibold">{h}</h2>

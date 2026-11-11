@@ -1,3 +1,5 @@
+import { COMPARE_PATHS } from "./compare";
+
 /**
  * Search engines: only Ozvi's own public pages in the cloud (landing, docs, legal, releases) on the
  * primary host may be indexed. Boards never are, on any host, in any mode, and there is no setting
@@ -6,7 +8,7 @@
 
 export const NOINDEX = "noindex, nofollow, noarchive, nosnippet";
 
-const PUBLIC_PAGES = new Set(["/", "/cs", "/en", "/pl", "/hu", "/de", "/releases", "/privacy", "/terms", "/subprocessors", "/accessibility", "/docs", "/demo"]);
+const PUBLIC_PAGES = new Set(["/", "/cs", "/en", "/pl", "/hu", "/de", "/releases", "/privacy", "/terms", "/subprocessors", "/accessibility", "/docs", "/demo", ...COMPARE_PATHS]);
 
 export function indexable(o: { cloud: boolean; primary: boolean; path: string }): boolean {
   if (!o.cloud || !o.primary) return false;

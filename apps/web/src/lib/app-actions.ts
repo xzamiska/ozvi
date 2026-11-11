@@ -83,7 +83,9 @@ export interface NewProjectState { error?: string; created?: string }
 const SLUG = /^[a-z0-9][a-z0-9-]{1,40}$/;
 const RESERVED = new Set(["app", "api", "mcp", "dev", "demo", "admin", "www", "static", "login", "signup", "billing", "docs", "help", "status", "widget", "fonts", "oauth", "well-known",
   "mail", "smtp", "imap", "ns1", "ns2", "cdn", "assets", "staging", "blog", "domains", "cname", "support", "security", "abuse", "ozvi", "pay", "checkout", "send", "rsend",
-  "podmienky", "sukromie", "pristupnost", "accessibility", "legal", "terms", "privacy", "subprocessors", "releases", "dpa", "invite", "account", "sk", "cs", "en", "de", "pl", "hu"]);
+  "podmienky", "sukromie", "pristupnost", "accessibility", "legal", "terms", "privacy", "subprocessors", "releases", "dpa", "invite", "account", "sk", "cs", "en", "de", "pl", "hu",
+  // comparison pages (lib/compare.ts COMPARE_ROOTS)
+  "vs", "alternativa-k-fideru"]);
 
 export async function createProject(_: NewProjectState, form: FormData): Promise<NewProjectState> {
   const account = await getAccount();
