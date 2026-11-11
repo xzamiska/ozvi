@@ -265,8 +265,9 @@
         "on_demand": "Na żądanie",
         "on_demandHint": "Przy wpisach w innym języku pojawia się przycisk „Przetłumacz”.",
         "auto": "Automatycznie",
-        "autoHint": "Wpisy w innym języku są od razu wyświetlane w tłumaczeniu, z linkiem do oryginału."
-      }
+        "autoHint": "Wpisy w innym języku od razu wyświetlają się przetłumaczone, z linkiem do oryginału. Zużywa więcej tłumaczeń niż „Na żądanie”."
+      },
+      "allowance": "W tym miesiącu: {used} z {limit} nowych tłumaczeń dla całej przestrzeni. Tłumaczenie, które już raz powstało, nie liczy się ponownie."
     },
     "login": {
       "text": "Użytkownicy twojej aplikacji wchodzą na tablicę opinii bez kolejnego hasła: twoja aplikacja ich loguje (SSO) albo przekierowuje do twojego dostawcy tożsamości (OIDC).",
@@ -2611,9 +2612,10 @@
         "files": "Załączniki",
         "domain": "Własna domena",
         "badge": "Bez plakietki Ozvi",
-        "ai": "AI: duplikaty i podsumowania",
+        "ai": "AI: duplikaty, podsumowania i szkice nowości",
         "users": "Użytkownicy i rekordy",
-        "all": "MCP, GitHub, webhooki, SSO"
+        "all": "MCP, GitHub, webhooki, SSO",
+        "translations": "Tłumaczenia AI miesięcznie"
       },
       "yes": "tak",
       "no": "nie"
@@ -2742,7 +2744,7 @@
             "Notatki wewnętrzne i tagi tylko dla zespołu",
             "Podobne wpisy i scalanie duplikatów",
             "Kolejka „Bez odpowiedzi”, żeby nic nie utknęło",
-            "Podsumowania AI i tłumaczenia wpisów (plan Studio i własny serwer)"
+            "Tłumaczenie wpisów przez AI (Pro i Studio), podsumowania dyskusji AI (Studio)"
           ]
         },
         {
@@ -2855,7 +2857,7 @@
         },
         "langs": {
           "title": "Sześć języków",
-          "text": "Tablica, widget i e-maile po słowacku, czesku, angielsku, polsku, węgiersku i niemiecku. Wpisy przetłumaczysz jednym kliknięciem."
+          "text": "Tablica, widget i e-maile po słowacku, czesku, angielsku, polsku, węgiersku i niemiecku. Wpisy w innym języku AI przetłumaczy na język czytelnika, zawsze z oznaczeniem i oryginałem na kliknięcie (Pro i Studio)."
         },
         "a11y": {
           "title": "Dostępność",
@@ -3554,7 +3556,7 @@
       "refused": "Tego wpisu nie można przetłumaczyć.",
       "empty": "Tłumaczenie się nie udało. Spróbuj ponownie.",
       "rate": "Za dużo tłumaczeń w tej godzinie. Spróbuj później.",
-      "cap": "Ta tablica osiągnęła dzisiejszy limit tłumaczeń. Spróbuj jutro.",
+      "cap": "Miesięczna liczba tłumaczeń AI została wyczerpana. Oryginał zostaje, nowe tłumaczenia wrócą od 1. dnia kolejnego miesiąca.",
       "tooLong": "Ten wpis jest za długi do przetłumaczenia."
     }
   },

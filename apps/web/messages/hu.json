@@ -265,8 +265,9 @@
         "on_demand": "Kérésre",
         "on_demandHint": "A más nyelvű bejegyzések mellett „Fordítás” gomb jelenik meg.",
         "auto": "Automatikus",
-        "autoHint": "A más nyelvű bejegyzések azonnal lefordítva jelennek meg, az eredetire mutató linkkel."
-      }
+        "autoHint": "A más nyelvű bejegyzések rögtön lefordítva jelennek meg, az eredetire mutató linkkel. Több fordítást használ, mint a „Kérésre”."
+      },
+      "allowance": "Ebben a hónapban: {used} / {limit} új fordítás a teljes munkaterületen. Az egyszer elkészült fordítás nem számít újra."
     },
     "login": {
       "text": "Az alkalmazásod felhasználói újabb jelszó nélkül jutnak be a visszajelzési táblára: az alkalmazásod jelentkezteti be őket (SSO), vagy az identitásszolgáltatódon keresztül irányítja őket (OIDC).",
@@ -2611,9 +2612,10 @@
         "files": "Mellékletek",
         "domain": "Saját domain",
         "badge": "Ozvi-jelvény nélkül",
-        "ai": "AI: duplikátumok és összefoglalók",
+        "ai": "AI: duplikátumok, összefoglalók és újdonság-vázlatok",
         "users": "Felhasználók és rekordok",
-        "all": "MCP, GitHub, webhookok, SSO"
+        "all": "MCP, GitHub, webhookok, SSO",
+        "translations": "AI-fordítás havonta"
       },
       "yes": "igen",
       "no": "nem"
@@ -2742,7 +2744,7 @@
             "Belső jegyzetek és csak a csapat által látható címkék",
             "Hasonló bejegyzések és duplikátumok összevonása",
             "„Válasz nélkül” sor, hogy semmi ne maradjon el",
-            "MI-összefoglaló és fordítás (Studio csomag és saját szerver)"
+            "Bejegyzések AI-fordítása (Pro és Studio), AI-összefoglalók (Studio)"
           ]
         },
         {
@@ -2855,7 +2857,7 @@
         },
         "langs": {
           "title": "Hat nyelv",
-          "text": "Tábla, widget és e-mailek szlovákul, csehül, angolul, lengyelül, magyarul és németül. A bejegyzések egy kattintással lefordíthatók."
+          "text": "Tábla, widget és e-mailek szlovákul, csehül, angolul, lengyelül, magyarul és németül. A más nyelvű bejegyzéseket az AI lefordítja az olvasó nyelvére, mindig jelölve, az eredeti egy kattintásra (Pro és Studio)."
         },
         "a11y": {
           "title": "Akadálymentesség",
@@ -3554,7 +3556,7 @@
       "refused": "Ez a bejegyzés nem fordítható le.",
       "empty": "A fordítás nem sikerült. Próbáld újra.",
       "rate": "Túl sok fordítás ebben az órában. Próbáld újra később.",
-      "cap": "Ez a tábla elérte a mai fordítási korlátot. Próbáld újra holnap.",
+      "cap": "Elfogyott a havi AI-fordítások száma. Az eredeti marad, új fordítások a következő hónap 1. napjától lesznek.",
       "tooLong": "Ez a bejegyzés túl hosszú a fordításhoz."
     }
   },

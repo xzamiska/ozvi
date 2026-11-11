@@ -118,6 +118,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
     { label: t("pricing.rows.files"), value: (p) => gb(PLAN_LIMITS[p].attachmentBytes) },
     { label: t("pricing.rows.domain"), value: (p) => yes(PLAN_LIMITS[p].customDomain) },
     { label: t("pricing.rows.badge"), value: (p) => yes(!PLAN_LIMITS[p].badge) },
+    { label: t("pricing.rows.translations"), value: (p) => (PLAN_LIMITS[p].translationsPerMonth > 0 ? num(PLAN_LIMITS[p].translationsPerMonth) : yes(false)) },
     { label: t("pricing.rows.ai"), value: (p) => yes(PLAN_LIMITS[p].ai) },
     { label: t("pricing.rows.users"), value: () => t("pricing.unlimited") },
     { label: t("pricing.rows.all"), value: () => yes(true) },

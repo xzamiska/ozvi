@@ -265,8 +265,9 @@
         "on_demand": "Na vyžádání",
         "on_demandHint": "U příspěvku v jiném jazyce se zobrazí tlačítko „Přeložit“.",
         "auto": "Automaticky",
-        "autoHint": "Příspěvky v jiném jazyce se rovnou zobrazí přeložené, s odkazem na originál."
-      }
+        "autoHint": "Příspěvky v jiném jazyce se rovnou zobrazí přeložené, s odkazem na originál. Spotřebuje víc překladů než „Na požádání“."
+      },
+      "allowance": "Tento měsíc: {used} z {limit} nových překladů za celý pracovní prostor. Překlad, který už jednou vznikl, se znovu nepočítá."
     },
     "login": {
       "text": "Uživatelé aplikace se do zpětné vazby dostanou bez dalšího hesla: aplikace je podepíše (SSO), nebo je pošle přes vašeho poskytovatele identity (OIDC).",
@@ -2611,9 +2612,10 @@
         "files": "Přílohy",
         "domain": "Vlastní doména",
         "badge": "Bez odznaku Ozvi",
-        "ai": "AI: duplicity a souhrny",
+        "ai": "AI: duplicity, souhrny a koncepty novinek",
         "users": "Uživatelé a záznamy",
-        "all": "MCP, GitHub, webhooky, SSO"
+        "all": "MCP, GitHub, webhooky, SSO",
+        "translations": "AI překlady měsíčně"
       },
       "yes": "ano",
       "no": "ne"
@@ -2742,7 +2744,7 @@
             "Interní poznámky a štítky jen pro tým",
             "Podobné záznamy a sloučení duplicit",
             "Fronta „Bez odpovědi“, aby nic nezůstalo ležet",
-            "AI shrnutí a překlad příspěvků (tarif Studio a vlastní server)"
+            "AI překlad příspěvků (Pro a Studio), AI shrnutí diskuze (Studio)"
           ]
         },
         {
@@ -2855,7 +2857,7 @@
         },
         "langs": {
           "title": "Šest jazyků",
-          "text": "Board, widget i e-maily slovensky, česky, anglicky, polsky, maďarsky a německy. Příspěvky se dají přeložit jedním klikem."
+          "text": "Board, widget i e-maily slovensky, česky, anglicky, polsky, maďarsky a německy. Příspěvky v jiném jazyce přeloží AI do jazyka čtenáře, vždy s označením a originálem na klik (Pro a Studio)."
         },
         "a11y": {
           "title": "Přístupnost",
@@ -3554,7 +3556,7 @@
       "refused": "Tento příspěvek nelze přeložit.",
       "empty": "Překlad se nepodařil. Zkuste to znovu.",
       "rate": "Příliš mnoho překladů za hodinu. Zkuste to později.",
-      "cap": "Board dnes dosáhl denního limitu překladů. Zkuste to zítra.",
+      "cap": "Měsíční počet AI překladů je vyčerpán. Originál zůstává, nové překlady přibudou od 1. dne dalšího měsíce.",
       "tooLong": "Příspěvek je na překlad příliš dlouhý."
     }
   },

@@ -176,10 +176,12 @@ export function SecretForm({ slug, hasSecret }: { slug: string; hasSecret: boole
 }
 
 /** Board languages: one default (always offered) and the set visitors may get or pick. */
-export function LanguagesForm({ slug, defaultLocale, locales, translationMode = "off", aiReady = false }: {
+export function LanguagesForm({ slug, defaultLocale, locales, translationMode = "off", aiReady = false, allowance = null }: {
   slug: string; defaultLocale: string; locales: string[];
-  /** Post translation (lib/translate.ts): off | on_demand | auto; needs AI (plan with AI / OZVI_AI_PROVIDER). */
+  /** Post translation (lib/translate.ts): off | on_demand | auto; needs a plan with translations (or OZVI_AI_PROVIDER). */
   translationMode?: string; aiReady?: boolean;
+  /** New translations this month across the workspace and the plan's allowance (null = unlimited). */
+  allowance?: { used: number; limit: number } | null;
 }) {
   const all = useTranslations("admin");
   const t = useTranslations("admin.languages");
@@ -217,6 +219,7 @@ export function LanguagesForm({ slug, defaultLocale, locales, translationMode = 
       <fieldset className="grid gap-2.5" disabled={!aiReady}>
         <legend className="mb-1 text-[14px] font-semibold">{t("translation")}</legend>
         <p className={hint} id="lang-translation-hint">{aiReady ? t("translationHint") : t("translationNoAi")}</p>
+        {aiReady && allowance && <p className={hint}>{t("allowance", { used: allowance.used.toLocaleString(), limit: allowance.limit.toLocaleString() })}</p>}
         <RadioGroup name="translationMode" defaultValue={aiReady ? translationMode : "off"} disabled={!aiReady} aria-describedby="lang-translation-hint" className="grid gap-3">
           {(["off", "on_demand", "auto"] as const).map((m) => (
             <div key={m} className="flex items-start gap-2.5">

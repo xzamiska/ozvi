@@ -265,8 +265,9 @@
         "on_demand": "On request",
         "on_demandHint": "Posts in another language get a “Translate” button.",
         "auto": "Automatic",
-        "autoHint": "Posts in another language are shown translated straight away, with a link to the original."
-      }
+        "autoHint": "Posts in another language are shown translated straight away, with a link to the original. Uses more translations than “On request”."
+      },
+      "allowance": "This month: {used} of {limit} new translations for the whole workspace. A translation made once isn't counted again."
     },
     "login": {
       "text": "Your app’s users get into the feedback board without another password: your app signs them in (SSO) or sends them through your identity provider (OIDC).",
@@ -2611,9 +2612,10 @@
         "files": "Attachments",
         "domain": "Custom domain",
         "badge": "No Ozvi badge",
-        "ai": "AI: duplicates and summaries",
+        "ai": "AI: duplicates, summaries and news drafts",
         "users": "Users and records",
-        "all": "MCP, GitHub, webhooks, SSO"
+        "all": "MCP, GitHub, webhooks, SSO",
+        "translations": "AI translations a month"
       },
       "yes": "yes",
       "no": "no"
@@ -2742,7 +2744,7 @@
             "Internal notes and team-only tags",
             "Similar items and merging duplicates",
             "An “Unanswered” queue so nothing sits forgotten",
-            "AI summaries and translations (Studio plan and self-host)"
+            "AI translation of posts (Pro and Studio), AI thread summaries (Studio)"
           ]
         },
         {
@@ -2855,7 +2857,7 @@
         },
         "langs": {
           "title": "Six languages",
-          "text": "The board, widget and e-mails in Slovak, Czech, English, Polish, Hungarian and German. Posts translate in one click."
+          "text": "Board, widget and e-mails in Slovak, Czech, English, Polish, Hungarian and German. Posts in another language are translated by AI into the reader's language, always labelled with the original a click away (Pro and Studio)."
         },
         "a11y": {
           "title": "Accessibility",
@@ -3554,7 +3556,7 @@
       "refused": "This post can’t be translated.",
       "empty": "The translation didn’t work. Try again.",
       "rate": "Too many translations this hour. Try again later.",
-      "cap": "This board has reached today’s translation limit. Try again tomorrow.",
+      "cap": "This month's AI translations are used up. The original stays; new translations come back on the 1st of next month.",
       "tooLong": "This post is too long to translate."
     }
   },

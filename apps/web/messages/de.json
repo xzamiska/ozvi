@@ -265,8 +265,9 @@
         "on_demand": "Auf Anfrage",
         "on_demandHint": "Beiträge in einer anderen Sprache erhalten eine Schaltfläche „Übersetzen“.",
         "auto": "Automatisch",
-        "autoHint": "Beiträge in einer anderen Sprache werden sofort übersetzt angezeigt, mit einem Link zum Original."
-      }
+        "autoHint": "Beiträge in einer anderen Sprache erscheinen gleich übersetzt, mit Link zum Original. Verbraucht mehr Übersetzungen als „Auf Anfrage“."
+      },
+      "allowance": "Diesen Monat: {used} von {limit} neuen Übersetzungen für den ganzen Arbeitsbereich. Eine einmal erstellte Übersetzung zählt nicht erneut."
     },
     "login": {
       "text": "Die Nutzer Ihrer App gelangen ohne weiteres Passwort ins Feedback-Board: Ihre App meldet sie an (SSO) oder leitet sie über Ihren Identitätsanbieter (OIDC).",
@@ -2611,9 +2612,10 @@
         "files": "Anhänge",
         "domain": "Eigene Domain",
         "badge": "Ohne Ozvi-Badge",
-        "ai": "KI: Duplikate und Zusammenfassungen",
+        "ai": "KI: Duplikate, Zusammenfassungen und Entwürfe",
         "users": "Nutzer und Einträge",
-        "all": "MCP, GitHub, Webhooks, SSO"
+        "all": "MCP, GitHub, Webhooks, SSO",
+        "translations": "KI-Übersetzungen pro Monat"
       },
       "yes": "ja",
       "no": "nein"
@@ -2742,7 +2744,7 @@
             "Interne Notizen und Tags nur fürs Team",
             "Ähnliche Einträge und Zusammenführen von Duplikaten",
             "Eine Liste „Unbeantwortet“, damit nichts liegen bleibt",
-            "KI-Zusammenfassung und Übersetzung (Studio-Tarif und eigener Server)"
+            "KI-Übersetzung von Beiträgen (Pro und Studio), KI-Zusammenfassungen (Studio)"
           ]
         },
         {
@@ -2855,7 +2857,7 @@
         },
         "langs": {
           "title": "Sechs Sprachen",
-          "text": "Board, Widget und E-Mails auf Slowakisch, Tschechisch, Englisch, Polnisch, Ungarisch und Deutsch. Beiträge lassen sich mit einem Klick übersetzen."
+          "text": "Board, Widget und E-Mails auf Slowakisch, Tschechisch, Englisch, Polnisch, Ungarisch und Deutsch. Beiträge in einer anderen Sprache übersetzt KI in die Sprache der Lesenden, immer gekennzeichnet, das Original einen Klick entfernt (Pro und Studio)."
         },
         "a11y": {
           "title": "Barrierefreiheit",
@@ -3554,7 +3556,7 @@
       "refused": "Dieser Beitrag kann nicht übersetzt werden.",
       "empty": "Die Übersetzung hat nicht funktioniert. Versuchen Sie es erneut.",
       "rate": "Zu viele Übersetzungen in dieser Stunde. Versuchen Sie es später erneut.",
-      "cap": "Dieses Board hat das heutige Übersetzungslimit erreicht. Versuchen Sie es morgen erneut.",
+      "cap": "Die KI-Übersetzungen dieses Monats sind aufgebraucht. Das Original bleibt; neue Übersetzungen gibt es ab dem 1. des nächsten Monats.",
       "tooLong": "Dieser Beitrag ist zu lang für eine Übersetzung."
     }
   },

@@ -265,8 +265,9 @@
         "on_demand": "Na požiadanie",
         "on_demandHint": "Pri príspevku v inom jazyku sa zobrazí tlačidlo „Preložiť“.",
         "auto": "Automaticky",
-        "autoHint": "Príspevky v inom jazyku sa rovno zobrazia preložené, s odkazom na originál."
-      }
+        "autoHint": "Príspevky v inom jazyku sa rovno zobrazia preložené, s odkazom na originál. Míňa viac prekladov ako „Na požiadanie“."
+      },
+      "allowance": "Tento mesiac: {used} z {limit} nových prekladov za celý pracovný priestor. Preklad, ktorý už raz vznikol, sa nepočíta znova."
     },
     "login": {
       "text": "Používatelia aplikácie sa do spätnej väzby dostanú bez ďalšieho hesla: aplikácia ich podpíše (SSO), alebo ich pošle cez vášho poskytovateľa identity (OIDC).",
@@ -2611,9 +2612,10 @@
         "files": "Prílohy",
         "domain": "Vlastná doména",
         "badge": "Bez odznaku Ozvi",
-        "ai": "AI: duplicity a súhrny",
+        "ai": "AI: duplicity, súhrny a koncepty noviniek",
         "users": "Používatelia a záznamy",
-        "all": "MCP, GitHub, webhooky, SSO"
+        "all": "MCP, GitHub, webhooky, SSO",
+        "translations": "AI preklady mesačne"
       },
       "yes": "áno",
       "no": "nie"
@@ -2742,7 +2744,7 @@
             "Interné poznámky a štítky len pre tím",
             "Podobné záznamy a zlúčenie duplicít",
             "Fronta „Bez odpovede“, aby nič neostalo ležať",
-            "AI zhrnutie a preklad príspevkov (plán Studio a vlastný server)"
+            "AI preklad príspevkov (Pro a Studio), AI zhrnutie diskusie (Studio)"
           ]
         },
         {
@@ -2855,7 +2857,7 @@
         },
         "langs": {
           "title": "Šesť jazykov",
-          "text": "Board, widget aj e-maily po slovensky, česky, anglicky, poľsky, maďarsky a nemecky. Príspevky sa dajú preložiť jedným klikom."
+          "text": "Board, widget aj e-maily po slovensky, česky, anglicky, poľsky, maďarsky a nemecky. Príspevky v inom jazyku preloží AI do jazyka čitateľa, vždy s označením a originálom na klik (Pro a Studio)."
         },
         "a11y": {
           "title": "Prístupnosť",
@@ -3554,7 +3556,7 @@
       "refused": "Tento príspevok sa nedá preložiť.",
       "empty": "Preklad sa nepodaril. Skúste to znova.",
       "rate": "Priveľa prekladov za hodinu. Skúste to neskôr.",
-      "cap": "Board dnes dosiahol denný limit prekladov. Skúste to zajtra.",
+      "cap": "Mesačný počet AI prekladov je vyčerpaný. Originál ostáva, nové preklady pribudnú od 1. dňa ďalšieho mesiaca.",
       "tooLong": "Príspevok je na preklad príliš dlhý."
     }
   },
