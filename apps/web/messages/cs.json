@@ -3956,5 +3956,14 @@
       ],
       "teamBadge": "Tým"
     }
+  },
+  "seo": {
+    "demoTitle": "Vyzkoušejte Ozvi naživo – demo widgetu a boardu",
+    "demoDescription": "Nahlaste chybu se screenshotem, navrhněte nápad a podívejte se, co uvidí tým i autor. Ukázková aplikace, nic se neodesílá.",
+    "releasesDescription": "Všechna vydání Ozvi: nové funkce, opravy a co se mění pro správce vlastních serverů.",
+    "privacyDescription": "Jak Ozvi zpracovává osobní údaje: jaké údaje, proč, jak dlouho a kdo je zpracovává.",
+    "termsDescription": "Obchodní podmínky služby Ozvi: plány, platby, zrušení a odpovědnost.",
+    "subprocessorsDescription": "Subdodavatelé, kteří pro Ozvi zpracovávají údaje: hosting, e-maily, platby a AI překlady, všichni v EU.",
+    "accessibilityDescription": "Prohlášení o přístupnosti Ozvi: co splňujeme, známá omezení a jak nám nahlásit problém."
   }
 }

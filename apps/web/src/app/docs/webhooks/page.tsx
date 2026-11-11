@@ -1,13 +1,11 @@
+import { pageMeta } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Code, Note, Table } from "@/components/docs/blocks";
 import { DocsShell, type TocEntry } from "@/components/docs/DocsShell";
 import { publicUrl } from "@/lib/email/url";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = {
-  title: "Webhooks – Ozvi",
-  description: "Ozvi webhooks: events, payloads, Standard Webhooks signatures and how to verify them in Node, Python and PHP.",
-};
+export const metadata: Metadata = pageMeta({ title: "Webhooks – Ozvi", description: "Ozvi webhooks: events, payloads, Standard Webhooks signatures and how to verify them in Node, Python and PHP.", path: "/docs/webhooks", locale: "en" });
 
 const EVENTS: [string, string][] = [
   ["item.created", "A new idea, or a new bug report (bugs only for hooks with “include bugs”). Posts waiting for moderation are sent once approved."],

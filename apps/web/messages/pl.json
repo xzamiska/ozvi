@@ -3956,5 +3956,14 @@
       ],
       "teamBadge": "Zespół"
     }
+  },
+  "seo": {
+    "demoTitle": "Wypróbuj Ozvi na żywo – demo widżetu i tablicy",
+    "demoDescription": "Zgłoś błąd ze zrzutem ekranu, zaproponuj pomysł i zobacz, co widzi zespół i autor. Przykładowa aplikacja, nic nie jest wysyłane.",
+    "releasesDescription": "Wszystkie wydania Ozvi: nowe funkcje, poprawki i co się zmienia dla administratorów własnych serwerów.",
+    "privacyDescription": "Jak Ozvi przetwarza dane osobowe: jakie dane, dlaczego, jak długo i kto je przetwarza.",
+    "termsDescription": "Regulamin usługi Ozvi: plany, płatności, rezygnacja i odpowiedzialność.",
+    "subprocessorsDescription": "Podmioty przetwarzające dane dla Ozvi: hosting, e-maile, płatności i tłumaczenia AI, wszystkie w UE.",
+    "accessibilityDescription": "Deklaracja dostępności Ozvi: co spełniamy, znane ograniczenia i jak zgłosić problem."
   }
 }

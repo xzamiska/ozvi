@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Code, Note, Table } from "@/components/docs/blocks";
 import { DocsShell, type TocEntry } from "@/components/docs/DocsShell";
@@ -10,10 +11,7 @@ import { LIMITS } from "@/lib/ratelimit";
 
 // PUBLIC_URL is read at request time (one image for self-host and cloud).
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = {
-  title: "REST API – Ozvi",
-  description: "Ozvi REST API v1: ideas, bug reports, votes, changelog and customers over HTTP, with an OpenAPI 3.1 document.",
-};
+export const metadata: Metadata = pageMeta({ title: "REST API – Ozvi", description: "Ozvi REST API v1: ideas, bug reports, votes, changelog and customers over HTTP, with an OpenAPI 3.1 document.", path: "/docs/api", locale: "en" });
 
 const TAGS = ["Items", "Comments", "Votes", "Board", "Changelog", "People", "Integrations", "Account"] as const;
 

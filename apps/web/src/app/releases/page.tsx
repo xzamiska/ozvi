@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 import { parseTheme, presets, toCss } from "@ozvi/theme";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -15,8 +16,11 @@ export const dynamic = "force-dynamic";
 const theme = parseTheme(presets.ozvi);
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations({ locale: await requestLocale(), namespace: "releases" });
-  return { title: t("meta"), alternates: { types: { "application/json": "/releases.json" } } };
+  const locale = await requestLocale();
+  const t = await getTranslations({ locale, namespace: "releases" });
+  const s = await getTranslations({ locale, namespace: "seo" });
+  const m = pageMeta({ title: t("meta"), description: s("releasesDescription"), path: "/releases", locale });
+  return { ...m, alternates: { ...m.alternates, types: { "application/json": "/releases.json" } } };
 }
 
 /** Ozvi's own release notes (apps/web/releases/*.md), newest first. Cloud (ozvi.io) only. */

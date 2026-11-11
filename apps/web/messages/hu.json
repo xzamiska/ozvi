@@ -3956,5 +3956,14 @@
       ],
       "teamBadge": "Csapat"
     }
+  },
+  "seo": {
+    "demoTitle": "Próbálja ki az Ozvit élőben – widget és board demó",
+    "demoDescription": "Jelentsen hibát képernyőképpel, javasoljon ötletet, és nézze meg, mit lát a csapat és a szerző. Mintaalkalmazás, semmi nem kerül elküldésre.",
+    "releasesDescription": "Az Ozvi összes kiadása: új funkciók, javítások és ami a saját szerverek üzemeltetőinek változik.",
+    "privacyDescription": "Hogyan kezeli az Ozvi a személyes adatokat: milyen adatokat, miért, meddig és ki kezeli őket.",
+    "termsDescription": "Az Ozvi szolgáltatási feltételei: csomagok, fizetés, lemondás és felelősség.",
+    "subprocessorsDescription": "Az Ozvi adatfeldolgozói: tárhely, e-mail, fizetés és AI-fordítás, mind az EU-ban.",
+    "accessibilityDescription": "Az Ozvi akadálymentességi nyilatkozata: amit teljesítünk, ismert korlátok és hogyan jelezzen problémát."
   }
 }

@@ -3956,5 +3956,14 @@
       ],
       "teamBadge": "Team"
     }
+  },
+  "seo": {
+    "demoTitle": "Try Ozvi live – widget and board demo",
+    "demoDescription": "Report a bug with a screenshot, suggest an idea and see what the team and the author see. A sample app, nothing is sent.",
+    "releasesDescription": "Every Ozvi release: new features, fixes and what changes for operators of self-hosted servers.",
+    "privacyDescription": "How Ozvi processes personal data: what data, why, for how long and who processes it.",
+    "termsDescription": "Ozvi terms of service: plans, payments, cancellation and liability.",
+    "subprocessorsDescription": "Subprocessors that handle data for Ozvi: hosting, e-mail, payments and AI translations, all in the EU.",
+    "accessibilityDescription": "Ozvi accessibility statement: what we meet, known limitations and how to report a problem."
   }
 }

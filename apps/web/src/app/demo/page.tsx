@@ -1,3 +1,7 @@
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { requestLocale } from "@/i18n/server";
+import { pageMeta } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { devEnabled } from "@/lib/dev";
@@ -6,6 +10,13 @@ import { DemoApi } from "./DemoApi";
 import { PublicDemo } from "./PublicDemo";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  if (process.env.OZVI_MODE !== "cloud") return { title: "Demo – Ozvi" };
+  const locale = await requestLocale();
+  const s = await getTranslations({ locale, namespace: "seo" });
+  return pageMeta({ title: s("demoTitle"), description: s("demoDescription"), path: "/demo", locale });
+}
 
 /** The documented snippet (packages/widget/README.md): calls made before widget.js loads are queued. */
 const STUB = `(function(w,m){var o=w.Ozvi=w.Ozvi||function(){(o.q=o.q||[]).push(arguments)};o.q=o.q||[];m.forEach(function(k){o[k]=o[k]||function(){o.q.push([k].concat([].slice.call(arguments)))}})})(window,["init","open","close","toggle","prefill","identify","logout","setTraits","setLanguage","on","off","configure"])`;

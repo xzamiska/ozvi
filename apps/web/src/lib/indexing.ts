@@ -6,7 +6,7 @@
 
 export const NOINDEX = "noindex, nofollow, noarchive, nosnippet";
 
-const PUBLIC_PAGES = new Set(["/", "/cs", "/en", "/pl", "/hu", "/de", "/releases", "/privacy", "/terms", "/subprocessors", "/accessibility", "/docs"]);
+const PUBLIC_PAGES = new Set(["/", "/cs", "/en", "/pl", "/hu", "/de", "/releases", "/privacy", "/terms", "/subprocessors", "/accessibility", "/docs", "/demo"]);
 
 export function indexable(o: { cloud: boolean; primary: boolean; path: string }): boolean {
   if (!o.cloud || !o.primary) return false;
@@ -15,7 +15,12 @@ export function indexable(o: { cloud: boolean; primary: boolean; path: string })
 }
 
 /** Board hosts stay crawlable on purpose: a crawler has to fetch a page to see its noindex header. */
-export function robotsTxt(o: { cloud: boolean; primary: boolean }): string {
+export function robotsTxt(o: { cloud: boolean; primary: boolean; origin?: string }): string {
   if (!o.cloud || !o.primary) return "User-agent: *\nDisallow:\n";
-  return "User-agent: *\nAllow: /\nDisallow: /app\nDisallow: /api/\nDisallow: /mcp\nDisallow: /dev/\nDisallow: /demo\n";
+  // /demo itself is a public page (the widget in a sample app); the demo's board pages under it are not.
+  return "User-agent: *\nAllow: /\nDisallow: /app\nDisallow: /api/\nDisallow: /mcp\nDisallow: /dev/\nDisallow: /demo/\n"
+    + (o.origin ? `\nSitemap: ${o.origin}/sitemap.xml\n` : "");
 }
+
+/** The public pages a search engine should know about (cloud, primary host). */
+export const SITEMAP_PAGES = ["/demo", "/releases", "/docs/api", "/docs/webhooks", "/docs/automation", "/privacy", "/terms", "/subprocessors", "/accessibility"] as const;

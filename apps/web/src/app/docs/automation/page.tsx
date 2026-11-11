@@ -1,13 +1,11 @@
+import { pageMeta } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Code, Note } from "@/components/docs/blocks";
 import { DocsShell, type TocEntry } from "@/components/docs/DocsShell";
 import { publicUrl } from "@/lib/email/url";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = {
-  title: "Automation – Ozvi",
-  description: "Connect Ozvi to n8n, Make and Zapier with webhooks and HTTP requests: copy-paste recipes.",
-};
+export const metadata: Metadata = pageMeta({ title: "Automation – Ozvi", description: "Connect Ozvi to n8n, Make and Zapier with webhooks and HTTP requests: copy-paste recipes.", path: "/docs/automation", locale: "en" });
 
 export default function AutomationDocs() {
   const host = publicUrl();

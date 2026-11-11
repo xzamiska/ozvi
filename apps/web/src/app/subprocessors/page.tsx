@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 import { parseTheme, presets, toCss } from "@ozvi/theme";
 import { FileWarning } from "lucide-react";
 import type { Metadata } from "next";
@@ -19,8 +20,9 @@ const CHANGED = new Date("2026-11-11");
 const theme = parseTheme(presets.ozvi);
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations({ locale: await requestLocale(), namespace: "subprocessors" });
-  return { title: t("meta") };
+  const locale = await requestLocale();
+  const t = await getTranslations({ locale, namespace: "subprocessors" });
+  return pageMeta({ title: t("meta"), description: (await getTranslations({ locale, namespace: "seo" }))("subprocessorsDescription"), path: "/subprocessors", locale });
 }
 
 interface Entry { name: string; entity: string; purpose: string; data: string; location: string; transfer: string; when: string; note?: string }

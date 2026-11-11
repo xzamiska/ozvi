@@ -1,3 +1,5 @@
+import { pageMeta } from "@/lib/seo";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LegalShell } from "@/components/LegalShell";
@@ -5,7 +7,11 @@ import { cloudOnly, LEGAL } from "@/lib/legal";
 
 // OZVI_MODE is read at request time (the same image runs self-host and cloud).
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Ochrana súkromia – Ozvi" };
+// The text is Slovak only, so is its metadata.
+export async function generateMetadata() {
+  const s = await getTranslations({ locale: "sk", namespace: "seo" });
+  return pageMeta({ title: "Ochrana súkromia – Ozvi", description: s("privacyDescription"), path: "/privacy", locale: "sk" });
+}
 
 export default function Privacy() {
   // Self-hosted instances have their own operator and privacy notice.

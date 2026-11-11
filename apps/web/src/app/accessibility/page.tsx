@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 import { parseTheme, presets, toCss } from "@ozvi/theme";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -15,8 +16,9 @@ const AUDITED = new Date("2026-11-08");
 const theme = parseTheme(presets.ozvi);
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations({ locale: await requestLocale(), namespace: "a11y.page" });
-  return { title: t("meta") };
+  const locale = await requestLocale();
+  const t = await getTranslations({ locale, namespace: "a11y.page" });
+  return pageMeta({ title: t("meta"), description: (await getTranslations({ locale, namespace: "seo" }))("accessibilityDescription"), path: "/accessibility", locale });
 }
 
 /** Public accessibility statement (EAA / EN 301 549). Short and honest; the full report is docs/ACCESSIBILITY.md. */
