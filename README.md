@@ -2,6 +2,10 @@
 
 Source-available bug reports and an idea board that look like your product.
 
+[Website](https://ozvi.io/?utm_source=github&utm_campaign=readme) · [Live demo](https://ozvi.io/en/demo?utm_source=github&utm_campaign=readme) · [Docs](https://ozvi.io/docs/widget) · [Videos](https://www.youtube.com/@ozviapp) · [`@ozvi/widget`](https://www.npmjs.com/package/@ozvi/widget) · [`@ozvi/sdk`](https://www.npmjs.com/package/@ozvi/sdk)
+
+![A customer reports a bug from inside the app; the team gets the screenshot with private data covered, the steps, the failed request and the console error](docs/media/ozvi-demo.gif)
+
 - **Two spaces.** A private bug flow with automatic context (page, app version, browser, console errors, a screenshot with form values, e-mails, phone numbers and card numbers covered in the browser) and a public idea board with voting, roadmap and changelog.
 - **Closing the loop.** "Fixed in 2.15.1 — does it work for you?" goes to the reporter, linked GitHub issues and releases set it for you, and publishing a changelog entry e-mails everyone who voted.
 - **Your design.** One `theme.json` (colours, fonts, radius, density) styles the board, the widget and the e-mails.
@@ -19,7 +23,8 @@ Self-hosting is free with every feature (FSL-1.1-ALv2, see Licence). The same im
 ```
 
 ```ts
-import { signOzviToken } from "@ozvi/sdk"; // MIT, zero deps
+// npm i @ozvi/sdk   (MIT, zero deps; Python and PHP without a library: ozvi.io/docs/widget#sign-in)
+import { signOzviToken } from "@ozvi/sdk";
 app.get("/api/ozvi-token", requireLogin, (req, res) =>
   res.json({ token: signOzviToken({ id: req.user.id, email: req.user.email, name: req.user.name }, process.env.OZVI_SSO_SECRET) }));
 ```
@@ -33,7 +38,7 @@ cd deploy && cp .env.example .env && docker compose up -d
 docker compose exec ozvi node ozvi.mjs project:create myapp "My app" --origin https://app.example.com
 ```
 
-Images are public on `ghcr.io/xzamiska/ozvi` (amd64 and arm64; tags `1.4.2`, `1.4`, `1`, `latest`). An optional updater container backs up the database, installs a new version on request or at night and rolls back when it is not healthy. Release notes: [ozvi.io/releases](https://ozvi.io/releases).
+Images are public on `ghcr.io/xzamiska/ozvi` (amd64 and arm64; tags such as `1.2.8`, `1.2`, `1`, `latest`). An optional updater container backs up the database, installs a new version on request or at night and rolls back when it is not healthy. Release notes: [ozvi.io/releases](https://ozvi.io/releases).
 
 See [docs/SELFHOST.md](docs/SELFHOST.md). Moving from Fider: [docs/MIGRACIA-Z-FIDERU.md](docs/MIGRACIA-Z-FIDERU.md). Cloud mode: [docs/CLOUD.md](docs/CLOUD.md). Decisions: [docs/adr](docs/adr/README.md).
 
