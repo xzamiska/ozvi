@@ -40,21 +40,16 @@ export default function WidgetDocs() {
 
       <h2 id="sign-in">Sign people in</h2>
       <p>Your backend tells Ozvi who is signed in: an endpoint of your app (the widget&apos;s <code>token-url</code>) returns <code>{"{ \"token\": \"…\" }"}</code>, a short-lived token signed with the board&apos;s SSO secret (admin → Sign-in → Turn on SSO). No second password and no Ozvi account for your users. Keep the secret on the server, never in the browser.</p>
-      <p>The token is a standard JWT signed with HMAC-SHA256, so every language can make it with its standard library. Fields: <code>id</code> (required, stable id in your app), <code>email</code>, <code>name</code>, <code>role</code> (<code>member</code>, <code>team</code> or <code>admin</code>), <code>locale</code> and <code>traits</code> (<code>company</code>, <code>plan</code>, <code>mrr</code> in cents… shown to your team only).</p>
-      <Code title="Node.js (no dependencies)" code={`
-import { createHmac } from "node:crypto";
-
-function ozviToken(user, secret = process.env.OZVI_SSO_SECRET) {
-  const b64 = (o) => Buffer.from(JSON.stringify(o)).toString("base64url");
-  const now = Math.floor(Date.now() / 1000);
-  const body = \`\${b64({ alg: "HS256", typ: "JWT" })}.\${b64({ ...user, iat: now, exp: now + 600 })}\`;
-  return \`\${body}.\${createHmac("sha256", secret).update(body).digest("base64url")}\`;
-}
+      <p>In Node.js, <code>@ozvi/sdk</code> (MIT, no dependencies) signs it. The token is a standard JWT signed with HMAC-SHA256, so any other language makes it with its standard library. Fields: <code>id</code> (required, stable id in your app), <code>email</code>, <code>name</code>, <code>role</code> (<code>member</code>, <code>team</code> or <code>admin</code>), <code>locale</code> and <code>traits</code> (<code>company</code>, <code>plan</code>, <code>mrr</code> in cents… shown to your team only).</p>
+      <Code title="Node.js: npm i @ozvi/sdk" code={`
+import { signOzviToken } from "@ozvi/sdk";
 
 // Express; in Next.js the same inside app/api/ozvi-token/route.ts
 app.get("/api/ozvi-token", requireLogin, (req, res) => {
-  res.json({ token: ozviToken({ id: req.user.id, email: req.user.email, name: req.user.name,
-    traits: { company: req.org.name, plan: req.org.plan } }) });
+  res.json({ token: signOzviToken(
+    { id: req.user.id, email: req.user.email, name: req.user.name,
+      traits: { company: req.org.name, plan: req.org.plan } },
+    process.env.OZVI_SSO_SECRET) });
 });`} />
       <Code title="Python" code={`
 import base64, hashlib, hmac, json, os, time

@@ -227,19 +227,15 @@ export default async function Admin({ params, searchParams }: { params: Promise<
                 <ol className="grid gap-5 border-t pt-5">
                   <li className="grid min-w-0 gap-2">
                     <p className="text-[14px]"><span className="font-semibold">{t("login.step1")}</span> <span className="text-muted-foreground">{t("login.step1Pkg")}</span></p>
-                    {/* A standard HS256 JWT: no library needed (Python, PHP in /docs/widget#sign-in). */}
-                    <pre tabIndex={0} className={preBox}>{`import { createHmac } from "node:crypto";
-
-function ozviToken(user, secret = process.env.OZVI_SSO_SECRET) {
-  const b64 = (o) => Buffer.from(JSON.stringify(o)).toString("base64url");
-  const now = Math.floor(Date.now() / 1000);
-  const body = \`\${b64({ alg: "HS256", typ: "JWT" })}.\${b64({ ...user, iat: now, exp: now + 600 })}\`;
-  return \`\${body}.\${createHmac("sha256", secret).update(body).digest("base64url")}\`;
-}
+                    <pre tabIndex={0} className={preBox}>{`// npm i @ozvi/sdk
+import { signOzviToken } from "@ozvi/sdk";
 
 app.get("/api/ozvi-token", requireLogin, (req, res) => {
-  res.json({ token: ozviToken({ id: req.user.id, email: req.user.email, name: req.user.name,
-    role: req.user.isStaff ? "team" : "member", traits: { plan: req.org.plan } }) });
+  res.json({ token: signOzviToken(
+    { id: req.user.id, email: req.user.email, name: req.user.name,
+      role: req.user.isStaff ? "team" : "member",
+      traits: { plan: req.org.plan } },
+    process.env.OZVI_SSO_SECRET) });
 });`}</pre>
                   </li>
                   <li className="grid min-w-0 gap-2">

@@ -304,7 +304,7 @@
       "text": "Používatelia aplikácie sa do spätnej väzby dostanú bez ďalšieho hesla: aplikácia ich podpíše (SSO), alebo ich pošle cez vášho poskytovateľa identity (OIDC).",
       "ssoTitle": "Prihlásenie z aplikácie (SSO)",
       "step1": "1. V backende aplikácie podpíšte používateľa",
-      "step1Pkg": "(štandardný JWT, netreba žiadnu knižnicu; Python, PHP a ďalšie jazyky sú v dokumentácii):",
+      "step1Pkg": "cez @ozvi/sdk (MIT); Python, PHP a ďalšie jazyky bez knižnice sú v dokumentácii:",
       "step2": "2. Do aplikácie vložte widget",
       "maskA": "Formuláre, e-maily, telefóny, čísla kariet a tokeny zakryjeme na screenshote sami. Ďalšie citlivé prvky, napríklad mená alebo poznámky, označte",
       "maskB": " a budú zakryté celé. Vlastné tlačidlo:",

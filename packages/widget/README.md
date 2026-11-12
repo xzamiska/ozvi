@@ -5,7 +5,9 @@ Ozvi inside your app, MIT:
 - `<ozvi-widget>`: the floating feedback widget (bug reports with masked context, ideas with voting), Preact in shadow DOM;
 - `window.Ozvi`: a JavaScript API to open it from your own buttons, prefill it, identify the person and listen to events;
 - `<ozvi-roadmap>` and `<ozvi-changelog>`: inline embeds (with a "What's new" badge);
-- `@ozvi/widget`, `@ozvi/widget/react`, `@ozvi/widget/vue`: typed ESM wrappers.
+- `@ozvi/widget`, `@ozvi/widget/react`, `@ozvi/widget/vue`: typed ESM wrappers (`npm i @ozvi/widget`).
+
+Docs: [ozvi.io/docs/widget](https://ozvi.io/docs/widget). Signing people in from your backend: [`@ozvi/sdk`](https://www.npmjs.com/package/@ozvi/sdk).
 
 ```html
 <script src="https://feedback.example.com/widget.js" defer></script>
