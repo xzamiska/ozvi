@@ -1,0 +1,23 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.ozvi/ozvi",
+  "title": "Ozvi",
+  "description": "Bug reports, ideas, roadmap and changelog: search, summarise, triage and close the loop with customers.",
+  "version": "1.2.9",
+  "websiteUrl": "https://ozvi.io/?utm_source=mcp-registry",
+  "repository": { "url": "https://github.com/xzamiska/ozvi", "source": "github" },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://ozvi.io/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer ozvi_pat_… (a personal API token: your avatar on the board → API tokens)",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
