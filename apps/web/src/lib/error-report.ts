@@ -42,7 +42,7 @@ export const safePath = (path: string | undefined) => (path ?? "").split(/[?#]/)
 // At most 30 events a minute per process: an error in a loop must not flood the collector.
 let windowStart = 0, sent = 0;
 
-export async function reportError(err: unknown, ctx: { path?: string; method?: string; route?: string; kind?: string; job?: string } = {}, env = process.env): Promise<boolean> {
+export async function reportError(err: unknown, ctx: { path?: string; method?: string; route?: string; kind?: string; job?: string } = {}, env: Record<string, string | undefined> = process.env): Promise<boolean> {
   const dsn = parseDsn(env.OZVI_ERROR_DSN);
   if (!dsn) return false;
   const now = Date.now();
