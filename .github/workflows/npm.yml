@@ -1,7 +1,8 @@
 name: npm packages
-# Publishes @ozvi/sdk and @ozvi/widget (MIT) when their version in package.json is not on npm yet.
-# Runs on every release tag and by hand. Needs the repository secret NPM_TOKEN (an npm automation
-# token of the "ozvi" organisation). Provenance links each published version to this workflow run.
+# Publishes @ozvi/sdk and @ozvi/widget (MIT) when their version in package.json is not on npm yet,
+# on every release tag and by hand. No npm token: trusted publishing (OIDC) gives each run a short-lived
+# credential; on npmjs.com each package lists this repository and workflow as its trusted publisher.
+# The first version of each package is published by hand (see ozvi-internal/HANDOFF.md).
 on:
   push:
     tags: ["v*"]
@@ -23,21 +24,23 @@ jobs:
           node-version-file: package.json
           cache: pnpm
           registry-url: https://registry.npmjs.org
+      # Trusted publishing needs npm 11.5.1 or newer.
+      - run: npm install -g npm@11
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @ozvi/sdk test && pnpm --filter @ozvi/widget test
       - name: Publish what is new
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           set -euo pipefail
-          if [ -z "${NODE_AUTH_TOKEN:-}" ]; then echo "::notice::NPM_TOKEN is not set, nothing published"; exit 0; fi
+          mkdir -p "$RUNNER_TEMP/pkgs"
           for dir in packages/sdk packages/widget; do
             name=$(node -p "require('./$dir/package.json').name")
             version=$(node -p "require('./$dir/package.json').version")
             if npm view "$name@$version" version >/dev/null 2>&1; then
               echo "$name@$version is already on npm"
-            else
-              echo "publishing $name@$version"
-              (cd "$dir" && pnpm publish --no-git-checks --access public)
+              continue
             fi
+            # pnpm packs (applies publishConfig.exports, runs prepublishOnly builds); npm publishes with OIDC + provenance.
+            tgz=$(cd "$dir" && pnpm pack --pack-destination "$RUNNER_TEMP/pkgs" | tail -1)
+            echo "publishing $name@$version"
+            npm publish "$tgz" --access public --provenance
           done
