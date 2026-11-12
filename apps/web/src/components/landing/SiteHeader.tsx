@@ -121,7 +121,7 @@ export function SiteHeader({ locale, signedIn, soon = false }: { locale: Locale;
           <a href="#pricing" className="inline-flex h-9 items-center rounded-md px-3 text-[14px] font-medium text-muted-foreground hover:text-foreground">{t("nav.pricing")}</a>
           <div className={cn("absolute top-full left-0 pt-3 transition-[opacity,translate] duration-150", open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0")}>
             <div className="overflow-hidden rounded-xl border bg-surface shadow-[0_24px_60px_-24px_rgb(13_12_20/0.25)]" onClick={() => setOpen(null)}>
-              <div id="nav-product" hidden={open !== "product"}><Panel items={productItems} feature={t.raw("nav.productFeature") as NavItem} /></div>
+              <div id="nav-product" hidden={open !== "product"}><Panel items={productItems} feature={{ ...(t.raw("nav.productFeature") as NavItem), href: locale === "sk" ? "/demo" : `/${locale}/demo` }} /></div>
               <div id="nav-dev" hidden={open !== "dev"}><Panel items={devItems} feature={t.raw("nav.devFeature") as NavItem} /></div>
             </div>
           </div>
