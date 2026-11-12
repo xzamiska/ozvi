@@ -71,6 +71,11 @@ všetkého na `/demo` (len s `OZVI_DEV_LOGIN=1`).
   vložiť na akýkoľvek web (len na čítanie); boardy so súkromnými nápadmi len s tokenom z povolených originov.
 - **npm**: `@ozvi/widget` (ESM), `@ozvi/widget/react` (`OzviWidget`, `OzviRoadmap`, `OzviChangelog`, `useOzvi`,
   `useOzviEvent`), `@ozvi/widget/vue` (plugin, komponenty, composables), s typmi. Bezpečné pre SSR / Next.js.
+- **Súkromie na screenshote**: obrázok sa kreslí z kópie stránky, ktorú widget najprv upraví (stránka, ktorú človek
+  vidí, sa nemení). Plne zakryté sú vždy hodnoty polí formulárov, e-maily, telefóny, IBAN, čísla kariet a tokeny v texte
+  a celé prvky `data-ozvi-mask`. Mená, poznámky či sumy rozpoznať nevieme: označte ich `data-ozvi-mask`. Pre citlivé
+  appky `OzviConfig.mask = "all"` zakryje všetok text aj obrázky okrem `data-ozvi-unmask`. Keď sa kópia nedá zamaskovať,
+  hlásenie ide bez screenshotu, nikdy s nezamaskovaným.
 - **Prísna CSP s nonce**: nonce zo `<script>` widgetu prejde na všetky skripty a štýly, ktoré widget pridá (aj na
   screenshot). Potrebné direktívy sú v README.
 - Rozpočet: úvodný `widget.js` ≤ 20 kB gzip (test `packages/widget/src/size.test.ts`); nápady a vložené prvky sa

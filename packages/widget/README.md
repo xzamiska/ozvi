@@ -187,7 +187,7 @@ reporter on the board, not in webhooks or GitHub issues); the Ozvi server masks 
 | What | Detail | Never |
 |---|---|---|
 | Page | URL (masked), app version, browser, window size, language | |
-| Screenshot | visible viewport without the widget; `[data-ozvi-mask]` elements and password fields blurred before the image is made; the reporter can mark it up and blur more (blur is burned into the pixels) | |
+| Screenshot | visible viewport without the widget; private data **covered with solid boxes before the image is made** (see [Screenshot privacy](#screenshot-privacy)); the reporter can mark it up, blur more (burned into the pixels) or remove it | form values, e-mails, phone numbers, IBANs, card numbers, tokens, `[data-ozvi-mask]` |
 | Console errors | last 20, 300 characters each | |
 | Network log | last 30 `fetch`/`XMLHttpRequest` calls: method, URL, status, duration, size, failed flag | request/response headers (so no `Authorization`, no `Cookie`); bodies unless you turn them on |
 | Request bodies | only with `networkBodies: true`, only for **failed** requests, masked, max 2 000 characters each | bodies of successful requests |
@@ -204,6 +204,40 @@ reporter on the board, not in webhooks or GitHub issues); the Ozvi server masks 
 - clicks inside `[data-ozvi-mask]` are logged as `***`, and masked parts of a button's text are replaced by `***`.
 
 Requests to Ozvi itself and to your `token-url` are never logged.
+
+## Screenshot privacy
+
+The screenshot is drawn from a **copy** of the page that the widget edits first; the page the person
+sees is never touched, and what is covered never becomes pixels (covered text is drawn transparent on a
+solid box, covered images are not drawn). Nothing to set up for the common cases:
+
+| Covered automatically | How |
+|---|---|
+| Values of every `input`, `textarea`, `select` and `contenteditable` | shown as `•••••` or a box; checkboxes and radios keep their state |
+| E-mail addresses, phone numbers (9–15 digits), IBANs, card numbers (Luhn-checked), JWTs and `Bearer`/`Basic` credentials in any text | the match is boxed, the rest of the sentence stays readable |
+| Everything inside `[data-ozvi-mask]` | text, images, canvas and video of the element, boxed |
+
+Shapes can't find everything: **mark names, notes, diagnoses, amounts or anything else private** with
+`data-ozvi-mask`:
+
+```html
+<td data-ozvi-mask>Jana Kováčová</td>
+<p data-ozvi-mask>{{ client.note }}</p>
+```
+
+For apps where almost everything on screen is private (health, finance, HR), cover **all** text and
+images and reveal only the parts that help the team, such as navigation and headings:
+
+```js
+window.OzviConfig = { mask: "all" };
+```
+```html
+<nav data-ozvi-unmask>…</nav>
+<h1 data-ozvi-unmask>Invoice settings</h1>
+```
+
+If the copy can't be masked (an unexpected error), the report goes **without** a screenshot, never with
+an unmasked one. The reporter still sees the screenshot before sending and can remove it.
 
 ## Configuration
 
@@ -238,6 +272,7 @@ window.OzviConfig = {
   },
   detectLinks: false,     // true = read them from window.Sentry / posthog / LogRocket yourself
   sentryOrg: "acme",      // needed for the detected Sentry replay URL (https://<org>.sentry.io/replays/<id>/)
+  mask: "auto",           // "all" = screenshots cover all text and images except [data-ozvi-unmask]
 };
 ```
 

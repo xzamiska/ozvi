@@ -19,7 +19,7 @@ const PROSE = `mt-10 max-w-[80ch] text-[15.5px] leading-[1.7]
   [&_:not(pre)>code]:rounded [&_:not(pre)>code]:bg-muted [&_:not(pre)>code]:px-1 [&_:not(pre)>code]:py-px [&_:not(pre)>code]:font-mono [&_:not(pre)>code]:text-[0.86em] [&_:not(pre)>code]:break-words
   [&_strong]:font-semibold`;
 
-export type DocsPage = "api" | "webhooks" | "automation";
+export type DocsPage = "widget" | "api" | "webhooks" | "automation";
 export interface TocEntry { id: string; label: string; sub?: boolean }
 
 /**
@@ -33,7 +33,7 @@ export async function DocsShell({ page, title, lede, toc, children }: {
   const t = await getTranslations({ locale, namespace: "docs" });
   // The docs are English end to end, their chrome too; only the note says so in the reader's language.
   const en = await getTranslations({ locale: "en", namespace: "docs" });
-  const pages: DocsPage[] = ["api", "webhooks", "automation"];
+  const pages: DocsPage[] = ["widget", "api", "webhooks", "automation"];
   return (
     <>
       <style>{toCss(theme)}</style>

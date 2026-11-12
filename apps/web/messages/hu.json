@@ -306,11 +306,12 @@
       "step1": "1. Írd alá a felhasználót az alkalmazásod backendjén",
       "step1Pkg": "ezzel:",
       "step2": "2. Add hozzá a widgetet az alkalmazásodhoz",
-      "maskA": "Az érzékeny elemeket jelöld meg ezzel:",
-      "maskB": ", és a képernyőképeken elhomályosítjuk őket. Saját gomb:",
+      "maskA": "Az űrlapmezőket, e-mail-címeket, telefonszámokat, kártyaszámokat és tokeneket magunk takarjuk ki a képernyőképen. Más érzékeny elemeket, például neveket vagy megjegyzéseket, jelölj meg ezzel:",
+      "maskB": ", és teljesen kitakarjuk őket. Saját gomb:",
       "maskAnd": "és",
       "oidcTitle": "Bejelentkezés OIDC-vel",
-      "oidcText": "Ha az alkalmazásodnak saját identitásszolgáltatója van (Keycloak, Authentik, Auth0…), a „Bejelentkezés” gomb oda vezet. Az alkalmazásodból érkező SSO-tokenek továbbra is működnek."
+      "oidcText": "Ha az alkalmazásodnak saját identitásszolgáltatója van (Keycloak, Authentik, Auth0…), a „Bejelentkezés” gomb oda vezet. Az alkalmazásodból érkező SSO-tokenek továbbra is működnek.",
+      "docs": "Widget-útmutató és a képernyőképek adatvédelme"
     },
     "domain": {
       "text": "A tábla, a widget és az e-mailekben lévő linkek a saját címeden futnak, pl. visszajelzes.ceged.hu."
@@ -798,7 +799,8 @@
       "tokens": "API-tokenek és AI-asszisztensek",
       "settings": "Tábla beállításai",
       "console": "Projektjeim az Ozviban",
-      "signOut": "Kijelentkezés"
+      "signOut": "Kijelentkezés",
+      "docs": "Dokumentáció"
     },
     "gate": {
       "signIn": "Bejelentkezés",
@@ -1211,7 +1213,8 @@
       "website": "Az Ozvi webhelye",
       "signOut": "Kijelentkezés",
       "language": "Nyelv",
-      "settings": "Beállítások"
+      "settings": "Beállítások",
+      "docs": "Dokumentáció"
     },
     "units": {
       "unlimited": "korlátlan",
@@ -2987,7 +2990,7 @@
       "title": "Jelents hibát egy idegen alkalmazásban. Fél perc alatt.",
       "lede": "A demó egy minta foglalási alkalmazás valódi Ozvi widgettel. Jelents benne hibát, és pontosan azt látod, amit a csapatod kapna.",
       "points": [
-        "Képernyőkép, amelyen az érzékeny adatok már a böngészőben elmosódnak",
+        "Képernyőkép, amelyen az érzékeny adatok már a böngészőben ki vannak takarva",
         "A konzolhiba, a sikertelen kérés és a hiba előtti lépések",
         "A csapat táblája és a bejelentő nézete, állapottal és válasszal"
       ],
@@ -3320,6 +3323,7 @@
   "docs": {
     "navLabel": "Fejlesztői dokumentáció",
     "home": "Az Ozvi kezdőlapja",
+    "widget": "Widget",
     "api": "REST API",
     "webhooks": "Webhookok",
     "automation": "Automatizálás",
@@ -3902,7 +3906,7 @@
       "untitled": "Cím nélkül",
       "bug": "Hibajelentés · csak a bejelentő és a csapat látja",
       "idea": "Ötlet · a nyilvános táblán",
-      "shot": "Képernyőkép elmosott mezőkkel",
+      "shot": "Képernyőkép kitakart adatokkal",
       "page": "Oldal",
       "version": "Verzió",
       "browser": "Böngésző",
@@ -3911,7 +3915,7 @@
       "noFailed": "Nincs",
       "actions": "Lépések a hiba előtt"
     },
-    "embedsNote": "A fenti ütemterv és újdonságok is Ozvi: az alkalmazás két sor HTML-lel ágyazza be őket, és az alkalmazás stílusában mutatják, mit terveztek és mit adtatok ki. A telefonszám, a megjegyzés és a PIN már a böngészőben elmosódik a képernyőképen.",
+    "embedsNote": "A fenti ütemterv és újdonságok is Ozvi: az alkalmazás két sor HTML-lel ágyazza be őket, és az alkalmazás stílusában mutatják, mit terveztek és mit adtatok ki. A telefonszám, a megjegyzés és a PIN már a böngészőben ki van takarva a képernyőképen.",
     "board": {
       "open": "Megnyitás a csapat tábláján",
       "title": "Tábla-előnézet",

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { MASK, maskBody, maskText, maskUrl, SECRET_NAME } from "./mask";
+import { MASK, maskBody, maskText, maskUrl, SECRET_NAME, sensitiveRanges } from "./mask";
 
 describe("maskUrl", () => {
   it.each([
@@ -83,4 +83,23 @@ describe("SECRET_NAME", () => {
   it.each(["token", "X-Auth", "client_secret", "passwd", "pwd", "api-key", "session", "cardNo", "iban", "cvv", "otp", "csrftoken", "jwt", "cookie"])("%s is secret", (k) =>
     expect(SECRET_NAME.test(k)).toBe(true));
   it.each(["page", "sort", "q", "amount", "invoiceId", "lang"])("%s is not", (k) => expect(SECRET_NAME.test(k)).toBe(false));
+});
+
+describe("sensitiveRanges (screenshots)", () => {
+  const covered = (s: string) => sensitiveRanges(s).map(([a, b]) => s.slice(a, b));
+  it("finds e-mails, phones, IBANs, cards and tokens", () => {
+    expect(covered("Write to jana.k@firma.sk or call +421 905 123 456")).toEqual(["jana.k@firma.sk", "+421 905 123 456"]);
+    expect(covered("Phone 0905 123 456, UK +44 7700 900418, US (415) 555-0132")).toEqual(["0905 123 456", "+44 7700 900418", "(415) 555-0132"]);
+    expect(covered("IBAN SK31 1200 0000 1987 4263 7541")).toEqual(["SK31 1200 0000 1987 4263 7541"]);
+    expect(covered("card 4111 1111 1111 1111 ok")).toEqual(["4111 1111 1111 1111"]);
+    expect(covered("Bearer abcdefghijkl123 and eyJhbGciOiJI.eyJzdWIiOiIx.c2ln")).toHaveLength(2);
+  });
+  it("leaves dates, times, prices and short numbers alone", () => {
+    for (const s of ["12. 11. 2026", "10. – 14. 11. 2026", "6:00 – 7:00 pm", "1 284 €", "£1,284", "Order 4711", "v3.9.2", "81 %"]) {
+      expect(sensitiveRanges(s), s).toEqual([]);
+    }
+  });
+  it("merges overlapping finds", () => {
+    expect(sensitiveRanges("x a@b.co y")).toEqual([[2, 8]]);
+  });
 });

@@ -7,8 +7,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTranslations } from "next-intl";
 
-export function AccountMenu({ slug, name, email, avatarUrl, role, consoleHref }: {
+export function AccountMenu({ slug, name, email, avatarUrl, role, consoleHref, docsHref }: {
   slug: string; name: string | null; email: string | null; avatarUrl: string | null; role: string; consoleHref?: string | null;
+  /** Ozvi's documentation (widget, API, webhooks) for the team; on the primary host, also from custom domains. */
+  docsHref?: string | null;
 }) {
   const t = useTranslations("board.account");
   return (
@@ -25,10 +27,11 @@ export function AccountMenu({ slug, name, email, avatarUrl, role, consoleHref }:
         <DropdownMenuItem asChild><Link href={`/${slug}/me`}>{t("me")}</Link></DropdownMenuItem>
         {role !== "member" && <DropdownMenuItem asChild><Link href={`/${slug}/tokens`}>{t("tokens")}</Link></DropdownMenuItem>}
         {role === "admin" && <DropdownMenuItem asChild><Link href={`/${slug}/admin`}>{t("settings")}</Link></DropdownMenuItem>}
-        {consoleHref && (
+        {(consoleHref || docsHref) && (
           <>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild><a href={consoleHref}>{t("console")}</a></DropdownMenuItem>
+            {consoleHref && <DropdownMenuItem asChild><a href={consoleHref}>{t("console")}</a></DropdownMenuItem>}
+            {docsHref && <DropdownMenuItem asChild><a href={docsHref} target="_blank" rel="noopener">{t("docs")}</a></DropdownMenuItem>}
           </>
         )}
         <DropdownMenuSeparator />

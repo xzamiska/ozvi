@@ -103,3 +103,38 @@ export function maskBody(body: string, limit = 2000): string {
   } else out = maskText(s);
   return out.length > limit ? `${out.slice(0, limit)}…` : out;
 }
+
+/**
+ * Phone numbers for screenshots: 9–15 digits, optional +/00 prefix, spaces, dashes, dots, slashes
+ * or brackets between (dates like "12. 11. 2026" have 8 digits and stay readable).
+ */
+const PHONE = /(^|[^\w+(])((?:\+|00)?\(?\d[\d ()./-]{7,20}\d)(?!\w)/g;
+
+/**
+ * Where a text contains something that must not appear on a screenshot: JWTs, credentials,
+ * e-mail addresses, IBANs, card numbers (Luhn-checked) and phone numbers. Sorted, non-overlapping
+ * [start, end) ranges; the widget covers them with a solid box in the screenshot's copy of the page.
+ */
+export function sensitiveRanges(s: string): [number, number][] {
+  const found: [number, number][] = [];
+  const add = (re: RegExp, ok: (m: string) => boolean = () => true) => {
+    for (const m of s.matchAll(re)) if (ok(m[0])) found.push([m.index!, m.index! + m[0].length]);
+  };
+  add(JWT);
+  add(BEARER);
+  add(EMAIL);
+  add(IBAN);
+  add(CARD, (m) => { const d = m.replace(/\D/g, ""); return d.length >= 13 && d.length <= 19 && luhn(d); });
+  for (const m of s.matchAll(PHONE)) {
+    const d = m[2]!.replace(/\D/g, "").length;
+    if (d >= 9 && d <= 15) { const at = m.index! + m[1]!.length; found.push([at, at + m[2]!.length]); }
+  }
+  found.sort((a, b) => a[0] - b[0] || b[1] - a[1]);
+  const out: [number, number][] = [];
+  for (const r of found) {
+    const last = out.at(-1);
+    if (last && r[0] < last[1]) last[1] = Math.max(last[1], r[1]);
+    else out.push([r[0], r[1]]);
+  }
+  return out;
+}

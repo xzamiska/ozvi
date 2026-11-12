@@ -14,3 +14,4 @@
 | [0010](0010-boards-never-indexed.md) | Boardy sa nikdy neindexujú (bez nastavenia); indexuje sa len web Ozvi v cloude | 2026-11-10 |
 | [0011](0011-github-app.md) | GitHub cez GitHub App (bez tokenu a ručného webhooku); token ostáva ako záloha | 2026-11-11 |
 | [0012](0012-opt-in-telemetry.md) | Anonymná štatistika zo self-hostu len so súhlasom (`OZVI_TELEMETRY=1`), sedem polí, nič o obsahu | 2026-11-12 |
+| [0013](0013-screenshot-privacy-by-default.md) | Screenshot predvolene zakrýva polia, e-maily, telefóny, karty a tokeny plným obdĺžnikom v kópii stránky; `mask: "all"` pre citlivé appky | 2026-11-12 |

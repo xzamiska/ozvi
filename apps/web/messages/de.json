@@ -306,11 +306,12 @@
       "step1": "1. Person im Backend Ihrer App signieren",
       "step1Pkg": "mit",
       "step2": "2. Widget in Ihre App einbinden",
-      "maskA": "Markieren Sie sensible Elemente mit",
-      "maskB": ", dann werden sie in Screenshots unkenntlich gemacht. Eigene Schaltfläche:",
+      "maskA": "Formularfelder, E-Mail-Adressen, Telefonnummern, Kartennummern und Tokens decken wir in Screenshots selbst ab. Weitere sensible Elemente, etwa Namen oder Notizen, markieren Sie mit",
+      "maskB": ", dann werden sie vollständig abgedeckt. Eigene Schaltfläche:",
       "maskAnd": "und",
       "oidcTitle": "Anmeldung mit OIDC",
-      "oidcText": "Wenn Ihre App einen eigenen Identitätsanbieter hat (Keycloak, Authentik, Auth0 …), führt die Schaltfläche „Anmelden“ dorthin. SSO-Tokens aus Ihrer App funktionieren weiterhin."
+      "oidcText": "Wenn Ihre App einen eigenen Identitätsanbieter hat (Keycloak, Authentik, Auth0 …), führt die Schaltfläche „Anmelden“ dorthin. SSO-Tokens aus Ihrer App funktionieren weiterhin.",
+      "docs": "Widget-Anleitung und Datenschutz im Screenshot"
     },
     "domain": {
       "text": "Board, Widget und Links in E-Mails laufen dann unter Ihrer Adresse, z. B. feedback.ihrefirma.de."
@@ -798,7 +799,8 @@
       "tokens": "API-Tokens und KI-Assistenten",
       "settings": "Board-Einstellungen",
       "console": "Meine Projekte in Ozvi",
-      "signOut": "Abmelden"
+      "signOut": "Abmelden",
+      "docs": "Dokumentation"
     },
     "gate": {
       "signIn": "Anmelden",
@@ -1211,7 +1213,8 @@
       "website": "Ozvi-Website",
       "signOut": "Abmelden",
       "language": "Sprache",
-      "settings": "Einstellungen"
+      "settings": "Einstellungen",
+      "docs": "Dokumentation"
     },
     "units": {
       "unlimited": "unbegrenzt",
@@ -2987,7 +2990,7 @@
       "title": "Melden Sie einen Fehler in einer fremden App. In einer halben Minute.",
       "lede": "Die Demo ist eine Beispiel-Buchungs-App mit dem echten Ozvi-Widget. Melden Sie darin einen Fehler und sehen Sie genau, was Ihr Team bekäme.",
       "points": [
-        "Ein Screenshot, in dem sensible Daten schon im Browser verwischt sind",
+        "Ein Screenshot, in dem sensible Daten schon im Browser abgedeckt sind",
         "Der Konsolenfehler, die fehlgeschlagene Anfrage und die Schritte davor",
         "Das Board des Teams und die Sicht der meldenden Person, mit Status und Antwort"
       ],
@@ -3320,6 +3323,7 @@
   "docs": {
     "navLabel": "Entwicklerdokumentation",
     "home": "Ozvi – Startseite",
+    "widget": "Widget",
     "api": "REST-API",
     "webhooks": "Webhooks",
     "automation": "Automatisierung",
@@ -3902,7 +3906,7 @@
       "untitled": "Ohne Titel",
       "bug": "Fehlermeldung · nur Meldende und das Team sehen sie",
       "idea": "Idee · auf dem öffentlichen Board",
-      "shot": "Screenshot mit verwischten Feldern",
+      "shot": "Screenshot mit abgedeckten Daten",
       "page": "Seite",
       "version": "Version",
       "browser": "Browser",
@@ -3911,7 +3915,7 @@
       "noFailed": "Keine",
       "actions": "Schritte vor dem Fehler"
     },
-    "embedsNote": "Roadmap und Neuigkeiten oben sind ebenfalls Ozvi: Die App bettet sie mit zwei Zeilen HTML ein, und sie zeigen im Stil der App, was Sie planen und was erschienen ist. Telefon, Notiz und PIN werden im Screenshot schon im Browser verwischt.",
+    "embedsNote": "Roadmap und Neuigkeiten oben sind ebenfalls Ozvi: Die App bettet sie mit zwei Zeilen HTML ein, und sie zeigen im Stil der App, was Sie planen und was erschienen ist. Telefon, Notiz und PIN sind im Screenshot schon im Browser abgedeckt.",
     "board": {
       "open": "Im Board des Teams öffnen",
       "title": "Board-Vorschau",

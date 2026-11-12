@@ -306,11 +306,12 @@
       "step1": "1. Podpisz użytkownika w backendzie aplikacji",
       "step1Pkg": "za pomocą",
       "step2": "2. Dodaj widżet do aplikacji",
-      "maskA": "Oznacz wrażliwe elementy atrybutem",
-      "maskB": ", a na zrzutach ekranu zostaną rozmyte. Własny przycisk:",
+      "maskA": "Pola formularzy, e-maile, numery telefonów, numery kart i tokeny zasłaniamy na zrzutach sami. Inne wrażliwe elementy, np. imiona lub notatki, oznacz atrybutem",
+      "maskB": ", a zostaną zasłonięte w całości. Własny przycisk:",
       "maskAnd": "i",
       "oidcTitle": "Logowanie przez OIDC",
-      "oidcText": "Jeśli twoja aplikacja ma własnego dostawcę tożsamości (Keycloak, Authentik, Auth0…), przycisk „Zaloguj się” poprowadzi właśnie tam. Tokeny SSO z twojej aplikacji nadal działają."
+      "oidcText": "Jeśli twoja aplikacja ma własnego dostawcę tożsamości (Keycloak, Authentik, Auth0…), przycisk „Zaloguj się” poprowadzi właśnie tam. Tokeny SSO z twojej aplikacji nadal działają.",
+      "docs": "Przewodnik po widżecie i prywatność zrzutów"
     },
     "domain": {
       "text": "Tablica, widżet i linki w e-mailach będą działać pod twoim adresem, np. opinie.twojafirma.pl."
@@ -798,7 +799,8 @@
       "tokens": "Tokeny API i asystenci AI",
       "settings": "Ustawienia tablicy",
       "console": "Moje projekty w Ozvi",
-      "signOut": "Wyloguj się"
+      "signOut": "Wyloguj się",
+      "docs": "Dokumentacja"
     },
     "gate": {
       "signIn": "Zaloguj się",
@@ -1211,7 +1213,8 @@
       "website": "Strona Ozvi",
       "signOut": "Wyloguj się",
       "language": "Język",
-      "settings": "Ustawienia"
+      "settings": "Ustawienia",
+      "docs": "Dokumentacja"
     },
     "units": {
       "unlimited": "bez limitu",
@@ -2987,7 +2990,7 @@
       "title": "Zgłoś błąd w cudzej aplikacji. W pół minuty.",
       "lede": "Demo to przykładowa aplikacja do rezerwacji z prawdziwym widgetem Ozvi. Zgłoś w niej błąd i zobacz dokładnie to, co dostałby twój zespół.",
       "points": [
-        "Zrzut ekranu z danymi wrażliwymi rozmytymi już w przeglądarce",
+        "Zrzut ekranu z danymi wrażliwymi zasłoniętymi już w przeglądarce",
         "Błąd z konsoli, nieudane żądanie i kroki przed błędem",
         "Tablica zespołu i widok autora, ze statusem i odpowiedzią"
       ],
@@ -3320,6 +3323,7 @@
   "docs": {
     "navLabel": "Dokumentacja dla programistów",
     "home": "Strona główna Ozvi",
+    "widget": "Widżet",
     "api": "REST API",
     "webhooks": "Webhooki",
     "automation": "Automatyzacja",
@@ -3902,7 +3906,7 @@
       "untitled": "Bez tytułu",
       "bug": "Zgłoszenie błędu · widzi je tylko autor i zespół",
       "idea": "Pomysł · na publicznej tablicy",
-      "shot": "Zrzut ekranu z rozmytymi polami",
+      "shot": "Zrzut ekranu z zasłoniętymi danymi",
       "page": "Strona",
       "version": "Wersja",
       "browser": "Przeglądarka",
@@ -3911,7 +3915,7 @@
       "noFailed": "Brak",
       "actions": "Kroki przed błędem"
     },
-    "embedsNote": "Roadmapa i nowości powyżej to także Ozvi: aplikacja osadza je dwiema linijkami HTML i pokazują, co planujesz i co wydałeś, w stylu aplikacji. Telefon, notatka i PIN są rozmyte na zrzucie już w przeglądarce.",
+    "embedsNote": "Roadmapa i nowości powyżej to także Ozvi: aplikacja osadza je dwiema linijkami HTML i pokazują, co planujesz i co wydałeś, w stylu aplikacji. Telefon, notatka i PIN są zasłonięte na zrzucie już w przeglądarce.",
     "board": {
       "open": "Otwórz na tablicy zespołu",
       "title": "Podgląd tablicy",

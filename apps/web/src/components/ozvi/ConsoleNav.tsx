@@ -1,6 +1,6 @@
 "use client";
 
-import { Activity, ArrowUpRight, Check, ChevronsUpDown, CreditCard, LayoutGrid, LogOut, Menu, Plus, Send, UserRound, Users, Settings } from "lucide-react";
+import { Activity, ArrowUpRight, BookOpen, Check, ChevronsUpDown, CreditCard, LayoutGrid, LogOut, Menu, Plus, Send, UserRound, Users, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -142,7 +142,12 @@ function NavBody({ ws, all, projects, account, cloud, attention }: ShellProps) {
           {projects.length === 0 && <li className="px-2 text-[13px] text-muted-foreground">{t("noProjects")}</li>}
         </ul>
       </div>
-      <div className="mt-auto border-t pt-3"><AccountRow {...account} /></div>
+      <div className="mt-auto grid gap-2 border-t pt-3">
+        <a href="/docs" target="_blank" rel="noopener" className="flex h-8 items-center gap-2.5 rounded-md px-2 text-[13.5px] font-medium text-muted-foreground transition-colors hover:bg-wash hover:text-foreground">
+          <BookOpen className="size-4 shrink-0" aria-hidden /><span className="flex-1">{t("docs")}</span><ArrowUpRight className="size-3.5" aria-hidden />
+        </a>
+        <AccountRow {...account} />
+      </div>
     </div>
   );
 }

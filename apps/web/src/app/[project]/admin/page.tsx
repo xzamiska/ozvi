@@ -242,7 +242,8 @@ app.get("/api/ozvi-token", requireLogin, (req, res) => {
                     <pre tabIndex={0} className={preBox}>{`<script src="${base}/widget.js" defer></script>
 <ozvi-widget project="${slug}" token-url="/api/ozvi-token" app-version="1.0.0"></ozvi-widget>`}</pre>
                     <p className={hint}>
-                      {t("login.maskA")} <code className="font-mono">data-ozvi-mask</code>{t("login.maskB")} <code className="font-mono">launcher=&quot;none&quot;</code> {t("login.maskAnd")} <code className="font-mono">Ozvi.open(&quot;bug&quot;)</code>.
+                      {t("login.maskA")} <code className="font-mono">data-ozvi-mask</code>{t("login.maskB")} <code className="font-mono">launcher=&quot;none&quot;</code> {t("login.maskAnd")} <code className="font-mono">Ozvi.open(&quot;bug&quot;)</code>.{" "}
+                      <a href={`${publicUrl()}/docs/widget`} target="_blank" rel="noopener" className="oz-link">{t("login.docs")}</a>
                     </p>
                   </li>
                 </ol>

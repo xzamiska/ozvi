@@ -13,6 +13,11 @@ export interface OzviConfig {
   maskRequest?: (e: NetEntry) => NetEntry | null | false | undefined | void;
   links?: Partial<Record<LinkKind, string | (() => string | null | undefined)>>;
   detectLinks?: boolean; sentryOrg?: string;
+  /**
+   * Screenshot privacy. "auto" (default): form values, e-mails, phone numbers, IBANs, card numbers, tokens and
+   * [data-ozvi-mask] are covered. "all": every text and image is covered except inside [data-ozvi-unmask].
+   */
+  mask?: "auto" | "all";
   /** CSP nonce for scripts and styles the widget adds (default: the nonce of the widget.js <script>). */
   nonce?: string;
 }

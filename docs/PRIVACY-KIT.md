@@ -50,7 +50,7 @@ Text sa skladá zo **skutočného nastavenia projektu a inštancie**:
 - [ ] **Prílohy v S3** (`S3_*`): DPA s poskytovateľom úložiska.
 - [ ] **Integrácie:** GitHub, Linear, Jira, Slack, Microsoft Teams, Discord, prípadne vlastné webhooky. Zmluvy máte s nimi priamo, Ozvi im posiela údaje vo vašom mene. Webhook „vrátane hlásení chýb“ posiela aj súkromné hlásenia.
 - [ ] **Uchovávanie:** nastavte Dáta projektu → Uchovávanie dát a hodnoty prepíšte do zásad. Kit ich preberá automaticky.
-- [ ] **Widget:** citlivé polia označte `data-ozvi-mask`. Čo nechcete posielať, vypnite (`OzviConfig.network = false`, `actions = false`) a v kite to odškrtnite.
+- [ ] **Widget:** screenshot sám zakryje polia formulárov, e-maily, telefóny, IBAN, karty a tokeny; ďalšie citlivé miesta (mená, poznámky, diagnózy) označte `data-ozvi-mask`, pri citlivých aplikáciách zapnite `OzviConfig.mask = "all"`. Čo nechcete posielať, vypnite (`OzviConfig.network = false`, `actions = false`) a v kite to odškrtnite.
 - [ ] **Práva dotknutých osôb:** export a vymazanie údajov má každý používateľ sám na boarde v časti „Moje údaje“ (`/<projekt>/me`). Do zásad doplňte kontakt pre ostatné žiadosti.
 - [ ] **Záznam o spracovateľských činnostiach** (čl. 30): sekcie „Aké údaje spracúvame“, „Kto údaje spracúva“ a „Ako dlho údaje uchovávame“ slúžia ako podklad.
 

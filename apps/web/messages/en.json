@@ -306,11 +306,12 @@
       "step1": "1. Sign the user in your app’s backend",
       "step1Pkg": "with",
       "step2": "2. Add the widget to your app",
-      "maskA": "Mark sensitive elements with",
-      "maskB": " and they’ll be blurred in screenshots. Your own button:",
+      "maskA": "We cover form fields, e-mail addresses, phone numbers, card numbers and tokens in screenshots ourselves. Mark other sensitive elements, such as names or notes, with",
+      "maskB": " and they’re covered completely. Your own button:",
       "maskAnd": "and",
       "oidcTitle": "Sign-in with OIDC",
-      "oidcText": "If your app has its own identity provider (Keycloak, Authentik, Auth0…), the “Sign in” button will lead there. SSO tokens from your app keep working."
+      "oidcText": "If your app has its own identity provider (Keycloak, Authentik, Auth0…), the “Sign in” button will lead there. SSO tokens from your app keep working.",
+      "docs": "Widget guide and screenshot privacy"
     },
     "domain": {
       "text": "The board, widget and links in e-mails will run on your address, e.g. feedback.yourcompany.com."
@@ -798,7 +799,8 @@
       "tokens": "API tokens and AI assistants",
       "settings": "Board settings",
       "console": "My projects in Ozvi",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "docs": "Documentation"
     },
     "gate": {
       "signIn": "Sign in",
@@ -1211,7 +1213,8 @@
       "website": "Ozvi website",
       "signOut": "Sign out",
       "language": "Language",
-      "settings": "Settings"
+      "settings": "Settings",
+      "docs": "Documentation"
     },
     "units": {
       "unlimited": "unlimited",
@@ -2987,7 +2990,7 @@
       "title": "Report a bug in someone else's app. In half a minute.",
       "lede": "The demo is a sample booking app with the real Ozvi widget. Report a bug in it and see exactly what your team would get.",
       "points": [
-        "A screenshot with sensitive data blurred right in the browser",
+        "A screenshot with sensitive data covered right in the browser",
         "The console error, the failed request and the steps before the bug",
         "The team's board and the author's view, with status and reply"
       ],
@@ -3320,6 +3323,7 @@
   "docs": {
     "navLabel": "Developer documentation",
     "home": "Ozvi home",
+    "widget": "Widget",
     "api": "REST API",
     "webhooks": "Webhooks",
     "automation": "Automation",
@@ -3902,7 +3906,7 @@
       "untitled": "Untitled",
       "bug": "Bug report · only the author and the team see it",
       "idea": "Idea · on the public board",
-      "shot": "Screenshot with blurred fields",
+      "shot": "Screenshot with sensitive data covered",
       "page": "Page",
       "version": "Version",
       "browser": "Browser",
@@ -3911,7 +3915,7 @@
       "noFailed": "None",
       "actions": "Steps before the bug"
     },
-    "embedsNote": "The roadmap and changelog above are Ozvi too: the app embeds them with two lines of HTML, and they show what you plan and what shipped, in the app's style. The phone, note and PIN are blurred in the screenshot, right in the browser.",
+    "embedsNote": "The roadmap and changelog above are Ozvi too: the app embeds them with two lines of HTML, and they show what you plan and what shipped, in the app's style. The phone, note and PIN are covered in the screenshot right in the browser.",
     "board": {
       "open": "Open in the team's board",
       "title": "Board preview",

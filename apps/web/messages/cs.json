@@ -306,11 +306,12 @@
       "step1": "1. V backendu aplikace podepište uživatele",
       "step1Pkg": "balíčkem",
       "step2": "2. Do aplikace vložte widget",
-      "maskA": "Citlivé prvky označte",
-      "maskB": ", na screenshotu budou rozmazané. Vlastní tlačítko:",
+      "maskA": "Formuláře, e-maily, telefony, čísla karet a tokeny na screenshotu zakryjeme sami. Další citlivé prvky, například jména nebo poznámky, označte",
+      "maskB": " a budou zakryté celé. Vlastní tlačítko:",
       "maskAnd": "a",
       "oidcTitle": "Přihlášení přes OIDC",
-      "oidcText": "Pokud má aplikace vlastního poskytovatele identity (Keycloak, Authentik, Auth0…), tlačítko „Přihlásit se“ povede na něj. SSO tokeny z aplikace fungují dál."
+      "oidcText": "Pokud má aplikace vlastního poskytovatele identity (Keycloak, Authentik, Auth0…), tlačítko „Přihlásit se“ povede na něj. SSO tokeny z aplikace fungují dál.",
+      "docs": "Návod k widgetu a soukromí na screenshotu"
     },
     "domain": {
       "text": "Board, widget i odkazy v e-mailech poběží na vaší adrese, např. feedback.vasefirma.cz."
@@ -798,7 +799,8 @@
       "tokens": "API tokeny a AI asistenti",
       "settings": "Nastavení boardu",
       "console": "Moje projekty v Ozvi",
-      "signOut": "Odhlásit se"
+      "signOut": "Odhlásit se",
+      "docs": "Dokumentace"
     },
     "gate": {
       "signIn": "Přihlásit se",
@@ -1211,7 +1213,8 @@
       "website": "Web Ozvi",
       "signOut": "Odhlásit se",
       "language": "Jazyk",
-      "settings": "Nastavení"
+      "settings": "Nastavení",
+      "docs": "Dokumentace"
     },
     "units": {
       "unlimited": "neomezeně",
@@ -2987,7 +2990,7 @@
       "title": "Nahlaste chybu v cizí aplikaci. Za půl minuty.",
       "lede": "Demo je ukázková rezervační aplikace se skutečným widgetem Ozvi. Nahlaste v ní chybu a uvidíte přesně to, co by dostal váš tým.",
       "points": [
-        "Screenshot, na kterém jsou citlivé údaje rozmazané už v prohlížeči",
+        "Screenshot, na kterém jsou citlivé údaje zakryté už v prohlížeči",
         "Chyba z konzole, selhaný požadavek a kroky před chybou",
         "Board týmu i pohled autora, se stavem a odpovědí"
       ],
@@ -3320,6 +3323,7 @@
   "docs": {
     "navLabel": "Dokumentace pro vývojáře",
     "home": "Ozvi – úvod",
+    "widget": "Widget",
     "api": "REST API",
     "webhooks": "Webhooky",
     "automation": "Automatizace",
@@ -3902,7 +3906,7 @@
       "untitled": "Bez názvu",
       "bug": "Hlášení chyby · vidí jen autor a tým",
       "idea": "Nápad · na veřejném boardu",
-      "shot": "Screenshot s rozmazanými poli",
+      "shot": "Screenshot se zakrytými údaji",
       "page": "Stránka",
       "version": "Verze",
       "browser": "Prohlížeč",
@@ -3911,7 +3915,7 @@
       "noFailed": "Žádné",
       "actions": "Kroky před chybou"
     },
-    "embedsNote": "Roadmapa a novinky výše jsou také Ozvi: aplikace si je vloží dvěma řádky HTML a ukážou, co plánujete a co jste vydali, ve stylu aplikace. Telefon, poznámka a PIN jsou na screenshotu rozmazané už v prohlížeči.",
+    "embedsNote": "Roadmapa a novinky výše jsou také Ozvi: aplikace si je vloží dvěma řádky HTML a ukážou, co plánujete a co jste vydali, ve stylu aplikace. Telefon, poznámka a PIN jsou na screenshotu zakryté už v prohlížeči.",
     "board": {
       "open": "Otevřít v boardu týmu",
       "title": "Ukázka boardu",

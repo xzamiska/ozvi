@@ -2,7 +2,7 @@
 
 Source-available bug reports and an idea board that look like your product.
 
-- **Two spaces.** A private bug flow with automatic context (page, app version, browser, console errors, a screenshot with sensitive fields blurred) and a public idea board with voting, roadmap and changelog.
+- **Two spaces.** A private bug flow with automatic context (page, app version, browser, console errors, a screenshot with form values, e-mails, phone numbers and card numbers covered in the browser) and a public idea board with voting, roadmap and changelog.
 - **Closing the loop.** "Fixed in 2.15.1 — does it work for you?" goes to the reporter, linked GitHub issues and releases set it for you, and publishing a changelog entry e-mails everyone who voted.
 - **Your design.** One `theme.json` (colours, fonts, radius, density) styles the board, the widget and the e-mails.
 - **Your login.** Users stay signed in from your app via a signed token or OIDC; boards can also offer sign-in by e-mailed code.
@@ -24,7 +24,7 @@ app.get("/api/ozvi-token", requireLogin, (req, res) =>
   res.json({ token: signOzviToken({ id: req.user.id, email: req.user.email, name: req.user.name }, process.env.OZVI_SSO_SECRET) }));
 ```
 
-Mark sensitive elements with `data-ozvi-mask` — they are blurred in screenshots. More: [docs/INTEGRACIA.md](docs/INTEGRACIA.md).
+Screenshots cover form values, e-mails, phone numbers, IBANs, card numbers and tokens on their own; mark anything else sensitive (names, notes) with `data-ozvi-mask`, or set `OzviConfig.mask = "all"` to cover all text. More: [docs/INTEGRACIA.md](docs/INTEGRACIA.md).
 
 ## Self-host
 

@@ -25,4 +25,4 @@ export function robotsTxt(o: { cloud: boolean; primary: boolean; origin?: string
 }
 
 /** The public pages a search engine should know about (cloud, primary host). */
-export const SITEMAP_PAGES = ["/demo", "/cs/demo", "/en/demo", "/pl/demo", "/hu/demo", "/de/demo", "/releases", "/docs/api", "/docs/webhooks", "/docs/automation", "/privacy", "/terms", "/dpa", "/subprocessors", "/accessibility"] as const;
+export const SITEMAP_PAGES = ["/demo", "/cs/demo", "/en/demo", "/pl/demo", "/hu/demo", "/de/demo", "/releases", "/docs/widget", "/docs/api", "/docs/webhooks", "/docs/automation", "/privacy", "/terms", "/dpa", "/subprocessors", "/accessibility"] as const;

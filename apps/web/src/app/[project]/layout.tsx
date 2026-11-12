@@ -63,7 +63,7 @@ export default async function ProjectLayout({ children, params }: { children: Re
                       <Link href={`/${slug}/admin`} aria-label={t("settings")} title={t("settings")}><Settings /></Link>
                     </Button>
                   )}
-                  <AccountMenu slug={slug} name={user.name} email={user.email} avatarUrl={user.avatarUrl} role={user.role} consoleHref={consoleHref} />
+                  <AccountMenu slug={slug} name={user.name} email={user.email} avatarUrl={user.avatarUrl} role={user.role} consoleHref={consoleHref} docsHref={user.role !== "member" ? `${publicUrl()}/docs` : null} />
                 </>
               ) : login ? (
                 <HeaderLogin slug={slug} href={login} />

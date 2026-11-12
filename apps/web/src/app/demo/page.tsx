@@ -35,7 +35,7 @@ export default async function Demo() {
       </div>
       <DemoApi />
       <p style={{ marginTop: 24, maxWidth: 560, opacity: 0.7 }}>
-        Toto je ukážková hostiteľská appka. Telefón a poznámka sú označené <code>data-ozvi-mask</code>, PIN je pole s heslom. Na screenshote budú rozmazané.
+        Toto je ukážková hostiteľská appka. Telefón a PIN zakryje screenshot sám, poznámka je označená <code>data-ozvi-mask</code>.
       </p>
       <section aria-label="Vložené prvky" style={{ maxWidth: 1100, marginTop: 32, display: "grid", gap: 32 }}>
         {/* @ts-expect-error custom element */}

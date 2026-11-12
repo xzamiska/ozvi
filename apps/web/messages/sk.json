@@ -306,11 +306,12 @@
       "step1": "1. V backende aplikácie podpíšte používateľa",
       "step1Pkg": "balíkom",
       "step2": "2. Do aplikácie vložte widget",
-      "maskA": "Citlivé prvky označte",
-      "maskB": ", na screenshote budú rozmazané. Vlastné tlačidlo:",
+      "maskA": "Formuláre, e-maily, telefóny, čísla kariet a tokeny zakryjeme na screenshote sami. Ďalšie citlivé prvky, napríklad mená alebo poznámky, označte",
+      "maskB": " a budú zakryté celé. Vlastné tlačidlo:",
       "maskAnd": "a",
       "oidcTitle": "Prihlásenie cez OIDC",
-      "oidcText": "Ak má aplikácia vlastného poskytovateľa identity (Keycloak, Authentik, Auth0…), tlačidlo „Prihlásiť sa“ povedie naň. SSO tokeny z aplikácie fungujú ďalej."
+      "oidcText": "Ak má aplikácia vlastného poskytovateľa identity (Keycloak, Authentik, Auth0…), tlačidlo „Prihlásiť sa“ povedie naň. SSO tokeny z aplikácie fungujú ďalej.",
+      "docs": "Návod na widget a súkromie na screenshote"
     },
     "domain": {
       "text": "Board, widget aj odkazy v e-mailoch pobežia na vašej adrese, napr. feedback.vasafirma.sk."
@@ -798,7 +799,8 @@
       "tokens": "API tokeny a AI asistenti",
       "settings": "Nastavenia boardu",
       "console": "Moje projekty v Ozvi",
-      "signOut": "Odhlásiť sa"
+      "signOut": "Odhlásiť sa",
+      "docs": "Dokumentácia"
     },
     "gate": {
       "signIn": "Prihlásiť sa",
@@ -1211,7 +1213,8 @@
       "website": "Web Ozvi",
       "signOut": "Odhlásiť sa",
       "language": "Jazyk",
-      "settings": "Nastavenia"
+      "settings": "Nastavenia",
+      "docs": "Dokumentácia"
     },
     "units": {
       "unlimited": "neobmedzené",
@@ -2987,7 +2990,7 @@
       "title": "Nahláste chybu v cudzej aplikácii. Za pol minúty.",
       "lede": "Demo je ukážková rezervačná aplikácia so skutočným widgetom Ozvi. Nahláste v nej chybu a uvidíte presne to, čo by dostal váš tím.",
       "points": [
-        "Screenshot, na ktorom sú citlivé údaje rozmazané ešte v prehliadači",
+        "Screenshot, na ktorom sú citlivé údaje zakryté ešte v prehliadači",
         "Chyba z konzoly, zlyhaná požiadavka a kroky pred chybou",
         "Board tímu aj pohľad autora, so stavom a odpoveďou"
       ],
@@ -3320,6 +3323,7 @@
   "docs": {
     "navLabel": "Dokumentácia pre vývojárov",
     "home": "Ozvi – úvod",
+    "widget": "Widget",
     "api": "REST API",
     "webhooks": "Webhooky",
     "automation": "Automatizácia",
@@ -3902,7 +3906,7 @@
       "untitled": "Bez názvu",
       "bug": "Hlásenie chyby · vidí len autor a tím",
       "idea": "Nápad · na verejnom boarde",
-      "shot": "Screenshot s rozmazanými poľami",
+      "shot": "Screenshot so zakrytými údajmi",
       "page": "Stránka",
       "version": "Verzia",
       "browser": "Prehliadač",
@@ -3911,7 +3915,7 @@
       "noFailed": "Žiadne",
       "actions": "Kroky pred chybou"
     },
-    "embedsNote": "Roadmapa a novinky vyššie sú tiež Ozvi: aplikácia si ich vloží dvoma riadkami HTML a ukážu, čo plánujete a čo ste vydali, v štýle aplikácie. Telefón, poznámka a PIN sú na screenshote rozmazané ešte v prehliadači.",
+    "embedsNote": "Roadmapa a novinky vyššie sú tiež Ozvi: aplikácia si ich vloží dvoma riadkami HTML a ukážu, čo plánujete a čo ste vydali, v štýle aplikácie. Telefón, poznámka a PIN sú na screenshote zakryté ešte v prehliadači.",
     "board": {
       "open": "Otvoriť v boarde tímu",
       "title": "Ukážka boardu",
