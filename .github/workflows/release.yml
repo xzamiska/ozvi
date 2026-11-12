@@ -14,6 +14,8 @@ concurrency:
 jobs:
   release:
     runs-on: ubuntu-24.04
+    # A normal release takes ~15 min (arm64 under QEMU is the slow part); a hung step must not hold the runner for 6 h.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v5
       - name: Version and notes
