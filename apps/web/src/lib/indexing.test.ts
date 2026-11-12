@@ -5,7 +5,7 @@ import { indexable, robotsTxt } from "./indexing";
 describe("indexable", () => {
   const cloud = { cloud: true, primary: true };
   it("allows only Ozvi's public pages on the cloud primary host", () => {
-    for (const path of ["/", "/en", "/de/", "/docs", "/docs/api", "/releases", "/terms", "/privacy"]) expect(indexable({ ...cloud, path })).toBe(true);
+    for (const path of ["/", "/en", "/de/", "/docs", "/docs/api", "/releases", "/blog", "/blog/hide-private-data-in-bug-report-screenshots", "/terms", "/privacy"]) expect(indexable({ ...cloud, path })).toBe(true);
   });
   it("never indexes boards, the app or sign-in", () => {
     for (const path of ["/billiwo", "/billiwo/ideas", "/billiwo/roadmap", "/app", "/app/new", "/login", "/demo/board", "/demo/board/ideas", "/docsx", "/en/x"]) expect(indexable({ ...cloud, path })).toBe(false);

@@ -1,14 +1,15 @@
 import { parseTheme, presets, toCss } from "@ozvi/theme";
 import { Languages } from "lucide-react";
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, getTranslations } from "next-intl/server";
 import { requestLocale } from "@/i18n/server";
 import { cn } from "@/lib/utils";
 import { OzviLogo } from "../ozvi/Logo";
 
 const theme = parseTheme(presets.ozvi);
 
-const PROSE = `mt-10 max-w-[80ch] text-[15.5px] leading-[1.7]
+export const PROSE = `mt-10 max-w-[80ch] text-[15.5px] leading-[1.7]
   [&_h2]:mt-16 [&_h2]:mb-4 [&_h2]:scroll-mt-24 [&_h2]:border-t [&_h2]:pt-10 [&_h2]:font-heading [&_h2]:text-[24px] [&_h2]:leading-tight [&_h2]:font-bold [&_h2]:tracking-tight
   [&_h2:first-child]:mt-0 [&_h2:first-child]:border-t-0 [&_h2:first-child]:pt-0
   [&_h3]:mt-10 [&_h3]:mb-3 [&_h3]:scroll-mt-24 [&_h3]:text-[17.5px] [&_h3]:font-semibold [&_h3]:tracking-tight
@@ -34,8 +35,10 @@ export async function DocsShell({ page, title, lede, toc, children }: {
   // The docs are English end to end, their chrome too; only the note says so in the reader's language.
   const en = await getTranslations({ locale: "en", namespace: "docs" });
   const pages: DocsPage[] = ["widget", "api", "webhooks", "automation"];
+  // The docs are English: client parts (copy buttons) too.
+  const messages = await getMessages({ locale: "en" });
   return (
-    <>
+    <NextIntlClientProvider locale="en" messages={messages}>
       <style>{toCss(theme)}</style>
       <div className="flex min-h-dvh flex-col bg-background">
         <header lang="en" className="sticky top-0 z-30 border-b bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
@@ -87,6 +90,6 @@ export async function DocsShell({ page, title, lede, toc, children }: {
           </div>
         </div>
       </div>
-    </>
+    </NextIntlClientProvider>
   );
 }

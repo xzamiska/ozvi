@@ -515,7 +515,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             </div>
             {([
               [t("footer.product"), [...(t.raw("nav.productItems") as NavItem[]).slice(0, 3), { href: DEMO_PATH[locale], title: t("footer.demo"), text: "" }, ...(own ? [{ href: own.ideas, title: t("footer.feedback"), text: "" }] : [])]],
-              [t("footer.developers"), [...(t.raw("nav.devItems") as NavItem[]), t.raw("nav.devFeature") as NavItem]],
+              [t("footer.developers"), [...(t.raw("nav.devItems") as NavItem[]), t.raw("nav.devFeature") as NavItem, { href: "/blog", title: t("footer.blog"), text: "" }]],
               ...(compare ? [[compare.title, compare.items.map((i) => ({ ...i, text: "" }))] as const] : []),
             ] as const).map(([h, items]) => (
               <nav key={h} aria-label={h}>

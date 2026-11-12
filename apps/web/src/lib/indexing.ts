@@ -8,12 +8,12 @@ import { COMPARE_PATHS } from "./compare";
 
 export const NOINDEX = "noindex, nofollow, noarchive, nosnippet";
 
-const PUBLIC_PAGES = new Set(["/", "/cs", "/en", "/pl", "/hu", "/de", "/releases", "/privacy", "/terms", "/dpa", "/subprocessors", "/accessibility", "/docs", "/demo", "/cs/demo", "/en/demo", "/pl/demo", "/hu/demo", "/de/demo", ...COMPARE_PATHS]);
+const PUBLIC_PAGES = new Set(["/", "/cs", "/en", "/pl", "/hu", "/de", "/releases", "/blog", "/privacy", "/terms", "/dpa", "/subprocessors", "/accessibility", "/docs", "/demo", "/cs/demo", "/en/demo", "/pl/demo", "/hu/demo", "/de/demo", ...COMPARE_PATHS]);
 
 export function indexable(o: { cloud: boolean; primary: boolean; path: string }): boolean {
   if (!o.cloud || !o.primary) return false;
   const path = o.path.length > 1 ? o.path.replace(/\/+$/, "") : o.path;
-  return PUBLIC_PAGES.has(path) || path.startsWith("/docs/");
+  return PUBLIC_PAGES.has(path) || path.startsWith("/docs/") || path.startsWith("/blog/");
 }
 
 /** Board hosts stay crawlable on purpose: a crawler has to fetch a page to see its noindex header. */
@@ -25,4 +25,4 @@ export function robotsTxt(o: { cloud: boolean; primary: boolean; origin?: string
 }
 
 /** The public pages a search engine should know about (cloud, primary host). */
-export const SITEMAP_PAGES = ["/demo", "/cs/demo", "/en/demo", "/pl/demo", "/hu/demo", "/de/demo", "/releases", "/docs/widget", "/docs/api", "/docs/webhooks", "/docs/automation", "/privacy", "/terms", "/dpa", "/subprocessors", "/accessibility"] as const;
+export const SITEMAP_PAGES = ["/demo", "/cs/demo", "/en/demo", "/pl/demo", "/hu/demo", "/de/demo", "/releases", "/blog", "/docs/widget", "/docs/api", "/docs/webhooks", "/docs/automation", "/privacy", "/terms", "/dpa", "/subprocessors", "/accessibility"] as const;
