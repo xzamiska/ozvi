@@ -28,10 +28,11 @@ export function ProofBox({ slug, itemId, kind, proofs }: {
           {proofs.map((p) => (
             <li key={p.id} className="flex min-w-0 items-center gap-2 text-[13.5px]">
               {p.kind === "pr" ? <GitPullRequest aria-hidden className="size-3.5 shrink-0 text-muted-foreground" /> : <ExternalLink aria-hidden className="size-3.5 shrink-0 text-muted-foreground" />}
-              <a href={p.url} target="_blank" rel="noreferrer" className="min-w-0 flex-1 truncate font-medium hover:underline">
+              <a href={p.url} target="_blank" rel="noreferrer" className="min-w-0 flex-1 truncate font-medium hover:underline" title={[p.title, p.ref].filter(Boolean).join(" · ")}>
                 {p.kind === "preview" ? (p.title || t("preview")) : (p.title || p.ref || p.url)}
               </a>
-              {p.ref && <span className="shrink-0 text-[12.5px] text-muted-foreground" data-num>{p.ref}</span>}
+              {/* "#10" only: the full "owner/repo#10" is in the tooltip, it didn't fit the side column */}
+              {p.ref && <span className="shrink-0 text-[12.5px] text-muted-foreground" data-num>{p.ref.slice(p.ref.lastIndexOf("#"))}</span>}
               <Button variant="ghost" size="icon-xs" aria-label={t("remove", { what: p.ref ?? p.url })} disabled={removing}
                 onClick={() => start(async () => { await deleteProof(slug, itemId, p.id); toast(t("removed")); })}>
                 <X />

@@ -46,7 +46,7 @@ export function Journey({ kind, status, events, className, locale = "sk" }: {
           </span>
           <div className="min-w-0 pt-px">
             <div className="flex flex-wrap items-baseline gap-x-2">
-              <span className="text-[14px] font-semibold">
+              <span className="min-w-0 text-[14px] font-semibold [overflow-wrap:anywhere]">
                 {e.type === "status" ? <>{routeText(tr, "label", e.status)}{e.version && (e.status === "fixed" || e.status === "verified") ? <span data-num>{t("inVersion", { v: e.version })}</span> : null}{e.sub ? <span className="font-medium text-muted-foreground"> · {e.sub}</span> : null}</>
                   : e.type === "reply" ? <a href={`#c-${e.commentId}`} className="hover:underline">{t("teamReply")}</a>
                   : e.type === "link" ? <a href={e.url} target="_blank" rel="noreferrer" className="hover:underline">GitHub {e.ref}</a>
@@ -81,15 +81,16 @@ function ProofList({ proof }: { proof: ProofSnapshot }) {
   const t = useTranslations("board.journey");
   const link = "flex min-h-6 w-fit max-w-full min-w-0 items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground hover:underline";
   return (
-    <ul aria-label={t("proof")} className="mt-1.5 grid gap-0.5">
+    <ul aria-label={t("proof")} className="mt-1.5 grid min-w-0 gap-0.5">
       {proof.preview && (
         <li><a href={proof.preview} target="_blank" rel="noreferrer" className={cn(link, "font-medium text-foreground")}>
           <ExternalLink aria-hidden className="size-3.5 shrink-0" />{t("proofPreview")}</a></li>
       )}
       {proof.prs.map((p) => (
-        <li key={p.url}><a href={p.url} target="_blank" rel="noreferrer" className={link}>
+        <li key={p.url} className="min-w-0"><a href={p.url} target="_blank" rel="noreferrer" className={link} title={[p.title, p.ref].filter(Boolean).join(" · ")}>
           <GitPullRequest aria-hidden className="size-3.5 shrink-0" /><span className="min-w-0 truncate">{p.title || p.ref || p.url}</span>
-          {p.ref && p.title && <span className="shrink-0 max-sm:hidden" data-num>{p.ref}</span>}</a></li>
+          {/* Only the number next to a title ("#10"): the full "owner/repo#10" pushed the card's edge on narrow columns. */}
+          {p.ref && p.title && <span className="shrink-0" data-num>{p.ref.slice(p.ref.lastIndexOf("#"))}</span>}</a></li>
       ))}
       {proof.release && (
         <li>{proof.release.url

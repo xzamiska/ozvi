@@ -107,9 +107,9 @@ export function GithubBox({ slug, itemId, links, enabled }: {
       {links.length > 0 && (
         <ul className="grid gap-1.5">
           {links.map((l) => (
-            <li key={l.id} className="flex items-center gap-2 text-[13.5px]">
+            <li key={l.id} className="flex min-w-0 items-center gap-2 text-[13.5px]">
               <span className={cn("size-2 shrink-0 rounded-full", l.state === "closed" ? "bg-st-done" : "bg-st-work")} aria-hidden />
-              <a href={l.url} target="_blank" rel="noreferrer" className="font-semibold hover:underline">{l.ref}</a>
+              <a href={l.url} target="_blank" rel="noreferrer" className="min-w-0 max-w-[65%] truncate font-semibold hover:underline" title={l.ref}>{l.ref}</a>
               <span className="min-w-0 flex-1 truncate text-muted-foreground">{l.title}</span>
               <Button variant="ghost" size="icon-xs" aria-label={t("unlink", { ref: l.ref })} disabled={unlinking}
                 onClick={() => start(async () => { await githubUnlink(slug, l.id); toast(t("unlinked", { ref: l.ref })); })}>
