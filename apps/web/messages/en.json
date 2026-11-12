@@ -2321,7 +2321,10 @@
         "repoHint": "Only repositories you gave the app access to are listed.",
         "pick": "Pick a repository",
         "connectRepo": "Connect repository",
-        "disconnectText": "New issues stop being linked and statuses stop syncing. Links on existing items stay. To uninstall the app on GitHub, use your account's or organisation's settings."
+        "disconnectText": "New issues stop being linked and statuses stop syncing. Links on existing items stay. To uninstall the app on GitHub, use your account's or organisation's settings.",
+        "alreadyInstalled": "Already installed the Ozvi app on GitHub (for another board, for example)?",
+        "useExisting": "Use the existing installation",
+        "none": "None of your Ozvi app installations on GitHub has a repository you can write to. Install the app with “Connect GitHub”."
       }
     },
     "oidc": {

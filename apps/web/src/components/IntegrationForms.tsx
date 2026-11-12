@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-  addWebhook, createToken, deleteWebhook, disconnectGithub, revokeToken, saveDomain, saveGithub, saveOidc, startGithubInstall,
+  addWebhook, createToken, deleteWebhook, disconnectGithub, revokeToken, saveDomain, saveGithub, saveOidc, startGithubAuthorize, startGithubInstall,
   setRole, signOutEverywhere, testWebhook, verifyDomain, type ActState,
 } from "@/lib/integration-actions";
 import { useTranslations } from "next-intl";
@@ -204,14 +204,16 @@ export function GithubForm({ slug, repo, onClose, connected, hookUrl }: { slug: 
 /** GitHub through the GitHub App: install on GitHub, pick a repository here. No token, no webhook to add. */
 export function GithubAppForm({ slug, repo, onClose, repos, account, installed, result }: {
   slug: string; repo: string; onClose: string; repos: string[] | null; account: { login: string; org: boolean } | null; installed: boolean;
-  result: "connected" | "failed" | "requested" | null;
+  result: "connected" | "failed" | "requested" | "none" | null;
 }) {
   const T = useTranslations("integrations");
   const t = useTranslations("integrations.github");
   const [state, action, pending] = useActionState((p: ActState, f: FormData) => saveGithub(slug, p, f), {});
   const [going, go] = useTransition();
   const install = () => go(async () => { await startGithubInstall(slug); });
-  const notice = result === "connected" ? { ok: t("app.installed") } : result === "requested" ? { ok: t("app.requested") } : result === "failed" ? { error: t("app.failed") } : {};
+  const authorize = () => go(async () => { await startGithubAuthorize(slug); });
+  const notice = result === "connected" ? { ok: t("app.installed") } : result === "requested" ? { ok: t("app.requested") }
+    : result === "none" ? { error: t("app.none") } : result === "failed" ? { error: t("app.failed") } : {};
   const connected = installed && !!repo && !!repos?.includes(repo);
 
   if (!installed) {
@@ -220,6 +222,10 @@ export function GithubAppForm({ slug, repo, onClose, repos, account, installed, 
         <p className="max-w-[64ch] text-[14px] leading-relaxed text-muted-foreground">{t("app.intro")}</p>
         <Result {...notice} />
         <div><Button type="button" onClick={install} disabled={going} aria-busy={going || undefined}><Plug />{going ? t("app.opening") : t("connect")}</Button></div>
+        <p className="text-[13.5px] text-muted-foreground">
+          {t("app.alreadyInstalled")}{" "}
+          <button type="button" onClick={authorize} disabled={going} className="font-medium text-foreground underline underline-offset-2 hover:no-underline">{t("app.useExisting")}</button>
+        </p>
       </div>
     );
   }

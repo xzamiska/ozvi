@@ -105,7 +105,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
     ? await Promise.all([installationRepos(ghApp, ghInstall).then((rs) => rs.filter((r) => allowedReposOf(extra.github?.config).includes(r)), () => null), installationAccount(ghApp, ghInstall)])
     : [null, null];
   const ghParam = (await searchParams).github;
-  const ghResult = (["connected", "failed", "requested"] as const).find((r) => r === ghParam) ?? null;
+  const ghResult = (["connected", "failed", "requested", "none"] as const).find((r) => r === ghParam) ?? null;
   const lin = parseLinearConfig(extra.linearRow?.config);
   const jir = parseJiraConfig(extra.jiraRow?.config);
   const team = extra.people.filter((p) => p.role !== "member");

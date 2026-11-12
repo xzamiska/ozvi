@@ -84,12 +84,8 @@ export async function installationAccount(app: GithubApp, installationId: number
   } catch { return null; }
 }
 
-/**
- * Step 2: the code from GitHub's callback belongs to someone who can see this installation, and the
- * repositories in it they may WRITE to (only those can be connected: seeing a repo is not enough, an
- * outside collaborator with read access must not attach the owner's installation). null = no access.
- */
-export async function installerRepos(app: GithubApp, code: string, installationId: number, f: Fetch = fetch): Promise<string[] | null> {
+/** The user-to-server token for a code from GitHub's OAuth redirect (installation or plain authorisation). */
+async function userToken(app: GithubApp, code: string, f: Fetch): Promise<string | null> {
   const res = await f("https://github.com/login/oauth/access_token", {
     method: "POST",
     headers: { accept: "application/json", "content-type": "application/json", "user-agent": "ozvi" },
@@ -97,14 +93,22 @@ export async function installerRepos(app: GithubApp, code: string, installationI
     signal: AbortSignal.timeout(15_000),
   });
   const { access_token: user } = (await res.json().catch(() => ({}))) as { access_token?: string };
-  if (!res.ok || !user) return null;
-  let sees = false;
-  for (let page = 1; page <= 5 && !sees; page++) {
+  return res.ok && user ? user : null;
+}
+
+/** Installations of this app that the user can see (a GitHub App's user token lists only its own). */
+async function userInstallations(user: string, f: Fetch): Promise<number[]> {
+  const ids: number[] = [];
+  for (let page = 1; page <= 5; page++) {
     const r = await api<{ installations: { id: number }[] }>(user, `/user/installations?per_page=100&page=${page}`, {}, f);
-    sees = r.installations.some((i) => i.id === installationId);
+    ids.push(...r.installations.map((i) => i.id));
     if (r.installations.length < 100) break;
   }
-  if (!sees) return null;
+  return ids;
+}
+
+/** Repositories of an installation the user may WRITE to (seeing a repo is not enough). */
+async function writableRepos(user: string, installationId: number, f: Fetch): Promise<string[]> {
   const out: string[] = [];
   for (let page = 1; page <= 3; page++) {
     const r = await api<{ repositories: { full_name: string; permissions?: { admin?: boolean; push?: boolean } }[] }>(user, `/user/installations/${installationId}/repositories?per_page=100&page=${page}`, {}, f);
@@ -112,6 +116,35 @@ export async function installerRepos(app: GithubApp, code: string, installationI
     if (r.repositories.length < 100) break;
   }
   return out.slice(0, MAX_TICKET_REPOS);
+}
+
+/**
+ * Step 2: the code from GitHub's callback belongs to someone who can see this installation, and the
+ * repositories in it they may WRITE to (only those can be connected: seeing a repo is not enough, an
+ * outside collaborator with read access must not attach the owner's installation). null = no access.
+ */
+export async function installerRepos(app: GithubApp, code: string, installationId: number, f: Fetch = fetch): Promise<string[] | null> {
+  const user = await userToken(app, code, f);
+  if (!user) return null;
+  if (!(await userInstallations(user, f)).includes(installationId)) return null;
+  return writableRepos(user, installationId, f);
+}
+
+/**
+ * The app is already installed (for another board, or before): GitHub only sends the admin back from
+ * its "Configure" page after a change, so instead the admin authorises the app and we look up the
+ * installations they can see. The one with the most repositories they may write to is used; the
+ * admin can still switch with "Change" (the install flow). null = no installation with such a repo.
+ */
+export async function authorizedInstallation(app: GithubApp, code: string, f: Fetch = fetch): Promise<{ i: number; r: string[] } | null> {
+  const user = await userToken(app, code, f);
+  if (!user) return null;
+  let best: { i: number; r: string[] } | null = null;
+  for (const id of (await userInstallations(user, f)).slice(0, 20)) {
+    const r = await writableRepos(user, id, f);
+    if (r.length && (!best || r.length > best.r.length)) best = { i: id, r };
+  }
+  return best;
 }
 
 /** Repositories carried in the ticket (and kept on the board): plenty for one board, short enough for a URL. */
@@ -148,4 +181,6 @@ export interface InstallTicket { p: string; u: string; i: number; r: string[] }
 export const installTicket = (t: InstallTicket, now?: number) => sign("ticket", t, 5 * 60_000, now);
 export const readInstallTicket = (v: string | null | undefined, now?: number) => read<InstallTicket>("ticket", v, now);
 
+/** Authorise the app (no installation change); GitHub returns to the app's callback URL with code and state. */
+export const authorizeUrl = (app: GithubApp, state: string) => `https://github.com/login/oauth/authorize?client_id=${encodeURIComponent(app.clientId)}&state=${encodeURIComponent(state)}`;
 export const installUrl = (app: GithubApp, state: string) => `https://github.com/apps/${encodeURIComponent(app.slug)}/installations/new?state=${encodeURIComponent(state)}`;

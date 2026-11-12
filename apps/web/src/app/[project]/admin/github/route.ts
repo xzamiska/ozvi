@@ -11,7 +11,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ proj
   const project = await db.query.projects.findFirst({ where: eq(schema.projects.slug, slug) });
   const url = new URL(req.url);
   const ticket = url.searchParams.get("ticket");
-  let result = url.searchParams.get("github") === "requested" ? "requested" : "failed";
+  const back = url.searchParams.get("github");
+  let result = back === "requested" || back === "none" ? back : "failed";
   if (ticket) result = await finishGithubInstall(slug, ticket).then((r) => (r === "ok" ? "connected" : "failed"), () => "failed");
   return Response.redirect(new URL(`/${slug}/admin?github=${result}#github`, requestOrigin(project, req)), 303);
 }

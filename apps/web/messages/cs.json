@@ -2321,7 +2321,10 @@
         "repoHint": "Nabízíme jen repozitáře, ke kterým jste aplikaci dali přístup.",
         "pick": "Vyberte repozitář",
         "connectRepo": "Připojit repozitář",
-        "disconnectText": "Nové issues se přestanou propojovat a stav se nebude synchronizovat. Propojení u existujících záznamů zůstanou. Aplikaci na GitHubu odinstalujete v nastavení účtu nebo organizace."
+        "disconnectText": "Nové issues se přestanou propojovat a stav se nebude synchronizovat. Propojení u existujících záznamů zůstanou. Aplikaci na GitHubu odinstalujete v nastavení účtu nebo organizace.",
+        "alreadyInstalled": "Aplikaci Ozvi už máte na GitHubu nainstalovanou (třeba pro jiný board)?",
+        "useExisting": "Připojit existující instalaci",
+        "none": "Ve vašich instalacích aplikace Ozvi na GitHubu jsme nenašli repozitář, do kterého můžete zapisovat. Nainstalujte aplikaci přes „Připojit GitHub“."
       }
     },
     "oidc": {

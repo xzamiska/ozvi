@@ -12,7 +12,7 @@ import { db } from "./db";
 import { DomainError, isTeamRole } from "./domain";
 import { EVENTS } from "./events";
 import { allowedReposOf, createIssue, gh, installationOf, linkIssue, parseGithubConfig } from "./github";
-import { githubApp, installationRepos, installState, installUrl, readInstallTicket } from "./github-app";
+import { authorizeUrl, githubApp, installationRepos, installState, installUrl, readInstallTicket } from "./github-app";
 import { discoverOidc } from "./oidc";
 import { getTranslations } from "next-intl/server";
 import { getCtx } from "./project";
@@ -165,6 +165,14 @@ export async function startGithubInstall(slug: string) {
   const app = githubApp();
   if (!app) throw new Error("GitHub App is not configured");
   redirect(installUrl(app, installState({ p: project.id, u: user.id, s: slug })));
+}
+
+/** GitHub App already installed on the admin's account: authorise it instead (GitHub's Configure page only returns after a change). */
+export async function startGithubAuthorize(slug: string) {
+  const { project, user } = await requireAdmin(slug);
+  const app = githubApp();
+  if (!app) throw new Error("GitHub App is not configured");
+  redirect(authorizeUrl(app, installState({ p: project.id, u: user.id, s: slug })));
 }
 
 /** GitHub App, back from GitHub (via /api/github/callback): store the installation under the admin's session. */

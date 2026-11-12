@@ -1,6 +1,6 @@
 import { createVerify, generateKeyPairSync } from "node:crypto";
 import { describe, expect, it } from "vitest";
-import { appJwt, githubApp, installationRepos, installerRepos, installState, installTicket, readInstallState, readInstallTicket } from "./github-app";
+import { appJwt, authorizedInstallation, githubApp, installationRepos, installerRepos, installState, installTicket, readInstallState, readInstallTicket } from "./github-app";
 
 process.env.OZVI_SESSION_SECRET ??= "test-session-secret-0123456789abcdef";
 const { privateKey, publicKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
@@ -50,6 +50,25 @@ describe("github app", () => {
     expect(await installerRepos(app, "code", 7, f([3]))).toBeNull();
     const bad = (async () => json({ error: "bad_verification_code" })) as unknown as typeof fetch;
     expect(await installerRepos(app, "code", 7, bad)).toBeNull();
+  });
+
+  it("already installed: picks the installation the user sees with the most writable repositories", async () => {
+    const f = (async (url: string | URL | Request) => {
+      const u = String(url);
+      if (u.includes("login/oauth")) return json({ access_token: "user-token" });
+      if (u.includes("/user/installations?")) return json({ installations: [{ id: 3 }, { id: 7 }, { id: 9 }] });
+      if (u.includes("/user/installations/3/repositories")) return json({ repositories: [{ full_name: "me/one", permissions: { push: true } }] });
+      if (u.includes("/user/installations/7/repositories")) return json({ repositories: [
+        { full_name: "org/app", permissions: { push: true } }, { full_name: "org/web", permissions: { admin: true } }, { full_name: "org/ro", permissions: { pull: true } },
+      ] });
+      if (u.includes("/user/installations/9/repositories")) return json({ repositories: [{ full_name: "x/read", permissions: { pull: true } }] });
+      return json({}, 404);
+    }) as typeof fetch;
+    expect(await authorizedInstallation(app, "code", f)).toEqual({ i: 7, r: ["org/app", "org/web"] });
+    const none = (async (url: string | URL | Request) => String(url).includes("login/oauth") ? json({ access_token: "t" }) : json({ installations: [] })) as typeof fetch;
+    expect(await authorizedInstallation(app, "code", none)).toBeNull();
+    const bad = (async () => json({ error: "bad_verification_code" })) as unknown as typeof fetch;
+    expect(await authorizedInstallation(app, "code", bad)).toBeNull();
   });
 
   it("lists every repository the installation sees", async () => {

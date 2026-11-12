@@ -2321,7 +2321,10 @@
         "repoHint": "Csak azokat a tárolókat mutatjuk, amelyekhez hozzáférést adtál az alkalmazásnak.",
         "pick": "Válassz tárolót",
         "connectRepo": "Tároló csatlakoztatása",
-        "disconnectText": "Az új issue-k nem kapcsolódnak össze, és az állapotok sem szinkronizálódnak. A meglévő bejegyzések kapcsolatai megmaradnak. Az alkalmazást a GitHubon a fiók vagy a szervezet beállításaiban távolíthatod el."
+        "disconnectText": "Az új issue-k nem kapcsolódnak össze, és az állapotok sem szinkronizálódnak. A meglévő bejegyzések kapcsolatai megmaradnak. Az alkalmazást a GitHubon a fiók vagy a szervezet beállításaiban távolíthatod el.",
+        "alreadyInstalled": "Az Ozvi alkalmazás már telepítve van a GitHubon (például egy másik táblához)?",
+        "useExisting": "Meglévő telepítés használata",
+        "none": "Egyik Ozvi-telepítésedben sincs olyan tároló, amelybe írhatsz. Telepítsd az alkalmazást a „GitHub csatlakoztatása” gombbal."
       }
     },
     "oidc": {

@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import type { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { projectOrigin } from "@/lib/email/url";
-import { githubApp, installerRepos, installTicket, readInstallState } from "@/lib/github-app";
+import { authorizedInstallation, githubApp, installerRepos, installTicket, readInstallState } from "@/lib/github-app";
 
 /**
  * Where GitHub sends the admin after installing the app (step 2 in lib/github-app). It reaches the
@@ -21,6 +21,12 @@ export async function GET(req: NextRequest) {
   const back = (q: string) => Response.redirect(`${projectOrigin(project)}/${project.slug}/admin/github?${q}#github`, 303);
   // An organisation owner still has to approve the request; nothing to connect yet.
   if (url.searchParams.get("setup_action") === "request") return back("github=requested");
+  // "App already installed": a plain authorisation (no installation_id); use an installation the admin can see.
+  if (!url.searchParams.get("installation_id") && code) {
+    const found = await authorizedInstallation(app, code).catch((e) => { console.error("[ozvi] github authorize", e); return null; });
+    if (!found) return back("github=none");
+    return back(`ticket=${encodeURIComponent(installTicket({ p: project.id, u: state.u, i: found.i, r: found.r }))}`);
+  }
   if (!Number.isSafeInteger(installationId) || installationId <= 0 || !code) return back("github=failed");
   const repos = await installerRepos(app, code, installationId).catch((e) => { console.error("[ozvi] github callback", e); return null; });
   if (!repos) return back("github=failed");

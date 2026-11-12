@@ -2321,7 +2321,10 @@
         "repoHint": "Ponúkame len repozitáre, ku ktorým ste appke dali prístup.",
         "pick": "Vyberte repozitár",
         "connectRepo": "Pripojiť repozitár",
-        "disconnectText": "Nové issues sa prestanú prepájať a stav sa nebude synchronizovať. Prepojenia pri existujúcich záznamoch zostanú. Appku na GitHube odinštalujete v nastaveniach účtu alebo organizácie."
+        "disconnectText": "Nové issues sa prestanú prepájať a stav sa nebude synchronizovať. Prepojenia pri existujúcich záznamoch zostanú. Appku na GitHube odinštalujete v nastaveniach účtu alebo organizácie.",
+        "alreadyInstalled": "Ozvi appku už máte na GitHube nainštalovanú (napríklad pre iný board)?",
+        "useExisting": "Pripojiť existujúcu inštaláciu",
+        "none": "Vo vašich inštaláciách Ozvi appky na GitHube sme nenašli repozitár, do ktorého môžete zapisovať. Nainštalujte appku cez „Pripojiť GitHub“."
       }
     },
     "oidc": {

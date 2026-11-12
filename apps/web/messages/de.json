@@ -2321,7 +2321,10 @@
         "repoHint": "Angezeigt werden nur Repositories, auf die Sie der App Zugriff gegeben haben.",
         "pick": "Repository wählen",
         "connectRepo": "Repository verbinden",
-        "disconnectText": "Neue Issues werden nicht mehr verknüpft, Status werden nicht mehr synchronisiert. Verknüpfungen bestehender Einträge bleiben. Die App deinstallieren Sie auf GitHub in den Einstellungen des Kontos oder der Organisation."
+        "disconnectText": "Neue Issues werden nicht mehr verknüpft, Status werden nicht mehr synchronisiert. Verknüpfungen bestehender Einträge bleiben. Die App deinstallieren Sie auf GitHub in den Einstellungen des Kontos oder der Organisation.",
+        "alreadyInstalled": "Die Ozvi-App ist auf GitHub schon installiert (zum Beispiel für ein anderes Board)?",
+        "useExisting": "Bestehende Installation verwenden",
+        "none": "In keiner deiner Ozvi-App-Installationen auf GitHub gibt es ein Repository, in das du schreiben darfst. Installiere die App über „GitHub verbinden“."
       }
     },
     "oidc": {

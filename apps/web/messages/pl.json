@@ -2321,7 +2321,10 @@
         "repoHint": "Pokazujemy tylko repozytoria, do których dałeś aplikacji dostęp.",
         "pick": "Wybierz repozytorium",
         "connectRepo": "Połącz repozytorium",
-        "disconnectText": "Nowe issues przestaną być łączone, a statusy przestaną się synchronizować. Powiązania przy istniejących wpisach zostaną. Aplikację na GitHubie odinstalujesz w ustawieniach konta lub organizacji."
+        "disconnectText": "Nowe issues przestaną być łączone, a statusy przestaną się synchronizować. Powiązania przy istniejących wpisach zostaną. Aplikację na GitHubie odinstalujesz w ustawieniach konta lub organizacji.",
+        "alreadyInstalled": "Aplikacja Ozvi jest już zainstalowana na GitHubie (np. dla innej tablicy)?",
+        "useExisting": "Użyj istniejącej instalacji",
+        "none": "W żadnej Twojej instalacji aplikacji Ozvi na GitHubie nie ma repozytorium z prawem zapisu. Zainstaluj aplikację przyciskiem „Połącz z GitHubem”."
       }
     },
     "oidc": {
