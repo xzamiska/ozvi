@@ -9,9 +9,9 @@ const INF = Number.POSITIVE_INFINITY;
 
 export const PLAN_LIMITS = {
   self: { emailsPerMonth: INF, attachmentBytes: INF, projects: INF, customDomain: true, badge: false, ai: true, translationsPerMonth: INF },
-  free: { emailsPerMonth: 1_000, attachmentBytes: 1 * 1024 ** 3, projects: 1, customDomain: false, badge: true, ai: false, translationsPerMonth: 0 },
-  pro: { emailsPerMonth: 10_000, attachmentBytes: 10 * 1024 ** 3, projects: 3, customDomain: true, badge: false, ai: false, translationsPerMonth: 500 },
-  studio: { emailsPerMonth: 50_000, attachmentBytes: 50 * 1024 ** 3, projects: INF, customDomain: true, badge: false, ai: true, translationsPerMonth: 2_000 },
+  free: { emailsPerMonth: 200, attachmentBytes: 1 * 1024 ** 3, projects: 1, customDomain: false, badge: true, ai: false, translationsPerMonth: 0 },
+  pro: { emailsPerMonth: 1_500, attachmentBytes: 10 * 1024 ** 3, projects: 3, customDomain: true, badge: false, ai: false, translationsPerMonth: 500 },
+  studio: { emailsPerMonth: 5_000, attachmentBytes: 50 * 1024 ** 3, projects: INF, customDomain: true, badge: false, ai: true, translationsPerMonth: 2_000 },
 } as const;
 
 export type PlanName = keyof typeof PLAN_LIMITS;
