@@ -13,3 +13,10 @@ export async function register() {
   startJobs(db);
   console.log("[ozvi] workers started (e-mail, webhooks, embeddings)");
 }
+
+/** Server errors (rendering, route handlers, server actions) to OZVI_ERROR_DSN when set (lib/error-report.ts). */
+export async function onRequestError(err: unknown, request: { path: string; method: string }, context: { routePath: string; routeType: string; routerKind: string }) {
+  if (process.env.NEXT_RUNTIME !== "nodejs" || !process.env.OZVI_ERROR_DSN) return;
+  const { reportError } = await import("./lib/error-report");
+  await reportError(err, { path: request.path, method: request.method, route: context.routePath, kind: context.routeType });
+}

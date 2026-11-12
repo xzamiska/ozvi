@@ -72,6 +72,10 @@ Ozvi vychádza vo verziách (semver) s poznámkami na [ozvi.io/releases](https:/
 
 Nastavenia boardu ukazujú bežiacu verziu. Raz denne ju porovnajú s verejným zoznamom vydaní (`OZVI_RELEASES_URL`, predvolene `https://ozvi.io/releases.json`). Ide o obyčajný GET a o inštancii sa nič neposiela. Vypnete ho cez `OZVI_UPDATE_CHECK=0`.
 
+### Chyby servera do vlastného GlitchTipu alebo Sentry (voliteľné)
+
+Ak máte GlitchTip alebo Sentry, nastavte `OZVI_ERROR_DSN` na DSN projektu. Ozvi tam pošle chyby servera (vykresľovanie, API, akcie, úlohy na pozadí): typ, správu, stack, metódu a cestu bez query stringu. Nikdy hlavičky, cookies, telá požiadaviek ani údaje používateľov. Bez premennej sa neposiela nič.
+
 ### Anonymná štatistika (dobrovoľná, predvolene vypnutá)
 
 Ozvi bez vášho súhlasu nič o vašej inštancii neposiela. Ak nám chcete pomôcť vedieť, koľko ľudí Ozvi na vlastných serveroch používa, nastavte `OZVI_TELEMETRY=1`. Server potom raz denne pošle na `https://ozvi.io/api/telemetry` (`OZVI_TELEMETRY_URL`) presne toto:

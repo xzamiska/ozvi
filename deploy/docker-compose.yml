@@ -51,6 +51,8 @@ services:
       OZVI_FONTS_REMOTE: ${OZVI_FONTS_REMOTE:-}
       # Anonymous statistics, off unless you set 1 (docs/SELFHOST.md → Anonymná štatistika).
       OZVI_TELEMETRY: ${OZVI_TELEMETRY:-}
+      # Optional: server errors to your own GlitchTip or Sentry (a DSN); empty = nowhere.
+      OZVI_ERROR_DSN: ${OZVI_ERROR_DSN:-}
       # Operators: may create accounts, get an e-mail when an update fails (comma-separated).
       OZVI_ADMIN_EMAILS: ${OZVI_ADMIN_EMAILS:-}
       OZVI_ADMIN_LOCALE: ${OZVI_ADMIN_LOCALE:-sk}

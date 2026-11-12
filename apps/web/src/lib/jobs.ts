@@ -9,6 +9,7 @@ import { pivotPending } from "./translate";
 import { usageAlertsTick } from "./usage-alerts";
 import { expireManualPlans } from "./manual-plans";
 import { telemetryTick } from "./telemetry";
+import { reportError } from "./error-report";
 import { webhookTick } from "./webhooks";
 import { trackerTick } from "./tracker-sync";
 import { jiraPollTick } from "./jira";
@@ -20,13 +21,13 @@ export function startJobs(db: Db) {
     const t = setInterval(async () => {
       if (running) return;
       running = true;
-      try { await fn(); } catch (e) { console.error(`[ozvi] ${name}`, e); } finally { running = false; }
+      try { await fn(); } catch (e) { console.error(`[ozvi] ${name}`, e); void reportError(e, { job: name }); } finally { running = false; }
     }, ms);
     t.unref?.();
     return () => clearInterval(t);
   };
   const once = (ms: number, name: string, fn: () => Promise<unknown>) => {
-    const t = setTimeout(() => { fn().catch((e) => console.error(`[ozvi] ${name}`, e)); }, ms);
+    const t = setTimeout(() => { fn().catch((e) => { console.error(`[ozvi] ${name}`, e); void reportError(e, { job: name }); }); }, ms);
     t.unref?.();
     return () => clearTimeout(t);
   };
