@@ -2714,7 +2714,8 @@
       "license": "Verejný zdrojový kód (FSL). SDK a widget pod MIT.",
       "demo": "Ukážka widgetu",
       "feedback": "Navrhnite nápad na Ozvi",
-      "contact": "Napíšte nám"
+      "contact": "Napíšte nám",
+      "dpa": "Zmluva o spracúvaní (DPA)"
     },
     "product": {
       "title": "Čo uvidia vaši používatelia. A čo váš tím.",
@@ -3668,8 +3669,8 @@
         "entity": "Resend, Inc.",
         "purpose": "Odosielanie e-mailov: prihlasovacie kódy, upozornenia, súhrny a novinky.",
         "data": "E-mailová adresa príjemcu, predmet a obsah e-mailu, technické údaje o doručení.",
-        "location": "TODO: krajina a región, kde Resend spracúva e-maily pre náš účet.",
-        "transfer": "TODO: mechanizmus prenosu (napr. rámec EÚ – USA alebo štandardné zmluvné doložky) podľa zmluvy s Resend.",
+        "location": "E-maily odchádzajú z regiónu Resend v EÚ (Írsko); účet a podpora Resend sú v USA.",
+        "transfer": "USA: Resend, Inc. je certifikovaný v rámci ochrany údajov EÚ – USA (EU-U.S. Data Privacy Framework).",
         "when": "Vždy, e-maily v cloude posielame my."
       },
       {
@@ -3679,16 +3680,16 @@
         "data": "Text príspevkov a komentárov potrebný na danú úlohu.",
         "location": "Dátové centrá Scaleway v EÚ (Francúzsko).",
         "transfer": "Žiadny, dáta zostávajú v EÚ.",
-        "note": "TODO: potvrdiť podľa zmluvy so Scaleway, že vstupy a výstupy neukladá a nepoužíva na trénovanie modelov.",
+        "note": "Scaleway podľa svojej dokumentácie obsah vstupov ani výstupov nezbiera, nečíta ani ďalej nepoužíva a pri bežnom (nie dávkovom) spracovaní ho neukladá. Ozvi používa len bežné spracovanie.",
         "when": "Len v projektoch, ktoré majú AI funkcie zapnuté."
       },
       {
         "name": "Creem",
-        "entity": "TODO: obchodné meno a sídlo spoločnosti Creem.",
+        "entity": "Armitage Labs OÜ (Creem), Estónsko, registrový kód 16977866",
         "purpose": "Predaj platených plánov ako predajca (merchant of record): platba, faktúra, DPH, vrátenie peňazí.",
         "data": "E-mail a meno účtu, identifikátory zákazníka a predplatného. Kartu a fakturačné údaje zadávate priamo u Creem, my ich nevidíme.",
-        "location": "TODO: krajina spracovania.",
-        "transfer": "TODO: mechanizmus prenosu, ak Creem spracúva mimo EÚ.",
+        "location": "EÚ (Estónsko); niektorí poskytovatelia Creem môžu byť mimo EÚ.",
+        "transfer": "Pri poskytovateľoch mimo EÚ/EHP podľa Creem štandardné zmluvné doložky schválené Európskou komisiou.",
         "when": "Len pri platených plánoch. Creem je pri platbe samostatný prevádzkovateľ, nie náš sprostredkovateľ pre dáta na boardoch."
       },
       {
@@ -3696,38 +3697,48 @@
         "entity": "GitHub, Inc.",
         "purpose": "Prepojenie projektu s repozitárom: issue z nápadu alebo chyby, stav podľa pull requestov a vydaní.",
         "data": "Názov a popis položky, verzia aplikácie a prehliadač, odkaz na board. Nikdy záznam z konzoly, siete ani screenshot.",
-        "location": "TODO: krajina spracovania.",
-        "transfer": "TODO: mechanizmus prenosu.",
+        "location": "USA",
+        "transfer": "Štandardné zmluvné doložky podľa zmluvy GitHubu o ochrane údajov.",
         "when": "Len ak ho zákazník v projekte sám pripojí, cez vlastný účet."
       },
       {
         "name": "Linear",
-        "entity": "TODO: obchodné meno spoločnosti.",
+        "entity": "Linear Orbit, Inc., USA",
         "purpose": "Prepojenie projektu s Linear: issue z položky a synchronizácia stavu.",
         "data": "Názov a popis položky, verzia aplikácie a prehliadač, odkaz na board, komentáre o zmene stavu.",
-        "location": "TODO: krajina spracovania.",
-        "transfer": "TODO: mechanizmus prenosu.",
+        "location": "USA",
+        "transfer": "Štandardné zmluvné doložky (rozhodnutie Komisie 2021/914) podľa zmluvy Linear o spracúvaní.",
         "when": "Len ak ho zákazník v projekte sám pripojí, cez vlastný účet."
       },
       {
         "name": "Jira Cloud",
-        "entity": "Atlassian",
+        "entity": "Atlassian (Atlassian US, Inc., Atlassian Pty Ltd)",
         "purpose": "Prepojenie projektu s Jirou: issue z položky a synchronizácia stavu.",
         "data": "Názov a popis položky, verzia aplikácie a prehliadač, odkaz na board, komentáre o zmene stavu.",
-        "location": "TODO: krajina spracovania (závisí od nastavenia Jira Cloud zákazníka).",
-        "transfer": "TODO: mechanizmus prenosu.",
+        "location": "Podľa nastavenia umiestnenia dát (data residency) v Jira Cloud zákazníka.",
+        "transfer": "Atlassian US, Inc. je certifikovaný v rámci ochrany údajov EÚ – USA; inak štandardné zmluvné doložky.",
         "when": "Len ak ju zákazník v projekte sám pripojí, cez vlastný účet."
+      },
+      {
+        "name": "Migadu",
+        "entity": "Migadu-Mail GmbH, Švajčiarsko",
+        "purpose": "Prijímanie e-mailov na adresy @ozvi.io (napríklad support@ozvi.io): otázky, žiadosti a hlásenia.",
+        "data": "Obsah e-mailu, ktorý nám pošlete, adresa odosielateľa a technické údaje o doručení.",
+        "location": "Švajčiarsko (Migadu neuvádza konkrétne dátové centrá).",
+        "transfer": "Švajčiarsko má rozhodnutie Európskej komisie o primeranosti ochrany údajov.",
+        "when": "Len keď nám napíšete e-mail."
       }
     ],
     "notTitle": "Čo subdodávateľ nie je",
     "not": [
       "Písma: všetky písma, aj tie z Google Fonts, servírujeme z vlastného servera. Server si súbor písma stiahne raz, bez akýchkoľvek údajov o návštevníkoch; prehliadač návštevníka sa na Google nepripája.",
       "Webhooky a chatové kanály (Slack, Microsoft Teams, Discord a pod.), ktoré si zákazník nastaví: údaje posielame na adresu, ktorú určí zákazník, v jeho mene.",
+      "Sledovanie chýb a návštevnosti (GlitchTip, Umami) prevádzkujeme sami na vlastnom serveri v EÚ; nie sú to tretie strany.",
       "Analytika a reklama: nepoužívame žiadne analytické ani reklamné nástroje tretích strán.",
       "Vlastná inštalácia Ozvi (self-host): beží u prevádzkovateľa inštalácie a tento zoznam sa na ňu nevzťahuje."
     ],
     "changesTitle": "Zmeny zoznamu",
-    "changes": "Pred pridaním alebo výmenou subdodávateľa upozorníme zákazníkov cloudu e-mailom vopred, aby mohli namietať. Zmluva o spracúvaní je opísaná v časti <link>Ochrana súkromia</link>.",
+    "changes": "Pred pridaním alebo výmenou subdodávateľa upozorníme zákazníkov cloudu e-mailom aspoň 30 dní vopred, aby mohli namietať. Podrobnosti sú v <link>zmluve o spracúvaní</link>.",
     "contact": "Otázky k subdodávateľom posielajte na {email}.",
     "updated": "Posledná zmena zoznamu: {date}",
     "link": "Subdodávatelia"

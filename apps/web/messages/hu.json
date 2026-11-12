@@ -2714,7 +2714,8 @@
       "license": "Nyilvános forráskód (FSL). Az SDK és a widget MIT-licenc alatt.",
       "demo": "Widget-bemutató",
       "feedback": "Javasolj ötletet az Ozvinak",
-      "contact": "Írjon nekünk"
+      "contact": "Írjon nekünk",
+      "dpa": "Adatfeldolgozási szerződés (DPA)"
     },
     "product": {
       "title": "Amit a felhasználóid látnak. És amit a csapatod.",
@@ -3668,8 +3669,8 @@
         "entity": "Resend, Inc.",
         "purpose": "E-mailek küldése: bejelentkezési kódok, értesítések, összesítők és kiadási jegyzetek.",
         "data": "A címzett e-mail-címe, az e-mail tárgya és tartalma, kézbesítési metaadatok.",
-        "location": "TODO: az ország és a régió, ahol a Resend a fiókunk e-mailjeit feldolgozza.",
-        "transfer": "TODO: a továbbítás jogalapja (pl. EU–USA adatvédelmi keretrendszer vagy általános adatvédelmi kikötések) a Resenddel kötött megállapodás szerint.",
+        "location": "Az e-mailek a Resend EU-s régiójából (Írország) mennek ki; a Resend fiókkezelése és ügyfélszolgálata az USA-ban van.",
+        "transfer": "USA: a Resend, Inc. rendelkezik az EU–USA adatvédelmi keretrendszer (EU-U.S. Data Privacy Framework) szerinti tanúsítvánnyal.",
         "when": "Mindig; a felhőben mi küldjük az e-maileket."
       },
       {
@@ -3679,16 +3680,16 @@
         "data": "A bejegyzések és megjegyzések feladathoz szükséges szövege.",
         "location": "Scaleway adatközpontok az EU-ban (Franciaország).",
         "transfer": "Nincs, az adatok az EU-ban maradnak.",
-        "note": "TODO: a Scaleway-szerződés alapján megerősíteni, hogy a bemeneteket és kimeneteket nem tárolja és nem használja modellek tanítására.",
+        "note": "A Scaleway a dokumentációja szerint a bemenetek és kimenetek tartalmát nem gyűjti, nem olvassa és nem használja fel tovább, és normál (nem kötegelt) feldolgozásnál nem tárolja. Az Ozvi csak normál feldolgozást használ.",
         "when": "Csak azokban a projektekben, ahol az AI-funkciók be vannak kapcsolva."
       },
       {
         "name": "Creem",
-        "entity": "TODO: a Creem cégneve és székhelye.",
+        "entity": "Armitage Labs OÜ (Creem), Észtország, cégjegyzékszám 16977866",
         "purpose": "Fizetős csomagok értékesítése forgalmazóként (merchant of record): fizetés, számla, áfa, visszatérítések.",
         "data": "A fiók e-mail-címe és neve, ügyfél- és előfizetés-azonosítók. A kártya- és számlázási adatokat közvetlenül a Creemnél adod meg; mi soha nem látjuk őket.",
-        "location": "TODO: a feldolgozás országa.",
-        "transfer": "TODO: a továbbítás jogalapja, ha a Creem az EU-n kívül dolgoz fel adatokat.",
+        "location": "EU (Észtország); a Creem egyes szolgáltatói az EU-n kívül lehetnek.",
+        "transfer": "Az EU-n/EGT-n kívüli szolgáltatóknál a Creem szerint az Európai Bizottság által jóváhagyott általános szerződési feltételek.",
         "when": "Csak fizetős csomagoknál. A fizetések tekintetében a Creem önálló adatkezelő, nem a táblaadatok feldolgozója."
       },
       {
@@ -3696,38 +3697,48 @@
         "entity": "GitHub, Inc.",
         "purpose": "Projekt összekapcsolása egy repositoryval: issue-k ötletekből vagy hibákból, állapot pull requestekből és kiadásokból.",
         "data": "A bejegyzés címe és leírása, az alkalmazás verziója és a böngésző, link a táblára. Konzol- és hálózati felvételek vagy képernyőképek soha.",
-        "location": "TODO: a feldolgozás országa.",
-        "transfer": "TODO: a továbbítás jogalapja.",
+        "location": "USA",
+        "transfer": "Általános szerződési feltételek a GitHub adatvédelmi megállapodása szerint.",
         "when": "Csak ha az ügyfél a saját fiókjával egy projekthez csatlakoztatja."
       },
       {
         "name": "Linear",
-        "entity": "TODO: a cég hivatalos neve.",
+        "entity": "Linear Orbit, Inc., USA",
         "purpose": "Projekt összekapcsolása a Linearrel: issue-k bejegyzésekből és állapotszinkronizálás.",
         "data": "A bejegyzés címe és leírása, az alkalmazás verziója és a böngésző, link a táblára, állapotváltozási hozzászólások.",
-        "location": "TODO: a feldolgozás országa.",
-        "transfer": "TODO: a továbbítás jogalapja.",
+        "location": "USA",
+        "transfer": "Általános szerződési feltételek (a Bizottság 2021/914 határozata) a Linear adatfeldolgozási megállapodása szerint.",
         "when": "Csak ha az ügyfél a saját fiókjával egy projekthez csatlakoztatja."
       },
       {
         "name": "Jira Cloud",
-        "entity": "Atlassian",
+        "entity": "Atlassian (Atlassian US, Inc., Atlassian Pty Ltd)",
         "purpose": "Projekt összekapcsolása a Jirával: issue-k bejegyzésekből és állapotszinkronizálás.",
         "data": "A bejegyzés címe és leírása, az alkalmazás verziója és a böngésző, link a táblára, állapotváltozási hozzászólások.",
-        "location": "TODO: a feldolgozás országa (az ügyfél Jira Cloud-beállításaitól függ).",
-        "transfer": "TODO: a továbbítás jogalapja.",
+        "location": "Az ügyfél Jira Cloud adattárolási helyének (data residency) beállítása szerint.",
+        "transfer": "Az Atlassian US, Inc. rendelkezik az EU–USA adatvédelmi keretrendszer szerinti tanúsítvánnyal; egyébként általános szerződési feltételek.",
         "when": "Csak ha az ügyfél a saját fiókjával egy projekthez csatlakoztatja."
+      },
+      {
+        "name": "Migadu",
+        "entity": "Migadu-Mail GmbH, Svájc",
+        "purpose": "Az @ozvi.io címekre (például support@ozvi.io) érkező e-mailek fogadása: kérdések, kérések és bejelentések.",
+        "data": "Az általad küldött e-mail tartalma, a feladó címe és a kézbesítés technikai adatai.",
+        "location": "Svájc (a Migadu nem nevezi meg az adatközpontjait).",
+        "transfer": "Svájcra vonatkozóan az Európai Bizottság megfelelőségi határozatot hozott.",
+        "when": "Csak ha e-mailt írsz nekünk."
       }
     ],
     "notTitle": "Mi nem alfeldolgozó",
     "not": [
       "Betűtípusok: minden betűtípust, a Google Fontsot is, saját szerverünkről szolgálunk ki. A szerver egyszer letölti a betűtípusfájlt, látogatói adatok nélkül; a látogatók böngészője soha nem csatlakozik a Google-höz.",
       "Az ügyfél által beállított webhookok és csevegőcsatornák (Slack, Microsoft Teams, Discord és hasonlók): az adatokat az ügyfél által választott címre küldjük, az ő megbízásából.",
+      "A hibák és a látogatottság figyelését (GlitchTip, Umami) saját magunk üzemeltetjük saját szerverünkön az EU-ban; ezek nem harmadik felek.",
       "Analitika és hirdetés: semmilyen külső analitikai vagy hirdetési eszközt nem használunk.",
       "Saját üzemeltetésű Ozvi: annál fut, aki a telepítést üzemelteti, és ez a lista nem vonatkozik rá."
     ],
     "changesTitle": "A lista változásai",
-    "changes": "Mielőtt új alfeldolgozót veszünk fel vagy lecserélünk egyet, előre tájékoztatjuk a felhőügyfeleket e-mailben, hogy kifogást emelhessenek. Az adatfeldolgozási megállapodást az <link>adatvédelmi tájékoztató</link> ismerteti.",
+    "changes": "Alvállalkozó felvétele vagy cseréje előtt legalább 30 nappal e-mailben értesítjük a felhő ügyfeleit, hogy kifogást emelhessenek. A részletek az <link>adatfeldolgozási szerződésben</link> vannak.",
     "contact": "Az alfeldolgozókkal kapcsolatos kérdéseket ide küldd: {email}.",
     "updated": "A lista utolsó módosítása: {date}",
     "link": "Alfeldolgozók"

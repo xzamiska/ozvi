@@ -1,8 +1,6 @@
 # Zmluva o spracúvaní osobných údajov (DPA) — Ozvi cloud
 
-> **NÁVRH NA PRÁVNU KONTROLU.** Toto je pracovná šablóna podľa čl. 28 ods. 3 GDPR, nie hotový právny text. Pred prvým podpisom ju musí skontrolovať právnik (najmä zodpovednosť, audit, prenosy mimo EÚ a lehoty). Platí len pre hostovanú službu (cloud); vlastná inštalácia (self-host) má vlastného prevádzkovateľa a túto zmluvu nepotrebuje.
->
-> Zástupné údaje `{{…}}` sa vypĺňajú z `apps/web/src/lib/legal.ts` (`LEGAL`). Hranaté zátvorky `[…]` dopĺňa prevádzkovateľ alebo zákazník pri podpise. Body označené **TODO** treba pred použitím overiť.
+> **Zverejnené na [ozvi.io/dpa](https://ozvi.io/dpa)** (od verzie 1.0, 12. 11. 2026) ako súčasť obchodných podmienok; zdrojom pravdy je stránka `apps/web/src/app/dpa/page.tsx`. Tento súbor je pracovná kópia na osobitný podpis; pri zmene upravte obe. Platí len pre hostovanú službu (cloud); vlastná inštalácia (self-host) má vlastného prevádzkovateľa.
 
 Verzia šablóny: {{LEGAL.version}} · účinná od {{LEGAL.effective}}
 
@@ -52,19 +50,19 @@ Táto zmluva dopĺňa [Obchodné podmienky](https://ozvi.io/terms) (ďalej „Po
 
 ## 4. Mlčanlivosť
 
-Ozvi zabezpečí, aby sa osoby oprávnené spracúvať osobné údaje zaviazali k mlčanlivosti alebo aby sa na ne vzťahovala zákonná povinnosť mlčanlivosti. Prístup k produkčným dátam má len [počet / role] osôb a len v rozsahu nevyhnutnom na prevádzku a podporu.
+Ozvi zabezpečí, aby sa osoby oprávnené spracúvať osobné údaje zaviazali k mlčanlivosti alebo aby sa na ne vzťahovala zákonná povinnosť mlčanlivosti. Prístup k produkčným dátam má len prevádzkovateľ služby, a to len v rozsahu nevyhnutnom na prevádzku a podporu.
 
 ## 5. Technické a organizačné opatrenia (čl. 32 GDPR)
 
-Ozvi prijíma najmä tieto opatrenia (úplný a aktuálny opis: **TODO** príloha s TOM po kontrole infraštruktúry):
+Ozvi prijíma najmä tieto opatrenia:
 
 - **Oddelenie dát projektov:** každý záznam nesie identifikátor projektu a databáza vynucuje oddelenie na úrovni riadkov (row-level security); aplikácia sa k databáze nepripája ako superpoužívateľ.
 - **Šifrovanie tajomstiev:** tajné kľúče (SSO, OIDC, integrácie) sú šifrované AES-256-GCM; prístupové tokeny sa ukladajú len ako odtlačky (SHA-256).
-- **Šifrovanie pri prenose:** všetka komunikácia so službou cez HTTPS (TLS). **TODO:** šifrovanie diskov a záloh v pokoji.
+- **Šifrovanie pri prenose:** všetka komunikácia so službou cez HTTPS (TLS); kópia záloh mimo dátového centra je šifrovaná.
 - **Minimalizácia pri zdroji:** widget maskuje citlivé hodnoty (heslá, tokeny, e-maily, IBAN, čísla kariet) ešte v prehliadači; server ich maskuje znova. Hlavičky požiadaviek sa nezaznamenávajú nikdy.
 - **Prístup:** hlásenia chýb a ich technický záznam vidí len autor a tím projektu; do integrácií (GitHub, Linear, Jira) a webhookov sa technický záznam neposiela.
 - **Uchovávanie:** Zákazník si v nastaveniach projektu volí automatické mazanie technického záznamu hlásení (predvolene po 180 dňoch), príloh uzavretých chýb a neaktívnych importovaných kontaktov; mazanie prebieha každú noc a zapisuje sa do záznamu aktivity.
-- **Odolnosť:** denné zálohy (**TODO:** miesto uloženia, doba uchovania záloh, test obnovy).
+- **Odolnosť:** denné zálohy uchovávané najviac 30 dní, na samostatnom disku servera a šifrovane mimo dátového centra.
 - **Záznam aktivity:** zmeny nastavení, rolí, tokenov a integrácií sa zapisujú do záznamu aktivity priestoru.
 - **Ochrana proti zneužitiu:** obmedzenie počtu požiadaviek, moderovanie, blokovanie používateľov.
 
@@ -74,7 +72,7 @@ Ozvi môže opatrenia meniť, ak tým neznižuje úroveň ochrany.
 
 6.1 Zákazník udeľuje Ozvi všeobecné písomné povolenie zapojiť ďalších sprostredkovateľov. Aktuálny zoznam je zverejnený na [ozvi.io/subprocessors](https://ozvi.io/subprocessors) a je súčasťou tejto zmluvy.
 
-6.2 Ozvi Zákazníka upozorní e-mailom na zamýšľané pridanie alebo výmenu ďalšieho sprostredkovateľa aspoň **[N] dní** vopred. Zákazník môže z oprávnených dôvodov ochrany údajov namietať; ak sa strany nedohodnú, Zákazník môže službu vypovedať s okamžitou účinnosťou a Ozvi mu vráti pomernú časť predplatného za nevyčerpané obdobie.
+6.2 Ozvi Zákazníka upozorní e-mailom na zamýšľané pridanie alebo výmenu ďalšieho sprostredkovateľa aspoň **30 dní** vopred. Zákazník môže z oprávnených dôvodov ochrany údajov namietať; ak sa strany nedohodnú, Zákazník môže službu vypovedať s okamžitou účinnosťou a Ozvi mu vráti pomernú časť predplatného za nevyčerpané obdobie.
 
 6.3 Ozvi uloží každému ďalšiemu sprostredkovateľovi zmluvou rovnaké povinnosti ochrany údajov, aké má podľa tejto zmluvy, a za jeho plnenie zodpovedá Zákazníkovi.
 
@@ -82,7 +80,7 @@ Ozvi môže opatrenia meniť, ak tým neznižuje úroveň ochrany.
 
 ## 7. Prenosy mimo EÚ/EHP
 
-Údaje sa ukladajú na serveri v Slovenskej republike. Prenos do tretej krajiny nastáva len cez ďalších sprostredkovateľov uvedených v zozname podľa bodu 6.1, a to na základe rozhodnutia o primeranosti (vrátane rámca EÚ – USA pre ochranu údajov) alebo štandardných zmluvných doložiek. **TODO:** doplniť mechanizmus pri každom subdodávateľovi (stránka /subprocessors má zatiaľ tieto polia neoverené).
+Údaje sa ukladajú na serveri v dátovom centre Hetzner v Nemecku (EÚ). Prenos do tretej krajiny nastáva len cez ďalších sprostredkovateľov uvedených v zozname podľa bodu 6.1, a to na základe rozhodnutia o primeranosti (vrátane rámca EÚ – USA pre ochranu údajov) alebo štandardných zmluvných doložiek. Mechanizmus pri každom z nich je uvedený v zozname subdodávateľov.
 
 ## 8. Pomoc Zákazníkovi
 
@@ -100,19 +98,19 @@ Ozvi môže opatrenia meniť, ak tým neznižuje úroveň ochrany.
 
 10.1 Zákazník si môže kedykoľvek stiahnuť export projektu (JSON a CSV) v nastaveniach projektu.
 
-10.2 Po zmazaní projektu Zákazníkom Ozvi vymaže jeho dáta z databázy a úložiska príloh okamžite. Zo záloh zmiznú najneskôr po uplynutí doby uchovania záloh (**TODO:** [N] dní).
+10.2 Po zmazaní projektu Zákazníkom Ozvi vymaže jeho dáta z databázy a úložiska príloh okamžite. Zo záloh zmiznú najneskôr do 30 dní.
 
-10.3 Po zrušení účtu alebo ukončení služby Ozvi vymaže zostávajúce dáta Zákazníka do **[N] dní**, ak právo EÚ alebo členského štátu nevyžaduje ich ďalšie uchovanie.
+10.3 Po zrušení účtu alebo ukončení služby Ozvi vymaže zostávajúce dáta Zákazníka do **30 dní**, ak právo EÚ alebo členského štátu nevyžaduje ich ďalšie uchovanie.
 
 ## 11. Preukázanie súladu a audit
 
 11.1 Ozvi poskytne Zákazníkovi na požiadanie informácie potrebné na preukázanie splnenia povinností podľa čl. 28 GDPR (najmä túto zmluvu, opis opatrení a zoznam subdodávateľov).
 
-11.2 Zákazník alebo ním poverený audítor viazaný mlčanlivosťou môže vykonať audit vrátane kontroly, s oznámením aspoň **[N] dní** vopred, najviac raz za 12 mesiacov, ak nejde o podozrenie z porušenia. **TODO:** náklady auditu a forma (dotazník / na mieste) po právnej kontrole.
+11.2 Zákazník alebo ním poverený audítor viazaný mlčanlivosťou môže vykonať audit vrátane kontroly, s oznámením aspoň **30 dní** vopred, najviac raz za 12 mesiacov, ak nejde o podozrenie z porušenia. Audit prebieha prednostne písomne (dotazník a podklady); audit na mieste ide na náklady Zákazníka a nesmie ohroziť dáta iných zákazníkov.
 
 ## 12. Zodpovednosť
 
-Zodpovednosť strán sa riadi čl. 82 GDPR a Podmienkami. **TODO:** zosúladiť s obmedzením zodpovednosti v Podmienkach (bod 8) po právnej kontrole.
+Zodpovednosť voči dotknutým osobám sa riadi čl. 82 GDPR. Medzi stranami platí obmedzenie zodpovednosti podľa Podmienok, s výnimkou škody spôsobenej úmyselne alebo z hrubej nedbanlivosti.
 
 ## 13. Záverečné ustanovenia
 

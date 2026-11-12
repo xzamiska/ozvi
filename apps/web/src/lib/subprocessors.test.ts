@@ -24,17 +24,17 @@ describe("sub-processors page", () => {
   afterEach(() => { process.env.OZVI_MODE = mode; });
 
   for (const l of ["sk", "cs", "en"] as const) {
-    it(`renders in ${l} with every sub-processor and the pending marker`, async () => {
+    it(`renders in ${l} with every sub-processor and nothing left unconfirmed`, async () => {
       locale = l;
       const html = renderToStaticMarkup((await Page()) as ReactElement);
       const m = MESSAGES[l].subprocessors;
       expect(html).toContain(`<h1`);
       expect(html).toContain(m.title);
       for (const e of m.items as Entry[]) expect(html).toContain(e.name);
-      // Unknowns show as "to be confirmed", never as raw "TODO".
+      // Every fact is filled in (an unknown would show as "to be confirmed", never as raw "TODO").
       expect(html).not.toContain("TODO");
-      expect(html).toContain(m.pending);
-      expect(html).toContain('href="/privacy#cast-7"');
+      expect(html).not.toContain(m.pending);
+      expect(html).toContain('href="/dpa"');
       expect(html).toContain('href="/privacy"');
     });
   }
@@ -44,7 +44,7 @@ describe("sub-processors page", () => {
       Object.fromEntries(Object.entries(e).map(([k, v]) => [k, k === "name" ? null : v.startsWith("TODO:")])));
     expect(shape("cs")).toEqual(shape("sk"));
     expect(shape("en")).toEqual(shape("sk"));
-    expect((MESSAGES.sk.subprocessors.items as Entry[]).map((e) => e.name)).toEqual(["Server Ozvi (Hetzner)", "Resend", "Scaleway", "Creem", "GitHub", "Linear", "Jira Cloud"]);
+    expect((MESSAGES.sk.subprocessors.items as Entry[]).map((e) => e.name)).toEqual(["Server Ozvi (Hetzner)", "Resend", "Scaleway", "Creem", "GitHub", "Linear", "Jira Cloud", "Migadu"]);
   });
 
   it("is not served by a self-hosted instance", async () => {

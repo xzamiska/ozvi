@@ -2714,7 +2714,8 @@
       "license": "Source-available (FSL). SDK and widget under MIT.",
       "demo": "Widget demo",
       "feedback": "Suggest an idea for Ozvi",
-      "contact": "Write to us"
+      "contact": "Write to us",
+      "dpa": "Data processing agreement (DPA)"
     },
     "product": {
       "title": "What your users see. And what your team sees.",
@@ -3668,8 +3669,8 @@
         "entity": "Resend, Inc.",
         "purpose": "Sending e-mails: sign-in codes, notifications, digests and release notes.",
         "data": "The recipient’s e-mail address, the subject and content of the e-mail, delivery metadata.",
-        "location": "TODO: the country and region where Resend processes e-mail for our account.",
-        "transfer": "TODO: transfer mechanism (e.g. EU–US Data Privacy Framework or standard contractual clauses) under the agreement with Resend.",
+        "location": "E-mails are sent from Resend's EU region (Ireland); Resend's account management and support are in the USA.",
+        "transfer": "USA: Resend, Inc. is certified under the EU-U.S. Data Privacy Framework.",
         "when": "Always; in the cloud, we send the e-mails."
       },
       {
@@ -3679,16 +3680,16 @@
         "data": "The text of posts and comments the task needs.",
         "location": "Scaleway data centres in the EU (France).",
         "transfer": "None, the data stays in the EU.",
-        "note": "TODO: confirm from the Scaleway contract that inputs and outputs are not stored or used to train models.",
+        "note": "According to its documentation, Scaleway does not collect, read or reuse the content of inputs or outputs and does not store it in standard (non-batch) processing. Ozvi uses standard processing only.",
         "when": "Only in projects with AI features switched on."
       },
       {
         "name": "Creem",
-        "entity": "TODO: Creem’s legal name and registered office.",
+        "entity": "Armitage Labs OÜ (Creem), Estonia, registry code 16977866",
         "purpose": "Selling paid plans as merchant of record: payment, invoice, VAT, refunds.",
         "data": "Account e-mail and name, customer and subscription identifiers. You enter card and billing details directly with Creem; we never see them.",
-        "location": "TODO: country of processing.",
-        "transfer": "TODO: transfer mechanism, if Creem processes outside the EU.",
+        "location": "EU (Estonia); some of Creem's providers may be outside the EU.",
+        "transfer": "For providers outside the EU/EEA, according to Creem, standard contractual clauses approved by the European Commission.",
         "when": "Only for paid plans. For payments Creem is an independent controller, not our processor for board data."
       },
       {
@@ -3696,38 +3697,48 @@
         "entity": "GitHub, Inc.",
         "purpose": "Linking a project to a repository: issues from ideas or bugs, status from pull requests and releases.",
         "data": "The item’s title and description, app version and browser, a link to the board. Never console or network recordings or screenshots.",
-        "location": "TODO: country of processing.",
-        "transfer": "TODO: transfer mechanism.",
+        "location": "USA",
+        "transfer": "Standard contractual clauses under GitHub's data protection agreement.",
         "when": "Only if the customer connects it to a project, with their own account."
       },
       {
         "name": "Linear",
-        "entity": "TODO: the company’s legal name.",
+        "entity": "Linear Orbit, Inc., USA",
         "purpose": "Linking a project to Linear: issues from items and status sync.",
         "data": "The item’s title and description, app version and browser, a link to the board, status change comments.",
-        "location": "TODO: country of processing.",
-        "transfer": "TODO: transfer mechanism.",
+        "location": "USA",
+        "transfer": "Standard contractual clauses (Commission Decision 2021/914) under Linear's data processing agreement.",
         "when": "Only if the customer connects it to a project, with their own account."
       },
       {
         "name": "Jira Cloud",
-        "entity": "Atlassian",
+        "entity": "Atlassian (Atlassian US, Inc., Atlassian Pty Ltd)",
         "purpose": "Linking a project to Jira: issues from items and status sync.",
         "data": "The item’s title and description, app version and browser, a link to the board, status change comments.",
-        "location": "TODO: country of processing (depends on the customer’s Jira Cloud settings).",
-        "transfer": "TODO: transfer mechanism.",
+        "location": "Depends on the customer's data residency setting in Jira Cloud.",
+        "transfer": "Atlassian US, Inc. is certified under the EU-U.S. Data Privacy Framework; otherwise standard contractual clauses.",
         "when": "Only if the customer connects it to a project, with their own account."
+      },
+      {
+        "name": "Migadu",
+        "entity": "Migadu-Mail GmbH, Switzerland",
+        "purpose": "Receiving e-mail sent to @ozvi.io addresses (for example support@ozvi.io): questions, requests and reports.",
+        "data": "The content of the e-mail you send us, the sender's address and technical delivery data.",
+        "location": "Switzerland (Migadu does not name its data centres).",
+        "transfer": "Switzerland has a European Commission adequacy decision.",
+        "when": "Only when you e-mail us."
       }
     ],
     "notTitle": "What isn’t a sub-processor",
     "not": [
       "Fonts: we serve every font, including Google Fonts, from our own server. The server downloads a font file once, without any visitor data; visitors’ browsers never connect to Google.",
       "Webhooks and chat channels (Slack, Microsoft Teams, Discord and the like) a customer sets up: we send data to the address the customer chooses, on their behalf.",
+      "Error and traffic monitoring (GlitchTip, Umami) runs on our own server in the EU; they are not third parties.",
       "Analytics and advertising: we use no third-party analytics or advertising tools.",
       "Self-hosted Ozvi: it runs with whoever operates the installation, and this list doesn’t apply to it."
     ],
     "changesTitle": "Changes to this list",
-    "changes": "Before we add or replace a sub-processor, we tell cloud customers by e-mail in advance so they can object. The data processing agreement is described in the <link>privacy policy</link>.",
+    "changes": "Before we add or replace a sub-processor, we tell cloud customers by e-mail at least 30 days in advance so they can object. Details are in the <link>data processing agreement</link>.",
     "contact": "Send questions about sub-processors to {email}.",
     "updated": "List last changed: {date}",
     "link": "Sub-processors"

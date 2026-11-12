@@ -531,6 +531,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               <ul className="mt-3 grid gap-2 text-[14px] text-muted-foreground">
                 <li><Link href="/terms" className="hover:text-foreground">{t("footer.terms")}</Link></li>
                 <li><Link href="/privacy" className="hover:text-foreground">{t("footer.privacy")}</Link></li>
+                <li><Link href="/dpa" className="hover:text-foreground">{t("footer.dpa")}</Link></li>
                 <li><Link href="/subprocessors" className="hover:text-foreground">{tSub("link")}</Link></li>
                 <li><Link href="/accessibility" className="hover:text-foreground">{tA11y("link")}</Link></li>
                 <li><a href="#pricing" className="hover:text-foreground">{t("nav.pricing")}</a></li>

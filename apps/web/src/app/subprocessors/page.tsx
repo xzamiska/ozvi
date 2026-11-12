@@ -15,7 +15,7 @@ import { cloudOnly, LEGAL } from "@/lib/legal";
 export const dynamic = "force-dynamic";
 
 /** Date the list last changed. Update together with the messages (subprocessors.items) and docs/DPA.md. */
-const CHANGED = new Date("2026-11-11");
+const CHANGED = new Date("2026-11-12");
 
 const theme = parseTheme(presets.ozvi);
 
@@ -111,7 +111,7 @@ export default async function Subprocessors() {
               <ul>{not.map((s) => <li key={s}>{s}</li>)}</ul>
 
               <h2 id="changes">{t("changesTitle")}</h2>
-              <p>{t.rich("changes", { link: (c) => <Link href="/privacy#cast-7">{c}</Link> })}</p>
+              <p>{t.rich("changes", { link: (c) => <Link href="/dpa">{c}</Link> })}</p>
               <p>{t("contact", { email: LEGAL.email })}</p>
 
               <p className="mt-10 border-t pt-4 text-[14px] text-muted-foreground">{t("updated", { date })}</p>

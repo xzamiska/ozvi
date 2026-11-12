@@ -8,7 +8,7 @@ import { COMPARE_PATHS } from "./compare";
 
 export const NOINDEX = "noindex, nofollow, noarchive, nosnippet";
 
-const PUBLIC_PAGES = new Set(["/", "/cs", "/en", "/pl", "/hu", "/de", "/releases", "/privacy", "/terms", "/subprocessors", "/accessibility", "/docs", "/demo", ...COMPARE_PATHS]);
+const PUBLIC_PAGES = new Set(["/", "/cs", "/en", "/pl", "/hu", "/de", "/releases", "/privacy", "/terms", "/dpa", "/subprocessors", "/accessibility", "/docs", "/demo", ...COMPARE_PATHS]);
 
 export function indexable(o: { cloud: boolean; primary: boolean; path: string }): boolean {
   if (!o.cloud || !o.primary) return false;
@@ -25,4 +25,4 @@ export function robotsTxt(o: { cloud: boolean; primary: boolean; origin?: string
 }
 
 /** The public pages a search engine should know about (cloud, primary host). */
-export const SITEMAP_PAGES = ["/demo", "/releases", "/docs/api", "/docs/webhooks", "/docs/automation", "/privacy", "/terms", "/subprocessors", "/accessibility"] as const;
+export const SITEMAP_PAGES = ["/demo", "/releases", "/docs/api", "/docs/webhooks", "/docs/automation", "/privacy", "/terms", "/dpa", "/subprocessors", "/accessibility"] as const;

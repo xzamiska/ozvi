@@ -21,7 +21,7 @@ export function landingLocale(path: string): Locale | null {
 }
 
 /** Top-level routes that are never a board slug. */
-const NOT_BOARDS = new Set(["app", "api", "demo", "dev", "mcp", "terms", "privacy", "accessibility", "subprocessors", "releases", "releases.json", "podmienky", "sukromie", "pristupnost", "_next", ...COMPARE_ROOTS, ...LOCALES]);
+const NOT_BOARDS = new Set(["app", "api", "demo", "dev", "mcp", "terms", "privacy", "dpa", "accessibility", "subprocessors", "releases", "releases.json", "podmienky", "sukromie", "pristupnost", "_next", ...COMPARE_ROOTS, ...LOCALES]);
 
 /** The board slug of this request (/<slug>/…), or null outside boards. */
 export async function boardSlugOfRequest(): Promise<string | null> {

@@ -2714,7 +2714,8 @@
       "license": "Kod źródłowy dostępny (FSL). SDK i widżet na licencji MIT.",
       "demo": "Demo widgetu",
       "feedback": "Zaproponuj pomysł dla Ozvi",
-      "contact": "Napisz do nas"
+      "contact": "Napisz do nas",
+      "dpa": "Umowa powierzenia (DPA)"
     },
     "product": {
       "title": "Co zobaczą twoi użytkownicy. I co twój zespół.",
@@ -3668,8 +3669,8 @@
         "entity": "Resend, Inc.",
         "purpose": "Wysyłka e-maili: kody logowania, powiadomienia, podsumowania i informacje o wydaniach.",
         "data": "Adres e-mail odbiorcy, temat i treść wiadomości, metadane doręczenia.",
-        "location": "TODO: kraj i region, w którym Resend przetwarza e-maile dla naszego konta.",
-        "transfer": "TODO: mechanizm przekazywania (np. EU–US Data Privacy Framework lub standardowe klauzule umowne) zgodnie z umową z Resend.",
+        "location": "E-maile wychodzą z regionu Resend w UE (Irlandia); konto i wsparcie Resend są w USA.",
+        "transfer": "USA: Resend, Inc. posiada certyfikację w ramach ochrony danych UE – USA (EU-U.S. Data Privacy Framework).",
         "when": "Zawsze; w chmurze e-maile wysyłamy my."
       },
       {
@@ -3679,16 +3680,16 @@
         "data": "Tekst wpisów i komentarzy potrzebny do zadania.",
         "location": "Centra danych Scaleway w UE (Francja).",
         "transfer": "Brak, dane pozostają w UE.",
-        "note": "TODO: potwierdzić w umowie ze Scaleway, że wejścia i wyjścia nie są przechowywane ani używane do trenowania modeli.",
+        "note": "Według swojej dokumentacji Scaleway nie gromadzi, nie czyta ani nie wykorzystuje dalej treści wejść i wyjść, a przy zwykłym (nie wsadowym) przetwarzaniu jej nie przechowuje. Ozvi korzysta wyłącznie ze zwykłego przetwarzania.",
         "when": "Tylko w projektach z włączonymi funkcjami AI."
       },
       {
         "name": "Creem",
-        "entity": "TODO: nazwa prawna i siedziba Creem.",
+        "entity": "Armitage Labs OÜ (Creem), Estonia, kod rejestrowy 16977866",
         "purpose": "Sprzedaż płatnych planów jako merchant of record: płatność, faktura, VAT, zwroty.",
         "data": "E-mail i imię konta, identyfikatory klienta i subskrypcji. Dane karty i rozliczeniowe podajesz bezpośrednio w Creem; nigdy ich nie widzimy.",
-        "location": "TODO: kraj przetwarzania.",
-        "transfer": "TODO: mechanizm przekazywania, jeśli Creem przetwarza dane poza UE.",
+        "location": "UE (Estonia); niektórzy dostawcy Creem mogą znajdować się poza UE.",
+        "transfer": "W przypadku dostawców spoza UE/EOG według Creem standardowe klauzule umowne zatwierdzone przez Komisję Europejską.",
         "when": "Tylko przy płatnych planach. W zakresie płatności Creem jest niezależnym administratorem, a nie naszym podmiotem przetwarzającym dane z tablic."
       },
       {
@@ -3696,38 +3697,48 @@
         "entity": "GitHub, Inc.",
         "purpose": "Łączenie projektu z repozytorium: issue z pomysłów lub błędów, status z pull requestów i wydań.",
         "data": "Tytuł i opis wpisu, wersja aplikacji i przeglądarka, link do tablicy. Nigdy nagrania z konsoli lub sieci ani zrzuty ekranu.",
-        "location": "TODO: kraj przetwarzania.",
-        "transfer": "TODO: mechanizm przekazywania.",
+        "location": "USA",
+        "transfer": "Standardowe klauzule umowne zgodnie z umową GitHub o ochronie danych.",
         "when": "Tylko jeśli klient połączy go z projektem, własnym kontem."
       },
       {
         "name": "Linear",
-        "entity": "TODO: nazwa prawna spółki.",
+        "entity": "Linear Orbit, Inc., USA",
         "purpose": "Łączenie projektu z Linear: issue z wpisów i synchronizacja statusów.",
         "data": "Tytuł i opis wpisu, wersja aplikacji i przeglądarka, link do tablicy, komentarze o zmianie statusu.",
-        "location": "TODO: kraj przetwarzania.",
-        "transfer": "TODO: mechanizm przekazywania.",
+        "location": "USA",
+        "transfer": "Standardowe klauzule umowne (decyzja Komisji 2021/914) zgodnie z umową Linear o przetwarzaniu.",
         "when": "Tylko jeśli klient połączy go z projektem, własnym kontem."
       },
       {
         "name": "Jira Cloud",
-        "entity": "Atlassian",
+        "entity": "Atlassian (Atlassian US, Inc., Atlassian Pty Ltd)",
         "purpose": "Łączenie projektu z Jirą: issue z wpisów i synchronizacja statusów.",
         "data": "Tytuł i opis wpisu, wersja aplikacji i przeglądarka, link do tablicy, komentarze o zmianie statusu.",
-        "location": "TODO: kraj przetwarzania (zależy od ustawień Jira Cloud klienta).",
-        "transfer": "TODO: mechanizm przekazywania.",
+        "location": "Zgodnie z ustawieniem lokalizacji danych (data residency) w Jira Cloud klienta.",
+        "transfer": "Atlassian US, Inc. posiada certyfikację w ramach ochrony danych UE – USA; w pozostałych przypadkach standardowe klauzule umowne.",
         "when": "Tylko jeśli klient połączy ją z projektem, własnym kontem."
+      },
+      {
+        "name": "Migadu",
+        "entity": "Migadu-Mail GmbH, Szwajcaria",
+        "purpose": "Odbiór e-maili na adresy @ozvi.io (na przykład support@ozvi.io): pytania, prośby i zgłoszenia.",
+        "data": "Treść e-maila, który do nas wysyłasz, adres nadawcy i techniczne dane o doręczeniu.",
+        "location": "Szwajcaria (Migadu nie podaje konkretnych centrów danych).",
+        "transfer": "Szwajcaria ma decyzję Komisji Europejskiej stwierdzającą odpowiedni stopień ochrony.",
+        "when": "Tylko gdy do nas napiszesz."
       }
     ],
     "notTitle": "Co nie jest podmiotem przetwarzającym",
     "not": [
       "Czcionki: wszystkie czcionki, łącznie z Google Fonts, serwujemy z własnego serwera. Serwer pobiera plik czcionki raz, bez żadnych danych odwiedzających; przeglądarki odwiedzających nigdy nie łączą się z Google.",
       "Webhooki i kanały czatu (Slack, Microsoft Teams, Discord i podobne) skonfigurowane przez klienta: dane wysyłamy na adres wybrany przez klienta, w jego imieniu.",
+      "Monitorowanie błędów i ruchu (GlitchTip, Umami) prowadzimy sami na własnym serwerze w UE; nie są to podmioty trzecie.",
       "Analityka i reklama: nie używamy zewnętrznych narzędzi analitycznych ani reklamowych.",
       "Ozvi na własnym serwerze: działa u tego, kto prowadzi instalację, i ta lista go nie dotyczy."
     ],
     "changesTitle": "Zmiany tej listy",
-    "changes": "Zanim dodamy lub zastąpimy podmiot przetwarzający, z wyprzedzeniem informujemy o tym klientów chmury e-mailem, żeby mogli zgłosić sprzeciw. Umowa powierzenia przetwarzania danych jest opisana w <link>polityce prywatności</link>.",
+    "changes": "Przed dodaniem lub zmianą podwykonawcy powiadomimy klientów chmury e-mailem co najmniej 30 dni wcześniej, aby mogli zgłosić sprzeciw. Szczegóły są w <link>umowie powierzenia</link>.",
     "contact": "Pytania dotyczące podmiotów przetwarzających kieruj na adres {email}.",
     "updated": "Ostatnia zmiana listy: {date}",
     "link": "Podmioty przetwarzające"
