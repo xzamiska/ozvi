@@ -1,10 +1,10 @@
 import { parseTheme, presets, toCss } from "@ozvi/theme";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import Script from "next/script";
 import { OzviLogo } from "@/components/ozvi/Logo";
 import { requestLocale } from "@/i18n/server";
 import { DemoActions } from "./DemoActions";
+import { DemoBoot } from "./DemoBoot";
 import type { BoardSample } from "./DemoBoard";
 import { DemoInspector } from "./DemoInspector";
 import { DEMO_PROJECT, demoMockScript, type DemoData } from "./mock";
@@ -17,6 +17,7 @@ import { DEMO_PROJECT, demoMockScript, type DemoData } from "./mock";
 const site = parseTheme(presets.ozvi);
 const host = parseTheme({ name: "Rezervácie", colors: { accent: "#1D4ED8", ink: "#111827", surface: "#FFFFFF", canvas: "#F3F4F6", border: "#E5E7EB" }, font: { body: "Geist", source: "google" }, radius: 8 });
 const STATUS = ["planned", "in_progress", "open"] as const;
+const CONFIG = "window.OzviConfig={networkBodies:true}";
 
 export async function PublicDemo() {
   const locale = await requestLocale();
@@ -47,10 +48,11 @@ export async function PublicDemo() {
     changelog: { url: `/${DEMO_PROJECT}/changelog`, entries: news.map((n, k) => ({ id: `n${k}`, title: `${n.v} · ${n.title}`, html: `<p>${n.text.replace(/[<>&]/g, "")}</p>`, publishedAt: new Date(Date.now() - (k * 17 + 3) * 86400_000).toISOString(), url: `/${DEMO_PROJECT}/changelog`, ai: false, aiNote: null, items: [] })) },
   };
 
+  const mock = demoMockScript(data);
   return (
     <div className="min-h-dvh bg-background font-brand text-foreground">
       <style>{toCss(site) + toCss(host, ".look-host")}</style>
-      <script dangerouslySetInnerHTML={{ __html: demoMockScript(data) }} />
+      <script dangerouslySetInnerHTML={{ __html: mock }} />
       <header className="border-b bg-surface">
         <div className="oz-frame flex h-14 items-center gap-4">
           <Link href="/" aria-label="Ozvi"><OzviLogo markClassName="size-6" className="[&>span:last-child]:text-[19px]" /></Link>
@@ -96,8 +98,7 @@ export async function PublicDemo() {
       </main>
       {/* @ts-expect-error custom element */}
       <ozvi-widget project={DEMO_PROJECT} token-url="/demo/token" app-version="2.15.0" lang={locale} />
-      <script dangerouslySetInnerHTML={{ __html: `window.OzviConfig={networkBodies:true}` }} />
-      <Script src="/widget.js" strategy="afterInteractive" />
+      <DemoBoot mock={mock} config={CONFIG} />
     </div>
   );
 }
