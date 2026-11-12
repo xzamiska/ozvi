@@ -304,7 +304,7 @@
       "text": "Az alkalmazásod felhasználói újabb jelszó nélkül jutnak be a visszajelzési táblára: az alkalmazásod jelentkezteti be őket (SSO), vagy az identitásszolgáltatódon keresztül irányítja őket (OIDC).",
       "ssoTitle": "Bejelentkezés az alkalmazásodból (SSO)",
       "step1": "1. Írd alá a felhasználót az alkalmazásod backendjén",
-      "step1Pkg": "ezzel:",
+      "step1Pkg": "(szabványos JWT, nem kell hozzá könyvtár; Python, PHP és más nyelvek a dokumentációban):",
       "step2": "2. Add hozzá a widgetet az alkalmazásodhoz",
       "maskA": "Az űrlapmezőket, e-mail-címeket, telefonszámokat, kártyaszámokat és tokeneket magunk takarjuk ki a képernyőképen. Más érzékeny elemeket, például neveket vagy megjegyzéseket, jelölj meg ezzel:",
       "maskB": ", és teljesen kitakarjuk őket. Saját gomb:",

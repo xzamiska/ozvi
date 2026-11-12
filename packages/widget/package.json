@@ -1,9 +1,8 @@
 {
   "name": "@ozvi/widget",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
   "license": "MIT",
-  "description": "Ozvi in-app widget (window.Ozvi API, <ozvi-widget>, <ozvi-roadmap>, <ozvi-changelog>) and React / Vue wrappers. MIT.",
+  "description": "Ozvi feedback widget for your app: bug reports with masked screenshots, ideas and voting, roadmap and changelog embeds. Plain ESM, React and Vue. MIT.",
   "type": "module",
   "sideEffects": false,
   "exports": {
@@ -28,11 +27,8 @@
   "scripts": {
     "build": "node build.mjs",
     "typecheck": "tsc -p .",
-    "test": "vitest run"
-  },
-  "dependencies": {
-    "modern-screenshot": "^4.7.0",
-    "preact": "^10.29.8"
+    "test": "vitest run",
+    "prepublishOnly": "node build.mjs"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -50,7 +46,27 @@
     "@types/react": "19.3.0",
     "esbuild": "^0.28.2",
     "happy-dom": "20.0.10",
+    "modern-screenshot": "^4.7.0",
+    "preact": "^10.29.8",
     "react": "19.3.1",
     "vue": "3.5.45"
+  },
+  "homepage": "https://ozvi.io/docs/widget",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xzamiska/ozvi.git",
+    "directory": "packages/widget"
+  },
+  "keywords": [
+    "feedback",
+    "bug-report",
+    "widget",
+    "roadmap",
+    "changelog",
+    "ozvi"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

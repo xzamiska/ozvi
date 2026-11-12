@@ -304,7 +304,7 @@
       "text": "Użytkownicy twojej aplikacji wchodzą na tablicę opinii bez kolejnego hasła: twoja aplikacja ich loguje (SSO) albo przekierowuje do twojego dostawcy tożsamości (OIDC).",
       "ssoTitle": "Logowanie z twojej aplikacji (SSO)",
       "step1": "1. Podpisz użytkownika w backendzie aplikacji",
-      "step1Pkg": "za pomocą",
+      "step1Pkg": "(standardowy JWT, bez żadnej biblioteki; Python, PHP i inne języki są w dokumentacji):",
       "step2": "2. Dodaj widżet do aplikacji",
       "maskA": "Pola formularzy, e-maile, numery telefonów, numery kart i tokeny zasłaniamy na zrzutach sami. Inne wrażliwe elementy, np. imiona lub notatki, oznacz atrybutem",
       "maskB": ", a zostaną zasłonięte w całości. Własny przycisk:",

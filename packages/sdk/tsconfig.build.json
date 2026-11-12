@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "noEmit": false, "declaration": true, "outDir": "dist", "rootDir": "src", "module": "ESNext", "moduleResolution": "Bundler", "allowImportingTsExtensions": false },
+  "include": ["src"],
+  "exclude": ["src/**/*.test.ts", "src/mask.d.ts"]
+}

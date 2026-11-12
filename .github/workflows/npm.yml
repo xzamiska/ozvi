@@ -1,0 +1,42 @@
+name: npm packages
+# Publishes @ozvi/sdk and @ozvi/widget (MIT) when their version in package.json is not on npm yet.
+# Runs on every release tag and by hand. Needs the repository secret NPM_TOKEN (an npm automation
+# token of the "ozvi" organisation). Provenance links each published version to this workflow run.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: package.json
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @ozvi/sdk test && pnpm --filter @ozvi/widget test
+      - name: Publish what is new
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+          for dir in packages/sdk packages/widget; do
+            name=$(node -p "require('./$dir/package.json').name")
+            version=$(node -p "require('./$dir/package.json').version")
+            if npm view "$name@$version" version >/dev/null 2>&1; then
+              echo "$name@$version is already on npm"
+            else
+              echo "publishing $name@$version"
+              (cd "$dir" && pnpm publish --no-git-checks --access public)
+            fi
+          done

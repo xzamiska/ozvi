@@ -304,7 +304,7 @@
       "text": "Your app’s users get into the feedback board without another password: your app signs them in (SSO) or sends them through your identity provider (OIDC).",
       "ssoTitle": "Sign-in from your app (SSO)",
       "step1": "1. Sign the user in your app’s backend",
-      "step1Pkg": "with",
+      "step1Pkg": "(a standard JWT, no library needed; Python, PHP and other languages are in the docs):",
       "step2": "2. Add the widget to your app",
       "maskA": "We cover form fields, e-mail addresses, phone numbers, card numbers and tokens in screenshots ourselves. Mark other sensitive elements, such as names or notes, with",
       "maskB": " and they’re covered completely. Your own button:",

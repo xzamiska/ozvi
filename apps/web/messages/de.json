@@ -304,7 +304,7 @@
       "text": "Die Nutzer Ihrer App gelangen ohne weiteres Passwort ins Feedback-Board: Ihre App meldet sie an (SSO) oder leitet sie über Ihren Identitätsanbieter (OIDC).",
       "ssoTitle": "Anmeldung aus Ihrer App (SSO)",
       "step1": "1. Person im Backend Ihrer App signieren",
-      "step1Pkg": "mit",
+      "step1Pkg": "(ein Standard-JWT, ohne Bibliothek; Python, PHP und weitere Sprachen in der Dokumentation):",
       "step2": "2. Widget in Ihre App einbinden",
       "maskA": "Formularfelder, E-Mail-Adressen, Telefonnummern, Kartennummern und Tokens decken wir in Screenshots selbst ab. Weitere sensible Elemente, etwa Namen oder Notizen, markieren Sie mit",
       "maskB": ", dann werden sie vollständig abgedeckt. Eigene Schaltfläche:",

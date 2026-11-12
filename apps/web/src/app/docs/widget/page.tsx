@@ -39,16 +39,42 @@ export default function WidgetDocs() {
       <p>Allow your app&apos;s address in the board&apos;s settings (<strong>admin → Project → Your app&apos;s addresses</strong>); elsewhere the widget won&apos;t work. React and Vue components, the JavaScript API (<code>Ozvi.open(&quot;bug&quot;)</code>, events) and the inline roadmap and changelog are described in the <a href={REPO}>widget README</a>.</p>
 
       <h2 id="sign-in">Sign people in</h2>
-      <p>Your backend signs the current user with the board&apos;s SSO secret (admin → Sign-in → Turn on SSO) using <code>@ozvi/sdk</code> (MIT). No second password, no Ozvi account for your users.</p>
-      <Code title="Node (Express)" code={`
-import { signOzviToken } from "@ozvi/sdk";
+      <p>Your backend tells Ozvi who is signed in: an endpoint of your app (the widget&apos;s <code>token-url</code>) returns <code>{"{ \"token\": \"…\" }"}</code>, a short-lived token signed with the board&apos;s SSO secret (admin → Sign-in → Turn on SSO). No second password and no Ozvi account for your users. Keep the secret on the server, never in the browser.</p>
+      <p>The token is a standard JWT signed with HMAC-SHA256, so every language can make it with its standard library. Fields: <code>id</code> (required, stable id in your app), <code>email</code>, <code>name</code>, <code>role</code> (<code>member</code>, <code>team</code> or <code>admin</code>), <code>locale</code> and <code>traits</code> (<code>company</code>, <code>plan</code>, <code>mrr</code> in cents… shown to your team only).</p>
+      <Code title="Node.js (no dependencies)" code={`
+import { createHmac } from "node:crypto";
 
+function ozviToken(user, secret = process.env.OZVI_SSO_SECRET) {
+  const b64 = (o) => Buffer.from(JSON.stringify(o)).toString("base64url");
+  const now = Math.floor(Date.now() / 1000);
+  const body = \`\${b64({ alg: "HS256", typ: "JWT" })}.\${b64({ ...user, iat: now, exp: now + 600 })}\`;
+  return \`\${body}.\${createHmac("sha256", secret).update(body).digest("base64url")}\`;
+}
+
+// Express; in Next.js the same inside app/api/ozvi-token/route.ts
 app.get("/api/ozvi-token", requireLogin, (req, res) => {
-  res.json({ token: signOzviToken(
-    { id: req.user.id, email: req.user.email, name: req.user.name,
-      traits: { company: req.org.name, plan: req.org.plan } },
-    process.env.OZVI_SSO_SECRET) });
+  res.json({ token: ozviToken({ id: req.user.id, email: req.user.email, name: req.user.name,
+    traits: { company: req.org.name, plan: req.org.plan } }) });
 });`} />
+      <Code title="Python" code={`
+import base64, hashlib, hmac, json, os, time
+
+def ozvi_token(user: dict, secret: str = os.environ["OZVI_SSO_SECRET"]) -> str:
+    b64 = lambda o: base64.urlsafe_b64encode(json.dumps(o, separators=(",", ":")).encode()).rstrip(b"=").decode()
+    now = int(time.time())
+    body = f'{b64({"alg": "HS256", "typ": "JWT"})}.{b64({**user, "iat": now, "exp": now + 600})}'
+    sig = hmac.new(secret.encode(), body.encode(), hashlib.sha256).digest()
+    return f"{body}.{base64.urlsafe_b64encode(sig).rstrip(b'=').decode()}"`} />
+      <Code title="PHP" code={`
+function ozvi_token(array $user, ?string $secret = null): string {
+    $secret ??= getenv('OZVI_SSO_SECRET');
+    $b64 = fn($s) => rtrim(strtr(base64_encode($s), '+/', '-_'), '=');
+    $now = time();
+    $body = $b64(json_encode(['alg' => 'HS256', 'typ' => 'JWT'])) . '.'
+          . $b64(json_encode($user + ['iat' => $now, 'exp' => $now + 600], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+    return $body . '.' . $b64(hash_hmac('sha256', $body, $secret, true));
+}`} />
+      <Note title="Keep it short-lived">Ozvi accepts a token only with the right secret and before <code>exp</code>. Ten minutes is plenty: the widget asks your endpoint for a fresh one whenever it needs it. Tokens carry your users&apos; e-mails, so don&apos;t paste them into online decoders.</Note>
 
       <h2 id="captures">What a bug report captures</h2>
       <p>Everything is kept in memory only, masked in the browser before it is kept, and leaves the page only when the person sends a report. The network log, steps and session links are visible to your team only; the Ozvi server masks and bounds them again.</p>

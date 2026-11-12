@@ -1,9 +1,8 @@
 {
   "name": "@ozvi/sdk",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
   "license": "MIT",
-  "description": "Sign Ozvi SSO tokens in your backend. MIT so it can live in any host app.",
+  "description": "Sign Ozvi SSO tokens in your backend (Node.js, zero dependencies). MIT.",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
@@ -11,6 +10,42 @@
   },
   "scripts": {
     "typecheck": "tsc -p .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "tsc -p tsconfig.build.json"
+  },
+  "homepage": "https://ozvi.io/docs/widget#sign-in",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xzamiska/ozvi.git",
+    "directory": "packages/sdk"
+  },
+  "keywords": [
+    "ozvi",
+    "sso",
+    "jwt",
+    "feedback"
+  ],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      },
+      "./mask": {
+        "types": "./dist/mask.d.ts",
+        "import": "./dist/mask.js"
+      }
+    }
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

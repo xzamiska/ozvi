@@ -304,7 +304,7 @@
       "text": "Uživatelé aplikace se do zpětné vazby dostanou bez dalšího hesla: aplikace je podepíše (SSO), nebo je pošle přes vašeho poskytovatele identity (OIDC).",
       "ssoTitle": "Přihlášení z aplikace (SSO)",
       "step1": "1. V backendu aplikace podepište uživatele",
-      "step1Pkg": "balíčkem",
+      "step1Pkg": "(standardní JWT, není potřeba žádná knihovna; Python, PHP a další jazyky jsou v dokumentaci):",
       "step2": "2. Do aplikace vložte widget",
       "maskA": "Formuláře, e-maily, telefony, čísla karet a tokeny na screenshotu zakryjeme sami. Další citlivé prvky, například jména nebo poznámky, označte",
       "maskB": " a budou zakryté celé. Vlastní tlačítko:",
