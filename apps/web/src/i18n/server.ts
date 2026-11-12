@@ -20,6 +20,14 @@ export function landingLocale(path: string): Locale | null {
   return isLocale(first) && (path === `/${first}` || path === `/${first}/`) ? first : null;
 }
 
+/** The demo's locale from its path: "/demo" Slovak, "/en/demo" English, … (null elsewhere). */
+export function demoLocale(path: string): Locale | null {
+  const clean = path.replace(/\/+$/, "");
+  if (clean === "/demo") return "sk";
+  const m = /^\/([a-z]{2})\/demo$/.exec(clean);
+  return m && isLocale(m[1]) ? m[1] : null;
+}
+
 /** Top-level routes that are never a board slug. */
 const NOT_BOARDS = new Set(["app", "api", "demo", "dev", "mcp", "terms", "privacy", "dpa", "accessibility", "subprocessors", "releases", "releases.json", "podmienky", "sukromie", "pristupnost", "_next", ...COMPARE_ROOTS, ...LOCALES]);
 
@@ -37,7 +45,7 @@ export async function boardSlugOfRequest(): Promise<string | null> {
  */
 export async function htmlLocale(): Promise<Locale> {
   const path = (await headers()).get("x-ozvi-path") ?? "/";
-  const landing = landingLocale(path) ?? compareLocale(path);
+  const landing = landingLocale(path) ?? compareLocale(path) ?? demoLocale(path);
   if (landing) return landing;
   const first = path.split("/")[1];
   if (first && !NOT_BOARDS.has(first)) {

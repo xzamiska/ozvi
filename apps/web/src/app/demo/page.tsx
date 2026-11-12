@@ -1,7 +1,4 @@
-import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
-import { requestLocale } from "@/i18n/server";
-import { pageMeta } from "@/lib/seo";
+import { demoMetadata } from "./meta";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { devEnabled } from "@/lib/dev";
@@ -11,12 +8,7 @@ import { PublicDemo } from "./PublicDemo";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata(): Promise<Metadata> {
-  if (process.env.OZVI_MODE !== "cloud") return { title: "Demo – Ozvi" };
-  const locale = await requestLocale();
-  const s = await getTranslations({ locale, namespace: "seo" });
-  return pageMeta({ title: s("demoTitle"), description: s("demoDescription"), path: "/demo", locale });
-}
+export const generateMetadata = () => demoMetadata("sk");
 
 /** The documented snippet (packages/widget/README.md): calls made before widget.js loads are queued. */
 const STUB = `(function(w,m){var o=w.Ozvi=w.Ozvi||function(){(o.q=o.q||[]).push(arguments)};o.q=o.q||[];m.forEach(function(k){o[k]=o[k]||function(){o.q.push([k].concat([].slice.call(arguments)))}})})(window,["init","open","close","toggle","prefill","identify","logout","setTraits","setLanguage","on","off","configure"])`;
@@ -24,7 +16,7 @@ const STUB = `(function(w,m){var o=w.Ozvi=w.Ozvi||function(){(o.q=o.q||[]).push(
 /** A fake host app (a booking in a salon calendar) to try the widget the way a customer would embed it. */
 export default async function Demo() {
   // ozvi.io/demo: the same host app, but the widget only pretends to send (mock.ts).
-  if (!devEnabled()) return process.env.OZVI_MODE === "cloud" ? <PublicDemo /> : notFound();
+  if (!devEnabled()) return process.env.OZVI_MODE === "cloud" ? <PublicDemo locale="sk" /> : notFound();
   return (
     <main id="main" tabIndex={-1} style={{ fontFamily: "system-ui, sans-serif", background: "#f4f5f9", minHeight: "100vh", padding: "32px clamp(16px, 4vw, 32px) 120px", color: "#1B1830" }}>
       <script dangerouslySetInnerHTML={{ __html: STUB }} />

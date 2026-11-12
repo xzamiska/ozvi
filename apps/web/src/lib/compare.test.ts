@@ -27,7 +27,8 @@ describe("comparison pages", () => {
         const ld = JSON.parse(/<script type="application\/ld\+json">(.*?)<\/script>/.exec(html)![1]!);
         expect(ld["@type"]).toBe("FAQPage");
         expect(ld.mainEntity).toHaveLength(c.faq.length);
-        expect(html).toContain('href="/demo"');
+        // The demo opens in the page's language (Slovak /demo, English /en/demo).
+        expect(html).toContain(`href="${l === "sk" ? "/demo" : "/en/demo"}"`);
         expect(html).toContain(`href="${COMPARE_PATH[id][l === "sk" ? "en" : "sk"]}"`);
         // A mark always carries its word next to the icon (state never by colour alone).
         expect(html).toContain(l === "sk" ? ">áno</span>" : ">yes</span>");

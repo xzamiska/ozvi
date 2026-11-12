@@ -15,7 +15,7 @@ export function GET(req: Request) {
   const alt = LOCALES.map((l) => `<xhtml:link rel="alternate" hreflang="${l}" href="${base}${LANDING_PATH[l]}"/>`).join("")
     + `<xhtml:link rel="alternate" hreflang="x-default" href="${base}/"/>`;
   const landing = LOCALES.map((l) => `<url><loc>${base}${LANDING_PATH[l]}</loc>${alt}<changefreq>weekly</changefreq><priority>${l === "sk" ? "1.0" : "0.9"}</priority></url>`);
-  const pages = SITEMAP_PAGES.map((p) => `<url><loc>${base}${p}</loc><changefreq>${p === "/releases" ? "weekly" : "monthly"}</changefreq><priority>${p === "/demo" ? "0.8" : "0.5"}</priority></url>`);
+  const pages = SITEMAP_PAGES.map((p) => `<url><loc>${base}${p}</loc><changefreq>${p === "/releases" ? "weekly" : "monthly"}</changefreq><priority>${p.endsWith("/demo") ? "0.8" : "0.5"}</priority></url>`);
   // Comparison pages: each language its own URL, both carrying the sk/en pair and x-default.
   const compare = COMPARE_IDS.flatMap((id) => {
     const langs = Object.entries(compareLanguages(id));

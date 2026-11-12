@@ -2,7 +2,7 @@ import { parseTheme, presets, toCss } from "@ozvi/theme";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { OzviLogo } from "@/components/ozvi/Logo";
-import { requestLocale } from "@/i18n/server";
+import type { Locale } from "@/i18n/locales";
 import { DemoActions } from "./DemoActions";
 import { DemoBoot } from "./DemoBoot";
 import type { BoardSample } from "./DemoBoard";
@@ -19,8 +19,7 @@ const host = parseTheme({ name: "Rezervácie", colors: { accent: "#1D4ED8", ink:
 const STATUS = ["planned", "in_progress", "open"] as const;
 const CONFIG = "window.OzviConfig={networkBodies:true}";
 
-export async function PublicDemo() {
-  const locale = await requestLocale();
+export async function PublicDemo({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: "demo" });
   const board = await getTranslations({ locale, namespace: "playground.board" });
   const route = await getTranslations({ locale, namespace: "route" });

@@ -20,7 +20,7 @@ import { LOCALE_TAG, type Locale } from "@/i18n/locales";
 import { cn } from "@/lib/utils";
 import { LEGAL } from "@/lib/legal";
 import { githubStars } from "@/lib/github-stars";
-import { GITHUB_REPO } from "@/lib/seo";
+import { DEMO_PATH, GITHUB_REPO } from "@/lib/seo";
 
 /*
  * Ozvi's landing wears the same Ozvi preset as the console (light, dark with the system), so the
@@ -172,7 +172,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               <p className={cn(lede, "oz-rise mx-auto mt-6 max-w-[56ch] text-[18px] [animation-delay:160ms] md:text-[19px]")}>{t("hero.lede")}</p>
               <div className="oz-rise mt-8 flex flex-wrap justify-center gap-3 [animation-delay:240ms]">
                 {go(start.label, primary)}
-                <Link href="/demo" className={soon ? primary : ghost}>{t("demo.hero")}</Link>
+                <Link href={DEMO_PATH[locale]} className={soon ? primary : ghost}>{t("demo.hero")}</Link>
                 <a href="#how" className={cn(ghost, "border-transparent bg-transparent")}>{t("hero.secondary")}</a>
               </div>
               <p className="mt-5 text-[13.5px] text-muted-foreground">{t("hero.note")}</p>
@@ -263,7 +263,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                   {(t.raw("demo.points") as string[]).map((x) => <li key={x} className="grid grid-cols-[auto_1fr] gap-2.5"><Check className="mt-0.5 size-4 text-primary" strokeWidth={2.5} aria-hidden />{x}</li>)}
                 </ul>
                 <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <Link href="/demo" className={primary}>{t("demo.cta")}</Link>
+                  <Link href={DEMO_PATH[locale]} className={primary}>{t("demo.cta")}</Link>
                   <span className="text-[13.5px] text-muted-foreground">{t("demo.note")}</span>
                 </div>
               </div>
@@ -295,7 +295,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               </div>
               <div data-r className="mt-12"><ProductTour /></div>
               <div data-r className="mt-8 flex flex-wrap items-center gap-4">
-                <Link href="/demo" className={ghost}>{t("try.demo")}</Link>
+                <Link href={DEMO_PATH[locale]} className={ghost}>{t("try.demo")}</Link>
                 <span className="text-[14px] text-muted-foreground">{t("try.demoNote")}</span>
               </div>
               <dl className="mt-16 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -515,7 +515,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               <LangSwitch locale={locale} label={t("nav.language")} align="start" className="-ml-2 justify-self-start" />
             </div>
             {([
-              [t("footer.product"), [...(t.raw("nav.productItems") as NavItem[]).slice(0, 3), { href: "/demo", title: t("footer.demo"), text: "" }, ...(own ? [{ href: own.ideas, title: t("footer.feedback"), text: "" }] : [])]],
+              [t("footer.product"), [...(t.raw("nav.productItems") as NavItem[]).slice(0, 3), { href: DEMO_PATH[locale], title: t("footer.demo"), text: "" }, ...(own ? [{ href: own.ideas, title: t("footer.feedback"), text: "" }] : [])]],
               [t("footer.developers"), [...(t.raw("nav.devItems") as NavItem[]), t.raw("nav.devFeature") as NavItem]],
               ...(compare ? [[compare.title, compare.items.map((i) => ({ ...i, text: "" }))] as const] : []),
             ] as const).map(([h, items]) => (

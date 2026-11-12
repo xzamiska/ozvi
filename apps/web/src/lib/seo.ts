@@ -9,6 +9,8 @@ import { publicUrl } from "./email/url";
  */
 
 export const LANDING_PATH: Record<Locale, string> = { sk: "/", cs: "/cs", en: "/en", pl: "/pl", hu: "/hu", de: "/de" };
+/** The demo follows the landing: the language is in the path ("/demo" Slovak, "/en/demo" …), never guessed from the browser. */
+export const DEMO_PATH: Record<Locale, string> = { sk: "/demo", cs: "/cs/demo", en: "/en/demo", pl: "/pl/demo", hu: "/hu/demo", de: "/de/demo" };
 const OG_LOCALE: Record<Locale, string> = { sk: "sk_SK", cs: "cs_CZ", en: "en_US", pl: "pl_PL", hu: "hu_HU", de: "de_DE" };
 export const GITHUB_REPO = "https://github.com/xzamiska/ozvi";
 

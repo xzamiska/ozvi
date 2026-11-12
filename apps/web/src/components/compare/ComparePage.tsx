@@ -9,7 +9,7 @@ import { LOCALE_TAG } from "@/i18n/locales";
 import { getAccount } from "@/lib/account";
 import { signupClosed } from "@/lib/account-rules";
 import { COMPARE_IDS, COMPARE_PATH, compareLanguages, type CompareId, type CompareLocale } from "@/lib/compare";
-import { pageMeta } from "@/lib/seo";
+import { pageMeta, DEMO_PATH } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { CONTENT } from "./content";
 import { UI, type Cell, type CompareContent, type Facts, type Mark } from "./types";
@@ -113,7 +113,7 @@ export async function ComparePage({ id, locale }: { id: CompareId; locale: Compa
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               {go(primary)}
-              <Link href="/demo" className={ghost}>{ui.demo}</Link>
+              <Link href={DEMO_PATH[locale]} className={ghost}>{ui.demo}</Link>
             </div>
           </section>
 
@@ -165,7 +165,7 @@ export async function ComparePage({ id, locale }: { id: CompareId; locale: Compa
               <p className={cn(lede, "mt-4 max-w-[56ch]")}>{c.migrate.text}</p>
               <div className="mt-6 flex flex-wrap gap-3">
                 {go(primary)}
-                <Link href="/demo" className={ghost}>{ui.demo}</Link>
+                <Link href={DEMO_PATH[locale]} className={ghost}>{ui.demo}</Link>
               </div>
             </div>
             <ol className="grid gap-px overflow-hidden rounded-xl border bg-line">
