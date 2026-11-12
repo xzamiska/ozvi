@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.ozvi/ozvi",
   "title": "Ozvi",
-  "description": "Bug reports, ideas, roadmap and changelog: search, summarise, triage and close the loop with customers.",
+  "description": "Bug reports, ideas, roadmap and changelog: search, triage and close the loop with customers.",
   "version": "1.2.9",
   "websiteUrl": "https://ozvi.io/?utm_source=mcp-registry",
   "repository": { "url": "https://github.com/xzamiska/ozvi", "source": "github" },
