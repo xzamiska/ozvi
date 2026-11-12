@@ -27,8 +27,9 @@ Disallow: /
 	}
 	# Basic auth only for pages a person opens. Paths with their own auth or that third parties
 	# load without our credentials stay open: API and webhooks (tokens, signatures), MCP and OAuth,
-	# the widget and its files, fonts, the release list, health and well-known documents, Ozvi's icons and boards' favicons.
-	@needs_auth not path /api/* /mcp /mcp/* /*/mcp /*/mcp/* /oauth/* /.well-known/* /widget*.js /fonts/* /releases.json /robots.txt /_next/static/* /ozvi-*.svg /email/* /*/favicon
+	# the widget and its files, fonts, the release list, health and well-known documents, Ozvi's icons and boards' favicons,
+	# boards' own APIs (Linear and Jira webhooks are signed) and the icon chat apps load as the sender's avatar.
+	@needs_auth not path /api/* /*/api/* /mcp /mcp/* /*/mcp /*/mcp/* /oauth/* /.well-known/* /widget*.js /fonts/* /releases.json /robots.txt /_next/static/* /ozvi-*.svg /apple-touch-icon.png /email/* /*/favicon
 	basic_auth @needs_auth {
 		{$STAGING_AUTH_USER} {$STAGING_AUTH_HASH}
 	}
