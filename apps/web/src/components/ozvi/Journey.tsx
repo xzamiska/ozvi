@@ -7,16 +7,19 @@ import { ROUTE, routeText, stopIndex, type Kind } from "@/lib/route";
 import { cn } from "@/lib/utils";
 import { StatusMark } from "./route";
 
+/** Product names, not translated. */
+const TRACKER: Record<string, string> = { github: "GitHub", linear: "Linear", jira: "Jira" };
+
 /**
  * The detail page's route: every dated stop the report passed (status changes, team replies,
- * linked GitHub issues, the release note), then the next stop as a dashed promise.
+ * linked GitHub/Linear/Jira issues, the release note), then the next stop as a dashed promise.
  */
 
 export type JourneyEvent =
   | { type: "status"; at: Date; status: string; version?: string | null; who?: string | null; sub?: string | null; proof?: ProofSnapshot | null }
   /** A public team comment; the route links to it rather than quoting it (the thread shows it in full). */
   | { type: "reply"; at: Date; who: string | null; commentId: string }
-  | { type: "link"; at: Date; ref: string; url: string; state: string }
+  | { type: "link"; at: Date; provider: string; ref: string; url: string; state: string }
   | { type: "release"; at: Date; title: string; href: string };
 
 export function Journey({ kind, status, events, className, locale = "sk" }: {
@@ -49,7 +52,7 @@ export function Journey({ kind, status, events, className, locale = "sk" }: {
               <span className="min-w-0 text-[14px] font-semibold [overflow-wrap:anywhere]">
                 {e.type === "status" ? <>{routeText(tr, "label", e.status)}{e.version && (e.status === "fixed" || e.status === "verified") ? <span data-num>{t("inVersion", { v: e.version })}</span> : null}{e.sub ? <span className="font-medium text-muted-foreground"> · {e.sub}</span> : null}</>
                   : e.type === "reply" ? <a href={`#c-${e.commentId}`} className="hover:underline">{t("teamReply")}</a>
-                  : e.type === "link" ? <a href={e.url} target="_blank" rel="noreferrer" className="hover:underline">GitHub {e.ref}</a>
+                  : e.type === "link" ? <a href={e.url} target="_blank" rel="noreferrer" className="hover:underline">{TRACKER[e.provider] ?? e.provider} {e.ref}</a>
                   : t("released")}
               </span>
               <time dateTime={e.at.toISOString()} title={`${dt.format(e.at)} ${tm.format(e.at)}`} className="text-[12.5px] text-muted-foreground">{dt.format(e.at)}</time>

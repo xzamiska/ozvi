@@ -201,7 +201,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
       ? [{ type: "status", at: item.updatedAt, status: item.status, version: item.fixedInVersion } as JourneyEvent] : []),
     ...live.filter((c) => !c.internal && (c.role === "team" || c.role === "admin"))
       .map((c): JourneyEvent => ({ type: "reply", at: c.createdAt, who: c.name, commentId: c.id })),
-    ...(isTeam ? links.map((l): JourneyEvent => ({ type: "link", at: l.createdAt, ref: l.ref, url: l.url, state: l.state })) : []),
+    ...(isTeam ? links.map((l): JourneyEvent => ({ type: "link", at: l.createdAt, provider: l.provider, ref: l.ref, url: l.url, state: l.state })) : []),
     ...releases.map((r): JourneyEvent => ({ type: "release", at: r.at!, title: r.title, href: `/${slug}/changelog#e-${r.id}` })),
   ];
 
