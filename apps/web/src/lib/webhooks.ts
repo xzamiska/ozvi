@@ -3,6 +3,7 @@ import { decryptSecret, schema, withSystem, type Db } from "@ozvi/db";
 import { and, eq, inArray, lt, lte, or } from "drizzle-orm";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
+import { publicUrl } from "./email/url";
 import { checkUrl, safeFetch } from "./net";
 import { markdownToText } from "./markdown";
 
@@ -35,7 +36,7 @@ export function standardHeaders(secret: string, id: string, body: string, t = Ma
 }
 
 interface Payload {
-  event: string; project: { name: string }; actor: { name: string } | null;
+  event: string; project: { name: string; logoUrl?: string }; actor: { name: string } | null;
   item: { number: number; kind: string; title: string; status: string; url: string; fixedInVersion: string | null };
   comment?: { body: string }; mergedInto?: { number: number }; link?: { ref: string };
   entry?: { title: string; url: string; version: string | null };
@@ -125,6 +126,15 @@ export function teamsMessage(p: Payload, locale: Locale = "sk", projectName?: st
   };
 }
 
+/**
+ * Who the message is from in Discord: the board's name and logo (Ozvi's mark without one), so a fresh
+ * webhook needs no setup. Discord refuses names containing "discord" or "clyde" and longer than 80.
+ */
+export function discordSender(p: Payload, origin: string = publicUrl()) {
+  const name = (p.project?.name ?? "").replace(/discord|clyde/gi, "").replace(/\s+/g, " ").trim().slice(0, 80);
+  return { username: name.length >= 1 ? name : "Ozvi", avatar_url: p.project?.logoUrl ?? `${origin}/apple-touch-icon.png` };
+}
+
 /** Discord webhook: one embed, mentions disabled. */
 export function discordMessage(p: Payload, locale: Locale = "sk", projectName?: string) {
   const to = target(p, locale);
@@ -140,6 +150,7 @@ export function discordMessage(p: Payload, locale: Locale = "sk", projectName?: 
     body = body.replace(`\\*${word}\\*`, `**${word}**`);
   }
   return {
+    ...discordSender(p),
     allowed_mentions: { parse: [] as string[] },
     embeds: [{
       title: to.title.slice(0, 256),

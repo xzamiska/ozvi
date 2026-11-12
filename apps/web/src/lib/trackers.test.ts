@@ -13,7 +13,7 @@ const L = await import("./linear");
 const J = await import("./jira");
 const { sendTrackerSync } = await import("./tracker-sync");
 const { changeStatus, addCommentTo } = await import("./domain");
-const { teamsMessage, discordMessage, chatBody } = await import("./webhooks");
+const { teamsMessage, discordMessage, discordSender, chatBody } = await import("./webhooks");
 
 /* ---------- fixtures: recorded Linear / Jira shapes, served by fake servers ---------- */
 
@@ -270,6 +270,15 @@ describe("chat formats", () => {
     expect(st).toContain("**in progress**");
     expect(st).toContain("\\*star\\*");
     expect(st).not.toContain("\\*in progress\\*");
+  });
+
+  it("Discord: sent as the board, with its logo or Ozvi's mark", () => {
+    expect(discordSender({ ...p, project: { name: "Acme", logoUrl: "https://acme.test/logo.png" } }, "https://ozvi.test"))
+      .toEqual({ username: "Acme", avatar_url: "https://acme.test/logo.png" });
+    expect(discordSender({ ...p, project: { name: "Acme Discord Bot" } }, "https://ozvi.test"))
+      .toEqual({ username: "Acme Bot", avatar_url: "https://ozvi.test/apple-touch-icon.png" });
+    expect(discordSender({ ...p, project: { name: "discord" } }, "https://ozvi.test").username).toBe("Ozvi");
+    expect(discordMessage(p, "en")).toHaveProperty("username");
   });
 
   it("chatBody keeps the Slack format and JSON as before", () => {

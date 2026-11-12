@@ -1,4 +1,5 @@
 import { schema, type Tx } from "@ozvi/db";
+import { parseTheme } from "@ozvi/theme";
 import { and, eq, inArray } from "drizzle-orm";
 import type { Project } from "./project";
 import { projectOrigin } from "./email/url";
@@ -29,6 +30,13 @@ export interface EventData {
   link?: { ref: string; url: string };
   /** Proof of the fix/ship (PRs, release, preview) on item.status_changed to fixed/shipped. */
   proof?: ProofSnapshot;
+}
+
+/** The board in event payloads; logoUrl (https, from the theme) lets chat messages show the board's logo. */
+function projectPayload(project: Project) {
+  let logoUrl: string | undefined;
+  try { logoUrl = parseTheme(project.theme).logoUrl; } catch { /* unreadable theme: no logo */ }
+  return { slug: project.slug, name: project.name, ...(logoUrl && { logoUrl }) };
 }
 
 export function itemPayload(project: Project, item: Item) {
@@ -80,7 +88,7 @@ export async function emit(tx: Tx, project: Project, event: EventName, data: Eve
   const tags = await publicTagNames(tx, data.item.id);
   const payload = {
     event,
-    project: { slug: project.slug, name: project.name },
+    project: projectPayload(project),
     // Provenance: author.trust (anonymous | email_verified | sso_customer | team) and source (board | widget | mcp | import | api).
     item: { ...itemPayload(project, data.item), tags, author: itemAuthorOf(data.item, people.find((p) => p.id === data.item.authorId)), source: sourceOf(data.item.source) },
     actor: data.actorName ? { name: data.actorName } : null,
@@ -112,7 +120,7 @@ export async function emitChangelog(tx: Tx, project: Project, entry: ChangelogEv
   if (targets.length === 0) return;
   const payload = {
     event,
-    project: { slug: project.slug, name: project.name },
+    project: projectPayload(project),
     entry: { ...entry, bodyText: markdownToText(entry.body, { headings: true, base: projectOrigin(project), slug: project.slug }) },
     // Labelled at the top level too, so every consumer sees it without knowing the entry shape.
     ai: entry.ai ?? { generated: false },

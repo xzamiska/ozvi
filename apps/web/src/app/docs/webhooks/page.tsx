@@ -38,7 +38,7 @@ export default function WebhookDocs() {
     </>}>
       <h2 id="setup">Set up</h2>
       <p>An admin adds a webhook in the board&apos;s settings, <strong>admin → Integrations → Webhooks</strong>: the URL (HTTPS), the events (none = all) and whether bug reports are included (bugs are private; send them only to systems your team controls). Ozvi shows the signing <strong>secret once</strong>; store it in your receiver&apos;s configuration. The test button sends a sample <code>item.created</code> with <code>&quot;test&quot;: true</code>.</p>
-      <p>Chat formats (Slack, Microsoft Teams, Discord) post a readable message instead of JSON and are not signed; everything below is about the JSON format.</p>
+      <p>Chat formats (Slack, Microsoft Teams, Discord) post a readable message instead of JSON and are not signed; everything below is about the JSON format. In Discord, messages come from the board: its name and logo (Ozvi&apos;s mark when the board has none), mentions switched off.</p>
 
       <h2 id="events">Events</h2>
       <Table label="Events" head={["Event", "When"]} rows={EVENTS.map(([e, t]) => [<code key="e">{e}</code>, t])} />
@@ -48,7 +48,7 @@ export default function WebhookDocs() {
       <Code title="item.status_changed" code={`
 {
   "event": "item.status_changed",
-  "project": { "slug": "acme", "name": "Acme" },
+  "project": { "slug": "acme", "name": "Acme", "logoUrl": "https://acme.example/logo.png" },
   "item": {
     "number": 128,
     "kind": "bug",
