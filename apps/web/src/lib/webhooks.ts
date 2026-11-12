@@ -130,12 +130,21 @@ export function discordMessage(p: Payload, locale: Locale = "sk", projectName?: 
   const to = target(p, locale);
   const q = quoteOf(p);
   const line = chatLine(p, locale, (_u, label) => label);
+  // The chat texts mark the new status Slack-style (*planned*); escaping would show the asterisks, so in
+  // Discord that one span (our own word, never user text) becomes bold after the rest is made inert.
+  let body = discordEscape(line);
+  if (p.event === "item.status_changed") {
+    const t = translator(locale, "integrations");
+    const k = `slack.status.${p.item.status}` as "slack.status.new";
+    const word = discordEscape(t.has(k) ? t(k) : p.item.status);
+    body = body.replace(`\\*${word}\\*`, `**${word}**`);
+  }
   return {
     allowed_mentions: { parse: [] as string[] },
     embeds: [{
       title: to.title.slice(0, 256),
       url: to.url,
-      description: [discordEscape(line), q && q.split("\n").map((l) => `> ${discordEscape(l)}`).join("\n")].filter(Boolean).join("\n\n").slice(0, 4000),
+      description: [body, q && q.split("\n").map((l) => `> ${discordEscape(l)}`).join("\n")].filter(Boolean).join("\n\n").slice(0, 4000),
       color: toneColor(p),
       ...(projectName ? { footer: { text: projectName.slice(0, 200) } } : {}),
     }],

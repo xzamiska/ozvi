@@ -265,6 +265,11 @@ describe("chat formats", () => {
     expect(m.embeds[0]!.description).toContain("<@\u200b123\\>");
     expect(discordMessage({ ...p, event: "item.created", item: { ...p.item, title: "**bold** _x_" } }, "en").embeds[0]!.description).toContain("\\*\\*bold\\*\\*");
     expect(m.embeds[0]!.footer?.text).toBe("Acme");
+    // our status word is bold, the user's title stays escaped
+    const st = discordMessage({ ...p, event: "item.status_changed", item: { ...p.item, status: "in_progress", title: "*star*" } }, "en").embeds[0]!.description;
+    expect(st).toContain("**in progress**");
+    expect(st).toContain("\\*star\\*");
+    expect(st).not.toContain("\\*in progress\\*");
   });
 
   it("chatBody keeps the Slack format and JSON as before", () => {
