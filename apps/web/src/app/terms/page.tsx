@@ -1,6 +1,6 @@
 import { pageMeta } from "@/lib/seo";
 import { getTranslations } from "next-intl/server";
-import { PLAN_LIMITS } from "@ozvi/db";
+import { limitSize, PLAN_LIMITS } from "@ozvi/db";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LegalShell } from "@/components/LegalShell";
@@ -43,7 +43,7 @@ export default function Terms() {
 
       <h2 id="cast-4">4. Plány a platby</h2>
       <ul>
-        <li>Bezplatný plán zahŕňa {free.projects} projekt, {free.attachmentBytes / 1024 ** 3} GB na prílohy a {free.emailsPerMonth.toLocaleString("sk-SK")} e-mailov mesačne. Platené plány, ich ceny a limity sú v <Link href="/#pricing">cenníku</Link>; ceny sú bez DPH.</li>
+        <li>Bezplatný plán zahŕňa {free.projects} projekt, {limitSize(free.attachmentBytes)} na prílohy a {free.emailsPerMonth.toLocaleString("sk-SK")} e-mailov mesačne. Platené plány, ich ceny a limity sú v <Link href="/#pricing">cenníku</Link>; ceny sú bez DPH.</li>
         <li>Platené plány sa platia štvrťročne alebo ročne vopred. Predávajúcim je Creem (Armitage Labs OÜ, Estónsko) ako predajca s vlastnou zodpovednosťou (merchant of record): spracuje platbu, vystaví faktúru, vyrieši DPH a prípadné vrátenie peňazí podľa svojich podmienok. Kartu a fakturačné údaje zadávate priamo u Creem, my ich nevidíme.</li>
         <li>Predplatné sa obnovuje automaticky, kým ho nezrušíte. Zrušíte ho v časti Plán a využitie; platí do konca zaplateného obdobia a potom priestor prejde na bezplatný plán. Projekty ani dáta sa pri tom nemažú, len nové nad limit nepôjde založiť a vlastné domény sa vypnú.</li>
         <li>Pri zmene plánu Creem rozdiel rozpočíta: pri vyššom pláne zaplatíte pomernú časť hneď, pri nižšom vám nevyčerpanú časť vráti na kartu.</li>

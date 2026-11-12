@@ -1,4 +1,4 @@
-import { PLAN_LIMITS, PRICES } from "@ozvi/db";
+import { limitSize, PLAN_LIMITS, PRICES } from "@ozvi/db";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
 import { Accessibility, ArrowRightLeft, Bot, Check, Code, EyeOff, GitMerge, GitPullRequest, Inbox, Languages, Mail, MessageSquare, Minus, Server, Sparkles, Star, Webhook } from "lucide-react";
 import Link from "next/link";
@@ -123,14 +123,13 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
   const tag = LOCALE_TAG[locale];
   const eur = (c: number) => new Intl.NumberFormat(tag, { style: "currency", currency: "EUR", maximumFractionDigits: c % 100 ? 2 : 0 }).format(c / 100);
   const num = (n: number) => (Number.isFinite(n) ? n.toLocaleString(tag) : t("pricing.unlimited"));
-  const gb = (b: number) => `${b / 1024 ** 3} GB`;
   const yes = (on: boolean) => on
     ? <Check className="mx-auto size-4 text-foreground" strokeWidth={2.5} role="img" aria-label={t("pricing.yes")} />
     : <Minus className="mx-auto size-4 text-foreground/55" role="img" aria-label={t("pricing.no")} />;
   const rows: { label: string; value: (p: (typeof PLANS)[number]) => React.ReactNode }[] = [
     { label: t("pricing.rows.projects"), value: (p) => num(PLAN_LIMITS[p].projects) },
     { label: t("pricing.rows.emails"), value: (p) => num(PLAN_LIMITS[p].emailsPerMonth) },
-    { label: t("pricing.rows.files"), value: (p) => gb(PLAN_LIMITS[p].attachmentBytes) },
+    { label: t("pricing.rows.files"), value: (p) => limitSize(PLAN_LIMITS[p].attachmentBytes) },
     { label: t("pricing.rows.domain"), value: (p) => yes(PLAN_LIMITS[p].customDomain) },
     { label: t("pricing.rows.badge"), value: (p) => yes(!PLAN_LIMITS[p].badge) },
     { label: t("pricing.rows.translations"), value: (p) => (PLAN_LIMITS[p].translationsPerMonth > 0 ? num(PLAN_LIMITS[p].translationsPerMonth) : yes(false)) },

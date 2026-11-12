@@ -1,4 +1,4 @@
-import { PLAN_LIMITS, schema, withProject, type PlanName } from "@ozvi/db";
+import { PLAN_LIMITS, schema, withProject, type PlanName, limitSize } from "@ozvi/db";
 import { and, desc, eq, gte, inArray, isNull, sql } from "drizzle-orm";
 import { Check, Download, TriangleAlert } from "lucide-react";
 import { LockdownForm, SecretForm, SectionsForm, SettingsForm } from "@/components/AdminForms";
@@ -375,7 +375,7 @@ app.get("/api/ozvi-token", requireLogin, (req, res) => {
                 <div><dt className="text-[13px] text-muted-foreground">{t("limits.plan")}</dt><dd className="mt-1 font-heading text-[17px] font-bold capitalize">{plan}</dd></div>
                 <div><dt className="text-[13px] text-muted-foreground">{t("limits.sent")}</dt><dd className="mt-1 font-heading text-[17px] font-bold tabular-nums">{num(usage.emails)} <span className="text-[13px] font-medium text-muted-foreground">/ {fmtLimit(limits.emailsPerMonth, num)}</span></dd></div>
                 <div><dt className="text-[13px] text-muted-foreground">{t("limits.deferred")}</dt><dd className="mt-1 font-heading text-[17px] font-bold tabular-nums">{num(usage.deferred)}</dd></div>
-                <div><dt className="text-[13px] text-muted-foreground">{t("limits.attachments")}</dt><dd className="mt-1 font-heading text-[17px] font-bold tabular-nums">{mb(usage.bytes)} <span className="text-[13px] font-medium text-muted-foreground">/ {fmtLimit(limits.attachmentBytes, (n) => `${n / 1024 ** 3} GB`)}</span></dd></div>
+                <div><dt className="text-[13px] text-muted-foreground">{t("limits.attachments")}</dt><dd className="mt-1 font-heading text-[17px] font-bold tabular-nums">{mb(usage.bytes)} <span className="text-[13px] font-medium text-muted-foreground">/ {fmtLimit(limits.attachmentBytes, limitSize)}</span></dd></div>
               </dl>
             </Panel>
           </SettingsSection>
