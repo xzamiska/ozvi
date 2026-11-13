@@ -129,10 +129,12 @@ export function teamsMessage(p: Payload, locale: Locale = "sk", projectName?: st
 /**
  * Who the message is from in Discord: the board's name and logo (Ozvi's mark without one), so a fresh
  * webhook needs no setup. Discord refuses names containing "discord" or "clyde" and longer than 80.
+ * Discord caches avatars by URL: bump AVATAR_V whenever apple-touch-icon.png changes.
  */
+const AVATAR_V = 2;
 export function discordSender(p: Payload, origin: string = publicUrl()) {
   const name = (p.project?.name ?? "").replace(/discord|clyde/gi, "").replace(/\s+/g, " ").trim().slice(0, 80);
-  return { username: name.length >= 1 ? name : "Ozvi", avatar_url: p.project?.logoUrl ?? `${origin}/apple-touch-icon.png` };
+  return { username: name.length >= 1 ? name : "Ozvi", avatar_url: p.project?.logoUrl ?? `${origin}/apple-touch-icon.png?v=${AVATAR_V}` };
 }
 
 /** Discord webhook: one embed, mentions disabled. */

@@ -276,7 +276,7 @@ describe("chat formats", () => {
     expect(discordSender({ ...p, project: { name: "Acme", logoUrl: "https://acme.test/logo.png" } }, "https://ozvi.test"))
       .toEqual({ username: "Acme", avatar_url: "https://acme.test/logo.png" });
     expect(discordSender({ ...p, project: { name: "Acme Discord Bot" } }, "https://ozvi.test"))
-      .toEqual({ username: "Acme Bot", avatar_url: "https://ozvi.test/apple-touch-icon.png" });
+      .toEqual({ username: "Acme Bot", avatar_url: "https://ozvi.test/apple-touch-icon.png?v=2" });
     expect(discordSender({ ...p, project: { name: "discord" } }, "https://ozvi.test").username).toBe("Ozvi");
     expect(discordMessage(p, "en")).toHaveProperty("username");
   });
