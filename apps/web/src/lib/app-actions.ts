@@ -19,6 +19,7 @@ import { db } from "./db";
 import { issueLogin, LoginError, normalizeEmail, verifyCode, verifyLink } from "./email-login";
 import { publicUrl } from "./email/url";
 import { allow } from "./ratelimit";
+import { trackEvent } from "./analytics";
 
 const server = async () => getTranslations("account.server");
 
@@ -30,11 +31,13 @@ export async function requestAccountLogin(_: LoginState, form: FormData): Promis
   const t = await getTranslations({ locale, namespace: "account.server" });
   if (!allow("loginIp", clientIp(await headers()))) return { step: "email", email, error: t("tooManyAttempts") };
   // No code for an address that could not sign in anyway (closed sign-up, self-host non-admin).
-  if (email.includes("@") && !mayCreateAccount(email) && !(await db.query.accounts.findFirst({ columns: { id: true }, where: eq(schema.accounts.email, email) }))) {
+  const existing = email.includes("@") ? await db.query.accounts.findFirst({ columns: { id: true }, where: eq(schema.accounts.email, email) }) : undefined;
+  if (email.includes("@") && !mayCreateAccount(email) && !existing) {
     return { step: "email", email, error: t(process.env.OZVI_MODE === "cloud" && signupClosed() ? "signupClosed" : "noAccess") };
   }
   try {
     const { sent } = await issueLogin({ db, email, projectId: null, linkBase: `${publicUrl()}/app/login/link`, brand: { name: "Ozvi" }, locale });
+    if (!existing) await trackEvent("signup_started");
     return { step: "code", email, info: sent ? t("codeSent", { email }) : t("noSmtpCode") };
   } catch (e) {
     if (e instanceof LoginError) return { step: "email", email, error: e.message };
@@ -43,8 +46,10 @@ export async function requestAccountLogin(_: LoginState, form: FormData): Promis
 }
 
 async function finish(email: string): Promise<string | null> {
+  const isNew = !(await db.query.accounts.findFirst({ columns: { id: true }, where: eq(schema.accounts.email, email) }));
   const account = await accountForVerifiedEmail(email);
   if (!account) return (await server())(process.env.OZVI_MODE === "cloud" && signupClosed() ? "signupClosed" : "noAccess");
+  if (isNew) await trackEvent("account_created");
   (await cookies()).set(appCookie(account));
   return null;
 }
@@ -138,6 +143,7 @@ export async function createProject(_: NewProjectState, form: FormData): Promise
   });
   if (!("slug" in result)) return result;
   await logActivity({ workspaceId, actor: who(account), action: "project.created", detail: `${name} (/${result.slug})` });
+  await trackEvent("project_created");
   // The hand-off sets a cookie on another path (or domain): the client does a full navigation.
   return { created: result.slug };
 }
@@ -169,6 +175,7 @@ async function billing<T>(fn: () => Promise<T>): Promise<T> {
 export async function startCheckout(workspaceId: string, plan: PaidPlan, interval: Interval) {
   const account = await owner(workspaceId);
   if (!(plan in PRICES) || !["year", "quarter"].includes(interval)) throw new Error((await server())("invalidPlan"));
+  await trackEvent("checkout_started", { plan, interval });
   if (devBilling()) redirect(`/app/billing/${workspaceId}/simulate?plan=${plan}&i=${interval}`);
   const cfg = creemConfig();
   if (!cfg) throw new Error((await server())("billingOff"));
