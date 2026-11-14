@@ -16,7 +16,8 @@ import { fold, type ImportData, type ImportFile, type ImportItem, type Kind, typ
 
 const { users, items, comments, votes, tags, itemTags, itemEvents, customStatuses, importRuns, importRecords, projects, attachments, workspaces } = schema;
 
-export type RecordType = "user" | "tag" | "item" | "comment" | "vote" | "attachment";
+/** "number": the source's own post number (Fider) → item id, so old links (/posts/<n>/…) find the item even when it got a new number. */
+export type RecordType = "user" | "tag" | "item" | "comment" | "vote" | "attachment" | "number";
 /** Bytes of one source file (`ImportFile.ref`), or null when it is gone. Lives in memory only. */
 export type FileLoader = (ref: string) => Promise<Uint8Array | null>;
 export type ImportProject = { id: string; voteMode: string };
@@ -213,6 +214,7 @@ export async function applyImport(db: Db, project: ImportProject, runId: string,
           if (tid) await tx.insert(itemTags).values({ projectId: project.id, itemId: id, tagId: tid }).onConflictDoNothing();
         }
         await record(tx, project.id, runId, src, "item", it.sid, id);
+        if (it.number && it.number > 0) await record(tx, project.id, runId, src, "number", String(it.number), id);
         report.items++; it.kind === "idea" ? report.ideas++ : report.bugs++;
       }
     });

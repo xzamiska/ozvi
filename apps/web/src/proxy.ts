@@ -47,6 +47,8 @@ async function route(req: NextRequest) {
   if (path === "/") return NextResponse.redirect(new URL(`/${slug}`, hostOrigin(host)));
   // Browsers ask a board's domain for /favicon.ico: the board's icon, not Ozvi's.
   if (path === "/favicon.ico") return NextResponse.rewrite(new URL(`/${slug}/favicon`, req.url));
+  // A board that moved from Fider keeps its old domain: Fider post links (/posts/<n>/<slug>) find the item.
+  if (/^\/posts\/\d+(\/|$)/.test(path)) return NextResponse.rewrite(new URL(`/${slug}${path}`, req.url));
   if (path === `/${slug}` || path.startsWith(`/${slug}/`) || SHARED.has(path) || WIDGET_FILE.test(path) || path.startsWith("/fonts/") || path.startsWith("/_next/") || path.startsWith(`/.well-known/oauth-`)) {
     return next(req);
   }

@@ -6,6 +6,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { deflateRawSync } from "node:zlib";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { fiderPostNumber } from "./import/legacy-links";
 import { blobBytes, fiderFromApi, fiderFromBackup, fiderSummary, fiderToImport, tagColor, unzip, type FiderRows } from "./import/fider";
 
 process.env.OZVI_SESSION_SECRET ??= "test-session-secret-0123456789abcdef";
@@ -241,6 +242,16 @@ describe.skipIf(!migrated)("Fider import through the engine (DB)", () => {
       const [proj] = await tx.select({ seq: schema.projects.itemSeq }).from(schema.projects).where(eq(schema.projects.id, project.id));
       expect(proj!.seq).toBe(8);
     });
+  });
+
+  it("old Fider links find the item: kept numbers, a renumbered post, a merged duplicate, an unknown post", async () => {
+    expect(await fiderPostNumber(db, project.id, 1)).toBe(1);
+    expect(await fiderPostNumber(db, project.id, 7)).toBe(7);
+    expect(await fiderPostNumber(db, project.id, 3)).toBe(3);
+    // Fider #2 became #8 here (taken by a native post) and is a duplicate of #1: the link leads to the original.
+    expect(await fiderPostNumber(db, project.id, 2)).toBe(1);
+    expect(await fiderPostNumber(db, project.id, 99)).toBeNull();
+    expect(await fiderPostNumber(db, project.id, 0)).toBeNull();
   });
 
   it("re-run after a new post in Fider imports only the new post, its vote and comment", async () => {

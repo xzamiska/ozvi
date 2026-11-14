@@ -43,6 +43,12 @@ Príkaz zapíše beh do histórie importov, takže sa dá vrátiť späť z admi
 | administrator / collaborator | admin / tím (len noví ľudia; existujúcim sa rola nemení) |
 | odhlásený z e-mailov | `email_opt_out` |
 
+## Staré odkazy z Fideru
+
+Odkazy na príspevky z Fideru (v starých e-mailoch, záložkách, issues) fungujú ďalej. Keď board beží na pôvodnej doméne Fideru (Admin → Vlastná doména, napr. `feedback.billiwo.com` s CNAME na Ozvi), adresa `/posts/<číslo>/<slug>` trvalo (301) presmeruje na ten istý príspevok, aj keď pri importe dostal nové číslo. Zlúčená duplicita vedie na originál. Príspevok, ktorý sa neimportoval (alebo bol vo Fideri zmazaný), vedie na úvod boardu, nie na chybu 404. Bez vlastnej domény funguje to isté na `ozvi.io/<projekt>/posts/<číslo>`.
+
+Čísla z Fideru si import pamätá od verzie 1.2.15. Pri boarde importovanom skôr vedú staré odkazy na úvod boardu; ak ich chcete presne, vráťte import späť (Admin → Import) a spustite ho znova.
+
 **Overené** testami `apps/web/src/lib/import-fider.test.ts` (záloha zo zipu, API cez falošný Fider, rovnaké id oboch ciest, opakovaný import po pridaní nového postu, vrátenie späť vrátane súborov) a prehliadačom proti lokálnemu falošnému Fider API. Fixture `apps/web/src/lib/import/fixtures/fider-backup/`; pôvodná `apps/web/scripts/fixtures/fider-sample.sql` je reálna schéma `getfider/fider:stable` pre `--from`.
 
 **Pred migráciou produkcie:** Fider v0.37 opravil cross-tenant prevzatie loginu — ak migrácia nebude hneď, aktualizujte Fider.
