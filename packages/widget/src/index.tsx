@@ -163,7 +163,7 @@ const CSS = `
 *{box-sizing:border-box;font:inherit;color:inherit}
 .launch{display:inline-flex;gap:8px;align-items:center;height:44px;padding:0 18px 0 14px;border:0;border-radius:999px;background:var(--oz-accent,#5A3FE6);color:var(--oz-on-accent,#fff);font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,.08),0 10px 28px -8px rgba(0,0,0,.35);transition:transform .2s cubic-bezier(.16,1,.3,1)}
 .launch:hover{transform:translateY(-1px)}.launch[disabled]{cursor:progress;opacity:.85}
-.panel{animation:oz-in .22s cubic-bezier(.16,1,.3,1);transform-origin:bottom right;position:absolute;bottom:0;right:0;width:min(380px,calc(100vw - 32px));max-height:min(640px,calc(100vh - 40px));overflow:auto;background:var(--oz-surface,#fff);border:1px solid var(--oz-border,#ddd);border-radius:calc(var(--oz-radius,8px) + 4px);box-shadow:0 18px 50px rgba(0,0,0,.22);padding:16px}
+.panel{animation:oz-in .22s cubic-bezier(.16,1,.3,1);transform-origin:bottom right;position:absolute;bottom:0;right:0;width:min(380px,calc(100vw - 32px));max-height:min(640px,calc(100vh - 40px));overflow:auto;scrollbar-gutter:stable;background:var(--oz-surface,#fff);border:1px solid var(--oz-border,#ddd);border-radius:calc(var(--oz-radius,8px) + 4px);box-shadow:0 18px 50px rgba(0,0,0,.22);padding:16px}
 .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .head h2{margin:0;font-family:var(--oz-font-heading,inherit);font-size:16px;font-weight:700}.head h2:focus{outline:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
@@ -190,7 +190,7 @@ input,textarea{width:100%;padding:9px 11px;border:1px solid color-mix(in srgb,va
 input:focus,textarea:focus{outline:none;border-color:var(--oz-accent,#5A3FE6);box-shadow:0 0 0 3px color-mix(in srgb,var(--oz-accent,#5A3FE6) 25%,transparent)}
 ::selection{background:color-mix(in srgb,var(--oz-accent,#5A3FE6) 24%,transparent)}
 textarea{resize:vertical;min-height:80px}
-.shot{position:relative;margin-top:10px}.shot img{width:100%;border-radius:var(--oz-radius,8px);border:1px solid var(--oz-border,#ddd);display:block}
+.shot{position:relative;margin-top:10px}.skel{display:grid;place-items:center;border-radius:var(--oz-radius,8px);border:1px solid var(--oz-border,#ddd);background:linear-gradient(90deg,color-mix(in srgb,currentColor 5%,transparent) 25%,color-mix(in srgb,currentColor 10%,transparent) 50%,color-mix(in srgb,currentColor 5%,transparent) 75%) 0 0/200% 100%;animation:oz-sk 1.2s linear infinite;font-size:12px;opacity:.75}@keyframes oz-sk{to{background-position:-200% 0}}@media (prefers-reduced-motion:reduce){.skel{animation:none}}.shot img{width:100%;border-radius:var(--oz-radius,8px);border:1px solid var(--oz-border,#ddd);display:block}
 .shot div{position:absolute;top:6px;right:6px;display:flex;gap:6px}
 .shot button{display:inline-flex;align-items:center;gap:5px;min-height:28px;border:0;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;background:rgba(0,0,0,.72);color:#fff;cursor:pointer}.shot button:hover{background:rgba(0,0,0,.88)}
 .tech{display:grid;grid-template-columns:auto 1fr;gap:2px 8px;align-items:start;margin:12px 0 0;font-size:13px;font-weight:600;cursor:pointer}
@@ -228,6 +228,9 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
   const [shot, setShot] = useState<Blob | null>(null);
   const [shotUrl, setShotUrl] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  /** The screenshot is taken while the form is already open (the widget is left out of the copy); sending waits for it. */
+  const [shooting, setShooting] = useState(false);
+  const shotP = useRef<Promise<Blob | null> | null>(null);
   const [error, setError] = useState("");
   const [sent, setSent] = useState<{ number: number; pending?: string | null } | null>(null);
   const [extra, setExtra] = useState<File[]>([]);
@@ -309,23 +312,29 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
 
   async function startBug() {
     setError("");
-    setOpen(false); // hide the panel so the screenshot shows the app, not us
-    setBusy(true);
-    try {
-      const w = window as unknown as { __ozviShot?: (e: Element) => Promise<Blob | null> };
-      if (!w.__ozviShot) await load(`${host}/widget-shot.js`);
-      const blob = await w.__ozviShot!(el);
-      setShot(blob);
-      setShotUrl(blob ? URL.createObjectURL(blob) : null);
-    } catch {
-      setShot(null);
-    }
-    const s = snapshot();
-    setHasTech(s.network.length + s.actions.length > 0);
-    setBusy(false);
-    setView("bug");
-    setOpen(true);
+    setShot(null); setShotUrl(null);
+    // The form opens at once and the person can type; the screenshot comes from a copy of the page that leaves
+    // the widget out, so the open panel never shows in it. Hosts without a launcher used to see nothing for seconds.
+    const snap = snapshot();
+    setHasTech(snap.network.length + snap.actions.length > 0);
+    setView("bug"); setOpen(true); setShooting(true);
     setTimeout(() => title.current?.focus(), 30);
+    const take = (async () => {
+      try {
+        const w = window as unknown as { __ozviShot?: (e: Element) => Promise<Blob | null> };
+        if (!w.__ozviShot) await load(`${host}/widget-shot.js`);
+        return await w.__ozviShot!(el);
+      } catch {
+        return null;
+      }
+    })();
+    shotP.current = take;
+    const blob = await take;
+    if (shotP.current !== take) return; // a newer report started meanwhile
+    shotP.current = null;
+    setShot(blob);
+    setShotUrl(blob ? URL.createObjectURL(blob) : null);
+    setShooting(false);
   }
 
   /** Lazy-loads the annotation editor (widget-annotate.js); a marked-up copy replaces the screenshot, blur included. */
@@ -376,7 +385,9 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
       language: navigator.language,
       ...ctxCapture(),
     }));
-    if (shot) f.append("files", shot, "screenshot.jpg");
+    // Sent before the screenshot is ready: wait for it rather than send without one.
+    const image = shotP.current ? await shotP.current : shot;
+    if (image) f.append("files", image, "screenshot.jpg");
     extra.forEach((x) => f.append("files", x, x.name));
     setBusy(true); setError("");
     emit("submit", { kind: "bug", title: String(f.get("title") ?? "") });
@@ -455,9 +466,12 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
               <label for="oz-b">{t.how} <span style="font-weight:400;opacity:.7">{t.opt}</span></label>
               <textarea id="oz-b" name="body" maxLength={10000} placeholder={t.howPh} defaultValue={bugPre?.body}
                 onPaste={(e) => { const fl = [...(e.clipboardData?.files ?? [])]; if (fl.length) { e.preventDefault(); addFiles(fl); } }} />
+              {shooting && (
+                <div class="shot skel" role="status" style={{ aspectRatio: `${innerWidth} / ${innerHeight}` }}><span>{t.shooting}</span></div>
+              )}
               {shotUrl && (
                 <div class="shot">
-                  <img src={shotUrl} alt={t.shotAlt} />
+                  <img src={shotUrl} alt={t.shotAlt} style={{ aspectRatio: `${innerWidth} / ${innerHeight}` }} />
                   <div>
                     <button type="button" onClick={markUp}>{svg(ICON.pen, 14)}{t.ann}</button>
                     <button type="button" onClick={() => { setShot(null); setShotUrl(null); }}>{t.shotDel}</button>
