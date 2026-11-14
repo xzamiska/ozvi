@@ -47,7 +47,8 @@ export default async function ProjectLayout({ children, params }: { children: Re
           <div className="oz-frame grid grid-cols-[1fr_auto] items-stretch gap-x-6 md:grid-cols-[auto_1fr_auto]">
             <Link href={`/${slug}`} className="flex h-14 min-w-0 items-center gap-2.5 md:h-16">
               {theme.logoUrl ? <img src={theme.logoUrl} alt="" className="h-7 w-auto max-w-[140px] object-contain" /> : null}
-              <span className="truncate font-heading text-[17px] font-bold tracking-tight">{project.name}</span>
+              {/* A wordmark logo already says the name: keep it for screen readers only. */}
+              <span className={theme.logoUrl && theme.logoWithName ? "sr-only" : "truncate font-heading text-[17px] font-bold tracking-tight"}>{project.name}</span>
             </Link>
             <BoardNav slug={slug} unanswered={unanswered} sections={enabledSections(project)} className="col-span-2 row-start-2 h-11 md:col-span-1 md:col-start-2 md:row-start-1 md:h-16" />
             <div className="col-start-2 row-start-1 flex items-center justify-end gap-1.5 md:col-start-3">

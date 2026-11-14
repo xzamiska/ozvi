@@ -511,6 +511,8 @@
       "radius": "Saroklekerekítés",
       "logo": "Logó",
       "logoHint": "Kép URL-je, ideális esetben SVG vagy átlátszó hátterű PNG.",
+      "logoWithName": "A logó már tartalmazza a nevet",
+      "logoWithNameHint": "A projekt neve nem jelenik meg a logó mellett. A képernyőolvasók továbbra is felolvassák.",
       "badColor": "A(z) „{label}” színt #RRGGBB formátumban kell megadni.",
       "badLogo": "A logónak https://-sel kezdődő teljes URL-nek kell lennie.",
       "lowContrast": "A szöveg nehezen olvasható lehet",

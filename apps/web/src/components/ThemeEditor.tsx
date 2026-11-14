@@ -5,6 +5,7 @@ import { ChevronUp, MessageSquare, Plus, TriangleAlert } from "lucide-react";
 import { useActionState, useMemo, useState } from "react";
 import { RouteRail, StatusTag } from "@/components/ozvi/route";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -67,7 +68,7 @@ export function ThemeEditor({ slug, initial }: { slug: string; initial: Theme })
           <div role="group" aria-labelledby="t-presets" className="flex flex-wrap gap-2">
             {Object.entries(presets).map(([k, p]) => (
               <Button key={k} type="button" variant="outline" size="sm"
-                onClick={() => setTheme(themeSchema.parse({ ...p, logoUrl: theme.logoUrl }))}>
+                onClick={() => setTheme(themeSchema.parse({ ...p, logoUrl: theme.logoUrl, logoWithName: theme.logoWithName }))}>
                 <span aria-hidden className="size-3 rounded-full border" style={{ background: p.colors.accent }} />
                 {p.name}
               </Button>
@@ -135,6 +136,15 @@ export function ThemeEditor({ slug, initial }: { slug: string; initial: Theme })
             <Input id="t-logo" type="url" value={theme.logoUrl ?? ""} placeholder="https://…/logo.svg" {...noFill}
               onChange={(e) => set({ logoUrl: e.target.value || undefined })} />
           </Field>
+          {theme.logoUrl && (
+            <div className="flex items-start gap-2.5 sm:col-span-2">
+              <Checkbox id="t-logo-name" checked={theme.logoWithName} onCheckedChange={(v) => set({ logoWithName: v === true })} className="mt-0.5" />
+              <div className="grid gap-0.5">
+                <Label htmlFor="t-logo-name" className="text-[14px] font-semibold">{t("logoWithName")}</Label>
+                <p className={hint}>{t("logoWithNameHint")}</p>
+              </div>
+            </div>
+          )}
         </fieldset>
 
         {issue && (

@@ -33,6 +33,12 @@ describe("theme", () => {
     expect(css).toContain("@media (prefers-color-scheme:dark){:host{--oz-accent:#9D8CFF;--oz-on-accent:#000000;--oz-ink:#EDECF5");
   });
 
+  it("logoWithName defaults to off and survives a round trip", () => {
+    expect(parseTheme(presets.ozvi).logoWithName).toBe(false);
+    expect(parseTheme({ ...presets.ozvi, logoUrl: "https://acme.test/logo.svg", logoWithName: true })).toMatchObject({ logoUrl: "https://acme.test/logo.svg", logoWithName: true });
+    expect(() => parseTheme({ ...presets.ozvi, logoWithName: "yes" })).toThrow();
+  });
+
   it("rejects font names that could break out of <style>", () => {
     expect(() => parseTheme({ ...presets.ozvi, font: { body: "x</style><script>" } })).toThrow();
     const t = parseTheme({ ...presets.ozvi, font: { body: "My Brand Sans", source: "custom" } });

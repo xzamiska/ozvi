@@ -511,6 +511,8 @@
       "radius": "Zaoblení",
       "logo": "Logo",
       "logoHint": "Adresa obrázku, ideálně SVG nebo PNG s průhledným pozadím.",
+      "logoWithName": "Logo už obsahuje název",
+      "logoWithNameHint": "Vedle loga se nezobrazí název projektu. Čtečky obrazovky ho přečtou i nadále.",
       "badColor": "Barva „{label}“ musí být ve tvaru #RRGGBB.",
       "badLogo": "Logo musí být celá adresa začínající https://.",
       "lowContrast": "Text může být špatně čitelný",

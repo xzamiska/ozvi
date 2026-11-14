@@ -511,6 +511,8 @@
       "radius": "Zaokrąglenie rogów",
       "logo": "Logo",
       "logoHint": "URL obrazu, najlepiej SVG lub PNG z przezroczystym tłem.",
+      "logoWithName": "Logo zawiera już nazwę",
+      "logoWithNameHint": "Nazwa projektu nie będzie wyświetlana obok logo. Czytniki ekranu nadal ją odczytają.",
       "badColor": "„{label}” musi być kolorem w formacie #RRGGBB.",
       "badLogo": "Logo musi być pełnym adresem URL zaczynającym się od https://.",
       "lowContrast": "Tekst może być trudny do odczytania",

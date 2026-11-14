@@ -511,6 +511,8 @@
       "radius": "Eckenradius",
       "logo": "Logo",
       "logoHint": "Bild-URL, idealerweise SVG oder PNG mit transparentem Hintergrund.",
+      "logoWithName": "Das Logo enthält bereits den Namen",
+      "logoWithNameHint": "Neben dem Logo wird der Projektname nicht angezeigt. Screenreader lesen ihn weiterhin vor.",
       "badColor": "„{label}“ muss eine Farbe im Format #RRGGBB sein.",
       "badLogo": "Das Logo muss eine vollständige URL sein, die mit https:// beginnt.",
       "lowContrast": "Der Text ist möglicherweise schwer lesbar",

@@ -44,6 +44,8 @@ export const themeSchema = z.object({
     if (!v) return undefined;
     try { return new URL(v).protocol === "https:" ? v : undefined; } catch { return undefined; }
   }),
+  /** The logo already shows the product name (a wordmark): the board header shows only the logo, the name stays for screen readers. */
+  logoWithName: z.boolean().default(false),
 });
 
 export type Theme = z.infer<typeof themeSchema>;

@@ -511,6 +511,8 @@
       "radius": "Corner radius",
       "logo": "Logo",
       "logoHint": "Image URL, ideally SVG or PNG with a transparent background.",
+      "logoWithName": "The logo already includes the name",
+      "logoWithNameHint": "The project name won't be shown next to the logo. Screen readers still read it.",
       "badColor": "“{label}” must be a colour in #RRGGBB format.",
       "badLogo": "The logo must be a full URL starting with https://.",
       "lowContrast": "Text may be hard to read",
