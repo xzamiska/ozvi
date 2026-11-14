@@ -140,6 +140,7 @@
       "noAccess": "Diese E-Mail-Adresse hat keinen Zugang. Auf einem selbst gehosteten Server fügen Sie sie zu OZVI_ADMIN_EMAILS hinzu.",
       "emailLoginOff": "Die Anmeldung per E-Mail ist für dieses Projekt nicht aktiviert.",
       "tooManyProjects": "Zu viele neue Projekte innerhalb einer Stunde. Versuchen Sie es später erneut.",
+      "tooManyFree": "Aus diesem Netzwerk wurden heute zu viele kostenlose Bereiche angelegt. Versuchen Sie es morgen, fügen Sie das Projekt einem bestehenden Bereich hinzu oder wechseln Sie zu Pro.",
       "nameLength": "Der Name muss 2 bis 60 Zeichen lang sein.",
       "slugInvalid": "Die Adresse darf Kleinbuchstaben, Ziffern und Bindestriche enthalten (2–41 Zeichen) und kein reserviertes Wort sein.",
       "pickLook": "Wählen Sie ein Aussehen.",

@@ -140,6 +140,7 @@
       "noAccess": "Ten adres e-mail nie ma dostępu. Na własnym serwerze dodaj go do OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "Logowanie e-mailem nie jest włączone w tym projekcie.",
       "tooManyProjects": "Za dużo nowych projektów w ciągu godziny. Spróbuj później.",
+      "tooManyFree": "Z tej sieci utworzono dziś zbyt wiele bezpłatnych przestrzeni. Spróbuj jutro, dodaj projekt do istniejącej przestrzeni lub przejdź na Pro.",
       "nameLength": "Nazwa musi mieć od 2 do 60 znaków.",
       "slugInvalid": "Adres może zawierać małe litery, cyfry i łączniki (2–41 znaków) i nie może być słowem zastrzeżonym.",
       "pickLook": "Wybierz wygląd.",

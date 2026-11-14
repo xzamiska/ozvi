@@ -140,6 +140,7 @@
       "noAccess": "This e-mail doesn’t have access. On a self-hosted server, add it to OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "E-mail sign-in isn’t enabled for this project.",
       "tooManyProjects": "Too many new projects in an hour. Try again later.",
+      "tooManyFree": "Too many free workspaces were created from this network today. Try again tomorrow, add the project to an existing workspace or upgrade to Pro.",
       "nameLength": "The name must be 2 to 60 characters.",
       "slugInvalid": "The address may use lowercase letters, digits and hyphens (2–41 characters) and can’t be a reserved word.",
       "pickLook": "Pick a look.",

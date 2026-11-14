@@ -140,6 +140,7 @@
       "noAccess": "Ennek az e-mail-címnek nincs hozzáférése. Saját üzemeltetésű szerveren add hozzá az OZVI_ADMIN_EMAILS listához.",
       "emailLoginOff": "Az e-mailes bejelentkezés nincs bekapcsolva ennél a projektnél.",
       "tooManyProjects": "Túl sok új projekt egy órán belül. Próbáld újra később.",
+      "tooManyFree": "Erről a hálózatról ma túl sok ingyenes munkaterület jött létre. Próbálja újra holnap, adja a projektet egy meglévő munkaterülethez, vagy váltson Pro csomagra.",
       "nameLength": "A név 2–60 karakter hosszú lehet.",
       "slugInvalid": "A cím kisbetűket, számjegyeket és kötőjeleket tartalmazhat (2–41 karakter), és nem lehet foglalt szó.",
       "pickLook": "Válassz megjelenést.",

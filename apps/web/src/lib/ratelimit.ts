@@ -27,6 +27,8 @@ export const LIMITS = {
   loginIp: { max: 20, windowMs: 60 * 60_000 },
   loginVerifyIp: { max: 40, windowMs: 60 * 60_000 },
   signup: { max: 5, windowMs: 60 * 60_000 },
+  /** New free cloud workspaces per IP (several accounts from one place); paid plans are not limited. */
+  freeWorkspaceIp: { max: 3, windowMs: 24 * 60 * 60_000 },
   cimd: { max: 30, windowMs: 10 * 60_000 },
   invite: { max: 20, windowMs: 60 * 60_000 },
   /** Opt-in statistics from self-hosted servers: one a day is normal, a few per IP is plenty. */

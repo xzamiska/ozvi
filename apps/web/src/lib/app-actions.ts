@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { logActivity, who } from "./activity";
 import type { LoginState } from "@/components/EmailLogin";
-import { isAdminEmail, signupClosed } from "./account-rules";
+import { freeQuotaEmail, freeQuotaEmailSql, isAdminEmail, signupClosed } from "./account-rules";
 import { accountForVerifiedEmail, APP_COOKIE, mayCreateAccount, appCookie, getAccount, isMember, newWorkspaceSlug } from "./account";
 import { clientIp } from "./client-ip";
 import { getTranslations } from "next-intl/server";
@@ -99,6 +99,7 @@ export async function createProject(_: NewProjectState, form: FormData): Promise
   const t = await getTranslations({ locale, namespace: "account.server" });
   const c = await getTranslations({ locale, namespace: "console" });
   if (!allow("signup", account.id)) return { error: t("tooManyProjects") };
+  const ip = clientIp(await headers()) ?? "unknown";
   const name = String(form.get("name") ?? "").trim();
   const slug = String(form.get("slug") ?? "").trim().toLowerCase();
   const preset = String(form.get("preset") ?? "ozvi") as keyof typeof presets;
@@ -118,12 +119,16 @@ export async function createProject(_: NewProjectState, form: FormData): Promise
     if (!workspaceId) {
       const cloud = process.env.OZVI_MODE === "cloud";
       if (cloud) {
-        // One free workspace owned per account; otherwise "new workspace" would multiply the free project limit.
-        // (Being invited into someone else's free workspace does not count.)
+        // One free workspace owned per person; otherwise "new workspace" would multiply the free project limit.
+        // A person = their account, or any account on the same Gmail mailbox (dots and +tags ignored, see
+        // freeQuotaEmail and freeQuotaEmailSql). Being invited into someone else's free workspace does not count.
         const [free] = await tx.select({ n: sql<number>`count(*)::int` }).from(schema.workspaceMembers)
           .innerJoin(schema.workspaces, eq(schema.workspaces.id, schema.workspaceMembers.workspaceId))
-          .where(and(eq(schema.workspaceMembers.accountId, account.id), eq(schema.workspaceMembers.role, "owner"), eq(schema.workspaces.plan, "free")));
+          .innerJoin(schema.accounts, eq(schema.accounts.id, schema.workspaceMembers.accountId))
+          .where(and(sql`${freeQuotaEmailSql(schema.accounts.email)} = ${freeQuotaEmail(account.email)}`, eq(schema.workspaceMembers.role, "owner"), eq(schema.workspaces.plan, "free")));
         if ((free?.n ?? 0) >= 1) return { error: t("freeExists") };
+        // Many accounts from one place (scripts, throwaway addresses): a few new free workspaces a day per IP.
+        if (!allow("freeWorkspaceIp", ip)) return { error: t("tooManyFree") };
       }
       const [w] = await tx.insert(schema.workspaces).values({ slug: newWorkspaceSlug(), name, plan: cloud ? "free" : "self" }).returning();
       await tx.insert(schema.workspaceMembers).values({ workspaceId: w!.id, accountId: account.id, role: "owner" });

@@ -140,6 +140,7 @@
       "noAccess": "Tento e-mail nemá prístup. Na vlastnom serveri ho pridajte do OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "Prihlásenie e-mailom nie je pre tento projekt zapnuté.",
       "tooManyProjects": "Priveľa nových projektov za hodinu. Skúste neskôr.",
+      "tooManyFree": "Z tejto siete dnes vzniklo priveľa bezplatných priestorov. Skúste to zajtra, pridajte projekt do existujúceho priestoru alebo prejdite na Pro.",
       "nameLength": "Názov musí mať 2 až 60 znakov.",
       "slugInvalid": "Adresa smie mať malé písmená, číslice a pomlčky (2–41 znakov) a nesmie byť vyhradená.",
       "pickLook": "Vyberte vzhľad.",
