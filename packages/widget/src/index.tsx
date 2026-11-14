@@ -18,6 +18,7 @@ import { PACK_LANGS, packFor, type PackLang } from "./lang-pack";
  *   app-version  shown to the team with every bug
  *   launcher     "none" hides the floating button; open it with window.Ozvi.open()
  *   label        launcher text
+ *   position     "bottom-right" (default) | "bottom-left"; fine offsets and z-index: plain CSS on ozvi-widget
  *   lang         sk | cs | en; defaults to <html lang>, then the browser language, then sk
  *   network      "off" = no network log; "bodies" = also keep (masked) bodies of failed requests
  *   actions      "off" = no action timeline
@@ -158,6 +159,7 @@ W.__ozviP = { preact: { render }, hooks: { useEffect, useRef, useState }, jsx: {
 
 const CSS = `
 :host{all:initial;position:fixed;z-index:2147483000;bottom:20px;right:20px;font-family:var(--oz-font-body,system-ui,sans-serif);color:var(--oz-ink,#111214)}
+:host([position=bottom-left]){right:auto;left:20px}:host([position=bottom-left]) .panel{right:auto;left:0;transform-origin:bottom left}
 *{box-sizing:border-box;font:inherit;color:inherit}
 .launch{display:inline-flex;gap:8px;align-items:center;height:44px;padding:0 18px 0 14px;border:0;border-radius:999px;background:var(--oz-accent,#5A3FE6);color:var(--oz-on-accent,#fff);font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,.08),0 10px 28px -8px rgba(0,0,0,.35);transition:transform .2s cubic-bezier(.16,1,.3,1)}
 .launch:hover{transform:translateY(-1px)}.launch[disabled]{cursor:progress;opacity:.85}
@@ -419,12 +421,13 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
       <span class="sr" role="status">{busy && !open ? t.shooting : ""}</span>
       {config && <style nonce={NONCE}>{config.css}</style>}
       {!open && attr("launcher") !== "none" && (
-        <button ref={launcher} class="launch" onClick={() => openTab("menu")} disabled={busy} aria-haspopup="dialog">
-          {svg(ICON.chat, 18)}{busy ? t.shooting : attr("label") || t.fb}
+        <button ref={launcher} class="launch" part="launcher" onClick={() => openTab("menu")} disabled={busy} aria-haspopup="dialog"
+          aria-label={busy ? t.shooting : attr("label") || t.fb}>
+          {svg(ICON.chat, 18)}<span part="launcher-label">{busy ? t.shooting : attr("label") || t.fb}</span>
         </button>
       )}
       {open && (
-        <div ref={panel} class="panel" role="dialog" aria-modal="true" aria-label={t.fbFor + (config?.name ?? t.app)} onKeyDown={onKey}>
+        <div ref={panel} class="panel" part="panel" role="dialog" aria-modal="true" aria-label={t.fbFor + (config?.name ?? t.app)} onKeyDown={onKey}>
           <div class="head">
             {isIdeas && (
               <button class="x" onClick={() => (view === "idea" ? setView("ideas") : setView("menu"))} aria-label={t.back}>{svg(ICON.back)}</button>
@@ -501,7 +504,7 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
 }
 
 class OzviWidget extends HTMLElement {
-  static observedAttributes = ["lang", "label", "launcher"];
+  static observedAttributes = ["lang", "label", "launcher", "position"];
   declare _r?: () => void;
   connectedCallback() {
     if (this.shadowRoot) return;

@@ -23,6 +23,7 @@ export default function WidgetDocs() {
     { id: "privacy", label: "Screenshot privacy" },
     { id: "mark", label: "data-ozvi-mask", sub: true },
     { id: "all", label: "Cover everything", sub: true },
+    { id: "placement", label: "Placement and styling" },
     { id: "config", label: "Configuration" },
     { id: "more", label: "More" },
   ];
@@ -104,6 +105,17 @@ function ozvi_token(array $user, ?string $secret = null): string {
 <nav data-ozvi-unmask>…</nav>
 <h1 data-ozvi-unmask>Invoice settings</h1>`} />
       <Note title="Your privacy policy">The board&apos;s settings (admin → Project data → Text for your privacy policy) generate paragraphs describing exactly what your widget sends, for your own privacy policy.</Note>
+
+      <h2 id="placement">Placement and styling</h2>
+      <p>The floating button sits bottom right. <code>position=&quot;bottom-left&quot;</code> moves it to the left corner and the panel opens towards the page. Offsets and layering are plain CSS on the element, your page&apos;s rules win:</p>
+      <Code title="CSS" code={`
+/* above a cookie bar or a chat bubble, below your own modals */
+ozvi-widget { bottom: 88px; right: 24px; z-index: 50; }`} />
+      <p>Inside the widget, three parts are a stable styling hook: <code>launcher</code> (the button), <code>launcher-label</code> (its text; the button keeps its accessible name when you hide it) and <code>panel</code>. Colours, fonts and radius come from the board&apos;s theme, so set them there.</p>
+      <Code title="CSS: an icon-only button" code={`
+ozvi-widget::part(launcher) { width: 48px; height: 48px; padding: 0; justify-content: center; }
+ozvi-widget::part(launcher-label) { display: none; }`} />
+      <p>No floating button at all: <code>launcher=&quot;none&quot;</code> and open the widget from your own menu with <code>Ozvi.open(&quot;bug&quot;)</code>.</p>
 
       <h2 id="config">Configuration</h2>
       <p>Set <code>window.OzviConfig</code> before <code>widget.js</code> loads, or call <code>Ozvi.configure()</code> later.</p>

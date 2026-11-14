@@ -68,6 +68,8 @@ export interface OzviOptions {
   appVersion?: string;
   /** "none" hides the floating button; open it with Ozvi.open(). */
   launcher?: "none" | "button";
+  /** Corner of the floating button; the panel opens on the same side. Offsets and z-index: CSS on ozvi-widget. */
+  position?: "bottom-right" | "bottom-left";
   lang?: OzviLang;
   label?: string;
   network?: "off" | "bodies";

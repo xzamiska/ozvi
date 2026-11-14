@@ -241,6 +241,36 @@ window.OzviConfig = { mask: "all" };
 If the copy can't be masked (an unexpected error), the report goes **without** a screenshot, never with
 an unmasked one. The reporter still sees the screenshot before sending and can remove it.
 
+## Placement and styling
+
+The floating button sits bottom right, 20 px from the edges. `position="bottom-left"` moves it to the left corner and
+the panel opens towards the page. Your page's CSS on the `ozvi-widget` element wins over the widget's own, so offsets
+and layering need no option:
+
+```css
+/* above a cookie bar or a chat bubble, below your own modals */
+ozvi-widget { bottom: 88px; right: 24px; z-index: 50; }
+```
+
+The inside lives in shadow DOM; these parts are a public, stable styling hook (`::part()`), everything else may change:
+
+| Part | What it is |
+|---|---|
+| `launcher` | the floating button (the theme gives it the accent colour, radius and font) |
+| `launcher-label` | the text in the button; the button keeps its accessible name if you hide it |
+| `panel` | the opened panel |
+
+```css
+/* an icon-only round button */
+ozvi-widget::part(launcher) { width: 48px; height: 48px; padding: 0; justify-content: center; }
+ozvi-widget::part(launcher-label) { display: none; }
+ozvi-widget::part(panel) { box-shadow: none; }
+```
+
+Colours, fonts and radius come from the board's theme (admin → Appearance), so the widget, the board and the e-mails
+stay alike; prefer that over overriding colours here. No button at all: `launcher="none"` and `Ozvi.open()` from your
+own menu.
+
 ## Configuration
 
 Simple switches as attributes:
