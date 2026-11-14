@@ -23,7 +23,8 @@ async function requireAdmin(slug: string) {
   return { ...ctx, t };
 }
 
-export interface AdminState { ok?: string; error?: string; secret?: string }
+/** `replaced`: the new SSO secret replaced an older one (the old one stopped working), not a first one. */
+export interface AdminState { ok?: string; error?: string; secret?: string; replaced?: boolean }
 
 export async function saveTheme(slug: string, _: AdminState, form: FormData): Promise<AdminState> {
   const { project, user, t } = await requireAdmin(slug);
@@ -113,7 +114,10 @@ export async function rotateSecret(slug: string, _: AdminState, form: FormData):
   const secret = newSecret();
   await db.update(schema.projects).set({ ssoSecretEnc: encryptSecret(secret) }).where(eq(schema.projects.id, project.id));
   await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "project.sso_secret" });
-  return { ok: t("rotated"), secret };
+  // The page must learn that SSO is on now: without this it kept offering "Turn on SSO" (whose form has no
+  // confirmation, so a second click failed) and the setup checklist stayed unticked.
+  revalidatePath(`/${slug}/admin`);
+  return { ok: t("rotated"), secret, replaced: !!project.ssoSecretEnc };
 }
 
 /** Voting mode and budget. Lowering the budget never removes votes; people just cannot add more until under it. */

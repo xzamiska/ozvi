@@ -144,8 +144,8 @@ export function SecretForm({ slug, hasSecret }: { slug: string; hasSecret: boole
           : <span className="text-muted-foreground">{t("off")}</span>}
       </p>
       {state.secret && (
-        <SecretBox title={hasSecret ? t("newActive") : t("on")} secret={state.secret}>
-          {t("setA")} <code className="font-mono">OZVI_SSO_SECRET</code>.{hasSecret ? t("oldGone") : t("onlyNow")}
+        <SecretBox title={state.replaced ? t("newActive") : t("on")} secret={state.secret}>
+          {t("setA")} <code className="font-mono">OZVI_SSO_SECRET</code>.{state.replaced ? t("oldGone") : t("onlyNow")}
         </SecretBox>
       )}
       {!state.secret && <Result error={state.error} />}
