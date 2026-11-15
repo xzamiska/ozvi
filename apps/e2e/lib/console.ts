@@ -27,6 +27,8 @@ export async function createProject(page: Page, name: string, slug: string) {
   const s = page.getByLabel("Adresa boardu");
   await s.fill(slug);
   await page.getByRole("button", { name: "Založiť projekt" }).click();
+  // The form shows the address as a live preview, so wait for the console page of the new project instead.
+  await page.waitForURL(/\/app\/w\/[0-9a-f-]{36}/);
   await expect(page.getByText(`e2e.localhost:3410/${slug}`).first()).toBeVisible();
   return slug;
 }
