@@ -1,5 +1,5 @@
 name: npm packages
-# Publishes @ozvi/sdk and @ozvi/widget (MIT) when their version in package.json is not on npm yet,
+# Stages @ozvi/sdk and @ozvi/widget (MIT) for publishing when their version in package.json is not on npm yet,
 # on every release tag and by hand. No npm token: trusted publishing (OIDC) gives each run a short-lived
 # credential; on npmjs.com each package lists this repository and workflow as its trusted publisher.
 # The first version of each package is published by hand (see ozvi-internal/HANDOFF.md).
@@ -39,13 +39,18 @@ jobs:
               echo "$name@$version is already on npm"
               continue
             fi
+            if npm stage list "$name" 2>/dev/null | grep -qF "$version"; then
+              echo "$name@$version is already staged, waiting for approval"
+              continue
+            fi
             # pnpm pack does NOT run prepublishOnly: build first, then pack (applies publishConfig.exports).
             pnpm --filter "$name" build
             tgz=$(cd "$dir" && pnpm pack --pack-destination "$RUNNER_TEMP/pkgs" | tail -1)
             # Never publish a package without its compiled code (an empty 1.1.0 nearly went out this way).
             entry=$(node -p "const p=require('./$dir/package.json'); const e=(p.publishConfig?.exports??p.exports)['.']; (e.import||e.default||e).replace(/^\.\//,'')")
             tar -tzf "$tgz" | grep -qx "package/$entry" || { echo "::error::$name: $entry missing in $tgz"; exit 1; }
-            # npm publishes with OIDC + provenance.
-            echo "publishing $name@$version"
-            npm publish "$tgz" --access public --provenance
+            # Staged: OIDC + provenance put it in npm's stage queue; a maintainer approves it with 2FA
+            # (npmjs.com or `npm stage approve <id>`). The trusted publishers allow only `npm stage publish`.
+            echo "staging $name@$version"
+            npm stage publish "$tgz" --access public --provenance
           done

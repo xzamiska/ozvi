@@ -5,7 +5,7 @@ Verzie sú semver: `1.4.2` = oprava, `1.5.0` = nové funkcie, `2.0.0` = zmena, k
 ## Postup
 
 1. `main` je zelený (workflow CI) a cloud aj staging bežia bez problémov.
-2. Zmenil sa od posledného vydania `packages/widget` alebo `packages/sdk` (`git log vPREDOŠLÁ..HEAD -- packages/widget packages/sdk`)? Zvýšte ich `version` v `package.json` (semver: oprava / nová funkcia / zásadná zmena). Workflow `npm packages` zverejní na npm len verziu, ktorá tam ešte nie je; bez zvýšenia ostanú používatelia z npm na starej verzii (widget zo skriptu na ozvi.io sa aktualizuje sám).
+2. Zmenil sa od posledného vydania `packages/widget` alebo `packages/sdk` (`git log vPREDOŠLÁ..HEAD -- packages/widget packages/sdk`)? Zvýšte ich `version` v `package.json` (semver: oprava / nová funkcia / zásadná zmena). Workflow `npm packages` zverejní na npm len verziu, ktorá tam ešte nie je; bez zvýšenia ostanú používatelia z npm na starej verzii (widget zo skriptu na ozvi.io sa aktualizuje sám). Workflow verziu len **pripraví** (`npm stage publish`); zverejní sa až po schválení s 2FA na npmjs.com alebo `npm stage list` → `npm stage approve <id>`.
 3. Napíšte poznámky do `apps/web/releases/X.Y.Z.md`, formát je v [releases/README](../apps/web/releases/README.md). Pri zásadnej zmene nastavte `breaking: true`.
 4. Commitnite poznámky do `main` a otagujte:
    ```sh
