@@ -5,6 +5,9 @@ import { getTranslations } from "next-intl/server";
 import { getAccount } from "@/lib/account";
 import { acceptInviteAction } from "@/lib/account-actions";
 import { peekInvite } from "@/lib/workspace";
+import { schema } from "@ozvi/db";
+import { eq } from "drizzle-orm";
+import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -22,12 +25,14 @@ export default async function Invite({ searchParams }: { searchParams: Promise<{
   }
   const account = await getAccount();
   const other = account && account.email !== inv.email;
+  // "An account will be created" is about the invited address, not about who happens to be signed in here.
+  const hasAccount = !!(await db.query.accounts.findFirst({ columns: { id: true }, where: eq(schema.accounts.email, inv.email) }));
   return (
     <AuthShell title={m("title", { ws: inv.workspace })}>
       <form action={acceptInviteAction.bind(null, t)} className="grid gap-4">
         <p className="text-[15px] leading-relaxed">
           {inv.inviter ? <><b className="font-semibold">{inv.inviter}</b>{m("invitesYou")}</> : m("weInvite")}{m("as")}<b className="font-semibold">{inv.role === "owner" || inv.role === "member" ? m(`roleAs.${inv.role}`) : inv.role}</b>.{" "}
-          {m("signInAs")}<b className="font-semibold break-all">{inv.email}</b>{account ? "" : m("created")}.
+          {m("signInAs")}<b className="font-semibold break-all">{inv.email}</b>{hasAccount ? "" : m("created")}.
         </p>
         {other && <p className="rounded-lg bg-muted px-3.5 py-2.5 text-[13.5px] text-muted-foreground" role="note">{m.rich("other", { current: account.email, email: inv.email, addr: (chunks) => <span className="break-all">{chunks}</span> })}</p>}
         <Button type="submit" size="lg" className="w-full">{m("accept")}</Button>
