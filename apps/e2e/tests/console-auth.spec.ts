@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { consoleLogin, createProject } from "../lib/console";
+import { consoleLogin, createProject, gotoNewProject } from "../lib/console";
 import { email, uniq } from "../lib/env";
 import { linkIn, lastMail } from "../lib/mail";
 
@@ -45,7 +45,7 @@ test.describe("console sign-in and first project", () => {
 
   test("project address rules: reserved and taken slugs are refused", async ({ page }) => {
     await consoleLogin(page, email("slugs"));
-    await page.goto("/app/new");
+    await gotoNewProject(page);
     await page.getByLabel("Názov aplikácie").fill("Rezervované");
     await page.getByLabel("Adresa boardu").fill("admin");
     await page.getByRole("button", { name: "Založiť projekt" }).click();
