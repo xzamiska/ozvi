@@ -189,7 +189,7 @@
     "mail": {
       "inviteSubject": "Pozvánka do prostoru {ws} v Ozvi",
       "inviteHeading": "Pozvánka do prostoru {ws}",
-      "inviteBodyOwner": "{who} vás zve do Ozvi jako vlastníka prostoru {ws}. Uvidíte jeho projekty a budete je moci spravovat.",
+      "inviteBodyOwner": "{who} vás zve do Ozvi jako vlastníka prostoru {ws}. Uvidíte jeho projekty a budete je moci spravovat, měnit plán a platby a zvát další lidi.",
       "inviteBodyMember": "{who} vás zve do Ozvi jako člena prostoru {ws}. Uvidíte jeho projekty a budete je moci spravovat.",
       "inviteValidity": "Pozvánka platí 7 dní. Pokud účet v Ozvi ještě nemáte, vytvoří se po přijetí.",
       "inviteCta": "Přijmout pozvánku",

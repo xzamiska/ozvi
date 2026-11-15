@@ -189,7 +189,7 @@
     "mail": {
       "inviteSubject": "Meghívó az Ozviba: {ws}",
       "inviteHeading": "Meghívó: {ws}",
-      "inviteBodyOwner": "{who} tulajdonosként meghívott az Ozviba, ebbe a munkaterületbe: {ws}. Látni fogod a projektjeit, és kezelheted őket.",
+      "inviteBodyOwner": "{who} tulajdonosként meghívott az Ozviba, ebbe a munkaterületbe: {ws}. Látni fogod a projektjeit, kezelheted őket, módosíthatod a csomagot és a fizetést, és másokat is meghívhatsz.",
       "inviteBodyMember": "{who} tagként meghívott az Ozviba, ebbe a munkaterületbe: {ws}. Látni fogod a projektjeit, és kezelheted őket.",
       "inviteValidity": "A meghívó 7 napig érvényes. Ha még nincs Ozvi-fiókod, az elfogadáskor létrehozunk egyet.",
       "inviteCta": "Meghívó elfogadása",

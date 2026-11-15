@@ -189,7 +189,7 @@
     "mail": {
       "inviteSubject": "Zaproszenie do {ws} w Ozvi",
       "inviteHeading": "Zaproszenie do {ws}",
-      "inviteBodyOwner": "{who} zaprasza cię do Ozvi jako właściciela {ws}. Zobaczysz projekty tej przestrzeni roboczej i będziesz nimi zarządzać.",
+      "inviteBodyOwner": "{who} zaprasza cię do Ozvi jako właściciela {ws}. Zobaczysz projekty tej przestrzeni roboczej i będziesz nimi zarządzać, zmieniać plan i płatności oraz zapraszać kolejne osoby.",
       "inviteBodyMember": "{who} zaprasza cię do Ozvi jako członka {ws}. Zobaczysz projekty tej przestrzeni roboczej i będziesz nimi zarządzać.",
       "inviteValidity": "Zaproszenie jest ważne 7 dni. Jeśli nie masz jeszcze konta Ozvi, utworzymy je po przyjęciu zaproszenia.",
       "inviteCta": "Przyjmij zaproszenie",

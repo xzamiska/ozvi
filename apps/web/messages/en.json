@@ -189,7 +189,7 @@
     "mail": {
       "inviteSubject": "Invitation to {ws} on Ozvi",
       "inviteHeading": "Invitation to {ws}",
-      "inviteBodyOwner": "{who} invited you to Ozvi as an owner of {ws}. You’ll see its projects and can manage them.",
+      "inviteBodyOwner": "{who} invited you to Ozvi as an owner of {ws}. You’ll see its projects and can manage them, change the plan and billing, and invite others.",
       "inviteBodyMember": "{who} invited you to Ozvi as a member of {ws}. You’ll see its projects and can manage them.",
       "inviteValidity": "The invitation is valid for 7 days. If you don’t have an Ozvi account yet, one is created when you accept.",
       "inviteCta": "Accept invitation",
