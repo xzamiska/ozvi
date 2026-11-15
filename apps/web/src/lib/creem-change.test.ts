@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { changeSubscription, type CreemConfig } from "./creem";
+import { changeSubscription, DEV_CREEM, devSubscription, intervalForProduct, planForProduct, type CreemConfig } from "./creem";
 
 const cfg = { apiKey: "k", webhookSecret: "w", base: "https://test-api.creem.io/v1", products: {} } as unknown as CreemConfig;
 
@@ -20,6 +20,25 @@ describe("changeSubscription", () => {
   it("fails as a gateway error when Creem refuses", async () => {
     const f = (async () => new Response("nope", { status: 400 })) as unknown as typeof fetch;
     await expect(changeSubscription(cfg, "sub_1", "prod_s", f)).rejects.toThrow();
+  });
+});
+
+describe("devSubscription (simulated billing)", () => {
+  const ws = { id: "0b8c2f5e-0000-4000-8000-000000000000", creemSubscriptionId: "dev_sub_1", creemCustomerId: "dev_cus_1", plan: "pro", planInterval: "year", planPeriodEnd: new Date("2027-01-01T00:00:00Z") };
+  const product = (s: { product?: { id: string } | string }) => (typeof s.product === "string" ? s.product : s.product?.id);
+
+  it("keeps the subscription id, so applyCreemEvent takes it as the same subscription", () => {
+    const sub = devSubscription(ws, { status: "scheduled_cancel" });
+    expect(sub).toMatchObject({ id: "dev_sub_1", status: "scheduled_cancel", customer: { id: "dev_cus_1" }, metadata: { workspace_id: ws.id } });
+    expect(planForProduct(DEV_CREEM, product(sub))).toBe("pro");
+    expect(sub.current_period_end_date).toBe("2027-01-01T00:00:00.000Z");
+  });
+
+  it("a plan change moves the product", () => {
+    const sub = devSubscription(ws, { status: "active", plan: "studio", interval: "quarter" });
+    expect(sub.id).toBe("dev_sub_1");
+    expect(planForProduct(DEV_CREEM, product(sub))).toBe("studio");
+    expect(intervalForProduct(DEV_CREEM, product(sub))).toBe("quarter");
   });
 });
 

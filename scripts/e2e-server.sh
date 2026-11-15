@@ -13,8 +13,10 @@ export OZVI_MODE=cloud PUBLIC_URL=http://e2e.localhost:3410 OZVI_CLOUD_DOMAIN=e2
 export DATABASE_URL=postgres://ozvi:ozvi@localhost:5446/ozvi_e2e OZVI_STORAGE_DIR=./data/uploads-e2e
 export SMTP_URL=smtp://localhost:1046 OZVI_MAIL_FROM=noreply@e2e.localhost
 export OZVI_SECRET_KEY=e2e-only-secret-key-0123456789abcdef0123 OZVI_SESSION_SECRET=e2e-only-session-secret-0123456789abcdef
-export OZVI_DEV_LOGIN=0 OZVI_DEV_BILLING=1 OZVI_DEV_DNS=1 OZVI_SIGNUP=open OZVI_ADMIN_EMAILS=operator@e2e.test
-export OZVI_NEXT_DIST=.next-e2e NODE_OPTIONS= OZVI_FREE_WORKSPACES_PER_IP=10000
+# Simulated payments (lib/dev-flags.ts allows them in this production build because PUBLIC_URL is *.localhost).
+# DNS stays real: the domain specs check the unverified path (records to set, a failing "Overiť doménu").
+export OZVI_DEV_LOGIN=0 OZVI_DEV_BILLING=1 OZVI_DEV_DNS=0 OZVI_SIGNUP=open OZVI_ADMIN_EMAILS=operator@e2e.test
+export OZVI_NEXT_DIST=.next-e2e NODE_OPTIONS= OZVI_FREE_WORKSPACES_PER_IP=10000 OZVI_LOGIN_PER_IP=10000
 rm -rf data/uploads-e2e
 pnpm --filter @ozvi/db migrate >/dev/null
 pnpm --filter @ozvi/widget build >/dev/null

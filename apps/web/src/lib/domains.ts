@@ -3,6 +3,7 @@ import { resolve4, resolve6, resolveCname, resolveTxt } from "node:dns/promises"
 import { PLAN_LIMITS, schema, type PlanName } from "@ozvi/db";
 import { and, eq, isNotNull } from "drizzle-orm";
 import { db } from "./db";
+import { devSimulation } from "./dev-flags";
 
 /**
  * Custom domains (feedback.billiwo.com) and cloud subdomains (<slug>.ozvi.io).
@@ -29,8 +30,8 @@ export function normalizeDomain(input: string): string | null {
 }
 
 /** DNS must point at us: a CNAME to the target, or the same A/AAAA addresses as the target. */
-/** Local cloud testing (docs/CLOUD-LOKALNE.md): DNS checks pass; the domain goes into /etc/hosts. Never in production. */
-export const fakeDns = () => process.env.OZVI_DEV_DNS === "1" && process.env.NODE_ENV !== "production";
+/** Local cloud testing (docs/CLOUD-LOKALNE.md): DNS checks pass; the domain goes into /etc/hosts. Never on a real deployment (lib/dev-flags.ts). */
+export const fakeDns = () => devSimulation(process.env.OZVI_DEV_DNS);
 
 export async function dnsPointsHere(domain: string): Promise<boolean> {
   if (fakeDns()) return true;

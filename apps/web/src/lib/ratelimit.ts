@@ -6,6 +6,7 @@ import type { Locale } from "@/i18n/locales";
  * swap for a Postgres-backed one if we ever run several replicas.
  */
 const hits = new Map<string, number[]>();
+const LOGIN_PER_IP = Math.max(1, Number(process.env.OZVI_LOGIN_PER_IP) || 20);
 
 export const LIMITS = {
   item: { max: 10, windowMs: 60 * 60_000 },
@@ -24,8 +25,9 @@ export const LIMITS = {
   translate: { max: 60, windowMs: 60 * 60_000 },
   /** English pivots of typed idea titles (cross-language "similar ideas"), per viewer. */
   pivot: { max: 40, windowMs: 60 * 60_000 },
-  loginIp: { max: 20, windowMs: 60 * 60_000 },
-  loginVerifyIp: { max: 40, windowMs: 60 * 60_000 },
+  /** Sign-in codes per IP an hour (OZVI_LOGIN_PER_IP, default 20; checking codes allows twice as many). */
+  loginIp: { max: LOGIN_PER_IP, windowMs: 60 * 60_000 },
+  loginVerifyIp: { max: 2 * LOGIN_PER_IP, windowMs: 60 * 60_000 },
   signup: { max: 5, windowMs: 60 * 60_000 },
   /** New free cloud workspaces per IP a day (several accounts from one place; OZVI_FREE_WORKSPACES_PER_IP, default 3). */
   freeWorkspaceIp: { max: Math.max(1, Number(process.env.OZVI_FREE_WORKSPACES_PER_IP) || 3), windowMs: 24 * 60 * 60_000 },
