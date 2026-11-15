@@ -25,3 +25,7 @@ github-app.env
 
 # Claude Code worktrees and local settings
 .claude/
+.next-e2e
+.next-cloudprod
+apps/e2e/test-results
+apps/e2e/playwright-report
