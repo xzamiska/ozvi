@@ -1,7 +1,7 @@
 import { expect, test, type Browser, type Page } from "@playwright/test";
 import { consoleLogin, createProject, workspaceId } from "../lib/console";
 import { email, uniq } from "../lib/env";
-import { lastMail, linkIn } from "../lib/mail";
+import { codeIn, lastMail, linkIn } from "../lib/mail";
 import { db, schema } from "../lib/db";
 import { expectHeading, horizontalOverflow, overflowingElements, watchErrors } from "../lib/site";
 import { withProject } from "@ozvi/db";
@@ -37,9 +37,8 @@ async function tryProject(page: Page, ws: string | null, name: string, slug: str
 }
 
 /**
- * The state a verified Creem webhook leaves behind (lib/creem.ts applyCreemEvent). Used because the
- * e2e server is a production build, where the payment simulation (OZVI_DEV_BILLING) is switched off
- * (devBilling() requires NODE_ENV !== "production"); see the fixme'd checkout test below.
+ * The state a verified Creem webhook leaves behind (lib/creem.ts applyCreemEvent): a quick way to a paying
+ * workspace. The simulated checkout itself (OZVI_DEV_BILLING, allowed on the *.localhost e2e server) has its own test.
  */
 async function setPaidPlan(ws: string, plan: "pro" | "studio", status = "active") {
   await db.update(schema.workspaces).set({
@@ -145,7 +144,8 @@ test.describe("console overview and plan limits", () => {
       await expect(p).toHaveURL(/\/app\/new/);
       const slug = uniq("dup").toLowerCase();
       await tryProject(p, null, "Ďalší free", slug);
-      await expect(p.getByText("Bezplatný priestor už máte. Nový projekt pridajte doň alebo prejdite na Pro.")).toBeVisible();
+      // The free workspace belongs to the other account, so the message says so (not "you already have one").
+      await expect(p.getByText("Pre túto e-mailovú schránku už existuje bezplatný priestor pod iným účtom", { exact: false })).toBeVisible();
       expect(await db.query.projects.findFirst({ where: eq(schema.projects.slug, slug) })).toBeUndefined();
       await ctx.close();
     }
@@ -220,10 +220,8 @@ test.describe("console overview and plan limits", () => {
     await expect(page.locator('[aria-labelledby="plan-free"]')).toContainText(/Od \d/);
   });
 
-  // APP/ENV BUG: the e2e server runs `next start` (NODE_ENV=production), and devBilling() in
-  // apps/web/src/lib/creem.ts:37 requires NODE_ENV !== "production", so OZVI_DEV_BILLING=1 is ignored:
-  // the plan buttons are disabled ("Platby zatiaľ nie sú zapnuté.") and /app/billing/<id>/simulate is a 404.
-  test.fixme("simulated checkout: Prejsť na Pro → simulation → paid → Pro limits", async ({ page }) => {
+  // The e2e server is a production build on e2e.localhost: lib/dev-flags.ts lets OZVI_DEV_BILLING work there.
+  test("simulated checkout: Prejsť na Pro → simulation → paid → Pro limits", async ({ page }) => {
     const { ws } = await freeWorkspace(page);
     await page.goto(`/app/w/${ws}/plan`);
     await page.getByRole("button", { name: "Prejsť na Pro" }).click();
@@ -235,28 +233,39 @@ test.describe("console overview and plan limits", () => {
     await expect(page.getByRole("meter", { name: "Projekty" })).toHaveAttribute("aria-valuemax", "3");
   });
 
-  // APP BUG (dev billing): cancelPlan/resumePlan go through onSubscription (lib/app-actions.ts:174-191), which
-  // needs creemConfig(); with only OZVI_DEV_BILLING=1 it is null, so "Zrušiť predplatné" in the console answers
-  // "Pre tento priestor ešte nie je predplatné." instead of cancelling (and changePlan's simulated "pay" creates a
-  // new dev_sub_ id, which applyCreemEvent ignores as "second subscription", lib/creem.ts:190).
-  test.fixme("cancel and resume a subscription from the console", async ({ page }) => {
+  // Dev billing answers cancel/resume/plan changes with the same subscription id (lib/creem.ts devSubscription).
+  test("cancel and resume a subscription from the console", async ({ page }) => {
     const { ws } = await freeWorkspace(page);
     await setPaidPlan(ws, "pro");
     await page.goto(`/app/w/${ws}/plan`);
     await page.getByRole("button", { name: "Zrušiť predplatné" }).click();
     await page.getByRole("dialog").getByRole("button", { name: "Zrušiť predplatné" }).click();
     await page.waitForURL(/done=canceled/);
-    await expect(page.getByText("Predplatné je zrušené")).toBeVisible();
+    await expect(page.getByText("Predplatné je zrušené", { exact: true })).toBeVisible();
+    await expect.poll(async () => (await wsRow(ws))?.planStatus).toBe("scheduled_cancel");
     await page.getByRole("button", { name: "Obnoviť predplatné" }).click();
     await page.getByRole("dialog").getByRole("button", { name: "Obnoviť predplatné" }).click();
     await page.waitForURL(/done=resumed/);
-    await expect(page.getByText("Predplatné pokračuje")).toBeVisible();
+    await expect(page.getByText("Predplatné pokračuje", { exact: true })).toBeVisible();
+    await expect.poll(async () => (await wsRow(ws))?.planStatus).toBe("active");
+    expect((await wsRow(ws))?.creemSubscriptionId).toBe(`e2e_sub_${ws}`);
   });
 
-  // APP BUG: the workspace menu item "Nový priestor" (components/ozvi/ConsoleNav.tsx:59) links to /app/new, but
-  // NewProjectForm (components/NewProjectForm.tsx:55-64) always posts an existing workspace id once you have one,
-  // so no new workspace is ever created: a paying owner cannot start a second workspace from the console.
-  test.fixme("\"Nový priestor\" creates a new workspace", async ({ page }) => {
+  test("a paying workspace moves Pro → Studio on the same subscription", async ({ page }) => {
+    const { ws } = await freeWorkspace(page);
+    await setPaidPlan(ws, "pro");
+    await page.goto(`/app/w/${ws}/plan`);
+    await page.locator('[aria-labelledby="plan-studio"]').getByRole("button", { name: "Prejsť na Studio" }).click();
+    await page.getByRole("dialog").getByRole("button", { name: "Zaplatiť a prejsť na Studio" }).click();
+    await page.waitForURL(/done=studio-year/);
+    await expect(page.locator('[aria-labelledby="plan-studio"]')).toHaveAttribute("aria-current", "true");
+    const row = await wsRow(ws);
+    expect(row?.plan).toBe("studio");
+    expect(row?.creemSubscriptionId).toBe(`e2e_sub_${ws}`);
+  });
+
+  // The menu item opens /app/new?workspace=new, which sends no workspace, so createProject founds a new one.
+  test("\"Nový priestor\" creates a new workspace", async ({ page }) => {
     const { ws } = await freeWorkspace(page);
     await setPaidPlan(ws, "pro");
     await page.goto(`/app/w/${ws}`);
@@ -294,10 +303,8 @@ test.describe("workspace settings", () => {
     await expect(page.getByText(`Konzola E2E → ${name}`)).toBeVisible();
   });
 
-  // APP BUG: after a successful rename the confirmation "Názov priestoru je uložený." is never seen: the action
-  // revalidates the layout and the settings page renders <WorkspaceNameForm key={ws.name}> (app/app/w/[id]/settings/page.tsx:506),
-  // so the new name remounts the form and drops its { info } state. Same for any client relying on that message.
-  test.fixme("rename: the saved confirmation is shown", async ({ page }) => {
+  // Regression: the form was keyed on the name, so the revalidated page remounted it and dropped the message.
+  test("rename: the saved confirmation is shown", async ({ page }) => {
     const { ws } = await freeWorkspace(page);
     await page.goto(`/app/w/${ws}/settings`);
     await page.locator("#ws-name").fill("Potvrdený názov");
@@ -337,12 +344,20 @@ test.describe("account", () => {
     await page.goto(`/app/w/${ws}`);
     await expect(page.getByText("Doplňte svoje meno.")).toBeVisible();
     await page.goto("/app/account");
+    // Angle brackets are refused with a reason, not silently stripped.
     await page.locator("#acc-name").fill("Jana <b>Testová</b>");
     await page.getByRole("button", { name: "Uložiť meno" }).click();
+    await expect(page.getByText("Meno nesmie obsahovať znaky < a >.", { exact: false })).toBeVisible();
+    expect((await accountByEmail(who))?.name).toBeNull();
+    await page.locator("#acc-name").fill("Jana Testová");
+    await page.getByRole("button", { name: "Uložiť meno" }).click();
     await expect(page.getByText("Meno je uložené.")).toBeVisible();
-    expect((await accountByEmail(who))?.name).toBe("Jana bTestová/b");
+    expect((await accountByEmail(who))?.name).toBe("Jana Testová");
     await page.goto(`/app/w/${ws}`);
     await expect(page.getByText("Doplňte svoje meno.")).toHaveCount(0);
+    // The rename is in the activity of the account's workspaces.
+    await page.goto(`/app/w/${ws}/activity`);
+    await expect(page.getByText("Zmenené meno účtu")).toBeVisible();
   });
 
   test("e-mail change: link goes to the NEW address, the address changes only after the confirmation", async ({ page, request }) => {
@@ -376,6 +391,38 @@ test.describe("account", () => {
     // The link works once.
     await page.goto(link!);
     await expect(page.getByText("Odkaz už neplatí")).toBeVisible();
+  });
+
+  test("e-mail change link opened while signed out: sign in, then back to the confirmation", async ({ page, browser }) => {
+    const { who } = await freeWorkspace(page);
+    const next = email("later");
+    await page.goto("/app/account");
+    await page.getByLabel("Nový e-mail").fill(next);
+    await page.getByRole("button", { name: "Poslať potvrdzovací odkaz" }).click();
+    await expect(page.getByText(`Poslali sme odkaz na ${next}.`, { exact: false })).toBeVisible();
+    const link = linkIn((await lastMail(next)).text, /\/app\/account\/email\?t=/)!;
+    const ctx = await newCtx(browser);
+    const p = await ctx.newPage();
+    await p.goto(link);
+    await p.waitForURL(/\/app\/login\?next=/);
+    await p.getByLabel("E-mail").fill(who);
+    const sentAt = Date.now() - 1_000;
+    await p.getByRole("button", { name: "Poslať kód" }).click();
+    await expect(p.getByText(`Poslali sme kód na ${who}`)).toBeVisible();
+    // The sign-in mail from freeWorkspace is older: wait for the new one.
+    let code: string | null = null;
+    await expect.poll(async () => {
+      const m = await lastMail(who, { subject: /kód|prihlás/i });
+      code = new Date(m.Created).getTime() >= sentAt ? codeIn(m.text) : null;
+      return code;
+    }).not.toBeNull();
+    await p.getByLabel("Kód z e-mailu").fill(code!);
+    await p.waitForURL(/\/app\/account\/email\?t=/, { timeout: 5_000 }).catch(async () => {
+      await p.getByRole("button", { name: "Prihlásiť sa" }).click();
+      await p.waitForURL(/\/app\/account\/email\?t=/);
+    });
+    await expect(p.getByRole("heading", { name: "Potvrdiť nový e-mail" })).toBeVisible();
+    await ctx.close();
   });
 
   test("\"Odhlásiť sa všade\" ends the other sessions too", async ({ page, browser }) => {

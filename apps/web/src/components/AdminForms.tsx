@@ -65,6 +65,10 @@ export function SectionsForm({ slug, sections, home }: { slug: string; sections:
   const [state, action, pending] = useActionState((p: AdminState, f: FormData) => saveSections(slug, p, f), {});
   const [on, setOn] = useState<Section[]>(sections);
   const [start, setStart] = useState<Section>(home);
+  // Reset to what was saved when the revalidated page brings it, without remounting (that would drop the message).
+  const savedKey = `${sections.join()}:${home}`;
+  const [saved, setSaved] = useState(savedKey);
+  if (saved !== savedKey) { setSaved(savedKey); setOn(sections); setStart(home); }
   // The roadmap is made of ideas; without ideas it goes off too.
   const effective = SECTIONS.filter((s) => on.includes(s) && (s !== "roadmap" || on.includes("ideas")));
   const opening = effective.includes(start) ? start : effective[0];

@@ -91,7 +91,9 @@
       "workspace": "Workspace",
       "look": "Aussehen",
       "creating": "Wird erstellt …",
-      "create": "Projekt erstellen"
+      "create": "Projekt erstellen",
+      "newWorkspaceTitle": "Neuer Workspace",
+      "newWorkspaceLede": "Ein neuer Workspace hat einen eigenen Plan, ein eigenes Team und eine eigene Abrechnung. Sie legen ihn zusammen mit seinem ersten Projekt an. Einen kostenlosen Workspace kann jede Person nur einmal haben."
     },
     "login": {
       "cloudTitle": "Bei Ozvi anmelden",
@@ -165,7 +167,9 @@
       "selfHostDelete": "Auf einem selbst gehosteten Server verwaltet der Admin die Konten (OZVI_ADMIN_EMAILS).",
       "typeEmail": "Geben Sie zur Bestätigung genau Ihre E-Mail-Adresse ein.",
       "signupClosed": "Die Registrierung ist noch nicht geöffnet. Schreiben Sie an support@ozvi.io, wir melden uns zum Start.",
-      "alreadySubscribed": "Dieser Arbeitsbereich hat bereits ein Abo. Wechseln Sie den Plan darin, ohne doppelt zu zahlen."
+      "alreadySubscribed": "Dieser Arbeitsbereich hat bereits ein Abo. Wechseln Sie den Plan darin, ohne doppelt zu zahlen.",
+      "freeExistsOther": "Für dieses Postfach gibt es bereits einen kostenlosen Workspace unter einem anderen Konto (dieselbe Adresse mit +Tag oder Punkten). Melden Sie sich mit diesem Konto an und fügen Sie das Projekt dort hinzu, oder lassen Sie sich vom Inhaber einladen.",
+      "nameChars": "Der Name darf die Zeichen < und > nicht enthalten. Entfernen Sie sie und speichern Sie erneut."
     },
     "workspace": {
       "not_owner": "Das kann nur ein Inhaber des Workspace.",
@@ -1358,6 +1362,9 @@
         },
         "workspace": {
           "renamed": "Arbeitsbereich umbenannt"
+        },
+        "account": {
+          "renamed": "Kontoname geändert"
         }
       }
     },
@@ -2349,7 +2356,7 @@
       "you": "das sind Sie",
       "role": "Rolle",
       "user": "Person",
-      "signedOut": "{name} ist überall abgemeldet",
+      "signedOut": "{name}: überall abgemeldet",
       "signOut": "Überall abmelden",
       "signOutTitle": "{name} überall abmelden?",
       "signOutTitleUnnamed": "Diese Person überall abmelden?",

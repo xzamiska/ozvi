@@ -91,7 +91,9 @@
       "workspace": "Prostor",
       "look": "Vzhled",
       "creating": "Zakládám…",
-      "create": "Založit projekt"
+      "create": "Založit projekt",
+      "newWorkspaceTitle": "Nový prostor",
+      "newWorkspaceLede": "Nový prostor má vlastní plán, tým a fakturaci. Založíte ho spolu s jeho prvním projektem. Bezplatný prostor může mít každý jen jeden."
     },
     "login": {
       "cloudTitle": "Přihlaste se do Ozvi",
@@ -165,7 +167,9 @@
       "selfHostDelete": "Na vlastním serveru účty spravuje správce (OZVI_ADMIN_EMAILS).",
       "typeEmail": "Pro potvrzení napište přesně svůj e-mail.",
       "signupClosed": "Registrace ještě není otevřená. Napište nám na support@ozvi.io a ozveme se, až spustíme.",
-      "alreadySubscribed": "Prostor už má předplatné. Plán změníte přímo v něm, bez další platby navíc."
+      "alreadySubscribed": "Prostor už má předplatné. Plán změníte přímo v něm, bez další platby navíc.",
+      "freeExistsOther": "Pro tuto e-mailovou schránku už existuje bezplatný prostor pod jiným účtem (stejná adresa s +značkou nebo s tečkami). Přihlaste se tím účtem a projekt přidejte tam, nebo vás jeho vlastník pozve do prostoru.",
+      "nameChars": "Jméno nesmí obsahovat znaky < a >. Odstraňte je a uložte znovu."
     },
     "workspace": {
       "not_owner": "Tohle může udělat jen vlastník prostoru.",
@@ -1358,6 +1362,9 @@
         },
         "workspace": {
           "renamed": "Přejmenovaný prostor"
+        },
+        "account": {
+          "renamed": "Změněné jméno účtu"
         }
       }
     },
@@ -2349,7 +2356,7 @@
       "you": "to jste vy",
       "role": "Role",
       "user": "Uživatel",
-      "signedOut": "{name} je odhlášen všude",
+      "signedOut": "{name}: všechna přihlášení jsou zrušena",
       "signOut": "Odhlásit všude",
       "signOutTitle": "Odhlásit {name} všude?",
       "signOutTitleUnnamed": "Odhlásit uživatele všude?",

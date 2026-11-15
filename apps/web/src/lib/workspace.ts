@@ -198,6 +198,14 @@ export async function setRole(account: Account, workspaceId: string, accountId: 
 
 const PAYING = new Set(["active", "trialing", "paid", "past_due"]);
 
+/**
+ * A running paid Creem subscription keeps a workspace (and its last owner's account) from being deleted: it would
+ * keep billing. A plan granted by hand (planSource manual) does not; it simply ends with the workspace.
+ */
+export function subscriptionBlocksDeletion(ws: { plan: string | null; planStatus: string | null; planSource: string | null }): boolean {
+  return ws.plan !== "free" && ws.plan !== "self" && ws.planSource !== "manual" && PAYING.has(ws.planStatus ?? "");
+}
+
 export interface DeletionPlan {
   /** Workspaces only this account is in: deleted with all their projects. */
   remove: { id: string; name: string; projects: string[] }[];
@@ -217,7 +225,7 @@ export async function deletionPlan(accountId: string, locale: Locale = DEFAULT_L
     const all = await db.select({ role: members.role, accountId: members.accountId }).from(members).where(eq(members.workspaceId, ws.id));
     const others = all.filter((m) => m.accountId !== accountId);
     if (others.length === 0) {
-      if (ws.plan !== "free" && ws.plan !== "self" && PAYING.has(ws.planStatus ?? "")) {
+      if (subscriptionBlocksDeletion(ws)) {
         plan.blockerKeys.push({ key: "subscription", workspace: ws.name });
       }
       const projects = await db.select({ name: schema.projects.name }).from(schema.projects).where(eq(schema.projects.workspaceId, ws.id));
@@ -241,7 +249,7 @@ export async function deleteWorkspace(account: Account, workspaceId: string): Pr
   await requireOwner(account, workspaceId);
   const [ws] = await db.select().from(workspaces).where(eq(workspaces.id, workspaceId));
   if (!ws) throw new WorkspaceError("no_workspace");
-  if (ws.plan !== "free" && ws.plan !== "self" && ws.planSource !== "manual" && PAYING.has(ws.planStatus ?? "")) {
+  if (subscriptionBlocksDeletion(ws)) {
     throw new WorkspaceError("subscription", ws.name);
   }
   const projects = await db.select().from(schema.projects).where(eq(schema.projects.workspaceId, ws.id));

@@ -3,13 +3,15 @@ import { redirect } from "next/navigation";
 import { AuthShell, EmailLogin } from "@/components/EmailLogin";
 import { getTranslations } from "next-intl/server";
 import { getAccount } from "@/lib/account";
-import { signupClosed } from "@/lib/account-rules";
+import { safeAppNext, signupClosed } from "@/lib/account-rules";
 import { LEGAL } from "@/lib/legal";
 import { requestAccountLogin, verifyAccountLogin } from "@/lib/app-actions";
 
-export default async function AppLogin({ searchParams }: { searchParams: Promise<{ expired?: string; denied?: string }> }) {
-  if (await getAccount()) redirect("/app");
+export default async function AppLogin({ searchParams }: { searchParams: Promise<{ expired?: string; denied?: string; next?: string }> }) {
   const sp = await searchParams;
+  // A link that needs a signed-in console (e.g. the e-mail change) sends here with ?next= and gets it back.
+  const next = safeAppNext(sp.next);
+  if (await getAccount()) redirect(next ?? "/app");
   const cloud = process.env.OZVI_MODE === "cloud";
   const t = await getTranslations("account.login");
   return (
@@ -24,7 +26,7 @@ export default async function AppLogin({ searchParams }: { searchParams: Promise
         </p>
       )}
       {sp.denied && <p className="mb-4 rounded-lg border border-destructive/30 px-3.5 py-2.5 text-[14px] font-medium text-destructive" role="alert">{t("denied")}</p>}
-      <EmailLogin request={requestAccountLogin} verify={verifyAccountLogin} expired={sp.expired === "1"} />
+      <EmailLogin request={requestAccountLogin.bind(null, next)} verify={verifyAccountLogin.bind(null, next)} expired={sp.expired === "1"} />
     </AuthShell>
   );
 }

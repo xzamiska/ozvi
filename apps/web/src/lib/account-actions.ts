@@ -126,9 +126,19 @@ export async function acceptInviteAction(token: string) {
 
 export async function renameAction(_: FormState, form: FormData): Promise<FormState> {
   const account = await me();
-  const name = String(form.get("name") ?? "").replace(/[\u0000-\u001f<>]/g, "").trim().slice(0, 80);
+  const { t } = await msg();
+  const raw = String(form.get("name") ?? "");
+  // Said, not silently stripped: the name would otherwise be saved different from what was typed.
+  if (/[<>]/.test(raw)) return { error: t("nameChars") };
+  const name = raw.replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim().slice(0, 80);
+  if ((account.name ?? "") === name) return { info: t("nameSaved") };
   await db.update(schema.accounts).set({ name: name || null }).where(eq(schema.accounts.id, account.id));
-  return { info: (await msg()).t("nameSaved") };
+  // The name shows in every workspace this account belongs to, so each one's activity records it.
+  const detail = `${account.name || account.email} → ${name || account.email}`;
+  const memberships = await db.select({ id: schema.workspaceMembers.workspaceId }).from(schema.workspaceMembers).where(eq(schema.workspaceMembers.accountId, account.id));
+  for (const w of memberships) await logActivity({ workspaceId: w.id, actor: who(account), action: "account.renamed", detail });
+  revalidatePath("/app", "layout");
+  return { info: t("nameSaved") };
 }
 
 export async function requestEmailChangeAction(_: FormState, form: FormData): Promise<FormState> {

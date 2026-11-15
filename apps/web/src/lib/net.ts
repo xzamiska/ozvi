@@ -61,22 +61,42 @@ export function expandV6(ip: string): number[] | null {
 
 export const isCloud = (mode = process.env.OZVI_MODE ?? "self") => mode === "cloud";
 
-/** Static checks before saving an address. Returns an error message (in `locale`) or null. */
-export function checkUrl(url: string, mode = process.env.OZVI_MODE ?? "self", locale: Locale = "sk"): string | null {
-  const t = translator(locale, "net");
+export type UrlProblem = "invalid" | "https" | "creds" | "internal";
+
+/** Static checks before saving an address: what is wrong with it, or null. */
+export function urlProblem(url: string, mode = process.env.OZVI_MODE ?? "self"): UrlProblem | null {
   let u: URL;
-  try { u = new URL(url); } catch { return t("invalid"); }
-  if (u.protocol !== "https:" && !(!isCloud(mode) && u.protocol === "http:")) return t("https");
-  if (u.username || u.password) return t("creds");
+  try { u = new URL(url); } catch { return "invalid"; }
+  if (u.protocol !== "https:" && !(!isCloud(mode) && u.protocol === "http:")) return "https";
+  if (u.username || u.password) return "creds";
   if (isCloud(mode)) {
-    const host = u.hostname.replace(/^\[|\]$/g, "");
-    if (isIP(host) && isPrivateAddress(host)) return t("internal");
-    if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".internal") || !host.includes(".")) return t("internal");
+    // "localhost." and "foo.localhost." are the same names as without the final dot (fully qualified).
+    const host = u.hostname.replace(/^\[|\]$/g, "").replace(/\.+$/, "");
+    if (isIP(host) && isPrivateAddress(host)) return "internal";
+    if (host === "localhost" || host.endsWith(".localhost") || host.endsWith(".internal") || !host.includes(".")) return "internal";
   }
   return null;
 }
 
-export class BlockedAddressError extends Error {}
+/** Static checks before saving an address. Returns an error message (in `locale`) or null. */
+export function checkUrl(url: string, mode = process.env.OZVI_MODE ?? "self", locale: Locale = "sk"): string | null {
+  const p = urlProblem(url, mode);
+  return p && translator(locale, "net")(p);
+}
+
+/** An address Ozvi will not connect to; `text(locale)` says why in the reader's language. */
+export class BlockedAddressError extends Error {
+  constructor(public reason: UrlProblem = "internal") { super(translator("sk", "net")(reason)); }
+  text(locale: Locale) { return translator(locale, "net")(this.reason); }
+}
+
+/** The BlockedAddressError behind a failed fetch (undici wraps the lookup error as the cause of "fetch failed"). */
+export function blockedCause(e: unknown): BlockedAddressError | null {
+  for (let c: unknown = e, i = 0; c && i < 5; c = (c as { cause?: unknown }).cause, i++) {
+    if (c instanceof BlockedAddressError) return c;
+  }
+  return null;
+}
 
 /** DNS lookup for undici that refuses private addresses (cloud mode). */
 export function guardedLookup(hostname: string, options: object, cb: (err: Error | null, address: string | LookupAddress[], family?: number) => void) {
@@ -84,7 +104,7 @@ export function guardedLookup(hostname: string, options: object, cb: (err: Error
     if (err) return cb(err, []);
     const list = addresses as LookupAddress[];
     if (list.length === 0 || list.some((a) => isPrivateAddress(a.address))) {
-      return cb(new BlockedAddressError(translator("sk", "net")("internal")), []);
+      return cb(new BlockedAddressError("internal"), []);
     }
     const all = (options as { all?: boolean }).all;
     return all ? cb(null, list) : cb(null, list[0]!.address, list[0]!.family);
@@ -96,7 +116,7 @@ const agent = () => (guardedAgent ??= new Agent({ connect: { lookup: guardedLook
 
 /** fetch() for admin-chosen URLs: static check, no redirects, pinned-safe DNS in cloud. */
 export async function safeFetch(url: string, init: RequestInit = {}, mode = process.env.OZVI_MODE ?? "self"): Promise<Response> {
-  const bad = checkUrl(url, mode);
+  const bad = urlProblem(url, mode);
   if (bad) throw new BlockedAddressError(bad);
   const opts = { ...init, redirect: "manual" as const };
   if (!isCloud(mode)) return fetch(url, opts);

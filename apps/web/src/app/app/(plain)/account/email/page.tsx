@@ -23,7 +23,8 @@ export default async function ConfirmEmail({ searchParams }: { searchParams: Pro
     );
   }
   const account = await getAccount();
-  if (!account) redirect(`/app/login`);
+  // Signed out: sign in first, then back to this link (it is checked again there).
+  if (!account) redirect(`/app/login?next=${encodeURIComponent(`/app/account/email?t=${encodeURIComponent(t)}`)}`);
   return (
     <AuthShell title={m("title")}>
       <form action={confirmEmailChangeAction.bind(null, t)} className="grid gap-4">

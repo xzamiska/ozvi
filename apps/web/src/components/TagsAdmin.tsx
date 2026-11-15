@@ -25,7 +25,8 @@ export function TagsAdmin({ slug, tags, usage }: { slug: string; tags: Tag[]; us
         <p className="rounded-xl border border-dashed bg-surface/60 px-5 py-6 text-center text-[14px] text-muted-foreground">{t("empty")}</p>
       ) : (
         <ul className="divide-y overflow-hidden rounded-xl border bg-surface">
-          {tags.map((tag) => <TagRow key={`${tag.id}-${tag.name}-${tag.color}-${tag.public}`} slug={slug} tag={tag} others={tags.filter((x) => x.id !== tag.id)} used={usage[tag.id] ?? 0} />)}
+          {/* Keyed on the id only: a key with the name or colour would remount the row as the save lands and lose its confirmation. */}
+          {tags.map((tag) => <TagRow key={tag.id} slug={slug} tag={tag} others={tags.filter((x) => x.id !== tag.id)} used={usage[tag.id] ?? 0} />)}
         </ul>
       )}
       <NewTag slug={slug} />

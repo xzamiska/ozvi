@@ -56,7 +56,7 @@ function WorkspaceSwitcher({ current, all }: { current: NavWorkspace; all: NavWo
           </DropdownMenuItem>
         ))}
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild><Link href="/app/new"><Plus />{t("newWorkspace")}</Link></DropdownMenuItem>
+        <DropdownMenuItem asChild><Link href="/app/new?workspace=new"><Plus />{t("newWorkspace")}</Link></DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

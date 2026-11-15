@@ -62,10 +62,8 @@ test.describe("board settings: appearance", () => {
     await expect(look.getByRole("button", { name: "Uložiť vzhľad" })).toBeDisabled();
   });
 
-  // APP BUG: the theme schema silently drops a non-https logo (packages/theme/src/index.ts:43, transform → undefined)
-  // instead of failing validation, so the editor's own "Logo musí byť celá adresa začínajúca https://." never shows.
-  // An http:// logo saves as "Téma je uložená." and simply vanishes from the board and the form.
-  test.fixme("an http:// logo is refused with an explanation instead of silently dropped", async ({ page }) => {
+  // Regression: the theme schema drops a non-https logo for stored themes; the editor checks what is typed (isLogoUrl).
+  test("an http:// logo is refused with an explanation instead of silently dropped", async ({ page }) => {
     await ownerAdmin(page);
     const look = section(page, "Vzhľad");
     await look.getByLabel("Logo").fill("http://e2e.invalid/logo.png");
@@ -171,9 +169,8 @@ test.describe("board settings: project", () => {
 });
 
 test.describe("board settings: sections, voting, languages", () => {
-  // APP BUG: the form is keyed by the saved sections (admin/page.tsx:199), so the revalidation after saving
-  // remounts it and the "Časti boardu sú uložené." confirmation disappears at once: the admin gets no feedback.
-  test.fixme("saving board sections confirms it", async ({ page }) => {
+  // Regression: the form used to be keyed by the saved sections, so the revalidation remounted it and lost the message.
+  test("saving board sections confirms it", async ({ page }) => {
     await ownerAdmin(page);
     const sec = section(page, "Časti boardu");
     await sec.getByRole("switch", { name: "Novinky" }).click();
@@ -282,7 +279,7 @@ test.describe("board settings: tags and statuses", () => {
     await tags.getByRole("listitem").filter({ hasText: "Mobil" }).getByRole("button", { name: "Upraviť" }).click();
     await tags.getByRole("listitem").filter({ hasText: "Mobil" }).getByLabel("Názov").fill("Mobilná appka");
     await tags.getByRole("button", { name: "Uložiť štítok" }).click();
-    // (No "Štítok … je uložený." toast here: see the fixme test below.)
+    await expect(page.getByText("Štítok „Mobilná appka“ je uložený.")).toBeVisible();
     await expect(tags.getByRole("listitem").filter({ hasText: "Mobilná appka" })).toContainText("Verejný · nepoužitý");
 
     const r = await api(request, slug, token, "PATCH", `/items/${n}`, { tags: { set: ["Mobilná appka", "Interné"] } });
@@ -301,10 +298,8 @@ test.describe("board settings: tags and statuses", () => {
     await expect(page.getByRole("listitem").filter({ has: page.getByRole("link", { name: "Nápad so štítkami" }) })).toContainText("Interné");
   });
 
-  // APP BUG: TagsAdmin keys each row by id+name+colour+visibility (TagsAdmin.tsx:28). Saving an edit revalidates the
-  // page, the row remounts with the new key and the edit form unmounts before its effect fires the toast, so a
-  // rename (or recolour) is never confirmed. Creating a tag does show its toast.
-  test.fixme("renaming a tag confirms it", async ({ page }) => {
+  // Regression: rows were keyed by name and colour too, so a saved edit remounted the row before its toast fired.
+  test("renaming a tag confirms it", async ({ page }) => {
     await ownerAdmin(page);
     const tags = section(page, "Štítky");
     await tags.getByRole("button", { name: "Nový štítok" }).click();
@@ -435,8 +430,8 @@ test.describe("board settings: sign-in, domain, people", () => {
     const domain = `${slug}.firma-e2e.sk`;
     await d.getByLabel("Doména").fill(`https://${domain.toUpperCase()}/feedback`);
     await d.getByRole("button", { name: "Uložiť doménu" }).click();
-    // The e2e server is a production build: OZVI_DEV_DNS (simulated DNS) only works outside production
-    // (lib/domains.ts fakeDns), so real DNS is asked and the domain stays unverified.
+    // The e2e server leaves simulated DNS off (OZVI_DEV_DNS=0 in scripts/e2e-server.sh), so real DNS is asked
+    // and the domain stays unverified.
     await expect(d.getByRole("status")).toHaveText(`Doména ${domain} je uložená. Nastavte DNS podľa návodu a dajte „Overiť“.`, { timeout: 60_000 });
     await expect(d).toContainText("U správcu DNS nastavte dva záznamy");
     await expect(d).toContainText(`_ozvi.${domain}`);
@@ -445,7 +440,7 @@ test.describe("board settings: sign-in, domain, people", () => {
     await d.getByRole("button", { name: "Overiť doménu" }).click();
     await expect(d.getByRole("alert")).toHaveText(`CNAME pre ${domain} zatiaľ neukazuje na nás. Zmena DNS môže trvať aj hodinu.`, { timeout: 60_000 });
 
-    // Empty removes it (the confirmation itself is hidden by a stale error: see the fixme test below).
+    // Empty removes it.
     await d.getByLabel("Doména").fill("");
     await submitAction(page, d.getByRole("button", { name: "Uložiť doménu" }));
     await page.reload();
@@ -454,10 +449,8 @@ test.describe("board settings: sign-in, domain, people", () => {
     expect((await projectBySlug(slug))!.customDomain).toBeNull();
   });
 
-  // APP BUG: DomainForm keeps the last "Overiť doménu" result and gives it priority over the save result
-  // (IntegrationForms.tsx, <Result error={check.error ?? state.error} …>). After a failed check, removing the domain
-  // (or saving another one) succeeds, but the form still shows the old red "CNAME pre … zatiaľ neukazuje na nás".
-  test.fixme("custom domain: saving after a failed check shows the save result, not the stale check error", async ({ page }) => {
+  // Regression: DomainForm used to give the last check priority over a newer save result.
+  test("custom domain: saving after a failed check shows the save result, not the stale check error", async ({ page }) => {
     const { slug } = await ownerAdmin(page);
     await setPlan(slug, "pro");
     await page.reload();
@@ -490,7 +483,7 @@ test.describe("board settings: sign-in, domain, people", () => {
     await row.getByRole("button", { name: "Odhlásiť všade" }).click();
     const dialog = page.getByRole("dialog", { name: "Odhlásiť Zuzana Zákazníčka všade?" });
     await dialog.getByRole("button", { name: "Odhlásiť všade" }).click();
-    await expect(page.getByText("Zuzana Zákazníčka je odhlásený všade")).toBeVisible();
+    await expect(page.getByText("Zuzana Zákazníčka: všetky prihlásenia sú zrušené")).toBeVisible();
     expect((await api(request, slug, person.token, "GET", "/me")).status).toBe(401);
     await theirs.reload();
     await expect(theirs.getByRole("banner").getByRole("link", { name: "Prihlásiť sa" })).toBeVisible();
@@ -572,25 +565,26 @@ test.describe("board settings: integrations", () => {
     await new Promise<void>((r) => server.listen(0, "127.0.0.1", r));
     const port = (server.address() as AddressInfo).port;
     try {
-      await ownerAdmin(page);
+      const { slug } = await ownerAdmin(page);
+      // Saving refuses "foo.localhost." now (test below); a row stored before that (or written around the form)
+      // resolves to 127.0.0.1/::1, and delivery must still refuse to connect and say why.
+      const project = (await projectBySlug(slug))!;
+      await withProject(db, project.id, (tx) => tx.insert(schema.webhooks).values({
+        projectId: project.id, url: `https://foo.localhost.:${port}/x`, format: "slack", secretEnc: "unused-for-slack",
+      }));
+      await page.reload();
       const hooks = page.locator("#webhooky");
-      // "foo.localhost." (trailing dot) passes the static check on save (see the fixme below) and resolves to
-      // 127.0.0.1/::1; the pinned DNS lookup in safeFetch must still refuse to connect.
-      await hooks.getByLabel("Adresa webhooku").fill(`https://foo.localhost.:${port}/x`);
-      await hooks.getByRole("button", { name: "Pridať webhook" }).click();
       const row = hooks.getByRole("listitem").filter({ hasText: "foo.localhost." });
       await row.getByRole("button", { name: "Poslať test" }).click();
-      await expect(row).toContainText("Nedoručené:");
+      await expect(row).toContainText("Nedoručené: Adresa nemôže smerovať do internej siete.");
       expect(connections).toBe(0);
     } finally {
       server.close();
     }
   });
 
-  // WEAKNESS: checkUrl compares the hostname without stripping a trailing dot (lib/net.ts:74), so
-  // "https://foo.localhost./" (and "localhost.") is accepted when saving. Delivery is still blocked by the DNS guard,
-  // but the admin gets a webhook that can never work and only "Nedoručené: fetch failed." on test.
-  test.fixme("webhooks: a trailing-dot localhost name is refused when saving", async ({ page }) => {
+  // checkUrl strips a trailing dot before the checks (lib/net.ts urlProblem): "foo.localhost." is "foo.localhost".
+  test("webhooks: a trailing-dot localhost name is refused when saving", async ({ page }) => {
     await ownerAdmin(page);
     const hooks = page.locator("#webhooky");
     await hooks.getByLabel("Adresa webhooku").fill("https://foo.localhost./x");

@@ -1,6 +1,6 @@
 "use client";
 
-import { checkContrast, FONT_CATALOGUE, fontsHref, presets, renderedPalettes, themeSchema, toCss, type Theme } from "@ozvi/theme";
+import { checkContrast, FONT_CATALOGUE, fontsHref, isLogoUrl, presets, renderedPalettes, themeSchema, toCss, type Theme } from "@ozvi/theme";
 import { ChevronUp, MessageSquare, Plus, TriangleAlert } from "lucide-react";
 import { useActionState, useMemo, useState } from "react";
 import { RouteRail, StatusTag } from "@/components/ozvi/route";
@@ -57,6 +57,8 @@ export function ThemeEditor({ slug, initial }: { slug: string; initial: Theme })
   const set = (patch: Partial<Theme>) => setTheme((th) => ({ ...th, ...patch }));
   const setColor = (k: keyof Theme["colors"], v: string) => setTheme((th) => ({ ...th, colors: { ...th.colors, [k]: v } }));
   const issue = !parsed.success ? parsed.error.issues[0] : undefined;
+  // The schema drops a non-https logo (so stored themes still load); what the admin types is refused instead.
+  const badLogo = !!theme.logoUrl && !isLogoUrl(theme.logoUrl);
 
   return (
     <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,380px)] xl:items-start">
@@ -147,9 +149,9 @@ export function ThemeEditor({ slug, initial }: { slug: string; initial: Theme })
           )}
         </fieldset>
 
-        {issue && (
+        {(issue || badLogo) && (
           <p role="alert" className="text-[14px] font-medium text-destructive">
-            {issue.path[0] === "colors" ? t("badColor", { label: COLORS.includes(issue.path[1] as keyof Theme["colors"]) ? tagLabel(issue.path[1] as keyof Theme["colors"]) : String(issue.path[1]) })
+            {!issue ? t("badLogo") : issue.path[0] === "colors" ? t("badColor", { label: COLORS.includes(issue.path[1] as keyof Theme["colors"]) ? tagLabel(issue.path[1] as keyof Theme["colors"]) : String(issue.path[1]) })
               : issue.path[0] === "logoUrl" ? t("badLogo")
               : `${issue.path.map(String).join(".")}: ${issue.message}`}
           </p>
@@ -168,7 +170,7 @@ export function ThemeEditor({ slug, initial }: { slug: string; initial: Theme })
         )}
         <div className="grid gap-3">
           <Result error={state.error} ok={state.ok} />
-          <div><Button type="submit" disabled={pending || !parsed.success} aria-busy={pending || undefined}>{pending ? s("saving") : t("save")}</Button></div>
+          <div><Button type="submit" disabled={pending || !parsed.success || badLogo} aria-busy={pending || undefined}>{pending ? s("saving") : t("save")}</Button></div>
         </div>
       </form>
 
@@ -179,7 +181,7 @@ export function ThemeEditor({ slug, initial }: { slug: string; initial: Theme })
         <div aria-hidden className={cn("oz-theme-preview grid gap-4 rounded-xl border bg-background p-4 font-sans text-foreground")}>
           <div className="flex items-center justify-between gap-3">
             <span className="flex min-w-0 items-center gap-2">
-              {theme.logoUrl && <img src={theme.logoUrl} alt="" className="h-6 w-auto max-w-[100px] object-contain" />}
+              {theme.logoUrl && !badLogo && <img src={theme.logoUrl} alt="" className="h-6 w-auto max-w-[100px] object-contain" />}
               <span className="truncate font-heading text-[15px] font-bold">{t("ideas")}</span>
             </span>
             <span className="inline-flex h-8 items-center gap-1.5 rounded-md bg-primary px-3 text-[13px] font-medium text-primary-foreground">

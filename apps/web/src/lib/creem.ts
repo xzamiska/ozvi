@@ -5,6 +5,7 @@ import { logActivity } from "./activity";
 import type { Locale } from "@/i18n/locales";
 import { translator, type AppMessages } from "@/i18n/messages";
 import { db } from "./db";
+import { devSimulation } from "./dev-flags";
 
 /**
  * Cloud billing through Creem (merchant of record, ADR-0006). Quarterly or yearly only.
@@ -30,16 +31,38 @@ export function creemConfig(env = process.env): CreemConfig | null {
 }
 
 /**
- * Local cloud testing without a Creem account (OZVI_DEV_BILLING=1, never in production): checkout and
- * the customer portal open a simulation page that feeds synthetic events through applyCreemEvent,
- * so plan changes go through exactly the same code as real webhooks.
+ * Local cloud testing without a Creem account (OZVI_DEV_BILLING=1; a production build only on a local
+ * PUBLIC_URL, see lib/dev-flags.ts): checkout and the customer portal open a simulation page, and cancel,
+ * resume and plan changes answer with a synthetic subscription (devSubscription); all of it goes through
+ * applyCreemEvent, so plan changes run exactly the same code as real webhooks.
  */
-export const devBilling = () => process.env.OZVI_DEV_BILLING === "1" && process.env.NODE_ENV !== "production";
+export const devBilling = () => devSimulation(process.env.OZVI_DEV_BILLING);
 export const DEV_CREEM: CreemConfig = {
   apiKey: "dev", webhookSecret: "dev", base: "",
   products: { pro_year: "dev_pro_year", pro_quarter: "dev_pro_quarter", studio_year: "dev_studio_year", studio_quarter: "dev_studio_quarter" },
 };
 export const billingEnabled = () => !!creemConfig() || devBilling();
+
+/**
+ * What Creem would answer for a cancel, resume or plan change of an existing subscription, under dev billing:
+ * the same subscription id (so applyCreemEvent does not take it for a second subscription), the new status
+ * and product, the current period end kept.
+ */
+export function devSubscription(
+  ws: { id: string; creemSubscriptionId: string | null; creemCustomerId: string | null; plan: string; planInterval: string | null; planPeriodEnd: Date | null },
+  change: { status: string; plan?: PaidPlan; interval?: Interval },
+): Sub {
+  const plan = change.plan ?? (ws.plan === "studio" ? "studio" : "pro");
+  const interval = change.interval ?? (ws.planInterval === "quarter" ? "quarter" : "year");
+  return {
+    id: ws.creemSubscriptionId ?? `dev_sub_${ws.id.slice(0, 8)}`,
+    status: change.status,
+    current_period_end_date: (ws.planPeriodEnd ?? new Date(Date.now() + PERIOD_DAYS[interval] * 86_400_000)).toISOString(),
+    customer: { id: ws.creemCustomerId ?? `dev_cus_${ws.id.slice(0, 8)}` },
+    product: { id: DEV_CREEM.products[`${plan}_${interval}`]! },
+    metadata: { workspace_id: ws.id },
+  };
+}
 
 /** The interval a product bills in ("pro_quarter" → "quarter"). */
 export function intervalForProduct(cfg: CreemConfig, productId: string | undefined): Interval | null {

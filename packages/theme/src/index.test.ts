@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { checkContrast, contrast, fontsHref, onAccent, parseTheme, presets, toCss } from "./index";
+import { checkContrast, contrast, fontsHref, isLogoUrl, onAccent, parseTheme, presets, toCss } from "./index";
 
 describe("theme", () => {
   it("parses every preset", () => {
@@ -37,6 +37,13 @@ describe("theme", () => {
     expect(parseTheme(presets.ozvi).logoWithName).toBe(false);
     expect(parseTheme({ ...presets.ozvi, logoUrl: "https://acme.test/logo.svg", logoWithName: true })).toMatchObject({ logoUrl: "https://acme.test/logo.svg", logoWithName: true });
     expect(() => parseTheme({ ...presets.ozvi, logoWithName: "yes" })).toThrow();
+  });
+
+  it("stored themes drop a non-https logo; editors check the typed one with isLogoUrl", () => {
+    expect(parseTheme({ ...presets.ozvi, logoUrl: "http://acme.test/logo.svg" }).logoUrl).toBeUndefined();
+    expect(parseTheme({ ...presets.ozvi, logoUrl: "javascript:alert(1)" }).logoUrl).toBeUndefined();
+    expect(isLogoUrl("https://acme.test/logo.svg")).toBe(true);
+    for (const bad of ["http://acme.test/logo.svg", "javascript:alert(1)", "data:image/png;base64,AA", "acme.test/logo.svg", ""]) expect(isLogoUrl(bad)).toBe(false);
   });
 
   it("rejects font names that could break out of <style>", () => {
