@@ -39,8 +39,13 @@ jobs:
               echo "$name@$version is already on npm"
               continue
             fi
-            # pnpm packs (applies publishConfig.exports, runs prepublishOnly builds); npm publishes with OIDC + provenance.
+            # pnpm pack does NOT run prepublishOnly: build first, then pack (applies publishConfig.exports).
+            pnpm --filter "$name" build
             tgz=$(cd "$dir" && pnpm pack --pack-destination "$RUNNER_TEMP/pkgs" | tail -1)
+            # Never publish a package without its compiled code (an empty 1.1.0 nearly went out this way).
+            entry=$(node -p "const p=require('./$dir/package.json'); const e=(p.publishConfig?.exports??p.exports)['.']; (e.import||e.default||e).replace(/^\.\//,'')")
+            tar -tzf "$tgz" | grep -qx "package/$entry" || { echo "::error::$name: $entry missing in $tgz"; exit 1; }
+            # npm publishes with OIDC + provenance.
             echo "publishing $name@$version"
             npm publish "$tgz" --access public --provenance
           done
