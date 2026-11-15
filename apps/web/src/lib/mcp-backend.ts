@@ -33,6 +33,7 @@ import { ApiNotFound, CursorError, decodeCursor, encodeCursor, type ApiBackend, 
 import type { ItemSource } from "./provenance";
 import type { Locale } from "@/i18n/locales";
 import { sectionOfKind, sectionOn, type Section } from "./sections";
+import { changelogEntryUrl } from "@/lib/changelog-anchor";
 
 const { items, users, comments, attachments, itemLinks } = schema;
 const NONE = "00000000-0000-0000-0000-000000000000";
@@ -559,7 +560,7 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
     publishDraft: (id) => changelogRun(async (tx) => {
       if (!customers) throw new ToolError("Drafts are for team tokens with the triage scope.");
       const r = await publishEntry(tx, project, user, id);
-      return { url: `${base}/changelog#e-${r.entry.id}`, emailed: r.emailed };
+      return { url: changelogEntryUrl(base, r.entry.id), emailed: r.emailed };
     }),
 
     linkIssue: (n, issue) => run(async (tx) => linkIssue(tx, project, user, await mustGet(tx, n), issue)),
@@ -579,11 +580,11 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
       // Idempotent within 30 minutes: a retried or repeated confirm must not publish (and e-mail) twice.
       const [dup] = await tx.select({ id: schema.changelogEntries.id }).from(schema.changelogEntries)
         .where(and(eq(schema.changelogEntries.title, input.title.trim()), gte(schema.changelogEntries.publishedAt, new Date(Date.now() - 30 * 60_000)))).limit(1);
-      if (dup) return { url: `${base}/changelog#${dup.id}`, emailed: 0 };
+      if (dup) return { url: changelogEntryUrl(base, dup.id), emailed: 0 };
       const ideas = await ideasFor(tx, input.items);
       const entry = await saveEntry(tx, project, user, { title: input.title, body: input.body, itemIds: ideas.map((i) => i.id) });
       const r = await publishEntry(tx, project, user, entry.id);
-      return { url: `${base}/changelog#${entry.id}`, emailed: r.emailed };
+      return { url: changelogEntryUrl(base, entry.id), emailed: r.emailed };
     }),
 
     merge: (s, t) => run(async (tx) => {
