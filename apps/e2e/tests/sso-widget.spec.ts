@@ -89,10 +89,8 @@ test.describe("SSO from the host app", () => {
     }
   });
 
-  // APP WEAKNESS: safeReturn (apps/web/src/lib/session-core.ts:45) only checks the prefix, so "/<slug>/../app/…" passes
-  // and the browser resolves it to a path outside the board (same origin, so not an open redirect, but the
-  // documented rule "return must start with /<project>/" is bypassed, e.g. into the console or another board).
-  test.fixme("return path with ../ cannot leave the board", async ({ page }) => {
+  // safeReturn resolves dot segments (also %2e) and requires the result to stay under /<slug>/.
+  test("return path with ../ cannot leave the board", async ({ page }) => {
     await page.goto(ssoUrl(board.slug, board.secret, person("dots"), `/${board.slug}/../app/login`));
     expect(new URL(page.url()).pathname).toMatch(new RegExp(`^/${board.slug}(/|$)`));
   });
@@ -196,11 +194,8 @@ test.describe("SSO from the host app", () => {
     expect(await whoAmI(page)).toBe(carl.name);
   });
 
-  // APP BUG (security): the interstitial is skipped whenever the URL has confirm=1 (apps/web/src/app/[project]/sso/route.ts:52),
-  // and the attacker builds that URL. A cross-site link to /<slug>/sso?token=<attacker's token>&confirm=1 signs the
-  // victim in as the attacker without any question (login CSRF). confirm=1 must only count on a same-origin request
-  // (sec-fetch-site: same-origin) or carry a one-time nonce.
-  test.fixme("login CSRF: a cross-site link that already carries confirm=1 still asks", async ({ browser }) => {
+  // Login CSRF: a URL parameter an attacker can add must never skip the "switch account?" question.
+  test("login CSRF: a cross-site link that already carries confirm=1 still asks", async ({ browser }) => {
     const page = await boardPage(browser);
     const anna = person("anna2"), mallory = person("mallory2");
     await page.goto(ssoUrl(board.slug, board.secret, anna));
@@ -401,10 +396,8 @@ test.describe("widget in the host app", () => {
     expect(files.map((f) => f.mime)).toContain("image/jpeg");
   });
 
-  // APP BUG: while the submit waits for the screenshot, the button is still enabled and says "Nahlásiť chybu"
-  // (packages/widget/src/index.tsx:389-392: setBusy(true) only after `await shotP.current`). A second click
-  // (people click again when nothing happens) sends the report twice.
-  test.fixme("clicking send twice while the screenshot is taken files one report", async ({ page }) => {
+  // The button is disabled from the first click, even while the submit still waits for the screenshot.
+  test("clicking send twice while the screenshot is taken files one report", async ({ page }) => {
     await hostApp(page, board, { user: fixed("double"), shotDelay: 3000 });
     await ozvi(page, "open", "bug");
     const title = `Dvojklik ${uniq("t")}`;
@@ -558,11 +551,8 @@ test.describe("widget in the host app", () => {
     expect((await r.json()).error).toBe("Táto stránka nemá povolené posielať spätnú väzbu. Pridajte ju v nastaveniach projektu.");
   });
 
-  // APP WEAKNESS (UX): on a site missing from allowed origins the preflight has no CORS headers, so the browser hides
-  // the server's Slovak 403 message and the widget shows the raw fetch error ("Failed to fetch" / "Load failed")
-  // after the person typed the whole report (packages/widget/src/index.tsx:403-405; apps/web/src/lib/cors.ts:5).
-  // The widget should say what happened in Slovak (or refuse earlier, e.g. /api/widget/config telling it the origin is not allowed).
-  test.fixme("on an origin that is not allowed the widget explains it in Slovak", async ({ page }) => {
+  // /api/widget/config tells the widget the origin is not allowed, so it explains it instead of a raw fetch error.
+  test("on an origin that is not allowed the widget explains it in Slovak", async ({ page }) => {
     await hostApp(page, board, { user: fixed("evil3"), evil: true });
     await ozvi(page, "open", "bug");
     await panel(page).getByLabel("Čo nefunguje?").fill("Z cudzej stránky");
