@@ -5,6 +5,7 @@ import { projectOrigin } from "@/lib/email/url";
 import { renderMarkdownWith } from "@/lib/markdown";
 import { clampLimit } from "@/lib/widget-rules";
 import { readProject, widgetPreflight, widgetRead } from "@/lib/widget-api";
+import { changelogEntryUrl } from "@/lib/changelog-anchor";
 
 type P = { params: Promise<{ project: string }> };
 
@@ -33,7 +34,7 @@ export async function GET(req: NextRequest, { params }: P) {
       title: e.title,
       html: renderMarkdownWith(e.body, { headings: true, slug: project.slug, origin }, { base: origin, imagesAsLinks: true }),
       publishedAt: e.publishedAt!.toISOString(),
-      url: `${base}/changelog#${e.id}`,
+      url: changelogEntryUrl(base, e.id),
       ai: !!e.aiModel,
       aiNote: e.aiModel ? (e.reviewerName ? ta("badge.reviewed", { name: e.reviewerName }) : ta("badge.reviewedAnon")) : null,
       items: e.items.map((i) => ({ number: i.number, title: i.title, url: `${base}/i/${i.number}` })),

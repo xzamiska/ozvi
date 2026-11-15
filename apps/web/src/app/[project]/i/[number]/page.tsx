@@ -54,6 +54,7 @@ import { translationView } from "@/lib/translate-view";
 import { titlePivot } from "@/lib/translate";
 import { needSection } from "@/lib/sections-server";
 import { sectionOfKind } from "@/lib/sections";
+import { changelogEntryUrl } from "@/lib/changelog-anchor";
 
 const { items, comments, users, attachments, itemLinks, itemEvents, changelogEntries, changelogItems } = schema;
 
@@ -80,10 +81,12 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
     if (!row) return null;
     const { item } = row;
     const isAuthor = !!user && item.authorId === user.id;
-    // Moderation: deleted posts exist only for the team (with a way back) and, when the team rejected
-    // them, as a note for their author; queued ideas only for their author and the team.
+    // Moderation: deleted posts exist only for the team (with a way back) and, when the team removed
+    // them, as a note for their author; queued ideas only for their author and the team. A rejected idea
+    // was never public (it is still pending); a published post the team deleted later was.
     if (item.deletedAt && !isTeam) {
-      return isAuthor && item.deletedById !== item.authorId ? { rejected: true as const, title: item.title, reason: item.deleteReason } : null;
+      return isAuthor && item.deletedById !== item.authorId
+        ? { removed: item.pending ? "rejected" as const : "deleted" as const, kind: item.kind, title: item.title, reason: item.deleteReason } : null;
     }
     if (item.pending && !isTeam && !isAuthor) return null;
     const deletedBy = item.deletedAt && item.deletedById
@@ -158,13 +161,17 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
       </Page>
     );
   }
-  if ("rejected" in data) {
+  if ("removed" in data) {
     const m = await getTranslations("moderation");
+    const rejected = data.removed === "rejected";
+    const kind = data.kind === "bug" ? "bug" : "idea";
     return (
       <Page>
-        <EmptyState level={1} className="mx-auto max-w-[640px]" title={m("rejectedTitle")}
-          text={<>{m("rejectedText", { title: data.title ?? "" })}{data.reason && <span className="mt-3 block rounded-lg border bg-surface px-4 py-3 text-left text-foreground whitespace-pre-wrap"><span className="mb-1 block text-[13px] font-semibold text-muted-foreground">{m("rejectedReason")}</span>{data.reason}</span>}</>}
-          action={<Button asChild size="lg" variant="outline"><Link href={`/${slug}/ideas`}>{b("gate.backToIdeas")}</Link></Button>} />
+        <EmptyState level={1} className="mx-auto max-w-[640px]" title={rejected ? m("rejectedTitle") : m("removedTitle", { kind })}
+          text={<>{rejected ? m("rejectedText", { title: data.title ?? "" }) : m("removedText", { kind, title: data.title ?? "" })}{data.reason && <span className="mt-3 block rounded-lg border bg-surface px-4 py-3 text-left text-foreground whitespace-pre-wrap"><span className="mb-1 block text-[13px] font-semibold text-muted-foreground">{m("rejectedReason")}</span>{data.reason}</span>}</>}
+          action={kind === "bug"
+            ? <Button asChild size="lg" variant="outline"><Link href={`/${slug}/bugs`}>{t("myBugs")}</Link></Button>
+            : <Button asChild size="lg" variant="outline"><Link href={`/${slug}/ideas`}>{b("gate.backToIdeas")}</Link></Button>} />
       </Page>
     );
   }
@@ -202,7 +209,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
     ...live.filter((c) => !c.internal && (c.role === "team" || c.role === "admin"))
       .map((c): JourneyEvent => ({ type: "reply", at: c.createdAt, who: c.name, commentId: c.id })),
     ...(isTeam ? links.map((l): JourneyEvent => ({ type: "link", at: l.createdAt, provider: l.provider, ref: l.ref, url: l.url, state: l.state })) : []),
-    ...releases.map((r): JourneyEvent => ({ type: "release", at: r.at!, title: r.title, href: `/${slug}/changelog#e-${r.id}` })),
+    ...releases.map((r): JourneyEvent => ({ type: "release", at: r.at!, title: r.title, href: changelogEntryUrl(`/${slug}`, r.id) })),
   ];
 
   return (

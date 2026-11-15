@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import { boardLocales } from "@/i18n/board";
 import { exportMine } from "@/lib/privacy";
 import { getCtx } from "@/lib/project";
 import { getTranslations } from "next-intl/server";
@@ -7,7 +8,9 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ projec
   const { project: slug } = await params;
   const { project, user, locale } = await getCtx(slug);
   if (!user) return new Response((await getTranslations({ locale, namespace: "boardAuth" }))("signInFirst"), { status: 401 });
+  // The file name speaks the board's language, not whatever Accept-Language the download request carried.
+  const tf = await getTranslations({ locale: boardLocales(project).fallback, namespace: "board.me" });
   return new Response(JSON.stringify(await exportMine(project, user), null, 2), {
-    headers: { "content-type": "application/json; charset=utf-8", "content-disposition": `attachment; filename="${slug}-${locale === "en" ? "my-data" : "moje-udaje"}.json"`, "cache-control": "no-store" },
+    headers: { "content-type": "application/json; charset=utf-8", "content-disposition": `attachment; filename="${slug}-${tf("exportFile")}.json"`, "cache-control": "no-store" },
   });
 }

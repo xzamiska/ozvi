@@ -8,6 +8,7 @@ import { projectOrigin } from "./email/url";
 import type { Project, User } from "./project";
 import { translator } from "@/i18n/messages";
 import type { Locale } from "@/i18n/locales";
+import { changelogEntryUrl } from "@/lib/changelog-anchor";
 
 const { changelogEntries, changelogItems, items } = schema;
 export type Entry = typeof changelogEntries.$inferSelect;
@@ -80,7 +81,7 @@ export async function publishEntry(tx: Tx, project: Project, actor: User | null,
     .innerJoin(changelogEntries, eq(changelogEntries.id, changelogItems.entryId))
     .where(and(inArray(changelogItems.itemId, ideas.map((i) => i.id)), ne(changelogEntries.id, entryId), isNotNull(changelogEntries.publishedAt)))).map((r) => r.id)) : new Set<string>();
   const fresh = ideas.filter((i) => !announced.has(i.id));
-  const url = `${projectOrigin(project)}/${project.slug}/changelog#${entryId}`;
+  const url = changelogEntryUrl(`${projectOrigin(project)}/${project.slug}`, entryId);
   const emailed = await notifyChangelog(tx, project, { title: published!.title, body: published!.body, url }, fresh, actor?.id ?? null);
   await emitChangelog(tx, project, {
     title: published!.title, body: published!.body, url, version: published!.releaseTag,

@@ -213,7 +213,7 @@ test.describe("public board", () => {
     await addComment(carl.page, "Sledujem.");
 
     await moveTo(page, b.slug, n1, "Plánované");
-    await expect(page.getByText("Autor a hlasujúci dostanú e-mail.")).toBeVisible();
+    await expect(page.getByText("Autor a ľudia z diskusie dostanú e-mail. Hlasujúci sa to dozvedia zo zverejnenej novinky.")).toBeVisible();
     const mail = await lastMail(ann.email, { subject: /^Plánované:/ });
     expect(mail.Subject).toBe(`Plánované: ${t1}`);
     expect(mail.text).toContain("Nápad, ktorý sledujete, je teraz: Plánované");
@@ -233,10 +233,9 @@ test.describe("public board", () => {
     await ann.ctx.close(); await carl.ctx.close();
   });
 
-  // BUG: the status toast promises "Autor a hlasujúci dostanú e-mail." (TeamTools.tsx:43, forms.team.notifyIdea),
-  // but notifyStatusChange (lib/email/notify.ts:157) only mails followers = author + commenters; voters get nothing
-  // until a changelog entry. Either the text or the recipients are wrong.
-  test.fixme("a voter gets the status e-mail the team's toast promises", async ({ page, browser }) => {
+  // Voting alone does not subscribe: a status change mails the author and commenters (notifyStatusChange), voters
+  // hear about it from a published changelog entry. The toast says exactly that.
+  test("the status toast tells the truth: the author gets the e-mail, a voter waits for the changelog", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");
     const ben = await boardUser(browser, b, "ben");
@@ -244,8 +243,10 @@ test.describe("public board", () => {
     await ben.page.goto(`/${b.slug}/i/${n}`);
     await act(ben.page, () => ben.page.getByRole("button", { name: /^Hlasovať/ }).click());
     await moveTo(page, b.slug, n, "Plánované");
-    await expect(page.getByText("Autor a hlasujúci dostanú e-mail.")).toBeVisible();
-    await lastMail(ben.email, { subject: /^Plánované:/ });
+    await expect(page.getByText("Autor a ľudia z diskusie dostanú e-mail. Hlasujúci sa to dozvedia zo zverejnenej novinky.")).toBeVisible();
+    await lastMail(ann.email, { subject: /^Plánované:/ });
+    expect(await mailCount(ben.email)).toBe(0);
+    await ann.ctx.close(); await ben.ctx.close();
   });
 
   test("changelog: a published entry ships the idea, e-mails voters, appears on /changelog and in the RSS feed", async ({ page, browser }) => {
@@ -296,11 +297,8 @@ test.describe("public board", () => {
     await guest.close(); await ann.ctx.close(); await ben.ctx.close();
   });
 
-  // BUG: changelog entries are anchored as id="e-<uuid>" (changelog/page.tsx:79, and the item page links #e-<id>),
-  // but the RSS item link (changelog/feed.xml/route.ts:32), the voters' e-mail (lib/changelog.ts:83), the redirect after
-  // publishing (lib/changelog-actions.ts:47), the widget (api/widget/changelog/route.ts:36) and MCP (mcp-backend.ts:582,586)
-  // use #<uuid>: the link opens the page top, not the entry.
-  test.fixme("links to a changelog entry (RSS, e-mail) point at the entry on the page", async ({ page }) => {
+  // Every link to an entry (RSS, e-mail, redirect after publishing, widget, MCP) uses lib/changelog-anchor.ts.
+  test("links to a changelog entry (RSS, e-mail) point at the entry on the page", async ({ page }) => {
     const b = await ownerBoard(page);
     const entry = uniq("Kotva novinky");
     await page.goto(`/${b.slug}/changelog/new`);
@@ -464,9 +462,8 @@ test.describe("public board", () => {
     await ann.ctx.close(); await ben.ctx.close();
   });
 
-  // UX BUG: when the team deletes an idea that was already public, its author gets the "rejected" page
-  // "Tento nápad tím nezverejnil" (i/[number]/page.tsx:86 + 161), although it was published and later deleted.
-  test.fixme("the author of a deleted (not rejected) idea is not told it was never published", async ({ page, browser }) => {
+  // A rejected idea was never public; one the team deleted after publishing was: its author is told so.
+  test("the author of a deleted (not rejected) idea is not told it was never published", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");
     const n = await createItem(ann.page, b.slug, "idea", uniq("Zverejnený a zmazaný"));
@@ -477,6 +474,8 @@ test.describe("public board", () => {
     await expect(page.getByText("Zmazané.")).toBeVisible();
     await ann.page.goto(`/${b.slug}/i/${n}`);
     await expect(ann.page.getByText("Tento nápad tím nezverejnil")).toHaveCount(0);
+    await expect(ann.page.getByRole("heading", { name: "Tento nápad tím zmazal" })).toBeVisible();
+    await ann.ctx.close();
   });
 
   test("merge duplicates: votes move to the original, the duplicate points there and leaves the list", async ({ page, browser }) => {
@@ -593,8 +592,8 @@ test.describe("public board", () => {
     await expect(p.getByText(`E-maily chodia na ${ann.email}`)).toBeVisible();
     await expect(p.getByText(ann.name).first()).toBeVisible();
     const [download] = await Promise.all([p.waitForEvent("download"), p.getByRole("link", { name: "Stiahnuť moje údaje" }).click()]);
-    // The name follows the request's language; WebKit's download request goes out as en-US (no cookie locale here).
-    expect(download.suggestedFilename()).toMatch(new RegExp(`^${b.slug}-(moje-udaje|my-data)\\.json$`));
+    // The name follows the board's language (Slovak here), not the download request's Accept-Language.
+    expect(download.suggestedFilename()).toBe(`${b.slug}-moje-udaje.json`);
     const data = JSON.parse(await readFile((await download.path())!, "utf8"));
     expect(data.profile.email).toBe(ann.email);
     expect(data.items.map((i: { title: string }) => i.title).sort()).toEqual([bugT, ideaT].sort());
@@ -616,7 +615,7 @@ test.describe("public board", () => {
     expect(await itemRow(b.slug, bug))!.toBeUndefined();
     await page.goto(`/${b.slug}/i/${benIdea}`);
     await expect(page.getByText("Annin komentár")).toHaveCount(0);
-    // (What happens to her idea that nobody else voted for: see the fixme below.)
+    // Her idea stays, without her name (see the test below).
     void idea;
 
     // The board admin cannot erase themselves.
@@ -627,32 +626,34 @@ test.describe("public board", () => {
     await ann.ctx.close(); await ben.ctx.close();
   });
 
-  // TEXT vs BEHAVIOUR: "Moje údaje" promises "Nápady, za ktoré hlasovali aj iní, zostanú, ale bez vášho mena"
-  // (messages/sk.json board.me.eraseList.2), implying ideas nobody else voted for are removed. eraseIn
-  // (lib/privacy.ts:44) keeps every idea of the person, with title and body, and only drops the author link.
-  test.fixme("erasing my data removes my ideas that nobody else voted for", async ({ page, browser }) => {
+  // The text says what eraseIn (lib/privacy.ts) does: every idea of the person stays on the board, without the author.
+  test("erasing my data keeps my ideas on the board without my name, as the page says", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");
     const title = uniq("Len môj nápad");
     const n = await createItem(ann.page, b.slug, "idea", title);
     await ann.page.goto(`/${b.slug}/me`);
+    await expect(ann.page.getByText("Vaše nápady zostanú na boarde aj s textom a hlasmi, ale bez vášho mena.")).toBeVisible();
     await ann.page.getByRole("button", { name: "Zmazať moje údaje…" }).click();
     await ann.page.getByRole("dialog").getByRole("button", { name: "Zmazať moje údaje" }).click();
     await ann.page.waitForURL(/erased=1/);
     await page.goto(`/${b.slug}/i/${n}`);
-    await expect(page.getByText("Táto stránka tu nie je")).toBeVisible();
+    await expect(page.getByRole("heading", { name: title })).toBeVisible();
+    await expect(page.getByText(ann.name)).toHaveCount(0);
+    expect((await itemRow(b.slug, n))!.authorId).toBeNull();
+    await ann.ctx.close();
   });
 
-  // UX gap: after erasing, the person lands on /<slug>/ideas?erased=1 but nothing reads "erased"
-  // (privacy-actions.ts:24 → ideas/page.tsx): no confirmation that the data is gone.
-  test.fixme("after erasing my data the board confirms it", async ({ page, browser }) => {
+  // After erasing, the person lands on /<slug>/ideas?erased=1 and the page confirms it.
+  test("after erasing my data the board confirms it", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");
     await ann.page.goto(`/${b.slug}/me`);
     await ann.page.getByRole("button", { name: "Zmazať moje údaje…" }).click();
     await ann.page.getByRole("dialog").getByRole("button", { name: "Zmazať moje údaje" }).click();
     await ann.page.waitForURL(/erased=1/);
-    await expect(ann.page.getByRole("status")).toContainText(/zmazan/i);
+    await expect(ann.page.getByRole("status").filter({ hasText: /zmazan/i })).toBeVisible();
+    await ann.ctx.close();
   });
 
   test("e-mail sign-in on the board when the project allows it", async ({ page, browser }) => {

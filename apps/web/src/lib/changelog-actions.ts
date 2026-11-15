@@ -11,6 +11,7 @@ import { DomainError, isTeamRole } from "./domain";
 import { getCtx } from "./project";
 import { allow } from "./ratelimit";
 import { getTranslations } from "next-intl/server";
+import { entryAnchor } from "@/lib/changelog-anchor";
 
 export interface ChangelogState { error?: string; ok?: string }
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
@@ -45,7 +46,7 @@ export async function saveChangelog(slug: string, id: string | null, _: Changelo
     throw e;
   }
   revalidatePath(`/${slug}`, "layout");
-  if (publish) redirect(`/${slug}/changelog?published=${emailed}#${entryId}`);
+  if (publish) redirect(`/${slug}/changelog?published=${emailed}#${entryAnchor(entryId)}`);
   if (!id) redirect(`/${slug}/changelog/${entryId}/edit?saved=1`);
   return { ok: t("draftSaved") };
 }

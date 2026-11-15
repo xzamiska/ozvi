@@ -5,6 +5,7 @@ import { and, desc, eq, inArray, isNotNull, isNull } from "drizzle-orm";
 import { aiLabel } from "./changelog";
 import { projectOrigin } from "./email/url";
 import type { Project } from "./project";
+import { changelogEntryUrl } from "@/lib/changelog-anchor";
 
 const { changelogEntries, changelogItems, items, users } = schema;
 
@@ -29,7 +30,7 @@ export async function mcpUpdates(tx: Tx, project: Project, drafts: boolean, limi
     title: e.title,
     body: e.body,
     version: e.releaseTag,
-    url: e.publishedAt ? `${base}/changelog#e-${e.id}` : `${base}/changelog/${e.id}/edit`,
+    url: e.publishedAt ? changelogEntryUrl(base, e.id) : `${base}/changelog/${e.id}/edit`,
     publishedAt: e.publishedAt?.toISOString() ?? null,
     updatedAt: e.updatedAt.toISOString(),
     items: linked.filter((l) => l.entryId === e.id && (drafts || l.kind === "idea")).map((l) => ({ number: l.number, kind: l.kind, title: l.title })),

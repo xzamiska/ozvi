@@ -1080,9 +1080,11 @@
       "eraseList": [
         "We delete your votes, comments and bug reports, including attachments.",
         "We delete the records of e-mails we sent you, and sign you out.",
-        "Ideas others have voted for stay, but without your name.",
+        "Your ideas stay on the board, with their text and votes, but without your name.",
         "This can’t be undone. If you want to keep anything, download your data first."
-      ]
+      ],
+      "exportFile": "my-data",
+      "erased": "Your data has been deleted and you’re signed out. Your ideas stay on the board without your name."
     },
     "pendingBadge": "Awaiting approval",
     "paging": {
@@ -1621,6 +1623,7 @@
   },
   "email": {
     "footer": "You’re getting this from {project} because you follow this item.",
+    "footerVoted": "You’re getting this from {project} because you voted for an idea in this update.",
     "unsubscribe": "Unsubscribe from e-mails",
     "bugFixedSubject": "Fixed: {title}",
     "bugMineSummary": "Your report “{title}” is now: {label}.",
@@ -1872,7 +1875,7 @@
     "team": {
       "statusToast": "Status: {s}",
       "notifyBug": "The reporter will get an e-mail.",
-      "notifyIdea": "The author and voters will get an e-mail.",
+      "notifyIdea": "The author and everyone in the discussion get an e-mail. Voters hear about it from a published update.",
       "status": "Status",
       "now": "now",
       "fixedIn": "Fixed in version",
@@ -1929,7 +1932,7 @@
     "privacy": {
       "eraseOpen": "Delete my data…",
       "eraseTitle": "Permanently delete your data?",
-      "eraseText": "We’ll delete your votes, comments, bug reports with their attachments, and e-mails, and sign you out. Ideas others voted for stay, without the author’s name. This can’t be undone.",
+      "eraseText": "We’ll delete your votes, comments, bug reports with their attachments, and e-mails, and sign you out. Your ideas stay on the board without your name. This can’t be undone.",
       "deleting": "Deleting…",
       "erase": "Delete my data",
       "deleteOpen": "Delete project…",
@@ -3225,7 +3228,7 @@
       "open": "Others can vote and add how it would help them.",
       "planned": "The team is planning it for an upcoming release.",
       "in_progress": "The team is working on it right now.",
-      "shipped": "It’s out. Everyone who voted got an e-mail.",
+      "shipped": "It’s out. Voters hear about it from a published update.",
       "new": "Report received. Only you and the team can see it.",
       "confirmed": "We reproduced the bug and queued it.",
       "fixed": "The fix is in a release. We’ll let you know so you can check it.",
@@ -3236,7 +3239,7 @@
     "next": {
       "planned": "The team will decide whether to plan it for an upcoming release.",
       "in_progress": "The team will start working on it.",
-      "shipped": "Once it ships, everyone who voted gets an e-mail.",
+      "shipped": "Once it ships and we post an update about it, everyone who voted gets an e-mail.",
       "confirmed": "The team will reproduce the bug and queue it.",
       "fixed": "The fix will land in one of the next releases.",
       "verified": "The reporter confirms the fix works and the report is closed."
@@ -3308,6 +3311,8 @@
     "rejectedTitle": "The team did not publish this idea",
     "rejectedText": "The idea “{title}” stays hidden. If you have a question, please contact the team.",
     "rejectedReason": "Message from the team",
+    "removedTitle": "{kind, select, bug {The team deleted this bug report} other {The team deleted this idea}}",
+    "removedText": "{kind, select, bug {The bug report} other {The idea}} “{title}” is no longer on the board. If you have a question, please contact the team.",
     "deletedTeamTitle": "Deleted.",
     "rejectedTeamTitle": "Rejected.",
     "deletedMeta": "{who}, {when}. Nobody else can see it.",
@@ -3836,7 +3841,7 @@
     },
     "rights": {
       "myData": "My data",
-      "self": "On the board, under “{myData}” ({url}), you can download all your data or delete it yourself. Deleting removes your votes, comments and bug reports with their attachments; ideas that others have voted for stay on the board without your name.",
+      "self": "On the board, under “{myData}” ({url}), you can download all your data or delete it yourself. Deleting removes your votes, comments and bug reports with their attachments; your ideas stay on the board without your name.",
       "unsubscribe": "You can stop the e-mails with the link at the bottom of each one or under “{myData}”.",
       "other": "For access, rectification, restriction, objection or any other request, contact us at [contact e-mail]. You also have the right to lodge a complaint with a supervisory authority."
     },

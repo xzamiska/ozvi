@@ -25,6 +25,7 @@ import { boardTitle } from "@/lib/board-meta";
 import { TranslateBar, TranslatedBody, TranslatedTitle, TranslationScope } from "@/components/ozvi/Translate";
 import { translationView } from "@/lib/translate-view";
 import { needSection } from "@/lib/sections-server";
+import { entryAnchor } from "@/lib/changelog-anchor";
 
 export const generateMetadata = boardTitle("board.changelog");
 
@@ -76,7 +77,7 @@ export default async function Changelog({ params, searchParams }: { params: Prom
         <TranslationScope slug={slug} view={translation}>
         <ol className="grid gap-12">
           {entries.map((e) => (
-            <li key={e.id} id={`e-${e.id}`} className="grid scroll-mt-24 gap-3 md:grid-cols-[180px_minmax(0,1fr)] md:gap-10">
+            <li key={e.id} id={entryAnchor(e.id)} className="grid scroll-mt-24 gap-3 md:grid-cols-[180px_minmax(0,1fr)] md:gap-10">
               <div className="md:pt-1.5">
                 <time dateTime={(e.publishedAt ?? e.createdAt).toISOString()} className={cn("text-[14px] font-semibold", !e.publishedAt && "text-st-ack")}>
                   {e.publishedAt ? fmt.format(e.publishedAt) : t("draft")}

@@ -10,6 +10,7 @@ import { LOCALE_TAG } from "@/i18n/locales";
 import { getTranslations } from "next-intl/server";
 import { renderMarkdownWith } from "@/lib/markdown";
 import { sectionOn } from "@/lib/sections";
+import { changelogEntryUrl } from "@/lib/changelog-anchor";
 
 /** RSS 2.0 of published changelog entries (public boards only). */
 export async function GET(_: NextRequest, { params }: { params: Promise<{ project: string }> }) {
@@ -29,7 +30,7 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ projec
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
 <title>${esc(t("feedTitle", { project: project.name }))}</title><link>${esc(base)}/changelog</link><description>${esc(t("feedDescription", { project: project.name }))}</description><language>${LOCALE_TAG[locale].toLowerCase()}</language>
-${entries.map((e) => `<item><title>${x(e.title)}</title><link>${esc(`${base}/changelog#${e.id}`)}</link><guid isPermaLink="false">${e.id}</guid><pubDate>${e.publishedAt!.toUTCString()}</pubDate><description>${x(renderMarkdownWith(e.body, { headings: true, slug: project.slug, origin: projectOrigin(project) }, { base: projectOrigin(project), imagesAsLinks: true }) + aiNote(e))}</description></item>`).join("\n")}
+${entries.map((e) => `<item><title>${x(e.title)}</title><link>${esc(changelogEntryUrl(base, e.id))}</link><guid isPermaLink="false">${e.id}</guid><pubDate>${e.publishedAt!.toUTCString()}</pubDate><description>${x(renderMarkdownWith(e.body, { headings: true, slug: project.slug, origin: projectOrigin(project) }, { base: projectOrigin(project), imagesAsLinks: true }) + aiNote(e))}</description></item>`).join("\n")}
 </channel></rss>`;
   return new Response(xml, { headers: { "content-type": "application/rss+xml; charset=utf-8", "cache-control": "public, max-age=300" } });
 }
