@@ -17,6 +17,7 @@ registerPack({
     queued: "Wartet auf Freigabe", queuedText: "Das Team gibt Beiträge von außerhalb des Teams vor der Veröffentlichung frei. Bis dahin sehen nur Sie ihn; nach der Freigabe alle. Veröffentlicht das Team ihn nicht, teilen wir Ihnen per E-Mail den Grund mit.",
     fail: "Die Meldung konnte nicht gesendet werden.", who: "Wir konnten Sie nicht verifizieren. Laden Sie die Seite neu und versuchen Sie es erneut.",
     ideas: "Ideen", loading: "Wird geladen …", loadFail: "Laden fehlgeschlagen. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.", back: "Zurück",
+    origin: "Diese Website darf keine Meldungen senden. Bitte informieren Sie den Administrator der App, damit er sie zu den erlaubten Adressen hinzufügt.",
   },
   ideas: {
     search: "Ideen durchsuchen", searchPh: "Z. B. CSV-Export", none: "Nichts gefunden. Schlagen Sie es als neue Idee vor.", empty: "Noch keine Ideen.",

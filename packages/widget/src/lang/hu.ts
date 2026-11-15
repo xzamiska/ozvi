@@ -17,6 +17,7 @@ registerPack({
     queued: "Jóváhagyásra vár", queuedText: "A csapat közzététel előtt jóváhagyja a csapaton kívüliek bejegyzéseit. Egyelőre csak te látod; jóváhagyás után mindenki. Ha a csapat nem teszi közzé, e-mailben megírjuk, miért.",
     fail: "Nem sikerült elküldeni a bejelentést.", who: "Nem sikerült ellenőrizni, ki vagy. Töltsd újra az oldalt, és próbáld újra.",
     ideas: "Ötletek", loading: "Betöltés…", loadFail: "Nem sikerült betölteni. Ellenőrizd a kapcsolatot, és próbáld újra.", back: "Vissza",
+    origin: "Ez az oldal nem küldhet bejelentéseket. Szóljon az alkalmazás adminisztrátorának, hogy vegye fel az engedélyezett címek közé.",
   },
   ideas: {
     search: "Ötletek keresése", searchPh: "Pl. CSV-export", none: "Nincs találat. Küldd be új ötletként.", empty: "Még nincsenek ötletek.",

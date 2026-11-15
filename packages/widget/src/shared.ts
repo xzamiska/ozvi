@@ -7,7 +7,8 @@ import type { OzviLang } from "./types";
  * loader and the cached project config. Chunks import "preact" normally; build.mjs maps it to this object.
  */
 /** sections: the board sections the project uses (missing on older servers = all). */
-export interface ProjectConfig { name: string; css: string; fonts: string | null; ideasPublic?: boolean; sections?: string[] }
+/** `allowed`: false when the page's origin may not send reports or votes (not in the project's allowed origins). */
+export interface ProjectConfig { name: string; css: string; fonts: string | null; ideasPublic?: boolean; sections?: string[]; allowed?: boolean }
 
 export interface Shared {
   preact: unknown; hooks: unknown; jsx: unknown;

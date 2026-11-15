@@ -21,6 +21,7 @@ registerPack({
     queued: "Czeka na zatwierdzenie", queuedText: "Zespół zatwierdza wpisy od osób spoza zespołu przed publikacją. Na razie widzisz go tylko ty; po zatwierdzeniu zobaczą go wszyscy. Jeśli zespół go nie opublikuje, napiszemy ci dlaczego.",
     fail: "Nie udało się wysłać zgłoszenia.", who: "Nie udało się potwierdzić twojej tożsamości. Odśwież stronę i spróbuj ponownie.",
     ideas: "Pomysły", loading: "Wczytywanie…", loadFail: "Nie udało się wczytać. Sprawdź połączenie i spróbuj ponownie.", back: "Wstecz",
+    origin: "Ta strona nie może wysyłać zgłoszeń. Poinformuj administratora aplikacji, aby dodał ją do dozwolonych adresów.",
   },
   ideas: {
     search: "Szukaj pomysłów", searchPh: "Np. eksport do CSV", none: "Nic nie znaleźliśmy. Zaproponuj to jako nowy pomysł.", empty: "Nie ma jeszcze pomysłów.",

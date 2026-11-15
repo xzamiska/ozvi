@@ -88,6 +88,7 @@ const T = {
     queued: "Čaká na schválenie", queuedText: "Tím príspevky od ľudí mimo tímu pred zverejnením schvaľuje. Zatiaľ ho vidíte len vy, po schválení ho uvidia všetci. Ak ho tím nezverejní, napíšeme vám prečo.",
     fail: "Hlásenie sa nepodarilo odoslať.", who: "Nepodarilo sa overiť, kto ste. Obnovte stránku a skúste to znova.",
     ideas: "Nápady", loading: "Načítavam…", loadFail: "Nepodarilo sa načítať. Skontrolujte pripojenie a skúste to znova.", back: "Späť",
+    origin: "Táto stránka nemá povolené posielať spätnú väzbu. Dajte vedieť správcovi aplikácie, nech ju pridá medzi povolené adresy.",
   },
   cs: {
     fb: "Zpětná vazba", fbFor: "Zpětná vazba pro ", app: "aplikaci", shooting: "Připravuji snímek obrazovky…",
@@ -104,6 +105,7 @@ const T = {
     queued: "Čeká na schválení", queuedText: "Tým příspěvky od lidí mimo tým před zveřejněním schvaluje. Zatím ho vidíte jen vy, po schválení ho uvidí všichni. Pokud ho tým nezveřejní, napíšeme vám proč.",
     fail: "Hlášení se nepodařilo odeslat.", who: "Nepodařilo se ověřit, kdo jste. Obnovte stránku a zkuste to znovu.",
     ideas: "Nápady", loading: "Načítám…", loadFail: "Nepodařilo se načíst. Zkontrolujte připojení a zkuste to znovu.", back: "Zpět",
+    origin: "Tato stránka nemá povoleno posílat zpětnou vazbu. Dejte vědět správci aplikace, ať ji přidá mezi povolené adresy.",
   },
   en: {
     fb: "Feedback", fbFor: "Feedback for ", app: "the app", shooting: "Taking a screenshot…",
@@ -120,6 +122,7 @@ const T = {
     queued: "Awaiting approval", queuedText: "The team approves posts from outside the team before publishing them. For now only you can see it; once approved, everyone can. If the team doesn't publish it, we'll e-mail you why.",
     fail: "The report couldn't be sent.", who: "We couldn't verify who you are. Reload the page and try again.",
     ideas: "Ideas", loading: "Loading…", loadFail: "Couldn't load. Check your connection and try again.", back: "Back",
+    origin: "This site isn't allowed to send feedback. Let the app's administrator know so they add it to the allowed addresses.",
   },
 };
 type Inline = keyof typeof T;
@@ -231,6 +234,8 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
   /** The screenshot is taken while the form is already open (the widget is left out of the copy); sending waits for it. */
   const [shooting, setShooting] = useState(false);
   const shotP = useRef<Promise<Blob | null> | null>(null);
+  /** Set synchronously on the first click: a second click while the screenshot is still taken must not file twice. */
+  const sending = useRef(false);
   const [error, setError] = useState("");
   const [sent, setSent] = useState<{ number: number; pending?: string | null } | null>(null);
   const [extra, setExtra] = useState<File[]>([]);
@@ -271,6 +276,8 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
   }, [host, project]);
 
   useEffect(() => { loadConfig(host, project).then((c) => c?.css && setConfig(c)); }, [host, project]);
+  // The server says this site is not an allowed origin: tell the person before they type a report that cannot be sent.
+  useEffect(() => { if (view === "bug" && config?.allowed === false) setError(t.origin); }, [view, config]);
 
   // window.Ozvi drives this widget: open/close/toggle; prefill, identify, setLanguage re-render it.
   const self = useRef<Controller>(null as never);
@@ -375,6 +382,10 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
 
   async function submit(e: Event) {
     e.preventDefault();
+    if (sending.current) return;
+    if (config?.allowed === false) { setError(t.origin); emit("error", { kind: "bug", message: t.origin }); return; }
+    sending.current = true;
+    setBusy(true); setError("");
     const f = new FormData(e.currentTarget as HTMLFormElement);
     f.set("kind", "bug");
     f.set("context", JSON.stringify({
@@ -385,13 +396,12 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
       language: navigator.language,
       ...ctxCapture(),
     }));
-    // Sent before the screenshot is ready: wait for it rather than send without one.
-    const image = shotP.current ? await shotP.current : shot;
-    if (image) f.append("files", image, "screenshot.jpg");
-    extra.forEach((x) => f.append("files", x, x.name));
-    setBusy(true); setError("");
     emit("submit", { kind: "bug", title: String(f.get("title") ?? "") });
     try {
+      // Sent before the screenshot is ready: wait for it rather than send without one.
+      const image = shotP.current ? await shotP.current : shot;
+      if (image) f.append("files", image, "screenshot.jpg");
+      extra.forEach((x) => f.append("files", x, x.name));
       const r = await fetch(`${host}/${project}/api/widget/items?lang=${lang}`, { method: "POST", body: f, headers: { authorization: `Bearer ${await token()}` } });
       const data = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(data.error || t.fail);
@@ -405,6 +415,7 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
       setError(message);
       emit("error", { kind: "bug", message });
     } finally {
+      sending.current = false;
       setBusy(false);
     }
   }
