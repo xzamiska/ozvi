@@ -3,8 +3,13 @@
 # every run, a production build (no dev hot reload) on http://e2e.localhost:3410, e-mails into Mailpit.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-docker compose up -d --wait >/dev/null
-psql() { docker compose exec -T postgres psql -U postgres "$@"; }
+if [ "${E2E_CI:-}" = "1" ]; then
+  # GitHub Actions: Postgres and Mailpit are service containers on the same ports as docker compose.
+  psql() { PGPASSWORD=postgres command psql -h localhost -p 5446 -U postgres "$@"; }
+else
+  docker compose up -d --wait >/dev/null
+  psql() { docker compose exec -T postgres psql -U postgres "$@"; }
+fi
 psql -qc "DROP DATABASE IF EXISTS ozvi_e2e WITH (FORCE)" >/dev/null
 psql -qc "CREATE DATABASE ozvi_e2e OWNER ozvi" >/dev/null
 psql -d ozvi_e2e -qc "CREATE EXTENSION IF NOT EXISTS vector" >/dev/null

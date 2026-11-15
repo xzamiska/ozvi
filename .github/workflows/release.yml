@@ -12,7 +12,11 @@ concurrency:
   group: release
   cancel-in-progress: false
 jobs:
+  # A release ships only when the browser regression suite passes on the tagged commit.
+  e2e:
+    uses: ./.github/workflows/e2e.yml
   release:
+    needs: e2e
     runs-on: ubuntu-24.04
     # A normal release takes ~15 min (arm64 under QEMU is the slow part); a hung step must not hold the runner for 6 h.
     timeout-minutes: 45

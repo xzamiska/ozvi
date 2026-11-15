@@ -4,6 +4,7 @@ import { pageviewFor, sendPageview } from "@/lib/analytics";
 import { primaryHost, slugForHost } from "@/lib/domains";
 import { hostOrigin } from "@/lib/email/url";
 import { indexable, NOINDEX } from "@/lib/indexing";
+import { warnIfNoProxy } from "@/lib/client-ip";
 
 /**
  * Host routing. The primary host (PUBLIC_URL) serves everything. A project's custom domain or
@@ -38,7 +39,10 @@ export async function proxy(req: NextRequest, event: NextFetchEvent) {
 async function route(req: NextRequest) {
   const host = (req.headers.get("host") ?? "").toLowerCase().replace(/:\d+$/, "").replace(/^\[|\]$/g, "");
   // Single-label names (container names like "ozvi") and IPs are internal traffic: no host routing.
-  if (!host || host === primaryHost() || !host.includes(".") || isIP(host)) return next(req);
+  const internal = !host || !host.includes(".") || isIP(host);
+  // Public traffic in production should come through the proxy, which adds X-Forwarded-For.
+  if (!internal && process.env.NODE_ENV === "production" && !host.endsWith("localhost")) warnIfNoProxy(req.headers);
+  if (internal || host === primaryHost()) return next(req);
 
   const slug = await slugForHost(host);
   if (!slug) return new NextResponse("Neznáma doména.", { status: 404, headers: { "content-type": "text/plain; charset=utf-8" } });

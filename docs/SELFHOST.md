@@ -25,7 +25,7 @@ docker compose exec ozvi node ozvi.mjs project:create mojaappka "Moja appka" --o
   `OZVI_MAIL_FROM` musí byť adresa z domény overenej u služby (SPF + DKIM), inak e-maily skončia v spame. Odosielateľ sa zobrazí ako názov projektu („Billiwo“ &lt;feedback@billiwo.com&gt;). Bez `SMTP_URL` appka funguje, len notifikácie sa zalogujú ako `skipped` a Nastavenia to ukážu. V self-hoste nie je limit e-mailov.
 - **Prílohy:** volume `uploads` (`/data/uploads`), alebo S3-kompatibilné úložisko cez `S3_*`.
 - **Kľúče:** `OZVI_SECRET_KEY` šifruje SSO secrety v DB — ak ho stratíte, vygenerujte projektom nové secrety v Nastaveniach. `OZVI_SESSION_SECRET` podpisuje cookies a odhlasovacie odkazy v e-mailoch.
-- **Proxy:** `OZVI_TRUSTED_PROXIES` = počet proxy pred Ozvi (default 1). Rate limit berie IP z `X-Forwarded-For` len od nich, nie čo pošle klient.
+- **Proxy:** `OZVI_TRUSTED_PROXIES` = počet proxy pred Ozvi (default 1). Rate limit berie IP z `X-Forwarded-For` len od nich, nie čo pošle klient. **Ozvi bez proxy (port otvorený do internetu) musí mať `OZVI_TRUSTED_PROXIES=0`**, inak si klient podvrhne IP adresu a obíde limity prihlásenia, widgetu aj API. Keď Ozvi očakáva proxy, ale verejná požiadavka príde bez `X-Forwarded-For`, raz to zapíše do logu (`[ozvi] A request arrived without X-Forwarded-For…`).
 - **Zálohy:** `pg_dump` databázy + volume `uploads`.
 - **AI pomocník (voliteľné):** zhrnutie diskusie, návrhy noviniek, týždenný prehľad, preklad príspevkov. Výstup je vždy návrh, ktorý schváli človek ([AI.md](AI.md)). Ľubovoľný poskytovateľ:
 

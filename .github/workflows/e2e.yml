@@ -1,0 +1,56 @@
+# Browser regression tests (apps/e2e, Playwright: Chromium, WebKit, iPhone WebKit) against a throwaway
+# Ozvi cloud instance. Runs before every release (called from release.yml), every night on main and by hand.
+name: E2E
+on:
+  schedule:
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+  workflow_call:
+permissions:
+  contents: read
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  e2e:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      E2E_CI: "1"
+      CI: "1"
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["5446:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-retries 20
+      mailpit:
+        image: axllent/mailpit:latest
+        ports: ["8046:8025", "1046:1025"]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: package.json
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Database roles (same as docker/initdb)
+        run: |
+          sudo apt-get install -y -qq postgresql-client >/dev/null
+          PGPASSWORD=postgres psql -h localhost -p 5446 -U postgres -v ON_ERROR_STOP=1 -f docker/initdb/01-ozvi.sql
+      - name: Local host names (board, fake host apps)
+        run: echo "127.0.0.1 e2e.localhost app.localhost evil.localhost" | sudo tee -a /etc/hosts
+      - name: Playwright browsers
+        run: pnpm --filter @ozvi/e2e exec playwright install --with-deps chromium webkit
+      - name: Browser tests
+        run: pnpm --filter @ozvi/e2e e2e
+      - name: Report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: apps/e2e/playwright-report
+          retention-days: 14
