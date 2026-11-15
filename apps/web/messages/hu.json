@@ -91,7 +91,9 @@
       "workspace": "Munkaterület",
       "look": "Megjelenés",
       "creating": "Létrehozás…",
-      "create": "Projekt létrehozása"
+      "create": "Projekt létrehozása",
+      "newWorkspaceTitle": "Új munkaterület",
+      "newWorkspaceLede": "Az új munkaterületnek saját csomagja, csapata és számlázása van. Az első projektjével együtt hozod létre. Ingyenes munkaterülete mindenkinek csak egy lehet."
     },
     "login": {
       "cloudTitle": "Bejelentkezés az Ozviba",
@@ -165,7 +167,9 @@
       "selfHostDelete": "Saját üzemeltetésű szerveren a fiókokat az adminisztrátor kezeli (OZVI_ADMIN_EMAILS).",
       "typeEmail": "A megerősítéshez írd be pontosan az e-mail-címedet.",
       "signupClosed": "A regisztráció még nem nyílt meg. Írjon a support@ozvi.io címre, és szólunk, amikor elindulunk.",
-      "alreadySubscribed": "Ennek a munkaterületnek már van előfizetése. A csomagot abban váltsd, dupla fizetés nélkül."
+      "alreadySubscribed": "Ennek a munkaterületnek már van előfizetése. A csomagot abban váltsd, dupla fizetés nélkül.",
+      "freeExistsOther": "Ehhez a postafiókhoz már tartozik ingyenes munkaterület egy másik fiókban (ugyanaz a cím +címkével vagy pontokkal). Jelentkezz be azzal a fiókkal, és ott add hozzá a projektet, vagy kérd meg a tulajdonosát, hogy hívjon meg.",
+      "nameChars": "A név nem tartalmazhatja a < és > karaktereket. Töröld őket, és mentsd újra."
     },
     "workspace": {
       "not_owner": "Ezt csak a munkaterület tulajdonosa teheti meg.",
@@ -1356,6 +1360,9 @@
         },
         "workspace": {
           "renamed": "Átnevezett munkaterület"
+        },
+        "account": {
+          "renamed": "Módosított fióknév"
         }
       }
     },
@@ -2346,7 +2353,7 @@
       "you": "ez te vagy",
       "role": "Szerepkör",
       "user": "Felhasználó",
-      "signedOut": "{name} mindenhol ki van jelentkeztetve",
+      "signedOut": "{name}: minden bejelentkezés megszüntetve",
       "signOut": "Kijelentkeztetés mindenhol",
       "signOutTitle": "Mindenhol kijelentkezteted ezt a felhasználót: {name}?",
       "signOutTitleUnnamed": "Mindenhol kijelentkezteted ezt a felhasználót?",

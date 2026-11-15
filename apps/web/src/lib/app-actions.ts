@@ -1,7 +1,7 @@
 "use server";
 
 import { PLAN_LIMITS, PRICES, schema, withSystem, type Interval, type PaidPlan, type PlanName } from "@ozvi/db";
-import { applyCreemEvent, BillingError, cancelSubscription, changeSubscription, createCheckout, creemConfig, DEV_CREEM, devBilling, portalLink, resumeSubscription, type CreemConfig, type Sub } from "./creem";
+import { applyCreemEvent, BillingError, cancelSubscription, changeSubscription, createCheckout, creemConfig, DEV_CREEM, devBilling, devSubscription, portalLink, resumeSubscription, type CreemConfig, type Sub } from "./creem";
 import { roleIn } from "./workspace";
 import { presets, themeSchema } from "@ozvi/theme";
 import { and, eq, sql } from "drizzle-orm";
@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { logActivity, who } from "./activity";
 import type { LoginState } from "@/components/EmailLogin";
-import { freeQuotaEmail, freeQuotaEmailSql, isAdminEmail, signupClosed } from "./account-rules";
+import { freeQuotaEmail, freeQuotaEmailSql, isAdminEmail, safeAppNext, signupClosed } from "./account-rules";
 import { accountForVerifiedEmail, APP_COOKIE, mayCreateAccount, appCookie, getAccount, isMember, newWorkspaceSlug } from "./account";
 import { clientIp } from "./client-ip";
 import { getTranslations } from "next-intl/server";
@@ -25,7 +25,9 @@ const server = async () => getTranslations("account.server");
 
 /* ---------- Account sign-in ---------- */
 
-export async function requestAccountLogin(_: LoginState, form: FormData): Promise<LoginState> {
+/** `next`: where to return after signing in (bound by the login page, checked by safeAppNext). */
+export async function requestAccountLogin(next: string | null, _: LoginState, form: FormData): Promise<LoginState> {
+  const back = safeAppNext(next);
   const email = normalizeEmail(String(form.get("email") ?? ""));
   const locale = await requestLocale();
   const t = await getTranslations({ locale, namespace: "account.server" });
@@ -36,7 +38,7 @@ export async function requestAccountLogin(_: LoginState, form: FormData): Promis
     return { step: "email", email, error: t(process.env.OZVI_MODE === "cloud" && signupClosed() ? "signupClosed" : "noAccess") };
   }
   try {
-    const { sent } = await issueLogin({ db, email, projectId: null, linkBase: `${publicUrl()}/app/login/link`, brand: { name: "Ozvi" }, locale });
+    const { sent } = await issueLogin({ db, email, projectId: null, linkBase: `${publicUrl()}/app/login/link${back ? `?next=${encodeURIComponent(back)}` : ""}`, brand: { name: "Ozvi" }, locale });
     if (!existing) await trackEvent("signup_started");
     return { step: "code", email, info: sent ? t("codeSent", { email }) : t("noSmtpCode") };
   } catch (e) {
@@ -54,7 +56,7 @@ async function finish(email: string): Promise<string | null> {
   return null;
 }
 
-export async function verifyAccountLogin(prev: LoginState, form: FormData): Promise<LoginState> {
+export async function verifyAccountLogin(next: string | null, prev: LoginState, form: FormData): Promise<LoginState> {
   try {
     await verifyCode(db, prev.email ?? "", String(form.get("code") ?? ""), null, await requestLocale(), clientIp(await headers()));
   } catch (e) {
@@ -63,18 +65,20 @@ export async function verifyAccountLogin(prev: LoginState, form: FormData): Prom
   }
   const err = await finish(normalizeEmail(prev.email ?? ""));
   if (err) return { step: "email", email: prev.email, error: err };
-  redirect("/app");
+  redirect(safeAppNext(next) ?? "/app");
 }
 
-export async function consumeAccountLink(token: string) {
+export async function consumeAccountLink(token: string, next: string | null = null) {
+  const back = safeAppNext(next);
+  const keep = back ? `&next=${encodeURIComponent(back)}` : "";
   let row;
   try { row = await verifyLink(db, token, null); } catch (e) {
-    if (e instanceof LoginError) redirect("/app/login?expired=1");
+    if (e instanceof LoginError) redirect(`/app/login?expired=1${keep}`);
     throw e;
   }
   const err = await finish(row.email);
   if (err) redirect("/app/login?denied=1");
-  redirect("/app");
+  redirect(back ?? "/app");
 }
 
 export async function signOutApp() {
@@ -120,13 +124,19 @@ export async function createProject(_: NewProjectState, form: FormData): Promise
       const cloud = process.env.OZVI_MODE === "cloud";
       if (cloud) {
         // One free workspace owned per person; otherwise "new workspace" would multiply the free project limit.
-        // A person = their account, or any account on the same Gmail mailbox (dots and +tags ignored, see
-        // freeQuotaEmail and freeQuotaEmailSql). Being invited into someone else's free workspace does not count.
-        const [free] = await tx.select({ n: sql<number>`count(*)::int` }).from(schema.workspaceMembers)
+        // A person = their account, or any account on the same mailbox (+tags ignored everywhere, Gmail dots too,
+        // see freeQuotaEmail and freeQuotaEmailSql). Being invited into someone else's free workspace does not count.
+        const quota = freeQuotaEmail(account.email);
+        // Two requests at once (two tabs, two alias accounts) must not both count zero and both insert: the lock
+        // serialises the check-and-insert per mailbox until this transaction ends.
+        await tx.execute(sql`select pg_advisory_xact_lock(hashtext(${`ozvi:free-workspace:${quota}`}))`);
+        const free = await tx.select({ accountId: schema.workspaceMembers.accountId }).from(schema.workspaceMembers)
           .innerJoin(schema.workspaces, eq(schema.workspaces.id, schema.workspaceMembers.workspaceId))
           .innerJoin(schema.accounts, eq(schema.accounts.id, schema.workspaceMembers.accountId))
-          .where(and(sql`${freeQuotaEmailSql(schema.accounts.email)} = ${freeQuotaEmail(account.email)}`, eq(schema.workspaceMembers.role, "owner"), eq(schema.workspaces.plan, "free")));
-        if ((free?.n ?? 0) >= 1) return { error: t("freeExists") };
+          .where(and(sql`${freeQuotaEmailSql(schema.accounts.email)} = ${quota}`, eq(schema.workspaceMembers.role, "owner"), eq(schema.workspaces.plan, "free")));
+        // Own free workspace: add the project there. Another account on the same mailbox owns it: say so.
+        if (free.some((f) => f.accountId === account.id)) return { error: t("freeExists") };
+        if (free.length) return { error: t("freeExistsOther") };
         // Many accounts from one place (scripts, throwaway addresses): a few new free workspaces a day per IP.
         if (!allow("freeWorkspaceIp", ip)) return { error: t("tooManyFree") };
       }
@@ -193,15 +203,34 @@ export async function startCheckout(workspaceId: string, plan: PaidPlan, interva
 
 export interface BillingResult { error?: string }
 
+type Workspace = typeof schema.workspaces.$inferSelect;
+/** Real Creem calls, or under dev billing the answer Creem would give (same subscription id, lib/creem.ts devSubscription). */
+interface SubscriptionApi {
+  change(cfg: CreemConfig, id: string, ws: Workspace, productId: string, plan: PaidPlan, interval: Interval): Promise<Sub>;
+  cancel(cfg: CreemConfig, id: string, ws: Workspace): Promise<Sub>;
+  resume(cfg: CreemConfig, id: string, ws: Workspace): Promise<Sub>;
+}
+const creemApi: SubscriptionApi = {
+  change: (cfg, id, _ws, productId) => changeSubscription(cfg, id, productId),
+  cancel: (cfg, id) => cancelSubscription(cfg, id),
+  resume: (cfg, id) => resumeSubscription(cfg, id),
+};
+const devApi: SubscriptionApi = {
+  change: async (_cfg, _id, ws, _productId, plan, interval) => devSubscription(ws, { status: "active", plan, interval }),
+  cancel: async (_cfg, _id, ws) => devSubscription(ws, { status: "scheduled_cancel" }),
+  resume: async (_cfg, _id, ws) => devSubscription(ws, { status: "active" }),
+};
+
 /** Runs one subscription change against Creem and applies the returned state at once (the webhook confirms it). */
-async function onSubscription(workspaceId: string, call: (cfg: CreemConfig, subscriptionId: string, ws: typeof schema.workspaces.$inferSelect) => Promise<Sub | null>, done: string): Promise<BillingResult> {
+async function onSubscription(workspaceId: string, call: (api: SubscriptionApi, cfg: CreemConfig, subscriptionId: string, ws: Workspace) => Promise<Sub | null>, done: string): Promise<BillingResult> {
   await owner(workspaceId);
   const ws = await db.query.workspaces.findFirst({ where: eq(schema.workspaces.id, workspaceId) });
-  const cfg = creemConfig();
+  const dev = devBilling();
+  const cfg = dev ? DEV_CREEM : creemConfig();
   if (!cfg || !ws?.creemSubscriptionId || (ws.plan !== "pro" && ws.plan !== "studio")) return { error: (await server())("noSubscription") };
   const subscription = ws.creemSubscriptionId;
   let sub: Sub | null;
-  try { sub = await call(cfg, subscription, ws); } catch (e) {
+  try { sub = await call(dev ? devApi : creemApi, cfg, subscription, ws); } catch (e) {
     if (e instanceof BillingError) return { error: e.text(await requestLocale()) };
     throw e;
   }
@@ -213,25 +242,24 @@ async function onSubscription(workspaceId: string, call: (cfg: CreemConfig, subs
 /** A paying workspace moves its Creem subscription to another plan or interval (after the owner confirmed the charge). */
 export async function changePlan(workspaceId: string, plan: PaidPlan, interval: Interval): Promise<BillingResult> {
   if (!(plan in PRICES) || !["year", "quarter"].includes(interval)) return { error: (await server())("invalidPlan") };
-  if (devBilling()) redirect(`/app/billing/${workspaceId}/simulate?plan=${plan}&i=${interval}`);
-  return onSubscription(workspaceId, async (cfg, id, ws) => {
+  return onSubscription(workspaceId, async (api, cfg, id, ws) => {
     // A second click (or a stale tab) asking for what is already in place charges nothing.
     if (ws.plan === plan && ws.planInterval === interval) return null;
     if (ws.planStatus === "scheduled_cancel") throw new BillingError("resume_first");
     const productId = cfg.products[`${plan}_${interval}`];
     if (!productId) throw new BillingError("not_for_sale");
-    return changeSubscription(cfg, id, productId);
+    return api.change(cfg, id, ws, productId, plan, interval);
   }, `${plan}-${interval}`);
 }
 
 /** Cancel at the end of the paid period; the plan stays until then. */
 export async function cancelPlan(workspaceId: string): Promise<BillingResult> {
-  return onSubscription(workspaceId, (cfg, id, ws) => (ws.planStatus === "scheduled_cancel" ? Promise.resolve(null) : cancelSubscription(cfg, id)), "canceled");
+  return onSubscription(workspaceId, (api, cfg, id, ws) => (ws.planStatus === "scheduled_cancel" ? Promise.resolve(null) : api.cancel(cfg, id, ws)), "canceled");
 }
 
 /** Take back a scheduled cancellation. */
 export async function resumePlan(workspaceId: string): Promise<BillingResult> {
-  return onSubscription(workspaceId, (cfg, id, ws) => (ws.planStatus !== "scheduled_cancel" ? Promise.resolve(null) : resumeSubscription(cfg, id)), "resumed");
+  return onSubscription(workspaceId, (api, cfg, id, ws) => (ws.planStatus !== "scheduled_cancel" ? Promise.resolve(null) : api.resume(cfg, id, ws)), "resumed");
 }
 
 export async function openPortal(workspaceId: string) {
@@ -253,8 +281,12 @@ export async function simulateBilling(workspaceId: string, kind: SimulatedEvent,
   await owner(workspaceId);
   const ws = await db.query.workspaces.findFirst({ where: eq(schema.workspaces.id, workspaceId) });
   if (!ws) throw new Error((await getTranslations("account"))("workspace.no_workspace"));
-  const current = (ws.plan === "pro" || ws.plan === "studio" ? ws.plan : plan) as PaidPlan;
-  const subId = kind === "pay" ? `dev_sub_${Date.now()}` : ws.creemSubscriptionId ?? `dev_sub_${Date.now()}`;
+  const paying = ws.plan === "pro" || ws.plan === "studio";
+  const current = (paying ? ws.plan : plan) as PaidPlan;
+  // A payment while the workspace already pays continues the same subscription: a new id would be ignored by
+  // applyCreemEvent as a second subscription (a paying workspace changes plan through changePlan anyway).
+  const subId = kind === "pay" && !(paying && ws.creemSubscriptionId) ? `dev_sub_${Date.now()}` : ws.creemSubscriptionId ?? `dev_sub_${Date.now()}`;
+  if (kind !== "pay" && paying) interval = ws.planInterval === "quarter" ? "quarter" : "year";
   const end = new Date(Date.now() + (interval === "quarter" ? 91 : 365) * 86_400_000).toISOString();
   const sub = (status: string, p: PaidPlan) => ({
     id: subId, status, current_period_end_date: end, customer: { id: ws.creemCustomerId ?? `dev_cus_${workspaceId.slice(0, 8)}` },

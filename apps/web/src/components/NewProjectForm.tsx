@@ -12,9 +12,11 @@ import { createProject, type NewProjectState } from "@/lib/app-actions";
 const slugify = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 41);
 const labelCls = "text-[14px] font-semibold";
 
-export function NewProjectForm({ workspaces, swatches, base, initial }: {
+export function NewProjectForm({ workspaces, swatches, base, initial, newWorkspace = false }: {
   workspaces: { id: string; name: string }[];
   initial?: string;
+  /** The project founds a new workspace instead of joining an existing one. */
+  newWorkspace?: boolean;
   swatches: { id: string; name: string; accent: string; canvas: string; ink: string }[];
   base: string;
 }) {
@@ -52,7 +54,8 @@ export function NewProjectForm({ workspaces, swatches, base, initial }: {
         <p id="np-slug-hint" className="text-[13px] text-muted-foreground">{t("slugHint")} <span className="break-all sm:hidden">{t("boardAt")}<span className="font-mono text-foreground">{prefix}{shown || "…"}</span>.</span></p>
       </div>
 
-      {workspaces.length > 1 && (
+      {/* A new workspace: no workspace is sent, so createProject founds one (free-workspace rules apply). */}
+      {!newWorkspace && workspaces.length > 1 && (
         <div className="grid gap-2">
           <Label htmlFor="np-ws" className={labelCls}>{t("workspace")}</Label>
           <Select name="workspace" defaultValue={workspaces.some((w) => w.id === initial) ? initial : workspaces[0]!.id}>
@@ -61,7 +64,7 @@ export function NewProjectForm({ workspaces, swatches, base, initial }: {
           </Select>
         </div>
       )}
-      {workspaces.length === 1 && <input type="hidden" name="workspace" value={workspaces[0]!.id} />}
+      {!newWorkspace && workspaces.length === 1 && <input type="hidden" name="workspace" value={workspaces[0]!.id} />}
 
       <fieldset className="grid gap-3">
         <legend className={`${labelCls} mb-2`}>{t("look")}</legend>

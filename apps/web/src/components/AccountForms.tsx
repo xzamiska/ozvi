@@ -135,11 +135,16 @@ export function InviteForm({ workspaceId }: { workspaceId: string }) {
 export function WorkspaceNameForm({ workspaceId, name }: { workspaceId: string; name: string }) {
   const [state, action, pending] = useActionState<FormState, FormData>((p, f) => renameWorkspaceAction(workspaceId, p, f), {});
   const t = useTranslations("console.settings");
+  // Controlled, and reset to the saved name when it arrives (the server tidies spaces). Not keyed on the name:
+  // a remount would drop the "saved" message the moment the revalidated page renders.
+  const [value, setValue] = useState(name);
+  const [saved, setSaved] = useState(name);
+  if (saved !== name) { setSaved(name); setValue(name); }
   return (
     <form action={action} className="grid gap-4 p-4 sm:p-5">
       <div className="grid max-w-md gap-2">
         <Label htmlFor="ws-name" className={labelCls}>{t("name")}</Label>
-        <Input id="ws-name" name="name" defaultValue={name} required minLength={2} maxLength={60} autoComplete="off" className="h-10 bg-surface" />
+        <Input id="ws-name" name="name" value={value} onChange={(e) => setValue(e.target.value)} required minLength={2} maxLength={60} autoComplete="off" className="h-10 bg-surface" />
         <p className="text-[13px] text-muted-foreground">{t("nameHint")}</p>
       </div>
       <Status state={state} />

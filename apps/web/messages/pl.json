@@ -91,7 +91,9 @@
       "workspace": "Przestrzeń robocza",
       "look": "Wygląd",
       "creating": "Tworzenie…",
-      "create": "Utwórz projekt"
+      "create": "Utwórz projekt",
+      "newWorkspaceTitle": "Nowa przestrzeń robocza",
+      "newWorkspaceLede": "Nowa przestrzeń robocza ma własny plan, zespół i rozliczenia. Tworzysz ją razem z jej pierwszym projektem. Bezpłatną przestrzeń każdy może mieć tylko jedną."
     },
     "login": {
       "cloudTitle": "Zaloguj się do Ozvi",
@@ -165,7 +167,9 @@
       "selfHostDelete": "Na własnym serwerze kontami zarządza administrator (OZVI_ADMIN_EMAILS).",
       "typeEmail": "Aby potwierdzić, wpisz dokładnie swój adres e-mail.",
       "signupClosed": "Rejestracja nie jest jeszcze otwarta. Napisz na support@ozvi.io, a damy znać, gdy wystartujemy.",
-      "alreadySubscribed": "Ta przestrzeń ma już subskrypcję. Zmień plan w niej, bez drugiej płatności."
+      "alreadySubscribed": "Ta przestrzeń ma już subskrypcję. Zmień plan w niej, bez drugiej płatności.",
+      "freeExistsOther": "Ta skrzynka pocztowa ma już bezpłatną przestrzeń roboczą na innym koncie (ten sam adres z +tagiem lub kropkami). Zaloguj się na to konto i dodaj projekt tam albo poproś właściciela o zaproszenie.",
+      "nameChars": "Imię nie może zawierać znaków < i >. Usuń je i zapisz ponownie."
     },
     "workspace": {
       "not_owner": "Może to zrobić tylko właściciel przestrzeni roboczej.",
@@ -1356,6 +1360,9 @@
         },
         "workspace": {
           "renamed": "Zmieniona nazwa przestrzeni"
+        },
+        "account": {
+          "renamed": "Zmieniona nazwa konta"
         }
       }
     },
@@ -2346,7 +2353,7 @@
       "you": "to ty",
       "role": "Rola",
       "user": "Użytkownik",
-      "signedOut": "{name} – wylogowano wszędzie",
+      "signedOut": "{name}: wylogowano wszędzie",
       "signOut": "Wyloguj wszędzie",
       "signOutTitle": "Wylogować {name} wszędzie?",
       "signOutTitleUnnamed": "Wylogować tego użytkownika wszędzie?",

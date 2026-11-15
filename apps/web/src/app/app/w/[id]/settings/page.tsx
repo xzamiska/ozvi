@@ -6,6 +6,7 @@ import { Panel } from "@/components/ozvi/page";
 import { getAccount } from "@/lib/account";
 import { consoleTitle } from "@/lib/board-meta";
 import { consoleWorkspace } from "@/lib/console";
+import { subscriptionBlocksDeletion } from "@/lib/workspace";
 
 export const generateMetadata = consoleTitle("settings");
 export const dynamic = "force-dynamic";
@@ -20,14 +21,14 @@ export default async function WorkspaceSettings({ params }: { params: Promise<{ 
   const t = await getTranslations("console.settings");
   const owner = ws.role === "owner";
   // A running paid subscription blocks deletion (it would keep billing); same rule as lib/workspace.ts.
-  const paying = ws.plan !== "free" && ws.plan !== "self" && ws.planSource !== "manual" && ["active", "trialing", "paid", "past_due"].includes(ws.planStatus ?? "");
+  const paying = subscriptionBlocksDeletion(ws);
   return (
     <div>
       <ConsoleHead title={t("title")} lede={t("lede")} />
       <section aria-labelledby="ws-general" className="grid gap-3">
         <h2 id="ws-general" className="text-[15px] font-semibold tracking-tight">{t("general")}</h2>
         <Panel>
-          {owner ? <WorkspaceNameForm key={ws.name} workspaceId={ws.id} name={ws.name} /> : (
+          {owner ? <WorkspaceNameForm workspaceId={ws.id} name={ws.name} /> : (
             <div className="grid gap-1 p-4 sm:p-5">
               <p className="text-[13px] font-medium text-muted-foreground">{t("name")}</p>
               <p className="text-[15px] font-semibold">{ws.name}</p>

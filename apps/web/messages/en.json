@@ -91,7 +91,9 @@
       "workspace": "Workspace",
       "look": "Look",
       "creating": "Creating…",
-      "create": "Create project"
+      "create": "Create project",
+      "newWorkspaceTitle": "New workspace",
+      "newWorkspaceLede": "A new workspace has its own plan, team and billing. You create it together with its first project. Everyone can have one free workspace."
     },
     "login": {
       "cloudTitle": "Sign in to Ozvi",
@@ -165,7 +167,9 @@
       "selfHostDelete": "On a self-hosted server, the admin manages accounts (OZVI_ADMIN_EMAILS).",
       "typeEmail": "To confirm, type your e-mail exactly.",
       "signupClosed": "Sign-up isn’t open yet. Write to support@ozvi.io and we’ll let you know when we launch.",
-      "alreadySubscribed": "This workspace already has a subscription. Change the plan on it, without paying twice."
+      "alreadySubscribed": "This workspace already has a subscription. Change the plan on it, without paying twice.",
+      "freeExistsOther": "This mailbox already has a free workspace under another account (the same address with a +tag or dots). Sign in with that account and add the project there, or have its owner invite you.",
+      "nameChars": "The name cannot contain < or >. Remove them and save again."
     },
     "workspace": {
       "not_owner": "Only a workspace owner can do this.",
@@ -1356,6 +1360,9 @@
         },
         "workspace": {
           "renamed": "Workspace renamed"
+        },
+        "account": {
+          "renamed": "Account name changed"
         }
       }
     },

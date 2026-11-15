@@ -121,6 +121,14 @@ describe("account deletion", () => {
     await expect(ws.deleteAccount(solo)).rejects.toThrow(/predplatné/);
   });
 
+  it("a plan granted by hand does not block, as for deleting the workspace", async () => {
+    expect(ws.subscriptionBlocksDeletion({ plan: "pro", planStatus: "active", planSource: "manual" })).toBe(false);
+    expect(ws.subscriptionBlocksDeletion({ plan: "pro", planStatus: "active", planSource: "creem" })).toBe(true);
+    await db.update(schema.workspaces).set({ planSource: "manual" }).where(eq(schema.workspaces.slug, `s-${tag}`));
+    expect((await ws.deletionPlan(solo.id)).blockerKeys).toEqual([]);
+    await db.update(schema.workspaces).set({ planSource: null }).where(eq(schema.workspaces.slug, `s-${tag}`));
+  });
+
   it("deletes solo workspaces with their projects once the subscription is cancelled", async () => {
     await db.update(schema.workspaces).set({ planStatus: "scheduled_cancel" }).where(eq(schema.workspaces.slug, `s-${tag}`));
     expect((await ws.deletionPlan(solo.id)).blockers).toEqual([]);
