@@ -22,7 +22,15 @@ export async function consoleLogin(page: Page, email: string) {
 
 /** Creates a project from the console form; returns its slug. A first project also creates a free workspace. */
 export async function createProject(page: Page, name: string, slug: string) {
-  await page.goto("/app/new");
+  // A new account is redirected to /app/new right after sign-in; going there ourselves at the same
+  // moment makes WebKit report "navigation interrupted", so only navigate when not there yet.
+  await page.waitForLoadState("load");
+  if (!new URL(page.url()).pathname.startsWith("/app/new")) {
+    await page.goto("/app/new").catch(async (e: Error) => {
+      if (!/interrupted by another navigation/.test(e.message)) throw e;
+      await page.waitForURL(/\/app\/new/);
+    });
+  }
   await page.getByLabel("Názov aplikácie").fill(name);
   const s = page.getByLabel("Adresa boardu");
   await s.fill(slug);

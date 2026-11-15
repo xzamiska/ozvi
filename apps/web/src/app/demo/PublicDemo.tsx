@@ -59,8 +59,9 @@ export async function PublicDemo({ locale }: { locale: Locale }) {
           <Link href="/" className="ml-auto text-[14px] font-medium hover:underline">{t("back")}</Link>
         </div>
       </header>
-      <main id="main" tabIndex={-1} className="oz-frame grid gap-8 py-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
-        <div>
+      {/* minmax(0,1fr) on phones too: an implicit column grows to the widest content (the host app card) and overflows. */}
+      <main id="main" tabIndex={-1} className="oz-frame grid grid-cols-[minmax(0,1fr)] gap-8 py-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
+        <div className="min-w-0">
           <h1 className="max-w-[22ch] text-[34px] leading-tight font-semibold tracking-[-0.035em]">{t("title")}</h1>
           <ol className="mt-4 grid max-w-[60ch] gap-1.5 text-[15px] leading-relaxed text-muted-foreground">
             {(t.raw("steps") as string[]).map((s, i) => <li key={i} className="grid grid-cols-[22px_1fr]"><b className="text-foreground">{i + 1}.</b>{s}</li>)}
