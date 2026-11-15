@@ -55,4 +55,6 @@ async function route(req: NextRequest) {
   return new NextResponse("Nenájdené.", { status: 404, headers: { "content-type": "text/plain; charset=utf-8" } });
 }
 
-export const config = { matcher: ["/((?!_next/static|_next/image).*)"] };
+// Dev's hot-reload socket (/_next/webpack-hmr) must not go through the proxy: rewriting its upgrade broke the
+// socket, which reconnected and reloaded the page every second in local dev.
+export const config = { matcher: ["/((?!_next/static|_next/image|_next/webpack-hmr).*)"] };
