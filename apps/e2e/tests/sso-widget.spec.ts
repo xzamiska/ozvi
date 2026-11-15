@@ -222,6 +222,23 @@ test.describe("SSO from the host app", () => {
     await expect(stranger).toHaveURL(/\/app\/login/);
   });
 
+  test("the owner, signed in from the console, opening the board from the host app stays admin", async ({ browser }) => {
+    const page = await boardPage(browser, { storageState: board.ownerState });
+    await page.goto(`/app/open/${board.slug}?to=admin`);
+    await expect(page).toHaveURL(new RegExp(`/${board.slug}/admin`));
+    // The host app knows the owner under its own id, with the same (verified) address and no role.
+    const inApp = { id: uniq("app-owner"), name: "Majiteľ v appke", email: board.owner, emailVerified: true };
+    await page.goto(ssoUrl(board.slug, board.secret, inApp));
+    await expect(page).toHaveURL(new RegExp(`/${board.slug}/ideas`));
+    await expect(settingsLink(page).first()).toBeVisible();
+    await expect(unansweredTab(page)).toBeVisible();
+    // An address the app does not vouch for is a different person: the board switches to them.
+    const unverified = { ...inApp, id: uniq("app-owner"), name: "Neoverený", emailVerified: false };
+    await page.goto(ssoUrl(board.slug, board.secret, unverified));
+    expect(await whoAmI(page)).toBe("Neoverený");
+    await expect(settingsLink(page)).toHaveCount(0);
+  });
+
   test("locale claim forces the board language; one the board doesn't offer is ignored", async ({ browser }) => {
     const en = await boardPage(browser); // the browser itself asks for Slovak (sk-SK)
     await en.goto(ssoUrl(board.slug, board.secret, person("eng", { locale: "en" })));
@@ -557,6 +574,11 @@ test.describe("widget in the host app", () => {
     await ozvi(page, "open", "bug");
     await panel(page).getByLabel("Čo nefunguje?").fill("Z cudzej stránky");
     await panel(page).getByRole("button", { name: "Nahlásiť chybu" }).click();
+    await expect(panel(page).getByRole("alert")).toContainText("nemá povolené");
+    // The ideas list says the same instead of a failed load.
+    await panel(page).getByRole("button", { name: "Zavrieť" }).click();
+    await panel(page).waitFor({ state: "detached" });
+    await ozvi(page, "open", "ideas");
     await expect(panel(page).getByRole("alert")).toContainText("nemá povolené");
   });
 });

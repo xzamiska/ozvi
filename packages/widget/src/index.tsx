@@ -466,7 +466,10 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
             </>
           )}
 
-          {isIdeas && (Ideas
+          {isIdeas && (config?.allowed === false
+            // Not an allowed origin: every ideas request would fail with a bare error, so say why up front.
+            ? <p class="err" role="alert">{t.origin}</p>
+            : Ideas
             ? <Ideas ctx={{ host, project, lang, view, setView, token, openBoard }} />
             : <p class={error ? "err" : "muted"} role={error ? "alert" : "status"}>{error || t.loading}</p>)}
 

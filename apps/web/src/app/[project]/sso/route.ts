@@ -1,4 +1,4 @@
-import { schema } from "@ozvi/db";
+import { schema, withProject } from "@ozvi/db";
 import { OzviTokenError } from "@ozvi/sdk";
 import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
@@ -72,6 +72,14 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ proj
   }
 
   const res = NextResponse.redirect(new URL(safeReturn(slug, url.searchParams.get("return")), requestOrigin(project, req)));
+  // The board's owner or team, already signed in here (e.g. from the console), opening the board from the
+  // host app as the same person (the app vouches for the same address) stays who they are: replacing the
+  // session with the app's plain account would take their admin away mid-visit.
+  if (current && current.p === project.id && !sameUser && user.emailVerified && user.email) {
+    const staff = await withProject(db, project.id, (tx) => tx.query.users.findFirst({ where: eq(schema.users.id, current.u) }));
+    if (staff && staff.sessionVersion === current.v && (staff.role === "admin" || staff.role === "team")
+      && staff.email?.toLowerCase() === user.email.toLowerCase()) return res;
+  }
   res.cookies.set(sessionCookie(slug, user, project.id));
   if (user.forcedLocale) res.cookies.set({ name: LOCALE_COOKIE, value: user.forcedLocale, path: "/", maxAge: LOCALE_MAX_AGE, sameSite: "lax" });
   return res;

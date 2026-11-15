@@ -39,7 +39,7 @@ Nápady (vytvorenie, schvaľovanie, hlasovanie jednoduché aj podľa dôležitos
 
 ## 4. Prihlásenie z appky a widget (`sso-widget.spec.ts`)
 
-SSO token (návrat, expirácia, podvrh, ochrana pred open redirect, roly z tokenu, odhlásenie pri strate roly, medzistránka pri prepnutí účtu, jazyk z tokenu, prechod z konzoly ako admin). Widget na cudzej stránke: okamžité otvorenie formulára so screenshotom na pozadí, maskovanie, odoslanie s kontextom (konzola, sieť, maskované tajomstvá), nápady a hlasovanie vo widgete, `launcher="none"`, `position="bottom-left"`, `::part()`, udalosti, iPhone, odmietnutie nepovoleného originu.
+SSO token (návrat, expirácia, podvrh, ochrana pred open redirect, roly z tokenu, odhlásenie pri strate roly, medzistránka pri prepnutí účtu, jazyk z tokenu, prechod z konzoly ako admin, vlastník prihlásený z konzoly ostane adminom aj po otvorení boardu z appky s tou istou overenou adresou). Widget na cudzej stránke: okamžité otvorenie formulára so screenshotom na pozadí, maskovanie, odoslanie s kontextom (konzola, sieť, maskované tajomstvá), nápady a hlasovanie vo widgete, `launcher="none"`, `position="bottom-left"`, `::part()`, udalosti, iPhone, odmietnutie nepovoleného originu (hlásenie aj zoznam nápadov to vysvetlia).
 
 ## 5. Nastavenia boardu a integrácie (`admin.spec.ts`)
 
