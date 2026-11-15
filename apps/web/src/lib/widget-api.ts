@@ -12,7 +12,7 @@ import { projectFor } from "./oauth-meta";
 import type { Project, User } from "./project";
 import { moderationWhere } from "./queries";
 import { userFromToken } from "./sso";
-import { readCors, searchWords } from "./widget-rules";
+import { readCors, searchWords, writeAllowed } from "./widget-rules";
 import { sectionOn, type Section } from "./sections";
 
 /** The widget sends ?lang= (its own language); otherwise Accept-Language, both within the board's languages. */
@@ -34,15 +34,21 @@ export type WidgetRead =
  * Shared start of every widget GET: project, language, CORS, and the person from `Authorization: Bearer <SSO token>`
  * when a trusted origin sends one. Private boards (ideas not public) answer only to a signed-in person.
  */
-export async function widgetRead(req: NextRequest, slug: string, section?: Section): Promise<WidgetRead> {
+export async function widgetRead(req: NextRequest, slug: string, section?: Section, opts: { write?: boolean } = {}): Promise<WidgetRead> {
   const project = await projectFor(slug);
   const locale = widgetLocale(project, req);
   const t = translator(locale, "widget");
   if (!project) return { ok: false, res: Response.json({ error: t("noProject") }, { status: 404, headers: { "access-control-allow-origin": "*" } }) };
-  const { headers } = readCors(project.allowedOrigins, ownOrigins(project, req), req.headers.get("origin"));
+  const origin = req.headers.get("origin");
+  const own = ownOrigins(project, req);
+  const { headers, trusted } = readCors(project.allowedOrigins, own, origin);
+  // Writes (vote) from an origin that is not allowed stop here, before the token upserts anyone (role included).
+  if (opts.write && !writeAllowed(project.allowedOrigins, own, origin)) return { ok: false, res: Response.json({ error: t("origin") }, { status: 403, headers }) };
   // A section the project switched off answers like a missing page (embeds then render nothing).
   if (section && !sectionOn(project, section)) return { ok: false, res: Response.json({ error: t("sectionOff"), sectionOff: true }, { status: 404, headers }) };
-  const token = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "") ?? "";
+  // Only trusted origins may sign someone in: from any other site the token is ignored (public data only; the
+  // browser's preflight for Authorization fails there anyway), so it never upserts the person.
+  const token = trusted ? req.headers.get("authorization")?.replace(/^Bearer\s+/i, "") ?? "" : "";
   let user: User | null = null;
   if (token) {
     try {

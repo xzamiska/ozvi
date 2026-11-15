@@ -5,8 +5,8 @@ import { translator } from "@/i18n/messages";
 import { isBlocked } from "@/lib/moderation-rules";
 import { allow, RateLimitError } from "@/lib/ratelimit";
 import { applyVote, budgetLeft } from "@/lib/votes";
-import { parseVote, writeAllowed } from "@/lib/widget-rules";
-import { ownOrigins, readProject, widgetPreflight, widgetRead } from "@/lib/widget-api";
+import { parseVote } from "@/lib/widget-rules";
+import { readProject, widgetPreflight, widgetRead } from "@/lib/widget-api";
 
 type P = { params: Promise<{ project: string }> };
 
@@ -19,12 +19,12 @@ export async function OPTIONS(req: NextRequest, { params }: P) {
  * weight from the vote mode and guards the budget). weight 0 removes the vote. Voting never subscribes.
  */
 export async function POST(req: NextRequest, { params }: P) {
-  const r = await widgetRead(req, (await params).project, "ideas");
+  // The origin check comes first (inside widgetRead), before the token upserts the person.
+  const r = await widgetRead(req, (await params).project, "ideas", { write: true });
   if (!r.ok) return r.res;
   const { project, user, locale, json } = r;
   const te = translator(locale, "errors");
   const tw = translator(locale, "widget");
-  if (!writeAllowed(project.allowedOrigins, ownOrigins(project, req), req.headers.get("origin"))) return json({ error: tw("origin") }, 403);
   if (!user) return json({ error: te("signIn") }, 401);
   if (isBlocked(user)) return json({ error: te("blocked") }, 403);
   if (!allow("vote", user.id)) return json({ error: new RateLimitError(locale).message }, 429);
