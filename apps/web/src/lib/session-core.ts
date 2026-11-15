@@ -41,9 +41,19 @@ export function decodeSession(value: string | undefined, now = Date.now()): Sess
 }
 
 
-/** Only same-project relative paths; blocks //evil.com and backslash tricks. */
+/**
+ * Only same-project relative paths; blocks //evil.com, backslash tricks and dot segments that leave the board
+ * (/billiwo/../app, also percent-encoded as %2e%2e). The path is resolved like a browser would and must stay
+ * under /<slug>/; the resolved form is returned.
+ */
 export function safeReturn(slug: string, ret: string | null | undefined): string {
   const fallback = `/${slug}`;
   if (!ret || !ret.startsWith(`/${slug}/`) || ret.startsWith("//") || ret.includes("\\")) return fallback;
-  return ret;
+  // Encoded slashes and backslashes could become separators after some proxy decodes them; control characters never belong here.
+  if (/%(2f|5c)/i.test(ret.split(/[?#]/)[0]!) || /[\u0000-\u001f\u007f]/.test(ret)) return fallback;
+  let u: URL;
+  try { u = new URL(ret, "http://ozvi.invalid"); } catch { return fallback; }
+  // The WHATWG parser resolves ".", "..", "%2e" and ".%2E" segments.
+  if (u.origin !== "http://ozvi.invalid" || !u.pathname.startsWith(`/${slug}/`)) return fallback;
+  return u.pathname + u.search + u.hash;
 }

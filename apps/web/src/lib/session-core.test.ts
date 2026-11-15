@@ -26,5 +26,16 @@ describe("safeReturn", () => {
     ["/apinido/ideas", "/billiwo"],
     ["/billiwo/\\evil.com", "/billiwo"],
     [null, "/billiwo"],
+    ["/billiwo/../app/login", "/billiwo"],
+    ["/billiwo/ideas/../../app", "/billiwo"],
+    ["/billiwo/%2e%2e/app/login", "/billiwo"],
+    ["/billiwo/.%2E/app/login", "/billiwo"],
+    ["/billiwo/%2E%2e/%2e%2e/evil", "/billiwo"],
+    ["/billiwo/..%2fapp", "/billiwo"],
+    ["/billiwo/..%5capp", "/billiwo"],
+    ["/billiwo/..", "/billiwo"],
+    ["/billiwo/ideas/../roadmap", "/billiwo/roadmap"],
+    ["/billiwo/./i/4?tab=a#c", "/billiwo/i/4?tab=a#c"],
+    ["/billiwo/search?q=a%2Fb", "/billiwo/search?q=a%2Fb"],
   ])("%s → %s", (input, out) => expect(safeReturn("billiwo", input)).toBe(out));
 });
