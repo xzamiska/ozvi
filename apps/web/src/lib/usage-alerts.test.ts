@@ -54,5 +54,6 @@ describe("usage alerts (DB)", () => {
     await addTranslations(100);
     await usageAlertsTick(db, { send });
     expect(mine().map((m) => m.kind)).toEqual(["usage-translations-80", "usage-translations-100"]);
-  });
+    // Each tick scans every workspace in the shared test database, which grows with the other suites.
+  }, 30_000);
 });
