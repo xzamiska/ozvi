@@ -1,16 +1,29 @@
 import { decryptSecret, schema, withProject } from "@ozvi/db";
 import { and, eq, sql } from "drizzle-orm";
-import { verifyOzviToken, type OzviClaims } from "@ozvi/sdk";
+import { OzviTokenError, verifyOzviToken, type OzviClaims } from "@ozvi/sdk";
 import { boardLocales } from "@/i18n/board";
 import { isLocale } from "@/i18n/locales";
 import type { Project } from "./project";
 import { cleanTraits } from "./traits";
 import { db } from "./db";
 
+/** Longest token lifetime (exp − iat) the server accepts. signOzviToken mints 10 minutes by default. */
+export const MAX_TOKEN_LIFETIME = 60 * 60;
+
+/**
+ * A leaked long-lived token would sign its holder in for as long as it says, so tokens must carry `iat` and
+ * live at most MAX_TOKEN_LIFETIME seconds. Tokens are minted per page load; nobody needs more.
+ */
+export function tokenLifetimeOk(claims: { iat?: unknown; exp?: unknown }): boolean {
+  const { iat, exp } = claims;
+  return typeof iat === "number" && Number.isFinite(iat) && typeof exp === "number" && exp >= iat && exp - iat <= MAX_TOKEN_LIFETIME;
+}
+
 /** Verifies a host-app token for a project and upserts the user. Throws OzviTokenError on bad tokens. */
 export async function userFromToken(project: Project, token: string) {
   if (!project.ssoSecretEnc) throw new Error("SSO is not configured for this project");
   const claims: OzviClaims = verifyOzviToken(token, decryptSecret(project.ssoSecretEnc));
+  if (!tokenLifetimeOk(claims)) throw new OzviTokenError("claims");
   // "email:" ids belong to e-mail sign-in and workspace owners; a host app must not be able to claim them
   // (an app account opened with someone else's address would take over their board account). The one
   // exception is Ozvi's own board: its tokens come from the console, for an address the console verified.

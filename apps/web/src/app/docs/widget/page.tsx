@@ -70,7 +70,7 @@ function ozvi_token(array $user, ?string $secret = null): string {
           . $b64(json_encode($user + ['iat' => $now, 'exp' => $now + 600], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
     return $body . '.' . $b64(hash_hmac('sha256', $body, $secret, true));
 }`} />
-      <Note title="Keep it short-lived">Ozvi accepts a token only with the right secret and before <code>exp</code>. Ten minutes is plenty: the widget asks your endpoint for a fresh one whenever it needs it. Tokens carry your users&apos; e-mails, so don&apos;t paste them into online decoders.</Note>
+      <Note title="Keep it short-lived">Ozvi accepts a token only with the right secret, before <code>exp</code>, and with an <code>iat</code> at most an hour before <code>exp</code> (longer-lived tokens are refused). Ten minutes is plenty: the widget asks your endpoint for a fresh one whenever it needs it. Tokens carry your users&apos; e-mails, so don&apos;t paste them into online decoders.</Note>
 
       <h2 id="captures">What a bug report captures</h2>
       <p>Everything is kept in memory only, masked in the browser before it is kept, and leaves the page only when the person sends a report. The network log, steps and session links are visible to your team only; the Ozvi server masks and bounds them again.</p>

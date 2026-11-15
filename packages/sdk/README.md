@@ -17,8 +17,8 @@ const token = signOzviToken(
 );
 ```
 
-- `id` (required) is the person's stable id in your app; `role` can be `member` (default), `team` or `admin`; `locale` sets the board language.
-- Tokens live 10 minutes by default (`{ expiresIn }` in seconds); the widget asks for a fresh one when it needs it.
+- `id` (required) is the person's stable id in your app; `role` can be `member` (default), `team` or `admin`; `locale` (`sk`, `cs`, `en`, `pl`, `hu` or `de`) sets the board language when the board offers it.
+- Tokens live 10 minutes by default (`{ expiresIn }` in seconds); the widget asks for a fresh one when it needs it. Ozvi refuses tokens that live longer than an hour (`exp` − `iat` > 3600) or carry no `iat`.
 - `verifyOzviToken(token, secret)` checks a token the way Ozvi does, handy in tests.
 
 The token is a standard HS256 JWT, so any language can make one without this package: see [Sign people in](https://ozvi.io/docs/widget#sign-in) for Python and PHP.

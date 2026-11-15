@@ -1,5 +1,6 @@
+import { createHmac } from "node:crypto";
 import { createDb, encryptSecret, schema, withSystem } from "@ozvi/db";
-import { signOzviToken } from "@ozvi/sdk";
+import { OzviTokenError, signOzviToken } from "@ozvi/sdk";
 import { presets } from "@ozvi/theme";
 import { beforeAll, describe, expect, it } from "vitest";
 
@@ -7,7 +8,7 @@ process.env.OZVI_SESSION_SECRET ??= "test-session-secret-0123456789abcdef";
 process.env.OZVI_SECRET_KEY ??= "test-secret-key-0123456789abcdef-xyz";
 process.env.DATABASE_URL ??= "postgres://ozvi:ozvi@localhost:5446/ozvi";
 
-const { userFromToken } = await import("./sso");
+const { tokenLifetimeOk, userFromToken } = await import("./sso");
 const db = createDb();
 const secret = "sso-link-secret-0123456789abcdef-0123456789";
 const slug = `ssol-${Date.now().toString(36)}`;
@@ -43,5 +44,34 @@ describe("joining accounts by e-mail (SSO ↔ e-mail sign-in)", () => {
   it("someone the app already signed in keeps their own account", async () => {
     const u = await userFromToken(project, signOzviToken({ id: "app-1", email: "reader@example.com", emailVerified: true }, secret));
     expect(u.id).not.toBe(reader);
+  });
+});
+
+describe("token lifetime", () => {
+  const sign = (claims: Record<string, unknown>) => {
+    const b = (x: unknown) => Buffer.from(JSON.stringify(x)).toString("base64url");
+    const body = `${b({ alg: "HS256", typ: "JWT" })}.${b(claims)}`;
+    return `${body}.${createHmac("sha256", secret).update(body).digest("base64url")}`;
+  };
+  const now = Math.floor(Date.now() / 1000);
+
+  it("tokenLifetimeOk: at most an hour, iat required", () => {
+    expect(tokenLifetimeOk({ iat: now, exp: now + 600 })).toBe(true);
+    expect(tokenLifetimeOk({ iat: now, exp: now + 3600 })).toBe(true);
+    expect(tokenLifetimeOk({ iat: now, exp: now + 3601 })).toBe(false);
+    expect(tokenLifetimeOk({ exp: now + 60 })).toBe(false);
+    expect(tokenLifetimeOk({ iat: "x", exp: now + 60 })).toBe(false);
+    expect(tokenLifetimeOk({ iat: now, exp: now - 10 })).toBe(false);
+  });
+
+  it("the SDK's default token (10 min) and an hour-long one pass", async () => {
+    expect((await userFromToken(project, signOzviToken({ id: "life-1" }, secret))).externalId).toBe("life-1");
+    expect((await userFromToken(project, signOzviToken({ id: "life-2" }, secret, { expiresIn: 3600 }))).externalId).toBe("life-2");
+  });
+
+  it("a longer-lived token or one without iat is refused (the ssoFailed path)", async () => {
+    await expect(userFromToken(project, signOzviToken({ id: "life-3" }, secret, { expiresIn: 3601 }))).rejects.toMatchObject({ reason: "claims" });
+    await expect(userFromToken(project, sign({ id: "life-4", exp: now + 60 }))).rejects.toBeInstanceOf(OzviTokenError);
+    await expect(userFromToken(project, sign({ id: "life-5", iat: now, exp: now + 60 * 60 * 24 * 365 }))).rejects.toBeInstanceOf(OzviTokenError);
   });
 });

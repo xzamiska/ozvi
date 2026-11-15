@@ -8,9 +8,14 @@ import { createHmac, timingSafeEqual } from "node:crypto";
  *                                 locale: "en", traits: { company: "Acme", plan: "pro", mrr: 2900 } }, process.env.OZVI_SSO_SECRET!);
  *   // pass it to the widget: <ozvi-widget sso-token="...">  or  https://feedback.example.com/sso?token=...
  *
- * `locale` (optional) forces the board language for this user ("sk" | "cs" | "en"), so the board
- * matches your app. Ignored when the board does not have that language enabled.
+ * `locale` (optional) forces the board language for this user ("sk" | "cs" | "en" | "pl" | "hu" | "de"), so the
+ * board matches your app. Ignored when the board does not have that language enabled.
+ *
+ * Ozvi refuses tokens without `iat` or living longer than an hour (`exp` − `iat` > 3600); the default is 10 minutes.
  */
+
+/** Board languages a token may ask for (the board must have the language switched on). */
+export type OzviLocale = "sk" | "cs" | "en" | "pl" | "hu" | "de";
 
 export interface OzviUser {
   /** Stable id in YOUR system. Ozvi keys the user on (project, id), never on e-mail alone. */
@@ -27,8 +32,8 @@ export interface OzviUser {
   avatarUrl?: string;
   /** "team" can triage and write internal notes, "admin" can also change settings. Defaults to "member". */
   role?: "member" | "team" | "admin";
-  /** UI language on the board and in e-mails: "sk", "cs" or "en". Omit to let the browser decide. */
-  locale?: "sk" | "cs" | "en";
+  /** UI language on the board and in e-mails; honoured only when the board offers it. Omit to let the browser decide. */
+  locale?: OzviLocale;
   /**
    * Customer data shown only to your team (item page "who wants it", ideas sorted by MRR, plan filter, MCP for
    * triage tokens). Known names: `company`, `companyId` (people with the same id count as one company),
@@ -55,7 +60,7 @@ export interface OzviClaims extends OzviUser {
 }
 
 export interface SignOptions {
-  /** Token lifetime in seconds. Short by default — tokens are minted per page load. */
+  /** Token lifetime in seconds, 600 by default (tokens are minted per page load). Ozvi refuses more than 3600. */
   expiresIn?: number;
   now?: () => number;
 }

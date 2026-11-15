@@ -19,7 +19,11 @@ const token = signOzviToken(
 );
 ```
 
-Token platí 10 minút — vyrábajte ho pri každom otvorení spätnej väzby, nie raz pri logine.
+Token platí 10 minút — vyrábajte ho pri každom otvorení spätnej väzby, nie raz pri logine. Ozvi odmietne token bez
+`iat` alebo s dlhšou platnosťou ako hodina (`exp` − `iat` > 3600 s); prihlásenie potom zlyhá ako pri neplatnom tokene.
+
+Voliteľný `locale` (`sk`, `cs`, `en`, `pl`, `hu`, `de`) nastaví používateľovi jazyk boardu, ak ho board ponúka;
+inak ho ignorujeme.
 
 ### Údaje o zákazníkovi (`traits`)
 
@@ -47,7 +51,8 @@ znakov. Token bez `traits` ponechá uložené údaje; prázdny objekt `{}` ich z
 | Nahlásiť chybu s kontextom | `…/sso?token=…&return=/billiwo/new%3Fkind%3Dbug%26url%3D%2Finvoices%2F12%26v%3D2.15.0` |
 | Moje hlásenia | `…/sso?token=…&return=/billiwo/bugs` |
 
-`return` musí začínať `/<projekt>/`; čokoľvek iné sa presmeruje na nápady (ochrana proti open redirect).
+`return` musí začínať `/<projekt>/` a po vyhodnotení `..` (aj `%2e%2e`) musí zostať pod `/<projekt>/`; čokoľvek iné
+presmeruje na úvod boardu `/<projekt>` (ochrana proti open redirect).
 
 ## 3. Návrat z prihlásenia
 
