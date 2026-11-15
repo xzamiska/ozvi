@@ -27,7 +27,9 @@ test.describe("console sign-in and first project", () => {
     expect((await request.get(link!)).status()).toBe(200);
     await page.goto(link!);
     await page.getByRole("button", { name: "Prihlásiť sa" }).click();
-    await page.waitForURL((u) => !u.pathname.startsWith("/app/login"));
+    // A new account ends on /app/new (after /app redirects); wait for it so the next visit doesn't race it.
+    await page.waitForURL(/\/app\/new/);
+    await page.waitForLoadState("load");
     // Used once: a second visit says it is no longer valid.
     await page.goto(link!);
     await expect(page.getByText("Odkaz už neplatí")).toBeVisible();
