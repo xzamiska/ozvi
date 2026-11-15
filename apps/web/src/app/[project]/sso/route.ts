@@ -51,8 +51,12 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ proj
     } catch { return false; }
   })();
   const sameUser = current && current.p === project.id && current.u === user.id;
-  if (crossSite && !fromApp && !sameUser && url.searchParams.get("confirm") !== "1") {
-    const next = new URL(url); next.searchParams.set("confirm", "1");
+  // No `confirm=1` bypass: anyone can add that to a link. The interstitial's own "continue" link is clicked on
+  // our page, so the browser sends `Sec-Fetch-Site: same-origin` and it is no longer cross-site; that header is
+  // set by the browser and cannot be forged by a page. Browsers without Sec-Fetch-Site never see the
+  // interstitial at all (crossSite is false), so a signed nonce would protect nothing extra.
+  if (crossSite && !fromApp && !sameUser) {
+    const next = new URL(url);
     const back = safeReturn(slug, null);
     const who = user.name ?? user.email ?? t("otherUser");
     const signedIn = !!current && current.p === project.id;
