@@ -220,6 +220,23 @@ export async function notifyNewBug(tx: Tx, project: Project, item: Item) {
 }
 
 /** One e-mail per person who wrote, voted for or commented on any idea in a published changelog entry. */
+/**
+ * The changelog mail for one person: the entry and the ideas of theirs it ships. `reason` sets the footer:
+ * "voted" when they only voted (voting does not subscribe), "follow" when they wrote or discussed one.
+ */
+export const changelogMail = (t: EmailT, entry: { title: string; body: string; url: string }, theirs: Pick<Item, "title">[], reason: "follow" | "voted"): Mail => ({
+  subject: t("changelogSubject", { title: entry.title }),
+  summary: t("changelogSummary", { title: entry.title, ideas: theirs.map((x) => x.title).join(", ") }),
+  heading: entry.title,
+  paragraphs: [theirs.length === 1
+    ? t("changelogOne", { title: theirs[0]!.title })
+    : t("changelogMany", { titles: theirs.map((x) => t("quoted", { title: x.title })).join(", ") })],
+  quote: entry.body ? entry.body.slice(0, 1500) : undefined,
+  quoteHeadings: true,
+  cta: { label: t("viewChangelog"), href: entry.url },
+  reason,
+});
+
 export async function notifyChangelog(
   tx: Tx, project: Project, entry: { title: string; body: string; url: string }, ideas: Item[], actorId: string | null,
 ) {
@@ -227,31 +244,26 @@ export async function notifyChangelog(
   const ids = ideas.map((i) => i.id);
   const voterRows = await tx.select({ id: votes.userId, itemId: votes.itemId }).from(votes).where(inArray(votes.itemId, ids));
   const mine = new Map<string, Item[]>();
-  const add = (userId: string, itemId: string) => {
+  // Authors and commenters follow their ideas; everyone else here only voted.
+  const following = new Set<string>();
+  const add = (userId: string, itemId: string, follows = false) => {
     if (userId === actorId) return;
     const it = ideas.find((i) => i.id === itemId)!;
     const list = mine.get(userId) ?? [];
     if (!list.includes(it)) list.push(it);
     mine.set(userId, list);
+    if (follows) following.add(userId);
   };
   for (const v of voterRows) add(v.id, v.itemId);
   const talkers = await tx.selectDistinct({ id: comments.authorId, itemId: comments.itemId }).from(comments)
     .where(and(inArray(comments.itemId, ids), eq(comments.internal, false), eq(comments.pending, false)));
-  for (const t of talkers) if (t.id) add(t.id, t.itemId);
-  for (const i of ideas) if (i.authorId) add(i.authorId, i.id);
+  for (const t of talkers) if (t.id) add(t.id, t.itemId, true);
+  for (const i of ideas) if (i.authorId) add(i.authorId, i.id, true);
   let n = 0;
   for (const [userId, theirs] of mine) {
     n += await enqueue(tx, project, "changelog", [userId], (t) => ({
-      subject: t("changelogSubject", { title: entry.title }),
-      summary: t("changelogSummary", { title: entry.title, ideas: theirs.map((x) => x.title).join(", ") }),
-      heading: entry.title,
-      paragraphs: [theirs.length === 1
-        ? t("changelogOne", { title: theirs[0]!.title })
-        : t("changelogMany", { titles: theirs.map((x) => t("quoted", { title: x.title })).join(", ") })],
-      quote: entry.body ? entry.body.slice(0, 1500) : undefined,
-      quoteHeadings: true,
+      ...changelogMail(t, entry, theirs, following.has(userId) ? "follow" : "voted"),
       quoteBase: quoteBase(project),
-      cta: { label: t("viewChangelog"), href: entry.url },
     }));
   }
   return n;

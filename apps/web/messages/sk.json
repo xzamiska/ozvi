@@ -1080,9 +1080,11 @@
       "eraseList": [
         "Zmažeme vaše hlasy, komentáre a hlásenia chýb aj s prílohami.",
         "Zmažeme záznamy o e-mailoch, ktoré sme vám poslali, a odhlásime vás.",
-        "Nápady, za ktoré hlasovali aj iní, zostanú, ale bez vášho mena.",
+        "Vaše nápady zostanú na boarde aj s textom a hlasmi, ale bez vášho mena.",
         "Vrátiť sa to nedá. Ak si chcete niečo nechať, najprv si údaje stiahnite."
-      ]
+      ],
+      "exportFile": "moje-udaje",
+      "erased": "Vaše údaje sú zmazané a ste odhlásení. Vaše nápady zostali na boarde bez vášho mena."
     },
     "pendingBadge": "Čaká na schválenie",
     "paging": {
@@ -1621,6 +1623,7 @@
   },
   "email": {
     "footer": "Tento e-mail ste dostali od {project}, lebo sledujete tento záznam.",
+    "footerVoted": "Tento e-mail ste dostali od {project}, lebo ste hlasovali za nápad z tejto novinky.",
     "unsubscribe": "Odhlásiť sa z e-mailov",
     "bugFixedSubject": "Opravené: {title}",
     "bugMineSummary": "Vaše hlásenie „{title}“ je teraz: {label}.",
@@ -1872,7 +1875,7 @@
     "team": {
       "statusToast": "Stav: {s}",
       "notifyBug": "Autor hlásenia dostane e-mail.",
-      "notifyIdea": "Autor a hlasujúci dostanú e-mail.",
+      "notifyIdea": "Autor a ľudia z diskusie dostanú e-mail. Hlasujúci sa to dozvedia zo zverejnenej novinky.",
       "status": "Stav",
       "now": "teraz",
       "fixedIn": "Opravené vo verzii",
@@ -1929,7 +1932,7 @@
     "privacy": {
       "eraseOpen": "Zmazať moje údaje…",
       "eraseTitle": "Natrvalo zmazať vaše údaje?",
-      "eraseText": "Zmažeme vaše hlasy, komentáre, hlásenia chýb aj s prílohami a e-maily a odhlásime vás. Nápady, za ktoré hlasovali iní, zostanú bez mena autora. Vrátiť sa to nedá.",
+      "eraseText": "Zmažeme vaše hlasy, komentáre, hlásenia chýb aj s prílohami a e-maily a odhlásime vás. Vaše nápady zostanú na boarde bez vášho mena. Vrátiť sa to nedá.",
       "deleting": "Mažem…",
       "erase": "Zmazať moje údaje",
       "deleteOpen": "Zmazať projekt…",
@@ -3225,7 +3228,7 @@
       "open": "Ostatní môžu hlasovať a doplniť, ako by im to pomohlo.",
       "planned": "Tím s tým počíta v najbližších vydaniach.",
       "in_progress": "Tím na tom práve pracuje.",
-      "shipped": "Je to vonku. Hlasujúci dostali e-mail.",
+      "shipped": "Je to vonku. Hlasujúcim o tom dá vedieť zverejnená novinka.",
       "new": "Hlásenie prišlo. Vidíte ho len vy a tím.",
       "confirmed": "Chybu sme zopakovali a zaradili.",
       "fixed": "Oprava je vo vydaní. Dáme vám vedieť, nech to overíte.",
@@ -3236,7 +3239,7 @@
     "next": {
       "planned": "Tím zváži, či s nápadom počíta v najbližších vydaniach.",
       "in_progress": "Tím sa do toho pustí.",
-      "shipped": "Keď to vydáme, hlasujúci dostanú e-mail.",
+      "shipped": "Keď to vydáme a napíšeme o tom novinku, hlasujúci dostanú e-mail.",
       "confirmed": "Tím chybu zopakuje a zaradí.",
       "fixed": "Oprava príde v niektorom z najbližších vydaní.",
       "verified": "Autor potvrdí, že oprava funguje, a hlásenie sa uzavrie."
@@ -3308,6 +3311,8 @@
     "rejectedTitle": "Tento nápad tím nezverejnil",
     "rejectedText": "Nápad „{title}“ ostáva skrytý. Ak máte otázku, napíšte tímu.",
     "rejectedReason": "Správa od tímu",
+    "removedTitle": "{kind, select, bug {Toto hlásenie tím zmazal} other {Tento nápad tím zmazal}}",
+    "removedText": "{kind, select, bug {Hlásenie} other {Nápad}} „{title}“ už na boarde nie je. Ak máte otázku, napíšte tímu.",
     "deletedTeamTitle": "Zmazané.",
     "rejectedTeamTitle": "Zamietnuté.",
     "deletedMeta": "{who}, {when}. Ostatní ho nevidia.",
@@ -3836,7 +3841,7 @@
     },
     "rights": {
       "myData": "Moje údaje",
-      "self": "Na boarde v časti „{myData}“ ({url}) si môžete všetky svoje údaje stiahnuť alebo ich sami vymazať. Vymazanie odstráni vaše hlasy, komentáre a hlásenia chýb aj s prílohami; nápady, za ktoré hlasovali iní, zostanú na boarde bez vášho mena.",
+      "self": "Na boarde v časti „{myData}“ ({url}) si môžete všetky svoje údaje stiahnuť alebo ich sami vymazať. Vymazanie odstráni vaše hlasy, komentáre a hlásenia chýb aj s prílohami; vaše nápady zostanú na boarde bez vášho mena.",
       "unsubscribe": "E-maily vypnete odkazom v pätičke každého z nich alebo v časti „{myData}“.",
       "other": "S požiadavkou na prístup, opravu, obmedzenie, námietkou alebo inou žiadosťou sa obráťte na [kontaktný e-mail]. Máte aj právo podať sťažnosť dozornému orgánu."
     },

@@ -38,7 +38,7 @@ const FILTERS = {
 
 export default async function Ideas({ params, searchParams }: {
   params: Promise<{ project: string }>;
-  searchParams: Promise<{ sort?: string; f?: string; q?: string; plan?: string; p?: string; tag?: string }>;
+  searchParams: Promise<{ sort?: string; f?: string; q?: string; plan?: string; p?: string; tag?: string; erased?: string }>;
 }) {
   const { project: slug } = await params;
   const sp = await searchParams;
@@ -101,6 +101,10 @@ export default async function Ideas({ params, searchParams }: {
             </>
           : login ? <Button asChild size="lg" variant="outline"><a href={login}>{t("signInToSuggest")}</a></Button> : null}
       />
+      {/* After "Moje údaje" → erase (lib/privacy-actions.ts): the person is signed out and lands here. */}
+      {sp.erased === "1" && !user && (
+        <p role="status" className="mb-8 rounded-lg border border-st-done/40 bg-st-done/8 px-4 py-3 text-[14.5px] font-medium">{tb("me.erased")}</p>
+      )}
 
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="min-w-0">

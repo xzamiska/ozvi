@@ -1080,9 +1080,11 @@
       "eraseList": [
         "Usuniemy twoje głosy, komentarze i zgłoszenia błędów, łącznie z załącznikami.",
         "Usuniemy zapisy e-maili, które do ciebie wysłaliśmy, i wylogujemy cię.",
-        "Pomysły, na które głosowali inni, zostaną, ale bez twojego imienia.",
+        "Twoje pomysły zostaną na tablicy wraz z treścią i głosami, ale bez twojego imienia.",
         "Tej operacji nie można cofnąć. Jeśli chcesz coś zachować, najpierw pobierz swoje dane."
-      ]
+      ],
+      "exportFile": "moje-dane",
+      "erased": "Twoje dane zostały usunięte, a ty wylogowany. Twoje pomysły zostały na tablicy bez twojego imienia."
     },
     "pendingBadge": "Czeka na zatwierdzenie",
     "paging": {
@@ -1621,6 +1623,7 @@
   },
   "email": {
     "footer": "Otrzymujesz tę wiadomość od {project}, ponieważ obserwujesz ten wpis.",
+    "footerVoted": "Otrzymujesz tę wiadomość od {project}, ponieważ głosowałeś na pomysł z tej nowości.",
     "unsubscribe": "Wypisz się z e-maili",
     "bugFixedSubject": "Naprawione: {title}",
     "bugMineSummary": "Twoje zgłoszenie „{title}” ma teraz status: {label}.",
@@ -1872,7 +1875,7 @@
     "team": {
       "statusToast": "Status: {s}",
       "notifyBug": "Zgłaszający dostanie e-mail.",
-      "notifyIdea": "Autor i głosujący dostaną e-mail.",
+      "notifyIdea": "Autor i uczestnicy dyskusji dostaną e-mail. Głosujący dowiedzą się o tym z opublikowanej nowości.",
       "status": "Status",
       "now": "teraz",
       "fixedIn": "Naprawione w wersji",
@@ -1929,7 +1932,7 @@
     "privacy": {
       "eraseOpen": "Usuń moje dane…",
       "eraseTitle": "Trwale usunąć twoje dane?",
-      "eraseText": "Usuniemy twoje głosy, komentarze, zgłoszenia błędów z załącznikami oraz e-maile i wylogujemy cię. Pomysły, na które głosowali inni, zostaną, ale bez nazwiska autora. Tej operacji nie można cofnąć.",
+      "eraseText": "Usuniemy twoje głosy, komentarze, zgłoszenia błędów z załącznikami oraz e-maile i wylogujemy cię. Twoje pomysły zostaną na tablicy bez twojego imienia. Tej operacji nie można cofnąć.",
       "deleting": "Usuwanie…",
       "erase": "Usuń moje dane",
       "deleteOpen": "Usuń projekt…",
@@ -3225,7 +3228,7 @@
       "open": "Inni mogą głosować i dopisać, jak by im to pomogło.",
       "planned": "Zespół planuje to w jednym z najbliższych wydań.",
       "in_progress": "Zespół właśnie nad tym pracuje.",
-      "shipped": "Już jest. Wszyscy głosujący dostali e-mail.",
+      "shipped": "Już jest. Głosujący dowiedzą się o tym z opublikowanej nowości.",
       "new": "Zgłoszenie dotarło. Widzisz je tylko ty i zespół.",
       "confirmed": "Odtworzyliśmy błąd i dodaliśmy go do kolejki.",
       "fixed": "Poprawka jest już w wydaniu. Damy ci znać – sprawdzisz wtedy, czy działa.",
@@ -3236,7 +3239,7 @@
     "next": {
       "planned": "Zespół zdecyduje, czy zaplanować to w jednym z najbliższych wydań.",
       "in_progress": "Zespół zacznie nad tym pracować.",
-      "shipped": "Gdy tylko to wdrożymy, wszyscy głosujący dostaną e-mail.",
+      "shipped": "Gdy to wdrożymy i opublikujemy o tym nowość, wszyscy głosujący dostaną e-mail.",
       "confirmed": "Zespół odtworzy błąd i doda go do kolejki.",
       "fixed": "Poprawka trafi do jednego z najbliższych wydań.",
       "verified": "Zgłaszający potwierdzi, że poprawka działa, a zgłoszenie zostanie zamknięte."
@@ -3308,6 +3311,8 @@
     "rejectedTitle": "Zespół nie opublikował tego pomysłu",
     "rejectedText": "Pomysł „{title}” pozostaje ukryty. Jeśli masz pytania, skontaktuj się z zespołem.",
     "rejectedReason": "Wiadomość od zespołu",
+    "removedTitle": "{kind, select, bug {Zespół usunął to zgłoszenie} other {Zespół usunął ten pomysł}}",
+    "removedText": "{kind, select, bug {Zgłoszenia} other {Pomysłu}} „{title}” nie ma już na tablicy. Jeśli masz pytania, skontaktuj się z zespołem.",
     "deletedTeamTitle": "Usunięto.",
     "rejectedTeamTitle": "Odrzucono.",
     "deletedMeta": "{who}, {when}. Nikt inny tego nie widzi.",
@@ -3836,7 +3841,7 @@
     },
     "rights": {
       "myData": "Moje dane",
-      "self": "Na tablicy w sekcji „{myData}” ({url}) możesz pobrać wszystkie swoje dane albo samodzielnie je usunąć. Usunięcie kasuje Twoje głosy, komentarze i zgłoszenia błędów wraz z załącznikami; pomysły, na które głosowali inni, zostają na tablicy bez Twojego imienia.",
+      "self": "Na tablicy w sekcji „{myData}” ({url}) możesz pobrać wszystkie swoje dane albo samodzielnie je usunąć. Usunięcie kasuje Twoje głosy, komentarze i zgłoszenia błędów wraz z załącznikami; Twoje pomysły zostają na tablicy bez Twojego imienia.",
       "unsubscribe": "E-maile wyłączysz linkiem w stopce każdego z nich albo w sekcji „{myData}”.",
       "other": "W sprawie dostępu, sprostowania, ograniczenia, sprzeciwu lub innego żądania skontaktuj się z nami pod adresem [kontaktowy e-mail]. Masz też prawo wnieść skargę do organu nadzorczego."
     },

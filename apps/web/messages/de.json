@@ -1080,9 +1080,11 @@
       "eraseList": [
         "Wir löschen Ihre Stimmen, Kommentare und Fehlermeldungen einschließlich der Anhänge.",
         "Wir löschen die Aufzeichnungen über E-Mails, die wir Ihnen gesendet haben, und melden Sie ab.",
-        "Ideen, für die andere abgestimmt haben, bleiben erhalten, aber ohne Ihren Namen.",
+        "Ihre Ideen bleiben mit Text und Stimmen auf dem Board, aber ohne Ihren Namen.",
         "Das lässt sich nicht rückgängig machen. Wenn Sie etwas behalten möchten, laden Sie Ihre Daten zuerst herunter."
-      ]
+      ],
+      "exportFile": "meine-daten",
+      "erased": "Ihre Daten wurden gelöscht und Sie sind abgemeldet. Ihre Ideen bleiben ohne Ihren Namen auf dem Board."
     },
     "pendingBadge": "Wartet auf Freigabe",
     "paging": {
@@ -1621,6 +1623,7 @@
   },
   "email": {
     "footer": "Sie erhalten diese E-Mail von {project}, weil Sie diesem Beitrag folgen.",
+    "footerVoted": "Sie erhalten diese E-Mail von {project}, weil Sie für eine Idee aus dieser Neuigkeit abgestimmt haben.",
     "unsubscribe": "E-Mails abbestellen",
     "bugFixedSubject": "Behoben: {title}",
     "bugMineSummary": "Ihre Meldung „{title}“ hat jetzt den Status: {label}.",
@@ -1872,7 +1875,7 @@
     "team": {
       "statusToast": "Status: {s}",
       "notifyBug": "Die meldende Person erhält eine E-Mail.",
-      "notifyIdea": "Die verfassende Person und alle Abstimmenden erhalten eine E-Mail.",
+      "notifyIdea": "Die verfassende Person und alle aus der Diskussion erhalten eine E-Mail. Abstimmende erfahren es aus einer veröffentlichten Neuigkeit.",
       "status": "Status",
       "now": "jetzt",
       "fixedIn": "Behoben in Version",
@@ -1929,7 +1932,7 @@
     "privacy": {
       "eraseOpen": "Meine Daten löschen …",
       "eraseTitle": "Ihre Daten dauerhaft löschen?",
-      "eraseText": "Wir löschen Ihre Stimmen, Kommentare, Fehlermeldungen samt Anhängen und E-Mails und melden Sie ab. Ideen, für die andere abgestimmt haben, bleiben erhalten, aber ohne den Namen der verfassenden Person. Das lässt sich nicht rückgängig machen.",
+      "eraseText": "Wir löschen Ihre Stimmen, Kommentare, Fehlermeldungen samt Anhängen und E-Mails und melden Sie ab. Ihre Ideen bleiben ohne Ihren Namen auf dem Board. Das lässt sich nicht rückgängig machen.",
       "deleting": "Wird gelöscht …",
       "erase": "Meine Daten löschen",
       "deleteOpen": "Projekt löschen …",
@@ -3225,7 +3228,7 @@
       "open": "Andere können abstimmen und ergänzen, wie es ihnen helfen würde.",
       "planned": "Das Team plant es für ein kommendes Release.",
       "in_progress": "Das Team arbeitet gerade daran.",
-      "shipped": "Es ist umgesetzt. Alle, die abgestimmt haben, wurden per E-Mail informiert.",
+      "shipped": "Es ist umgesetzt. Abstimmende erfahren es aus einer veröffentlichten Neuigkeit.",
       "new": "Meldung eingegangen. Nur Sie und das Team können sie sehen.",
       "confirmed": "Wir konnten den Fehler nachvollziehen und haben ihn eingeplant.",
       "fixed": "Die Korrektur ist in einem Release enthalten. Wir melden uns, damit Sie es prüfen können.",
@@ -3236,7 +3239,7 @@
     "next": {
       "planned": "Das Team entscheidet, ob es für ein kommendes Release eingeplant wird.",
       "in_progress": "Das Team beginnt mit der Umsetzung.",
-      "shipped": "Sobald es umgesetzt ist, erhalten alle, die abgestimmt haben, eine E-Mail.",
+      "shipped": "Sobald es umgesetzt ist und wir eine Neuigkeit dazu veröffentlichen, erhalten alle, die abgestimmt haben, eine E-Mail.",
       "confirmed": "Das Team versucht, den Fehler nachzuvollziehen, und plant ihn ein.",
       "fixed": "Die Korrektur kommt mit einem der nächsten Releases.",
       "verified": "Die meldende Person bestätigt, dass die Korrektur funktioniert, und die Meldung wird geschlossen."
@@ -3308,6 +3311,8 @@
     "rejectedTitle": "Das Team hat diese Idee nicht veröffentlicht",
     "rejectedText": "Die Idee „{title}“ bleibt verborgen. Bei Fragen wenden Sie sich bitte an das Team.",
     "rejectedReason": "Nachricht vom Team",
+    "removedTitle": "{kind, select, bug {Das Team hat diese Fehlermeldung gelöscht} other {Das Team hat diese Idee gelöscht}}",
+    "removedText": "{kind, select, bug {Die Fehlermeldung} other {Die Idee}} „{title}“ ist nicht mehr auf dem Board. Bei Fragen wenden Sie sich bitte an das Team.",
     "deletedTeamTitle": "Gelöscht.",
     "rejectedTeamTitle": "Abgelehnt.",
     "deletedMeta": "{who}, {when}. Niemand sonst kann es sehen.",
@@ -3836,7 +3841,7 @@
     },
     "rights": {
       "myData": "Meine Daten",
-      "self": "Auf dem Board können Sie unter „{myData}“ ({url}) alle Ihre Daten herunterladen oder selbst löschen. Beim Löschen werden Ihre Stimmen, Kommentare und Fehlermeldungen samt Anhängen entfernt; Ideen, für die andere gestimmt haben, bleiben ohne Ihren Namen auf dem Board.",
+      "self": "Auf dem Board können Sie unter „{myData}“ ({url}) alle Ihre Daten herunterladen oder selbst löschen. Beim Löschen werden Ihre Stimmen, Kommentare und Fehlermeldungen samt Anhängen entfernt; Ihre Ideen bleiben ohne Ihren Namen auf dem Board.",
       "unsubscribe": "E-Mails bestellen Sie über den Link in der Fußzeile jeder E-Mail oder unter „{myData}“ ab.",
       "other": "Für Auskunft, Berichtigung, Einschränkung, Widerspruch oder andere Anliegen wenden Sie sich an [Kontakt-E-Mail]. Sie haben außerdem das Recht, sich bei einer Aufsichtsbehörde zu beschweren."
     },

@@ -42,6 +42,7 @@ let project: typeof schema.projects.$inferSelect;
 let team: typeof schema.users.$inferSelect;
 let a: typeof schema.users.$inferSelect;
 let b: typeof schema.users.$inferSelect;
+let c: typeof schema.users.$inferSelect;
 let idea1 = "", idea2 = "";
 
 describe.skipIf(!up)("F4 integration", () => {
@@ -49,20 +50,21 @@ describe.skipIf(!up)("F4 integration", () => {
     await withSystem(db, async (tx) => {
       const [w] = await tx.insert(schema.workspaces).values({ slug, name: "F4" }).returning();
       project = (await tx.insert(schema.projects).values({ workspaceId: w!.id, slug, name: "F4", theme: presets.ozvi, itemSeq: 3 }).returning())[0]!;
-      [team, a, b] = (await tx.insert(schema.users).values([
+      [team, a, b, c] = (await tx.insert(schema.users).values([
         { projectId: project.id, externalId: "t", email: "t@x.sk", role: "team" },
         { projectId: project.id, externalId: "a", email: "a@x.sk" },
         { projectId: project.id, externalId: "b", email: "b@x.sk" },
-      ]).returning()) as [typeof team, typeof team, typeof team];
+        { projectId: project.id, externalId: "c", email: "c@x.sk" },
+      ]).returning()) as [typeof team, typeof team, typeof team, typeof team];
       const its = await tx.insert(schema.items).values([
-        { projectId: project.id, kind: "idea", number: 1, title: "Export", status: "planned", authorId: a.id, voteCount: 2 },
+        { projectId: project.id, kind: "idea", number: 1, title: "Export", status: "planned", authorId: a.id, voteCount: 3 },
         { projectId: project.id, kind: "idea", number: 2, title: "Tmavý režim", status: "in_progress", authorId: b.id, voteCount: 1 },
         { projectId: project.id, kind: "bug", number: 3, title: "Pád pri exporte", status: "new", authorId: a.id },
       ]).returning();
       idea1 = its[0]!.id; idea2 = its[1]!.id;
       await tx.insert(schema.votes).values([
         { projectId: project.id, itemId: idea1, userId: a.id }, { projectId: project.id, itemId: idea1, userId: b.id },
-        { projectId: project.id, itemId: idea2, userId: b.id },
+        { projectId: project.id, itemId: idea2, userId: b.id }, { projectId: project.id, itemId: idea1, userId: c.id },
       ]);
     });
   });
@@ -75,10 +77,16 @@ describe.skipIf(!up)("F4 integration", () => {
       const again = await publishEntry(tx, project, team, e.id);
       return { first, again };
     });
-    expect(r.first.emailed).toBe(2);
+    expect(r.first.emailed).toBe(3);
     expect(r.again.emailed).toBe(0);
     const mails = await withProject(db, project.id, (tx) => tx.select().from(schema.emails));
-    expect(mails.map((m) => m.kind).sort()).toEqual(["changelog", "changelog"]);
+    expect(mails.map((m) => m.kind).sort()).toEqual(["changelog", "changelog", "changelog"]);
+    // The link opens the entry (the page anchors it as e-<id>); the footer says why each person got it.
+    for (const m of mails) expect(m.text).toMatch(/\/changelog#e-[0-9a-f-]{36}/);
+    const to = (who: string) => mails.find((m) => m.to === who)!.html;
+    expect(to("a@x.sk")).toContain("lebo sledujete tento záznam");
+    expect(to("c@x.sk")).toContain("lebo ste hlasovali za nápad z tejto novinky");
+    expect(to("c@x.sk")).not.toContain("sledujete tento záznam");
     // A later entry listing the same idea does not e-mail its voters again.
     const second = await withProject(db, project.id, async (tx) => {
       const e = await saveEntry(tx, project, team, { title: "Súhrn mesiaca", body: "", itemIds: [idea1] });
@@ -95,7 +103,7 @@ describe.skipIf(!up)("F4 integration", () => {
     await eraseMe(project, a);
     const left = await withProject(db, project.id, (tx) => tx.select().from(schema.items));
     expect(left.find((i) => i.number === 3)).toBeUndefined();
-    expect(left.find((i) => i.number === 1)).toMatchObject({ authorId: null, voteCount: 1 });
+    expect(left.find((i) => i.number === 1)).toMatchObject({ authorId: null, voteCount: 2, title: "Export" });
     const [u] = await withProject(db, project.id, (tx) => tx.select().from(schema.users).where(and(eq(schema.users.id, a.id))));
     expect(u).toBeUndefined();
   });

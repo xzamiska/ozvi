@@ -4,6 +4,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { requestOrigin } from "@/lib/email/url";
 import { fiderPostNumber } from "@/lib/import/legacy-links";
+import { matchLocale } from "@/i18n/locales";
+import { getTranslations } from "next-intl/server";
 
 /**
  * Old Fider post links after a move to Ozvi: /<project>/posts/<number>/<slug>, and on the board's own
@@ -13,7 +15,11 @@ import { fiderPostNumber } from "@/lib/import/legacy-links";
 export async function GET(req: NextRequest, { params }: { params: Promise<{ project: string; number: string }> }) {
   const { project: slug, number } = await params;
   const project = await db.query.projects.findFirst({ where: eq(schema.projects.slug, slug) });
-  if (!project) return new NextResponse("Nenájdené.", { status: 404, headers: { "content-type": "text/plain; charset=utf-8" } });
+  if (!project) {
+    // No board, so no board language: the visitor's language decides (as in the OIDC routes).
+    const t = await getTranslations({ locale: matchLocale(req.headers.get("accept-language")), namespace: "board.notFound" });
+    return new NextResponse(t("title"), { status: 404, headers: { "content-type": "text/plain; charset=utf-8" } });
+  }
   const n = /^\d{1,9}$/.test(number) ? await fiderPostNumber(db, project.id, Number(number)) : null;
   const to = new URL(n ? `/${slug}/i/${n}` : `/${slug}`, requestOrigin(project, req));
   return NextResponse.redirect(to, 301);

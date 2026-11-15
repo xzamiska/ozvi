@@ -1080,9 +1080,11 @@
       "eraseList": [
         "Töröljük a szavazataidat, hozzászólásaidat és hibajelentéseidet, a mellékletekkel együtt.",
         "Töröljük a neked küldött e-mailek nyilvántartását, és kijelentkeztetünk.",
-        "A mások által megszavazott ötletek megmaradnak, de a neved nélkül.",
+        "Az ötleteid a szövegükkel és a szavazatokkal együtt a táblán maradnak, de a neved nélkül.",
         "Ez nem vonható vissza. Ha meg szeretnél tartani valamit, előbb töltsd le az adataidat."
-      ]
+      ],
+      "exportFile": "adataim",
+      "erased": "Az adataidat töröltük, és kijelentkeztettünk. Az ötleteid a neved nélkül a táblán maradtak."
     },
     "pendingBadge": "Jóváhagyásra vár",
     "paging": {
@@ -1621,6 +1623,7 @@
   },
   "email": {
     "footer": "Feladó: {project}. Azért kapod ezt az e-mailt, mert követed ezt a bejegyzést.",
+    "footerVoted": "Feladó: {project}. Azért kapod ezt az e-mailt, mert szavaztál egy ötletre ebből az újdonságból.",
     "unsubscribe": "Leiratkozás az e-mailekről",
     "bugFixedSubject": "Javítva: {title}",
     "bugMineSummary": "A bejelentésed („{title}”) új állapota: {label}.",
@@ -1872,7 +1875,7 @@
     "team": {
       "statusToast": "Állapot: {s}",
       "notifyBug": "A bejelentő e-mailt kap.",
-      "notifyIdea": "A szerző és a szavazók e-mailt kapnak.",
+      "notifyIdea": "A szerző és a beszélgetés résztvevői e-mailt kapnak. A szavazók egy közzétett újdonságból értesülnek.",
       "status": "Állapot",
       "now": "most",
       "fixedIn": "Javítva ebben a verzióban",
@@ -1929,7 +1932,7 @@
     "privacy": {
       "eraseOpen": "Adataim törlése…",
       "eraseTitle": "Véglegesen törlöd az adataidat?",
-      "eraseText": "Töröljük a szavazataidat, hozzászólásaidat, hibajelentéseidet a mellékleteikkel együtt, valamint az e-mailjeidet, és kijelentkeztetünk. A mások által megszavazott ötletek megmaradnak, a szerző neve nélkül. Ez nem vonható vissza.",
+      "eraseText": "Töröljük a szavazataidat, hozzászólásaidat, hibajelentéseidet a mellékleteikkel együtt, valamint az e-mailjeidet, és kijelentkeztetünk. Az ötleteid a neved nélkül a táblán maradnak. Ez nem vonható vissza.",
       "deleting": "Törlés…",
       "erase": "Adataim törlése",
       "deleteOpen": "Projekt törlése…",
@@ -3225,7 +3228,7 @@
       "open": "Mások is szavazhatnak rá, és leírhatják, miben segítene nekik.",
       "planned": "A csapat a következő kiadások egyikébe tervezi.",
       "in_progress": "A csapat éppen dolgozik rajta.",
-      "shipped": "Elkészült. Mindenki, aki szavazott rá, e-mailt kapott.",
+      "shipped": "Elkészült. A szavazók egy közzétett újdonságból értesülnek róla.",
       "new": "A bejelentés megérkezett. Csak te és a csapat látjátok.",
       "confirmed": "Reprodukáltuk a hibát, és sorba állítottuk.",
       "fixed": "A javítás bekerült egy kiadásba. Szólunk, hogy ellenőrizhesd.",
@@ -3236,7 +3239,7 @@
     "next": {
       "planned": "A csapat eldönti, hogy betervezi-e valamelyik következő kiadásba.",
       "in_progress": "A csapat nekilát a munkának.",
-      "shipped": "Amint elkészül, mindenki, aki szavazott rá, e-mailt kap.",
+      "shipped": "Amint elkészül, és újdonságot írunk róla, mindenki, aki szavazott rá, e-mailt kap.",
       "confirmed": "A csapat reprodukálja a hibát, és sorba állítja.",
       "fixed": "A javítás a következő kiadások egyikében érkezik.",
       "verified": "A bejelentő megerősíti, hogy a javítás működik, és a bejelentés lezárul."
@@ -3308,6 +3311,8 @@
     "rejectedTitle": "A csapat nem tette közzé ezt az ötletet",
     "rejectedText": "A(z) „{title}” ötlet rejtve marad. Ha kérdésed van, fordulj a csapathoz.",
     "rejectedReason": "Üzenet a csapattól",
+    "removedTitle": "{kind, select, bug {A csapat törölte ezt a hibajelentést} other {A csapat törölte ezt az ötletet}}",
+    "removedText": "{kind, select, bug {A(z) „{title}” hibajelentés} other {A(z) „{title}” ötlet}} már nincs a táblán. Ha kérdésed van, fordulj a csapathoz.",
     "deletedTeamTitle": "Törölve.",
     "rejectedTeamTitle": "Elutasítva.",
     "deletedMeta": "{who}, {when}. Rajtad kívül senki sem látja.",
@@ -3836,7 +3841,7 @@
     },
     "rights": {
       "myData": "Saját adatok",
-      "self": "A táblán a „{myData}” részben ({url}) letöltheti vagy maga törölheti az összes adatát. A törlés eltávolítja szavazatait, hozzászólásait és hibajelentéseit a mellékletekkel együtt; azok az ötletek, amelyekre mások szavaztak, a neve nélkül a táblán maradnak.",
+      "self": "A táblán a „{myData}” részben ({url}) letöltheti vagy maga törölheti az összes adatát. A törlés eltávolítja szavazatait, hozzászólásait és hibajelentéseit a mellékletekkel együtt; az ötletei a neve nélkül a táblán maradnak.",
       "unsubscribe": "Az e-maileket az egyes e-mailek láblécében lévő hivatkozással vagy a „{myData}” részben kapcsolhatja ki.",
       "other": "Hozzáférés, helyesbítés, korlátozás, tiltakozás vagy egyéb kérés esetén forduljon hozzánk: [kapcsolattartási e-mail]. Joga van panaszt tenni a felügyeleti hatóságnál is."
     },

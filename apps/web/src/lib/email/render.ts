@@ -43,6 +43,8 @@ export interface Mail {
   quoteBase?: { origin: string; slug: string };
   /** A short list of links under the text (proof of a fix: PRs, the release, a preview). Labels are escaped. */
   links?: { heading: string; items: { label: string; href: string; note?: string }[] };
+  /** Why the recipient got this, in the footer: they follow the item (default) or only voted for it. */
+  reason?: "follow" | "voted";
 }
 
 /** The Markdown subset as e-mail HTML: inline styles only, images as links (attachments need a sign-in). */
@@ -101,7 +103,7 @@ ${m.code.note ? `<div style="margin-top:8px;font-size:13px;color:${muted}">${esc
     ? `<div style="margin-top:28px;padding-top:16px;border-top:1px solid ${c.border}">${m.fine.map((f) => `<p style="margin:0 0 6px;font-size:13px;line-height:1.5;color:${muted}">${esc(f)}</p>`).join("")}</div>`
     : "";
   const foot = unsubscribeHref
-    ? `<p style="margin:16px 4px 0;font-size:12px;line-height:1.5;color:${muted}">${esc(t("footer", { project: projectName }))} <a href="${esc(unsubscribeHref)}" style="color:${muted};text-decoration:underline">${esc(t("unsubscribe"))}</a></p>`
+    ? `<p style="margin:16px 4px 0;font-size:12px;line-height:1.5;color:${muted}">${esc(t(m.reason === "voted" ? "footerVoted" : "footer", { project: projectName }))} <a href="${esc(unsubscribeHref)}" style="color:${muted};text-decoration:underline">${esc(t("unsubscribe"))}</a></p>`
     : "";
   const preheader = m.preheader ?? m.summary;
   const html = `<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>${esc(m.subject)}</title></head>

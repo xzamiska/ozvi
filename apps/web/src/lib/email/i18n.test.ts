@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { recipientLocale } from "@/i18n/board";
 import { LOCALES } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
-import { statusMails } from "./notify";
+import { changelogMail, statusMails } from "./notify";
 import { renderMail } from "./render";
 
 const theme = parseTheme(presets.ozvi);
@@ -69,5 +69,20 @@ describe("plural forms of the new languages", () => {
       expect(t("digestSubject", { project: "B", n: 1 })).toContain("1");
       expect(t("digestSubject", { project: "B", n: 7 })).toContain("7");
     }
+  });
+});
+
+describe("changelog e-mail footer", () => {
+  const entry = { title: "PDF export", body: "", url: "https://x/b/changelog#e-1" };
+  it("tells a voter they voted, and a follower they follow", () => {
+    for (const locale of LOCALES) {
+      const t = translator(locale, "email");
+      const voted = renderMail(changelogMail(t, entry, [{ title: "PDF" }], "voted"), theme, "Billiwo", "https://x/unsub", locale);
+      const follow = renderMail(changelogMail(t, entry, [{ title: "PDF" }], "follow"), theme, "Billiwo", "https://x/unsub", locale);
+      expect(voted.html, locale).toContain(t("footerVoted", { project: "Billiwo" }));
+      expect(voted.html, locale).not.toContain(t("footer", { project: "Billiwo" }));
+      expect(follow.html, locale).toContain(t("footer", { project: "Billiwo" }));
+    }
+    expect(translator("sk", "email")("footerVoted", { project: "B" })).toContain("hlasovali");
   });
 });
