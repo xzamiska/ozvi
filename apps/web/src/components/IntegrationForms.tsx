@@ -327,8 +327,10 @@ export function PersonActions({ slug, id, role, self, name }: { slug: string; id
 export function DomainForm({ slug, domain, verified, target, allowed, token }: { slug: string; domain: string; verified: boolean; target: string; allowed: boolean; token: string }) {
   const T = useTranslations("integrations");
   const t = useTranslations("integrations.domain");
-  const [state, action, pending] = useActionState((p: ActState, f: FormData) => saveDomain(slug, p, f), {});
-  const [check, setCheck] = useState<ActState>({});
+  const [check, setCheck] = useState<ActState | null>(null);
+  // The newest result wins: saving clears the last check, a check shows over the last save.
+  const [state, action, pending] = useActionState((p: ActState, f: FormData) => { setCheck(null); return saveDomain(slug, p, f); }, {});
+  const shown = check ?? state;
   const [checking, start] = useTransition();
   const locked = !allowed && !domain;
   return (
@@ -355,7 +357,7 @@ export function DomainForm({ slug, domain, verified, target, allowed, token }: {
           <p className={hint}>{t("afterDns")}</p>
         </div>
       ))}
-      <Result error={check.error ?? state.error} ok={check.error || state.error ? undefined : (check.ok ?? state.ok)} />
+      <Result error={shown.error} ok={shown.error ? undefined : shown.ok} />
       <div className="flex flex-wrap items-center gap-2">
         <Button type="submit" disabled={pending || locked} aria-busy={pending || undefined}>{pending ? T("saving") : t("save")}</Button>
         {domain && !verified && (

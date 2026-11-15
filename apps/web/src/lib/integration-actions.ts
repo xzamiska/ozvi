@@ -81,12 +81,12 @@ export async function revokeToken(slug: string, id: string) {
 /* ---------- Webhooks (admin) ---------- */
 
 export async function addWebhook(slug: string, _: ActState, form: FormData): Promise<ActState> {
-  const { project, user, t } = await requireAdmin(slug);
+  const { project, user, t, locale } = await requireAdmin(slug);
   const url = str(form, "url");
   const picked = str(form, "format");
   const format = (["slack", "teams", "discord"] as const).find((f) => f === picked) ?? "json";
   const events = form.getAll("events").map(String).filter((e) => (EVENTS as readonly string[]).includes(e));
-  const bad = await checkTarget(url);
+  const bad = await checkTarget(url, undefined, locale);
   if (bad) return { error: bad };
   const secret = newSecret();
   await withProject(db, project.id, (tx) => tx.insert(schema.webhooks).values({

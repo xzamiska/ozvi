@@ -4,7 +4,7 @@ import { and, eq, inArray, lt, lte, or } from "drizzle-orm";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
 import { publicUrl } from "./email/url";
-import { checkUrl, safeFetch } from "./net";
+import { blockedCause, checkUrl, safeFetch } from "./net";
 import { markdownToText } from "./markdown";
 
 /**
@@ -176,8 +176,8 @@ export function chatBody(format: string, payload: unknown, locale: Locale): stri
 export { isPrivateAddress } from "./net";
 
 /** Checked when saving; delivery goes through safeFetch, which re-checks every connection. */
-export async function checkTarget(url: string, mode = process.env.OZVI_MODE ?? "self"): Promise<string | null> {
-  return checkUrl(url, mode);
+export async function checkTarget(url: string, mode = process.env.OZVI_MODE ?? "self", locale: Locale = "sk"): Promise<string | null> {
+  return checkUrl(url, mode, locale);
 }
 
 export async function deliver(
@@ -197,6 +197,9 @@ export async function deliver(
     const res = await f(hook.url, { method: "POST", headers, body, redirect: "manual", signal: AbortSignal.timeout(10_000) });
     return res.status >= 200 && res.status < 300 ? { ok: true, code: res.status } : { ok: false, code: res.status, error: `HTTP ${res.status}` };
   } catch (e) {
+    // A refused address says why (in the reader's language), not undici's bare "fetch failed".
+    const blocked = blockedCause(e);
+    if (blocked) return { ok: false, code: null, error: blocked.text(locale) };
     return { ok: false, code: null, error: e instanceof Error ? e.message.slice(0, 200) : "network error" };
   }
 }

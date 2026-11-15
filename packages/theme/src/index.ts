@@ -9,6 +9,11 @@ export { auditPalette, derivedText, MIX, mixOklab, readablePalette, stageColor, 
  * Only tokens are exposed, never raw CSS, so themes stay safe and upgradeable.
  */
 
+/** A logo address the board may load: a full https:// URL. */
+export function isLogoUrl(v: string): boolean {
+  try { return new URL(v).protocol === "https:"; } catch { return false; }
+}
+
 const hex = z.string().regex(/^#[0-9a-fA-F]{6}$/, "Use a 6-digit hex colour, e.g. #3044F5");
 
 /** Font family names only — no quotes, braces or angle brackets, since the CSS is inlined into <style>. */
@@ -39,11 +44,11 @@ export const themeSchema = z.object({
     /** Optional monthly vote budget per user; null = unlimited. */
     budget: z.number().int().min(1).max(100).nullable().default(null),
   }).default({ style: "upvote", budget: null }),
-  /** https only: anything else (javascript:, data:, http:) is dropped, not an error, so stored themes still load. */
-  logoUrl: z.string().optional().transform((v) => {
-    if (!v) return undefined;
-    try { return new URL(v).protocol === "https:" ? v : undefined; } catch { return undefined; }
-  }),
+  /**
+   * https only: anything else (javascript:, data:, http:) is dropped, not an error, so stored themes still load.
+   * Editors check what is typed with isLogoUrl and refuse it instead of dropping it silently.
+   */
+  logoUrl: z.string().optional().transform((v) => (v && isLogoUrl(v) ? v : undefined)),
   /** The logo already shows the product name (a wordmark): the board header shows only the logo, the name stays for screen readers. */
   logoWithName: z.boolean().default(false),
 });
