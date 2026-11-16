@@ -2585,11 +2585,10 @@
         "shot": "Képernyőkép csatolva"
       }
     },
-    "notSentry": {
-      "title": "A Sentry a kódot figyeli. Az Ozvi az embereket hallgatja meg.",
-      "themLabel": "Hibamonitorozás, például Sentry",
-      "them": "Elkapja, ami a kódban elromlik: kivételeket, lassú kéréseket, stack trace-t. Fejlesztőknek készült.",
-      "ozviLabel": "Ozvi",
+    "monitoring": {
+      "title": "A monitorozás elkapja, ami összeomlik. Az Ozvi azt, amit az emberek mondanak.",
+      "themLabel": "Hibamonitorozás",
+      "them": "Elkapja a kivételeket, a lassú kéréseket és a stack trace-t. Fejlesztőknek készült, és jelez, ha a kód összeomlik.",
       "ozvi": "Elkapja, amit az emberek mondanak, azt is, ami sosem dob hibát. És a bejelentőnek megírja, mi lett az eredménye.",
       "examples": [
         "„Rossz összeg jött ki a számlámon.”",
@@ -2597,7 +2596,7 @@
         "„Hiányzik az Excel-export.”"
       ],
       "both": "Kiegészítik egymást. Nyugodtan használja mindkettőt, mi is így teszünk.",
-      "link": "Az Ozvi és a Sentry összehasonlítása"
+      "link": "Miben más az Ozvi, mint a hibamonitorozás"
     },
     "story": {
       "stage": {

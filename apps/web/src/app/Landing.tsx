@@ -244,25 +244,25 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             </div>
           </section>
 
-          {/* the question the launch post kept getting: "why not Sentry?" */}
-          <section aria-labelledby="sentry-h" className="border-y bg-surface">
+          {/* the question the launch post kept getting ("why not Sentry?"), answered without naming anyone here */}
+          <section aria-labelledby="monitoring-h" className="border-y bg-surface">
             <div className="oz-frame grid gap-8 py-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16 lg:py-20">
               <div>
-                <h2 id="sentry-h" className={cn(h2, "max-w-[14ch]")}>{t("notSentry.title")}</h2>
-                <p className={cn(lede, "mt-4 max-w-[42ch]")}>{t("notSentry.both")}</p>
-                {sentryHref && <a href={sentryHref} className="mt-5 inline-flex text-[14.5px] font-semibold underline decoration-line-strong underline-offset-4 hover:decoration-foreground">{t("notSentry.link")}</a>}
+                <h2 id="monitoring-h" className={cn(h2, "max-w-[18ch]")}>{t("monitoring.title")}</h2>
+                <p className={cn(lede, "mt-4 max-w-[42ch]")}>{t("monitoring.both")}</p>
+                {sentryHref && <a href={sentryHref} className="mt-5 inline-flex text-[14.5px] font-semibold underline decoration-line-strong underline-offset-4 hover:decoration-foreground">{t("monitoring.link")}</a>}
               </div>
               <dl className="grid gap-8 sm:grid-cols-2">
                 <div className="grid content-start gap-2 border-t pt-4">
-                  <dt className="text-[14px] font-semibold text-muted-foreground">{t("notSentry.themLabel")}</dt>
-                  <dd className="text-[15.5px] leading-relaxed text-muted-foreground">{t("notSentry.them")}</dd>
+                  <dt className="text-[14px] font-semibold text-muted-foreground">{t("monitoring.themLabel")}</dt>
+                  <dd className="text-[15.5px] leading-relaxed text-muted-foreground">{t("monitoring.them")}</dd>
                 </div>
                 <div className="grid content-start gap-2 border-t-2 border-foreground pt-4">
-                  <dt className="text-[14px] font-semibold">{t("notSentry.ozviLabel")}</dt>
+                  <dt className="text-[14px] font-semibold">Ozvi</dt>
                   <dd className="text-[15.5px] leading-relaxed">
-                    {t("notSentry.ozvi")}
+                    {t("monitoring.ozvi")}
                     <ul className="mt-4 grid gap-2 text-[15px] font-medium">
-                      {(t.raw("notSentry.examples") as string[]).map((x) => <li key={x}>{x}</li>)}
+                      {(t.raw("monitoring.examples") as string[]).map((x) => <li key={x}>{x}</li>)}
                     </ul>
                   </dd>
                 </div>

@@ -587,10 +587,10 @@ test.describe("public site", () => {
     await ctx.close();
   });
 
-  test("landing explains Ozvi next to Sentry and answers the common questions", async ({ page }) => {
+  test("landing explains Ozvi next to error monitoring and answers the common questions", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 2, name: "Sentry vidí kód. Ozvi počúva ľudí." })).toBeVisible();
-    await page.getByRole("link", { name: "Porovnanie Ozvi a Sentry" }).click();
+    await expect(page.getByRole("heading", { level: 2, name: "Monitoring zachytí, čo spadne. Ozvi to, čo vám povedia ľudia." })).toBeVisible();
+    await page.getByRole("link", { name: "Ako sa Ozvi líši od monitoringu chýb" }).click();
     await expect(page).toHaveURL(/\/vs\/sentry$/);
     await page.goto("/");
     const q = page.locator("#faq summary", { hasText: "Je Ozvi náhrada za Sentry?" });

@@ -2585,11 +2585,10 @@
         "shot": "Zrzut ekranu zostanie dołączony"
       }
     },
-    "notSentry": {
-      "title": "Sentry widzi kod. Ozvi słucha ludzi.",
-      "themLabel": "Monitoring błędów, np. Sentry",
-      "them": "Wyłapuje to, co psuje się w kodzie: wyjątki, wolne żądania, stack trace. Jest dla programistów.",
-      "ozviLabel": "Ozvi",
+    "monitoring": {
+      "title": "Monitoring wyłapuje to, co się psuje. Ozvi to, co mówią Ci ludzie.",
+      "themLabel": "Monitoring błędów",
+      "them": "Wyłapuje wyjątki, wolne żądania i stack trace. Jest dla programistów i odzywa się, gdy kod się wysypie.",
       "ozvi": "Wyłapuje to, co mówią Ci ludzie, także to, co nigdy nie rzuca błędu. I daje autorowi znać, jak się skończyło.",
       "examples": [
         "„Na fakturze wyszła mi zła kwota.”",
@@ -2597,7 +2596,7 @@
         "„Brakuje mi eksportu do Excela.”"
       ],
       "both": "Uzupełniają się. Śmiało używaj obu, my też tak robimy.",
-      "link": "Porównanie Ozvi i Sentry"
+      "link": "Czym Ozvi różni się od monitoringu błędów"
     },
     "story": {
       "stage": {

@@ -2585,11 +2585,10 @@
         "shot": "A screenshot is attached"
       }
     },
-    "notSentry": {
-      "title": "Sentry watches your code. Ozvi listens to people.",
-      "themLabel": "Error monitoring, such as Sentry",
-      "them": "Catches what breaks in the code: exceptions, slow requests, stack traces. Built for developers.",
-      "ozviLabel": "Ozvi",
+    "monitoring": {
+      "title": "Monitoring catches what crashes. Ozvi catches what people tell you.",
+      "themLabel": "Error monitoring",
+      "them": "Catches exceptions, slow requests and stack traces. Built for developers, it speaks up when the code breaks.",
       "ozvi": "Catches what people tell you, including things that never throw an error. And lets them know how it turned out.",
       "examples": [
         "“The total on my invoice is wrong.”",
@@ -2597,7 +2596,7 @@
         "“I need an export to Excel.”"
       ],
       "both": "They complement each other. Use both, we do.",
-      "link": "Ozvi vs Sentry"
+      "link": "How Ozvi differs from error monitoring"
     },
     "story": {
       "stage": {

@@ -2585,11 +2585,10 @@
         "shot": "Screenshot se přiloží"
       }
     },
-    "notSentry": {
-      "title": "Sentry vidí kód. Ozvi naslouchá lidem.",
-      "themLabel": "Monitoring chyb, například Sentry",
-      "them": "Zachytí, co spadne v kódu: výjimky, pomalé požadavky, stack trace. Je pro vývojáře.",
-      "ozviLabel": "Ozvi",
+    "monitoring": {
+      "title": "Monitoring zachytí, co spadne. Ozvi to, co vám řeknou lidé.",
+      "themLabel": "Monitoring chyb",
+      "them": "Zachytí výjimky, pomalé požadavky a stack trace. Je pro vývojáře a ozve se, když spadne kód.",
       "ozvi": "Zachytí, co vám řeknou lidé, i to, co nikdy nespadne. A autorovi dá vědět, jak to dopadlo.",
       "examples": [
         "„Na faktuře mi vyšla špatná částka.“",
@@ -2597,7 +2596,7 @@
         "„Chybí mi export do Excelu.“"
       ],
       "both": "Navzájem se doplňují. Klidně používejte obojí, my taky.",
-      "link": "Srovnání Ozvi a Sentry"
+      "link": "Jak se Ozvi liší od monitoringu chyb"
     },
     "story": {
       "stage": {

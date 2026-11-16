@@ -2585,11 +2585,10 @@
         "shot": "Ein Screenshot wird angehängt"
       }
     },
-    "notSentry": {
-      "title": "Sentry sieht den Code. Ozvi hört den Menschen zu.",
-      "themLabel": "Fehler-Monitoring, zum Beispiel Sentry",
-      "them": "Erfasst, was im Code abstürzt: Exceptions, langsame Requests, Stack Traces. Für Entwickler gemacht.",
-      "ozviLabel": "Ozvi",
+    "monitoring": {
+      "title": "Monitoring erfasst, was abstürzt. Ozvi, was Ihnen Menschen sagen.",
+      "themLabel": "Fehler-Monitoring",
+      "them": "Erfasst Exceptions, langsame Requests und Stack Traces. Für Entwickler gemacht, meldet es sich, wenn der Code abstürzt.",
       "ozvi": "Erfasst, was Ihnen Menschen sagen, auch das, was nie einen Fehler wirft. Und sagt ihnen, wie es ausgegangen ist.",
       "examples": [
         "„Auf meiner Rechnung stimmt der Betrag nicht.“",
@@ -2597,7 +2596,7 @@
         "„Mir fehlt ein Export nach Excel.“"
       ],
       "both": "Beides ergänzt sich. Nutzen Sie ruhig beides, wir tun es auch.",
-      "link": "Ozvi und Sentry im Vergleich"
+      "link": "Wie sich Ozvi von Fehler-Monitoring unterscheidet"
     },
     "story": {
       "stage": {
