@@ -52,6 +52,7 @@ Limity plánov (Free 1 projekt, jeden free priestor na osobu aj pri Gmail aliaso
 ## Ručne / mimo automatizácie
 
 - Skutočné Safari s prihlásením do hostiteľskej appky (overené ručne cez AppleScript na billiwo.com, 15. 11. 2026).
+- Skutočné Safari: vytvorenie nápadu, obnovenie detailu a prechod na zoznam (overené ručne na stagingu, 16. 11. 2026; v automatizovanom WebKite občas „Page crashed“, v Safari sa nedeje).
 - Platby cez skutočný Creem (len testovací režim Creemu na stagingu).
 - OIDC s externým poskytovateľom, GitHub App, Linear, Jira (potrebujú externé účty).
 - E-maily v klientoch (Gmail, Outlook) – vzhľad.
