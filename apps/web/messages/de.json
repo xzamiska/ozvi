@@ -2525,7 +2525,7 @@
           "text": "Was kommt und was fertig ist, mit E-Mails an alle Abstimmenden"
         },
         {
-          "href": "#design",
+          "href": "#brand",
           "title": "In Ihrem Branding",
           "text": "Farben, Schrift und Logo Ihrer App"
         }
@@ -2961,9 +2961,13 @@
         "a11y": {
           "title": "Barrierefreiheit",
           "text": "Tastaturbedienung, Kontrast nach WCAG 2.2 AA und ein veröffentlichter Barrierefreiheitsbericht nach EN 301 549."
+        },
+        "brand": {
+          "title": "In den Farben Ihrer Marke",
+          "text": "Farben, Schrift, Eckenradius und Logo, im hellen und dunklen Modus. Ein Theme gilt für Board, Widget und E-Mails, auf Ihrer eigenen Domain."
         }
       },
-      "moreTitle": "Und außerdem"
+      "moreTitle": "Alle Funktionen"
     },
     "flow": {
       "sources": [

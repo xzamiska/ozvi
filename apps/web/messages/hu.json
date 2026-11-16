@@ -2525,7 +2525,7 @@
           "text": "Mi következik és mi készült el, e-maillel a szavazóknak"
         },
         {
-          "href": "#design",
+          "href": "#brand",
           "title": "A saját arculatodban",
           "text": "Az alkalmazásod színei, betűtípusa és logója"
         }
@@ -2961,9 +2961,13 @@
         "a11y": {
           "title": "Akadálymentesség",
           "text": "Billentyűzetes kezelés, WCAG 2.2 AA szerinti kontraszt és nyilvános akadálymentességi jelentés az EN 301 549 szerint."
+        },
+        "brand": {
+          "title": "A márkája színeiben",
+          "text": "Színek, betűtípus, lekerekítés és logó, világos és sötét módban. Egy téma érvényes a boardra, a widgetre és az e-mailekre, saját domainen."
         }
       },
-      "moreTitle": "És még"
+      "moreTitle": "Az összes funkció"
     },
     "flow": {
       "sources": [

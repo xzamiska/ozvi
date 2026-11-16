@@ -6,9 +6,10 @@ import { cn } from "@/lib/utils";
 /**
  * Landing: sticky walk-through. Steps scroll past on the left; the step whose title is nearest the
  * middle of the screen picks the panel shown in the sticky frame on the right.
- * Phones get each panel under its step.
+ * Phones get the panel under its step, only for the steps in `phonePanels` (all when omitted): the
+ * hero already shows the rest of the loop there, and a phone page should stay short.
  */
-export function StickySteps({ steps }: { steps: { title: string; text: string; panel: React.ReactNode }[] }) {
+export function StickySteps({ steps, phonePanels }: { steps: { title: string; text: string; panel: React.ReactNode }[]; phonePanels?: number[] }) {
   const [at, setAt] = useState(0);
   const refs = useRef<(HTMLHeadingElement | null)[]>([]);
   useEffect(() => {
@@ -40,7 +41,7 @@ export function StickySteps({ steps }: { steps: { title: string; text: string; p
             <p className={cn("text-[13px] font-semibold transition-colors", at === i ? "text-brand-text" : "text-muted-foreground")}>{String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}</p>
             <h3 ref={(el) => { refs.current[i] = el; }} className={cn("mt-3 max-w-[18ch] text-[30px] leading-tight font-semibold tracking-[-0.035em] transition-opacity lg:text-[38px]", at !== i && "lg:opacity-35")}>{s.title}</h3>
             <p className={cn("mt-4 max-w-[46ch] text-[16.5px] leading-relaxed text-muted-foreground transition-opacity", at !== i && "lg:opacity-35")}>{s.text}</p>
-            <div className="mt-6 min-w-0 lg:hidden">{s.panel}</div>
+            {(!phonePanels || phonePanels.includes(i)) && <div className="mt-6 min-w-0 lg:hidden">{s.panel}</div>}
           </li>
         ))}
       </ol>

@@ -1,6 +1,6 @@
 import { limitSize, PLAN_LIMITS, PRICES } from "@ozvi/db";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
-import { Accessibility, ArrowRightLeft, Bot, Camera, Check, ChevronDown, Code, EyeOff, GitMerge, GitPullRequest, Inbox, Languages, Mail, MessageSquare, Minus, Server, Sparkles, Star, Webhook } from "lucide-react";
+import { Accessibility, ArrowRightLeft, Bot, Camera, Palette, Check, ChevronDown, Code, EyeOff, GitPullRequest, Inbox, Languages, Mail, MessageSquare, Minus, Sparkles, Star, Webhook } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
@@ -13,7 +13,6 @@ import { TeamDesk } from "@/components/landing/TeamDesk";
 import { LangSwitch, SiteHeader, type NavItem } from "@/components/landing/SiteHeader";
 import { signupClosed } from "@/lib/account-rules";
 import { ownFeedback } from "@/lib/own-feedback";
-import { ProductTour } from "@/components/landing/ProductTour";
 import { compareLinks } from "@/components/compare/links";
 import { COMPARE_PATH } from "@/lib/compare";
 import { OzviLogo, OzviMark } from "@/components/ozvi/Logo";
@@ -179,7 +178,6 @@ function HeroLoop({ t }: { t: T }) {
 export async function Landing({ locale, signedIn = false }: { locale: Locale; signedIn?: boolean }) {
   const t = await getTranslations({ locale, namespace: "landing" });
   const stars = await githubStars();
-  const pg = await getTranslations({ locale, namespace: "playground" });
   const tA11y = await getTranslations({ locale, namespace: "a11y" });
   const tSub = await getTranslations({ locale, namespace: "subprocessors" });
   const tag = LOCALE_TAG[locale];
@@ -273,7 +271,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
           {/* how it works: the steps scroll past, the picture on the right follows */}
           <section id="how" aria-labelledby="how-h" className="oz-frame scroll-mt-24 py-16 lg:py-8">
             <h2 id="how-h" className="sr-only">{t("hero.secondary")}</h2>
-            <StickySteps steps={(t.raw("steps") as { title: string; text: string }[]).map((s, i) => ({ ...s, panel: [
+            <StickySteps phonePanels={[2]} steps={(t.raw("steps") as { title: string; text: string }[]).map((s, i) => ({ ...s, panel: [
               <div key="s" className="rounded-2xl border bg-surface p-5 sm:p-6"><ReportStream items={(t.raw("features.tiles.stream.items") as { title: string; meta: string }[]).map((r, k) => ({ ...r, n: 126 + k, tone: k < 3 ? "bug" as const : "idea" as const }))} /></div>,
               <div key="t" className={hostPanel}><TeamDesk /></div>,
               <div key="i" inert className={cn(hostPanel, "pointer-events-none select-none")}><MiniBoard name={t("product.app")} compact={false} view="roadmap" fit /></div>,
@@ -334,7 +332,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
 
           {/* the demo: report a bug in someone else's app and see what the team gets */}
           <section id="demo" aria-labelledby="demo-h" className="oz-frame scroll-mt-24 pb-24 lg:pb-28">
-            <div className="grid overflow-hidden rounded-3xl border bg-surface shadow-[0_40px_100px_-60px_color-mix(in_oklab,var(--oz-accent)_60%,transparent)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+            <div className="grid overflow-hidden rounded-3xl border bg-surface lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
               <div className="p-7 sm:p-10 lg:p-12">
                 <h2 id="demo-h" className={cn(h2, "max-w-[16ch]")}>{t("demo.title")}</h2>
                 <p className={cn(lede, "mt-5 max-w-[48ch]")}>{t("demo.lede")}</p>
@@ -347,7 +345,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 </div>
               </div>
               {/* a still of the demo: the app with masked fields, and what the team gets */}
-              <div aria-hidden className="relative min-h-[320px] border-t bg-[radial-gradient(60%_60%_at_70%_30%,color-mix(in_oklab,var(--oz-accent)_14%,transparent),transparent_70%)] p-6 lg:border-t-0 lg:border-l">
+              <div aria-hidden className="relative min-h-[320px] border-t bg-background p-6 lg:border-t-0 lg:border-l">
                 <div className={cn(hostPanel, "max-w-[360px] p-5 text-[13px]")}>
                   <p className="text-[15px] font-semibold">{t("demo.app")}</p>
                   <p className="mt-2 flex justify-between text-muted-foreground">{t("demo.phone")}<span className="rounded bg-foreground/15 px-10 blur-[3px]">+421 905</span></p>
@@ -363,30 +361,6 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 </div>
               </div>
             </div>
-          </section>
-
-          {/* try it: the working board in the visitor's colours, and what a theme covers */}
-          <section id="design" aria-labelledby="design-h" className="relative isolate scroll-mt-24 border-y bg-surface">
-            <Reveal className="oz-frame py-24 lg:py-28">
-              <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
-                <h2 id="design-h" data-r className={cn(h2, "max-w-[15ch]")}>{t("try.title")}</h2>
-                <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("try.lede")}</p>
-              </div>
-              <div data-r className="mt-12"><ProductTour /></div>
-              <div data-r className="mt-8 flex flex-wrap items-center gap-4">
-                <Link href={DEMO_PATH[locale]} className={ghost}>{t("try.demo")}</Link>
-                <span className="text-[14px] text-muted-foreground">{t("try.demoNote")}</span>
-              </div>
-              <dl className="mt-16 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-                {(pg.raw("scope.items") as { k: string; v: string }[]).map((i) => (
-                  <div key={i.k} data-r className="grid content-start gap-1.5 border-t pt-4">
-                    <dt className="text-[15px] font-semibold">{i.k}</dt>
-                    <dd className="text-[14px] leading-relaxed text-muted-foreground">{i.v}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p data-r className="mt-10 max-w-[70ch] text-[14px] leading-relaxed text-muted-foreground">{pg("scope.limit")}</p>
-            </Reveal>
           </section>
 
           {/* everything it does: live tiles for the essentials, the rest by job */}
@@ -407,10 +381,10 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 <h3 className={cn(tileH, "mt-8")}>{t("features.tiles.eu.title")}</h3>
                 <p className={tileP}>{t("features.tiles.eu.text")}</p>
               </div>
-              {(["self", "fider", "langs", "a11y"] as const).map((k) => {
-                const Icon = { self: Server, fider: ArrowRightLeft, langs: Languages, a11y: Accessibility }[k];
+              {(["brand", "fider", "langs", "a11y"] as const).map((k) => {
+                const Icon = { brand: Palette, fider: ArrowRightLeft, langs: Languages, a11y: Accessibility }[k];
                 return (
-                  <div key={k} data-r className={tile}>
+                  <div key={k} id={k === "brand" ? "brand" : undefined} data-r className={cn(tile, k === "brand" && "scroll-mt-24")}>
                     <Icon className="size-5 text-brand-text" aria-hidden />
                     <h3 className={cn(tileH, "mt-4")}>{t(`features.tiles.${k}.title`)}</h3>
                     <p className={tileP}>{t(`features.tiles.${k}.text`)}</p>
@@ -419,56 +393,24 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               })}
             </div>
 
-            <h3 data-r className="mt-20 text-[20px] font-semibold tracking-tight">{t("features.moreTitle")}</h3>
-            <div className="mt-8 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-              {(t.raw("features.groups") as { title: string; items: string[] }[]).map((g) => (
-                <div key={g.title} data-r className="grid content-start gap-4 border-t border-line-strong pt-5">
-                  <h4 className="text-[16px] font-semibold tracking-tight">{g.title}</h4>
-                  <ul className="grid gap-2.5 text-[14.5px] leading-snug text-foreground/85">
-                    {g.items.map((i) => (
-                      <li key={i} className="grid grid-cols-[auto_1fr] gap-2.5"><Check className="mt-0.5 size-4 text-primary" strokeWidth={2.5} aria-hidden />{i}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-
-          {/* GitHub: from the report to the fix and back to the author, as it really runs */}
-          <section id="github" aria-labelledby="github-h" className="scroll-mt-16 border-t">
-            <Reveal className="oz-frame py-24 lg:py-28">
-              <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
-                <h2 id="github-h" data-r className={cn(h2, "max-w-[17ch]")}>{t("github.title")}</h2>
-                <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("github.lede")}</p>
-              </div>
-              <ol className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                {(t.raw("github.steps") as { title: string; text: string }[]).map((st, i) => (
-                  <li key={st.title} data-r className="grid content-start gap-4 rounded-2xl border bg-surface p-5">
-                    <div aria-hidden className="grid h-[118px] content-center gap-2 rounded-xl border bg-background p-3.5 text-[12.5px]">
-                      {i === 0 ? (<>
-                        <span className="inline-flex w-fit items-center gap-1.5 rounded-md bg-foreground px-2.5 py-1.5 font-semibold text-background"><GitPullRequest className="size-3.5" />{t("github.ui.connect")}</span>
-                        <span className="flex items-center justify-between rounded-md border bg-surface px-2.5 py-1.5 font-mono text-[11.5px]">vasafirma/app<Check className="size-3.5 text-success" strokeWidth={2.5} /></span>
-                      </>) : i === 1 ? (<>
-                        <span className="truncate font-semibold">#128 · {t("github.ui.bug")}</span>
-                        <span className="w-fit rounded-md border bg-surface px-2 py-1 font-semibold whitespace-nowrap">{t("github.ui.create")}</span>
-                        <span className="truncate font-mono text-[11.5px] text-muted-foreground">→ vasafirma/app#412</span>
-                      </>) : i === 2 ? (<>
-                        <span className="flex items-center gap-1.5 font-mono text-[11.5px]"><span className="size-2 rounded-full bg-foreground/50" />#412 closed · completed</span>
-                        <span className="flex items-center gap-1.5 font-mono text-[11.5px]"><span className="size-2 rounded-full bg-success" />release v2.15</span>
-                      </>) : (<>
-                        <span className="text-[11.5px] text-muted-foreground">→ jana@firma.sk</span>
-                        <span className="font-semibold">{t("hero.loop.mailSubject")}</span>
-                        <span className="truncate text-muted-foreground">{t("hero.loop.mailBody")}</span>
-                      </>)}
-                    </div>
-                    <h3 className="flex items-baseline gap-2 text-[16.5px] leading-snug font-semibold"><span className="font-mono text-[13px] text-muted-foreground tabular-nums">{i + 1}</span>{st.title}</h3>
-                    <p className="text-[14px] leading-relaxed text-muted-foreground">{st.text}</p>
-                  </li>
+            <details data-r className="group mt-16 border-t border-line-strong">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-md py-5 text-[20px] font-semibold tracking-tight [&::-webkit-details-marker]:hidden">
+                {t("features.moreTitle")}<ChevronDown className="size-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" aria-hidden />
+              </summary>
+              <div className="grid gap-x-10 gap-y-10 pt-4 pb-2 sm:grid-cols-2 lg:grid-cols-3">
+                {(t.raw("features.groups") as { title: string; items: string[] }[]).map((g) => (
+                  <div key={g.title} className="grid content-start gap-4 border-t pt-5">
+                    <h4 className="text-[16px] font-semibold tracking-tight">{g.title}</h4>
+                    <ul className="grid gap-2.5 text-[14.5px] leading-snug text-foreground/85">
+                      {g.items.map((i) => (
+                        <li key={i} className="grid grid-cols-[auto_1fr] gap-2.5"><Check className="mt-0.5 size-4 text-primary" strokeWidth={2.5} aria-hidden />{i}</li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </ol>
-              <p data-r className="mt-8 max-w-[80ch] text-[14px] leading-relaxed text-muted-foreground">{t("github.note")}</p>
-            </Reveal>
-          </section>
+              </div>
+            </details>
+          </Reveal>
 
           {/* developers */}
           <section id="developers" aria-labelledby="dev-h" className="scroll-mt-16 border-t bg-surface">
@@ -483,6 +425,22 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 </ul>
               </div>
               <div data-r className="min-w-0"><DevTabs tabs={devTabs(t, locale)} /></div>
+              {/* GitHub: from the report to the fix and back to the author, in four lines */}
+              <div id="github" data-r className="scroll-mt-24 border-t pt-10 lg:col-span-2">
+                <div className="grid gap-4 lg:grid-cols-2 lg:items-end">
+                  <h3 className="max-w-[24ch] text-[24px] leading-tight font-semibold tracking-[-0.03em]">{t("github.title")}</h3>
+                  <p className="max-w-[52ch] text-[15px] leading-relaxed text-muted-foreground lg:justify-self-end">{t("github.lede")}</p>
+                </div>
+                <ol className="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                  {(t.raw("github.steps") as { title: string; text: string }[]).map((st, i) => (
+                    <li key={st.title} className="grid content-start gap-2 border-t pt-4">
+                      <h4 className="flex items-baseline gap-2 text-[15.5px] leading-snug font-semibold"><span className="text-[13px] text-muted-foreground tabular-nums">{i + 1}</span>{st.title}</h4>
+                      <p className="text-[14px] leading-relaxed text-muted-foreground">{st.text}</p>
+                    </li>
+                  ))}
+                </ol>
+                <p className="mt-6 max-w-[80ch] text-[14px] leading-relaxed text-muted-foreground">{t("github.note")}</p>
+              </div>
             </Reveal>
             <dl aria-label="Spec" className="oz-frame grid border-t pb-4 sm:grid-cols-2 lg:grid-cols-4">
               {(t.raw("spec") as { k: string; v: string }[]).map((s, i) => (

@@ -2525,7 +2525,7 @@
           "text": "Čo chystáte a čo ste vydali, s e-mailom hlasujúcim"
         },
         {
-          "href": "#design",
+          "href": "#brand",
           "title": "Vo vašej značke",
           "text": "Farby, písmo a logo vašej aplikácie"
         }
@@ -2961,9 +2961,13 @@
         "a11y": {
           "title": "Prístupnosť",
           "text": "Ovládanie klávesnicou, kontrast podľa WCAG 2.2 AA a zverejnený výkaz prístupnosti podľa EN 301 549."
+        },
+        "brand": {
+          "title": "Vo farbách vašej značky",
+          "text": "Farby, písmo, zaoblenie a logo, vo svetlom aj tmavom režime. Jedna téma platí pre board, widget aj e-maily, na vlastnej doméne."
         }
       },
-      "moreTitle": "A ďalej"
+      "moreTitle": "Všetky funkcie"
     },
     "flow": {
       "sources": [

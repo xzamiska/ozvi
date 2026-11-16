@@ -2525,7 +2525,7 @@
           "text": "Co dalej i co już wdrożone, z e-mailami do głosujących"
         },
         {
-          "href": "#design",
+          "href": "#brand",
           "title": "W twoich barwach",
           "text": "Kolory, krój pisma i logo twojej aplikacji"
         }
@@ -2961,9 +2961,13 @@
         "a11y": {
           "title": "Dostępność",
           "text": "Obsługa klawiaturą, kontrast według WCAG 2.2 AA i opublikowany raport dostępności według EN 301 549."
+        },
+        "brand": {
+          "title": "W kolorach Twojej marki",
+          "text": "Kolory, czcionki, zaokrąglenia i logo, w trybie jasnym i ciemnym. Jeden motyw obejmuje tablicę, widget i e-maile, pod własną domeną."
         }
       },
-      "moreTitle": "I jeszcze"
+      "moreTitle": "Wszystkie funkcje"
     },
     "flow": {
       "sources": [

@@ -2525,7 +2525,7 @@
           "text": "What’s next and what shipped, with e-mails to voters"
         },
         {
-          "href": "#design",
+          "href": "#brand",
           "title": "In your brand",
           "text": "Your app’s colours, typeface and logo"
         }
@@ -2961,9 +2961,13 @@
         "a11y": {
           "title": "Accessibility",
           "text": "Keyboard control, WCAG 2.2 AA contrast and a published accessibility report under EN 301 549."
+        },
+        "brand": {
+          "title": "In your brand's colours",
+          "text": "Colours, fonts, corner radius and logo, in light and dark mode. One theme covers the board, the widget and the e-mails, on your own domain."
         }
       },
-      "moreTitle": "And more"
+      "moreTitle": "All features"
     },
     "flow": {
       "sources": [
