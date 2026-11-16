@@ -1,10 +1,10 @@
 import { limitSize, PLAN_LIMITS, PRICES } from "@ozvi/db";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
-import { Accessibility, ArrowRightLeft, Bot, Camera, Palette, Check, ChevronDown, Code, EyeOff, GitPullRequest, Inbox, Languages, Mail, MessageSquare, Minus, Sparkles, Star, Webhook } from "lucide-react";
+import { Accessibility, ArrowRightLeft, Camera, Globe, Palette, Check, ChevronDown, Code, EyeOff, GitPullRequest, Inbox, Languages, Mail, MessageSquare, Minus, ListTodo, Star, Webhook } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
-import { Beams, ReportStream, RouteFill, Terminal } from "@/components/landing/Live";
+import { Beams, ReportStream, RouteFill } from "@/components/landing/Live";
 import { Reveal } from "@/components/landing/Reveal";
 import { MiniBoard } from "@/components/landing/SampleBoard";
 import { SmoothScroll } from "@/components/landing/SmoothScroll";
@@ -92,15 +92,15 @@ claude mcp add --transport http ozvi \\
   ];
 }
 
-const h2 = "text-[32px] leading-[1.06] font-semibold tracking-[-0.04em] text-balance md:text-[44px]";
+const h2 = "text-[32px] leading-[1.06] font-extrabold tracking-[-0.035em] text-balance md:text-[44px]";
 const lede = "text-[16.5px] leading-relaxed text-muted-foreground";
 const primary = "inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-foreground px-5 text-[14.5px] font-semibold text-background transition-opacity hover:opacity-85";
 /** Before launch (OZVI_SIGNUP=closed) the sign-up buttons become this plain label. */
 const soonLabel = "inline-flex h-11 items-center justify-center rounded-lg border border-dashed border-line-strong px-5 text-[14.5px] font-medium text-muted-foreground";
-const flowChip = "inline-flex items-center gap-2.5 rounded-xl border bg-background px-3.5 py-2.5 text-[13.5px] font-medium whitespace-nowrap shadow-[0_8px_24px_-16px_rgb(13_12_20/0.35)]";
-const hostPanel = "look-host oz-scope overflow-hidden rounded-2xl border bg-background font-sans text-foreground shadow-[0_30px_80px_-40px_rgb(13_12_20/0.4)]";
-const note = "pointer-events-none absolute hidden items-center gap-2.5 rounded-2xl border bg-surface/90 px-3.5 py-2.5 text-left text-[13px] leading-snug shadow-[0_20px_50px_-20px_rgb(13_12_20/0.35)] backdrop-blur lg:flex";
-const tile = "relative overflow-hidden rounded-2xl border bg-surface p-6 shadow-[0_1px_0_rgb(13_12_20/0.03)]";
+const flowChip = "inline-flex items-center gap-2.5 rounded-xl border bg-background px-3.5 py-2.5 text-[13.5px] font-medium whitespace-nowrap";
+const hostPanel = "look-host oz-scope overflow-hidden rounded-xl border bg-background font-sans text-foreground";
+const note = "pointer-events-none absolute hidden items-center gap-2.5 rounded-xl border bg-surface/90 px-3.5 py-2.5 text-left text-[13px] leading-snug backdrop-blur lg:flex";
+const tile = "relative border-t-2 border-foreground pt-5";
 const tileH = "text-[18px] font-semibold tracking-tight";
 const tileP = "mt-2 max-w-[48ch] text-[14.5px] leading-relaxed text-muted-foreground";
 const ghost = "inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-line-strong bg-surface px-5 text-[14.5px] font-medium text-foreground transition-colors hover:border-foreground/40";
@@ -138,12 +138,13 @@ function HeroLoop({ t }: { t: T }) {
         </div>
       </div>
     </div>,
-    <div key="team" className="rounded-2xl border bg-surface p-4 text-[13.5px] shadow-[0_20px_50px_-30px_rgb(13_12_20/0.35)]">
-      <p className="flex gap-2 font-semibold"><span className="text-muted-foreground tabular-nums">#128</span><span className="min-w-0">{t("story.stage.report")}</span></p>
+    <div key="team" className="rounded-xl border-2 border-foreground bg-surface p-4 text-[13.5px] shadow-[0_1px_0_var(--oz-ink),0_24px_48px_-24px_color-mix(in_oklab,var(--oz-ink)_45%,transparent)]">
+      <p className="text-[22px] leading-none font-extrabold tracking-[-0.03em] tabular-nums">#128</p>
+      <p className="mt-2 font-semibold">{t("story.stage.report")}</p>
       <ol className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-[12.5px]">
         {stops.map((s, k) => (
           <li key={s} className="inline-flex items-center gap-1.5">
-            {k > 0 && <span aria-hidden className="h-px w-3 bg-st-done sm:w-4" />}
+            {k > 0 && <span aria-hidden className="h-[3px] w-3 rounded-full bg-st-done sm:w-4" />}
             <StatusMark kind="bug" status={status[k]!} />
             <span className={k === 3 ? "font-semibold" : "text-muted-foreground"}>{s}{k === 3 && <span className="font-medium text-muted-foreground"> · 2.15</span>}</span>
           </li>
@@ -229,7 +230,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
           <section className="relative isolate -mt-[68px] pt-[68px]">
             <div className="oz-frame grid gap-10 pt-6 pb-16 sm:gap-12 md:pt-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-16 lg:pb-24">
               <div>
-                <h1 className="oz-rise max-w-[19ch] text-[30px] leading-[1.08] font-semibold tracking-[-0.035em] text-balance sm:text-[46px] lg:text-[54px]">{t("hero.title")}</h1>
+                <h1 className="oz-rise max-w-[21ch] text-[30px] leading-[1.08] font-extrabold tracking-[-0.035em] text-balance sm:text-[46px] lg:text-[54px]">{t("hero.title")}</h1>
                 <p className={cn(lede, "oz-rise mt-5 max-w-[50ch] text-[16.5px] [animation-delay:80ms] sm:mt-6 sm:text-[17px] md:text-[18.5px]")}>{t("hero.lede")}</p>
                 <div className="oz-rise mt-7 flex flex-wrap gap-3 [animation-delay:160ms] sm:mt-8">
                   {go(start.label, primary)}
@@ -272,18 +273,18 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
           <section id="how" aria-labelledby="how-h" className="oz-frame scroll-mt-24 py-16 lg:py-8">
             <h2 id="how-h" className="sr-only">{t("hero.secondary")}</h2>
             <StickySteps phonePanels={[2]} steps={(t.raw("steps") as { title: string; text: string }[]).map((s, i) => ({ ...s, panel: [
-              <div key="s" className="rounded-2xl border bg-surface p-5 sm:p-6"><ReportStream items={(t.raw("features.tiles.stream.items") as { title: string; meta: string }[]).map((r, k) => ({ ...r, n: 126 + k, tone: k < 3 ? "bug" as const : "idea" as const }))} /></div>,
+              <div key="s" className="rounded-xl border bg-surface p-5 sm:p-6"><ReportStream items={(t.raw("features.tiles.stream.items") as { title: string; meta: string }[]).map((r, k) => ({ ...r, n: 126 + k, tone: k < 3 ? "bug" as const : "idea" as const }))} /></div>,
               <div key="t" className={hostPanel}><TeamDesk /></div>,
               <div key="i" inert className={cn(hostPanel, "pointer-events-none select-none")}><MiniBoard name={t("product.app")} compact={false} view="roadmap" fit /></div>,
               <div key="b" className="grid gap-6">
                 <div className="overflow-x-auto pb-1 [scrollbar-width:none]"><Beams className="min-w-[560px]"
-                  left={(t.raw("flow.sources") as string[]).map((l, k) => { const Icon = [MessageSquare, Mail, Code, Bot][k]!; return <span key={l} className={flowChip}><Icon className="size-4 text-brand-text" aria-hidden />{l}</span>; })}
-                  hub={<span className="grid size-20 place-items-center rounded-3xl border bg-background shadow-[0_20px_50px_-20px_color-mix(in_oklab,var(--oz-accent)_55%,transparent)]"><OzviMark className="size-10" /></span>}
-                  right={(t.raw("flow.tools") as string[]).map((l, k) => { const Icon = [GitPullRequest, Sparkles, Webhook, Inbox][k]!; return <span key={l} className={flowChip}><Icon className="size-4 text-success" aria-hidden />{l}</span>; })} /></div>
-                <div className="look-term oz-scope rounded-2xl bg-background p-5 text-foreground"><Terminal lines={t.raw("features.tiles.mcp.lines") as { who: "you" | "ai" | "tool"; text: string }[]} /></div>
+                  left={(t.raw("flow.sources") as string[]).map((l, k) => { const Icon = [MessageSquare, Globe, Mail, Code][k]!; return <span key={l} className={flowChip}><Icon className="size-4 text-brand-text" aria-hidden />{l}</span>; })}
+                  hub={<span className="grid size-20 place-items-center rounded-xl border bg-background"><OzviMark className="size-10" /></span>}
+                  right={(t.raw("flow.tools") as string[]).map((l, k) => { const Icon = [GitPullRequest, ListTodo, Webhook, Inbox][k]!; return <span key={l} className={flowChip}><Icon className="size-4 text-success" aria-hidden />{l}</span>; })} /></div>
+                
               </div>,
               <div key="r" className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-center">
-                <div className="rounded-2xl border bg-surface p-7"><RouteFill stops={t.raw("features.tiles.route.stops") as string[]} /></div>
+                <div className="rounded-xl border bg-surface p-7"><RouteFill stops={t.raw("features.tiles.route.stops") as string[]} /></div>
                 <div className={cn(hostPanel, "p-6")}>
                   <p className="text-[12.5px] text-muted-foreground">{t("story.stage.app")} → jana@firma.sk</p>
                   <p className="mt-2 text-[17px] font-semibold">{t("hero.loop.mailSubject")}</p>
@@ -300,10 +301,10 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               <h2 id="ways-h" className={cn(h2, "max-w-[18ch]")}>{t("ways.title")}</h2>
               <p className={cn(lede, "max-w-[52ch]")}>{t("ways.lede")}</p>
             </div>
-            <ol className="mt-10 grid overflow-hidden rounded-3xl border bg-surface md:grid-cols-3">
+            <ol className="mt-10 grid overflow-hidden rounded-xl border bg-surface md:grid-cols-3">
               {(t.raw("ways.items") as { tag: string; title: string; text: string }[]).map((w, i) => (
                 <li key={w.title} className={cn("grid content-start gap-4 p-6 sm:p-8", i > 0 && "max-md:border-t md:border-l")}>
-                  <div aria-hidden className="grid h-[132px] content-center rounded-2xl border bg-background p-4">
+                  <div aria-hidden className="grid h-[132px] content-center rounded-xl border bg-background p-4">
                     {i === 0 ? (
                       <div className="overflow-hidden rounded-lg border bg-surface text-[12px]">
                         <div className="flex items-center gap-1.5 border-b px-2.5 py-1.5"><span className="size-1.5 rounded-full bg-line-strong" /><span className="size-1.5 rounded-full bg-line-strong" /><span className="ml-1.5 truncate rounded bg-wash px-2 py-0.5 font-mono text-[11px] text-muted-foreground">feedback.vasafirma.sk</span></div>
@@ -332,7 +333,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
 
           {/* the demo: report a bug in someone else's app and see what the team gets */}
           <section id="demo" aria-labelledby="demo-h" className="oz-frame scroll-mt-24 pb-24 lg:pb-28">
-            <div className="grid overflow-hidden rounded-3xl border bg-surface lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+            <div className="grid overflow-hidden rounded-xl border bg-surface lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
               <div className="p-7 sm:p-10 lg:p-12">
                 <h2 id="demo-h" className={cn(h2, "max-w-[16ch]")}>{t("demo.title")}</h2>
                 <p className={cn(lede, "mt-5 max-w-[48ch]")}>{t("demo.lede")}</p>
@@ -352,9 +353,10 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                   <p className="mt-1.5 flex justify-between text-muted-foreground">{t("demo.noteLabel")}<span className="rounded bg-foreground/15 px-14 blur-[3px]">alergia</span></p>
                   <p className="mt-3 font-medium text-destructive">{t("demo.failed")}</p>
                 </div>
-                <div className="absolute right-6 bottom-6 left-16 max-w-[380px] rounded-2xl border bg-background p-4 shadow-[0_30px_60px_-30px_rgb(13_12_20/0.45)] sm:left-auto sm:w-[360px]">
+                <div className="absolute right-6 bottom-6 left-16 max-w-[380px] rounded-xl border bg-background p-4 sm:left-auto sm:w-[360px]">
                   <p className="text-[13px] font-semibold">{t("demo.teamGets")}</p>
-                  <p className="mt-2 font-mono text-[11.5px] text-destructive">500 PUT /api/bookings/2026-11-14</p>
+                  <p className="mt-2 text-[13.5px]">{t("demo.quote")}</p>
+                  <p className="mt-2 font-mono text-[11px] text-muted-foreground">500 PUT /api/bookings/2026-11-14</p>
                   <div className="mt-3 flex flex-wrap gap-1.5 text-[11.5px] text-muted-foreground">
                     {(t.raw("demo.chips") as string[]).map((c) => <span key={c} className="rounded bg-wash px-1.5 py-0.5">{c}</span>)}
                   </div>
@@ -369,7 +371,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               <h2 id="features-h" data-r className={cn(h2, "max-w-[15ch]")}>{t("features.title")}</h2>
               <p data-r className={cn(lede, "max-w-[52ch] lg:justify-self-end")}>{t("features.lede")}</p>
             </div>
-            <div className="mt-14 grid gap-4 md:grid-cols-3">
+            <div className="mt-14 grid gap-x-10 gap-y-12 md:grid-cols-3">
               <div data-r className={cn(tile, "md:row-span-2")}>
                 <EyeOff className="size-5 text-brand-text" aria-hidden />
                 <h3 className={cn(tileH, "mt-4")}>{t("features.tiles.privacy.title")}</h3>

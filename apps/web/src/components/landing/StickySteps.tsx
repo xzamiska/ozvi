@@ -39,7 +39,7 @@ export function StickySteps({ steps, phonePanels }: { steps: { title: string; te
         {steps.map((s, i) => (
           <li key={s.title} className="min-w-0 lg:flex lg:min-h-[70vh] lg:flex-col lg:justify-center">
             <p className={cn("text-[13px] font-semibold transition-colors", at === i ? "text-brand-text" : "text-muted-foreground")}>{String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}</p>
-            <h3 ref={(el) => { refs.current[i] = el; }} className={cn("mt-3 max-w-[18ch] text-[30px] leading-tight font-semibold tracking-[-0.035em] transition-opacity lg:text-[38px]", at !== i && "lg:opacity-35")}>{s.title}</h3>
+            <h3 ref={(el) => { refs.current[i] = el; }} className={cn("mt-3 max-w-[18ch] text-[30px] leading-tight font-extrabold tracking-[-0.035em] transition-opacity lg:text-[38px]", at !== i && "lg:opacity-35")}>{s.title}</h3>
             <p className={cn("mt-4 max-w-[46ch] text-[16.5px] leading-relaxed text-muted-foreground transition-opacity", at !== i && "lg:opacity-35")}>{s.text}</p>
             {(!phonePanels || phonePanels.includes(i)) && <div className="mt-6 min-w-0 lg:hidden">{s.panel}</div>}
           </li>

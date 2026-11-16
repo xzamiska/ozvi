@@ -2495,8 +2495,8 @@
   },
   "landing": {
     "meta": {
-      "title": "Ozvi – hlášení chyb, nápady a novinky přímo ve vaší aplikaci",
-      "description": "Soukromá hlášení chyb se screenshotem, veřejný board pro nápady, roadmapa a novinky. Přihlášení z vaší aplikace, MCP pro AI asistenty, veřejný zdrojový kód."
+      "title": "Ozvi – hlášení chyb a nápady od zákazníků přímo ve vaší aplikaci",
+      "description": "Zákazníci nahlásí chybu nebo navrhnou nápad přímo ve vaší aplikaci. Když to vyřešíte, dostanou e-mail. Board na nápady, roadmapa a novinky."
     },
     "nav": {
       "product": "Produkt",
@@ -2660,7 +2660,7 @@
       }
     ],
     "dev": {
-      "title": "Připojíte za oběd. Ne za sprint.",
+      "title": "Připojíte to za jedno odpoledne.",
       "lede": "Skript s widgetem a jeden endpoint, který podepíše uživatele. Vše ostatní je API: webhooky, GitHub a MCP pro AI asistenty.",
       "points": [
         "Chyba z boardu se jedním kliknutím stane GitHub issue a stav se vrátí zpět.",
@@ -2695,7 +2695,7 @@
       }
     },
     "pricing": {
-      "title": "Platíte za rok. Ne za hlavu.",
+      "title": "Platíte za rok, ne za každého v týmu.",
       "lede": "Neomezujeme uživatele ani záznamy. Platíte jen za to, co nás stojí peníze: e-maily, úložiště a domény. Ceny jsou bez DPH.",
       "plan": "Plán",
       "forever": "navždy, bez karty",
@@ -2724,7 +2724,7 @@
       "name": "Moje aplikace"
     },
     "closing": {
-      "title": "Dejte uživatelům hlas. A odpovězte jim.",
+      "title": "Dejte zákazníkům hlas. A odpovězte jim.",
       "text": "Plán Free je bez karty a bez časového omezení.",
       "compare": "Porovnat plány"
     },
@@ -2837,7 +2837,7 @@
           ]
         },
         {
-          "title": "Třídění",
+          "title": "Zpracování",
           "items": [
             "Stavy s pevným pořadím pro nápady i chyby",
             "Interní poznámky a štítky jen pro tým",
@@ -2972,9 +2972,9 @@
     "flow": {
       "sources": [
         "Widget v aplikaci",
+        "Board na vaší adrese",
         "E-mail",
-        "REST API",
-        "Claude, Cursor (MCP)"
+        "REST API"
       ],
       "tools": [
         "GitHub",
@@ -2985,20 +2985,20 @@
     },
     "steps": [
       {
-        "title": "Hlášení přicházejí s kontextem.",
-        "text": "Uživatel nahlásí chybu přímo ve vaší aplikaci. Screenshot, verzi, prohlížeč a chyby z konzole přibalí widget sám, hesla rozmaže už v prohlížeči."
+        "title": "Zákazník nahlásí chybu tam, kde ji vidí.",
+        "text": "Klikne na „Zpětná vazba“ přímo ve vaší aplikaci a napíše, co nefunguje. Screenshot a stránku přibalí Ozvi sám a hesla zakryje ještě v jeho prohlížeči. Vývojářům přidá i verzi a chyby z konzole."
       },
       {
         "title": "Tým vyřídí všechno na jednom místě.",
-        "text": "Fronta hlášení s filtry, podobné záznamy ke sloučení jedním klikem, interní poznámky a štítky, které uživatel nevidí. Nic nezůstane ležet bez odpovědi."
+        "text": "Všechna hlášení pohromadě, s filtry. Podobná sloučíte jedním klikem, interní poznámky a štítky zákazník nevidí. Nic nezůstane ležet bez odpovědi."
       },
       {
         "title": "Nápady se seřadí podle hlasů.",
-        "text": "Uživatelé navrhují a hlasují, při psaní uvidí podobné nápady. Roadmapa ukáže, co plánujete a na čem pracujete, a nápad se po ní posouvá se stavem."
+        "text": "Zákazníci navrhují a hlasují a při psaní uvidí podobné nápady. Roadmapa ukáže, co plánujete a na čem pracujete, a nápad se po ní posouvá se stavem."
       },
       {
         "title": "Napojené na nástroje, které už používáte.",
-        "text": "Hlášení se jedním klikem stane issue na GitHubu, v Linearu nebo Jiře. Novinky jdou do Slacku a Discordu a AI asistent ve vašem editoru pracuje s hlášeními přes MCP."
+        "text": "Hlášení se jedním klikem stane issue na GitHubu, v Linearu nebo Jiře. Novinky pošlete do Slacku či Discordu."
       },
       {
         "title": "A autor se dozví, jak to dopadlo.",
@@ -3013,12 +3013,12 @@
     },
     "demo": {
       "hero": "Vyzkoušet demo",
-      "title": "Nahlaste chybu v cizí aplikaci. Za půl minuty.",
+      "title": "Nahlaste chybu v ukázkové aplikaci. Za půl minuty.",
       "lede": "Demo je ukázková rezervační aplikace se skutečným widgetem Ozvi. Nahlaste v ní chybu a uvidíte přesně to, co by dostal váš tým.",
       "points": [
-        "Screenshot, na kterém jsou citlivé údaje zakryté už v prohlížeči",
-        "Chyba z konzole, selhaný požadavek a kroky před chybou",
-        "Board týmu i pohled autora, se stavem a odpovědí"
+        "Co zákazník napíše, i se screenshotem, na kterém jsou citlivé údaje zakryté",
+        "Pohled týmu i zákazníka, se stavem a odpovědí",
+        "Pro vývojáře i chyba z konzole a kroky před chybou"
       ],
       "cta": "Otevřít demo",
       "note": "Bez registrace. Nic se neodesílá.",
@@ -3032,7 +3032,8 @@
         "v2.15.0",
         "Chrome · 1396×783",
         "3 kroky"
-      ]
+      ],
+      "quote": "„Rezervaci se mi nedaří uložit.“"
     },
     "ways": {
       "title": "Stačí vám board. Widget přidáte, až budete chtít.",
@@ -3061,7 +3062,7 @@
           "text": "Vložte roadmapu nebo novinky na vlastní web či do aplikace. Vypadají jako vaše stránka, odkazy vedou na board."
         }
       ],
-      "note": "Bez widgetu hlásí uživatelé chyby přímo na boardu. Chybí jim jen kontext, který widget přibalí sám: screenshot, chyby z konzole a kroky před chybou."
+      "note": "Bez widgetu hlásí zákazníci chyby přímo na boardu. Chybí jim jen kontext, který widget přibalí sám: screenshot, chyby z konzole a kroky před chybou."
     },
     "github": {
       "title": "Od hlášení po opravu. GitHub se postará o zbytek.",

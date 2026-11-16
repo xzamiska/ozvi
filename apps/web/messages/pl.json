@@ -2495,8 +2495,8 @@
   },
   "landing": {
     "meta": {
-      "title": "Ozvi – zgłoszenia błędów, pomysły i informacje o wydaniach w twojej aplikacji",
-      "description": "Prywatne zgłoszenia błędów ze zrzutami ekranu, publiczna tablica pomysłów, roadmapa i informacje o wydaniach. Logowanie z twojej aplikacji, MCP dla asystentów AI, kod źródłowy dostępny."
+      "title": "Ozvi – zgłoszenia błędów i pomysły od klientów prosto w Twojej aplikacji",
+      "description": "Klienci zgłaszają błąd albo proponują pomysł prosto w Twojej aplikacji. Gdy to załatwisz, dostają e-mail. Tablica pomysłów, roadmapa i nowości."
     },
     "nav": {
       "product": "Produkt",
@@ -2660,7 +2660,7 @@
       }
     ],
     "dev": {
-      "title": "Podłączysz to w przerwie na lunch. Nie w sprincie.",
+      "title": "Podłączysz to w jedno popołudnie.",
       "lede": "Skrypt widżetu i jeden endpoint, który loguje użytkownika. Cała reszta to API: webhooki, GitHub i MCP dla asystentów AI.",
       "points": [
         "Błąd z tablicy jednym kliknięciem staje się issue na GitHubie, a jego status synchronizuje się z powrotem.",
@@ -2695,7 +2695,7 @@
       }
     },
     "pricing": {
-      "title": "Płacisz za rok. Nie za stanowisko.",
+      "title": "Płacisz za rok, nie za każdą osobę w zespole.",
       "lede": "Bez limitów użytkowników i rekordów. Płacisz tylko za to, co kosztuje nas: e-maile, miejsce na dane i domeny. Ceny nie zawierają VAT.",
       "plan": "Plan",
       "forever": "na zawsze, bez karty",
@@ -2724,7 +2724,7 @@
       "name": "Moja aplikacja"
     },
     "closing": {
-      "title": "Daj użytkownikom głos. I odpowiadaj im.",
+      "title": "Daj klientom głos. I odpowiadaj im.",
       "text": "Plan Free nie wymaga karty i nigdy nie wygasa.",
       "compare": "Porównaj plany"
     },
@@ -2837,7 +2837,7 @@
           ]
         },
         {
-          "title": "Segregacja",
+          "title": "Obsługa",
           "items": [
             "Statusy o stałej kolejności dla pomysłów i błędów",
             "Notatki wewnętrzne i tagi tylko dla zespołu",
@@ -2972,9 +2972,9 @@
     "flow": {
       "sources": [
         "Widget w aplikacji",
+        "Tablica pod Twoim adresem",
         "E-mail",
-        "REST API",
-        "Claude, Cursor (MCP)"
+        "REST API"
       ],
       "tools": [
         "GitHub",
@@ -2985,20 +2985,20 @@
     },
     "steps": [
       {
-        "title": "Zgłoszenia przychodzą z kontekstem.",
-        "text": "Użytkownik zgłasza błąd prosto w twojej aplikacji. Widget sam dołącza zrzut ekranu, wersję, przeglądarkę i błędy z konsoli, a hasła rozmywa już w przeglądarce."
+        "title": "Klient zgłasza błąd tam, gdzie go widzi.",
+        "text": "Klika „Opinia” prosto w Twojej aplikacji i pisze, co nie działa. Zrzut ekranu i stronę Ozvi dołącza sam, a hasła zakrywa jeszcze w jego przeglądarce. Programiści dostają też wersję i błędy z konsoli."
       },
       {
         "title": "Zespół załatwia wszystko w jednym miejscu.",
-        "text": "Kolejka zgłoszeń z filtrami, podobne wpisy do scalenia jednym kliknięciem, notatki wewnętrzne i tagi, których użytkownik nie widzi. Nic nie zostaje bez odpowiedzi."
+        "text": "Wszystkie zgłoszenia razem, z filtrami. Podobne scalisz jednym kliknięciem, wewnętrznych notatek i etykiet klient nie widzi. Nic nie zostaje bez odpowiedzi."
       },
       {
         "title": "Pomysły układają się według głosów.",
-        "text": "Użytkownicy proponują i głosują, a podczas pisania widzą podobne pomysły. Roadmapa pokazuje, co planujesz i nad czym pracujesz, a pomysł przesuwa się po niej ze statusem."
+        "text": "Klienci proponują i głosują, a podczas pisania widzą podobne pomysły. Roadmapa pokazuje, co planujesz i nad czym pracujesz, a pomysł przesuwa się po niej razem ze statusem."
       },
       {
         "title": "Połączone z narzędziami, których już używasz.",
-        "text": "Jednym kliknięciem zgłoszenie staje się issue w GitHubie, Linearze lub Jirze. Nowości trafiają do Slacka i Discorda, a asystent AI w edytorze pracuje ze zgłoszeniami przez MCP."
+        "text": "Zgłoszenie jednym kliknięciem staje się issue w GitHubie, Linearze lub Jirze. Nowości wyślesz do Slacka lub Discorda."
       },
       {
         "title": "A autor dowiaduje się, jak się skończyło.",
@@ -3013,12 +3013,12 @@
     },
     "demo": {
       "hero": "Wypróbuj demo",
-      "title": "Zgłoś błąd w cudzej aplikacji. W pół minuty.",
+      "title": "Zgłoś błąd w przykładowej aplikacji. W pół minuty.",
       "lede": "Demo to przykładowa aplikacja do rezerwacji z prawdziwym widgetem Ozvi. Zgłoś w niej błąd i zobacz dokładnie to, co dostałby twój zespół.",
       "points": [
-        "Zrzut ekranu z danymi wrażliwymi zasłoniętymi już w przeglądarce",
-        "Błąd z konsoli, nieudane żądanie i kroki przed błędem",
-        "Tablica zespołu i widok autora, ze statusem i odpowiedzią"
+        "To, co pisze klient, ze zrzutem ekranu z zakrytymi danymi wrażliwymi",
+        "Widok zespołu i klienta, ze statusem i odpowiedzią",
+        "Dla programistów także błąd z konsoli i kroki przed błędem"
       ],
       "cta": "Otwórz demo",
       "note": "Bez rejestracji. Nic nie jest wysyłane.",
@@ -3032,7 +3032,8 @@
         "v2.15.0",
         "Chrome · 1396×783",
         "3 kroki"
-      ]
+      ],
+      "quote": "„Nie mogę zapisać rezerwacji.”"
     },
     "ways": {
       "title": "Wystarczy tablica. Widget dodasz, kiedy zechcesz.",

@@ -2495,8 +2495,8 @@
   },
   "landing": {
     "meta": {
-      "title": "Ozvi – Fehlermeldungen, Ideen und Release Notes direkt in Ihrer App",
-      "description": "Private Fehlermeldungen mit Screenshots, ein öffentliches Ideen-Board, Roadmap und Release Notes. Anmeldung aus Ihrer App, MCP für KI-Assistenten, Quellcode verfügbar (Source-available, FSL)."
+      "title": "Ozvi – Fehlermeldungen und Ideen Ihrer Kunden, direkt in Ihrer App",
+      "description": "Kunden melden einen Fehler oder schlagen eine Idee direkt in Ihrer App vor. Wenn Sie es erledigt haben, bekommen sie eine E-Mail. Ideen-Board, Roadmap und Neuigkeiten."
     },
     "nav": {
       "product": "Produkt",
@@ -2660,7 +2660,7 @@
       }
     ],
     "dev": {
-      "title": "In der Mittagspause eingebunden. Nicht in einem Sprint.",
+      "title": "In einem Nachmittag eingebunden.",
       "lede": "Ein Widget-Skript und ein Endpunkt, der die Person anmeldet. Alles andere ist API: Webhooks, GitHub und MCP für KI-Assistenten.",
       "points": [
         "Ein Fehler auf dem Board wird mit einem Klick zum GitHub-Issue, und sein Status wird zurücksynchronisiert.",
@@ -2695,7 +2695,7 @@
       }
     },
     "pricing": {
-      "title": "Pro Jahr bezahlen. Nicht pro Nutzer.",
+      "title": "Sie zahlen pro Jahr, nicht pro Teammitglied.",
       "lede": "Keine Limits bei Nutzern oder Einträgen. Sie zahlen nur für das, was uns Geld kostet: E-Mails, Speicher und Domains. Preise zzgl. MwSt.",
       "plan": "Tarif",
       "forever": "dauerhaft, ohne Kreditkarte",
@@ -2724,7 +2724,7 @@
       "name": "Meine App"
     },
     "closing": {
-      "title": "Geben Sie Ihren Nutzern eine Stimme. Und antworten Sie ihnen.",
+      "title": "Geben Sie Ihren Kunden eine Stimme. Und antworten Sie ihnen.",
       "text": "Der Free-Tarif kommt ohne Kreditkarte aus und läuft nie ab.",
       "compare": "Tarife vergleichen"
     },
@@ -2837,7 +2837,7 @@
           ]
         },
         {
-          "title": "Sichten",
+          "title": "Bearbeiten",
           "items": [
             "Feste Statusabfolgen für Ideen und Fehler",
             "Interne Notizen und Tags nur fürs Team",
@@ -2971,10 +2971,10 @@
     },
     "flow": {
       "sources": [
-        "Widget in der App",
+        "Widget in Ihrer App",
+        "Board unter Ihrer Adresse",
         "E-Mail",
-        "REST-API",
-        "Claude, Cursor (MCP)"
+        "REST API"
       ],
       "tools": [
         "GitHub",
@@ -2985,20 +2985,20 @@
     },
     "steps": [
       {
-        "title": "Meldungen kommen mit Kontext.",
-        "text": "Nutzer melden einen Fehler direkt in Ihrer App. Screenshot, Version, Browser und Konsolenfehler hängt das Widget selbst an, Passwörter verwischt es schon im Browser."
+        "title": "Kunden melden einen Fehler dort, wo sie ihn sehen.",
+        "text": "Ein Klick auf „Feedback“ direkt in Ihrer App, dann schreiben sie, was nicht geht. Screenshot und Seite hängt Ozvi selbst an und verdeckt Passwörter noch in ihrem Browser. Entwickler bekommen dazu Version und Konsolenfehler."
       },
       {
         "title": "Ihr Team erledigt alles an einem Ort.",
-        "text": "Eine filterbare Liste, ähnliche Einträge mit einem Klick zusammengeführt, interne Notizen und Tags, die Nutzer nie sehen. Nichts bleibt unbeantwortet liegen."
+        "text": "Alle Meldungen zusammen, mit Filtern. Ähnliche führen Sie mit einem Klick zusammen, interne Notizen und Labels sieht der Kunde nicht. Nichts bleibt ohne Antwort liegen."
       },
       {
-        "title": "Ideen sortieren sich nach Stimmen.",
-        "text": "Nutzer schlagen vor und stimmen ab und sehen beim Schreiben ähnliche Ideen. Die Roadmap zeigt, was Sie planen und woran Sie arbeiten, und jede Idee wandert mit ihrem Status."
+        "title": "Ideen ordnen sich nach Stimmen.",
+        "text": "Kunden schlagen vor und stimmen ab und sehen beim Schreiben ähnliche Ideen. Die Roadmap zeigt, was Sie planen und woran Sie arbeiten, und eine Idee wandert mit ihrem Status darauf weiter."
       },
       {
-        "title": "Verbunden mit den Werkzeugen, die Sie schon nutzen.",
-        "text": "Ein Klick macht aus einer Meldung ein Issue in GitHub, Linear oder Jira. Neuigkeiten gehen an Slack und Discord, und der KI-Assistent in Ihrem Editor arbeitet über MCP mit den Meldungen."
+        "title": "Verbunden mit den Tools, die Sie schon nutzen.",
+        "text": "Eine Meldung wird mit einem Klick zum Issue in GitHub, Linear oder Jira. Neuigkeiten schicken Sie an Slack oder Discord."
       },
       {
         "title": "Und die meldende Person erfährt, wie es ausging.",
@@ -3013,12 +3013,12 @@
     },
     "demo": {
       "hero": "Demo ausprobieren",
-      "title": "Melden Sie einen Fehler in einer fremden App. In einer halben Minute.",
+      "title": "Melden Sie einen Fehler in einer Beispiel-App. In einer halben Minute.",
       "lede": "Die Demo ist eine Beispiel-Buchungs-App mit dem echten Ozvi-Widget. Melden Sie darin einen Fehler und sehen Sie genau, was Ihr Team bekäme.",
       "points": [
-        "Ein Screenshot, in dem sensible Daten schon im Browser abgedeckt sind",
-        "Der Konsolenfehler, die fehlgeschlagene Anfrage und die Schritte davor",
-        "Das Board des Teams und die Sicht der meldenden Person, mit Status und Antwort"
+        "Was der Kunde schreibt, mit einem Screenshot, auf dem persönliche Daten verdeckt sind",
+        "Die Sicht des Teams und des Kunden, mit Status und Antwort",
+        "Für Entwickler auch der Konsolenfehler und die Schritte davor"
       ],
       "cta": "Demo öffnen",
       "note": "Ohne Registrierung. Nichts wird gesendet.",
@@ -3032,7 +3032,8 @@
         "v2.15.0",
         "Chrome · 1396×783",
         "3 Schritte"
-      ]
+      ],
+      "quote": "„Ich kann meine Buchung nicht speichern.“"
     },
     "ways": {
       "title": "Das Board reicht. Das Widget kommt dazu, wann Sie wollen.",

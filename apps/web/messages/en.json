@@ -2495,8 +2495,8 @@
   },
   "landing": {
     "meta": {
-      "title": "Ozvi – bug reports, ideas and release notes inside your app",
-      "description": "Private bug reports with screenshots, a public ideas board, roadmap and release notes. Sign-in from your app, MCP for AI assistants, source-available."
+      "title": "Ozvi – bug reports and ideas from your customers, right inside your app",
+      "description": "Customers report a bug or suggest an idea right inside your app. When you've dealt with it, they get an e-mail. An ideas board, roadmap and changelog."
     },
     "nav": {
       "product": "Product",
@@ -2660,7 +2660,7 @@
       }
     ],
     "dev": {
-      "title": "Wire it up over lunch. Not over a sprint.",
+      "title": "Set it up in an afternoon.",
       "lede": "A widget script and one endpoint that signs the user in. Everything else is API: webhooks, GitHub and MCP for AI assistants.",
       "points": [
         "A bug on the board becomes a GitHub issue in one click, and its status syncs back.",
@@ -2695,7 +2695,7 @@
       }
     },
     "pricing": {
-      "title": "Pay per year. Not per seat.",
+      "title": "Pay per year, not per teammate.",
       "lede": "No limits on users or records. You pay only for what costs us money: e-mail, storage and domains. Prices exclude VAT.",
       "plan": "Plan",
       "forever": "forever, no card",
@@ -2724,7 +2724,7 @@
       "name": "My App"
     },
     "closing": {
-      "title": "Give your users a voice. And answer them.",
+      "title": "Give your customers a voice. And answer them.",
       "text": "The Free plan needs no card and never expires.",
       "compare": "Compare plans"
     },
@@ -2828,7 +2828,7 @@
       "lede": "No paid add-ons. Cloud plans differ only in what costs us money, and on your own server everything is free.",
       "groups": [
         {
-          "title": "Collect",
+          "title": "Collecting",
           "items": [
             "A widget in your app, also as a React component",
             "Annotated screenshots",
@@ -2837,7 +2837,7 @@
           ]
         },
         {
-          "title": "Triage",
+          "title": "Handling",
           "items": [
             "Fixed status routes for ideas and bugs",
             "Internal notes and team-only tags",
@@ -2972,9 +2972,9 @@
     "flow": {
       "sources": [
         "Widget in your app",
+        "Board at your address",
         "E-mail",
-        "REST API",
-        "Claude, Cursor (MCP)"
+        "REST API"
       ],
       "tools": [
         "GitHub",
@@ -2985,20 +2985,20 @@
     },
     "steps": [
       {
-        "title": "Reports arrive with context.",
-        "text": "A user reports a bug right inside your app. The widget attaches a screenshot, version, browser and console errors, and blurs passwords in the browser."
+        "title": "Customers report a bug where they see it.",
+        "text": "They click “Feedback” right in your app and write what's wrong. Ozvi attaches a screenshot and the page by itself and hides passwords before anything leaves their browser. Developers also get the version and console errors."
       },
       {
-        "title": "Your team handles it in one place.",
-        "text": "A filtered queue, similar items merged in one click, internal notes and tags users never see. Nothing sits without a reply."
+        "title": "Your team handles it all in one place.",
+        "text": "Every report together, with filters. Merge similar ones in one click; internal notes and tags stay hidden from the customer. Nothing is left without an answer."
       },
       {
-        "title": "Ideas sort themselves by votes.",
-        "text": "Users suggest and vote, and see similar ideas while typing. The roadmap shows what you plan and what you're working on, and each idea moves along it with its status."
+        "title": "Ideas rank themselves by votes.",
+        "text": "Customers suggest and vote, and see similar ideas as they type. The roadmap shows what you plan and what you're working on, and an idea moves along it with its status."
       },
       {
         "title": "Connected to the tools you already use.",
-        "text": "One click turns a report into a GitHub, Linear or Jira issue. Changelog entries go to Slack and Discord, and the AI assistant in your editor works with reports over MCP."
+        "text": "A report becomes an issue in GitHub, Linear or Jira in one click. Send updates to Slack or Discord."
       },
       {
         "title": "And the author hears how it ended.",
@@ -3013,12 +3013,12 @@
     },
     "demo": {
       "hero": "Try the demo",
-      "title": "Report a bug in someone else's app. In half a minute.",
+      "title": "Report a bug in a sample app. In half a minute.",
       "lede": "The demo is a sample booking app with the real Ozvi widget. Report a bug in it and see exactly what your team would get.",
       "points": [
-        "A screenshot with sensitive data covered right in the browser",
-        "The console error, the failed request and the steps before the bug",
-        "The team's board and the author's view, with status and reply"
+        "What the customer writes, with a screenshot where personal data is hidden",
+        "The team's view and the customer's, with status and reply",
+        "For developers, also the console error and the steps before it"
       ],
       "cta": "Open the demo",
       "note": "No sign-up. Nothing is sent.",
@@ -3032,7 +3032,8 @@
         "v2.15.0",
         "Chrome · 1396×783",
         "3 steps"
-      ]
+      ],
+      "quote": "“I can't save my booking.”"
     },
     "ways": {
       "title": "The board is enough. Add the widget when you want to.",

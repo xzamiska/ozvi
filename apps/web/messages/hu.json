@@ -2495,8 +2495,8 @@
   },
   "landing": {
     "meta": {
-      "title": "Ozvi – hibajelentések, ötletek és kiadási jegyzetek az alkalmazásodban",
-      "description": "Privát hibajelentések képernyőképpel, nyilvános ötlettábla, ütemterv és kiadási jegyzetek. Bejelentkezés az alkalmazásodból, MCP az AI-asszisztenseknek, nyilvános forráskód."
+      "title": "Ozvi – hibabejelentések és ötletek az ügyfeleitől, közvetlenül az alkalmazásában",
+      "description": "Az ügyfelek közvetlenül az alkalmazásában jelentenek hibát vagy javasolnak ötletet. Ha elintézte, e-mailt kapnak. Ötletboard, ütemterv és újdonságok."
     },
     "nav": {
       "product": "Termék",
@@ -2660,7 +2660,7 @@
       }
     ],
     "dev": {
-      "title": "Egy ebédszünet alatt beköthető. Nem egy sprint alatt.",
+      "title": "Egy délután alatt beköti.",
       "lede": "Egy widgetszkript és egy végpont, amely bejelentkezteti a felhasználót. Minden más API: webhookok, GitHub és MCP az AI-asszisztenseknek.",
       "points": [
         "A táblán lévő hibából egy kattintással GitHub-issue lesz, és az állapota visszaszinkronizálódik.",
@@ -2695,7 +2695,7 @@
       }
     },
     "pricing": {
-      "title": "Évente fizetsz. Nem felhasználónként.",
+      "title": "Évente fizet, nem csapattagonként.",
       "lede": "Nincs korlát a felhasználók és a rekordok számára. Csak azért fizetsz, ami nekünk is pénzbe kerül: e-mail, tárhely és domainek. Az árak nem tartalmazzák az áfát.",
       "plan": "Csomag",
       "forever": "örökre, bankkártya nélkül",
@@ -2724,7 +2724,7 @@
       "name": "Saját alkalmazás"
     },
     "closing": {
-      "title": "Adj hangot a felhasználóidnak. És válaszolj nekik.",
+      "title": "Adjon hangot az ügyfeleinek. És válaszoljon nekik.",
       "text": "Az ingyenes csomaghoz nem kell bankkártya, és soha nem jár le.",
       "compare": "Csomagok összehasonlítása"
     },
@@ -2837,7 +2837,7 @@
           ]
         },
         {
-          "title": "Osztályozás",
+          "title": "Feldolgozás",
           "items": [
             "Rögzített sorrendű állapotok ötletekhez és hibákhoz",
             "Belső jegyzetek és csak a csapat által látható címkék",
@@ -2972,9 +2972,9 @@
     "flow": {
       "sources": [
         "Widget az alkalmazásban",
+        "Board a saját címén",
         "E-mail",
-        "REST API",
-        "Claude, Cursor (MCP)"
+        "REST API"
       ],
       "tools": [
         "GitHub",
@@ -2985,20 +2985,20 @@
     },
     "steps": [
       {
-        "title": "A jelentések kontextussal érkeznek.",
-        "text": "A felhasználó közvetlenül az alkalmazásodban jelez hibát. A widget magától csatolja a képernyőképet, a verziót, a böngészőt és a konzolhibákat, a jelszavakat pedig már a böngészőben elmossa."
+        "title": "Az ügyfél ott jelenti a hibát, ahol látja.",
+        "text": "Rákattint a „Visszajelzés” gombra az alkalmazásában, és leírja, mi nem működik. A képernyőképet és az oldalt az Ozvi maga csatolja, a jelszavakat pedig még a böngészőjében elrejti. A fejlesztők a verziót és a konzolhibákat is megkapják."
       },
       {
         "title": "A csapat mindent egy helyen intéz.",
-        "text": "Szűrhető jelentéssor, hasonló bejegyzések egy kattintásos összevonása, belső jegyzetek és címkék, amelyeket a felhasználó nem lát. Semmi sem marad válasz nélkül."
+        "text": "Minden bejelentés együtt, szűrőkkel. A hasonlókat egy kattintással összevonja, a belső jegyzeteket és címkéket az ügyfél nem látja. Semmi sem marad válasz nélkül."
       },
       {
-        "title": "Az ötletek szavazatok szerint rendeződnek.",
-        "text": "A felhasználók javasolnak és szavaznak, írás közben látják a hasonló ötleteket. Az ütemterv megmutatja, mit terveztek és min dolgoztok, az ötlet az állapotával halad rajta."
+        "title": "Az ötletek a szavazatok szerint rendeződnek.",
+        "text": "Az ügyfelek javasolnak és szavaznak, írás közben látják a hasonló ötleteket. Az ütemterv megmutatja, mit tervez és min dolgozik, az ötlet pedig az állapotával együtt halad rajta."
       },
       {
-        "title": "Összekötve az eszközökkel, amiket már használtok.",
-        "text": "Egy kattintással GitHub-, Linear- vagy Jira-issue lesz a jelentésből. Az újdonságok a Slackbe és a Discordba mennek, a szerkesztődben futó MI-asszisztens pedig MCP-n át dolgozik a jelentésekkel."
+        "title": "Összekötve a már használt eszközeivel.",
+        "text": "A bejelentésből egy kattintással issue lesz a GitHubon, a Linearben vagy a Jirában. Az újdonságokat Slackre vagy Discordra küldheti."
       },
       {
         "title": "És a bejelentő megtudja, mi lett vele.",
@@ -3013,12 +3013,12 @@
     },
     "demo": {
       "hero": "Demó kipróbálása",
-      "title": "Jelents hibát egy idegen alkalmazásban. Fél perc alatt.",
+      "title": "Jelentsen hibát egy mintaalkalmazásban. Fél perc alatt.",
       "lede": "A demó egy minta foglalási alkalmazás valódi Ozvi widgettel. Jelents benne hibát, és pontosan azt látod, amit a csapatod kapna.",
       "points": [
-        "Képernyőkép, amelyen az érzékeny adatok már a böngészőben ki vannak takarva",
-        "A konzolhiba, a sikertelen kérés és a hiba előtti lépések",
-        "A csapat táblája és a bejelentő nézete, állapottal és válasszal"
+        "Amit az ügyfél ír, képernyőképpel, amelyen az érzékeny adatok el vannak takarva",
+        "A csapat és az ügyfél nézete, állapottal és válasszal",
+        "A fejlesztőknek a konzolhiba és a hiba előtti lépések is"
       ],
       "cta": "Demó megnyitása",
       "note": "Regisztráció nélkül. Semmi sem megy el.",
@@ -3032,7 +3032,8 @@
         "v2.15.0",
         "Chrome · 1396×783",
         "3 lépés"
-      ]
+      ],
+      "quote": "„Nem tudom elmenteni a foglalásomat.”"
     },
     "ways": {
       "title": "Elég a tábla. A widgetet akkor adod hozzá, amikor akarod.",

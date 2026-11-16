@@ -2495,8 +2495,8 @@
   },
   "landing": {
     "meta": {
-      "title": "Ozvi – hlásenia chýb, nápady a novinky priamo vo vašej aplikácii",
-      "description": "Súkromné hlásenia chýb so screenshotom, verejný board na nápady, roadmapa a novinky. Prihlásenie z vašej aplikácie, MCP pre AI asistentov, verejný zdrojový kód."
+      "title": "Ozvi – hlásenia chýb a nápady od zákazníkov priamo vo vašej aplikácii",
+      "description": "Zákazníci nahlásia chybu alebo navrhnú nápad priamo vo vašej aplikácii. Keď to vybavíte, dostanú e-mail. Board na nápady, roadmapa a novinky."
     },
     "nav": {
       "product": "Produkt",
@@ -2660,7 +2660,7 @@
       }
     ],
     "dev": {
-      "title": "Pripojíte za obed. Nie za šprint.",
+      "title": "Pripojíte to za jedno popoludnie.",
       "lede": "Skript s widgetom a jeden endpoint, ktorý podpíše používateľa. Všetko ostatné je API: webhooky, GitHub a MCP pre AI asistentov.",
       "points": [
         "Chyba z boardu sa jedným klikom stane GitHub issue a stav sa vráti späť.",
@@ -2695,7 +2695,7 @@
       }
     },
     "pricing": {
-      "title": "Platíte za rok. Nie za hlavu.",
+      "title": "Platíte za rok, nie za každého v tíme.",
       "lede": "Neobmedzujeme používateľov ani záznamy. Platíte len za to, čo nás stojí peniaze: e-maily, úložisko a domény. Ceny sú bez DPH.",
       "plan": "Plán",
       "forever": "navždy, bez karty",
@@ -2724,7 +2724,7 @@
       "name": "Moja aplikácia"
     },
     "closing": {
-      "title": "Dajte používateľom hlas. A odpovedzte im.",
+      "title": "Dajte zákazníkom hlas. A odpovedzte im.",
       "text": "Plán Free je bez karty a bez časového limitu.",
       "compare": "Porovnať plány"
     },
@@ -2828,7 +2828,7 @@
       "lede": "Žiadne doplnky za príplatok. Plány v cloude sa líšia iba v tom, čo nás stojí peniaze, a na vlastnom serveri máte všetko zadarmo.",
       "groups": [
         {
-          "title": "Zber",
+          "title": "Zbieranie",
           "items": [
             "Widget do vašej aplikácie, aj ako React komponent",
             "Screenshot s anotáciou",
@@ -2837,7 +2837,7 @@
           ]
         },
         {
-          "title": "Triáž",
+          "title": "Spracovanie",
           "items": [
             "Stavy s pevným poradím pre nápady aj chyby",
             "Interné poznámky a štítky len pre tím",
@@ -2972,9 +2972,9 @@
     "flow": {
       "sources": [
         "Widget v aplikácii",
+        "Board na vašej adrese",
         "E-mail",
-        "REST API",
-        "Claude, Cursor (MCP)"
+        "REST API"
       ],
       "tools": [
         "GitHub",
@@ -2985,20 +2985,20 @@
     },
     "steps": [
       {
-        "title": "Hlásenia prichádzajú s kontextom.",
-        "text": "Používateľ nahlási chybu priamo vo vašej aplikácii. Screenshot, verziu, prehliadač a chyby z konzoly pribalí widget sám, heslá rozmaže ešte v prehliadači."
+        "title": "Zákazník nahlási chybu tam, kde ju vidí.",
+        "text": "Klikne na „Spätná väzba“ priamo vo vašej appke a napíše, čo nefunguje. Screenshot a stránku pribalí Ozvi sám a heslá zakryje ešte v jeho prehliadači. Vývojárom pridá aj verziu a chyby z konzoly."
       },
       {
         "title": "Tím vybaví všetko na jednom mieste.",
-        "text": "Fronta hlásení s filtrami, podobné záznamy na zlúčenie jedným klikom, interné poznámky a štítky, ktoré používateľ nevidí. Nič neostane ležať bez odpovede."
+        "text": "Všetky hlásenia pokope, s filtrami. Podobné zlúčite jedným klikom, interné poznámky a štítky zákazník nevidí. Nič neostane ležať bez odpovede."
       },
       {
         "title": "Nápady sa zoradia podľa hlasov.",
-        "text": "Používatelia navrhujú a hlasujú, pri písaní uvidia podobné nápady. Roadmapa ukáže, čo plánujete a na čom pracujete, a nápad sa po nej posúva so stavom."
+        "text": "Zákazníci navrhujú a hlasujú a pri písaní uvidia podobné nápady. Roadmapa ukáže, čo plánujete a na čom pracujete, a nápad sa po nej posúva so stavom."
       },
       {
         "title": "Napojené na nástroje, ktoré už používate.",
-        "text": "Hlásenie sa jedným klikom stane issue na GitHube, v Lineari alebo Jire. Novinky idú do Slacku a Discordu a AI asistent vo vašom editore pracuje s hláseniami cez MCP."
+        "text": "Hlásenie sa jedným klikom stane issue na GitHube, v Lineari alebo Jire. Novinky pošlete do Slacku či Discordu."
       },
       {
         "title": "A autor sa dozvie, ako to dopadlo.",
@@ -3013,12 +3013,12 @@
     },
     "demo": {
       "hero": "Vyskúšať demo",
-      "title": "Nahláste chybu v cudzej aplikácii. Za pol minúty.",
+      "title": "Nahláste chybu v ukážkovej aplikácii. Za pol minúty.",
       "lede": "Demo je ukážková rezervačná aplikácia so skutočným widgetom Ozvi. Nahláste v nej chybu a uvidíte presne to, čo by dostal váš tím.",
       "points": [
-        "Screenshot, na ktorom sú citlivé údaje zakryté ešte v prehliadači",
-        "Chyba z konzoly, zlyhaná požiadavka a kroky pred chybou",
-        "Board tímu aj pohľad autora, so stavom a odpoveďou"
+        "Čo zákazník napíše, aj so screenshotom, na ktorom sú citlivé údaje zakryté",
+        "Pohľad tímu aj zákazníka, so stavom a odpoveďou",
+        "Pre vývojárov aj chyba z konzoly a kroky pred chybou"
       ],
       "cta": "Otvoriť demo",
       "note": "Bez registrácie. Nič sa neodosiela.",
@@ -3032,7 +3032,8 @@
         "v2.15.0",
         "Chrome · 1396×783",
         "3 kroky"
-      ]
+      ],
+      "quote": "„Rezerváciu sa mi nedarí uložiť.“"
     },
     "ways": {
       "title": "Stačí vám board. Widget pridáte, keď budete chcieť.",
@@ -3061,7 +3062,7 @@
           "text": "Vložte roadmapu alebo novinky na vlastný web či do aplikácie. Vyzerajú ako vaša stránka, odkazy vedú na board."
         }
       ],
-      "note": "Bez widgetu hlásia používatelia chyby priamo na boarde. Chýba im len kontext, ktorý widget pribalí sám: screenshot, chyby z konzoly a kroky pred chybou."
+      "note": "Bez widgetu hlásia zákazníci chyby priamo na boarde. Chýba im len kontext, ktorý widget pribalí sám: screenshot, chyby z konzoly a kroky pred chybou."
     },
     "github": {
       "title": "Od hlásenia po opravu. GitHub sa postará o zvyšok.",
