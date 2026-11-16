@@ -2495,8 +2495,8 @@
   },
   "landing": {
     "meta": {
-      "title": "Ozvi – hibabejelentések és ötletek az ügyfeleitől, közvetlenül az alkalmazásában",
-      "description": "Az ügyfelek közvetlenül az alkalmazásában jelentenek hibát vagy javasolnak ötletet. Ha elintézte, e-mailt kapnak. Ötletboard, ütemterv és újdonságok."
+      "title": "Ozvi – hibabejelentések és ötletek az ügyfeleidtől, közvetlenül az alkalmazásodban",
+      "description": "Az ügyfeleid közvetlenül az alkalmazásodban jelenthetnek be hibát vagy javasolhatnak ötletet. Amikor elintézed, e-mailt kapnak. Mellé ötlettáblát, ütemtervet és újdonságoldalt is kapsz."
     },
     "nav": {
       "product": "Termék",
@@ -2511,7 +2511,7 @@
       "productItems": [
         {
           "href": "#how",
-          "title": "Hibajelentések",
+          "title": "Hibabejelentések",
           "text": "Privát, képernyőképpel és technikai kontextussal"
         },
         {
@@ -2522,7 +2522,7 @@
         {
           "href": "#how",
           "title": "Ütemterv és kiadási jegyzetek",
-          "text": "Mi következik és mi készült el, e-maillel a szavazóknak"
+          "text": "Mi következik, mi készült el, és e-mail a szavazóknak"
         },
         {
           "href": "#brand",
@@ -2560,47 +2560,47 @@
       "devFeature": {
         "href": "#self-host",
         "title": "Saját üzemeltetés",
-        "text": "Egy Docker-image és Postgres. Minden funkció, 0 €."
+        "text": "Egy Docker-image és Postgres, minden funkcióval, 0 €-ért."
       },
       "soon": "Hamarosan indulunk"
     },
     "hero": {
-      "title": "Az ügyfelek közvetlenül az alkalmazásban jelentik a hibát. Ha kijavítja, értesülnek róla.",
-      "lede": "Egy „Visszajelzés” gomb az alkalmazásában, és egy board ötletekhez és újdonságokhoz. A bejelentés képernyőképpel és az oldallal együtt érkezik, így nem kell visszakérdeznie.",
+      "title": "Az ügyfeleid közvetlenül az alkalmazásodban jelentik be a hibát. Ha kijavítod, értesítést kapnak róla.",
+      "lede": "Kapsz egy „Visszajelzés” gombot az alkalmazásodba, mellé pedig egy táblát az ötleteknek és az újdonságoknak. A bejelentés képernyőképpel és azzal az oldallal együtt érkezik, ahol a hiba történt, így nem kell visszakérdezned.",
       "secondary": "Hogyan működik",
-      "note": "Az ingyenes csomaghoz nem kell bankkártya. Saját üzemeltetésben minden funkcióval ingyenes.",
+      "note": "Az ingyenes csomaghoz nem kell bankkártya. Saját szerveren az Ozvi ingyenes, és minden funkció elérhető benne.",
       "loop": {
-        "label": "Példa: egy ügyfél hibát jelent az alkalmazásában, ön kijavítja, az ügyfél pedig e-mailt kap",
+        "label": "Példa: egy ügyfél hibát jelent be az alkalmazásodban, te kijavítod, ő pedig e-mailt kap",
         "where": [
-          "Az ügyfél bejelenti az alkalmazásában",
-          "Ön képernyőképpel együtt megkapja és kijavítja",
+          "Az ügyfél bejelenti a hibát az alkalmazásban",
+          "Megkapod képernyőképpel együtt, és kijavítod",
           "Az ügyfél e-mailt kap"
         ],
         "widgetTitle": "Hiba bejelentése",
         "widgetSend": "Bejelentés",
         "mailSubject": "Javítva a 2.15-ös verzióban",
-        "mailBody": "Kijavítottuk a bejelentett hibát. Már működik?",
+        "mailBody": "Kijavítottuk a bejelentett hibát. Most már működik?",
         "yes": "Igen, működik",
         "no": "Még nem",
         "shot": "Képernyőkép csatolva"
       }
     },
     "monitoring": {
-      "title": "A monitorozás elkapja, ami összeomlik. Az Ozvi azt, amit az emberek mondanak.",
+      "title": "A hibamonitorozás azt jelzi, ami összeomlik, az Ozvi pedig azt, amit az ügyfeleid mondanak.",
       "themLabel": "Hibamonitorozás",
-      "them": "Elkapja a kivételeket, a lassú kéréseket és a stack trace-t. Fejlesztőknek készült, és jelez, ha a kód összeomlik.",
-      "ozvi": "Elkapja, amit az emberek mondanak, azt is, ami sosem dob hibát. És a bejelentőnek megírja, mi lett az eredménye.",
+      "them": "Elkapja a kivételeket, a lassú kéréseket és a stack trace-eket. Fejlesztőknek készült, és akkor jelez, amikor a kód összeomlik.",
+      "ozvi": "Az Ozvi azt gyűjti össze, amit az ügyfeleid mondanak, azt is, ami soha nem dob hibát. A bejelentőnek pedig megírja, mi lett a dolog vége.",
       "examples": [
         "„Rossz összeg jött ki a számlámon.”",
         "„Nem találom, hol lehet lemondani a foglalást.”",
         "„Hiányzik az Excel-export.”"
       ],
-      "both": "Kiegészítik egymást. Nyugodtan használja mindkettőt, mi is így teszünk.",
-      "link": "Miben más az Ozvi, mint a hibamonitorozás"
+      "both": "A kettő kiegészíti egymást. Nyugodtan használd mindkettőt, mi is így teszünk.",
+      "link": "Miben különbözik az Ozvi a hibamonitorozástól"
     },
     "story": {
       "stage": {
-        "label": "Bemutató: egy felhasználó hibát jelent, a csapat kijavítja, a felhasználó pedig választ kap",
+        "label": "Bemutató: egy ügyfél hibát jelent be, a csapat kijavítja, az ügyfél pedig választ kap",
         "app": "Foglalások",
         "url": "app.cegetek.hu/naptar/2026-11-14",
         "invoice": "Szombat, november 14.",
@@ -2611,7 +2611,7 @@
             "9:00"
           ],
           [
-            "Festés · Lúcia",
+            "Festés · Luca",
             "10:30"
           ]
         ],
@@ -2644,28 +2644,28 @@
     "spec": [
       {
         "k": "< 20 kB",
-        "v": "A widget gzippel tömörítve. Shadow DOM-ban fut, és soha nem nyúl a stílusaidhoz vagy szkriptjeidhez."
+        "v": "Gzippel tömörítve. A widget shadow DOM-ban fut, és soha nem nyúl a stílusaidhoz és a szkriptjeidhez."
       },
       {
         "k": "HS256 / OIDC",
-        "v": "Bejelentkezés az alkalmazásodból. A felhasználóknak soha nem kell újabb fiókot létrehozniuk."
+        "v": "Bejelentkezés az alkalmazásodon keresztül. Az ügyfeleidnek soha nem kell újabb fiókot létrehozniuk."
       },
       {
         "k": "17 eszköz",
-        "v": "MCP-szerver AI-asszisztenseknek: keresés, duplikátumok, állapotok, kiadási jegyzetek."
+        "v": "MCP-szerver AI-asszisztenseknek: keresés, duplikátumok, állapotok és kiadási jegyzetek."
       },
       {
         "k": "RLS",
-        "v": "Minden projekt soros szinten el van különítve a Postgresben, nem csak az alkalmazás kódjában."
+        "v": "Minden projekt sorszinten el van különítve a Postgresben, nem csak az alkalmazás kódjában."
       }
     ],
     "dev": {
-      "title": "Egy délután alatt beköti.",
-      "lede": "Egy widgetszkript és egy végpont, amely bejelentkezteti a felhasználót. Minden más API: webhookok, GitHub és MCP az AI-asszisztenseknek.",
+      "title": "Egy délután alatt beüzemeled.",
+      "lede": "Elég egy widgetszkript és egy végpont, amely bejelentkezteti a felhasználót. Minden más API-n keresztül megy: webhookok, GitHub és MCP az AI-asszisztenseknek.",
       "points": [
         "A táblán lévő hibából egy kattintással GitHub-issue lesz, és az állapota visszaszinkronizálódik.",
-        "Az e-mailek egy adatbázisbeli kimenő soron keresztül mennek ki. Semmi sem vész el, ha az SMTP nem elérhető.",
-        "Minden e-mail és webhook kézbesítése látható a konzolban, a hibákkal együtt."
+        "Az e-mailek az adatbázisban lévő kimenő soron keresztül mennek ki, így semmi sem vész el, ha az SMTP-szerver nem érhető el.",
+        "Minden e-mail és webhook kézbesítését látod a konzolban, a hibákkal együtt."
       ],
       "copy": "másolás",
       "copied": "másolva",
@@ -2673,7 +2673,7 @@
       "tabs": {
         "widget": {
           "label": "Widget",
-          "note": "Gomb, hibajelentő űrlap képernyőképpel és ötletek. A nyelvet az Ozvi.setLanguage(), a lang attribútum vagy az oldal nyelve adja. Sütik és harmadik felek nélkül."
+          "note": "Gomb, hibabejelentő űrlap képernyőképpel és ötletek. A nyelvet az Ozvi.setLanguage(), a lang attribútum vagy az oldal nyelve határozza meg. Nem használ sütiket, és nem hív harmadik feleket."
         },
         "sso": {
           "label": "Bejelentkezés",
@@ -2682,21 +2682,21 @@
         },
         "mcp": {
           "label": "MCP",
-          "note": "Az összevonás és a kiadási jegyzetek közzététele mindig megerősítést kér. A felhasználói szöveg adatként jut el a modellhez, soha nem utasításként.",
+          "note": "Az összevonás és a kiadási jegyzetek közzététele mindig megerősítést kér. A felhasználók szövege adatként jut el a modellhez, soha nem utasításként.",
           "comment": "aztán a csevegőben",
           "q1": "Melyik e heti hiba kapcsolódik a naptárhoz?",
           "q2": "Vond össze a #131-et a #128-cal, és jelöld javítottként a 2.15-ben."
         },
         "hook": {
           "label": "Webhook",
-          "note": "HMAC-aláírással, újrapróbálkozással, kézbesítési naplóval a konzolban. A Slack, a Discord és a Mattermost alapból olvasható üzenetet kap.",
+          "note": "A webhookok HMAC-aláírással érkeznek, hiba esetén újrapróbálkoznak, a kézbesítési naplót pedig a konzolban látod. A Slack, a Discord és a Mattermost alapból jól olvasható üzenetet kap.",
           "title": "A mobilos naptár nem mutatja a szombati időpontokat"
         }
       }
     },
     "pricing": {
-      "title": "Évente fizet, nem csapattagonként.",
-      "lede": "Nincs korlát a felhasználók és a rekordok számára. Csak azért fizetsz, ami nekünk is pénzbe kerül: e-mail, tárhely és domainek. Az árak nem tartalmazzák az áfát.",
+      "title": "Évente fizetsz, és nem számít, hányan vagytok a csapatban.",
+      "lede": "A felhasználók és a rekordok számát nem korlátozzuk. Csak azért fizetsz, ami nekünk is pénzbe kerül: az e-mailekért, a tárhelyért és a domainekért. Az árak nem tartalmazzák az áfát.",
       "plan": "Csomag",
       "forever": "örökre, bankkártya nélkül",
       "yearly": "évente, vagy negyedévente {q}",
@@ -2717,14 +2717,14 @@
       "no": "nem"
     },
     "self": {
-      "title": "Saját üzemeltetésben: 0 €, minden funkcióval.",
-      "text": "Egy Docker-image és Postgres. Semmi sincs csomaghoz kötve. Nyilvános forráskód FSL-licenc alatt, amely két év után Apache 2.0-ra vált.",
+      "title": "Saját szerveren: 0 €, minden funkcióval.",
+      "text": "Egy Docker-image és Postgres. Egyetlen funkció sincs csomaghoz kötve. A forráskód nyilvános, és FSL-licenc alatt érhető el, amely két év után Apache 2.0-ra vált.",
       "c1": "Ozvi + Postgres",
       "c2": "első projekt",
       "name": "Saját alkalmazás"
     },
     "closing": {
-      "title": "Adjon hangot az ügyfeleinek. És válaszoljon nekik.",
+      "title": "Hallgasd meg az ügyfeleidet, és válaszolj is nekik.",
       "text": "Az ingyenes csomaghoz nem kell bankkártya, és soha nem jár le.",
       "compare": "Csomagok összehasonlítása"
     },
@@ -2735,43 +2735,43 @@
       "legal": "Jogi információk",
       "terms": "Felhasználási feltételek",
       "privacy": "Adatvédelmi tájékoztató",
-      "license": "Nyilvános forráskód (FSL). Az SDK és a widget MIT-licenc alatt.",
+      "license": "A forráskód nyilvános (FSL). Az SDK és a widget MIT-licences.",
       "demo": "Widget-bemutató",
       "feedback": "Javasolj ötletet az Ozvinak",
-      "contact": "Írjon nekünk",
+      "contact": "Írj nekünk",
       "dpa": "Adatfeldolgozási szerződés (DPA)",
       "blog": "Blog"
     },
     "product": {
-      "title": "Amit a felhasználóid látnak. És amit a csapatod.",
-      "lede": "Ez a valódi tábla mintaadatokkal, egy ügyfél alkalmazásának színeiben. Szavazhatsz, ötletet vagy hozzászólást is írhatsz.",
+      "title": "Ezt látják az ügyfeleid, és ezt látja a csapatod.",
+      "lede": "Ez a valódi tábla mintaadatokkal, egy ügyfelünk alkalmazásának színeiben. Szavazhatsz, és ötletet vagy hozzászólást is írhatsz.",
       "tablist": "A tábla részei",
       "teamOnly": "csak csapat",
       "app": "Foglalások",
       "parts": {
         "ideas": {
           "title": "Ötletek szavazással",
-          "text": "A felhasználók javasolnak és szavaznak. Írás közben látják a hasonló ötleteket, így nem szaporodnak a duplikátumok."
+          "text": "Az ügyfelek ötleteket javasolnak és szavaznak. Írás közben látják a hasonló ötleteket, így nem szaporodnak el a duplikátumok."
         },
         "roadmap": {
           "title": "Ütemterv",
-          "text": "Mit terveztek, min dolgoztok és mit adtatok ki. Az ötlet azzal az állapottal halad rajta, amit a csapat ad neki."
+          "text": "Látszik rajta, mi van tervben, min dolgozik a csapat, és mi jelent meg már. Az ötlet azzal az állapottal halad rajta, amelyet a csapat ad neki."
         },
         "news": {
           "title": "Újdonságok",
-          "text": "Ha egy ötlet megjelenik, egyetlen bejegyzés e-mailt küld mindenkinek, aki rá szavazott. A vázlat GitHub-kiadásból is elkészülhet."
+          "text": "Amikor egy ötlet megvalósul, egyetlen bejegyzéssel mindenki e-mailt kap, aki rá szavazott. A vázlatot az Ozvi egy GitHub-kiadásból is elkészítheti."
         },
         "bugs": {
           "title": "Privát hibajelentések",
-          "text": "A jelentést csak a bejelentő és a csapat látja. A bejelentő követi, hol tart, és e-mailt kap, amikor kijavították."
+          "text": "A bejelentést csak a beküldője és a csapat látja. A bejelentő követheti, hol tart, és e-mailt kap, amikor a hibát kijavították."
         },
         "team": {
           "title": "A csapat nézete",
-          "text": "Minden jelentéshez képernyőkép, verzió, böngésző és konzolhibák tartoznak. A csapat belső jegyzetet ír, összevonja a duplikátumot, összeköti a GitHubbal, és egy lépésben értesíti a bejelentőt."
+          "text": "Minden bejelentéshez képernyőkép, verzió, böngésző és konzolhibák tartoznak. A csapat belső jegyzetet ír, összevonja a duplikátumokat, összeköti a bejelentést a GitHubbal, és egy lépésben értesíti a bejelentőt."
         }
       },
       "team": {
-        "title": "Hibajelentések",
+        "title": "Hibabejelentések",
         "private": "privát",
         "filters": [
           [
@@ -2792,12 +2792,12 @@
           "A mobilos naptár nem mutatja a szombati időpontokat",
           "Bejelentkezés után elvész a választott nyelv"
         ],
-        "shot": "jelölt képernyőkép",
+        "shot": "megjelölt képernyőkép",
         "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
         "similar": "Hasonló: #119 Üres hétvége a heti nézetben",
         "merge": "Összevonás",
-        "noteLabel": "Belső jegyzet · csak a csapatnak",
-        "note": "A mobilos nézet vasárnaptól számolja a hetet, a többi hétfőtől. Egységesítjük, a javítás a 2.15-ben jön.",
+        "noteLabel": "Belső jegyzet, csak a csapatnak",
+        "note": "A mobilos nézet vasárnaptól számolja a hetet, a többi hétfőtől. Egységesítjük, a javítás a 2.15-ös verzióban jön.",
         "pr": "PR #490 beolvasztva · előnézet kész",
         "save": "Mentés és a bejelentő értesítése",
         "reporters": [
@@ -2805,18 +2805,18 @@
           "Jana Kováčová · Pro csomag · 2 órája",
           "Eva Szabó · Studio csomag · tegnap"
         ],
-        "filterLabel": "Jelentések szűrése",
-        "emptyFilter": "Itt nincs semmi. Próbálj másik szűrőt.",
+        "filterLabel": "Bejelentések szűrése",
+        "emptyFilter": "Itt nincs semmi. Próbálj ki egy másik szűrőt.",
         "noErrors": "Nincs konzolhiba",
-        "merged": "Összevonva: #119 · 3 szavazat átvéve",
+        "merged": "A #119 összevonva, 3 szavazat átkerült",
         "notePh": "Belső jegyzet…",
         "addNote": "Hozzáadás",
-        "statusLabel": "A jelentés állapota",
-        "sentFixed": "A bejelentő e-mailt kapott: „Javítva a 2.15-ös verzióban. Működik már?”",
-        "sentStatus": "A bejelentő e-mailt kapott: a jelentés állapota most „{status}”."
+        "statusLabel": "A bejelentés állapota",
+        "sentFixed": "A bejelentő e-mailt kapott: „Javítva a 2.15-ös verzióban. Most már működik?”",
+        "sentStatus": "A bejelentő e-mailt kapott: a bejelentés állapota mostantól „{status}”."
       },
       "look": {
-        "label": "A te színeidben",
+        "label": "A saját színeidben",
         "accent": "Kiemelőszín {color}",
         "light": "Világos",
         "dark": "Sötét",
@@ -2824,15 +2824,15 @@
       }
     },
     "features": {
-      "title": "Minden a bejelentéstől a válaszig.",
-      "lede": "Nincsenek fizetős kiegészítők. A felhőcsomagok csak abban különböznek, ami nekünk pénzbe kerül, saját szerveren pedig minden ingyenes.",
+      "title": "Minden, a bejelentéstől a válaszig.",
+      "lede": "Nincsenek fizetős kiegészítők. A felhős csomagok csak abban különböznek, ami nekünk pénzbe kerül, saját szerveren pedig minden ingyenes.",
       "groups": [
         {
           "title": "Gyűjtés",
           "items": [
             "Widget az alkalmazásodban, React-komponensként is",
-            "Jelölt képernyőkép",
-            "Verzió, böngésző, cím és konzolhibák automatikusan",
+            "Képernyőkép jelölésekkel",
+            "Verzió, böngésző, URL és konzolhibák automatikusan",
             "Bejelentkezés az alkalmazásodon át: aláírt token vagy OIDC"
           ]
         },
@@ -2842,14 +2842,14 @@
             "Rögzített sorrendű állapotok ötletekhez és hibákhoz",
             "Belső jegyzetek és csak a csapat által látható címkék",
             "Hasonló bejegyzések és duplikátumok összevonása",
-            "„Válasz nélkül” sor, hogy semmi ne maradjon el",
+            "„Válasz nélkül” lista, hogy semmi ne sikkadjon el",
             "Bejegyzések AI-fordítása (Pro és Studio), AI-összefoglalók (Studio)"
           ]
         },
         {
           "title": "Válasz a bejelentőnek",
           "items": [
-            "E-mail: „javítva a 2.15-ben, működik már?”",
+            "E-mail: „Javítva a 2.15-ös verzióban. Most már működik?”",
             "Újdonságok e-mailben mindenkinek, aki szavazott",
             "A javítás bizonyítéka: PR, kiadás vagy előnézet",
             "Hétfői összefoglaló a csapatnak"
@@ -2858,7 +2858,7 @@
         {
           "title": "Integrációk",
           "items": [
-            "GitHub: issue-k, pull requestek és újdonság-vázlatok kiadásokból",
+            "GitHub: issue-k, pull requestek és újdonság-vázlatok a kiadásokból",
             "Linear és Jira Cloud",
             "Slack, Discord és aláírt webhookok",
             "REST API és saját domain"
@@ -2875,8 +2875,8 @@
       ],
       "tiles": {
         "stream": {
-          "title": "A jelentések kontextussal érkeznek",
-          "text": "A widget magától csatolja a képernyőképet, a verziót, a böngészőt és a konzolhibákat. A felhasználónak semmit sem kell magyaráznia.",
+          "title": "A bejelentések kontextussal együtt érkeznek",
+          "text": "A widget magától csatolja a képernyőképet, a verziót, a böngészőt és a konzolhibákat. Az ügyfélnek semmit sem kell elmagyaráznia.",
           "items": [
             {
               "title": "Az SMS-emlékeztető rossz időpontot mutat az óraátállítás után",
@@ -2901,12 +2901,12 @@
           ]
         },
         "mcp": {
-          "title": "MI-asszisztens a szerkesztődben",
-          "text": "MCP-szerver 17 eszközzel. Az összevonó vagy közzétevő lépések a te jóváhagyásodra várnak.",
+          "title": "AI-asszisztens a szerkesztődben",
+          "text": "MCP-szerver 17 eszközzel. Az összevonás és a közzététel csak a jóváhagyásod után történik meg.",
           "lines": [
             {
               "who": "you",
-              "text": "Mi újat jelentettek a naptárról?"
+              "text": "Mi újat jelentettek be a naptárral kapcsolatban?"
             },
             {
               "who": "tool",
@@ -2914,11 +2914,11 @@
             },
             {
               "who": "ai",
-              "text": "#128 a mobil elrejti a szombatokat, #126 rossz emlékeztető időpont. #119 a #128 duplikátumának tűnik."
+              "text": "#128: mobilon nem látszanak a szombatok, #126: rossz időpont az emlékeztetőben. A #119 a #128 duplikátumának tűnik."
             },
             {
               "who": "you",
-              "text": "Vond össze a #119-et a #128-cal, és állítsd a #128-at Javítva 2.15-re."
+              "text": "Vond össze a #119-et a #128-cal, és állítsd a #128-at „Javítva a 2.15-ben” állapotra."
             },
             {
               "who": "tool",
@@ -2927,8 +2927,8 @@
           ]
         },
         "route": {
-          "title": "A bejelentő tudja, hol tart a jelentése",
-          "text": "„Javítva” állapotnál e-mailt kap, hogy működik-e már.",
+          "title": "Az ügyfél látja, hol tart a bejelentése",
+          "text": "Amikor a hibát „Javítva” állapotba teszed, e-mailt kap, és jelezheti, hogy most már működik-e.",
           "stops": [
             "Beérkezett",
             "Megerősítve",
@@ -2937,34 +2937,34 @@
           ]
         },
         "privacy": {
-          "title": "A jelszavak sehova sem jutnak el",
+          "title": "A jelszavak nem jutnak ki sehová",
           "text": "A widget már a böngészőben elmossa a jelszómezőket és a megjelölt részeket.",
           "email": "E-mail",
           "password": "Jelszó"
         },
         "eu": {
           "title": "Adatok az EU-ban, sütik nélkül",
-          "text": "A felhő egy németországi adatközpontban fut. Az alkalmazásodban lévő widget nem állít be sütiket, semmit sem követ, és harmadik feleket sem hív, a felhőben és saját szerveren egyaránt."
+          "text": "A felhő egy németországi adatközpontban fut. Az alkalmazásodba épített widget nem állít be sütiket, nem követ semmit, és nem hív harmadik feleket, sem a felhőben, sem saját szerveren."
         },
         "self": {
-          "title": "Vagy saját szerveren",
-          "text": "Egy Docker-kép és Postgres. Minden funkció, 0 €."
+          "title": "Vagy a saját szervereden",
+          "text": "Egy Docker-image és Postgres, minden funkcióval, 0 €-ért."
         },
         "fider": {
-          "title": "Átállás Fiderről",
-          "text": "Importálás mentésből vagy API-n át: ötletek, szavazatok, hozzászólások, címkék és mellékletek. A bejegyzések száma megmarad, ahol lehet."
+          "title": "Átállás a Fiderről",
+          "text": "Importálás biztonsági mentésből vagy API-n keresztül: ötletek, szavazatok, hozzászólások, címkék és mellékletek. Ahol lehet, a bejegyzések száma megmarad."
         },
         "langs": {
           "title": "Hat nyelv",
-          "text": "Tábla, widget és e-mailek szlovákul, csehül, angolul, lengyelül, magyarul és németül. A más nyelvű bejegyzéseket az AI lefordítja az olvasó nyelvére, mindig jelölve, az eredeti egy kattintásra (Pro és Studio)."
+          "text": "A tábla, a widget és az e-mailek szlovákul, csehül, angolul, lengyelül, magyarul és németül is elérhetők. A más nyelvű bejegyzéseket az AI lefordítja az olvasó nyelvére. A fordítás mindig jelölve van, az eredeti egy kattintással megnézhető (Pro és Studio)."
         },
         "a11y": {
           "title": "Akadálymentesség",
-          "text": "Billentyűzetes kezelés, WCAG 2.2 AA szerinti kontraszt és nyilvános akadálymentességi jelentés az EN 301 549 szerint."
+          "text": "Az Ozvi billentyűzettel is kezelhető, a kontraszt megfelel a WCAG 2.2 AA szintnek, az EN 301 549 szerinti akadálymentességi jelentés pedig nyilvános."
         },
         "brand": {
-          "title": "A márkája színeiben",
-          "text": "Színek, betűtípus, lekerekítés és logó, világos és sötét módban. Egy téma érvényes a boardra, a widgetre és az e-mailekre, saját domainen."
+          "title": "A márkád színeiben",
+          "text": "Beállíthatod a színeket, a betűtípust, a lekerekítést és a logót, világos és sötét módhoz is. Egyetlen téma érvényes a táblára, a widgetre és az e-mailekre, saját domainen is."
         }
       },
       "moreTitle": "Az összes funkció"
@@ -2972,7 +2972,7 @@
     "flow": {
       "sources": [
         "Widget az alkalmazásban",
-        "Board a saját címén",
+        "Tábla a saját címeden",
         "E-mail",
         "REST API"
       ],
@@ -2985,44 +2985,44 @@
     },
     "steps": [
       {
-        "title": "Az ügyfél ott jelenti a hibát, ahol látja.",
-        "text": "Rákattint a „Visszajelzés” gombra az alkalmazásában, és leírja, mi nem működik. A képernyőképet és az oldalt az Ozvi maga csatolja, a jelszavakat pedig még a böngészőjében elrejti. A fejlesztők a verziót és a konzolhibákat is megkapják."
+        "title": "Az ügyfél ott jelenti be a hibát, ahol észreveszi.",
+        "text": "Az alkalmazásodban rákattint a „Visszajelzés” gombra, és leírja, mi nem működik. A képernyőképet és az oldal címét az Ozvi magától csatolja, a jelszavakat pedig még azelőtt kitakarja, hogy bármi elhagyná a böngészőt. A fejlesztők a verziót és a konzolhibákat is megkapják."
       },
       {
-        "title": "A csapat mindent egy helyen intéz.",
-        "text": "Minden bejelentés együtt, szűrőkkel. A hasonlókat egy kattintással összevonja, a belső jegyzeteket és címkéket az ügyfél nem látja. Semmi sem marad válasz nélkül."
+        "title": "A csapat mindent egy helyen intéz el.",
+        "text": "Az összes bejelentés egy helyen van, és szűrhető. A hasonlókat egy kattintással összevonod, a belső jegyzeteket és címkéket pedig az ügyfél nem látja. Semmi sem marad válasz nélkül."
       },
       {
         "title": "Az ötletek a szavazatok szerint rendeződnek.",
-        "text": "Az ügyfelek javasolnak és szavaznak, írás közben látják a hasonló ötleteket. Az ütemterv megmutatja, mit tervez és min dolgozik, az ötlet pedig az állapotával együtt halad rajta."
+        "text": "Az ügyfelek javasolnak és szavaznak, írás közben pedig látják a hasonló ötleteket. Az ütemtervből kiderül, mit tervez és min dolgozik a csapat. Ha egy ötlet állapota megváltozik, magától továbblép rajta."
       },
       {
-        "title": "Összekötve a már használt eszközeivel.",
-        "text": "A bejelentésből egy kattintással issue lesz a GitHubon, a Linearben vagy a Jirában. Az újdonságokat Slackre vagy Discordra küldheti."
+        "title": "Összekötheted a már használt eszközeiddel.",
+        "text": "A bejelentésből egy kattintással issue lesz a GitHubon, a Linearben vagy a Jirában. Az újdonságokat Slackre vagy Discordra is elküldheted."
       },
       {
-        "title": "És a bejelentő megtudja, mi lett vele.",
-        "text": "„Javítva” állapotnál e-mailt kap, hogy működik-e már. Ha egy ötlet megjelenik, egyetlen bejegyzés ír mindenkinek, aki rá szavazott."
+        "title": "A bejelentő pedig megtudja, mi lett a bejelentésével.",
+        "text": "Amikor a hibát javítottnak jelölöd, e-mailben megkérdezzük tőle, hogy most már működik-e. Ha egy ötlet megvalósul, egyetlen újdonság-bejegyzéssel mindenkit értesítesz, aki rá szavazott."
       }
     ],
     "try": {
-      "title": "Próbáld ki. Az alkalmazásod színeiben.",
-      "lede": "Ez a valódi tábla mintaadatokkal. Szavazz, adj hozzá ötletet, válts a csapat nézetére, és állítsd be a színeit, ahogy a projekt beállításaiban is teszed majd.",
+      "title": "Próbáld ki az alkalmazásod színeiben.",
+      "lede": "Ez a valódi tábla mintaadatokkal. Szavazz, adj hozzá egy ötletet, válts át a csapat nézetére, és állítsd be a színeket, ugyanúgy, ahogy később a projekt beállításaiban is teszed.",
       "demo": "A widget kipróbálása egy mintaalkalmazásban",
       "demoNote": "Jelents hibát képernyőképpel, és nézd meg, mit kapna a csapat."
     },
     "demo": {
       "hero": "Demó kipróbálása",
-      "title": "Jelentsen hibát egy mintaalkalmazásban. Fél perc alatt.",
-      "lede": "A demó egy minta foglalási alkalmazás valódi Ozvi widgettel. Jelents benne hibát, és pontosan azt látod, amit a csapatod kapna.",
+      "title": "Jelents be egy hibát egy mintaalkalmazásban. Fél percig tart.",
+      "lede": "A demó egy minta foglalási alkalmazás a valódi Ozvi widgettel. Jelents be benne egy hibát, és pontosan azt látod, amit a csapatod kapna.",
       "points": [
-        "Amit az ügyfél ír, képernyőképpel, amelyen az érzékeny adatok el vannak takarva",
+        "Amit az ügyfél ír, egy képernyőképpel, amelyen az érzékeny adatok ki vannak takarva",
         "A csapat és az ügyfél nézete, állapottal és válasszal",
         "A fejlesztőknek a konzolhiba és a hiba előtti lépések is"
       ],
       "cta": "Demó megnyitása",
-      "note": "Regisztráció nélkül. Semmi sem megy el.",
-      "app": "Foglalás nov. 14. · 10:30",
+      "note": "Regisztráció nélkül. Semmit nem küldünk el.",
+      "app": "Foglalás nov. 14., 10:30",
       "phone": "Telefon",
       "noteLabel": "Megjegyzés",
       "failed": "A foglalást nem sikerült menteni.",
@@ -3036,8 +3036,8 @@
       "quote": "„Nem tudom elmenteni a foglalásomat.”"
     },
     "ways": {
-      "title": "Elég a tábla. A widgetet akkor adod hozzá, amikor akarod.",
-      "lede": "Az Ozvi egyetlen sor kód nélkül is működik. A tábla a saját címeden fut, az alkalmazásodba pedig csak azt veszed át belőle, aminek értelme van.",
+      "title": "Elég a tábla, a widgetet akkor adod hozzá, amikor szeretnéd.",
+      "lede": "Az Ozvi egyetlen sor kód nélkül is működik. A tábla a saját címeden fut, az alkalmazásodba pedig csak azt építed be belőle, amire szükséged van.",
       "tabs": [
         "Ötletek",
         "Ütemterv",
@@ -3049,24 +3049,24 @@
         {
           "tag": "Kód nélkül",
           "title": "Tábla a saját címeden",
-          "text": "Ötletek, szavazás, ütemterv, újdonságok és hibajelentések a feedback.cegednev.hu címen. A linket elküldöd e-mailben, vagy beteszed az alkalmazás menüjébe."
+          "text": "Ötletek, szavazás, ütemterv, újdonságok és hibabejelentések a feedback.cegednev.hu címen. A linket elküldheted e-mailben, vagy beteheted az alkalmazás menüjébe."
         },
         {
-          "tag": "Opcionális · egy sor",
+          "tag": "Opcionális, egy sor kód",
           "title": "Widget az alkalmazásodban",
-          "text": "Gomb közvetlenül az alkalmazásban. A jelentéshez csatolja a képernyőképet, a verziót és a konzolhibákat, a felhasználót az alkalmazásod jelentkezteti be."
+          "text": "Gomb közvetlenül az alkalmazásban. A bejelentéshez magától csatolja a képernyőképet, a verziót és a konzolhibákat. Az ügyfélnek nem kell sehol regisztrálnia, az alkalmazásod jelentkezteti be."
         },
         {
-          "tag": "Opcionális · két sor",
+          "tag": "Opcionális, két sor kód",
           "title": "Ütemterv és újdonságok nálad",
-          "text": "Ágyazd be az ütemtervet vagy az újdonságokat a saját weboldaladra vagy alkalmazásodba. Úgy néznek ki, mint az oldalad, a linkek a táblára vezetnek."
+          "text": "Ágyazd be az ütemtervet vagy az újdonságokat a saját weboldaladba vagy alkalmazásodba. Úgy néznek ki, mintha az oldalad részei lennének, a linkek pedig a táblára vezetnek."
         }
       ],
-      "note": "Widget nélkül a felhasználók közvetlenül a táblán jelentik a hibákat. Csak az a kontextus hiányzik, amit a widget magától csatol: képernyőkép, konzolhibák és a hiba előtti lépések."
+      "note": "Widget nélkül az ügyfelek közvetlenül a táblán jelentik be a hibákat. Csak az a kontextus hiányzik, amelyet a widget magától csatol: a képernyőkép, a konzolhibák és a hiba előtti lépések."
     },
     "github": {
-      "title": "A bejelentéstől a javításig. A többit a GitHub intézi.",
-      "lede": "A csapat ugyanúgy a GitHubon dolgozik. Az Ozvi a bejelentésből issue-t készít, követi, és amikor kint a javítás, szól a bejelentőnek. Senki semmit nem másol kézzel.",
+      "title": "A bejelentéstől a javításig, közvetlenül a GitHubból.",
+      "lede": "A csapat ugyanúgy a GitHubon dolgozik, mint eddig. Az Ozvi a bejelentésből issue-t készít, követi, és amikor kijön a javítás, szól a bejelentőnek. Senkinek semmit nem kell kézzel átmásolnia.",
       "ui": {
         "connect": "GitHub csatlakoztatása",
         "bug": "Naptár mobilon",
@@ -3075,54 +3075,54 @@
       "steps": [
         {
           "title": "Két kattintással csatlakoztatod a GitHubot",
-          "text": "A GitHubon kiválasztod a tárolókat az Ozvi alkalmazásnak, az Ozviban pedig egyet közülük. Nem kell token, és kézi webhook sem."
+          "text": "A GitHubon kiválasztod, mely tárolókhoz férhet hozzá az Ozvi alkalmazás, az Ozviban pedig kijelölsz közülük egyet. Nem kell token, és webhookot sem kell kézzel beállítani."
         },
         {
           "title": "A bejelentésből issue lesz",
-          "text": "Egy kattintással létrejön az issue a leírással és a technikai adatokkal. Vagy összekapcsolod egy már meglévő issue-val."
+          "text": "Egy kattintással létrejön az issue a leírással és a technikai adatokkal együtt. A bejelentést egy már meglévő issue-hoz is kapcsolhatod."
         },
         {
           "title": "Lezárod az issue-t vagy kiadsz egy verziót",
-          "text": "Az Ozvi magától észreveszi. A hiba a „Javítva a 2.15-ös verzióban” állapotba kerül, vagy rögtön az issue lezárásakor, ha nem adsz ki verziókat."
+          "text": "Az Ozvi ezt magától észreveszi, és a hiba „Javítva a 2.15-ös verzióban” állapotba kerül. Ha nem adsz ki verziókat, elég lezárni az issue-t."
         },
         {
           "title": "A bejelentő e-mailt kap",
-          "text": "Megírjuk neki, hogy javítva, és egy kattintással jelzi, működik-e már."
+          "text": "Megírjuk neki, hogy a hibát kijavították, ő pedig egy kattintással jelzi, hogy most már működik-e."
         }
       ],
-      "note": "Az összevont pull request „Fixes #412” sorral magától a bejelentéshez kerül a javítás bizonyítékaként. A Linear és a Jira API-kulccsal csatlakozik, és hasonlóan szinkronizálja az állapotot. Saját szerveren egyetlen paranccsal hozod létre a GitHub-alkalmazást."
+      "note": "Ha egy összevont pull request leírásában szerepel a „Fixes #412” sor, a PR magától a bejelentéshez kerül a javítás bizonyítékaként. A Linear és a Jira API-kulccsal csatlakozik, és ugyanígy szinkronizálja az állapotokat. Saját szerveren a GitHub-alkalmazást egyetlen paranccsal hozod létre."
     },
     "star": {
-      "text": "Az Ozvi forráskódja nyilvános. Ha tetszik, adj neki csillagot a GitHubon. Így mások is könnyebben megtalálják.",
+      "text": "Az Ozvi forráskódja nyilvános. Ha tetszik, adj neki csillagot a GitHubon, így mások is könnyebben rátalálnak.",
       "cta": "Csillag a GitHubon"
     },
     "faq": {
       "title": "Gyakori kérdések",
       "items": [
         {
-          "q": "Az Ozvi a Sentry helyett van?",
-          "a": "Nem. A Sentry a kód által dobott hibákat kapja el. Az Ozvi azt gyűjti, amit az emberek írnak önnek: hibákat, amelyeknél semmi sem omlik össze, ötleteket és észrevételeket. És szól nekik, amikor kész. Nyugodtan használja mindkettőt."
+          "q": "Az Ozvi a Sentryt váltja ki?",
+          "a": "Nem. A Sentry azokat a hibákat kapja el, amelyeket a kód dob. Az Ozvi azt gyűjti össze, amit az ügyfeleid írnak neked: olyan hibákat, amelyeknél semmi sem omlik össze, ötleteket és észrevételeket. És szól nekik, amikor elkészült. Nyugodtan használd mindkettőt."
         },
         {
           "q": "Kell hozzá programoznom?",
-          "a": "Nem. Az ötleteket, ütemtervet, újdonságokat és hibabejelentéseket tartalmazó board egyetlen sor kód nélkül fut a saját címén. Az alkalmazásba szánt widget opcionális, és egyetlen szkript elég hozzá."
+          "a": "Nem. Az ötleteket, az ütemtervet, az újdonságokat és a hibabejelentéseket tartalmazó tábla egyetlen sor kód nélkül is fut a saját címeden. Az alkalmazásba szánt widget opcionális, és egyetlen szkript elég hozzá."
         },
         {
           "q": "Mit látnak az ügyfeleim?",
-          "a": "Egy „Visszajelzés” gombot az alkalmazásában vagy egy boardot a márkája színeiben. Az ötleteket, az ütemtervet és az újdonságokat mindenki látja. A hibabejelentést csak a beküldője és az ön csapata látja."
+          "a": "Egy „Visszajelzés” gombot az alkalmazásodban vagy egy táblát a márkád színeiben. Az ötleteket, az ütemtervet és az újdonságokat mindenki látja, a hibabejelentést viszont csak a beküldője és a csapatod."
         },
         {
           "q": "Hol vannak az adataim?",
-          "a": "A felhő egy németországi adatközpontban fut. A widget nem állít be sütiket, és nem hív harmadik feleket. Az Ozvit saját szerveren is futtathatja."
+          "a": "A felhő egy németországi adatközpontban fut. A widget nem állít be sütiket, és nem hív harmadik feleket. Az Ozvit saját szerveren is futtathatod."
         },
         {
           "q": "Mi van, ha az Ozvi megszűnik?",
-          "a": "A forráskód nyilvános, a saját szerverre szánt változat pedig minden funkcióval ingyenes. Az adatait bármikor exportálhatja, és futtathatja az Ozvit saját maga."
+          "a": "A forráskód nyilvános, a saját szerverre szánt változat pedig minden funkcióval együtt ingyenes. Az adataidat bármikor exportálhatod, és az Ozvit magad is futtathatod."
         }
       ],
       "price": {
         "q": "Mennyibe kerül?",
-        "a": "A Free csomag örökre ingyenes, bankkártya nélkül. A Pro évi {pro}, a Studio évi {studio}. Nem fizet felhasználók vagy bejegyzések után."
+        "a": "A Free csomag örökre ingyenes, bankkártya nélkül. A Pro évi {pro}, a Studio évi {studio}. A felhasználók és a bejegyzések száma után nem fizetsz."
       }
     }
   },

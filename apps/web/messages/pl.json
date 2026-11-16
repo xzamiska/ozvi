@@ -2495,8 +2495,8 @@
   },
   "landing": {
     "meta": {
-      "title": "Ozvi – zgłoszenia błędów i pomysły od klientów prosto w Twojej aplikacji",
-      "description": "Klienci zgłaszają błąd albo proponują pomysł prosto w Twojej aplikacji. Gdy to załatwisz, dostają e-mail. Tablica pomysłów, roadmapa i nowości."
+      "title": "Ozvi – zgłoszenia błędów i pomysły od klientów prosto w twojej aplikacji",
+      "description": "Klienci zgłaszają błędy i proponują pomysły prosto w twojej aplikacji. Gdy sprawę załatwisz, dostają e-mail. Masz też tablicę pomysłów, roadmapę i nowości."
     },
     "nav": {
       "product": "Produkt",
@@ -2512,28 +2512,28 @@
         {
           "href": "#how",
           "title": "Zgłoszenia błędów",
-          "text": "Prywatne, ze zrzutem ekranu i kontekstem technicznym"
+          "text": "Prywatne, ze zrzutem ekranu i danymi technicznymi"
         },
         {
           "href": "#how",
           "title": "Pomysły i głosowanie",
-          "text": "Publiczna tablica, która ustala priorytety za ciebie"
+          "text": "Publiczna tablica, która pokazuje, czego klienci chcą najbardziej"
         },
         {
           "href": "#how",
-          "title": "Roadmapa i informacje o wydaniach",
-          "text": "Co dalej i co już wdrożone, z e-mailami do głosujących"
+          "title": "Roadmapa i nowości",
+          "text": "Co planujesz i co już jest gotowe. Głosujący dostają e-mail."
         },
         {
           "href": "#brand",
-          "title": "W twoich barwach",
+          "title": "W barwach twojej marki",
           "text": "Kolory, krój pisma i logo twojej aplikacji"
         }
       ],
       "productFeature": {
         "href": "/demo",
         "title": "Wypróbuj demo",
-        "text": "Zgłoś błąd w przykładowej aplikacji i zobacz, co dostaje zespół."
+        "text": "Zgłoś błąd w przykładowej aplikacji i zobacz, co dostanie zespół."
       },
       "devItems": [
         {
@@ -2544,7 +2544,7 @@
         {
           "href": "#developers",
           "title": "Logowanie",
-          "text": "Podpisany token, OIDC albo kod z e-maila"
+          "text": "Podpisany token, OIDC albo kod wysłany e-mailem"
         },
         {
           "href": "#developers",
@@ -2565,15 +2565,15 @@
       "soon": "Startujemy wkrótce"
     },
     "hero": {
-      "title": "Klienci zgłaszają błąd prosto w aplikacji. Gdy go naprawisz, dowiedzą się o tym.",
-      "lede": "Przycisk „Opinia” w Twojej aplikacji oraz tablica na pomysły i nowości. Zgłoszenie przychodzi ze zrzutem ekranu i stroną, więc nie musisz dopytywać.",
+      "title": "Klienci zgłaszają błędy prosto w aplikacji. Gdy je naprawisz, dowiedzą się o tym.",
+      "lede": "Dodajesz do aplikacji przycisk „Opinie”, a do tego tablicę na pomysły i nowości. Zgłoszenie przychodzi ze zrzutem ekranu i adresem strony, na której wystąpił problem, więc nie musisz dopytywać.",
       "secondary": "Jak to działa",
-      "note": "Plan Free nie wymaga karty. Na własnym serwerze jest bezpłatny i ze wszystkimi funkcjami.",
+      "note": "Plan Free nie wymaga karty płatniczej. Na własnym serwerze Ozvi jest bezpłatny i ma wszystkie funkcje.",
       "loop": {
-        "label": "Przykład: klient zgłasza błąd w Twojej aplikacji, Ty go naprawiasz, a klient dostaje e-mail",
+        "label": "Przykład: klient zgłasza błąd w twojej aplikacji, ty go naprawiasz, a klient dostaje e-mail",
         "where": [
-          "Klient zgłasza go w Twojej aplikacji",
-          "Masz go ze zrzutem ekranu i naprawiasz",
+          "Klient zgłasza go w twojej aplikacji",
+          "Dostajesz go ze zrzutem ekranu i naprawiasz",
           "Klient dostaje e-mail"
         ],
         "widgetTitle": "Zgłoś błąd",
@@ -2586,21 +2586,21 @@
       }
     },
     "monitoring": {
-      "title": "Monitoring wyłapuje to, co się psuje. Ozvi to, co mówią Ci ludzie.",
+      "title": "Monitoring wyłapuje to, co się wysypie. Ozvi zbiera to, co mówią ci klienci.",
       "themLabel": "Monitoring błędów",
       "them": "Wyłapuje wyjątki, wolne żądania i stack trace. Jest dla programistów i odzywa się, gdy kod się wysypie.",
-      "ozvi": "Wyłapuje to, co mówią Ci ludzie, także to, co nigdy nie rzuca błędu. I daje autorowi znać, jak się skończyło.",
+      "ozvi": "Ozvi zbiera też to, co nigdy nie rzuca błędu, i daje autorowi znać, jak sprawa się zakończyła. Na przykład:",
       "examples": [
         "„Na fakturze wyszła mi zła kwota.”",
         "„Nie wiem, gdzie anulować rezerwację.”",
         "„Brakuje mi eksportu do Excela.”"
       ],
-      "both": "Uzupełniają się. Śmiało używaj obu, my też tak robimy.",
+      "both": "Jedno nie zastępuje drugiego. Śmiało używaj obu, my też tak robimy.",
       "link": "Czym Ozvi różni się od monitoringu błędów"
     },
     "story": {
       "stage": {
-        "label": "Demo: użytkownik zgłasza błąd, zespół go naprawia, a użytkownik dostaje odpowiedź",
+        "label": "Przykład: klient zgłasza błąd, zespół go naprawia, a klient dostaje odpowiedź",
         "app": "Rezerwacje",
         "url": "app.twojafirma.pl/kalendarz/2026-11-14",
         "invoice": "Sobota 14 listopada",
@@ -2624,7 +2624,7 @@
           "Naprawione",
           "Zweryfikowane"
         ],
-        "reply": "Naprawione w wersji 2.15. Czy teraz działa?",
+        "reply": "Naprawione w wersji 2.15. Czy już działa?",
         "replyFrom": "Zespół wsparcia",
         "log": "zdarzenia",
         "summary": [
@@ -2644,28 +2644,28 @@
     "spec": [
       {
         "k": "< 20 kB",
-        "v": "Widżet po kompresji gzip. Działa w shadow DOM i nigdy nie rusza twoich stylów ani skryptów."
+        "v": "Widżet po kompresji gzip. Działa w shadow DOM i nie zmienia twoich stylów ani skryptów."
       },
       {
         "k": "HS256 / OIDC",
-        "v": "Logowanie z twojej aplikacji. Użytkownicy nie zakładają kolejnego konta."
+        "v": "Logowanie przez twoją aplikację. Klienci nie zakładają kolejnego konta."
       },
       {
         "k": "17 narzędzi",
-        "v": "Serwer MCP dla asystentów AI: wyszukiwanie, duplikaty, statusy, informacje o wydaniach."
+        "v": "Serwer MCP dla asystentów AI: wyszukiwanie, duplikaty, statusy i nowości."
       },
       {
         "k": "RLS",
-        "v": "Każdy projekt jest odizolowany w Postgresie na poziomie wierszy, a nie tylko w kodzie aplikacji."
+        "v": "Każdy projekt jest oddzielony w Postgresie na poziomie wierszy, a nie tylko w kodzie aplikacji."
       }
     ],
     "dev": {
       "title": "Podłączysz to w jedno popołudnie.",
-      "lede": "Skrypt widżetu i jeden endpoint, który loguje użytkownika. Cała reszta to API: webhooki, GitHub i MCP dla asystentów AI.",
+      "lede": "Wystarczy skrypt widżetu i jeden endpoint, który podpisuje dane użytkownika. Cała reszta idzie przez API: webhooki, GitHub i MCP dla asystentów AI.",
       "points": [
-        "Błąd z tablicy jednym kliknięciem staje się issue na GitHubie, a jego status synchronizuje się z powrotem.",
-        "E-maile przechodzą przez kolejkę wychodzącą w bazie danych. Gdy SMTP nie działa, nic nie ginie.",
-        "Każde dostarczenie e-maila i webhooka widać w konsoli, łącznie z błędami."
+        "Błąd z tablicy jednym kliknięciem staje się issue na GitHubie, a zmiany statusu wracają do Ozvi.",
+        "E-maile przechodzą przez kolejkę wychodzącą w bazie danych, więc gdy SMTP przestanie działać, nic nie ginie.",
+        "Każde dostarczenie e-maila i webhooka widzisz w konsoli, razem z ewentualnym błędem."
       ],
       "copy": "kopiuj",
       "copied": "skopiowano",
@@ -2673,7 +2673,7 @@
       "tabs": {
         "widget": {
           "label": "Widżet",
-          "note": "Przycisk, formularz błędu ze zrzutem ekranu i pomysły. Język ustala Ozvi.setLanguage(), atrybut lang albo język strony. Bez cookies i firm trzecich."
+          "note": "Przycisk, formularz zgłoszenia błędu ze zrzutem ekranu i pomysły. Język ustala Ozvi.setLanguage(), atrybut lang albo język strony. Widżet nie używa cookies ani usług zewnętrznych."
         },
         "sso": {
           "label": "Logowanie",
@@ -2682,21 +2682,21 @@
         },
         "mcp": {
           "label": "MCP",
-          "note": "Scalanie i publikowanie informacji o wydaniach zawsze wymaga potwierdzenia. Tekst od użytkowników trafia do modelu jako dane, nigdy jako instrukcje.",
+          "note": "Scalanie i publikowanie nowości zawsze wymaga potwierdzenia. Tekst od klientów trafia do modelu jako dane, a nie jako polecenia.",
           "comment": "potem, na czacie",
           "q1": "Które błędy z tego tygodnia dotyczą kalendarza?",
           "q2": "Scal #131 z #128 i oznacz jako naprawione w 2.15."
         },
         "hook": {
           "label": "Webhook",
-          "note": "Podpisany HMAC, ponawiany, z dziennikiem dostarczeń w konsoli. Slack, Discord i Mattermost od razu dostają czytelną wiadomość.",
+          "note": "Webhooki są podpisane HMAC i ponawiane, a dziennik dostarczeń widzisz w konsoli. Slack, Discord i Mattermost od razu dostają czytelną wiadomość.",
           "title": "Kalendarz na telefonie nie pokazuje sobotnich terminów"
         }
       }
     },
     "pricing": {
-      "title": "Płacisz za rok, nie za każdą osobę w zespole.",
-      "lede": "Bez limitów użytkowników i rekordów. Płacisz tylko za to, co kosztuje nas: e-maile, miejsce na dane i domeny. Ceny nie zawierają VAT.",
+      "title": "Płacisz za rok, a nie za każdą osobę w zespole.",
+      "lede": "Nie ograniczamy liczby użytkowników ani wpisów. Płacisz tylko za to, co nas kosztuje: e-maile, miejsce na pliki i domeny. Ceny nie zawierają VAT.",
       "plan": "Plan",
       "forever": "na zawsze, bez karty",
       "yearly": "rocznie albo {q} kwartalnie",
@@ -2709,7 +2709,7 @@
         "domain": "Własna domena",
         "badge": "Bez plakietki Ozvi",
         "ai": "AI: duplikaty, podsumowania i szkice nowości",
-        "users": "Użytkownicy i rekordy",
+        "users": "Użytkownicy i wpisy",
         "all": "MCP, GitHub, webhooki, SSO",
         "translations": "Tłumaczenia AI miesięcznie"
       },
@@ -2718,56 +2718,56 @@
     },
     "self": {
       "title": "Własny hosting: 0 €, wszystkie funkcje.",
-      "text": "Jeden obraz Dockera i Postgres. Nic nie jest zablokowane za planem. Kod źródłowy dostępny na licencji FSL, która po dwóch latach zmienia się w Apache 2.0.",
+      "text": "Jeden obraz Dockera i Postgres. Żadna funkcja nie jest zarezerwowana dla droższego planu. Publiczny kod źródłowy na licencji FSL, która po dwóch latach zmienia się w Apache 2.0.",
       "c1": "Ozvi + Postgres",
       "c2": "pierwszy projekt",
       "name": "Moja aplikacja"
     },
     "closing": {
-      "title": "Daj klientom głos. I odpowiadaj im.",
-      "text": "Plan Free nie wymaga karty i nigdy nie wygasa.",
+      "title": "Daj klientom głos i odpowiadaj im.",
+      "text": "Plan Free nie wymaga karty płatniczej i nie ma limitu czasu.",
       "compare": "Porównaj plany"
     },
     "footer": {
-      "tagline": "Zgłoszenia błędów, pomysły i informacje o wydaniach w twojej aplikacji.",
+      "tagline": "Zgłoszenia błędów, pomysły i nowości w twojej aplikacji.",
       "product": "Produkt",
       "developers": "Dla programistów",
       "legal": "Informacje prawne",
       "terms": "Regulamin",
       "privacy": "Polityka prywatności",
-      "license": "Kod źródłowy dostępny (FSL). SDK i widżet na licencji MIT.",
-      "demo": "Demo widgetu",
+      "license": "Publiczny kod źródłowy (FSL). SDK i widżet na licencji MIT.",
+      "demo": "Demo widżetu",
       "feedback": "Zaproponuj pomysł dla Ozvi",
       "contact": "Napisz do nas",
       "dpa": "Umowa powierzenia (DPA)",
       "blog": "Blog"
     },
     "product": {
-      "title": "Co zobaczą twoi użytkownicy. I co twój zespół.",
-      "lede": "To prawdziwa tablica z przykładowymi danymi, w kolorach aplikacji klienta. Możesz głosować, dodać pomysł i komentarz.",
+      "title": "Co zobaczą twoi klienci, a co twój zespół.",
+      "lede": "To prawdziwa tablica z przykładowymi danymi, w kolorach przykładowej aplikacji. Możesz głosować, dodać pomysł albo komentarz.",
       "tablist": "Części tablicy",
       "teamOnly": "tylko zespół",
       "app": "Rezerwacje",
       "parts": {
         "ideas": {
           "title": "Pomysły z głosowaniem",
-          "text": "Użytkownicy proponują i głosują. Podczas pisania widzą podobne pomysły, więc nie mnożą się duplikaty."
+          "text": "Klienci proponują pomysły i na nie głosują. Podczas pisania widzą podobne pomysły, więc duplikaty się nie mnożą."
         },
         "roadmap": {
           "title": "Roadmapa",
-          "text": "Co planujesz, nad czym pracujesz i co wydałeś. Pomysł przesuwa się po niej ze statusem nadanym przez zespół."
+          "text": "Co planujesz, nad czym pracujesz i co już wyszło. Pomysł przesuwa się po niej zgodnie ze statusem, który nada mu zespół."
         },
         "news": {
           "title": "Nowości",
-          "text": "Gdy pomysł zostanie wydany, jeden wpis wysyła e-mail każdemu, kto na niego głosował. Szkic może powstać z releasu na GitHubie."
+          "text": "Gdy pomysł trafi do wydania, jeden wpis wysyła e-mail do każdego, kto na niego głosował. Szkic wpisu można też przygotować z wydania na GitHubie."
         },
         "bugs": {
           "title": "Prywatne zgłoszenia błędów",
-          "text": "Zgłoszenie widzi tylko autor i zespół. Autor śledzi, gdzie jest, i dostaje e-mail, gdy błąd zostanie naprawiony."
+          "text": "Zgłoszenie widzą tylko autor i zespół. Autor widzi, na jakim etapie jest sprawa, a gdy błąd zostanie naprawiony, dostaje e-mail."
         },
         "team": {
           "title": "Widok zespołu",
-          "text": "Każde zgłoszenie ma zrzut ekranu, wersję, przeglądarkę i błędy z konsoli. Zespół dodaje notatkę wewnętrzną, scala duplikat, łączy GitHub i jednym krokiem informuje autora."
+          "text": "Każde zgłoszenie ma zrzut ekranu, wersję, przeglądarkę i błędy z konsoli. Zespół dodaje wewnętrzną notatkę, scala duplikaty, łączy zgłoszenie z GitHubem i jednym kliknięciem informuje autora."
         }
       },
       "team": {
@@ -2788,16 +2788,16 @@
           ]
         ],
         "queue": [
-          "Eksport rezerwacji do CSV nie działa przy 10 000 wierszy",
+          "Eksport rezerwacji do CSV nie działa przy 10 000 wierszach",
           "Kalendarz na telefonie nie pokazuje sobotnich terminów",
           "Po zalogowaniu znika wybrany język"
         ],
         "shot": "zrzut ekranu z adnotacją",
         "console": "TypeError: slots[6] is undefined · week-view.tsx:88",
-        "similar": "Podobne: #119 Weekend pusty w widoku tygodnia",
+        "similar": "Podobne: #119 Pusty weekend w widoku tygodnia",
         "merge": "Scal",
-        "noteLabel": "Notatka wewnętrzna · tylko zespół",
-        "note": "Widok mobilny liczy tydzień od niedzieli, reszta od poniedziałku. Ujednolicimy to, poprawka w wersji 2.15.",
+        "noteLabel": "Notatka wewnętrzna · tylko dla zespołu",
+        "note": "Widok mobilny liczy tydzień od niedzieli, a reszta aplikacji od poniedziałku. Ujednolicimy to, poprawka wejdzie w wersji 2.15.",
         "pr": "PR #490 scalony · podgląd gotowy",
         "save": "Zapisz i powiadom autora",
         "reporters": [
@@ -2806,7 +2806,7 @@
           "Eva Szabó · plan Studio · wczoraj"
         ],
         "filterLabel": "Filtr zgłoszeń",
-        "emptyFilter": "Nic tu nie czeka. Wypróbuj inny filtr.",
+        "emptyFilter": "Nic tu nie czeka. Spróbuj innego filtra.",
         "noErrors": "Brak błędów w konsoli",
         "merged": "Scalone: #119 · 3 głosy przeniesione",
         "notePh": "Notatka wewnętrzna…",
@@ -2825,25 +2825,25 @@
     },
     "features": {
       "title": "Wszystko od zgłoszenia do odpowiedzi.",
-      "lede": "Bez płatnych dodatków. Plany w chmurze różnią się tylko tym, co nas kosztuje, a na własnym serwerze wszystko jest za darmo.",
+      "lede": "Nie ma płatnych dodatków. Plany w chmurze różnią się tylko tym, co nas kosztuje, a na własnym serwerze masz wszystko za darmo.",
       "groups": [
         {
           "title": "Zbieranie",
           "items": [
-            "Widget w twojej aplikacji, także jako komponent React",
+            "Widżet w twojej aplikacji, także jako komponent React",
             "Zrzut ekranu z adnotacją",
-            "Wersja, przeglądarka, adres i błędy z konsoli automatycznie",
+            "Wersja, przeglądarka, adres i błędy z konsoli dołączane automatycznie",
             "Logowanie przez twoją aplikację: podpisany token lub OIDC"
           ]
         },
         {
           "title": "Obsługa",
           "items": [
-            "Statusy o stałej kolejności dla pomysłów i błędów",
+            "Te same statusy dla pomysłów i błędów, od przyjęcia do wydania",
             "Notatki wewnętrzne i tagi tylko dla zespołu",
             "Podobne wpisy i scalanie duplikatów",
             "Kolejka „Bez odpowiedzi”, żeby nic nie utknęło",
-            "Tłumaczenie wpisów przez AI (Pro i Studio), podsumowania dyskusji AI (Studio)"
+            "Tłumaczenie wpisów przez AI (Pro i Studio), podsumowanie dyskusji przez AI (Studio)"
           ]
         },
         {
@@ -2851,14 +2851,14 @@
           "items": [
             "E-mail „naprawione w wersji 2.15, czy już działa?”",
             "Nowości z e-mailem do każdego, kto głosował",
-            "Dowód naprawy: PR, release lub podgląd",
+            "Dowód naprawy: PR, wydanie lub podgląd",
             "Poniedziałkowe podsumowanie dla zespołu"
           ]
         },
         {
           "title": "Integracje",
           "items": [
-            "GitHub: issues, pull requesty i szkice nowości z releasów",
+            "GitHub: issues, pull requesty i szkice nowości z wydań",
             "Linear i Jira Cloud",
             "Slack, Discord i podpisane webhooki",
             "REST API i własna domena"
@@ -2876,7 +2876,7 @@
       "tiles": {
         "stream": {
           "title": "Zgłoszenia przychodzą z kontekstem",
-          "text": "Widget sam dołącza zrzut ekranu, wersję, przeglądarkę i błędy z konsoli. Użytkownik niczego nie tłumaczy.",
+          "text": "Widżet sam dołącza zrzut ekranu, wersję, przeglądarkę i błędy z konsoli. Klient nie musi niczego tłumaczyć.",
           "items": [
             {
               "title": "Przypomnienie SMS ma złą godzinę po zmianie czasu",
@@ -2896,17 +2896,17 @@
             },
             {
               "title": "Cotygodniowe rezerwacje cykliczne",
-              "meta": "17 głosów · W toku"
+              "meta": "17 głosów · W realizacji"
             }
           ]
         },
         "mcp": {
           "title": "Asystent AI w twoim edytorze",
-          "text": "Serwer MCP z 17 narzędziami. Kroki, które coś scalają lub publikują, czekają na twoje potwierdzenie.",
+          "text": "Serwer MCP z 17 narzędziami. Kroki, które coś scalają albo publikują, czekają na twoje potwierdzenie.",
           "lines": [
             {
               "who": "you",
-              "text": "Co nowego zgłosili w sprawie kalendarza?"
+              "text": "Co nowego zgłoszono w sprawie kalendarza?"
             },
             {
               "who": "tool",
@@ -2914,11 +2914,11 @@
             },
             {
               "who": "ai",
-              "text": "#128 telefon ukrywa soboty, #126 zła godzina przypomnienia. #119 wygląda na duplikat #128."
+              "text": "#128 telefon nie pokazuje sobót, #126 zła godzina przypomnienia. #119 wygląda na duplikat #128."
             },
             {
               "who": "you",
-              "text": "Scal #119 z #128 i ustaw #128 jako Naprawione w 2.15."
+              "text": "Scal #119 z #128 i ustaw #128 na „Naprawione w 2.15”."
             },
             {
               "who": "tool",
@@ -2927,52 +2927,52 @@
           ]
         },
         "route": {
-          "title": "Autor wie, gdzie jest jego zgłoszenie",
-          "text": "Przy „Naprawione” dostaje e-mail z pytaniem, czy już działa.",
+          "title": "Autor wie, na jakim etapie jest jego zgłoszenie",
+          "text": "Gdy zgłoszenie dostanie status „Naprawione”, autor dostaje e-mail z pytaniem, czy już wszystko działa.",
           "stops": [
             "Przyjęte",
             "Potwierdzone",
-            "W toku",
+            "W realizacji",
             "Naprawione w 2.15"
           ]
         },
         "privacy": {
           "title": "Hasła nigdzie nie trafiają",
-          "text": "Widget rozmywa pola z hasłem i oznaczone części strony już w przeglądarce.",
+          "text": "Widżet rozmywa pola z hasłem i oznaczone części strony już w przeglądarce.",
           "email": "E-mail",
           "password": "Hasło"
         },
         "eu": {
           "title": "Dane w UE, bez cookies",
-          "text": "Chmura działa w centrum danych w Niemczech. Widget w twojej aplikacji nie ustawia żadnych cookies, niczego nie śledzi i nie łączy się z firmami trzecimi, w chmurze i na własnym serwerze."
+          "text": "Chmura działa w centrum danych w Niemczech. Widżet w twojej aplikacji nie ustawia żadnych cookies, niczego nie śledzi i nie łączy się z usługami zewnętrznymi, zarówno w chmurze, jak i na własnym serwerze."
         },
         "self": {
           "title": "Albo na własnym serwerze",
-          "text": "Jeden obraz Docker i Postgres. Wszystkie funkcje, 0 €."
+          "text": "Jeden obraz Dockera i Postgres. Wszystkie funkcje za 0 €."
         },
         "fider": {
           "title": "Przejście z Fidera",
-          "text": "Import z kopii zapasowej lub przez API: pomysły, głosy, komentarze, tagi i załączniki. Numery wpisów zostają, gdzie to możliwe."
+          "text": "Import z kopii zapasowej albo przez API: pomysły, głosy, komentarze, tagi i załączniki. Numery wpisów zostają zachowane, o ile to możliwe."
         },
         "langs": {
           "title": "Sześć języków",
-          "text": "Tablica, widget i e-maile po słowacku, czesku, angielsku, polsku, węgiersku i niemiecku. Wpisy w innym języku AI przetłumaczy na język czytelnika, zawsze z oznaczeniem i oryginałem na kliknięcie (Pro i Studio)."
+          "text": "Tablica, widżet i e-maile po słowacku, czesku, angielsku, polsku, węgiersku i niemiecku. Wpisy w innym języku AI tłumaczy na język czytelnika, zawsze z oznaczeniem i oryginałem dostępnym jednym kliknięciem (Pro i Studio)."
         },
         "a11y": {
           "title": "Dostępność",
           "text": "Obsługa klawiaturą, kontrast według WCAG 2.2 AA i opublikowany raport dostępności według EN 301 549."
         },
         "brand": {
-          "title": "W kolorach Twojej marki",
-          "text": "Kolory, czcionki, zaokrąglenia i logo, w trybie jasnym i ciemnym. Jeden motyw obejmuje tablicę, widget i e-maile, pod własną domeną."
+          "title": "W kolorach twojej marki",
+          "text": "Kolory, czcionki, zaokrąglenia i logo, w trybie jasnym i ciemnym. Jeden motyw obejmuje tablicę, widżet i e-maile, pod twoją własną domeną."
         }
       },
       "moreTitle": "Wszystkie funkcje"
     },
     "flow": {
       "sources": [
-        "Widget w aplikacji",
-        "Tablica pod Twoim adresem",
+        "Widżet w aplikacji",
+        "Tablica pod twoim adresem",
         "E-mail",
         "REST API"
       ],
@@ -2986,42 +2986,42 @@
     "steps": [
       {
         "title": "Klient zgłasza błąd tam, gdzie go widzi.",
-        "text": "Klika „Opinia” prosto w Twojej aplikacji i pisze, co nie działa. Zrzut ekranu i stronę Ozvi dołącza sam, a hasła zakrywa jeszcze w jego przeglądarce. Programiści dostają też wersję i błędy z konsoli."
+        "text": "Klika „Opinie” prosto w twojej aplikacji i pisze, co nie działa. Ozvi sam dołącza zrzut ekranu i adres strony, a hasła zakrywa, zanim cokolwiek opuści przeglądarkę klienta. Programiści dostają dodatkowo wersję i błędy z konsoli."
       },
       {
         "title": "Zespół załatwia wszystko w jednym miejscu.",
-        "text": "Wszystkie zgłoszenia razem, z filtrami. Podobne scalisz jednym kliknięciem, wewnętrznych notatek i etykiet klient nie widzi. Nic nie zostaje bez odpowiedzi."
+        "text": "Wszystkie zgłoszenia masz w jednym miejscu i możesz je filtrować. Podobne scalasz jednym kliknięciem. Wewnętrznych notatek i tagów klient nie widzi. Nic nie zostaje bez odpowiedzi."
       },
       {
-        "title": "Pomysły układają się według głosów.",
-        "text": "Klienci proponują i głosują, a podczas pisania widzą podobne pomysły. Roadmapa pokazuje, co planujesz i nad czym pracujesz, a pomysł przesuwa się po niej razem ze statusem."
+        "title": "Pomysły układają się według liczby głosów.",
+        "text": "Klienci proponują pomysły i na nie głosują, a podczas pisania widzą podobne propozycje. Na roadmapie widzą, co planujesz i nad czym pracujesz. Gdy zmienisz status pomysłu, sam przesunie się na roadmapie."
       },
       {
-        "title": "Połączone z narzędziami, których już używasz.",
-        "text": "Zgłoszenie jednym kliknięciem staje się issue w GitHubie, Linearze lub Jirze. Nowości wyślesz do Slacka lub Discorda."
+        "title": "Działa z narzędziami, których już używasz.",
+        "text": "Zgłoszenie jednym kliknięciem staje się issue na GitHubie, w Linearze albo w Jirze. Nowości wyślesz do Slacka lub Discorda."
       },
       {
-        "title": "A autor dowiaduje się, jak się skończyło.",
-        "text": "Przy „Naprawione” dostaje e-mail z pytaniem, czy już działa. Gdy wydasz pomysł, jeden wpis napisze do każdego, kto na niego głosował."
+        "title": "A autor dowiaduje się, jak sprawa się skończyła.",
+        "text": "Gdy oznaczysz błąd jako naprawiony, autor dostaje e-mail z pytaniem, czy już wszystko działa. Gdy pomysł trafi do wydania, jeden wpis w nowościach powiadomi każdego, kto na niego głosował."
       }
     ],
     "try": {
-      "title": "Wypróbuj. W kolorach twojej aplikacji.",
-      "lede": "To prawdziwa tablica z przykładowymi danymi. Zagłosuj, dodaj pomysł, przełącz na widok zespołu i zmień kolory, tak jak zrobisz to w ustawieniach projektu.",
-      "demo": "Wypróbuj widget w przykładowej aplikacji",
+      "title": "Wypróbuj to w kolorach swojej aplikacji.",
+      "lede": "To prawdziwa tablica z przykładowymi danymi. Zagłosuj, dodaj pomysł, przełącz się na widok zespołu i zmień kolory. Tak samo zrobisz to później w ustawieniach projektu.",
+      "demo": "Wypróbuj widżet w przykładowej aplikacji",
       "demoNote": "Zgłoś błąd ze zrzutem ekranu i zobacz, co dostałby zespół."
     },
     "demo": {
       "hero": "Wypróbuj demo",
-      "title": "Zgłoś błąd w przykładowej aplikacji. W pół minuty.",
-      "lede": "Demo to przykładowa aplikacja do rezerwacji z prawdziwym widgetem Ozvi. Zgłoś w niej błąd i zobacz dokładnie to, co dostałby twój zespół.",
+      "title": "Wypróbuj to w przykładowej aplikacji. Zajmie ci to pół minuty.",
+      "lede": "Demo to przykładowa aplikacja do rezerwacji z prawdziwym widżetem Ozvi. Zgłoś w niej błąd i zobacz dokładnie to, co dostałby twój zespół.",
       "points": [
-        "To, co pisze klient, ze zrzutem ekranu z zakrytymi danymi wrażliwymi",
+        "To, co pisze klient, razem ze zrzutem ekranu z zakrytymi danymi wrażliwymi",
         "Widok zespołu i klienta, ze statusem i odpowiedzią",
-        "Dla programistów także błąd z konsoli i kroki przed błędem"
+        "Dla programistów także błąd z konsoli i kroki poprzedzające błąd"
       ],
       "cta": "Otwórz demo",
-      "note": "Bez rejestracji. Nic nie jest wysyłane.",
+      "note": "Bez rejestracji. Nic nie zostanie wysłane.",
       "app": "Rezerwacja 14.11 · 10:30",
       "phone": "Telefon",
       "noteLabel": "Notatka",
@@ -3036,8 +3036,8 @@
       "quote": "„Nie mogę zapisać rezerwacji.”"
     },
     "ways": {
-      "title": "Wystarczy tablica. Widget dodasz, kiedy zechcesz.",
-      "lede": "Ozvi działa bez ani jednej linii kodu. Tablica działa pod twoim adresem, a do aplikacji bierzesz z niej tylko to, co ma sens.",
+      "title": "Wystarczy ci tablica. Widżet dodasz, kiedy zechcesz.",
+      "lede": "Ozvi działa bez ani jednej linijki kodu. Tablica jest dostępna pod twoim adresem, a do aplikacji bierzesz z niej tylko to, czego potrzebujesz.",
       "tabs": [
         "Pomysły",
         "Roadmapa",
@@ -3052,21 +3052,21 @@
           "text": "Pomysły, głosowanie, roadmapa, nowości i zgłoszenia błędów na feedback.twojafirma.pl. Link wyślesz e-mailem albo dodasz do menu aplikacji."
         },
         {
-          "tag": "Opcjonalnie · jedna linia",
-          "title": "Widget w twojej aplikacji",
-          "text": "Przycisk prosto w aplikacji. Do zgłoszenia dołączy zrzut ekranu, wersję i błędy z konsoli, użytkownika zaloguje twoja aplikacja."
+          "tag": "Opcjonalnie, jedna linijka kodu",
+          "title": "Widżet w twojej aplikacji",
+          "text": "Przycisk prosto w aplikacji. Sam dołącza do zgłoszenia zrzut ekranu, wersję i błędy z konsoli. Klient nigdzie się nie rejestruje, loguje go twoja aplikacja."
         },
         {
-          "tag": "Opcjonalnie · dwie linie",
+          "tag": "Opcjonalnie, dwie linijki kodu",
           "title": "Roadmapa i nowości u ciebie",
-          "text": "Osadź roadmapę lub nowości na własnej stronie albo w aplikacji. Wyglądają jak twoja strona, linki prowadzą do tablicy."
+          "text": "Osadź roadmapę albo nowości na swojej stronie lub w aplikacji. Wyglądają jak część twojej strony, a linki prowadzą do tablicy."
         }
       ],
-      "note": "Bez widgetu użytkownicy zgłaszają błędy prosto na tablicy. Brakuje im tylko kontekstu, który widget dołącza sam: zrzutu ekranu, błędów z konsoli i kroków przed błędem."
+      "note": "Bez widżetu klienci zgłaszają błędy prosto na tablicy. Brakuje wtedy tylko kontekstu, który widżet dołącza sam: zrzutu ekranu, błędów z konsoli i kroków przed błędem."
     },
     "github": {
-      "title": "Od zgłoszenia do poprawki. Resztą zajmie się GitHub.",
-      "lede": "Zespół pracuje w GitHubie jak dotąd. Ozvi robi ze zgłoszenia issue, śledzi je, a gdy poprawka wyjdzie, daje znać autorowi. Nikt niczego nie przepisuje ręcznie.",
+      "title": "Od zgłoszenia do poprawki, bez wychodzenia z GitHuba.",
+      "lede": "Zespół pracuje na GitHubie tak jak dotąd. Ozvi tworzy ze zgłoszenia issue, śledzi je, a gdy poprawka zostanie wydana, daje znać autorowi. Nikt niczego nie przepisuje ręcznie.",
       "ui": {
         "connect": "Połącz GitHub",
         "bug": "Kalendarz na telefonie",
@@ -3075,25 +3075,25 @@
       "steps": [
         {
           "title": "Połączysz GitHub dwoma kliknięciami",
-          "text": "Na GitHubie wybierasz repozytoria dla aplikacji Ozvi, a w Ozvi wskazujesz jedno. Bez tokenu i ręcznie ustawianego webhooka."
+          "text": "Na GitHubie wybierasz repozytoria dla aplikacji Ozvi, a w Ozvi wskazujesz jedno z nich. Nie potrzebujesz tokenu ani ręcznie ustawianego webhooka."
         },
         {
-          "title": "Ze zgłoszenia powstaje issue",
-          "text": "Jednym kliknięciem powstaje issue z opisem i danymi technicznymi. Albo łączysz zgłoszenie z istniejącym issue."
+          "title": "Ze zgłoszenia robisz issue",
+          "text": "Jednym kliknięciem powstaje issue z opisem i danymi technicznymi. Możesz też połączyć zgłoszenie z issue, które już masz."
         },
         {
           "title": "Zamykasz issue albo publikujesz wydanie",
-          "text": "Ozvi wychwyci to samo. Błąd przechodzi na „Poprawione w wersji 2.15”, a jeśli nie robisz wydań, od razu po zamknięciu issue."
+          "text": "Ozvi wychwyci to samo i błąd przejdzie na „Naprawione w wersji 2.15”. Jeśli nie robisz wydań, wystarczy zamknąć issue."
         },
         {
           "title": "Autor dostaje e-mail",
-          "text": "Piszemy mu, że jest poprawione, a on jednym kliknięciem potwierdza, czy już działa."
+          "text": "Piszemy mu, że błąd jest naprawiony, a on jednym kliknięciem potwierdza, czy już działa."
         }
       ],
-      "note": "Scalony pull request z „Fixes #412” sam dołączy się do zgłoszenia jako dowód poprawki. Linear i Jira łączą się kluczem API i synchronizują status podobnie. Na własnym serwerze aplikację dla GitHuba utworzysz jednym poleceniem."
+      "note": "Scalony pull request z „Fixes #412” sam dołącza się do zgłoszenia jako dowód naprawy. Linear i Jira łączą się przez klucz API i podobnie synchronizują status. Na własnym serwerze aplikację dla GitHuba utworzysz jednym poleceniem."
     },
     "star": {
-      "text": "Kod źródłowy Ozvi jest publiczny. Jeśli ci się podoba, daj mu gwiazdkę na GitHubie. Pomoże to innym go znaleźć.",
+      "text": "Ozvi ma publiczny kod źródłowy. Jeśli ci się podoba, daj mu gwiazdkę na GitHubie. Dzięki temu łatwiej znajdą go inni.",
       "cta": "Gwiazdka na GitHubie"
     },
     "faq": {
@@ -3101,19 +3101,19 @@
       "items": [
         {
           "q": "Czy Ozvi zastępuje Sentry?",
-          "a": "Nie. Sentry wyłapuje błędy, które rzuca kod. Ozvi zbiera to, co piszą Ci ludzie: błędy, przy których nic się nie wysypuje, pomysły i uwagi. I daje im znać, gdy jest gotowe. Śmiało używaj obu."
+          "a": "Nie. Sentry wyłapuje błędy, które rzuca kod. Ozvi zbiera to, co piszą ci klienci: błędy, przy których nic się nie wysypuje, pomysły i uwagi. Daje im też znać, gdy sprawa jest załatwiona. Śmiało używaj obu."
         },
         {
-          "q": "Czy muszę programować?",
-          "a": "Nie. Tablica z pomysłami, roadmapą, nowościami i zgłoszeniami błędów działa pod Twoim adresem bez ani jednej linii kodu. Widget w aplikacji jest opcjonalny i wystarczy do niego jeden skrypt."
+          "q": "Czy muszę umieć programować?",
+          "a": "Nie. Tablica z pomysłami, roadmapą, nowościami i zgłoszeniami błędów działa pod twoim adresem bez ani jednej linijki kodu. Widżet w aplikacji jest opcjonalny i wystarczy do niego jeden skrypt."
         },
         {
           "q": "Co zobaczą moi klienci?",
-          "a": "Przycisk „Opinia” w Twojej aplikacji albo tablicę w kolorach Twojej marki. Pomysły, roadmapę i nowości widzą wszyscy. Zgłoszenie błędu widzi tylko jego autor i Twój zespół."
+          "a": "Przycisk „Opinie” w twojej aplikacji albo tablicę w kolorach twojej marki. Pomysły, roadmapę i nowości widzą wszyscy. Zgłoszenie błędu widzą tylko jego autor i twój zespół."
         },
         {
           "q": "Gdzie są moje dane?",
-          "a": "Chmura działa w centrum danych w Niemczech. Widget nie ustawia ciasteczek i nie łączy się z podmiotami trzecimi. Ozvi możesz też uruchomić na własnym serwerze."
+          "a": "Chmura działa w centrum danych w Niemczech. Widżet nie ustawia cookies i nie łączy się z usługami zewnętrznymi. Ozvi możesz też uruchomić na własnym serwerze."
         },
         {
           "q": "Co, jeśli Ozvi przestanie działać?",
@@ -3122,7 +3122,7 @@
       ],
       "price": {
         "q": "Ile to kosztuje?",
-        "a": "Plan Free jest darmowy na zawsze i bez karty. Pro kosztuje {pro}, a Studio {studio} rocznie. Nie płacisz za użytkowników ani za wpisy."
+        "a": "Plan Free jest darmowy na zawsze i nie wymaga karty. Pro kosztuje {pro}, a Studio {studio} rocznie. Nie płacisz za użytkowników ani za wpisy."
       }
     }
   },

@@ -2496,7 +2496,7 @@
   "landing": {
     "meta": {
       "title": "Ozvi – bug reports and ideas from your customers, right inside your app",
-      "description": "Customers report a bug or suggest an idea right inside your app. When you've dealt with it, they get an e-mail. An ideas board, roadmap and changelog."
+      "description": "Customers report bugs and suggest ideas right inside your app, and get an e-mail once you’ve dealt with them. It comes with an ideas board, a roadmap and a changelog."
     },
     "nav": {
       "product": "Product",
@@ -2517,12 +2517,12 @@
         {
           "href": "#how",
           "title": "Ideas and voting",
-          "text": "A public board that prioritises for you"
+          "text": "A public board that shows what customers want most"
         },
         {
           "href": "#how",
-          "title": "Roadmap and release notes",
-          "text": "What’s next and what shipped, with e-mails to voters"
+          "title": "Roadmap and changelog",
+          "text": "What you’re planning and what you’ve shipped. Voters get an e-mail."
         },
         {
           "href": "#brand",
@@ -2560,15 +2560,15 @@
       "devFeature": {
         "href": "#self-host",
         "title": "Self-hosting",
-        "text": "One Docker image and Postgres. Every feature, €0."
+        "text": "One Docker image and Postgres, with every feature for €0."
       },
       "soon": "Launching soon"
     },
     "hero": {
       "title": "Customers report a bug right inside your app. When you fix it, they hear about it.",
-      "lede": "A “Feedback” button in your app, plus a board for ideas and updates. Reports arrive with a screenshot and the page they were on, so you don't have to ask.",
+      "lede": "You add a “Feedback” button to your app, plus a board for ideas and product updates. Every report comes with a screenshot and the page it happened on, so you don’t have to ask.",
       "secondary": "How it works",
-      "note": "The Free plan needs no card. Self-hosted, it’s free with every feature.",
+      "note": "The Free plan doesn’t need a card. On your own server, Ozvi is free with every feature.",
       "loop": {
         "label": "Example: a customer reports a bug in your app, you fix it and the customer gets an e-mail",
         "where": [
@@ -2586,21 +2586,21 @@
       }
     },
     "monitoring": {
-      "title": "Monitoring catches what crashes. Ozvi catches what people tell you.",
+      "title": "Monitoring catches what crashes. Ozvi catches what your customers tell you.",
       "themLabel": "Error monitoring",
-      "them": "Catches exceptions, slow requests and stack traces. Built for developers, it speaks up when the code breaks.",
-      "ozvi": "Catches what people tell you, including things that never throw an error. And lets them know how it turned out.",
+      "them": "It catches exceptions, slow requests and stack traces. It’s built for developers and speaks up when the code breaks.",
+      "ozvi": "Ozvi also catches the problems that never crash anything, and lets the customer know how it turned out. For example:",
       "examples": [
         "“The total on my invoice is wrong.”",
-        "“I can't find where to cancel a booking.”",
+        "“I can’t find where to cancel a booking.”",
         "“I need an export to Excel.”"
       ],
-      "both": "They complement each other. Use both, we do.",
+      "both": "One doesn’t replace the other. Feel free to use both. We do too.",
       "link": "How Ozvi differs from error monitoring"
     },
     "story": {
       "stage": {
-        "label": "Demo: a user reports a bug, the team fixes it and the user gets a reply",
+        "label": "Demo: a customer reports a bug, the team fixes it and the customer gets a reply",
         "app": "Bookings",
         "url": "app.yourcompany.com/calendar/2026-11-14",
         "invoice": "Saturday, 14 November",
@@ -2615,7 +2615,7 @@
             "10:30"
           ]
         ],
-        "report": "Mobile calendar doesn't show Saturday slots",
+        "report": "Mobile calendar doesn’t show Saturday slots",
         "screenshot": "screenshot",
         "stops": [
           "Received",
@@ -2644,15 +2644,15 @@
     "spec": [
       {
         "k": "< 20 kB",
-        "v": "Widget, gzipped. Runs in shadow DOM and never touches your styles or scripts."
+        "v": "The widget, gzipped. It runs in shadow DOM and leaves your styles and scripts alone."
       },
       {
         "k": "HS256 / OIDC",
-        "v": "Sign-in from your app. Users never create another account."
+        "v": "Your app signs customers in, so they never have to create another account."
       },
       {
         "k": "17 tools",
-        "v": "MCP server for AI assistants: search, duplicates, statuses, release notes."
+        "v": "An MCP server for AI assistants that searches, finds duplicates, changes statuses and handles the changelog."
       },
       {
         "k": "RLS",
@@ -2661,11 +2661,11 @@
     ],
     "dev": {
       "title": "Set it up in an afternoon.",
-      "lede": "A widget script and one endpoint that signs the user in. Everything else is API: webhooks, GitHub and MCP for AI assistants.",
+      "lede": "All you need is the widget script and one endpoint that signs the customer in. Everything else goes through the API: webhooks, GitHub and MCP for AI assistants.",
       "points": [
         "A bug on the board becomes a GitHub issue in one click, and its status syncs back.",
         "E-mails go through an outbox in the database. Nothing is lost when SMTP is down.",
-        "Every e-mail and webhook delivery is visible in the console, errors included."
+        "You can see every e-mail and webhook delivery in the console, including any errors."
       ],
       "copy": "copy",
       "copied": "copied",
@@ -2673,30 +2673,30 @@
       "tabs": {
         "widget": {
           "label": "Widget",
-          "note": "A button, a bug form with a screenshot, and ideas. The language comes from Ozvi.setLanguage(), the lang attribute or the page. No cookies, no third parties."
+          "note": "It adds a button, a bug form with a screenshot, and ideas. The language comes from Ozvi.setLanguage(), the lang attribute or the page itself. It sets no cookies and calls no third parties."
         },
         "sso": {
           "label": "Sign-in",
-          "note": "The SDK is MIT-licensed. Instead of a token you can use OIDC or e-mail code sign-in.",
+          "note": "The SDK is MIT-licensed. Instead of a token, you can sign customers in with OIDC or a code sent by e-mail.",
           "comment": "Your backend says who is signed in."
         },
         "mcp": {
           "label": "MCP",
-          "note": "Merging and publishing release notes always ask for confirmation. User text reaches the model as data, never as instructions.",
+          "note": "Merging items and publishing changelog entries always ask for your confirmation. Text written by customers reaches the model as data, never as instructions.",
           "comment": "then, in the chat",
           "q1": "Which bugs from this week are about the calendar?",
           "q2": "Merge #131 into #128 and mark it fixed in 2.15."
         },
         "hook": {
           "label": "Webhook",
-          "note": "HMAC-signed, retried, with a delivery log in the console. Slack, Discord and Mattermost get a readable message out of the box.",
+          "note": "Webhooks are HMAC-signed and retried, with a delivery log in the console. Slack, Discord and Mattermost get a readable message out of the box.",
           "title": "Mobile calendar doesn't show Saturday slots"
         }
       }
     },
     "pricing": {
       "title": "Pay per year, not per teammate.",
-      "lede": "No limits on users or records. You pay only for what costs us money: e-mail, storage and domains. Prices exclude VAT.",
+      "lede": "We don’t limit users or records. You pay only for what costs us money: e-mails, storage and domains. Prices exclude VAT.",
       "plan": "Plan",
       "forever": "forever, no card",
       "yearly": "per year, or {q} per quarter",
@@ -2708,28 +2708,28 @@
         "files": "Attachments",
         "domain": "Custom domain",
         "badge": "No Ozvi badge",
-        "ai": "AI: duplicates, summaries and news drafts",
+        "ai": "AI duplicate detection, summaries and changelog drafts",
         "users": "Users and records",
         "all": "MCP, GitHub, webhooks, SSO",
-        "translations": "AI translations a month"
+        "translations": "AI translations per month"
       },
       "yes": "yes",
       "no": "no"
     },
     "self": {
-      "title": "Self-hosted: €0, every feature.",
-      "text": "One Docker image and Postgres. Nothing locked behind a plan. Source-available under the FSL, which converts to Apache 2.0 after two years.",
+      "title": "Self-host it for €0, with every feature.",
+      "text": "All it takes is one Docker image and Postgres. No feature is locked behind a plan. The code is source-available under the FSL, which converts to Apache 2.0 after two years.",
       "c1": "Ozvi + Postgres",
       "c2": "first project",
       "name": "My App"
     },
     "closing": {
-      "title": "Give your customers a voice. And answer them.",
+      "title": "Give your customers a voice, and answer them.",
       "text": "The Free plan needs no card and never expires.",
       "compare": "Compare plans"
     },
     "footer": {
-      "tagline": "Bug reports, ideas and release notes inside your app.",
+      "tagline": "Bug reports, ideas and a changelog, right inside your app.",
       "product": "Product",
       "developers": "Developers",
       "legal": "Legal",
@@ -2738,36 +2738,36 @@
       "license": "Source-available (FSL). SDK and widget under MIT.",
       "demo": "Widget demo",
       "feedback": "Suggest an idea for Ozvi",
-      "contact": "Write to us",
+      "contact": "Contact us",
       "dpa": "Data processing agreement (DPA)",
       "blog": "Blog"
     },
     "product": {
-      "title": "What your users see. And what your team sees.",
-      "lede": "This is the real board with sample data, in a customer app's colours. Go ahead: vote, add an idea or a comment.",
+      "title": "What your customers see, and what your team sees.",
+      "lede": "This is the real board with sample data, in the colours of a sample customer’s app. You can vote, add an idea or leave a comment.",
       "tablist": "Parts of the board",
       "teamOnly": "team only",
       "app": "Bookings",
       "parts": {
         "ideas": {
           "title": "Ideas with voting",
-          "text": "Users suggest and vote. While typing they see similar ideas, so duplicates don't pile up."
+          "text": "Customers suggest ideas and vote on them. As they type, they see similar ideas, so duplicates don’t pile up."
         },
         "roadmap": {
           "title": "Roadmap",
-          "text": "What you plan, what you're working on and what shipped. An idea moves along it with the status your team gives it."
+          "text": "It shows what you’re planning, what you’re working on and what you’ve shipped. Each idea moves along it as your team changes its status."
         },
         "news": {
           "title": "Changelog",
-          "text": "When an idea ships, one entry e-mails everyone who voted for it. A draft can come straight from a GitHub release."
+          "text": "When an idea ships, a single changelog entry e-mails everyone who voted for it. Ozvi can also draft the entry from a GitHub release."
         },
         "bugs": {
           "title": "Private bug reports",
-          "text": "Only the author and your team see a report. The author can follow where it is and gets an e-mail when it's fixed."
+          "text": "Only the customer who sent a report and your team can see it. The customer can follow its progress and gets an e-mail when it’s fixed."
         },
         "team": {
           "title": "Team view",
-          "text": "Every report comes with a screenshot, version, browser and console errors. The team adds an internal note, merges a duplicate, links GitHub and tells the author in one step."
+          "text": "Every report comes with a screenshot, the version, the browser and any console errors. The team can add an internal note, merge a duplicate, link GitHub and update the customer in one step."
         }
       },
       "team": {
@@ -2789,7 +2789,7 @@
         ],
         "queue": [
           "Bookings CSV export fails at 10,000 rows",
-          "Mobile calendar doesn't show Saturday slots",
+          "Mobile calendar doesn’t show Saturday slots",
           "Chosen language is lost after sign-in"
         ],
         "shot": "annotated screenshot",
@@ -2797,9 +2797,9 @@
         "similar": "Similar: #119 Weekend empty in week view",
         "merge": "Merge",
         "noteLabel": "Internal note · team only",
-        "note": "The mobile view starts the week on Sunday, the rest on Monday. We'll align them; the fix ships in 2.15.",
+        "note": "The mobile view starts the week on Sunday and everything else on Monday. We’ll make them match, and the fix goes out in 2.15.",
         "pr": "PR #490 merged · preview ready",
-        "save": "Save and tell the author",
+        "save": "Save and notify the customer",
         "reporters": [
           "Martin Novák · Free plan · 20 min ago",
           "Jana Kováčová · Pro plan · 2 h ago",
@@ -2812,8 +2812,8 @@
         "notePh": "Internal note…",
         "addNote": "Add",
         "statusLabel": "Report status",
-        "sentFixed": "The author got an e-mail: “Fixed in version 2.15. Does it work for you now?”",
-        "sentStatus": "The author got an e-mail: the report is now “{status}”."
+        "sentFixed": "The customer got an e-mail: “Fixed in version 2.15. Does it work for you now?”",
+        "sentStatus": "The customer got an e-mail: the report is now “{status}”."
       },
       "look": {
         "label": "In your colours",
@@ -2825,7 +2825,7 @@
     },
     "features": {
       "title": "Everything from report to reply.",
-      "lede": "No paid add-ons. Cloud plans differ only in what costs us money, and on your own server everything is free.",
+      "lede": "There are no paid add-ons. Cloud plans differ only in what costs us money, and on your own server everything is free.",
       "groups": [
         {
           "title": "Collecting",
@@ -2839,15 +2839,15 @@
         {
           "title": "Handling",
           "items": [
-            "Fixed status routes for ideas and bugs",
+            "The same statuses for ideas and bugs, from received to shipped",
             "Internal notes and team-only tags",
             "Similar items and merging duplicates",
-            "An “Unanswered” queue so nothing sits forgotten",
+            "An “Unanswered” queue, so nothing gets forgotten",
             "AI translation of posts (Pro and Studio), AI thread summaries (Studio)"
           ]
         },
         {
-          "title": "Reply to the author",
+          "title": "Replying to customers",
           "items": [
             "E-mail: “fixed in 2.15, does it work for you?”",
             "Changelog entries that e-mail everyone who voted",
@@ -2867,16 +2867,16 @@
         {
           "title": "Privacy",
           "items": [
-            "Export and erasure of a user's data",
-            "Ready texts for your privacy policy",
-            "Source-available code (FSL)"
+            "Export and erasure of a customer’s data",
+            "Ready-made wording for your privacy policy",
+            "Public source code (FSL)"
           ]
         }
       ],
       "tiles": {
         "stream": {
           "title": "Reports arrive with context",
-          "text": "The widget attaches a screenshot, version, browser and console errors. Users don't have to explain anything.",
+          "text": "The widget attaches a screenshot, the version, the browser and console errors by itself, so customers don’t have to explain anything.",
           "items": [
             {
               "title": "SMS reminder has the wrong time after the clock change",
@@ -2887,7 +2887,7 @@
               "meta": "Safari 19 · v2.14.0"
             },
             {
-              "title": "Mobile calendar doesn't show Saturday slots",
+              "title": "Mobile calendar doesn’t show Saturday slots",
               "meta": "Chrome 141 · v2.14.0 · screenshot"
             },
             {
@@ -2902,11 +2902,11 @@
         },
         "mcp": {
           "title": "An AI assistant in your editor",
-          "text": "An MCP server with 17 tools. Steps that merge or publish something wait for your confirmation.",
+          "text": "Ozvi has an MCP server with 17 tools. Anything that merges or publishes waits for your confirmation.",
           "lines": [
             {
               "who": "you",
-              "text": "What's new about the calendar?"
+              "text": "Any new reports about the calendar?"
             },
             {
               "who": "tool",
@@ -2914,7 +2914,7 @@
             },
             {
               "who": "ai",
-              "text": "#128 mobile hides Saturdays, #126 wrong reminder time. #119 looks like a duplicate of #128."
+              "text": "#128: mobile hides Saturdays. #126: wrong reminder time. #119 looks like a duplicate of #128."
             },
             {
               "who": "you",
@@ -2927,8 +2927,8 @@
           ]
         },
         "route": {
-          "title": "Authors know where their report is",
-          "text": "At “Fixed” they get an e-mail asking whether it works for them now.",
+          "title": "Customers can see where their report is",
+          "text": "When it’s marked “Fixed”, they get an e-mail asking whether it works for them now.",
           "stops": [
             "Received",
             "Confirmed",
@@ -2938,7 +2938,7 @@
         },
         "privacy": {
           "title": "Passwords never leave the page",
-          "text": "The widget blurs password fields and marked parts of the page in the browser.",
+          "text": "The widget blurs password fields and any parts of the page you mark, right in the browser.",
           "email": "E-mail",
           "password": "Password"
         },
@@ -2948,23 +2948,23 @@
         },
         "self": {
           "title": "Or on your own server",
-          "text": "One Docker image and Postgres. Every feature, €0."
+          "text": "One Docker image and Postgres, with every feature for €0."
         },
         "fider": {
           "title": "Moving from Fider",
-          "text": "Import from a backup or through the API: ideas, votes, comments, tags and attachments. Item numbers stay where possible."
+          "text": "Import ideas, votes, comments, tags and attachments from a backup or through the API. Item numbers are kept where possible."
         },
         "langs": {
           "title": "Six languages",
-          "text": "Board, widget and e-mails in Slovak, Czech, English, Polish, Hungarian and German. Posts in another language are translated by AI into the reader's language, always labelled with the original a click away (Pro and Studio)."
+          "text": "The board, the widget and the e-mails speak Slovak, Czech, English, Polish, Hungarian and German. On Pro and Studio, AI translates posts written in another language into the reader’s language. Translations are always labelled, and the original is one click away."
         },
         "a11y": {
           "title": "Accessibility",
-          "text": "Keyboard control, WCAG 2.2 AA contrast and a published accessibility report under EN 301 549."
+          "text": "You can use it with a keyboard, contrast meets WCAG 2.2 AA, and there’s a published accessibility report under EN 301 549."
         },
         "brand": {
-          "title": "In your brand's colours",
-          "text": "Colours, fonts, corner radius and logo, in light and dark mode. One theme covers the board, the widget and the e-mails, on your own domain."
+          "title": "In your brand’s colours",
+          "text": "Set your colours, fonts, corner radius and logo for light and dark mode. One theme covers the board, the widget and the e-mails, on your own domain."
         }
       },
       "moreTitle": "All features"
@@ -2980,52 +2980,52 @@
         "GitHub",
         "Linear and Jira",
         "Slack, Discord, webhooks",
-        "Reply to the author"
+        "Reply to the customer"
       ]
     },
     "steps": [
       {
-        "title": "Customers report a bug where they see it.",
-        "text": "They click “Feedback” right in your app and write what's wrong. Ozvi attaches a screenshot and the page by itself and hides passwords before anything leaves their browser. Developers also get the version and console errors."
+        "title": "Customers report a bug right where they see it.",
+        "text": "They click “Feedback” in your app and describe what’s wrong. Ozvi adds a screenshot and the page address on its own, and hides passwords before anything leaves the browser. Your developers also get the version and any console errors."
       },
       {
         "title": "Your team handles it all in one place.",
-        "text": "Every report together, with filters. Merge similar ones in one click; internal notes and tags stay hidden from the customer. Nothing is left without an answer."
+        "text": "All reports are in one place, and you can filter them. Merge similar ones in one click. Customers never see internal notes or tags. Nothing is left unanswered."
       },
       {
         "title": "Ideas rank themselves by votes.",
-        "text": "Customers suggest and vote, and see similar ideas as they type. The roadmap shows what you plan and what you're working on, and an idea moves along it with its status."
+        "text": "Customers suggest ideas, vote, and see similar ideas as they type. The roadmap shows them what you’re planning and working on. When you change an idea’s status, it moves along the roadmap by itself."
       },
       {
         "title": "Connected to the tools you already use.",
-        "text": "A report becomes an issue in GitHub, Linear or Jira in one click. Send updates to Slack or Discord."
+        "text": "One click turns a report into an issue in GitHub, Linear or Jira. You can also send updates to Slack or Discord."
       },
       {
-        "title": "And the author hears how it ended.",
-        "text": "At “Fixed” they get an e-mail asking whether it works for them now. When an idea ships, one changelog entry writes to everyone who voted for it."
+        "title": "And the customer hears how it turned out.",
+        "text": "When you mark a bug as fixed, the customer gets an e-mail asking whether it works for them now. When you ship an idea, one changelog entry lets everyone who voted for it know."
       }
     ],
     "try": {
-      "title": "Try it. In your app's colours.",
-      "lede": "This is the real board with sample data. Vote, add an idea, switch to the team view and change its colours, just like you will in your project settings.",
+      "title": "Try it in your app’s colours.",
+      "lede": "This is the real board with sample data. Vote, add an idea, switch to the team view and change the colours. It works the same way in your project settings.",
       "demo": "Try the widget in a sample app",
       "demoNote": "Report a bug with a screenshot and see what the team would get."
     },
     "demo": {
       "hero": "Try the demo",
-      "title": "Report a bug in a sample app. In half a minute.",
+      "title": "Try it in a sample app. It takes half a minute.",
       "lede": "The demo is a sample booking app with the real Ozvi widget. Report a bug in it and see exactly what your team would get.",
       "points": [
-        "What the customer writes, with a screenshot where personal data is hidden",
-        "The team's view and the customer's, with status and reply",
-        "For developers, also the console error and the steps before it"
+        "What the customer writes, with a screenshot that hides sensitive data",
+        "Both the team’s view and the customer’s, with the status and reply",
+        "For developers, the console error and the steps that led to it"
       ],
       "cta": "Open the demo",
-      "note": "No sign-up. Nothing is sent.",
+      "note": "No sign-up needed, and nothing is sent anywhere.",
       "app": "Booking 14 Nov · 10:30",
       "phone": "Phone",
       "noteLabel": "Note",
-      "failed": "The booking couldn't be saved.",
+      "failed": "The booking couldn’t be saved.",
       "teamGets": "What the team gets",
       "chips": [
         "screenshot",
@@ -3033,11 +3033,11 @@
         "Chrome · 1396×783",
         "3 steps"
       ],
-      "quote": "“I can't save my booking.”"
+      "quote": "“I can’t save my booking.”"
     },
     "ways": {
-      "title": "The board is enough. Add the widget when you want to.",
-      "lede": "Ozvi works without a single line of code. The board runs on your address, and you take into your app only what makes sense.",
+      "title": "The board is all you need. Add the widget whenever you like.",
+      "lede": "Ozvi works without a single line of code. The board runs at your own address, and you bring into your app only the parts you need.",
       "tabs": [
         "Ideas",
         "Roadmap",
@@ -3048,25 +3048,25 @@
       "items": [
         {
           "tag": "No code",
-          "title": "A board on your address",
-          "text": "Ideas, voting, roadmap, news and bug reports on feedback.yourcompany.com. Send the link by email or put it in your app's menu."
+          "title": "A board at your own address",
+          "text": "Ideas, voting, the roadmap, the changelog and bug reports all live at feedback.yourcompany.com. Send customers the link by e-mail or add it to your app’s menu."
         },
         {
-          "tag": "Optional · one line",
+          "tag": "Optional, one line of code",
           "title": "The widget in your app",
-          "text": "A button right in your app. It adds a screenshot, the version and console errors to the report; your app signs the user in."
+          "text": "A button right inside your app. It attaches a screenshot, the version and console errors to each report by itself. Customers don’t register anywhere, because your app signs them in."
         },
         {
-          "tag": "Optional · two lines",
-          "title": "Roadmap and news on your site",
-          "text": "Embed the roadmap or the news on your own site or in your app. They look like your page; links lead to the board."
+          "tag": "Optional, two lines of code",
+          "title": "The roadmap and changelog on your site",
+          "text": "Embed the roadmap or the changelog on your own site or in your app. They look like part of your page, and links lead to the board."
         }
       ],
-      "note": "Without the widget, people report bugs right on the board. They only miss the context the widget adds by itself: a screenshot, console errors and the steps before the bug."
+      "note": "Without the widget, customers report bugs right on the board. All they miss is the context the widget adds by itself: a screenshot, console errors and the steps before the bug."
     },
     "github": {
-      "title": "From the report to the fix. GitHub does the rest.",
-      "lede": "The team keeps working in GitHub. Ozvi turns the report into an issue, follows it, and when the fix is out, tells the author. Nobody copies anything by hand.",
+      "title": "From report to fix, straight from GitHub.",
+      "lede": "Your team keeps working in GitHub as before. Ozvi turns the report into an issue, tracks it, and tells the customer when the fix is out. Nobody has to copy anything by hand.",
       "ui": {
         "connect": "Connect GitHub",
         "bug": "Calendar on mobile",
@@ -3075,25 +3075,25 @@
       "steps": [
         {
           "title": "Connect GitHub in two clicks",
-          "text": "Choose repositories for the Ozvi app on GitHub and pick one in Ozvi. No token and no webhook to set up by hand."
+          "text": "On GitHub, give the Ozvi app access to your repositories, then pick one in Ozvi. There’s no token or webhook to set up by hand."
         },
         {
-          "title": "The report becomes an issue",
-          "text": "One click creates an issue with the description and technical details. Or link the report to an issue you already have."
+          "title": "Turn the report into an issue",
+          "text": "One click creates an issue with the description and technical details. You can also link the report to an issue you already have."
         },
         {
           "title": "Close the issue or publish a release",
-          "text": "Ozvi notices on its own. The bug moves to “Fixed in 2.15”, or right when the issue closes if you don't do releases."
+          "text": "Ozvi picks it up and moves the bug to “Fixed in 2.15”. If you don’t do releases, closing the issue is enough."
         },
         {
-          "title": "The author gets an email",
-          "text": "We tell them it's fixed, and one click confirms whether it works for them now."
+          "title": "The customer gets an e-mail",
+          "text": "We tell them it’s fixed, and they can confirm with one click whether it works for them now."
         }
       ],
-      "note": "A merged pull request with “Fixes #412” is added to the report by itself as proof of the fix. Linear and Jira connect with an API key and sync statuses the same way. On your own server you create the GitHub app with one command."
+      "note": "A merged pull request with “Fixes #412” is attached to the report automatically as proof of the fix. Linear and Jira connect with an API key and sync statuses in a similar way. On your own server, you create the GitHub app with one command."
     },
     "star": {
-      "text": "Ozvi's source code is public. If you like it, give it a star on GitHub. It helps others find it.",
+      "text": "Ozvi’s source code is public. If you like it, give it a star on GitHub. It helps other people find it.",
       "cta": "Star on GitHub"
     },
     "faq": {
@@ -3101,15 +3101,15 @@
       "items": [
         {
           "q": "Is Ozvi a Sentry replacement?",
-          "a": "No. Sentry catches errors your code throws. Ozvi collects what people write to you: bugs where nothing crashes, ideas and suggestions. And it tells them when it's done. Use both if you like."
+          "a": "No. Sentry catches errors that your code throws. Ozvi collects what your customers write to you: bugs where nothing crashes, ideas and suggestions. It also lets them know when it’s done. Feel free to use both."
         },
         {
           "q": "Do I need to write code?",
-          "a": "No. The board with ideas, roadmap, updates and bug reports runs at your own address without a single line of code. The in-app widget is optional and takes one script."
+          "a": "No. The board with ideas, the roadmap, the changelog and bug reports runs at your own address without a single line of code. The in-app widget is optional and takes one script."
         },
         {
           "q": "What will my customers see?",
-          "a": "A “Feedback” button in your app, or a board in your brand's colours. Ideas, the roadmap and updates are public. A bug report is seen only by the person who sent it and your team."
+          "a": "They see a “Feedback” button in your app, or a board in your brand’s colours. Everyone can see ideas, the roadmap and the changelog. A bug report is visible only to the customer who sent it and your team."
         },
         {
           "q": "Where is my data?",
@@ -3117,12 +3117,12 @@
         },
         {
           "q": "What if Ozvi shuts down?",
-          "a": "The source code is public and the self-hosted version has every feature for free. Export your data at any time and run Ozvi yourself."
+          "a": "The source code is public, and the self-hosted version has every feature for free. You can export your data at any time and run Ozvi yourself."
         }
       ],
       "price": {
         "q": "How much does it cost?",
-        "a": "The Free plan is free forever, no card needed. Pro costs {pro} and Studio {studio} a year. You don't pay per user or per record."
+        "a": "The Free plan is free forever and doesn’t need a card. Pro costs {pro} and Studio {studio} a year. You don’t pay per user or per record."
       }
     }
   },
