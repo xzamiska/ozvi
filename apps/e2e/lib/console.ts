@@ -18,6 +18,10 @@ export async function consoleLogin(page: Page, email: string) {
     await page.getByRole("button", { name: "Prihlásiť sa" }).click();
     await page.waitForURL((u) => !u.pathname.startsWith("/app/login"));
   });
+  // Sign-in lands on /app, which redirects on to the workspace (or /app/new for a new account). Wait for the
+  // end of that chain: a goto() while it is still running is "interrupted by another navigation" in WebKit.
+  await page.waitForURL(/\/app\/(new|w\/)/);
+  await page.waitForLoadState("load");
 }
 
 /** Creates a project from the console form; returns its slug. A first project also creates a free workspace. */
