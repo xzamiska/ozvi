@@ -1,5 +1,6 @@
 "use server";
 
+import { noStatsCookie } from "./analytics";
 import { PLAN_LIMITS, PRICES, schema, withSystem, type Interval, type PaidPlan, type PlanName } from "@ozvi/db";
 import { applyCreemEvent, BillingError, cancelSubscription, changeSubscription, createCheckout, creemConfig, DEV_CREEM, devBilling, devSubscription, portalLink, resumeSubscription, type CreemConfig, type Sub } from "./creem";
 import { roleIn } from "./workspace";
@@ -53,6 +54,7 @@ async function finish(email: string): Promise<string | null> {
   if (!account) return (await server())(process.env.OZVI_MODE === "cloud" && signupClosed() ? "signupClosed" : "noAccess");
   if (isNew) await trackEvent("account_created");
   (await cookies()).set(appCookie(account));
+  (await cookies()).set(noStatsCookie);
   return null;
 }
 

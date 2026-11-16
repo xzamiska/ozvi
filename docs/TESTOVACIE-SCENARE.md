@@ -47,7 +47,7 @@ Každá sekcia admina sa uloží a prejaví na boarde (vzhľad vrátane „Logo 
 
 ## 6. Konzola, plány a verejný web (`console-billing-site.spec.ts`)
 
-Limity plánov (Free 1 projekt, jeden free priestor na osobu aj pri Gmail aliasoch), simulovaná platba Pro/Studio a zmena limitov, premenovanie a zmazanie priestoru, zmena e-mailu účtu, odhlásenie všade, zmazanie účtu, aktivita a doručovanie. Verejný web vo všetkých jazykoch bez chýb v konzole, odkazy, dokumentácia, právne stránky, sitemap/robots, `noindex` na boardoch a v konzole, 404, mobil bez vodorovného posúvania.
+Limity plánov (Free 1 projekt, jeden free priestor na osobu aj pri Gmail aliasoch), simulovaná platba Pro/Studio a zmena limitov, premenovanie a zmazanie priestoru, zmena e-mailu účtu, odhlásenie všade, zmazanie účtu, aktivita a doručovanie. Verejný web vo všetkých jazykoch bez chýb v konzole, český prehliadač na `/` dostane `/cs` (pohyb po webe nepresmeruje), blok „Sentry vidí kód“ s porovnaním a časté otázky, odkazy, dokumentácia, právne stránky, sitemap/robots, `noindex` na boardoch a v konzole, 404, mobil bez vodorovného posúvania.
 
 ## Ručne / mimo automatizácie
 

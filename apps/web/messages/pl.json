@@ -2565,33 +2565,39 @@
       "soon": "Startujemy wkrótce"
     },
     "hero": {
-      "title": "Opinie, które nie giną.",
-      "lede": "Ozvi zbiera zgłoszenia błędów i pomysły na własnej tablicy i prosto w twojej aplikacji, dostarcza je zespołowi tam, gdzie pracuje, i mówi autorowi, jak się skończyło. W języku i kolorach twojej marki.",
+      "title": "Klienci zgłaszają błąd prosto w aplikacji. Gdy go naprawisz, dowiedzą się o tym.",
+      "lede": "Przycisk „Opinia” w Twojej aplikacji oraz tablica na pomysły i nowości. Zgłoszenie przychodzi ze zrzutem ekranu i stroną, więc nie musisz dopytywać.",
       "secondary": "Jak to działa",
       "note": "Plan Free nie wymaga karty. Na własnym serwerze jest bezpłatny i ze wszystkimi funkcjami.",
       "loop": {
-        "label": "Przykład: użytkownik zgłasza błąd w twojej aplikacji, zespół naprawia go na tablicy, a autor dostaje odpowiedź e-mailem",
+        "label": "Przykład: klient zgłasza błąd w Twojej aplikacji, Ty go naprawiasz, a klient dostaje e-mail",
         "where": [
-          "Użytkownik zgłasza go w twojej aplikacji",
-          "Zespół ma go na tablicy i naprawia",
-          "Autor dostaje odpowiedź"
+          "Klient zgłasza go w Twojej aplikacji",
+          "Masz go ze zrzutem ekranu i naprawiasz",
+          "Klient dostaje e-mail"
         ],
         "widgetTitle": "Zgłoś błąd",
         "widgetSend": "Zgłoś",
         "mailSubject": "Naprawione w wersji 2.15",
         "mailBody": "Naprawiliśmy zgłoszony przez ciebie błąd. Czy już działa?",
         "yes": "Tak, działa",
-        "no": "Jeszcze nie"
-      },
-      "badge": "Zgłoszenia błędów, pomysły i nowości w twojej aplikacji",
-      "shotLabel": "Przykład: tablica pomysłów tak, jak widzą ją użytkownicy, i to samo zgłoszenie oczami zespołu",
-      "notes": {
-        "mail": "jana@firma.pl dostała e-mail",
-        "mailSub": "Naprawione w wersji 2.15",
-        "merge": "#119 scalone z #128",
-        "mergeSub": "3 głosy przeniesione",
-        "votes": "41 głosów za synchronizacją z Kalendarzem Google"
+        "no": "Jeszcze nie",
+        "shot": "Zrzut ekranu zostanie dołączony"
       }
+    },
+    "notSentry": {
+      "title": "Sentry widzi kod. Ozvi słucha ludzi.",
+      "themLabel": "Monitoring błędów, np. Sentry",
+      "them": "Wyłapuje to, co psuje się w kodzie: wyjątki, wolne żądania, stack trace. Jest dla programistów.",
+      "ozviLabel": "Ozvi",
+      "ozvi": "Wyłapuje to, co mówią Ci ludzie, także to, co nigdy nie rzuca błędu. I daje autorowi znać, jak się skończyło.",
+      "examples": [
+        "„Na fakturze wyszła mi zła kwota.”",
+        "„Nie wiem, gdzie anulować rezerwację.”",
+        "„Brakuje mi eksportu do Excela.”"
+      ],
+      "both": "Uzupełniają się. Śmiało używaj obu, my też tak robimy.",
+      "link": "Porównanie Ozvi i Sentry"
     },
     "story": {
       "stage": {
@@ -3085,6 +3091,35 @@
     "star": {
       "text": "Kod źródłowy Ozvi jest publiczny. Jeśli ci się podoba, daj mu gwiazdkę na GitHubie. Pomoże to innym go znaleźć.",
       "cta": "Gwiazdka na GitHubie"
+    },
+    "faq": {
+      "title": "Częste pytania",
+      "items": [
+        {
+          "q": "Czy Ozvi zastępuje Sentry?",
+          "a": "Nie. Sentry wyłapuje błędy, które rzuca kod. Ozvi zbiera to, co piszą Ci ludzie: błędy, przy których nic się nie wysypuje, pomysły i uwagi. I daje im znać, gdy jest gotowe. Śmiało używaj obu."
+        },
+        {
+          "q": "Czy muszę programować?",
+          "a": "Nie. Tablica z pomysłami, roadmapą, nowościami i zgłoszeniami błędów działa pod Twoim adresem bez ani jednej linii kodu. Widget w aplikacji jest opcjonalny i wystarczy do niego jeden skrypt."
+        },
+        {
+          "q": "Co zobaczą moi klienci?",
+          "a": "Przycisk „Opinia” w Twojej aplikacji albo tablicę w kolorach Twojej marki. Pomysły, roadmapę i nowości widzą wszyscy. Zgłoszenie błędu widzi tylko jego autor i Twój zespół."
+        },
+        {
+          "q": "Gdzie są moje dane?",
+          "a": "Chmura działa w centrum danych w Niemczech. Widget nie ustawia ciasteczek i nie łączy się z podmiotami trzecimi. Ozvi możesz też uruchomić na własnym serwerze."
+        },
+        {
+          "q": "Co, jeśli Ozvi przestanie działać?",
+          "a": "Kod źródłowy jest publiczny, a wersja na własny serwer ma wszystkie funkcje za darmo. Dane wyeksportujesz w każdej chwili i uruchomisz Ozvi u siebie."
+        }
+      ],
+      "price": {
+        "q": "Ile to kosztuje?",
+        "a": "Plan Free jest darmowy na zawsze i bez karty. Pro kosztuje {pro}, a Studio {studio} rocznie. Nie płacisz za użytkowników ani za wpisy."
+      }
     }
   },
   "net": {

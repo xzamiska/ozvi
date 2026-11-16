@@ -2565,33 +2565,39 @@
       "soon": "Hamarosan indulunk"
     },
     "hero": {
-      "title": "Visszajelzés, ami nem vész el.",
-      "lede": "Az Ozvi a saját tábládon és közvetlenül az alkalmazásodban gyűjti a hibajelentéseket és ötleteket, oda juttatja őket, ahol a csapat dolgozik, és elmondja a bejelentőnek, mi lett a vége. A márkád nyelvén és színeiben.",
+      "title": "Az ügyfelek közvetlenül az alkalmazásban jelentik a hibát. Ha kijavítja, értesülnek róla.",
+      "lede": "Egy „Visszajelzés” gomb az alkalmazásában, és egy board ötletekhez és újdonságokhoz. A bejelentés képernyőképpel és az oldallal együtt érkezik, így nem kell visszakérdeznie.",
       "secondary": "Hogyan működik",
       "note": "Az ingyenes csomaghoz nem kell bankkártya. Saját üzemeltetésben minden funkcióval ingyenes.",
       "loop": {
-        "label": "Példa: egy felhasználó hibát jelez az alkalmazásodban, a csapat a táblán kijavítja, a bejelentő e-mailben kap választ",
+        "label": "Példa: egy ügyfél hibát jelent az alkalmazásában, ön kijavítja, az ügyfél pedig e-mailt kap",
         "where": [
-          "A felhasználó az alkalmazásodban jelzi",
-          "A csapat a táblán látja és kijavítja",
-          "A bejelentő választ kap"
+          "Az ügyfél bejelenti az alkalmazásában",
+          "Ön képernyőképpel együtt megkapja és kijavítja",
+          "Az ügyfél e-mailt kap"
         ],
         "widgetTitle": "Hiba bejelentése",
         "widgetSend": "Bejelentés",
         "mailSubject": "Javítva a 2.15-ös verzióban",
         "mailBody": "Kijavítottuk a bejelentett hibát. Már működik?",
         "yes": "Igen, működik",
-        "no": "Még nem"
-      },
-      "badge": "Hibajelentések, ötletek és újdonságok az alkalmazásodban",
-      "shotLabel": "Példa: az ötlettábla, ahogy a felhasználók látják, és ugyanaz a jelentés a csapat szemével",
-      "notes": {
-        "mail": "jana@ceg.hu e-mailt kapott",
-        "mailSub": "Javítva a 2.15-ös verzióban",
-        "merge": "#119 összevonva a #128-cal",
-        "mergeSub": "3 szavazat átvéve",
-        "votes": "41 szavazat a Google Naptár-szinkronra"
+        "no": "Még nem",
+        "shot": "Képernyőkép csatolva"
       }
+    },
+    "notSentry": {
+      "title": "A Sentry a kódot figyeli. Az Ozvi az embereket hallgatja meg.",
+      "themLabel": "Hibamonitorozás, például Sentry",
+      "them": "Elkapja, ami a kódban elromlik: kivételeket, lassú kéréseket, stack trace-t. Fejlesztőknek készült.",
+      "ozviLabel": "Ozvi",
+      "ozvi": "Elkapja, amit az emberek mondanak, azt is, ami sosem dob hibát. És a bejelentőnek megírja, mi lett az eredménye.",
+      "examples": [
+        "„Rossz összeg jött ki a számlámon.”",
+        "„Nem találom, hol lehet lemondani a foglalást.”",
+        "„Hiányzik az Excel-export.”"
+      ],
+      "both": "Kiegészítik egymást. Nyugodtan használja mindkettőt, mi is így teszünk.",
+      "link": "Az Ozvi és a Sentry összehasonlítása"
     },
     "story": {
       "stage": {
@@ -3085,6 +3091,35 @@
     "star": {
       "text": "Az Ozvi forráskódja nyilvános. Ha tetszik, adj neki csillagot a GitHubon. Így mások is könnyebben megtalálják.",
       "cta": "Csillag a GitHubon"
+    },
+    "faq": {
+      "title": "Gyakori kérdések",
+      "items": [
+        {
+          "q": "Az Ozvi a Sentry helyett van?",
+          "a": "Nem. A Sentry a kód által dobott hibákat kapja el. Az Ozvi azt gyűjti, amit az emberek írnak önnek: hibákat, amelyeknél semmi sem omlik össze, ötleteket és észrevételeket. És szól nekik, amikor kész. Nyugodtan használja mindkettőt."
+        },
+        {
+          "q": "Kell hozzá programoznom?",
+          "a": "Nem. Az ötleteket, ütemtervet, újdonságokat és hibabejelentéseket tartalmazó board egyetlen sor kód nélkül fut a saját címén. Az alkalmazásba szánt widget opcionális, és egyetlen szkript elég hozzá."
+        },
+        {
+          "q": "Mit látnak az ügyfeleim?",
+          "a": "Egy „Visszajelzés” gombot az alkalmazásában vagy egy boardot a márkája színeiben. Az ötleteket, az ütemtervet és az újdonságokat mindenki látja. A hibabejelentést csak a beküldője és az ön csapata látja."
+        },
+        {
+          "q": "Hol vannak az adataim?",
+          "a": "A felhő egy németországi adatközpontban fut. A widget nem állít be sütiket, és nem hív harmadik feleket. Az Ozvit saját szerveren is futtathatja."
+        },
+        {
+          "q": "Mi van, ha az Ozvi megszűnik?",
+          "a": "A forráskód nyilvános, a saját szerverre szánt változat pedig minden funkcióval ingyenes. Az adatait bármikor exportálhatja, és futtathatja az Ozvit saját maga."
+        }
+      ],
+      "price": {
+        "q": "Mennyibe kerül?",
+        "a": "A Free csomag örökre ingyenes, bankkártya nélkül. A Pro évi {pro}, a Studio évi {studio}. Nem fizet felhasználók vagy bejegyzések után."
+      }
     }
   },
   "net": {

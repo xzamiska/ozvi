@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { describe, expect, it } from "vitest";
-import { eventFor, pageviewFor, trackedUrl } from "./analytics";
+import { eventFor, NO_STATS_COOKIE, pageviewFor, trackedUrl } from "./analytics";
 
 const env = { OZVI_UMAMI_URL: "http://umami:3000/", OZVI_UMAMI_WEBSITE_ID: "site-1" } as unknown as NodeJS.ProcessEnv;
 const req = (path: string, h: Record<string, string> = {}) => new NextRequest(`https://ozvi.io${path}`, {
@@ -22,6 +22,9 @@ describe("server-side pageviews", () => {
     expect(pageviewFor(req("/", { "sec-purpose": "prefetch" }), "ozvi.io", env)).toBeNull();
     expect(pageviewFor(req("/", { accept: "image/png" }), "ozvi.io", env)).toBeNull();
     expect(pageviewFor(req("/"), "ozvi.io", {} as NodeJS.ProcessEnv)).toBeNull();
+  });
+  it("the team's own visits (signed in to the console once) are not counted", () => {
+    expect(pageviewFor(req("/", { cookie: `${NO_STATS_COOKIE}=1` }), "ozvi.io", env)).toBeNull();
   });
   it("an in-app navigation (RSC) counts", () => {
     expect(pageviewFor(req("/pricing", { accept: "*/*", rsc: "1" }), "ozvi.io", env)).not.toBeNull();

@@ -2565,33 +2565,39 @@
       "soon": "Launching soon"
     },
     "hero": {
-      "title": "Feedback that doesn’t get lost.",
-      "lede": "Ozvi collects bug reports and ideas on your own board and right inside your app, delivers them to the team where it works, and tells the author how it turned out. In your brand's language and colours.",
+      "title": "Customers report a bug right inside your app. When you fix it, they hear about it.",
+      "lede": "A “Feedback” button in your app, plus a board for ideas and updates. Reports arrive with a screenshot and the page they were on, so you don't have to ask.",
       "secondary": "How it works",
       "note": "The Free plan needs no card. Self-hosted, it’s free with every feature.",
       "loop": {
-        "label": "Example: a user reports a bug in your app, the team fixes it on the board and the author gets the answer by e-mail",
+        "label": "Example: a customer reports a bug in your app, you fix it and the customer gets an e-mail",
         "where": [
-          "A user reports it in your app",
-          "Your team has it on the board and fixes it",
-          "The author gets the answer"
+          "The customer reports it in your app",
+          "You get it with a screenshot and fix it",
+          "The customer gets an e-mail"
         ],
         "widgetTitle": "Report a bug",
         "widgetSend": "Report",
         "mailSubject": "Fixed in version 2.15",
         "mailBody": "We fixed the bug you reported. Does it work for you now?",
         "yes": "Yes, it works",
-        "no": "Not yet"
-      },
-      "badge": "Bug reports, ideas and a changelog inside your app",
-      "shotLabel": "Example: the ideas board as users see it, and the same report through the team's eyes",
-      "notes": {
-        "mail": "jana@company.com got an e-mail",
-        "mailSub": "Fixed in version 2.15",
-        "merge": "#119 merged into #128",
-        "mergeSub": "3 votes carried over",
-        "votes": "41 votes for Google Calendar sync"
+        "no": "Not yet",
+        "shot": "A screenshot is attached"
       }
+    },
+    "notSentry": {
+      "title": "Sentry watches your code. Ozvi listens to people.",
+      "themLabel": "Error monitoring, such as Sentry",
+      "them": "Catches what breaks in the code: exceptions, slow requests, stack traces. Built for developers.",
+      "ozviLabel": "Ozvi",
+      "ozvi": "Catches what people tell you, including things that never throw an error. And lets them know how it turned out.",
+      "examples": [
+        "“The total on my invoice is wrong.”",
+        "“I can't find where to cancel a booking.”",
+        "“I need an export to Excel.”"
+      ],
+      "both": "They complement each other. Use both, we do.",
+      "link": "Ozvi vs Sentry"
     },
     "story": {
       "stage": {
@@ -3085,6 +3091,35 @@
     "star": {
       "text": "Ozvi's source code is public. If you like it, give it a star on GitHub. It helps others find it.",
       "cta": "Star on GitHub"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "q": "Is Ozvi a Sentry replacement?",
+          "a": "No. Sentry catches errors your code throws. Ozvi collects what people write to you: bugs where nothing crashes, ideas and suggestions. And it tells them when it's done. Use both if you like."
+        },
+        {
+          "q": "Do I need to write code?",
+          "a": "No. The board with ideas, roadmap, updates and bug reports runs at your own address without a single line of code. The in-app widget is optional and takes one script."
+        },
+        {
+          "q": "What will my customers see?",
+          "a": "A “Feedback” button in your app, or a board in your brand's colours. Ideas, the roadmap and updates are public. A bug report is seen only by the person who sent it and your team."
+        },
+        {
+          "q": "Where is my data?",
+          "a": "The cloud runs in a data centre in Germany. The widget sets no cookies and calls no third parties. You can also run Ozvi on your own server."
+        },
+        {
+          "q": "What if Ozvi shuts down?",
+          "a": "The source code is public and the self-hosted version has every feature for free. Export your data at any time and run Ozvi yourself."
+        }
+      ],
+      "price": {
+        "q": "How much does it cost?",
+        "a": "The Free plan is free forever, no card needed. Pro costs {pro} and Studio {studio} a year. You don't pay per user or per record."
+      }
     }
   },
   "net": {

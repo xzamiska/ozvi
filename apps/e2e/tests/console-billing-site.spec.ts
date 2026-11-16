@@ -574,6 +574,30 @@ test.describe("public site", () => {
     await expect(page).toHaveURL(/\/demo$/);
   });
 
+  test("a Czech browser arriving at / gets /cs; the language menu and in-site links do not bounce back", async ({ browser }) => {
+    const ctx = await browser.newContext({ locale: "cs-CZ", extraHTTPHeaders: { "accept-language": "cs-CZ,cs;q=0.9" } });
+    const page = await ctx.newPage();
+    await page.goto("/");
+    await expect(page).toHaveURL(/\/cs$/);
+    await expect(page.locator("html")).toHaveAttribute("lang", "cs");
+    // Coming from the site itself (e.g. choosing Slovak in the menu) stays on the Slovak landing.
+    await page.goto("/", { referer: `${new URL(page.url()).origin}/cs` });
+    await expect(page).toHaveURL(/\/$/);
+    await expect(page.locator("html")).toHaveAttribute("lang", "sk");
+    await ctx.close();
+  });
+
+  test("landing explains Ozvi next to Sentry and answers the common questions", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("heading", { level: 2, name: "Sentry vidí kód. Ozvi počúva ľudí." })).toBeVisible();
+    await page.getByRole("link", { name: "Porovnanie Ozvi a Sentry" }).click();
+    await expect(page).toHaveURL(/\/vs\/sentry$/);
+    await page.goto("/");
+    const q = page.locator("#faq summary", { hasText: "Je Ozvi náhrada za Sentry?" });
+    await q.click();
+    await expect(page.locator("#faq details[open]").getByText(/^Nie\. Sentry zachytí/)).toBeVisible();
+  });
+
   test("/demo: the widget opens", async ({ page }) => {
     const errors = watchErrors(page);
     await page.goto("/demo");
@@ -586,7 +610,7 @@ test.describe("public site", () => {
   });
 
   const PAGES = ["/docs", "/docs/widget", "/docs/api", "/docs/webhooks", "/docs/automation", "/blog", "/releases", "/terms", "/privacy", "/dpa", "/subprocessors",
-    "/accessibility", "/vs/canny", "/vs/featurebase", "/en/vs/canny", "/alternativa-k-fideru", "/en/fider-alternative"];
+    "/accessibility", "/vs/canny", "/vs/featurebase", "/vs/sentry", "/en/vs/canny", "/en/vs/sentry", "/alternativa-k-fideru", "/en/fider-alternative"];
   test("public pages load with a heading and no console errors", async ({ page }) => {
     const errors = watchErrors(page);
     for (const p of PAGES) {

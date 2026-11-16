@@ -5,11 +5,12 @@
  */
 
 export type CompareLocale = "sk" | "en";
-export type CompareId = "canny" | "featurebase" | "fider";
+export type CompareId = "canny" | "featurebase" | "sentry" | "fider";
 
 export const COMPARE_PATH: Record<CompareId, Record<CompareLocale, string>> = {
   canny: { sk: "/vs/canny", en: "/en/vs/canny" },
   featurebase: { sk: "/vs/featurebase", en: "/en/vs/featurebase" },
+  sentry: { sk: "/vs/sentry", en: "/en/vs/sentry" },
   fider: { sk: "/alternativa-k-fideru", en: "/en/fider-alternative" },
 };
 

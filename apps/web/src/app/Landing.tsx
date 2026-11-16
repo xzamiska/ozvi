@@ -1,6 +1,6 @@
 import { limitSize, PLAN_LIMITS, PRICES } from "@ozvi/db";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
-import { Accessibility, ArrowRightLeft, Bot, Check, Code, EyeOff, GitMerge, GitPullRequest, Inbox, Languages, Mail, MessageSquare, Minus, Server, Sparkles, Star, Webhook } from "lucide-react";
+import { Accessibility, ArrowRightLeft, Bot, Camera, Check, ChevronDown, Code, EyeOff, GitMerge, GitPullRequest, Inbox, Languages, Mail, MessageSquare, Minus, Server, Sparkles, Star, Webhook } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
@@ -15,7 +15,9 @@ import { signupClosed } from "@/lib/account-rules";
 import { ownFeedback } from "@/lib/own-feedback";
 import { ProductTour } from "@/components/landing/ProductTour";
 import { compareLinks } from "@/components/compare/links";
+import { COMPARE_PATH } from "@/lib/compare";
 import { OzviLogo, OzviMark } from "@/components/ozvi/Logo";
+import { StatusMark } from "@/components/ozvi/route";
 import { LOCALE_TAG, type Locale } from "@/i18n/locales";
 import { cn } from "@/lib/utils";
 import { LEGAL } from "@/lib/legal";
@@ -114,6 +116,66 @@ function StarLink({ label, stars, tag, className }: { label: string; stars: numb
   );
 }
 
+/**
+ * The hero's picture: the one loop Ozvi closes, from the customer's side. A still (inert, one
+ * description for screen readers); no stack traces here, those belong to the developers' section.
+ */
+function HeroLoop({ t }: { t: T }) {
+  const where = t.raw("hero.loop.where") as string[];
+  const stops = (t.raw("story.stage.stops") as string[]).slice(0, 4);
+  const status = ["new", "confirmed", "in_progress", "fixed"] as const;
+  const cards = [
+    <div key="app" className={cn(hostPanel, "text-[13.5px]")}>
+      <div className="flex items-center justify-between gap-3 border-b px-4 py-2.5">
+        <span className="font-semibold">{t("story.stage.app")}</span>
+        <span className="hidden truncate font-mono text-[11px] text-muted-foreground sm:block">{t("story.stage.url")}</span>
+      </div>
+      <div className="grid gap-3 p-4">
+        <p className="font-semibold">{t("hero.loop.widgetTitle")}</p>
+        <p className="rounded-md border bg-surface px-3 py-2">{t("story.stage.report")}</p>
+        <div className="flex items-center justify-between gap-3">
+          <span className="inline-flex items-center gap-1.5 text-[12.5px] text-muted-foreground"><Camera className="size-3.5" aria-hidden />{t("hero.loop.shot")}</span>
+          <span className="rounded-md bg-primary px-3 py-1.5 text-[12.5px] font-semibold text-primary-foreground">{t("hero.loop.widgetSend")}</span>
+        </div>
+      </div>
+    </div>,
+    <div key="team" className="rounded-2xl border bg-surface p-4 text-[13.5px] shadow-[0_20px_50px_-30px_rgb(13_12_20/0.35)]">
+      <p className="flex gap-2 font-semibold"><span className="text-muted-foreground tabular-nums">#128</span><span className="min-w-0">{t("story.stage.report")}</span></p>
+      <ol className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-[12.5px]">
+        {stops.map((s, k) => (
+          <li key={s} className="inline-flex items-center gap-1.5">
+            {k > 0 && <span aria-hidden className="h-px w-3 bg-st-done sm:w-4" />}
+            <StatusMark kind="bug" status={status[k]!} />
+            <span className={k === 3 ? "font-semibold" : "text-muted-foreground"}>{s}{k === 3 && <span className="font-medium text-muted-foreground"> · 2.15</span>}</span>
+          </li>
+        ))}
+      </ol>
+    </div>,
+    <div key="mail" className={cn(hostPanel, "p-4")}>
+      <p className="text-[12.5px] text-muted-foreground">{t("story.stage.app")} → jana@firma.sk</p>
+      <p className="mt-1.5 text-[15px] font-semibold">{t("hero.loop.mailSubject")}</p>
+      <p className="mt-1 text-[13.5px] leading-relaxed">{t("hero.loop.mailBody")}</p>
+      <div className="mt-3 flex gap-2 text-[12.5px] font-semibold"><span className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground">{t("hero.loop.yes")}</span><span className="rounded-md border border-line-strong px-3 py-1.5">{t("hero.loop.no")}</span></div>
+    </div>,
+  ];
+  return (
+    <div role="img" aria-label={t("hero.loop.label")} className="w-full max-w-[540px] lg:justify-self-end">
+      <ol inert className="pointer-events-none relative grid gap-5 select-none">
+        <span aria-hidden className="absolute top-3 bottom-8 left-[11.5px] w-px bg-line-strong" />
+        {cards.map((card, i) => (
+          <li key={i} className="oz-rise relative grid grid-cols-[24px_minmax(0,1fr)] gap-x-4" style={{ animationDelay: `${260 + i * 200}ms` }}>
+            <span className="relative z-10 grid size-6 place-items-center rounded-full border bg-background text-[12px] font-semibold tabular-nums">{i + 1}</span>
+            <div className="grid min-w-0 gap-2">
+              <p className="text-[13px] leading-6 font-medium text-muted-foreground">{where[i]}</p>
+              {card}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 export async function Landing({ locale, signedIn = false }: { locale: Locale; signedIn?: boolean }) {
   const t = await getTranslations({ locale, namespace: "landing" });
   const stars = await githubStars();
@@ -148,6 +210,11 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
     : <Link href={start.href} className={cn(className, extra)}>{label}</Link>;
   const own = await ownFeedback();
   const compare = compareLinks(locale);
+  const faq = [
+    ...(t.raw("faq.items") as { q: string; a: string }[]),
+    { q: t("faq.price.q"), a: t("faq.price.a", { pro: eur(PRICES.pro.year), studio: eur(PRICES.studio.year) }) },
+  ];
+  const sentryHref = locale === "sk" || locale === "en" ? COMPARE_PATH.sentry[locale] : null;
   const fonts = [...new Set([site, host].map((th) => fontsHref(th, { skipBundled: true })).filter(Boolean))] as string[];
 
   return (
@@ -160,33 +227,46 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
         <SiteHeader locale={locale} signedIn={signedIn} soon={soon} />
 
         <main id="main" tabIndex={-1}>
-          {/* hero: the promise, then the product as the picture (a still: nothing to click here) */}
+          {/* hero: the promise from the customer's side, and the loop it closes (report → fix → the customer hears) */}
           <section className="relative isolate -mt-[68px] pt-[68px]">
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[1050px] bg-[radial-gradient(45%_40%_at_18%_14%,color-mix(in_oklab,var(--oz-accent)_16%,transparent),transparent_70%),radial-gradient(40%_35%_at_82%_8%,rgb(20_184_166/0.13),transparent_70%),radial-gradient(50%_45%_at_50%_62%,rgb(236_72_153/0.07),transparent_70%)]" />
-            <div className="oz-frame pt-16 text-center md:pt-24">
-              <p className="oz-rise mx-auto inline-flex items-center gap-2 rounded-full border bg-surface/80 px-3 py-1 text-[13px] text-muted-foreground backdrop-blur">
-                <Sparkles className="size-3.5 text-brand-text" aria-hidden />{t("hero.badge")}
-              </p>
-              <h1 className="oz-rise mx-auto mt-6 max-w-[16ch] text-[44px] leading-[1.02] font-semibold tracking-[-0.045em] [animation-delay:80ms] sm:text-[64px] lg:text-[80px]">{t("hero.title")}</h1>
-              <p className={cn(lede, "oz-rise mx-auto mt-6 max-w-[56ch] text-[18px] [animation-delay:160ms] md:text-[19px]")}>{t("hero.lede")}</p>
-              <div className="oz-rise mt-8 flex flex-wrap justify-center gap-3 [animation-delay:240ms]">
-                {go(start.label, primary)}
-                <Link href={DEMO_PATH[locale]} className={soon ? primary : ghost}>{t("demo.hero")}</Link>
-                <a href="#how" className={cn(ghost, "border-transparent bg-transparent")}>{t("hero.secondary")}</a>
-              </div>
-              <p className="mt-5 text-[13.5px] text-muted-foreground">{t("hero.note")}</p>
-            </div>
-
-            <div className="oz-frame relative mt-14 pb-20 lg:pb-28">
-              <div role="img" aria-label={t("hero.shotLabel")} className="relative mx-auto max-w-[1100px] rounded-[26px] border bg-surface/60 p-2 shadow-[0_50px_120px_-50px_color-mix(in_oklab,var(--oz-accent)_45%,transparent)] backdrop-blur sm:p-2.5">
-                <div inert className="pointer-events-none grid gap-2.5 select-none lg:grid-cols-[1fr_1.15fr]">
-                  <div className={hostPanel}><MiniBoard name={t("product.app")} compact={false} /></div>
-                  <div className={cn(hostPanel, "hidden lg:block")}><TeamDesk /></div>
+            <div className="oz-frame grid gap-10 pt-6 pb-16 sm:gap-12 md:pt-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-16 lg:pb-24">
+              <div>
+                <h1 className="oz-rise max-w-[19ch] text-[30px] leading-[1.08] font-semibold tracking-[-0.035em] text-balance sm:text-[46px] lg:text-[54px]">{t("hero.title")}</h1>
+                <p className={cn(lede, "oz-rise mt-5 max-w-[50ch] text-[16.5px] [animation-delay:80ms] sm:mt-6 sm:text-[17px] md:text-[18.5px]")}>{t("hero.lede")}</p>
+                <div className="oz-rise mt-7 flex flex-wrap gap-3 [animation-delay:160ms] sm:mt-8">
+                  {go(start.label, primary)}
+                  <Link href={DEMO_PATH[locale]} className={soon ? primary : ghost}>{t("demo.hero")}</Link>
+                  <a href="#how" className={cn(ghost, "hidden border-transparent bg-transparent px-3 sm:inline-flex")}>{t("hero.secondary")}</a>
                 </div>
-                <span aria-hidden className={cn(note, "oz-float-in bottom-20 -left-12 [animation-delay:900ms]")}><Mail className="size-4 shrink-0 text-brand-text" /><span><b className="font-semibold">{t("hero.notes.mail")}</b><br /><span className="text-muted-foreground">{t("hero.notes.mailSub")}</span></span></span>
-                <span aria-hidden className={cn(note, "oz-float-in -right-10 bottom-28 [animation-delay:1700ms]")}><GitMerge className="size-4 shrink-0 text-success" /><span><b className="font-semibold">{t("hero.notes.merge")}</b><br /><span className="text-muted-foreground">{t("hero.notes.mergeSub")}</span></span></span>
-                <span aria-hidden className={cn(note, "oz-float-in -top-5 right-24 [animation-delay:2500ms]")}><span className="size-2 shrink-0 rounded-full bg-success" />{t("hero.notes.votes")}</span>
+                <p className="mt-4 text-[13.5px] text-muted-foreground sm:mt-5">{t("hero.note")}</p>
               </div>
+              <HeroLoop t={t} />
+            </div>
+          </section>
+
+          {/* the question the launch post kept getting: "why not Sentry?" */}
+          <section aria-labelledby="sentry-h" className="border-y bg-surface">
+            <div className="oz-frame grid gap-8 py-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16 lg:py-20">
+              <div>
+                <h2 id="sentry-h" className={cn(h2, "max-w-[14ch]")}>{t("notSentry.title")}</h2>
+                <p className={cn(lede, "mt-4 max-w-[42ch]")}>{t("notSentry.both")}</p>
+                {sentryHref && <a href={sentryHref} className="mt-5 inline-flex text-[14.5px] font-semibold underline decoration-line-strong underline-offset-4 hover:decoration-foreground">{t("notSentry.link")}</a>}
+              </div>
+              <dl className="grid gap-8 sm:grid-cols-2">
+                <div className="grid content-start gap-2 border-t pt-4">
+                  <dt className="text-[14px] font-semibold text-muted-foreground">{t("notSentry.themLabel")}</dt>
+                  <dd className="text-[15.5px] leading-relaxed text-muted-foreground">{t("notSentry.them")}</dd>
+                </div>
+                <div className="grid content-start gap-2 border-t-2 border-foreground pt-4">
+                  <dt className="text-[14px] font-semibold">{t("notSentry.ozviLabel")}</dt>
+                  <dd className="text-[15.5px] leading-relaxed">
+                    {t("notSentry.ozvi")}
+                    <ul className="mt-4 grid gap-2 text-[15px] font-medium">
+                      {(t.raw("notSentry.examples") as string[]).map((x) => <li key={x}>{x}</li>)}
+                    </ul>
+                  </dd>
+                </div>
+              </dl>
             </div>
           </section>
 
@@ -489,6 +569,27 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 </code></pre>
               </div>
             </Reveal>
+          </section>
+
+          {/* the questions people asked about the launch */}
+          <section id="faq" aria-labelledby="faq-h" className="scroll-mt-16 border-t">
+            <div className="oz-frame grid gap-8 py-20 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16 lg:py-28">
+              <h2 id="faq-h" className={cn(h2, "max-w-[12ch]")}>{t("faq.title")}</h2>
+              <div className="divide-y border-y">
+                {faq.map((f) => (
+                  <details key={f.q} className="group">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-md py-5 text-[16.5px] font-semibold [&::-webkit-details-marker]:hidden">
+                      {f.q}<ChevronDown className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" aria-hidden />
+                    </summary>
+                    <p className="max-w-[65ch] pb-6 text-[15px] leading-relaxed text-muted-foreground">{f.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+              "@context": "https://schema.org", "@type": "FAQPage",
+              mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+            }).replace(/</g, "\\u003c") }} />
           </section>
 
           {/* closing */}

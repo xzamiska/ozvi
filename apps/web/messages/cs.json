@@ -2565,33 +2565,39 @@
       "soon": "Spouštíme brzy"
     },
     "hero": {
-      "title": "Zpětná vazba, která se neztratí.",
-      "lede": "Ozvi sbírá hlášení chyb a nápady na vlastním boardu i přímo ve vaší aplikaci, doručí je týmu tam, kde pracuje, a autorovi řekne, jak to dopadlo. V jazyce a barvách vaší značky.",
+      "title": "Zákazníci nahlásí chybu přímo v aplikaci. Když ji opravíte, dozvědí se to.",
+      "lede": "Tlačítko „Zpětná vazba“ ve vaší aplikaci, board na nápady a novinky. Hlášení přijde i se screenshotem a stránkou, takže se nemusíte doptávat.",
       "secondary": "Jak to funguje",
       "note": "Plán Free je bez karty. Na vlastním serveru zdarma a se všemi funkcemi.",
       "loop": {
-        "label": "Ukázka: uživatel nahlásí chybu ve vaší aplikaci, tým ji na boardu opraví a autor dostane odpověď e-mailem",
+        "label": "Ukázka: zákazník nahlásí chybu ve vaší aplikaci, vy ji opravíte a zákazník dostane e-mail",
         "where": [
-          "Uživatel ji nahlásí ve vaší aplikaci",
-          "Tým ji má na boardu a opraví ji",
-          "Autor dostane odpověď"
+          "Zákazník ji nahlásí ve vaší aplikaci",
+          "Vy ji máte i se screenshotem a opravíte ji",
+          "Zákazník dostane e-mail"
         ],
         "widgetTitle": "Nahlásit chybu",
         "widgetSend": "Nahlásit",
         "mailSubject": "Opraveno ve verzi 2.15",
         "mailBody": "Chybu, kterou jste nahlásili, jsme opravili. Funguje vám to už?",
         "yes": "Ano, funguje",
-        "no": "Ještě ne"
-      },
-      "badge": "Hlášení chyb, nápady a novinky ve vaší aplikaci",
-      "shotLabel": "Ukázka: board s nápady, jak ho vidí uživatelé, a totéž hlášení očima týmu",
-      "notes": {
-        "mail": "jana@firma.cz dostala e-mail",
-        "mailSub": "Opraveno ve verzi 2.15",
-        "merge": "#119 sloučeno do #128",
-        "mergeSub": "3 hlasy přeneseny",
-        "votes": "41 hlasů pro synchronizaci s Google Kalendářem"
+        "no": "Ještě ne",
+        "shot": "Screenshot se přiloží"
       }
+    },
+    "notSentry": {
+      "title": "Sentry vidí kód. Ozvi naslouchá lidem.",
+      "themLabel": "Monitoring chyb, například Sentry",
+      "them": "Zachytí, co spadne v kódu: výjimky, pomalé požadavky, stack trace. Je pro vývojáře.",
+      "ozviLabel": "Ozvi",
+      "ozvi": "Zachytí, co vám řeknou lidé, i to, co nikdy nespadne. A autorovi dá vědět, jak to dopadlo.",
+      "examples": [
+        "„Na faktuře mi vyšla špatná částka.“",
+        "„Nevím, kde se ruší rezervace.“",
+        "„Chybí mi export do Excelu.“"
+      ],
+      "both": "Navzájem se doplňují. Klidně používejte obojí, my taky.",
+      "link": "Srovnání Ozvi a Sentry"
     },
     "story": {
       "stage": {
@@ -3085,6 +3091,35 @@
     "star": {
       "text": "Ozvi má veřejný zdrojový kód. Pokud se vám líbí, dejte mu hvězdičku na GitHubu. Pomůže dalším lidem ho najít.",
       "cta": "Hvězdička na GitHubu"
+    },
+    "faq": {
+      "title": "Časté otázky",
+      "items": [
+        {
+          "q": "Je Ozvi náhrada za Sentry?",
+          "a": "Ne. Sentry zachytí chyby, které vyhodí kód. Ozvi sbírá to, co vám napíšou lidé: chyby, při kterých nic nespadne, nápady a připomínky. A dá jim vědět, když je hotovo. Klidně používejte obojí."
+        },
+        {
+          "q": "Potřebuji k tomu programovat?",
+          "a": "Ne. Board s nápady, roadmapou, novinkami a hlášeními chyb běží na vaší adrese bez jediného řádku kódu. Widget do aplikace je volitelný a stačí na něj jeden skript."
+        },
+        {
+          "q": "Co uvidí moji zákazníci?",
+          "a": "Tlačítko „Zpětná vazba“ ve vaší aplikaci nebo board v barvách vaší značky. Nápady, roadmapu a novinky vidí všichni. Hlášení chyby vidí jen jeho autor a váš tým."
+        },
+        {
+          "q": "Kde jsou moje data?",
+          "a": "Cloud běží v datovém centru v Německu. Widget nenastavuje cookies a nevolá třetí strany. Ozvi si můžete spustit i na vlastním serveru."
+        },
+        {
+          "q": "Co když Ozvi skončí?",
+          "a": "Zdrojový kód je veřejný a verze pro vlastní server má všechny funkce zdarma. Data si kdykoli exportujete a Ozvi spustíte u sebe."
+        }
+      ],
+      "price": {
+        "q": "Kolik to stojí?",
+        "a": "Plán Free je zdarma navždy a bez karty. Pro stojí {pro} a Studio {studio} ročně. Neplatíte za uživatele ani za záznamy."
+      }
     }
   },
   "net": {

@@ -2565,33 +2565,39 @@
       "soon": "Start in Kürze"
     },
     "hero": {
-      "title": "Feedback, das nicht verloren geht.",
-      "lede": "Ozvi sammelt Fehlermeldungen und Ideen auf Ihrem eigenen Board und direkt in Ihrer App, bringt sie dorthin, wo das Team arbeitet, und sagt der meldenden Person, wie es ausging. In der Sprache und den Farben Ihrer Marke.",
+      "title": "Kunden melden einen Fehler direkt in Ihrer App. Wenn Sie ihn beheben, erfahren sie es.",
+      "lede": "Ein „Feedback“-Button in Ihrer App, dazu ein Board für Ideen und Neuigkeiten. Meldungen kommen mit Screenshot und der Seite, auf der es passiert ist, Sie müssen also nicht nachfragen.",
       "secondary": "So funktioniert’s",
       "note": "Der Free-Tarif kommt ohne Kreditkarte aus. Selbst gehostet ist Ozvi mit allen Funktionen kostenlos.",
       "loop": {
-        "label": "Beispiel: Ein Nutzer meldet einen Fehler in Ihrer App, das Team behebt ihn auf dem Board und der Autor erhält die Antwort per E-Mail",
+        "label": "Beispiel: Ein Kunde meldet einen Fehler in Ihrer App, Sie beheben ihn und der Kunde bekommt eine E-Mail",
         "where": [
-          "Ein Nutzer meldet ihn in Ihrer App",
-          "Ihr Team sieht ihn auf dem Board und behebt ihn",
-          "Der Autor erhält die Antwort"
+          "Der Kunde meldet ihn in Ihrer App",
+          "Sie bekommen ihn mit Screenshot und beheben ihn",
+          "Der Kunde bekommt eine E-Mail"
         ],
         "widgetTitle": "Fehler melden",
         "widgetSend": "Melden",
         "mailSubject": "Behoben in Version 2.15",
         "mailBody": "Wir haben den gemeldeten Fehler behoben. Funktioniert es jetzt?",
         "yes": "Ja, funktioniert",
-        "no": "Noch nicht"
-      },
-      "badge": "Fehlermeldungen, Ideen und Neuigkeiten in Ihrer App",
-      "shotLabel": "Beispiel: das Ideen-Board, wie Nutzer es sehen, und dieselbe Meldung aus Sicht des Teams",
-      "notes": {
-        "mail": "jana@firma.de hat eine E-Mail bekommen",
-        "mailSub": "Behoben in Version 2.15",
-        "merge": "#119 mit #128 zusammengeführt",
-        "mergeSub": "3 Stimmen übernommen",
-        "votes": "41 Stimmen für die Google-Kalender-Synchronisierung"
+        "no": "Noch nicht",
+        "shot": "Ein Screenshot wird angehängt"
       }
+    },
+    "notSentry": {
+      "title": "Sentry sieht den Code. Ozvi hört den Menschen zu.",
+      "themLabel": "Fehler-Monitoring, zum Beispiel Sentry",
+      "them": "Erfasst, was im Code abstürzt: Exceptions, langsame Requests, Stack Traces. Für Entwickler gemacht.",
+      "ozviLabel": "Ozvi",
+      "ozvi": "Erfasst, was Ihnen Menschen sagen, auch das, was nie einen Fehler wirft. Und sagt ihnen, wie es ausgegangen ist.",
+      "examples": [
+        "„Auf meiner Rechnung stimmt der Betrag nicht.“",
+        "„Ich finde nicht, wo man eine Buchung storniert.“",
+        "„Mir fehlt ein Export nach Excel.“"
+      ],
+      "both": "Beides ergänzt sich. Nutzen Sie ruhig beides, wir tun es auch.",
+      "link": "Ozvi und Sentry im Vergleich"
     },
     "story": {
       "stage": {
@@ -3085,6 +3091,35 @@
     "star": {
       "text": "Der Quellcode von Ozvi ist öffentlich. Wenn er Ihnen gefällt, geben Sie ihm einen Stern auf GitHub. So finden ihn auch andere.",
       "cta": "Stern auf GitHub"
+    },
+    "faq": {
+      "title": "Häufige Fragen",
+      "items": [
+        {
+          "q": "Ersetzt Ozvi Sentry?",
+          "a": "Nein. Sentry erfasst Fehler, die der Code wirft. Ozvi sammelt, was Ihnen Menschen schreiben: Fehler, bei denen nichts abstürzt, Ideen und Anmerkungen. Und es sagt ihnen Bescheid, wenn es erledigt ist. Nutzen Sie ruhig beides."
+        },
+        {
+          "q": "Muss ich dafür programmieren?",
+          "a": "Nein. Das Board mit Ideen, Roadmap, Neuigkeiten und Fehlermeldungen läuft unter Ihrer Adresse, ganz ohne Code. Das Widget in der App ist optional und braucht nur ein Skript."
+        },
+        {
+          "q": "Was sehen meine Kunden?",
+          "a": "Einen „Feedback“-Button in Ihrer App oder ein Board in den Farben Ihrer Marke. Ideen, Roadmap und Neuigkeiten sehen alle. Eine Fehlermeldung sehen nur ihr Absender und Ihr Team."
+        },
+        {
+          "q": "Wo liegen meine Daten?",
+          "a": "Die Cloud läuft in einem Rechenzentrum in Deutschland. Das Widget setzt keine Cookies und ruft keine Dritten auf. Sie können Ozvi auch auf Ihrem eigenen Server betreiben."
+        },
+        {
+          "q": "Was, wenn es Ozvi nicht mehr gibt?",
+          "a": "Der Quellcode ist öffentlich und die Version für den eigenen Server hat alle Funktionen kostenlos. Ihre Daten exportieren Sie jederzeit und betreiben Ozvi selbst."
+        }
+      ],
+      "price": {
+        "q": "Was kostet es?",
+        "a": "Der Free-Plan ist dauerhaft kostenlos, ohne Karte. Pro kostet {pro} und Studio {studio} pro Jahr. Sie zahlen nicht pro Nutzer oder Eintrag."
+      }
     }
   },
   "net": {

@@ -20,6 +20,13 @@ const UTM = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_conten
 /** Crawlers, link previews, monitors and scripts: not people. Browsers also always send accept-language. */
 const BOT = /bot|crawl|spider|slurp|scrap|headless|lighthouse|preview|facebookexternalhit|embedly|fetch|curl|wget|python|java\/|go-http|httpclient|okhttp|axios|node-fetch|monitor|uptime|pingdom/i;
 
+/**
+ * Set on sign-in to the console (path "/"): the team's own visits to the landing are not marketing
+ * traffic, and the console's own session cookie is scoped to /app, so the landing could not tell otherwise.
+ */
+export const NO_STATS_COOKIE = "ozvi_nostats";
+export const noStatsCookie = { name: NO_STATS_COOKIE, value: "1", path: "/", maxAge: 365 * 86_400, sameSite: "lax" as const, httpOnly: true };
+
 export type AnalyticsEvent = "signup_started" | "account_created" | "project_created" | "checkout_started";
 
 type Send = { url: string; body: string; headers: Record<string, string> };
@@ -49,6 +56,7 @@ export function trackedUrl(u: URL): string {
 
 export function pageviewFor(req: NextRequest, host: string, env = process.env): Send | null {
   if (req.method !== "GET") return null;
+  if (req.cookies.has(NO_STATS_COOKIE)) return null;
   const h = req.headers;
   // Prefetches are not visits; a page load (HTML) or an in-app navigation (RSC) is.
   if (/prefetch/i.test(`${h.get("purpose") ?? ""} ${h.get("sec-purpose") ?? ""}`) || h.get("next-router-prefetch")) return null;

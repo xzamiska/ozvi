@@ -1,5 +1,6 @@
 "use server";
 
+import { noStatsCookie } from "./analytics";
 import { schema } from "@ozvi/db";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -119,6 +120,7 @@ export async function acceptInviteAction(token: string) {
     throw e;
   }
   (await cookies()).set(appCookie(account));
+  (await cookies()).set(noStatsCookie);
   redirect("/app");
 }
 

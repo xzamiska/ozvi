@@ -1,6 +1,8 @@
 import { schema } from "@ozvi/db";
 import { asc } from "drizzle-orm";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { DEFAULT_LOCALE, isLocale, LOCALE_COOKIE, matchLocale } from "@/i18n/locales";
 import { getAccount } from "@/lib/account";
 import { db } from "@/lib/db";
 import { Landing } from "./Landing";
@@ -12,7 +14,17 @@ export const generateMetadata = () => landingMetadata("sk");
 
 /** Self-host usually has one project: send visitors straight to it. */
 export default async function Home() {
-  if (process.env.OZVI_MODE === "cloud") return <Landing locale="sk" signedIn={!!(await getAccount())} />;
+  if (process.env.OZVI_MODE === "cloud") {
+    // The root is the Slovak landing; a visitor whose browser (or earlier choice) asks for another language
+    // gets that language's landing. Crawlers send no Accept-Language and stay here.
+    const [h, c] = await Promise.all([headers(), cookies()]);
+    const chosen = c.get(LOCALE_COOKIE)?.value;
+    const want = isLocale(chosen) ? chosen : matchLocale(h.get("accept-language"));
+    // Moving within the site (the language menu, the logo) is a choice already: only arrivals are redirected.
+    const fromSite = (() => { try { return new URL(h.get("referer") ?? "").host === h.get("host"); } catch { return false; } })();
+    if (want !== DEFAULT_LOCALE && !fromSite) redirect(`/${want}`);
+    return <Landing locale="sk" signedIn={!!(await getAccount())} />;
+  }
   const [p] = await db.select({ slug: schema.projects.slug }).from(schema.projects).orderBy(asc(schema.projects.createdAt)).limit(1);
   if (p) redirect(`/${p.slug}`);
   return (

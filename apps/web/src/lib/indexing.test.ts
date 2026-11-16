@@ -20,7 +20,7 @@ describe("indexable", () => {
 describe("comparison pages", () => {
   const cloud = { cloud: true, primary: true };
   it("are indexable in both languages, and nothing under them is", () => {
-    expect(COMPARE_PATHS).toHaveLength(6);
+    expect(COMPARE_PATHS).toHaveLength(8);
     for (const path of COMPARE_PATHS) expect(indexable({ ...cloud, path })).toBe(true);
     for (const path of ["/vs", "/vs/uservoice", "/en/vs", "/en/vs/canny/x"]) expect(indexable({ ...cloud, path })).toBe(false);
     expect(indexable({ cloud: false, primary: true, path: "/vs/canny" })).toBe(false);
