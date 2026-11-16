@@ -589,7 +589,7 @@ test.describe("public site", () => {
 
   test("landing explains Ozvi next to error monitoring and answers the common questions", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 2, name: "Monitoring zachytí, čo spadne. Ozvi to, čo vám povedia ľudia." })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 2, name: "Monitoring zachytí, čo spadne. Ozvi zachytí, čo vám povedia ľudia." })).toBeVisible();
     await page.getByRole("link", { name: "Ako sa Ozvi líši od monitoringu chýb" }).click();
     await expect(page).toHaveURL(/\/vs\/sentry$/);
     await page.goto("/");

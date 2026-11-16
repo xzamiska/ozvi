@@ -2517,12 +2517,12 @@
         {
           "href": "#how",
           "title": "Nápady a hlasovanie",
-          "text": "Verejný board, ktorý prioritizuje za vás"
+          "text": "Verejný board, ktorý ukáže, čo ľudia chcú najviac"
         },
         {
           "href": "#how",
           "title": "Roadmapa a novinky",
-          "text": "Čo chystáte a čo ste vydali, s e-mailom hlasujúcim"
+          "text": "Čo chystáte a čo ste vydali. Hlasujúci dostanú e-mail."
         },
         {
           "href": "#brand",
@@ -2566,14 +2566,14 @@
     },
     "hero": {
       "title": "Zákazníci nahlásia chybu priamo v appke. Keď ju opravíte, dozvedia sa to.",
-      "lede": "Tlačidlo „Spätná väzba“ vo vašej aplikácii, board na nápady a novinky. Hlásenie príde aj so screenshotom a stránkou, takže sa nemusíte dopytovať.",
+      "lede": "Do aplikácie pridáte tlačidlo „Spätná väzba“ a k tomu board na nápady a novinky. Hlásenie vám príde aj so screenshotom a stránkou, na ktorej sa to stalo, takže sa nemusíte dopytovať.",
       "secondary": "Ako to funguje",
-      "note": "Plán Free je bez karty. Na vlastnom serveri zadarmo a so všetkými funkciami.",
+      "note": "Plán Free funguje bez platobnej karty. Na vlastnom serveri je Ozvi zadarmo a so všetkými funkciami.",
       "loop": {
         "label": "Ukážka: zákazník nahlási chybu vo vašej appke, vy ju opravíte a zákazník dostane e-mail",
         "where": [
           "Zákazník ju nahlási vo vašej appke",
-          "Vy ju máte aj so screenshotom a opravíte ju",
+          "Vy ju dostanete aj so screenshotom a opravíte ju",
           "Zákazník dostane e-mail"
         ],
         "widgetTitle": "Nahlásiť chybu",
@@ -2582,20 +2582,20 @@
         "mailBody": "Chybu, ktorú ste nahlásili, sme opravili. Funguje vám to už?",
         "yes": "Áno, funguje",
         "no": "Ešte nie",
-        "shot": "Screenshot sa priloží"
+        "shot": "Priloží sa screenshot"
       }
     },
     "monitoring": {
-      "title": "Monitoring zachytí, čo spadne. Ozvi to, čo vám povedia ľudia.",
+      "title": "Monitoring zachytí, čo spadne. Ozvi zachytí, čo vám povedia ľudia.",
       "themLabel": "Monitoring chýb",
-      "them": "Zachytí výnimky, pomalé požiadavky a stack trace. Je pre vývojárov a ozve sa, keď spadne kód.",
-      "ozvi": "Zachytí, čo vám povedia ľudia, aj to, čo nikdy nespadne. A autorovi dá vedieť, ako to dopadlo.",
+      "them": "Výnimky, pomalé požiadavky a stack trace. Slúži vývojárom a ozve sa, keď spadne kód.",
+      "ozvi": "Aj to, čo nikdy nespadne. A autorovi dá vedieť, ako to dopadlo. Napríklad:",
       "examples": [
         "„Na faktúre mi vyšla zlá suma.“",
         "„Neviem, kde sa ruší rezervácia.“",
         "„Chýba mi export do Excelu.“"
       ],
-      "both": "Navzájom sa dopĺňajú. Pokojne používajte oboje, my tiež.",
+      "both": "Jedno nenahrádza druhé. Pokojne používajte oboje, my to robíme tiež.",
       "link": "Ako sa Ozvi líši od monitoringu chýb"
     },
     "story": {
@@ -2661,7 +2661,7 @@
     ],
     "dev": {
       "title": "Pripojíte to za jedno popoludnie.",
-      "lede": "Skript s widgetom a jeden endpoint, ktorý podpíše používateľa. Všetko ostatné je API: webhooky, GitHub a MCP pre AI asistentov.",
+      "lede": "Stačí skript s widgetom a jeden endpoint, ktorý podpíše používateľa. Všetko ostatné ide cez API: webhooky, GitHub a MCP pre AI asistentov.",
       "points": [
         "Chyba z boardu sa jedným klikom stane GitHub issue a stav sa vráti späť.",
         "E-maily idú cez outbox v databáze. Nič sa nestratí, keď vypadne SMTP.",
@@ -2725,7 +2725,7 @@
     },
     "closing": {
       "title": "Dajte zákazníkom hlas. A odpovedzte im.",
-      "text": "Plán Free je bez karty a bez časového limitu.",
+      "text": "Plán Free funguje bez platobnej karty a bez časového obmedzenia.",
       "compare": "Porovnať plány"
     },
     "footer": {
@@ -2839,7 +2839,7 @@
         {
           "title": "Spracovanie",
           "items": [
-            "Stavy s pevným poradím pre nápady aj chyby",
+            "Rovnaké stavy pre nápady aj chyby, od prijatia po vydanie",
             "Interné poznámky a štítky len pre tím",
             "Podobné záznamy a zlúčenie duplicít",
             "Fronta „Bez odpovede“, aby nič neostalo ležať",
@@ -2952,7 +2952,7 @@
         },
         "fider": {
           "title": "Prechod z Fideru",
-          "text": "Import zo zálohy alebo cez API: nápady, hlasy, komentáre, štítky aj prílohy. Čísla záznamov ostanú, kde sa dá."
+          "text": "Import zo zálohy alebo cez API: nápady, hlasy, komentáre, štítky aj prílohy. Čísla záznamov sa podľa možnosti zachovajú."
         },
         "langs": {
           "title": "Šesť jazykov",
@@ -2986,23 +2986,23 @@
     "steps": [
       {
         "title": "Zákazník nahlási chybu tam, kde ju vidí.",
-        "text": "Klikne na „Spätná väzba“ priamo vo vašej appke a napíše, čo nefunguje. Screenshot a stránku pribalí Ozvi sám a heslá zakryje ešte v jeho prehliadači. Vývojárom pridá aj verziu a chyby z konzoly."
+        "text": "Klikne na „Spätná väzba“ priamo vo vašej appke a napíše, čo nefunguje. Screenshot a stránku pribalí Ozvi sám a heslá zakryje skôr, než niečo odíde z jeho prehliadača. Vývojári dostanú aj verziu a chyby z konzoly."
       },
       {
         "title": "Tím vybaví všetko na jednom mieste.",
-        "text": "Všetky hlásenia pokope, s filtrami. Podobné zlúčite jedným klikom, interné poznámky a štítky zákazník nevidí. Nič neostane ležať bez odpovede."
+        "text": "Všetky hlásenia máte pokope a viete ich filtrovať. Podobné zlúčite jedným klikom. Interné poznámky a štítky zákazník nevidí. Nič neostane ležať bez odpovede."
       },
       {
         "title": "Nápady sa zoradia podľa hlasov.",
-        "text": "Zákazníci navrhujú a hlasujú a pri písaní uvidia podobné nápady. Roadmapa ukáže, čo plánujete a na čom pracujete, a nápad sa po nej posúva so stavom."
+        "text": "Zákazníci navrhujú a hlasujú a pri písaní uvidia podobné nápady. Na roadmape vidia, čo plánujete a na čom pracujete. Keď nápadu zmeníte stav, posunie sa na nej sám."
       },
       {
-        "title": "Napojené na nástroje, ktoré už používate.",
+        "title": "Funguje s nástrojmi, ktoré už používate.",
         "text": "Hlásenie sa jedným klikom stane issue na GitHube, v Lineari alebo Jire. Novinky pošlete do Slacku či Discordu."
       },
       {
         "title": "A autor sa dozvie, ako to dopadlo.",
-        "text": "Pri „Opravené“ mu príde e-mail s otázkou, či mu to už funguje. Keď vydáte nápad, jedna novinka napíše každému, kto zaň hlasoval."
+        "text": "Keď chybu označíte ako opravenú, príde mu e-mail s otázkou, či mu to už funguje. Keď vydáte nápad, jedna novinka dá vedieť každému, kto zaň hlasoval."
       }
     ],
     "try": {
@@ -3013,10 +3013,10 @@
     },
     "demo": {
       "hero": "Vyskúšať demo",
-      "title": "Nahláste chybu v ukážkovej aplikácii. Za pol minúty.",
+      "title": "Vyskúšajte si to na ukážkovej aplikácii. Trvá to pol minúty.",
       "lede": "Demo je ukážková rezervačná aplikácia so skutočným widgetom Ozvi. Nahláste v nej chybu a uvidíte presne to, čo by dostal váš tím.",
       "points": [
-        "Čo zákazník napíše, aj so screenshotom, na ktorom sú citlivé údaje zakryté",
+        "Čo zákazník napíše, aj so screenshotom so zakrytými citlivými údajmi",
         "Pohľad tímu aj zákazníka, so stavom a odpoveďou",
         "Pre vývojárov aj chyba z konzoly a kroky pred chybou"
       ],
@@ -3037,7 +3037,7 @@
     },
     "ways": {
       "title": "Stačí vám board. Widget pridáte, keď budete chcieť.",
-      "lede": "Ozvi funguje aj bez jediného riadku kódu. Board beží na vašej adrese a do aplikácie si z neho vezmete len to, čo dáva zmysel.",
+      "lede": "Ozvi funguje aj bez jediného riadku kódu. Board beží na vašej adrese a do aplikácie si z neho vezmete len to, čo potrebujete.",
       "tabs": [
         "Nápady",
         "Roadmapa",
@@ -3052,21 +3052,21 @@
           "text": "Nápady, hlasovanie, roadmapa, novinky aj hlásenia chýb na feedback.vasafirma.sk. Odkaz pošlete e-mailom alebo ho dáte do menu aplikácie."
         },
         {
-          "tag": "Voliteľné · jeden riadok",
+          "tag": "Voliteľné, jeden riadok kódu",
           "title": "Widget vo vašej aplikácii",
-          "text": "Tlačidlo priamo v aplikácii. K hláseniu pribalí screenshot, verziu a chyby z konzoly, používateľa prihlási vaša aplikácia."
+          "text": "Tlačidlo priamo v aplikácii. K hláseniu samo pribalí screenshot, verziu aj chyby z konzoly. Zákazník sa nikde neregistruje, prihlási ho vaša aplikácia."
         },
         {
-          "tag": "Voliteľné · dva riadky",
+          "tag": "Voliteľné, dva riadky kódu",
           "title": "Roadmapa a novinky u vás",
-          "text": "Vložte roadmapu alebo novinky na vlastný web či do aplikácie. Vyzerajú ako vaša stránka, odkazy vedú na board."
+          "text": "Vložte roadmapu alebo novinky na vlastný web či do aplikácie. Vyzerajú ako súčasť vašej stránky a odkazy vedú na board."
         }
       ],
       "note": "Bez widgetu hlásia zákazníci chyby priamo na boarde. Chýba im len kontext, ktorý widget pribalí sám: screenshot, chyby z konzoly a kroky pred chybou."
     },
     "github": {
-      "title": "Od hlásenia po opravu. GitHub sa postará o zvyšok.",
-      "lede": "Tím pracuje v GitHube ako doteraz. Ozvi z hlásenia urobí issue, sleduje ho a keď je oprava vonku, dá autorovi vedieť. Nikto nič neprepisuje ručne.",
+      "title": "Od hlásenia po opravu, priamo z GitHubu.",
+      "lede": "Tím pracuje v GitHube ako doteraz. Ozvi z hlásenia urobí issue, sleduje ho a keď oprava vyjde, dá autorovi vedieť. Nikto nič neprepisuje ručne.",
       "ui": {
         "connect": "Pripojiť GitHub",
         "bug": "Kalendár na mobile",
@@ -3078,12 +3078,12 @@
           "text": "Na GitHube vyberiete repozitáre pre appku Ozvi a v Ozvi jeden zvolíte. Žiadny token ani ručne nastavený webhook."
         },
         {
-          "title": "Z hlásenia je issue",
+          "title": "Z hlásenia urobíte issue",
           "text": "Jedným klikom vznikne issue aj s popisom a technickými údajmi. Alebo hlásenie prepojíte s issue, ktoré už máte."
         },
         {
           "title": "Zatvoríte issue alebo vydáte release",
-          "text": "Ozvi to zachytí samo. Chyba sa posunie na „Opravené vo verzii 2.15“, prípadne hneď po zatvorení issue, ak releasy nerobíte."
+          "text": "Ozvi to zachytí samo a chyba sa posunie na „Opravené vo verzii 2.15“. Ak releasy nerobíte, stačí zatvoriť issue."
         },
         {
           "title": "Autor dostane e-mail",
@@ -3122,7 +3122,7 @@
       ],
       "price": {
         "q": "Koľko to stojí?",
-        "a": "Plán Free je zadarmo navždy a bez karty. Pro stojí {pro} a Studio {studio} ročne. Neplatíte za používateľov ani za záznamy."
+        "a": "Plán Free je zadarmo natrvalo a bez platobnej karty. Pro stojí {pro} a Studio {studio} ročne. Neplatíte za používateľov ani za záznamy."
       }
     }
   },

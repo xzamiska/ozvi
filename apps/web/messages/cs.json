@@ -2566,14 +2566,14 @@
     },
     "hero": {
       "title": "Zákazníci nahlásí chybu přímo v aplikaci. Když ji opravíte, dozvědí se to.",
-      "lede": "Tlačítko „Zpětná vazba“ ve vaší aplikaci, board na nápady a novinky. Hlášení přijde i se screenshotem a stránkou, takže se nemusíte doptávat.",
+      "lede": "Do aplikace přidáte tlačítko „Zpětná vazba“ a k tomu board na nápady a novinky. Hlášení vám přijde i se screenshotem a stránkou, na které se to stalo, takže se nemusíte doptávat.",
       "secondary": "Jak to funguje",
-      "note": "Plán Free je bez karty. Na vlastním serveru zdarma a se všemi funkcemi.",
+      "note": "Plán Free funguje bez platební karty. Na vlastním serveru je Ozvi zdarma a se všemi funkcemi.",
       "loop": {
         "label": "Ukázka: zákazník nahlásí chybu ve vaší aplikaci, vy ji opravíte a zákazník dostane e-mail",
         "where": [
           "Zákazník ji nahlásí ve vaší aplikaci",
-          "Vy ji máte i se screenshotem a opravíte ji",
+          "Vy ji dostanete i se screenshotem a opravíte ji",
           "Zákazník dostane e-mail"
         ],
         "widgetTitle": "Nahlásit chybu",
@@ -2582,20 +2582,20 @@
         "mailBody": "Chybu, kterou jste nahlásili, jsme opravili. Funguje vám to už?",
         "yes": "Ano, funguje",
         "no": "Ještě ne",
-        "shot": "Screenshot se přiloží"
+        "shot": "Přiloží se screenshot"
       }
     },
     "monitoring": {
-      "title": "Monitoring zachytí, co spadne. Ozvi to, co vám řeknou lidé.",
+      "title": "Monitoring zachytí, co spadne. Ozvi zachytí, co vám řeknou lidé.",
       "themLabel": "Monitoring chyb",
-      "them": "Zachytí výjimky, pomalé požadavky a stack trace. Je pro vývojáře a ozve se, když spadne kód.",
-      "ozvi": "Zachytí, co vám řeknou lidé, i to, co nikdy nespadne. A autorovi dá vědět, jak to dopadlo.",
+      "them": "Výjimky, pomalé požadavky a stack trace. Slouží vývojářům a ozve se, když spadne kód.",
+      "ozvi": "I to, co nikdy nespadne. A autorovi dá vědět, jak to dopadlo. Například:",
       "examples": [
         "„Na faktuře mi vyšla špatná částka.“",
         "„Nevím, kde se ruší rezervace.“",
         "„Chybí mi export do Excelu.“"
       ],
-      "both": "Navzájem se doplňují. Klidně používejte obojí, my taky.",
+      "both": "Jedno nenahrazuje druhé. Klidně používejte obojí, my to děláme taky.",
       "link": "Jak se Ozvi liší od monitoringu chyb"
     },
     "story": {
@@ -2725,7 +2725,7 @@
     },
     "closing": {
       "title": "Dejte zákazníkům hlas. A odpovězte jim.",
-      "text": "Plán Free je bez karty a bez časového omezení.",
+      "text": "Plán Free funguje bez platební karty a bez časového omezení.",
       "compare": "Porovnat plány"
     },
     "footer": {
@@ -2986,23 +2986,23 @@
     "steps": [
       {
         "title": "Zákazník nahlásí chybu tam, kde ji vidí.",
-        "text": "Klikne na „Zpětná vazba“ přímo ve vaší aplikaci a napíše, co nefunguje. Screenshot a stránku přibalí Ozvi sám a hesla zakryje ještě v jeho prohlížeči. Vývojářům přidá i verzi a chyby z konzole."
+        "text": "Klikne na „Zpětná vazba“ přímo ve vaší aplikaci a napíše, co nefunguje. Screenshot a stránku přibalí Ozvi sám a hesla zakryje dřív, než něco odejde z jeho prohlížeče. Vývojáři dostanou i verzi a chyby z konzole."
       },
       {
         "title": "Tým vyřídí všechno na jednom místě.",
-        "text": "Všechna hlášení pohromadě, s filtry. Podobná sloučíte jedním klikem, interní poznámky a štítky zákazník nevidí. Nic nezůstane ležet bez odpovědi."
+        "text": "Všechna hlášení máte pohromadě a můžete je filtrovat. Podobná sloučíte jedním klikem. Interní poznámky a štítky zákazník nevidí. Nic nezůstane ležet bez odpovědi."
       },
       {
         "title": "Nápady se seřadí podle hlasů.",
-        "text": "Zákazníci navrhují a hlasují a při psaní uvidí podobné nápady. Roadmapa ukáže, co plánujete a na čem pracujete, a nápad se po ní posouvá se stavem."
+        "text": "Zákazníci navrhují a hlasují a při psaní uvidí podobné nápady. Na roadmapě vidí, co plánujete a na čem pracujete. Když nápadu změníte stav, posune se na ní sám."
       },
       {
-        "title": "Napojené na nástroje, které už používáte.",
+        "title": "Funguje s nástroji, které už používáte.",
         "text": "Hlášení se jedním klikem stane issue na GitHubu, v Linearu nebo Jiře. Novinky pošlete do Slacku či Discordu."
       },
       {
         "title": "A autor se dozví, jak to dopadlo.",
-        "text": "U „Opraveno“ mu přijde e-mail s otázkou, jestli mu to už funguje. Když vydáte nápad, jedna novinka napíše každému, kdo pro něj hlasoval."
+        "text": "Když chybu označíte jako opravenou, přijde mu e-mail s otázkou, jestli mu to už funguje. Když vydáte nápad, jedna novinka dá vědět každému, kdo pro něj hlasoval."
       }
     ],
     "try": {
@@ -3013,7 +3013,7 @@
     },
     "demo": {
       "hero": "Vyzkoušet demo",
-      "title": "Nahlaste chybu v ukázkové aplikaci. Za půl minuty.",
+      "title": "Vyzkoušejte si to na ukázkové aplikaci. Trvá to půl minuty.",
       "lede": "Demo je ukázková rezervační aplikace se skutečným widgetem Ozvi. Nahlaste v ní chybu a uvidíte přesně to, co by dostal váš tým.",
       "points": [
         "Co zákazník napíše, i se screenshotem, na kterém jsou citlivé údaje zakryté",
@@ -3052,12 +3052,12 @@
           "text": "Nápady, hlasování, roadmapa, novinky i hlášení chyb na feedback.vasafirma.cz. Odkaz pošlete e-mailem nebo ho dáte do menu aplikace."
         },
         {
-          "tag": "Volitelné · jeden řádek",
+          "tag": "Volitelné, jeden řádek kódu",
           "title": "Widget ve vaší aplikaci",
           "text": "Tlačítko přímo v aplikaci. K hlášení přibalí screenshot, verzi a chyby z konzole, uživatele přihlásí vaše aplikace."
         },
         {
-          "tag": "Volitelné · dva řádky",
+          "tag": "Volitelné, dva řádky kódu",
           "title": "Roadmapa a novinky u vás",
           "text": "Vložte roadmapu nebo novinky na vlastní web či do aplikace. Vypadají jako vaše stránka, odkazy vedou na board."
         }
@@ -3065,7 +3065,7 @@
       "note": "Bez widgetu hlásí zákazníci chyby přímo na boardu. Chybí jim jen kontext, který widget přibalí sám: screenshot, chyby z konzole a kroky před chybou."
     },
     "github": {
-      "title": "Od hlášení po opravu. GitHub se postará o zbytek.",
+      "title": "Od hlášení po opravu, přímo z GitHubu.",
       "lede": "Tým pracuje v GitHubu jako dosud. Ozvi z hlášení udělá issue, sleduje ho, a když je oprava venku, dá autorovi vědět. Nikdo nic nepřepisuje ručně.",
       "ui": {
         "connect": "Připojit GitHub",
