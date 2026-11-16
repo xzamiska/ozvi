@@ -3104,7 +3104,7 @@
           "a": "Ne. Sentry zachytí chyby, které vyhodí kód. Ozvi sbírá to, co vám napíšou lidé: chyby, při kterých nic nespadne, nápady a připomínky. A dá jim vědět, když je hotovo. Klidně používejte obojí."
         },
         {
-          "q": "Potřebuji k tomu programovat?",
+          "q": "Musím umět programovat?",
           "a": "Ne. Board s nápady, roadmapou, novinkami a hlášeními chyb běží na vaší adrese bez jediného řádku kódu. Widget do aplikace je volitelný a stačí na něj jeden skript."
         },
         {
