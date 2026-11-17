@@ -1500,11 +1500,11 @@
       "simulated": " Lokální vývoj: platby se jen simulují.",
       "dpa": {
         "title": "Smlouva o zpracování údajů (DPA)",
-        "badge": "Návrh",
-        "text": "Pro údaje vašich uživatelů je Ozvi váš zpracovatel podle čl. 28 GDPR. Vzor smlouvy je zatím návrh, který čeká na kontrolu právníkem. Na požádání vám ho pošleme e-mailem a podepsaný vrátíme.",
-        "request": "Vyžádat DPA e-mailem",
+        "text": "U údajů vašich uživatelů je Ozvi váš zpracovatel podle čl. 28 GDPR. Smlouva je součástí obchodních podmínek a platí od registrace. Její znění je na ozvi.io/dpa. Pokud potřebujete podepsanou verzi, pošleme vám ji.",
+        "request": "Vyžádat podepsanou verzi",
         "subprocessors": "Seznam subdodavatelů",
-        "kit": "Texty pro vaše zásady ochrany soukromí najdete v nastavení každého projektu v části Data projektu."
+        "kit": "Texty pro vaše zásady ochrany soukromí najdete v nastavení každého projektu v části Data projektu.",
+        "view": "Zobrazit DPA"
       },
       "changeHint": " Změnu plánu vždy nejdřív potvrdíte a předem uvidíte, kolik zaplatíte.",
       "doneChangeTitle": "Přešli jste na {plan}",

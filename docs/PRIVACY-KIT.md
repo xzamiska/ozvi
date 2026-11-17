@@ -32,7 +32,7 @@ The text is built from the **actual settings of the project and the instance**:
 ### Ozvi cloud
 
 - The **customer** (the company with the board) is the **controller** of its users' data.
-- **Ozvi** is the **processor** (Art. 28 GDPR). A data processing agreement (DPA) is needed. The template is in [`DPA.md`](DPA.md) and for now it is a draft for legal review. The customer requests it by e-mail at support@ozvi.io (console → Plan & usage → DPA card).
+- **Ozvi** is the **processor** (Art. 28 GDPR). A data processing agreement (DPA) is needed. It is part of the terms of service (since 12 November 2026) and published at [ozvi.io/dpa](https://ozvi.io/dpa); the binding Slovak text is in [`DPA.sk.md`](DPA.sk.md), an English translation in [`DPA.md`](DPA.md). A customer who needs a signed copy asks at support@ozvi.io (console → Plan & usage → DPA card → “Request a signed copy”).
 - Ozvi's sub-processors are published at `/subprocessors`. In the cloud the kit links to this list and names Resend and, with AI turned on, also Anthropic.
 - Integrations (GitHub, Linear, Jira, webhooks) are turned on by the customer through their own accounts, so data goes there on the customer's behalf. The kit lists them as the customer's tools.
 

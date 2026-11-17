@@ -1500,11 +1500,11 @@
       "simulated": " Local development: payments are simulated.",
       "dpa": {
         "title": "Data processing agreement (DPA)",
-        "badge": "Draft",
-        "text": "For your users’ data, Ozvi is your processor under Art. 28 GDPR. The agreement template is still a draft awaiting legal review. We’ll e-mail it to you on request and return it signed.",
-        "request": "Request the DPA by e-mail",
+        "text": "For your users’ data, Ozvi is your processor under Art. 28 GDPR. The agreement is part of the terms of service and applies from sign-up; the text is at ozvi.io/dpa. If you need a signed copy, we’ll send you one.",
+        "request": "Request a signed copy",
         "subprocessors": "List of sub-processors",
-        "kit": "Text for your privacy policy is in each project’s settings, under Project data."
+        "kit": "Text for your privacy policy is in each project’s settings, under Project data.",
+        "view": "View the DPA"
       },
       "changeHint": " You always confirm a plan change first and see what you'll pay beforehand.",
       "doneChangeTitle": "You're on {plan} now",

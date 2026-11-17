@@ -1,7 +1,6 @@
 import { PLAN_LIMITS, PRICES, type Interval, type PaidPlan } from "@ozvi/db";
 import { AlertTriangle, CalendarClock, Check, CircleCheck, FileSignature, Mail } from "lucide-react";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 import { LEGAL } from "@/lib/legal";
 import { notFound, redirect } from "next/navigation";
 import { bytes, ConsoleHead, eur, Meter, day, num } from "@/components/ozvi/console";
@@ -226,15 +225,12 @@ export default async function Billing({ params, searchParams }: { params: Promis
       <section id="dpa" aria-labelledby="dpa-h" className="mt-12 grid scroll-mt-24 gap-4 rounded-xl border bg-surface p-5 sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-5 sm:p-6">
         <span aria-hidden className="grid size-10 place-items-center rounded-lg bg-brand-soft text-brand-text"><FileSignature className="size-5" /></span>
         <div className="grid min-w-0 gap-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <h2 id="dpa-h" className="text-[15px] font-semibold tracking-tight">{t("dpa.title")}</h2>
-            <Badge variant="outline" className="border-st-ack/50">{t("dpa.badge")}</Badge>
-          </div>
+          <h2 id="dpa-h" className="text-[15px] font-semibold tracking-tight">{t("dpa.title")}</h2>
           <p className="max-w-[68ch] text-[14px] text-muted-foreground">{t("dpa.text")}</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-            <Button asChild variant="outline">
-              <a href={`mailto:${LEGAL.email}?subject=${encodeURIComponent(`DPA – ${ws.name}`)}`}><Mail />{t("dpa.request")}</a>
-            </Button>
+            {/* Part of the terms since 1.0 (accepted at sign-up); a signed copy on request for customers who file one. */}
+            <Button asChild variant="outline"><Link href="/dpa"><FileSignature />{t("dpa.view")}</Link></Button>
+            <a href={`mailto:${LEGAL.email}?subject=${encodeURIComponent(`DPA – ${ws.name}`)}`} className="oz-link inline-flex items-center gap-1.5 text-[14px]"><Mail className="size-4" />{t("dpa.request")}</a>
             <Link href="/subprocessors" className="oz-link text-[14px]">{t("dpa.subprocessors")}</Link>
           </div>
           <p className="max-w-[68ch] text-[13px] text-muted-foreground">{t("dpa.kit")}</p>

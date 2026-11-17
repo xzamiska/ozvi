@@ -1500,11 +1500,11 @@
       "simulated": " Lokalne środowisko deweloperskie: płatności są symulowane.",
       "dpa": {
         "title": "Umowa powierzenia przetwarzania danych (DPA)",
-        "badge": "Szkic",
-        "text": "Dla danych Twoich użytkowników Ozvi jest podmiotem przetwarzającym zgodnie z art. 28 RODO. Wzór umowy jest na razie szkicem, który czeka na weryfikację prawną. Na prośbę wyślemy go e-mailem i odeślemy podpisany.",
-        "request": "Poproś o DPA e-mailem",
+        "text": "W przypadku danych Twoich użytkowników Ozvi jest Twoim podmiotem przetwarzającym zgodnie z art. 28 RODO. Umowa jest częścią regulaminu i obowiązuje od rejestracji. Jej treść znajdziesz na ozvi.io/dpa. Jeśli potrzebujesz podpisanej wersji, wyślemy ją.",
+        "request": "Poproś o podpisaną wersję",
         "subprocessors": "Lista podwykonawców",
-        "kit": "Teksty do polityki prywatności znajdziesz w ustawieniach każdego projektu, w sekcji Dane projektu."
+        "kit": "Teksty do polityki prywatności znajdziesz w ustawieniach każdego projektu, w sekcji Dane projektu.",
+        "view": "Zobacz DPA"
       },
       "changeHint": " Zmianę planu zawsze najpierw potwierdzasz i z góry widzisz, ile zapłacisz.",
       "doneChangeTitle": "Przeszedłeś na {plan}",

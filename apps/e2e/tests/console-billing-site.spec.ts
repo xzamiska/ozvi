@@ -112,6 +112,11 @@ test.describe("console overview and plan limits", () => {
     await expect(page.getByRole("meter", { name: "Prílohy" })).toHaveAttribute("aria-valuemax", String(250 * 1024 ** 2));
     await expect(page.getByRole("meter", { name: "Projekty" })).toHaveAttribute("aria-valuenow", "1");
     await expect(page.getByText("Ďalší projekt pridáte vo vyššom pláne.")).toBeVisible();
+    // The DPA is part of the terms (published, not a draft): the card links its text and offers a signed copy.
+    const dpa = page.getByRole("region", { name: "Zmluva o spracúvaní údajov (DPA)" });
+    await expect(dpa.getByRole("link", { name: "Zobraziť DPA" })).toHaveAttribute("href", "/dpa");
+    await expect(dpa.getByRole("link", { name: "Vyžiadať podpísanú verziu" })).toHaveAttribute("href", /^mailto:/);
+    await expect(dpa).not.toContainText("Návrh");
     const free = page.locator('[aria-labelledby="plan-free"]');
     await expect(free).toHaveAttribute("aria-current", "true");
     await expect(free).toContainText("1 projekt");

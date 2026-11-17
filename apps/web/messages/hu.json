@@ -1500,11 +1500,11 @@
       "simulated": " Helyi fejlesztés: a fizetések szimuláltak.",
       "dpa": {
         "title": "Adatfeldolgozási szerződés (DPA)",
-        "badge": "Tervezet",
-        "text": "A felhasználói adatai tekintetében az Ozvi a GDPR 28. cikke szerinti adatfeldolgozója. A szerződésminta egyelőre tervezet, jogi ellenőrzésre vár. Kérésre e-mailben elküldjük, és aláírva visszaküldjük.",
-        "request": "DPA kérése e-mailben",
+        "text": "A felhasználóid adatai tekintetében az Ozvi a GDPR 28. cikke szerinti adatfeldolgozód. A szerződés az általános szerződési feltételek része, és a regisztrációtól érvényes. A szövege az ozvi.io/dpa oldalon olvasható. Ha aláírt példányra van szükséged, elküldjük.",
+        "request": "Aláírt példány kérése",
         "subprocessors": "Alvállalkozók listája",
-        "kit": "Az adatvédelmi tájékoztatóhoz való szövegeket minden projekt beállításaiban, a Projektadatok részben találja."
+        "kit": "Az adatvédelmi tájékoztatóhoz való szövegeket minden projekt beállításaiban, a Projektadatok részben találja.",
+        "view": "A DPA megtekintése"
       },
       "changeHint": " A csomagváltást mindig előbb megerősíted, és előre látod, mennyit fizetsz.",
       "doneChangeTitle": "Átváltottál erre: {plan}",

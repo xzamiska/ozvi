@@ -1500,11 +1500,11 @@
       "simulated": " Lokale Entwicklung: Zahlungen werden simuliert.",
       "dpa": {
         "title": "Auftragsverarbeitungsvertrag (DPA)",
-        "badge": "Entwurf",
-        "text": "Für die Daten Ihrer Nutzer ist Ozvi Ihr Auftragsverarbeiter nach Art. 28 DSGVO. Die Vertragsvorlage ist noch ein Entwurf, der juristisch geprüft wird. Auf Anfrage senden wir sie Ihnen per E-Mail und schicken sie unterschrieben zurück.",
-        "request": "DPA per E-Mail anfordern",
+        "text": "Für die Daten Ihrer Nutzer ist Ozvi Ihr Auftragsverarbeiter nach Art. 28 DSGVO. Der Vertrag ist Teil der Nutzungsbedingungen und gilt ab der Registrierung; den Text finden Sie unter ozvi.io/dpa. Wenn Sie ein unterschriebenes Exemplar brauchen, schicken wir es Ihnen.",
+        "request": "Unterschriebenes Exemplar anfordern",
         "subprocessors": "Liste der Unterauftragsverarbeiter",
-        "kit": "Texte für Ihre Datenschutzerklärung finden Sie in den Einstellungen jedes Projekts unter Projektdaten."
+        "kit": "Texte für Ihre Datenschutzerklärung finden Sie in den Einstellungen jedes Projekts unter Projektdaten.",
+        "view": "DPA ansehen"
       },
       "changeHint": " Einen Planwechsel bestätigen Sie immer zuerst und sehen vorher, was Sie zahlen.",
       "doneChangeTitle": "Sie nutzen jetzt {plan}",
