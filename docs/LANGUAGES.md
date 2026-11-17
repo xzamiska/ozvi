@@ -1,46 +1,46 @@
-# Jazyky Ozvi
+# Ozvi languages
 
-Ozvi hovorí **slovensky** (zdroj, `messages/sk.json` typuje kľúče), **česky**, **anglicky** (britsky) a od vlny 3 aj **poľsky**, **maďarsky** a **nemecky**.
+Ozvi speaks **Slovak** (the source; `messages/sk.json` types the keys), **Czech**, **English** (British) and, since wave 3, also **Polish**, **Hungarian** and **German**.
 
-| Jazyk | Kód / BCP 47 | Landing | Stav |
+| Language | Code / BCP 47 | Landing | Status |
 |---|---|---|---|
-| slovenčina | `sk` / `sk-SK` | `/` | zdroj |
-| čeština | `cs` / `cs-CZ` | `/cs` | hotové |
-| angličtina | `en` / `en-GB` | `/en` | hotové |
-| poľština | `pl` / `pl-PL` | `/pl` | **strojovo pripravené, pred spustením treba natívnu revíziu** |
-| maďarčina | `hu` / `hu-HU` | `/hu` | **strojovo pripravené, pred spustením treba natívnu revíziu** |
-| nemčina | `de` / `de-DE` | `/de` | **strojovo pripravené, pred spustením treba natívnu revíziu** |
+| Slovak | `sk` / `sk-SK` | `/` | source |
+| Czech | `cs` / `cs-CZ` | `/cs` | done |
+| English | `en` / `en-GB` | `/en` | done |
+| Polish | `pl` / `pl-PL` | `/pl` | **machine-prepared, needs a native review before launch** |
+| Hungarian | `hu` / `hu-HU` | `/hu` | **machine-prepared, needs a native review before launch** |
+| German | `de` / `de-DE` | `/de` | **machine-prepared, needs a native review before launch** |
 
-Kde sa jazyk vyberá: landing podľa cesty (hreflang na všetky jazyky), konzola a boardy podľa cookie `NEXT_LOCALE` → `Accept-Language` (aj `de-AT`, `pl-PL`…) → predvolený jazyk boardu. Board ponúka len jazyky zapnuté v admin → Jazyky. E-maily idú v uloženom jazyku používateľa (ak ho board stále ponúka). Widget: sk/cs/en sú priamo vo `widget.js`, pl/hu/de sa načítajú ako `widget-lang-<jazyk>.js` ešte pred prvým vykreslením (`packages/widget/src/lang/`), takže používateľ nikdy nevidí iný jazyk.
+Where the language is chosen: the landing page by path (hreflang to all languages), the console and boards by the `NEXT_LOCALE` cookie → `Accept-Language` (including `de-AT`, `pl-PL`…) → the board's default language. A board offers only the languages enabled in admin → Languages. E-mails go out in the user's saved language (if the board still offers it). Widget: sk/cs/en are built into `widget.js`, pl/hu/de are loaded as `widget-lang-<language>.js` before the first render (`packages/widget/src/lang/`), so the user never sees a different language.
 
-## Pridanie kľúča
+## Adding a key
 
-Nový text pridaj do `sk.json`, `cs.json`, `en.json` **a** `pl.json`, `hu.json`, `de.json`; `messages.test.ts` stráži rovnaké kľúče a platné ICU (poľské plurály `one/few/many/other`, maďarské a nemecké `one/other`). Widget: nový kľúč v tabuľke `T` patrí aj do `packages/widget/src/lang/{pl,hu,de}.ts` (`lang-pack.test.ts`).
+Add new text to `sk.json`, `cs.json`, `en.json` **and** `pl.json`, `hu.json`, `de.json`; `messages.test.ts` guards that the keys match and the ICU is valid (Polish plurals `one/few/many/other`, Hungarian and German `one/other`). Widget: a new key in the `T` table also belongs in `packages/widget/src/lang/{pl,hu,de}.ts` (`lang-pack.test.ts`).
 
-## Pred spustením PL/HU/DE: natívna revízia
+## Before launching PL/HU/DE: native review
 
-Texty preložil Claude podľa slovníkov v [`languages/`](languages/) (GLOSSARY-pl/hu/de.md: zvolené termíny, oslovenie, otvorené otázky). Recenzent by mal prejsť obrazovky, nielen JSON. Oslovenie: **PL** „ty“ (bez Pan/Pani, bez rodových tvarov minulého času), **HU** tykanie („te“), **DE** „Sie“.
+The texts were translated by Claude following the glossaries in [`languages/`](languages/) (GLOSSARY-pl/hu/de.md: chosen terms, form of address, open questions). The reviewer should go through the screens, not just the JSON. Form of address: **PL** “ty” (no Pan/Pani, no gendered past-tense forms), **HU** informal (“te”), **DE** “Sie”.
 
-### Spoločné pre všetky tri
+### Common to all three
 
-- **Vety skladané z kúskov** (poradie slov, pády): `account.invite.invitesYou`/`as`/`roleAs.*`; `email.onBug`/`onIdea` s `commentSummary`, `noteSummary`, `commentLead`, `commentQueued*`; `integrations.gh.provenance` + `gh.trust.*` + `gh.source.*`; `integrations.tracker.comment*`; texty rozdelené okolo `<code>`: `admin.login.maskA/B`, `admin.integrations.mcpA–C`, `admin.limits.mailOffA–C`, `admin.people.textA/B`, `admin.tokens.codeA/B`.
-- **Názvy zastávok** (`route.label.*`): PL Zaproponowane / Zaplanowane / W realizacji / Wdrożone / Odrzucone, chyby Przyjęte / Potwierdzone / Naprawione / Zweryfikowane / Nie będziemy naprawiać; HU Javasolt / Tervezett / Folyamatban / Elkészült / Elutasítva, Beérkezett / Megerősítve / Javítva / Ellenőrizve / Nem javítjuk; DE Vorgeschlagen / Geplant / In Arbeit / Umgesetzt / Abgelehnt, Eingegangen / Bestätigt / Behoben / Verifiziert / Wird nicht behoben. Potvrdiť najmä DE „Umgesetzt“ (vs. „Ausgeliefert“) a PL „Nie będziemy naprawiać“ (dlhé).
+- **Sentences assembled from pieces** (word order, grammatical cases): `account.invite.invitesYou`/`as`/`roleAs.*`; `email.onBug`/`onIdea` with `commentSummary`, `noteSummary`, `commentLead`, `commentQueued*`; `integrations.gh.provenance` + `gh.trust.*` + `gh.source.*`; `integrations.tracker.comment*`; texts split around `<code>`: `admin.login.maskA/B`, `admin.integrations.mcpA–C`, `admin.limits.mailOffA–C`, `admin.people.textA/B`, `admin.tokens.codeA/B`.
+- **Stage names** (`route.label.*`): PL Zaproponowane / Zaplanowane / W realizacji / Wdrożone / Odrzucone, bugs Przyjęte / Potwierdzone / Naprawione / Zweryfikowane / Nie będziemy naprawiać; HU Javasolt / Tervezett / Folyamatban / Elkészült / Elutasítva, Beérkezett / Megerősítve / Javítva / Ellenőrizve / Nem javítjuk; DE Vorgeschlagen / Geplant / In Arbeit / Umgesetzt / Abgelehnt, Eingegangen / Bestätigt / Behoben / Verifiziert / Wird nicht behoben. Confirm especially DE “Umgesetzt” (vs. “Ausgeliefert”) and PL “Nie będziemy naprawiać” (long).
 - **Marketing**: `landing.hero.*`, `landing.dev.title`, `playground.title`.
-- **Právne / trh** (rozhodnutie vlastníka, nie prekladateľa):
-  - `account.legalNote`: záväzná je slovenská verzia – platí to aj pre PL/HU/DE zákazníkov?
-  - `a11y.page.enforcement`: PL doplnila poľský zákon o prístupnosti (Dz.U. 2024 poz. 731) – overiť; HU a DE uvádzajú len SK a CZ zákon (pre DE/AT zvážiť BFSG/BaFG, pre HU maďarský zákon).
-  - `subprocessors.*`: preklad konceptu, ktorý ešte nevidel právnik (TODO ostali).
-  - Ceny v EUR a „bez DPH“ (`landing.pricing.*`, `console.plan.vat`); PL demo ukazuje „1200,00 €“ – zvážiť PLN.
-- **Lokalizované ukážky**: Xero → KSeF (PL), DATEV (DE), „könyvelőprogram“ (HU); IČ DPH → NIP / USt-IdNr. / adószám; ukážkové domény a mená.
+- **Legal / market** (the owner's decision, not the translator's):
+  - `account.legalNote`: the Slovak version is binding – does that also apply to PL/HU/DE customers?
+  - `a11y.page.enforcement`: PL added the Polish accessibility act (Dz.U. 2024 poz. 731) – verify; HU and DE cite only the SK and CZ acts (for DE/AT consider BFSG/BaFG, for HU the Hungarian act).
+  - `subprocessors.*`: translation of a draft no lawyer has seen yet (the TODOs remain).
+  - Prices in EUR and “excl. VAT” (`landing.pricing.*`, `console.plan.vat`); the PL demo shows “1200,00 €” – consider PLN.
+- **Localised examples**: Xero → KSeF (PL), DATEV (DE), “könyvelőprogram” (HU); IČ DPH → NIP / USt-IdNr. / adószám; sample domains and names.
 
-### Poľština
+### Polish
 
-`forms.vote.level1` („Miło by było“ / „Przydałoby się“), „Triaż“ v `admin.scope.triage` a súvisiacich, dni v `board.unanswered.*`, `email.teamDigestUnanswered`, `admin.statuses.daysSaved`, `email.releaseDraftBody` (prepísané kvôli zápornej väzbe), Jira skloňovaná (Jirę/Jiry), `integrations.tracker.acc.jira` ponechané v nominatíve („Jira“) kvôli rôznym pádom v `connect`/`disconnect`.
+`forms.vote.level1` (“Miło by było” / “Przydałoby się”), “Triaż” in `admin.scope.triage` and related keys, days in `board.unanswered.*`, `email.teamDigestUnanswered`, `admin.statuses.daysSaved`, `email.releaseDraftBody` (rewritten because of a negative construction), Jira inflected (Jirę/Jiry), `integrations.tracker.acc.jira` left in the nominative (“Jira”) because of the different cases in `connect`/`disconnect`.
 
-### Maďarčina
+### Hungarian
 
-Zástupné symboly nikdy nenesú príponu (vety sú preformulované na „…: {x}“ alebo „a(z)“) – skontrolovať plynulosť. `admin.retention.preview.files` (n=1), `integrations.tracker.issueLabel`, `route.label.shipped` („Elkészült“ vs. „Kiadva“), „AI“ namiesto „MI“. Widget: „Maradt: l/t pont“.
+Placeholders never carry a suffix (sentences are rephrased to “…: {x}” or “a(z)”) – check the flow. `admin.retention.preview.files` (n=1), `integrations.tracker.issueLabel`, `route.label.shipped` (“Elkészült” vs. “Kiadva”), “AI” instead of “MI”. Widget: “Maradt: l/t pont”.
 
-### Nemčina
+### German
 
-Krátke mužské tvary („Nutzer“, „Verfasser“) v `board.user`, `board.customers.anonymous`, `integrations.people.roles.member`, `moderation.blockAuthor`; `forms.vote.level1–3`; „Kundenerkenntnis“ v `integrations.insight.heading`; menu Fideru/Canny/GitHub/Linear/Jira ostali po anglicky.
+Short masculine forms (“Nutzer”, “Verfasser”) in `board.user`, `board.customers.anonymous`, `integrations.people.roles.member`, `moderation.blockAuthor`; `forms.vote.level1–3`; “Kundenerkenntnis” in `integrations.insight.heading`; the Fider/Canny/GitHub/Linear/Jira menus stayed in English.

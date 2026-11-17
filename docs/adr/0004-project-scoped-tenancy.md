@@ -1,9 +1,9 @@
-# 0004 — Tenancy cez project_id a RLS
+# 0004 — Tenancy through project_id and RLS
 
-**Stav:** prijaté 2026-11-05 (RLS politiky sa zavedú v F1 pred prvým cudzím tenantom)
+**Status:** accepted 2026-11-05 (RLS policies will be introduced in F1 before the first external tenant)
 
-**Rozhodnutie.** Workspace → projekt → všetko ostatné. Každá tenant tabuľka má priamy `project_id` (aj tam, kde by stačil join), aby jedna politika `project_id = current_setting('ozvi.project_id')::uuid` pokryla všetko. Request nastaví `set_config` v transakcii. Používatelia sú per projekt (`unique(project_id, external_id)`), nikdy sa nespájajú len podľa e-mailu.
+**Decision.** Workspace → project → everything else. Every tenant table has a direct `project_id` (even where a join would do), so that one policy `project_id = current_setting('ozvi.project_id')::uuid` covers everything. The request sets `set_config` in the transaction. Users are per project (`unique(project_id, external_id)`), never merged by e-mail alone.
 
-**Prečo.** Fider v0.37 opravoval cross-tenant prevzatie loginu. Druhá vrstva v DB je lacná poistka.
+**Why.** Fider v0.37 fixed a cross-tenant login takeover. A second layer in the DB is cheap insurance.
 
-**Hotové (F1):** `project_id` a politika `tenant` na `users`, `items`, `votes`, `comments`, `attachments`, `emails`; FORCE RLS; rola appky bez superuser/BYPASSRLS (kontroluje `/api/health`); testy v `packages/db/src/rls.test.ts`. `projects` a `workspaces` RLS nemajú (lookup podľa slugu/domény) — každý update na nich musí mať `where id = …`.
+**Done (F1):** `project_id` and the `tenant` policy on `users`, `items`, `votes`, `comments`, `attachments`, `emails`; FORCE RLS; the app role without superuser/BYPASSRLS (checked by `/api/health`); tests in `packages/db/src/rls.test.ts`. `projects` and `workspaces` have no RLS (lookup by slug/domain) — every update on them must have `where id = …`.

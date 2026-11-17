@@ -1,7 +1,7 @@
-# 0002 — Jeden image, dva režimy
+# 0002 — One image, two modes
 
-**Stav:** prijaté 2026-11-05
+**Status:** accepted 2026-11-05
 
-**Rozhodnutie.** Ten istý Docker image pre self-host aj cloud. `OZVI_MODE=cloud` zapína billing (Creem), ozvi.io subdomény, Ozvi účty (e-mail kód + magic link) a správu workspace-ov. Self-host = jeden workspace, prihlásenie cez hostiteľskú appku.
+**Decision.** The same Docker image for both self-host and cloud. `OZVI_MODE=cloud` turns on billing (Creem), ozvi.io subdomains, Ozvi accounts (e-mail code + magic link) and workspace management. Self-host = one workspace, sign-in through the host app.
 
-**Dôsledky.** Cloud nemôže mať „tajné“ funkcie; čo testujeme v cloude, testujeme aj pre self-host. Kód špecifický pre cloud sa drží za jedným prepínačom, nie roztrúsený.
+**Consequences.** The cloud cannot have "secret" features; what we test in the cloud, we also test for self-host. Cloud-specific code is kept behind a single switch, not scattered around.

@@ -14,7 +14,7 @@ import { cloudOnly, LEGAL } from "@/lib/legal";
 // OZVI_MODE and the locale are read per request (the same image runs self-host and cloud).
 export const dynamic = "force-dynamic";
 
-/** Date the list last changed. Update together with the messages (subprocessors.items) and docs/DPA.md. */
+/** Date the list last changed. Update together with the messages (subprocessors.items) and docs/DPA.sk.md (+ its English translation docs/DPA.md). */
 const CHANGED = new Date("2026-11-12");
 
 const theme = parseTheme(presets.ozvi);

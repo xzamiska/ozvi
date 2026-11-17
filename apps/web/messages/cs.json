@@ -3474,7 +3474,7 @@
     },
     "fider": {
       "text": "Přeneseme nápady, chyby, hlasy, komentáře, štítky, lidi i přílohy. Čísla příspěvků zůstanou, pokud jsou na boardu volná, takže staré odkazy sedí.",
-      "hint": "Na serveru totéž udělá příkaz pnpm --filter @ozvi/web import:fider (návod v docs/MIGRACIA-Z-FIDERU.md).",
+      "hint": "Na serveru totéž udělá příkaz pnpm --filter @ozvi/web import:fider (návod v docs/MIGRATING-FROM-FIDER.md).",
       "source": "Odkud importovat",
       "backupTitle": "Záloha z Fideru",
       "backupText": "soubor backup.zip se vším včetně e-mailů a příloh.",

@@ -3474,7 +3474,7 @@
     },
     "fider": {
       "text": "Przenosimy pomysły, błędy, głosy, komentarze, tagi, osoby i załączniki. Numery wpisów pozostają takie same, jeśli są na tablicy wolne, więc stare linki nadal działają.",
-      "hint": "Na serwerze to samo robi pnpm --filter @ozvi/web import:fider (instrukcja w docs/MIGRACIA-Z-FIDERU.md).",
+      "hint": "Na serwerze to samo robi pnpm --filter @ozvi/web import:fider (instrukcja w docs/MIGRATING-FROM-FIDER.md).",
       "source": "Importuj z",
       "backupTitle": "Kopia zapasowa Fidera",
       "backupText": "plik backup.zip ze wszystkim, łącznie z adresami e-mail i załącznikami.",

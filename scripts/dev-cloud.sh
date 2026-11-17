@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Local cloud mode on http://ozvi.localhost:3400 — see docs/CLOUD-LOKALNE.md.
+# Local cloud mode on http://ozvi.localhost:3400 — see docs/CLOUD-LOCAL.md.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 [ -f .env ] || cp .env.example .env

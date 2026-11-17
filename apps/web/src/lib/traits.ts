@@ -2,7 +2,7 @@ import { schema } from "@ozvi/db";
 import { sql, type SQL } from "drizzle-orm";
 
 /**
- * Customer data the host app sends as SSO token traits (documented in @ozvi/sdk and docs/INTEGRACIA.md):
+ * Customer data the host app sends as SSO token traits (documented in @ozvi/sdk and docs/INTEGRATION.md):
  *   company   – company name ("Acme s.r.o.")
  *   companyId – stable company id; people with the same one count as one company (else the name is used)
  *   plan      – plan name in your app ("pro")

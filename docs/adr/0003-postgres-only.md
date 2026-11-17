@@ -1,7 +1,7 @@
-# 0003 — Len Postgres
+# 0003 — Postgres only
 
-**Stav:** prijaté 2026-11-05
+**Status:** accepted 2026-11-05
 
-**Rozhodnutie.** Postgres 17 je jediná služba: Drizzle na schému, joby cez tabuľky v Postgrese (e-maily: ADR-0007; pg-boss až keď pribudnú ďalšie typy), pgvector na duplicity, full-text na vyhľadávanie. Žiadny Redis.
+**Decision.** Postgres 17 is the only service: Drizzle for the schema, jobs through tables in Postgres (e-mails: ADR-0007; pg-boss only once more types are added), pgvector for duplicates, full-text for search. No Redis.
 
-**Prečo.** Self-host = `docker compose up` s dvoma kontajnermi. Pri našej záťaži (≈0,02 req/s na 1 000 používateľov) Redis nič nezrýchli.
+**Why.** Self-host = `docker compose up` with two containers. At our load (≈0.02 req/s per 1,000 users) Redis would not speed anything up.

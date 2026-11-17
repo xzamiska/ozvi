@@ -8,7 +8,7 @@ import type { PageContent } from "../types";
  * DNS and certificate for multi-tenant, Pro features switched on in SQL there, most-wanted requests
  * (vote limits 155, internal notes 88, custom statuses 44), security fixes incl. the cross-tenant
  * takeover in v0.37.0, webhooks switched off after one failure, e-mail login with a 6-digit code,
- * reported GDPR issues (voter e-mails, Google Fonts). Import: docs/MIGRACIA-Z-FIDERU.md.
+ * reported GDPR issues (voter e-mails, Google Fonts). Import: docs/MIGRATING-FROM-FIDER.md.
  */
 
 const sources = [

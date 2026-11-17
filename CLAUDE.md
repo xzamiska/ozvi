@@ -27,15 +27,15 @@ Source-available (FSL, ADR-0008) náhrada Fideru: **súkromný tok na bugy** (au
 ## Príkazy
 
 - `pnpm dev` — Docker + migrácie + seed + widget + web (3300)
-- `pnpm dev:cloud` — cloud režim lokálne na http://ozvi.localhost:3400 (vlastná DB, simulácia platieb a DNS) — [CLOUD-LOKALNE](docs/CLOUD-LOKALNE.md)
+- `pnpm dev:cloud` — cloud režim lokálne na http://ozvi.localhost:3400 (vlastná DB, simulácia platieb a DNS) — [CLOUD-LOCAL](docs/CLOUD-LOCAL.md)
 - Vývoj bez hostiteľskej appky: `OZVI_DEV_LOGIN=1` → `/dev/login?project=billiwo&as=team|member`, demo widgetu na `/demo`
-- `pnpm --filter @ozvi/web import:fider --from <fider db> --project <slug> [--dry-run]` — [MIGRACIA-Z-FIDERU](docs/MIGRACIA-Z-FIDERU.md)
+- `pnpm --filter @ozvi/web import:fider --from <fider db> --project <slug> [--dry-run]` — [MIGRATING-FROM-FIDER](docs/MIGRATING-FROM-FIDER.md)
 - `docker build -t ozvi .` + `deploy/docker-compose.yml` — [SELFHOST](docs/SELFHOST.md); CLI v image: `node ozvi.mjs project:create …`
 - `pnpm test` / `pnpm typecheck`
 - `pnpm db:generate` (po zmene `schema.ts`) → `pnpm db:migrate`
 
 ## Konvencie
 
-- Slovenčina v UI, angličtina v kóde/komentároch/commitoch
+- Slovenčina v UI, angličtina v kóde/komentároch/commitoch a v dokumentácii (`docs/`, README); výnimky: `SELFHOST.sk.md`, `DPA.sk.md` (záväzný text) a slovníky prekladov
 - Conventional commits, po funkčných blokoch; po module build + rýchla verifikácia
 - UI texty: sloveso podľa akcie („Nahlásiť chybu“, nie „Odoslať“), chyby hovoria čo sa stalo a čo spraviť

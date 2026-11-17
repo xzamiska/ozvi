@@ -3474,7 +3474,7 @@
     },
     "fider": {
       "text": "Átvisszük az ötleteket, hibákat, szavazatokat, hozzászólásokat, címkéket, személyeket és mellékleteket. A bejegyzések száma változatlan marad, ahol a táblán szabad, így a régi linkek továbbra is működnek.",
-      "hint": "A szerveren a pnpm --filter @ozvi/web import:fider parancs ugyanezt teszi (útmutató: docs/MIGRACIA-Z-FIDERU.md).",
+      "hint": "A szerveren a pnpm --filter @ozvi/web import:fider parancs ugyanezt teszi (útmutató: docs/MIGRATING-FROM-FIDER.md).",
       "source": "Importálás innen",
       "backupTitle": "Fider-biztonsági mentés",
       "backupText": "a backup.zip fájl mindennel együtt, az e-mail-címeket és a mellékleteket is beleértve.",

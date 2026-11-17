@@ -1,67 +1,66 @@
-# AI v Ozvi a označovanie (AI Act, čl. 50)
+# AI in Ozvi and labelling (AI Act, Art. 50)
 
-Ozvi používa AI len ako pomocníka tímu. Pravidlo vlastníka: **AI text je vždy návrh, ktorý schváli človek.** Nič, čo napísala AI, neodíde k používateľom bez toho, aby to niekto z tímu prečítal a zverejnil.
+Ozvi uses AI only as a helper for the team. The owner's rule: **AI text is always a draft that a person approves.** Nothing written by AI reaches users without someone on the team reading and publishing it.
 
-Povinnosti transparentnosti podľa článku 50 nariadenia (EÚ) 2024/1689 (AI Act) platia od 2. 8. 2026. Ozvi ich plní tak, že každý výstup AI je viditeľne označený a nesie aj strojovo čitateľné označenie.
+The transparency obligations under Article 50 of Regulation (EU) 2024/1689 (AI Act) apply from 2 August 2026. Ozvi meets them by labelling every AI output visibly and also giving it a machine-readable label.
 
-## Kde AI píše
+## Where AI writes
 
-| Funkcia | Kto to vidí | Schválenie | Viditeľné označenie | Strojovo čitateľné |
+| Feature | Who sees it | Approval | Visible label | Machine-readable |
 |---|---|---|---|---|
-| Návrh novinky (tlačidlo „Navrhnúť text pomocou AI“ alebo automaticky z GitHub release) | tím, po zverejnení všetci | zverejnenie novinky = schválenie, zverejňujúci sa uloží ako kontrolór | „s pomocou AI · skontroloval/a Meno“ pri novinke (board, RSS); v koncepte „Návrh od AI · čaká na kontrolu“ | `ai` v `changelog.published` webhooku, MCP `list_updates`, exporte projektu |
-| Zhrnutie diskusie | len tím, neukladá sa | nikam sa nezverejňuje | „Napísala AI · overte si to v diskusii“ | — (neopúšťa Ozvi) |
-| Týždenný prehľad pre tím | len tím (e-mail) | výnimka: interný e-mail tímu | veta „Zhrnutie napísala AI…“, odkazy odstránené | — |
-| Podobné záznamy (duplicity) cez embeddingy | len tím | o zlúčení rozhoduje človek (s potvrdením) | „Podobné záznamy vybral model AI…“ | `ai` pri výsledkoch MCP `find_duplicates` |
-| Preklad príspevkov na boarde (nápady, komentáre, novinky; nastavenie Jazyky → Preklad príspevkov: vypnutý / na požiadanie / automaticky) | čitateľ, ktorý smie vidieť originál | výnimka: strojový preklad cudzieho textu, nie text tímu; originál je vždy na jedno kliknutie | „Preložené s pomocou AI · zobraziť originál“ pri každom preloženom príspevku, model v popise | `data-ai-generated="true"` a `data-ai-model` v HTML; v cache `content_translations.model` |
-| Anglické „pivoty“ názvov nápadov (hľadanie duplicít naprieč jazykmi) | nikto ich nevidí, len sa podľa nich hľadá | — | — (zobrazujú sa originály) | — |
+| Update draft (the “Draft text with AI” button, or automatically from a GitHub release) | the team; everyone once published | publishing the update = approval; the publisher is saved as the reviewer | “written with AI · reviewed by Name” on the update (board, RSS); in a draft “AI draft · waiting for review” | `ai` in the `changelog.published` webhook, MCP `list_updates`, the project export |
+| Discussion summary | team only, not saved | not published anywhere | “Written by AI · check it against the discussion” | — (never leaves Ozvi) |
+| Weekly digest for the team | team only (e-mail) | exception: internal team e-mail | the sentence “This summary was written by AI…”, links removed | — |
+| Similar items (duplicates) via embeddings | team only | a person decides on merging (with confirmation) | “An AI model picked these by meaning…” | `ai` on MCP `find_duplicates` results |
+| Translation of posts on the board (ideas, comments, updates; setting Languages → Post translation: Off / On request / Automatic) | a reader who is allowed to see the original | exception: machine translation of someone else's text, not the team's text; the original is always one click away | “Translated with AI · show original” on every translated post, model in the description | `data-ai-generated="true"` and `data-ai-model` in the HTML; in the cache `content_translations.model` |
+| English “pivots” of idea titles (finding duplicates across languages) | nobody sees them, they are only used for searching | — | — (originals are shown) | — |
 
-Podobnosť cez trigramy (bez modelu embeddingov) nie je AI a označenie nemá.
+Similarity via trigrams (without an embeddings model) is not AI and carries no label.
 
-## Strojovo čitateľné pole `ai`
+## The machine-readable `ai` field
 
 ```json
 "ai": { "generated": true, "model": "claude-opus-5-5", "reviewedBy": "Eva Nováková", "reviewedAt": "2026-11-08T10:00:00.000Z" }
 ```
 
-- `null` (alebo vo webhooku `{ "generated": false }`) = text napísali ľudia.
-- `reviewedBy: null` = koncept, ešte ho nikto neschválil.
-- Novinka, pri ktorej tím použil AI návrh, nesie označenie aj po ľubovoľných úpravách (`changelog_entries.ai_model`). Kontrolór je ten, kto novinku zverejnil (`reviewed_by_id`, `reviewed_at`).
+- `null` (or `{ "generated": false }` in the webhook) = the text was written by people.
+- `reviewedBy: null` = a draft that nobody has approved yet.
+- An update for which the team used an AI draft keeps the label after any edits (`changelog_entries.ai_model`). The reviewer is whoever published the update (`reviewed_by_id`, `reviewed_at`).
 
-Agenti a integrácie, ktoré tieto dáta preberajú, nesmú AI text vydávať za text tímu.
+Agents and integrations that take this data must not pass AI text off as the team's text.
 
-## Údaje, ktoré idú modelu
+## Data sent to the model
 
-- Text od používateľov ide modelu len ako dáta vo `<feedback>` (JSON, `<` escapované); systémový pokyn hovorí, že ide o dáta, nie inštrukcie.
-- Návrh novinky z release dostane nápady (názov, text, hlasy), poznámky k vydaniu z GitHubu a názvy PR. **Názvy súkromných hlásení chýb nie, len ich počet.** Zoznam položiek s odkazmi pripojí Ozvi, nie model.
-- Cloud: AI len v plánoch s `ai`, model Claude (Anthropic). Self-host: len s nastaveným poskytovateľom (`OZVI_AI_PROVIDER`, pozri nižšie). Bez neho všetko funguje bez AI (návrh novinky z release je potom šablóna).
+- Text from users goes to the model only as data inside `<feedback>` (JSON, `<` escaped); the system prompt says it is data, not instructions.
+- An update draft from a release gets the ideas (title, text, votes), the release notes from GitHub and the PR titles. **Not the titles of private bug reports, only their count.** The list of items with links is added by Ozvi, not by the model.
+- Cloud: AI only on plans with `ai`, model Claude (Anthropic). Self-hosted: only with a provider configured (`OZVI_AI_PROVIDER`, see below). Without one everything works without AI (an update draft from a release is then a template).
 
-## Poskytovateľ modelu
+## Model provider
 
-Ozvi nie je viazané na jedného poskytovateľa (`apps/web/src/lib/ai-provider.ts`). Nastavuje ho len prevádzkovateľ servera cez prostredie, nikdy projekt ani používateľ (adresa API je dôveryhodná konfigurácia).
+Ozvi is not tied to a single provider (`apps/web/src/lib/ai-provider.ts`). Only the server operator sets it, through the environment, never a project or a user (the API address is trusted configuration).
 
-| Premenná | Význam |
+| Variable | Meaning |
 |---|---|
-| `OZVI_AI_PROVIDER` | `anthropic` (oficiálne SDK) · `openai` (ľubovoľné API kompatibilné s OpenAI: OpenAI, Mistral, Azure OpenAI, OpenRouter, Groq, Ollama, vLLM, LM Studio) · `off` |
-| `OZVI_AI_API_KEY` | kľúč; pri lokálnych serveroch (Ollama…) môže chýbať |
-| `OZVI_AI_BASE_URL` | predvolene `https://api.anthropic.com` / `https://api.openai.com/v1` |
-| `OZVI_AI_MODEL` | pri `openai` povinný; pri `anthropic` predvolene `claude-opus-5-5` |
-| `OZVI_AI_MODEL_FAST` | voliteľný lacnejší model na preklady a anglické pivoty (inak `OZVI_AI_MODEL`) |
+| `OZVI_AI_PROVIDER` | `anthropic` (official SDK) · `openai` (any OpenAI-compatible API: OpenAI, Mistral, Azure OpenAI, OpenRouter, Groq, Ollama, vLLM, LM Studio) · `off` |
+| `OZVI_AI_API_KEY` | key; may be missing for local servers (Ollama…) |
+| `OZVI_AI_BASE_URL` | defaults to `https://api.anthropic.com` / `https://api.openai.com/v1` |
+| `OZVI_AI_MODEL` | required for `openai`; for `anthropic` defaults to `claude-opus-5-5` |
+| `OZVI_AI_MODEL_FAST` | optional cheaper model for translations and English pivots (otherwise `OZVI_AI_MODEL`) |
 
-- **Spätná kompatibilita:** samotný `ANTHROPIC_API_KEY` = `anthropic` (v logu raz upozornenie, že je zastaraný).
-- **OpenAI-kompatibilná cesta:** `POST {base}/chat/completions`, timeout 90 s. Preklady chcú JSON: najprv `response_format: json_schema`, ak ho server nepozná (400/422) tak `json_object`, nakoniec obyčajný text; odpoveď sa vždy overí (zod), z textu sa toleruje aj JSON v ```` ``` ```` bloku. Bloky `<think>` lokálnych modelov sa zahodia.
-- **Chyby:** 401/403 = zlý kľúč, 429/503 = preťažené, iné = zlyhanie s kódom, neplatná odpoveď = prázdna odpoveď (nikdy pád). Odmietnutie (`refusal`, `content_filter`) = odmietnuté.
-- **Označenie:** pole `model` v `ai` (webhooky, MCP, export, odznak „s pomocou AI“, `data-ai-model`) je skutočné id nastaveného modelu, napr. `claude-opus-5-5`, `gpt-4o-mini`, `mistral-small-latest`; preklady nesú id rýchleho modelu.
-- **Embeddingy** (duplicity) majú vlastné `OZVI_EMBEDDINGS_URL` + `OZVI_EMBEDDINGS_MODEL` (+ `_KEY`). Pri `OZVI_AI_PROVIDER=openai` stačí `OZVI_EMBEDDINGS_MODEL`: použije sa adresa a kľúč AI poskytovateľa.
-- **Ochrana osobných údajov:** poskytovateľ modelu je subdodávateľ prevádzkovateľa inštancie (lokálny model = žiadny). Verejná stránka `/subprocessors` popisuje cloud (Anthropic).
+- **Backward compatibility:** `ANTHROPIC_API_KEY` on its own = `anthropic` (a one-time warning in the log that it is deprecated).
+- **OpenAI-compatible path:** `POST {base}/chat/completions`, 90 s timeout. Translations want JSON: first `response_format: json_schema`; if the server does not know it (400/422), then `json_object`; finally plain text. The response is always validated (zod); in plain text, JSON in a ```` ``` ```` block is also accepted. `<think>` blocks from local models are discarded.
+- **Errors:** 401/403 = wrong key, 429/503 = overloaded, anything else = failure with the code, invalid response = empty response (never a crash). A refusal (`refusal`, `content_filter`) = refused.
+- **Labelling:** the `model` field in `ai` (webhooks, MCP, export, the “written with AI” badge, `data-ai-model`) is the actual id of the configured model, e.g. `claude-opus-5-5`, `gpt-4o-mini`, `mistral-small-latest`; translations carry the id of the fast model.
+- **Embeddings** (duplicates) have their own `OZVI_EMBEDDINGS_URL` + `OZVI_EMBEDDINGS_MODEL` (+ `_KEY`). With `OZVI_AI_PROVIDER=openai`, `OZVI_EMBEDDINGS_MODEL` is enough: the AI provider's address and key are used.
+- **Data protection:** the model provider is a sub-processor of the instance operator (local model = none). The public `/subprocessors` page describes the cloud (Anthropic).
 
-## Preklad príspevkov
+## Post translation
 
-- Zapína admin v Jazyky → Preklad príspevkov (`projects.translation_mode`: `off` | `on_demand` | `auto`), funguje len s AI (plán s `ai` alebo nastavený `OZVI_AI_PROVIDER`).
-- Jazyk príspevku odhadne Ozvi bez modelu (`lib/lang-detect.ts`); tlačidlo „Preložiť“ sa ukáže len pri príspevku v inom jazyku, než v akom čitateľ board číta.
-- **Oprávnenia** (`lib/translate.ts`, server): modelu ide len text, ktorý čitateľ smie vidieť – hlásenie chyby len reportérovi a tímu, poznámky tímu len tímu, čakajúce príspevky len autorovi a tímu, koncepty noviniek len tímu, zmazané nikomu. Pri zmazaní príspevku alebo komentára sa zmažú aj jeho preklady.
-- **Cache** `content_translations` podľa (príspevok, sha256 textu = verzia, cieľový jazyk): každá verzia sa prekladá raz; úprava textu = nová verzia.
-- **Náklady**: limit 60 nových prekladov za hodinu na čitateľa (prihlásený používateľ alebo IP) a mesačný počet nových prekladov na pracovný priestor podľa plánu (Free 0, Pro 500, Studio 2 000; vlastný hosting bez limitu, `OZVI_TRANSLATE_MONTHLY_CAP` ho nastaví), najviac 12 000 znakov na príspevok; preklady z cache sa nepočítajú.
-- **Modely bez uvažovania.** `OZVI_AI_MODEL` (súhrny, koncepty noviniek, prehľad) aj `OZVI_AI_MODEL_FAST` (preklady) majú byť inštrukčné modely bez „reasoning“. Uvažujúce modely (napríklad `qwen3.8-27b`) minú limit tokenov na skryté uvažovanie a odpoveď je orezaná alebo prázdna; Ozvi takú odpoveď odmietne a zapíše varovanie do logu. Na Scaleway odporúčame `mistral-small-3.2-24b-instruct-2506` pre oba.
-- **Model na preklady**: `OZVI_AI_MODEL_FAST`. Stačí malý inštrukčný model bez uvažovania (napríklad `mistral-small-3.2-24b-instruct-2506` na Scaleway); uvažujúce modely minú na krátky preklad niekoľkonásobne viac výstupných tokenov.
-- **Duplicity naprieč jazykmi**: worker raz za minútu preloží názvy verejných nápadov (nie hlásení chýb) do angličtiny (`target_locale = "en:title"`); hľadanie podobných nápadov pri písaní a „Podobné záznamy“ pre tím ich porovnávajú s originálmi aj s anglickou verziou písaného názvu. S embeddingmi (viacjazyčný model) to funguje aj bez pivotov.
-
+- An admin turns it on in Languages → Post translation (`projects.translation_mode`: `off` | `on_demand` | `auto`); it works only with AI (a plan with `ai` or `OZVI_AI_PROVIDER` configured).
+- Ozvi guesses the language of a post without a model (`lib/lang-detect.ts`); the “Translate” button appears only on a post in a language other than the one the reader is reading the board in.
+- **Permissions** (`lib/translate.ts`, server): only text the reader is allowed to see goes to the model – a bug report only to the reporter and the team, team notes only to the team, pending posts only to the author and the team, update drafts only to the team, deleted ones to nobody. When a post or comment is deleted, its translations are deleted too.
+- **Cache** `content_translations` keyed by (post, sha256 of the text = version, target language): each version is translated once; editing the text = a new version.
+- **Costs**: a limit of 60 new translations per hour per reader (signed-in user or IP) and a monthly number of new translations per workspace according to the plan (Free 0, Pro 500, Studio 2,000; self-hosted without a limit, `OZVI_TRANSLATE_MONTHLY_CAP` sets one), at most 12,000 characters per post; translations from the cache do not count.
+- **Models without reasoning.** Both `OZVI_AI_MODEL` (summaries, update drafts, digest) and `OZVI_AI_MODEL_FAST` (translations) should be instruction models without “reasoning”. Reasoning models (for example `qwen3.8-27b`) use up the token limit on hidden reasoning and the response is cut off or empty; Ozvi rejects such a response and writes a warning to the log. On Scaleway we recommend `mistral-small-3.2-24b-instruct-2506` for both.
+- **Model for translations**: `OZVI_AI_MODEL_FAST`. A small instruction model without reasoning is enough (for example `mistral-small-3.2-24b-instruct-2506` on Scaleway); reasoning models use several times more output tokens on a short translation.
+- **Duplicates across languages**: once a minute a worker translates the titles of public ideas (not bug reports) into English (`target_locale = "en:title"`); the similar-ideas search while typing and the team's “Duplicates” panel compare them with the originals and with the English version of the title being typed. With embeddings (a multilingual model) this works even without pivots.

@@ -1,12 +1,12 @@
-# 0008 — Licencia FSL (source-available) namiesto AGPL
+# 0008 — FSL licence (source-available) instead of AGPL
 
-**Stav:** prijaté 2026-11-07, nahrádza licenčnú časť [0001](0001-agpl-all-features-free.md)
+**Status:** accepted 2026-11-07, replaces the licence part of [0001](0001-agpl-all-features-free.md)
 
-**Kontext.** Pri AGPL môže ktokoľvek z nášho kódu spustiť konkurenčný hostovaný Ozvi, stačí zverejniť zmeny. Vlastník zvažoval repo vôbec nezverejniť. Tým by sme ale stratili hlavné argumenty proti Canny a Featurebase: verejný kód, self-host so všetkými funkciami a žiadnu závislosť od jedného dodávateľa.
+**Context.** Under AGPL anyone can run a competing hosted Ozvi from our code; they only have to publish their changes. The owner considered not publishing the repo at all. But that would lose us the main arguments against Canny and Featurebase: public code, self-host with all features and no dependence on a single vendor.
 
-**Rozhodnutie.** Server (`apps/web`, `packages/db`, `packages/theme`, `packages/mcp`) je pod **Functional Source License 1.1 s budúcou licenciou Apache 2.0** (FSL-1.1-ALv2, ako Sentry). Kód je verejný. Je dovolené ho používať, upravovať a self-hostovať na vlastné aj klientske účely. Nesmie sa ponúkať ako konkurenčná komerčná služba. Každá vydaná verzia sa po dvoch rokoch automaticky stane Apache 2.0. `packages/sdk` a `packages/widget` ostávajú MIT. Zvyšok 0001 platí: self-host má všetky funkcie a cloud predáva pohodlie, nie funkcie.
+**Decision.** The server (`apps/web`, `packages/db`, `packages/theme`, `packages/mcp`) is under the **Functional Source License 1.1 with Apache 2.0 as the future licence** (FSL-1.1-ALv2, like Sentry). The code is public. It may be used, modified and self-hosted for your own purposes and for clients. It must not be offered as a competing commercial service. Every released version automatically becomes Apache 2.0 after two years. `packages/sdk` and `packages/widget` stay MIT. The rest of 0001 still applies: self-host has all features and the cloud sells convenience, not features.
 
-**Dôsledky.**
-- Ozvi sa neoznačuje ako „open source“ (FSL nie je OSI licencia). Píšeme „verejný zdrojový kód“ alebo „source-available“.
-- Príspevky prichádzajú pod tou istou licenciou. Budúca licencia Apache 2.0 je udelená neodvolateľne, takže netreba CLA.
-- Repo zverejní vlastník (`xzamiska/ozvi` je zatiaľ súkromné).
+**Consequences.**
+- Ozvi is not described as "open source" (FSL is not an OSI licence). We write "public source code" or "source-available".
+- Contributions come in under the same licence. The future Apache 2.0 licence is granted irrevocably, so no CLA is needed.
+- The owner will publish the repo (`xzamiska/ozvi` is private for now).

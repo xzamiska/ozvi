@@ -1,15 +1,15 @@
-# 0012 Dobrovoľná anonymná štatistika z vlastných serverov
+# 0012 Voluntary anonymous statistics from self-hosted servers
 
-**Stav:** prijaté 2026-11-12
+**Status:** accepted 2026-11-12
 
-**Kontext.** Vlastník chce vedieť, koľko ľudí Ozvi používa nielen v cloude, ale aj na vlastných serveroch. Doteraz sa o self-host inštalácii nedozvedel nič: kontrola verzie je obyčajný GET na `releases.json` a nič sa pri nej nezapisuje. Ozvi stavia na súkromí (widget bez cookies, boardy sa neindexujú), takže tichý zber dát neprichádza do úvahy.
+**Context.** The owner wants to know how many people use Ozvi not only in the cloud but also on their own servers. Until now there was no way to learn anything about a self-host installation: the version check is a plain GET to `releases.json` and nothing is recorded during it. Ozvi is built on privacy (widget without cookies, boards are not indexed), so silent data collection is out of the question.
 
-**Rozhodnutie.**
-- Štatistika je **opt-in**: posiela sa iba s `OZVI_TELEMETRY=1`, predvolene nič. V cloude ani vo vývojovom builde sa neposiela nikdy.
-- Raz denne (prvýkrát 10 minút po štarte) server pošle `POST https://ozvi.io/api/telemetry` s presne siedmimi poľami: jednosmerný hash z `OZVI_SECRET_KEY` (ID inštancie), verzia a päť súčtov (projekty, používatelia, aktívni za 30 dní, záznamy, záznamy za 30 dní). Žiadne mená, e-maily, URL, slugy ani obsah.
-- Cloud prijme iba tieto polia (všetko ostatné zahodí), obmedzí počet požiadaviek na IP a drží jeden riadok na inštanciu (`telemetry_instances`) s poslednými počtami. Nie sú to dáta zákazníka, preto tabuľka nemá `project_id` ani RLS.
-- Presný zoznam polí je v `docs/SELFHOST.md`; súkromný admin ich ukazuje súhrnne.
+**Decision.**
+- The statistics are **opt-in**: they are sent only with `OZVI_TELEMETRY=1`, nothing by default. They are never sent from the cloud or from a development build.
+- Once a day (the first time 10 minutes after start) the server sends `POST https://ozvi.io/api/telemetry` with exactly seven fields: a one-way hash of `OZVI_SECRET_KEY` (instance ID), the version and five totals (projects, users, active in the last 30 days, entries, entries in the last 30 days). No names, e-mails, URLs, slugs or content.
+- The cloud accepts only these fields (it discards everything else), rate-limits requests per IP and keeps one row per instance (`telemetry_instances`) with the latest counts. This is not customer data, so the table has no `project_id` and no RLS.
+- The exact list of fields is in `docs/SELFHOST.md`; the private admin shows them in aggregate.
 
-**Zamietnuté.** Počítanie inštancií podľa IP adries pri kontrole verzie: nepresné (zdieľané IP, NAT) a robilo by z obyčajného GET sledovanie bez súhlasu.
+**Rejected.** Counting instances by IP address during the version check: inaccurate (shared IPs, NAT), and it would turn a plain GET into tracking without consent.
 
-**Dôsledky.** Čísla zo self-hostu budú podhodnotené (len tí, čo súhlasia). To je cena za to, že sľub „bez vášho súhlasu nič neposielame“ platí doslova.
+**Consequences.** The self-host numbers will be underestimated (only those who agree). That is the price for the promise "we send nothing without your consent" holding literally.

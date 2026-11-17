@@ -1,23 +1,23 @@
-# 0011 — GitHub cez GitHub App
+# 0011 — GitHub through a GitHub App
 
-**Stav:** prijaté 2026-11-11
+**Status:** accepted 2026-11-11
 
-**Kontext.** GitHub sa pripájal fine-grained tokenom a webhookom, ktorý si admin pridal v repozitári ručne: vlastník repozitára, oprávnenia, URL, secret. Vlastník to označil za zbytočne ťažké a pýtal sa, či sa to nedá vyriešiť bez ručného zadávania repozitára a tokenu.
+**Context.** GitHub was connected with a fine-grained token and a webhook that the admin added in the repository by hand: repository owner, permissions, URL, secret. The owner called this needlessly hard and asked whether it could be solved without entering the repository and token by hand.
 
-**Rozhodnutie.**
-- Inštancia Ozvi má **jednu GitHub App** (`OZVI_GITHUB_APP_*`). Admin klikne na Pripojiť GitHub, na GitHube appku nainštaluje na repozitáre, ktoré zvolí, a v Ozvi vyberie jeden zo zoznamu. Netreba žiadny token ani webhook. Tokeny inštalácie si Ozvi vydá samo (`lib/github-app.ts`) a drží ich iba v pamäti.
-- **Overenie inštalácie.** Callback z GitHubu prichádza na hlavnú adresu, nie na adresu boardu. Preto:
-  - board podpíše `state` (projekt, admin, 30 minút);
-  - callback cez OAuth pri inštalácii overí, že ten, kto inštaloval, inštaláciu naozaj vidí;
-  - až potom odovzdá boardu lístok na 5 minút a board ho uloží pod session admina.
-  - Bez tohto overenia by si ktokoľvek mohol pripojiť cudziu inštaláciu a zakladať issues v cudzích repozitároch.
-- **Jeden webhook appky pre všetky boardy.**
-  - Číslo inštalácie je na riadku `projects` (`github_installation_id`). `projects` nemá RLS (ADR-0004), takže hľadanie boardov nepotrebuje `withSystem`.
-  - Každý board udalosť spracuje vo svojom `withProject`, iba pre svoj repozitár.
-  - Odinštalovanie alebo pozastavenie appky na GitHube boardy odpojí.
-- **Token zostáva ako záloha.** Bez nastavenej appky (self-host, ktorý si appku nevytvoril) funguje pôvodné pripojenie tokenom a webhookom pre každý projekt. Self-host má všetky funkcie: `scripts/create-github-app.mjs` vytvorí vlastnú appku cez manifest na GitHube jedným potvrdením.
+**Decision.**
+- An Ozvi instance has **one GitHub App** (`OZVI_GITHUB_APP_*`). The admin clicks Connect GitHub, installs the app on GitHub on the repositories they choose, and picks one from the list in Ozvi. No token or webhook is needed. Ozvi issues the installation tokens itself (`lib/github-app.ts`) and keeps them only in memory.
+- **Verifying the installation.** The callback from GitHub arrives at the main address, not at the board's address. Therefore:
+  - the board signs `state` (project, admin, 30 minutes);
+  - the callback uses OAuth during installation to verify that whoever installed it can really see the installation;
+  - only then does it hand the board a 5-minute ticket, and the board stores it under the admin's session.
+  - Without this verification anyone could connect someone else's installation and create issues in someone else's repositories.
+- **One app webhook for all boards.**
+  - The installation number is on the `projects` row (`github_installation_id`). `projects` has no RLS (ADR-0004), so finding the boards does not need `withSystem`.
+  - Each board processes the event in its own `withProject`, only for its own repository.
+  - Uninstalling or suspending the app on GitHub disconnects the boards.
+- **The token stays as a fallback.** Without a configured app (a self-host that has not created its own app), the original connection with a token and webhook per project works. Self-host has all features: `scripts/create-github-app.mjs` creates your own app through a manifest on GitHub with a single confirmation.
 
-**Dôsledky.**
-- Cloud aj staging potrebujú každý vlastnú appku (webhook a callback smerujú na ich adresu).
-- Oprávnenia appky: Issues zápis; Pull requests, Contents a Metadata čítanie. Udalosti: issues, pull_request, release.
-- Linear a Jira zostávajú pri tokenoch.
+**Consequences.**
+- Cloud and staging each need their own app (the webhook and callback point to their address).
+- App permissions: Issues write; Pull requests, Contents and Metadata read. Events: issues, pull_request, release.
+- Linear and Jira stay with tokens.

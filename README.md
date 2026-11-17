@@ -29,7 +29,7 @@ app.get("/api/ozvi-token", requireLogin, (req, res) =>
   res.json({ token: signOzviToken({ id: req.user.id, email: req.user.email, name: req.user.name }, process.env.OZVI_SSO_SECRET) }));
 ```
 
-Screenshots cover form values, e-mails, phone numbers, IBANs, card numbers and tokens on their own; mark anything else sensitive (names, notes) with `data-ozvi-mask`, or set `OzviConfig.mask = "all"` to cover all text. More: [docs/INTEGRACIA.md](docs/INTEGRACIA.md).
+Screenshots cover form values, e-mails, phone numbers, IBANs, card numbers and tokens on their own; mark anything else sensitive (names, notes) with `data-ozvi-mask`, or set `OzviConfig.mask = "all"` to cover all text. More: [docs/INTEGRATION.md](docs/INTEGRATION.md).
 
 ## Self-host
 
@@ -40,7 +40,7 @@ docker compose exec ozvi node ozvi.mjs project:create myapp "My app" --origin ht
 
 Images are public on `ghcr.io/xzamiska/ozvi` (amd64 and arm64; tags such as `1.2.8`, `1.2`, `1`, `latest`). An optional updater container backs up the database, installs a new version on request or at night and rolls back when it is not healthy. Release notes: [ozvi.io/releases](https://ozvi.io/releases).
 
-See [docs/SELFHOST.md](docs/SELFHOST.md). Moving from Fider: [docs/MIGRACIA-Z-FIDERU.md](docs/MIGRACIA-Z-FIDERU.md). Cloud mode: [docs/CLOUD.md](docs/CLOUD.md). Decisions: [docs/adr](docs/adr/README.md).
+See [docs/SELFHOST.md](docs/SELFHOST.md). Moving from Fider: [docs/MIGRATING-FROM-FIDER.md](docs/MIGRATING-FROM-FIDER.md). Cloud mode: [docs/CLOUD.md](docs/CLOUD.md). Decisions: [docs/adr](docs/adr/README.md).
 
 Optional: `OZVI_AI_PROVIDER` (`anthropic` or `openai` for any OpenAI-compatible API) + `OZVI_AI_API_KEY` + `OZVI_AI_MODEL` turn on AI writing help (see [docs/SELFHOST.md](docs/SELFHOST.md)); `OZVI_EMBEDDINGS_URL` + `OZVI_EMBEDDINGS_MODEL` turn on embedding-based duplicates.
 

@@ -1,32 +1,32 @@
-# Vydanie novej verzie
+# Releasing a new version
 
-Verzie sú semver: `1.4.2` = oprava, `1.5.0` = nové funkcie, `2.0.0` = zmena, ktorá vyžaduje zásah správcu. Vydanie spustí tag `vX.Y.Z` a o zvyšok sa postará [`.github/workflows/release.yml`](../.github/workflows/release.yml).
+Versions are semver: `1.4.2` = a fix, `1.5.0` = new features, `2.0.0` = a change that requires action from the admin. A release is triggered by the tag `vX.Y.Z` and [`.github/workflows/release.yml`](../.github/workflows/release.yml) takes care of the rest.
 
-## Postup
+## Steps
 
-1. `main` je zelený (workflow CI) a cloud aj staging bežia bez problémov.
-2. Zmenil sa od posledného vydania `packages/widget` alebo `packages/sdk` (`git log vPREDOŠLÁ..HEAD -- packages/widget packages/sdk`)? Zvýšte ich `version` v `package.json` (semver: oprava / nová funkcia / zásadná zmena). Workflow `npm packages` zverejní na npm len verziu, ktorá tam ešte nie je; bez zvýšenia ostanú používatelia z npm na starej verzii (widget zo skriptu na ozvi.io sa aktualizuje sám). Workflow verziu len **pripraví** (`npm stage publish`); zverejní sa až po schválení s 2FA na npmjs.com alebo `npm stage list` → `npm stage approve <id>`.
-3. Napíšte poznámky do `apps/web/releases/X.Y.Z.md`, formát je v [releases/README](../apps/web/releases/README.md). Pri zásadnej zmene nastavte `breaking: true`.
-4. Commitnite poznámky do `main` a otagujte:
+1. `main` is green (CI workflow) and both cloud and staging are running without problems.
+2. Have `packages/widget` or `packages/sdk` changed since the last release (`git log vPREVIOUS..HEAD -- packages/widget packages/sdk`)? Bump their `version` in `package.json` (semver: fix / new feature / breaking change). The `npm packages` workflow publishes to npm only a version that is not there yet; without a bump, npm users stay on the old version (the widget from the script on ozvi.io updates itself). The workflow only **stages** the version (`npm stage publish`); it is published only after approval with 2FA on npmjs.com or `npm stage list` → `npm stage approve <id>`.
+3. Write the notes in `apps/web/releases/X.Y.Z.md`; the format is in [releases/README](../apps/web/releases/README.md). For a breaking change set `breaking: true`.
+4. Commit the notes to `main` and tag:
    ```sh
    git tag -a v1.5.0 -m "Ozvi 1.5.0" && git push origin v1.5.0
    ```
-5. Workflow:
-   - zostaví `ghcr.io/xzamiska/ozvi` a `ghcr.io/xzamiska/ozvi-updater` pre `amd64` a `arm64`,
-   - nahrá značky `1.5.0`, `1.5`, `1` a `latest`,
-   - vytvorí GitHub Release s poznámkami.
+5. The workflow:
+   - builds `ghcr.io/xzamiska/ozvi` and `ghcr.io/xzamiska/ozvi-updater` for `amd64` and `arm64`,
+   - pushes the tags `1.5.0`, `1.5`, `1` and `latest`,
+   - creates a GitHub Release with the notes.
 
-   Bez súboru s poznámkami workflow skončí chybou a nič sa nenahrá.
-6. Nasaďte cloud (ozvi.io) na novú verziu. Až potom sa vydanie objaví na `ozvi.io/releases` a v `releases.json`. Odtiaľ si ho nájdu vlastné servery a updatery: v noci ho nainštalujú tie v automatickom režime, ostatným sa ukáže v admine (e-mail nechodí).
+   Without the notes file the workflow fails and nothing is pushed.
+6. Deploy the cloud (ozvi.io) to the new version. Only then does the release appear on `ozvi.io/releases` and in `releases.json`. From there, self-hosted servers and updaters find it: those in automatic mode install it overnight, the others see it in the admin (no e-mail is sent).
 
-Pred-vydanie `v1.5.0-rc.1` dostane len vlastnú značku. Nepohnú sa ním `1`, `1.5` ani `latest`, takže ho žiadny updater nenainštaluje sám a nepotrebuje poznámky.
+A pre-release `v1.5.0-rc.1` gets only its own tag. It does not move `1`, `1.5` or `latest`, so no updater installs it on its own, and it needs no notes.
 
-## Obrazy
+## Images
 
-- Balíky `ozvi` a `ozvi-updater` na ghcr.io sú verejné, rovnako ako repozitár. Sťahujú sa bez prihlásenia.
-- Viditeľnosť je v GitHub → Packages → balík → Package settings. Nový balík vzniká po prvom vydaní ako súkromný, preto ho treba raz prepnúť na verejný.
-- Workflow sa do registra prihlasuje vlastným `GITHUB_TOKEN`. Žiadne ďalšie tajomstvá nepotrebuje.
+- The `ozvi` and `ozvi-updater` packages on ghcr.io are public, like the repository. They are pulled without signing in.
+- Visibility is in GitHub → Packages → package → Package settings. A new package is created as private after the first release, so it has to be switched to public once.
+- The workflow signs in to the registry with its own `GITHUB_TOKEN`. It needs no other secrets.
 
-## Prvé vydanie
+## First release
 
-`v1.0.0` vyšlo 2026-11-09.
+`v1.0.0` was released on 2026-11-09.

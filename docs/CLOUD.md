@@ -1,40 +1,40 @@
-# Cloud režim (ozvi.io)
+# Cloud mode (ozvi.io)
 
-Rovnaký image ako self-host, len `OZVI_MODE=cloud`. Čo sa tým zapne:
+The same image as self-host, just with `OZVI_MODE=cloud`. What this turns on:
 
-- **Úvodná stránka** na `/` a **registrácia** v `/app` (kód alebo odkaz do e-mailu, bez hesla). Každý nový účet dostane priestor (workspace) na pláne Free.
-- **Konzola** `/app/w/<id>`: Prehľad, Ľudia, Plán a využitie (len cloud), Doručovanie (log tabuliek `emails` a `webhook_deliveries` naprieč projektmi), Aktivita (tabuľka `activity`: pozvánky, roly, plán, domény, tokeny, webhooky, OIDC, téma). Konzola je aj v self-hoste, okrem plánu.
-- **Plány** (`packages/db/src/plans.ts`): Free 1 projekt, Pro 3, Studio neobmedzene; e-maily, prílohy, vlastná doména, odznak „Ozvi“ a AI (embeddingy) podľa plánu. MCP, GitHub, webhooky, SSO/OIDC sú vo všetkých plánoch (ADR-0001).
-- **Webhooky a OIDC** nesmú smerovať do internej siete (kontrola aj pri DNS lookup-e).
+- **Landing page** at `/` and **sign-up** at `/app` (a code or a link sent by e-mail, no password). Every new account gets a workspace on the Free plan.
+- **Console** `/app/w/<id>`: Overview, Team, Plan & usage (cloud only), Delivery (a log of the `emails` and `webhook_deliveries` tables across projects), Activity (the `activity` table: invitations, roles, plan, domains, tokens, webhooks, OIDC, theme). The console is in self-host too, except for the plan.
+- **Plans** (`packages/db/src/plans.ts`): Free 1 project, Pro 3, Studio unlimited; e-mails, attachments, custom domain, the "Ozvi" badge and AI (embeddings) depend on the plan. MCP, GitHub, webhooks and SSO/OIDC are in all plans (ADR-0001).
+- **Webhooks and OIDC** must not point into the internal network (also checked at DNS lookup).
 
-Lokálne vyskúšanie celého cloudu: [CLOUD-LOKALNE.md](CLOUD-LOKALNE.md).
+Trying out the whole cloud locally: [CLOUD-LOCAL.md](CLOUD-LOCAL.md).
 
-## Premenné
+## Variables
 
-| Premenná | Význam |
+| Variable | Meaning |
 |---|---|
-| `OZVI_MODE=cloud` | cloud správanie |
-| `PUBLIC_URL=https://ozvi.io` | primárna adresa (board `ozvi.io/<slug>`, `/app`) |
-| `OZVI_CLOUD_DOMAIN=ozvi.io` | projekty odpovedajú aj na `<slug>.ozvi.io` |
-| `OZVI_CNAME_TARGET=domains.ozvi.io` | kam zákazníci smerujú CNAME vlastnej domény |
-| `CREEM_API_KEY`, `CREEM_WEBHOOK_SECRET`, `CREEM_TEST=1` | platby; webhook URL `https://ozvi.io/api/creem` |
-| `CREEM_PRODUCT_PRO_YEAR`, `…_PRO_QUARTER`, `…_STUDIO_YEAR`, `…_STUDIO_QUARTER` | id produktov v Creem |
-| `SMTP_URL`, `OZVI_MAIL_FROM` | náš Resend (kódy na prihlásenie aj notifikácie); e-maily v cloude posielame my, preto ich obmedzujú plány. Alternatíva: `ECOMAIL_API_KEY` |
+| `OZVI_MODE=cloud` | cloud behaviour |
+| `PUBLIC_URL=https://ozvi.io` | primary address (board `ozvi.io/<slug>`, `/app`) |
+| `OZVI_CLOUD_DOMAIN=ozvi.io` | projects also answer on `<slug>.ozvi.io` |
+| `OZVI_CNAME_TARGET=domains.ozvi.io` | where customers point the CNAME of their custom domain |
+| `CREEM_API_KEY`, `CREEM_WEBHOOK_SECRET`, `CREEM_TEST=1` | payments; webhook URL `https://ozvi.io/api/creem` |
+| `CREEM_PRODUCT_PRO_YEAR`, `…_PRO_QUARTER`, `…_STUDIO_YEAR`, `…_STUDIO_QUARTER` | product ids in Creem |
+| `SMTP_URL`, `OZVI_MAIL_FROM` | our Resend (sign-in codes and notifications); in the cloud we send the e-mails, which is why the plans limit them. Alternative: `ECOMAIL_API_KEY` |
 
-## Nasadenie
+## Deployment
 
-Edge Caddy, staging a live na jednej VM, certifikáty na požiadanie pre `<projekt>.ozvi.io` a vlastné domény, staging za basic auth: [deploy/cloud](../deploy/cloud/README.md). `/api/domains/ask` odpovie 200 len pre overené vlastné domény projektov s plánom, ktorý ich obsahuje, a pre existujúce `<slug>.<OZVI_CLOUD_DOMAIN>`.
+Edge Caddy, staging and live on one VM, on-demand certificates for `<project>.ozvi.io` and custom domains, staging behind basic auth: [deploy/cloud](../deploy/cloud/README.md). `/api/domains/ask` answers 200 only for verified custom domains of projects whose plan includes them, and for existing `<slug>.<OZVI_CLOUD_DOMAIN>`.
 
-## Platby (Creem)
+## Payments (Creem)
 
-1. V Creem vytvorte 4 produkty (Pro/Studio × rok/štvrťrok, ceny z `PRICES`), predplatné, bez mesačných.
-2. Webhook `https://ozvi.io/api/creem`, udalosti `checkout.completed` a `subscription.*`.
-3. Plán sa mení **len** z overeného webhooku. Zmena plánu pri aktívnom predplatnom ide cez portál zákazníka (žiadne druhé predplatné).
-4. Po vypršaní predplatného: priestor prejde na Free, vlastné domény sa zrušia (treba znova overiť po upgrade), projekty ani dáta sa nemažú — len nové nad limit nejdú založiť.
+1. In Creem, create 4 products (Pro/Studio × year/quarter, prices from `PRICES`), subscriptions, no monthly ones.
+2. Webhook `https://ozvi.io/api/creem`, events `checkout.completed` and `subscription.*`.
+3. The plan changes **only** from a verified webhook. A plan change during an active subscription goes through the customer portal (no second subscription).
+4. When a subscription expires: the workspace drops to Free, custom domains are removed (they have to be verified again after an upgrade), projects and data are not deleted — only new ones over the limit cannot be created.
 
-## Migrácia existujúceho self-host projektu do cloudu (napr. Billiwo)
+## Migrating an existing self-host project to the cloud (e.g. Billiwo)
 
-1. V cloude založiť účet a projekt s rovnakým slugom (`billiwo`).
-2. Import z Fideru rovnako ako pri self-hoste (`import:fider --project billiwo`) — spustiť proti cloudovej DB z operátorského kontajnera.
-3. Nastavenia → Vlastná doména `feedback.billiwo.com` → CNAME na `OZVI_CNAME_TARGET` → Overiť.
-4. V appke vymeniť `OZVI_URL` a `OZVI_SSO_SECRET` (nový secret z Nastavení).
+1. In the cloud, create an account and a project with the same slug (`billiwo`).
+2. Import from Fider the same way as for self-host (`import:fider --project billiwo`) — run it against the cloud DB from the operator container.
+3. Settings → Custom domain `feedback.billiwo.com` → CNAME to `OZVI_CNAME_TARGET` → Verify domain.
+4. In the app, replace `OZVI_URL` and `OZVI_SSO_SECRET` (a new secret from Settings).

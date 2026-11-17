@@ -1,23 +1,23 @@
-# 0009 — Vydania na ghcr.io a voliteľný updater
+# 0009 — Releases on ghcr.io and an optional updater
 
-**Stav:** prijaté 2026-11-09
+**Status:** accepted 2026-11-09
 
-**Kontext.** Vlastné servery (Billiwo, Apinido, neskôr zákazníci) potrebovali spôsob, ako dostať novú verziu bez toho, aby sme im obraz posielali ručne (`docker save | ssh`). Vlastník sa pýtal, či má aktualizovať prevádzkovateľ ručne, alebo to má robiť Ozvi automaticky či na pokyn.
+**Context.** Self-hosted servers (Billiwo, Apinido, later customers) needed a way to get a new version without us sending them the image by hand (`docker save | ssh`). The owner asked whether the operator should update by hand, or whether Ozvi should do it automatically or on request.
 
-**Rozhodnutie.**
-- **Vydanie** spustí tag `vX.Y.Z` s povinnými poznámkami v `apps/web/releases/X.Y.Z.md`. GitHub Actions zostavia obrazy pre `amd64` a `arm64` a nahrajú ich do `ghcr.io` so značkami `X.Y.Z`, `X.Y`, `X` a `latest`. Postup je v [RELEASING](../RELEASING.md).
-- **Register je verejný**, rovnako ako repozitár (rozhodnutie vlastníka 2026-11-09, pozri ADR 0008). Prevádzkovatelia preto nepotrebujú žiadne tokeny. Updater vie použiť aj súkromné zrkadlo (`OZVI_REGISTRY_*`).
-- **Zoznam vydaní** servíruje ozvi.io na `/releases` a `/releases.json`, z poznámok zabalených v obraze. Updatery sa tak nemusia pýtať GitHubu.
-- **Updater je voliteľný kontajner** (`apps/updater`, profil `updater`):
-  - Režimy: len upozorniť, na pokyn (predvolený), automaticky v nočnom okne.
-  - Riadi `docker compose` v priečinku prevádzkovateľa, takže compose ostáva jediným zdrojom pravdy.
-  - Pred každou aktualizáciou zálohuje databázu.
-  - Pri nezdravej novej verzii obnoví databázu a spustí predchádzajúci obraz.
-  - Automaticky nikdy nenainštaluje novú hlavnú verziu ani vydanie označené ako zásadné.
+**Decision.**
+- **A release** is triggered by the tag `vX.Y.Z` with mandatory notes in `apps/web/releases/X.Y.Z.md`. GitHub Actions build images for `amd64` and `arm64` and push them to `ghcr.io` with the tags `X.Y.Z`, `X.Y`, `X` and `latest`. The steps are in [RELEASING](../RELEASING.md).
+- **The registry is public**, like the repository (owner's decision 2026-11-09, see ADR 0008). Operators therefore need no tokens. The updater can also use a private mirror (`OZVI_REGISTRY_*`).
+- **The release list** is served by ozvi.io at `/releases` and `/releases.json`, from the notes packaged in the image. This way updaters do not have to ask GitHub.
+- **The updater is an optional container** (`apps/updater`, profile `updater`):
+  - Modes: notify only, on request (default), automatically in a night-time window.
+  - It drives `docker compose` in the operator's folder, so compose stays the single source of truth.
+  - Before every update it backs up the database.
+  - If the new version is unhealthy, it restores the database and starts the previous image.
+  - It never automatically installs a new major version or a release marked as breaking.
 
-**Prečo nie Watchtower.** Watchtower nevie zálohovať, nepozná zásadné zmeny a pri zlyhaní migrácie nevie vrátiť databázu.
+**Why not Watchtower.** Watchtower cannot make backups, does not know about breaking changes and cannot restore the database when a migration fails.
 
-**Dôsledky.**
-- Updater potrebuje Docker socket, teda kontrolu nad serverom. Preto je voliteľný, nemá verejný port a jeho API je chránené zdieľaným tokenom.
-- Migrácie idú len dopredu, takže návrat bez obnovenej zálohy nie je možný. Záloha je preto podmienkou každej aktualizácie.
-- Self-host má aj s updaterom všetky funkcie. Updater nie je platená funkcia.
+**Consequences.**
+- The updater needs the Docker socket, i.e. control over the server. That is why it is optional, has no public port and its API is protected by a shared token.
+- Migrations only go forward, so going back without restoring a backup is not possible. A backup is therefore a precondition of every update.
+- Self-host has all features with the updater too. The updater is not a paid feature.

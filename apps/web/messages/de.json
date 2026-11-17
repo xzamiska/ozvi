@@ -3474,7 +3474,7 @@
     },
     "fider": {
       "text": "Wir übernehmen Ideen, Fehler, Stimmen, Kommentare, Tags, Personen und Anhänge. Beitragsnummern bleiben gleich, sofern sie auf dem Board frei sind, damit alte Links weiter funktionieren.",
-      "hint": "Auf dem Server erledigt pnpm --filter @ozvi/web import:fider dasselbe (Anleitung in docs/MIGRACIA-Z-FIDERU.md).",
+      "hint": "Auf dem Server erledigt pnpm --filter @ozvi/web import:fider dasselbe (Anleitung in docs/MIGRATING-FROM-FIDER.md).",
       "source": "Importieren aus",
       "backupTitle": "Fider-Backup",
       "backupText": "die Datei backup.zip mit allem, einschließlich E-Mail-Adressen und Anhängen.",

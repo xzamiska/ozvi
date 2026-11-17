@@ -3474,7 +3474,7 @@
     },
     "fider": {
       "text": "We bring over ideas, bugs, votes, comments, tags, people and attachments. Post numbers stay the same where they are free on the board, so old links still work.",
-      "hint": "On the server, pnpm --filter @ozvi/web import:fider does the same (guide in docs/MIGRACIA-Z-FIDERU.md).",
+      "hint": "On the server, pnpm --filter @ozvi/web import:fider does the same (guide in docs/MIGRATING-FROM-FIDER.md).",
       "source": "Import from",
       "backupTitle": "Fider backup",
       "backupText": "the backup.zip file with everything, including e-mail addresses and attachments.",

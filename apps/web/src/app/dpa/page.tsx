@@ -23,7 +23,7 @@ const TOC = [
   { id: "cast-12", label: "Zodpovednosť" }, { id: "cast-13", label: "Záverečné ustanovenia" },
 ];
 
-/** The data processing agreement (GDPR art. 28) for the cloud; part of the terms, accepted with them. Source: docs/DPA.md. */
+/** The data processing agreement (GDPR art. 28) for the cloud; part of the terms, accepted with them. Source: docs/DPA.sk.md (binding Slovak text; docs/DPA.md is the English translation). */
 export default function Dpa() {
   if (!cloudOnly()) notFound();
   return (

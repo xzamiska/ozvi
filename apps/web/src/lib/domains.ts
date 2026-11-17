@@ -30,7 +30,7 @@ export function normalizeDomain(input: string): string | null {
 }
 
 /** DNS must point at us: a CNAME to the target, or the same A/AAAA addresses as the target. */
-/** Local cloud testing (docs/CLOUD-LOKALNE.md): DNS checks pass; the domain goes into /etc/hosts. Never on a real deployment (lib/dev-flags.ts). */
+/** Local cloud testing (docs/CLOUD-LOCAL.md): DNS checks pass; the domain goes into /etc/hosts. Never on a real deployment (lib/dev-flags.ts). */
 export const fakeDns = () => devSimulation(process.env.OZVI_DEV_DNS);
 
 export async function dnsPointsHere(domain: string): Promise<boolean> {

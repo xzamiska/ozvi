@@ -1,129 +1,131 @@
-# Zmluva o spracúvaní osobných údajov (DPA) — Ozvi cloud
+# Data Processing Agreement (DPA) — Ozvi cloud
 
-> **Zverejnené na [ozvi.io/dpa](https://ozvi.io/dpa)** (od verzie 1.0, 12. 11. 2026) ako súčasť obchodných podmienok; zdrojom pravdy je stránka `apps/web/src/app/dpa/page.tsx`. Tento súbor je pracovná kópia na osobitný podpis; pri zmene upravte obe. Platí len pre hostovanú službu (cloud); vlastná inštalácia (self-host) má vlastného prevádzkovateľa.
+> English translation for information only. The binding text is the Slovak agreement published at [ozvi.io/dpa](https://ozvi.io/dpa) (source in [DPA.sk.md](DPA.sk.md)); if they differ, the Slovak text applies.
 
-Verzia šablóny: {{LEGAL.version}} · účinná od {{LEGAL.effective}}
+> **Published at [ozvi.io/dpa](https://ozvi.io/dpa)** (since version 1.0, 12 November 2026) as part of the terms of service; the source of truth is the page `apps/web/src/app/dpa/page.tsx`. This file is a working copy for separate signature; when changing it, update both. It applies only to the hosted service (cloud); a self-hosted installation has its own controller.
 
-## Zmluvné strany
+Template version: {{LEGAL.version}} · effective from {{LEGAL.effective}}
 
-**Prevádzkovateľ** (zákazník, ďalej „Zákazník“):
-[obchodné meno], IČO [IČO], so sídlom [sídlo], zastúpený [meno, funkcia], kontakt pre ochranu údajov: [e-mail].
+## Parties
 
-**Sprostredkovateľ** (poskytovateľ služby Ozvi, ďalej „Ozvi“):
-Zamiska solutions s.r.o., so sídlom Bajkalská 45G, 821 05 Bratislava-Ružinov, IČO 54580242, DIČ 2121731106, IČ DPH SK2121731106, zapísaná v obchodnom registri Mestského súdu Bratislava III, oddiel Sro, vložka č. 160737/B, kontakt: support@ozvi.io.
+**Controller** (the customer, hereinafter the “Customer”):
+[business name], company ID (IČO) [IČO], with its registered office at [registered office], represented by [name, position], data protection contact: [e-mail].
 
-Táto zmluva dopĺňa [Obchodné podmienky](https://ozvi.io/terms) (ďalej „Podmienky“). Pri rozpore v otázkach ochrany osobných údajov má prednosť táto zmluva.
+**Processor** (the provider of the Ozvi service, hereinafter “Ozvi”):
+Zamiska solutions s.r.o., with its registered office at Bajkalská 45G, 821 05 Bratislava-Ružinov, company ID (IČO) 54580242, tax ID (DIČ) 2121731106, VAT ID (IČ DPH) SK2121731106, registered in the Commercial Register of the Bratislava III Municipal Court, Section Sro, Insert No. 160737/B, contact: support@ozvi.io.
 
-## 1. Predmet, trvanie, povaha a účel spracúvania
+This agreement supplements the [Terms of Service](https://ozvi.io/terms) (hereinafter the “Terms”). In the event of a conflict on matters of personal data protection, this agreement prevails.
 
-1.1 **Predmet:** prevádzka boardu spätnej väzby Zákazníka v službe Ozvi: hlásenia chýb, nápady, hlasovanie, komentáre, roadmapa, novinky, widget v aplikácii Zákazníka, e-mailové upozornenia a integrácie, ktoré Zákazník sám zapne.
+## 1. Subject matter, duration, nature and purpose of the processing
 
-1.2 **Trvanie:** po dobu používania služby Zákazníkom. Po zrušení projektu alebo účtu postupuje Ozvi podľa bodu 10.
+1.1 **Subject matter:** operation of the Customer's feedback board in the Ozvi service: bug reports, ideas, voting, comments, roadmap, updates, the widget in the Customer's application, e-mail notifications and the integrations that the Customer turns on itself.
 
-1.3 **Povaha:** ukladanie, usporiadanie, zobrazenie, prenos (e-maily, integrácie), vyhľadávanie, export a vymazanie; pri zapnutých AI funkciách aj automatizované spracovanie textu (súhrny, návrhy, preklady), ktorého výstup je vždy len návrh na schválenie človekom.
+1.2 **Duration:** for as long as the Customer uses the service. After a project or account is cancelled, Ozvi proceeds in accordance with clause 10.
 
-1.4 **Účel:** výlučne poskytovanie služby Zákazníkovi podľa Podmienok. Ozvi nepoužíva údaje na reklamu, nepredáva ich a nepoužíva ich na trénovanie modelov.
+1.3 **Nature:** storage, structuring, display, transmission (e-mails, integrations), search, export and erasure; with AI features turned on, also automated processing of text (summaries, drafts, translations), whose output is always only a draft for approval by a person.
 
-## 2. Kategórie dotknutých osôb a osobných údajov
+1.4 **Purpose:** solely the provision of the service to the Customer in accordance with the Terms. Ozvi does not use the data for advertising, does not sell it and does not use it to train models.
 
-2.1 **Dotknuté osoby:** používatelia aplikácie Zákazníka, ktorí na boarde alebo cez widget niečo pošlú, zahlasujú alebo sa prihlásia; členovia tímu Zákazníka; kontakty, ktoré Zákazník importuje alebo pridá cez agenta (MCP).
+## 2. Categories of data subjects and personal data
 
-2.2 **Kategórie údajov:**
+2.1 **Data subjects:** users of the Customer's application who submit something, vote or sign in on the board or through the widget; members of the Customer's team; contacts that the Customer imports or adds through an agent (MCP).
 
-| Kategória | Príklady |
+2.2 **Categories of data:**
+
+| Category | Examples |
 |---|---|
-| Identita z aplikácie Zákazníka | identifikátor používateľa, e-mail, meno, avatar, rola |
-| Údaje o zákazníkovi (len pre tím) | firma, plán, MRR, ak ich Zákazník posiela cez SSO |
-| Obsah spätnej väzby | nápady, hlásenia chýb, komentáre, hlasy, prílohy |
-| Technický kontext hlásení | adresa stránky, verzia aplikácie, prehliadač, chyby z konzoly, záznam sieťových požiadaviek a krokov, odkazy na záznam relácie, screenshot; maskované v prehliadači aj na serveri |
-| Prevádzkové údaje | e-mailová fronta a stav doručenia, záznam aktivity v nastaveniach, prihlasovacie kódy |
+| Identity from the Customer's application | user identifier, e-mail, name, avatar, role |
+| Data about the end customer (team only) | company, plan, MRR, if the Customer sends them via SSO |
+| Feedback content | ideas, bug reports, comments, votes, attachments |
+| Technical context of reports | page address, application version, browser, console errors, log of network requests and steps, links to session recordings, screenshot; masked both in the browser and on the server |
+| Operational data | e-mail queue and delivery status, activity log in the settings, sign-in codes |
 
-2.3 Služba nie je určená na osobitné kategórie údajov (čl. 9 GDPR) ani údaje o deťoch. Zákazník zabezpečí, aby ich do služby neposielal (napr. maskovaním polí atribútom `data-ozvi-mask`).
+2.3 The service is not intended for special categories of data (Art. 9 GDPR) or data about children. The Customer shall ensure that it does not send such data to the service (e.g. by masking fields with the `data-ozvi-mask` attribute).
 
-## 3. Pokyny Zákazníka
+## 3. The Customer's instructions
 
-3.1 Ozvi spracúva osobné údaje len na základe zdokumentovaných pokynov Zákazníka. Pokynmi sú táto zmluva, Podmienky a nastavenia, ktoré Zákazník urobí v službe (napr. uchovávanie dát, integrácie, AI funkcie, moderovanie).
+3.1 Ozvi processes personal data only on the basis of the Customer's documented instructions. The instructions are this agreement, the Terms and the settings the Customer makes in the service (e.g. data retention, integrations, AI features, moderation).
 
-3.2 Ak by pokyn podľa Ozvi porušoval GDPR alebo iný predpis, Ozvi na to Zákazníka bez zbytočného odkladu upozorní.
+3.2 If, in Ozvi's opinion, an instruction infringes the GDPR or another regulation, Ozvi shall inform the Customer without undue delay.
 
-3.3 Ak právo EÚ alebo členského štátu ukladá Ozvi spracúvanie nad rámec pokynov, Ozvi Zákazníka pred spracúvaním informuje, ak to právo nezakazuje.
+3.3 If Union or Member State law requires Ozvi to process data beyond the instructions, Ozvi shall inform the Customer before the processing, unless that law prohibits it.
 
-## 4. Mlčanlivosť
+## 4. Confidentiality
 
-Ozvi zabezpečí, aby sa osoby oprávnené spracúvať osobné údaje zaviazali k mlčanlivosti alebo aby sa na ne vzťahovala zákonná povinnosť mlčanlivosti. Prístup k produkčným dátam má len prevádzkovateľ služby, a to len v rozsahu nevyhnutnom na prevádzku a podporu.
+Ozvi shall ensure that persons authorised to process personal data have committed themselves to confidentiality or are under a statutory obligation of confidentiality. Only the operator of the service has access to production data, and only to the extent necessary for operation and support.
 
-## 5. Technické a organizačné opatrenia (čl. 32 GDPR)
+## 5. Technical and organisational measures (Art. 32 GDPR)
 
-Ozvi prijíma najmä tieto opatrenia:
+Ozvi takes in particular the following measures:
 
-- **Oddelenie dát projektov:** každý záznam nesie identifikátor projektu a databáza vynucuje oddelenie na úrovni riadkov (row-level security); aplikácia sa k databáze nepripája ako superpoužívateľ.
-- **Šifrovanie tajomstiev:** tajné kľúče (SSO, OIDC, integrácie) sú šifrované AES-256-GCM; prístupové tokeny sa ukladajú len ako odtlačky (SHA-256).
-- **Šifrovanie pri prenose:** všetka komunikácia so službou cez HTTPS (TLS); kópia záloh mimo dátového centra je šifrovaná.
-- **Minimalizácia pri zdroji:** widget maskuje citlivé hodnoty (heslá, tokeny, e-maily, IBAN, čísla kariet) ešte v prehliadači; server ich maskuje znova. Hlavičky požiadaviek sa nezaznamenávajú nikdy.
-- **Prístup:** hlásenia chýb a ich technický záznam vidí len autor a tím projektu; do integrácií (GitHub, Linear, Jira) a webhookov sa technický záznam neposiela.
-- **Uchovávanie:** Zákazník si v nastaveniach projektu volí automatické mazanie technického záznamu hlásení (predvolene po 180 dňoch), príloh uzavretých chýb a neaktívnych importovaných kontaktov; mazanie prebieha každú noc a zapisuje sa do záznamu aktivity.
-- **Odolnosť:** denné zálohy uchovávané najviac 30 dní, na samostatnom disku servera a šifrovane mimo dátového centra.
-- **Záznam aktivity:** zmeny nastavení, rolí, tokenov a integrácií sa zapisujú do záznamu aktivity priestoru.
-- **Ochrana proti zneužitiu:** obmedzenie počtu požiadaviek, moderovanie, blokovanie používateľov.
+- **Separation of project data:** every record carries a project identifier and the database enforces separation at row level (row-level security); the application does not connect to the database as a superuser.
+- **Encryption of secrets:** secret keys (SSO, OIDC, integrations) are encrypted with AES-256-GCM; access tokens are stored only as hashes (SHA-256).
+- **Encryption in transit:** all communication with the service over HTTPS (TLS); the copy of backups outside the data centre is encrypted.
+- **Minimisation at source:** the widget masks sensitive values (passwords, tokens, e-mails, IBANs, card numbers) already in the browser; the server masks them again. Request headers are never recorded.
+- **Access:** bug reports and their technical log are visible only to the reporter and the project team; the technical log is not sent to integrations (GitHub, Linear, Jira) or webhooks.
+- **Retention:** in the project settings the Customer chooses automatic deletion of the technical log of reports (by default after 180 days), of attachments of closed bugs and of inactive imported contacts; deletion runs every night and is recorded in the activity log.
+- **Resilience:** daily backups kept for no more than 30 days, on a separate disk of the server and encrypted outside the data centre.
+- **Activity log:** changes to settings, roles, tokens and integrations are recorded in the workspace activity log.
+- **Abuse protection:** rate limiting, moderation, blocking of users.
 
-Ozvi môže opatrenia meniť, ak tým neznižuje úroveň ochrany.
+Ozvi may change the measures provided that this does not lower the level of protection.
 
-## 6. Ďalší sprostredkovatelia (subdodávatelia)
+## 6. Sub-processors
 
-6.1 Zákazník udeľuje Ozvi všeobecné písomné povolenie zapojiť ďalších sprostredkovateľov. Aktuálny zoznam je zverejnený na [ozvi.io/subprocessors](https://ozvi.io/subprocessors) a je súčasťou tejto zmluvy.
+6.1 The Customer grants Ozvi a general written authorisation to engage sub-processors. The current list is published at [ozvi.io/subprocessors](https://ozvi.io/subprocessors) and forms part of this agreement.
 
-6.2 Ozvi Zákazníka upozorní e-mailom na zamýšľané pridanie alebo výmenu ďalšieho sprostredkovateľa aspoň **30 dní** vopred. Zákazník môže z oprávnených dôvodov ochrany údajov namietať; ak sa strany nedohodnú, Zákazník môže službu vypovedať s okamžitou účinnosťou a Ozvi mu vráti pomernú časť predplatného za nevyčerpané obdobie.
+6.2 Ozvi shall notify the Customer by e-mail of any intended addition or replacement of a sub-processor at least **30 days** in advance. The Customer may object on reasonable data protection grounds; if the parties do not reach agreement, the Customer may terminate the service with immediate effect and Ozvi shall refund the pro rata part of the subscription for the unused period.
 
-6.3 Ozvi uloží každému ďalšiemu sprostredkovateľovi zmluvou rovnaké povinnosti ochrany údajov, aké má podľa tejto zmluvy, a za jeho plnenie zodpovedá Zákazníkovi.
+6.3 Ozvi shall impose on each sub-processor, by contract, the same data protection obligations as Ozvi has under this agreement, and shall remain liable to the Customer for the sub-processor's performance.
 
-6.4 Integrácie, ktoré Zákazník pripojí vlastným účtom (GitHub, Linear, Jira, webhooky, chatové kanály), sú príjemcami na pokyn Zákazníka. Ich výber a zmluvný vzťah s nimi je vecou Zákazníka.
+6.4 Integrations that the Customer connects with its own account (GitHub, Linear, Jira, webhooks, chat channels) are recipients acting on the Customer's instruction. Choosing them and the contractual relationship with them are a matter for the Customer.
 
-## 7. Prenosy mimo EÚ/EHP
+## 7. Transfers outside the EU/EEA
 
-Údaje sa ukladajú na serveri v dátovom centre Hetzner v Nemecku (EÚ). Prenos do tretej krajiny nastáva len cez ďalších sprostredkovateľov uvedených v zozname podľa bodu 6.1, a to na základe rozhodnutia o primeranosti (vrátane rámca EÚ – USA pre ochranu údajov) alebo štandardných zmluvných doložiek. Mechanizmus pri každom z nich je uvedený v zozname subdodávateľov.
+Data is stored on a server in a Hetzner data centre in Germany (EU). A transfer to a third country takes place only through the sub-processors named in the list under clause 6.1, on the basis of an adequacy decision (including the EU–US Data Privacy Framework) or standard contractual clauses. The mechanism for each of them is stated in the list of sub-processors.
 
-## 8. Pomoc Zákazníkovi
+## 8. Assistance to the Customer
 
-8.1 **Práva dotknutých osôb:** služba umožňuje každému používateľovi stiahnuť svoje údaje a zmazať ich (Moje údaje na boarde) a Zákazníkovi exportovať a zmazať celý projekt. Ak Ozvi dostane žiadosť dotknutej osoby priamo, postúpi ju bez zbytočného odkladu Zákazníkovi a sama na ňu neodpovie, ak ju Zákazník nepoverí.
+8.1 **Data subjects' rights:** the service allows every user to download their data and delete it (My data on the board) and allows the Customer to export and delete an entire project. If Ozvi receives a request from a data subject directly, it shall forward it to the Customer without undue delay and shall not respond to it itself unless the Customer instructs it to.
 
-8.2 **Bezpečnosť, posúdenie vplyvu, predchádzajúca konzultácia:** Ozvi poskytne Zákazníkovi informácie, ktoré má k dispozícii, potrebné na plnenie povinností podľa čl. 32 až 36 GDPR.
+8.2 **Security, impact assessment, prior consultation:** Ozvi shall provide the Customer with the information available to it that is needed to fulfil the obligations under Art. 32 to 36 GDPR.
 
-## 9. Porušenie ochrany osobných údajov
+## 9. Personal data breach
 
-9.1 Ozvi oznámi Zákazníkovi porušenie ochrany osobných údajov, ktoré sa týka jeho údajov, bez zbytočného odkladu, najneskôr do **48 hodín** od jeho zistenia, na kontakt uvedený v zmluvných stranách.
+9.1 Ozvi shall notify the Customer of a personal data breach concerning the Customer's data without undue delay, no later than **48 hours** after becoming aware of it, at the contact given in the Parties section.
 
-9.2 Oznámenie obsahuje, nakoľko je to v tom čase známe: povahu porušenia, kategórie a približný počet dotknutých osôb a záznamov, pravdepodobné následky, prijaté a navrhované opatrenia a kontakt na osobu, ktorá poskytne ďalšie informácie. Chýbajúce informácie Ozvi doplní postupne.
+9.2 The notification contains, insofar as known at that time: the nature of the breach, the categories and approximate number of data subjects and records concerned, the likely consequences, the measures taken and proposed, and the contact of a person who will provide further information. Ozvi shall provide missing information in phases.
 
-## 10. Vrátenie a vymazanie údajov
+## 10. Return and deletion of data
 
-10.1 Zákazník si môže kedykoľvek stiahnuť export projektu (JSON a CSV) v nastaveniach projektu.
+10.1 The Customer may download a project export (JSON and CSV) at any time in the project settings.
 
-10.2 Po zmazaní projektu Zákazníkom Ozvi vymaže jeho dáta z databázy a úložiska príloh okamžite. Zo záloh zmiznú najneskôr do 30 dní.
+10.2 After the Customer deletes a project, Ozvi deletes its data from the database and the attachment storage immediately. It disappears from backups no later than within 30 days.
 
-10.3 Po zrušení účtu alebo ukončení služby Ozvi vymaže zostávajúce dáta Zákazníka do **30 dní**, ak právo EÚ alebo členského štátu nevyžaduje ich ďalšie uchovanie.
+10.3 After an account is cancelled or the service ends, Ozvi shall delete the Customer's remaining data within **30 days**, unless Union or Member State law requires its further storage.
 
-## 11. Preukázanie súladu a audit
+## 11. Demonstrating compliance and audit
 
-11.1 Ozvi poskytne Zákazníkovi na požiadanie informácie potrebné na preukázanie splnenia povinností podľa čl. 28 GDPR (najmä túto zmluvu, opis opatrení a zoznam subdodávateľov).
+11.1 On request, Ozvi shall provide the Customer with the information needed to demonstrate compliance with the obligations under Art. 28 GDPR (in particular this agreement, a description of the measures and the list of sub-processors).
 
-11.2 Zákazník alebo ním poverený audítor viazaný mlčanlivosťou môže vykonať audit vrátane kontroly, s oznámením aspoň **30 dní** vopred, najviac raz za 12 mesiacov, ak nejde o podozrenie z porušenia. Audit prebieha prednostne písomne (dotazník a podklady); audit na mieste ide na náklady Zákazníka a nesmie ohroziť dáta iných zákazníkov.
+11.2 The Customer, or an auditor mandated by the Customer and bound by confidentiality, may carry out an audit, including an inspection, with at least **30 days'** notice, no more than once in 12 months, unless there is a suspected breach. The audit is carried out primarily in writing (questionnaire and supporting documents); an on-site audit is at the Customer's expense and must not put other customers' data at risk.
 
-## 12. Zodpovednosť
+## 12. Liability
 
-Zodpovednosť voči dotknutým osobám sa riadi čl. 82 GDPR. Medzi stranami platí obmedzenie zodpovednosti podľa Podmienok, s výnimkou škody spôsobenej úmyselne alebo z hrubej nedbanlivosti.
+Liability towards data subjects is governed by Art. 82 GDPR. Between the parties, the limitation of liability under the Terms applies, except for damage caused intentionally or through gross negligence.
 
-## 13. Záverečné ustanovenia
+## 13. Final provisions
 
-13.1 Zmluva je účinná dňom podpisu oboma stranami (alebo elektronickým prijatím v službe) a trvá, kým Ozvi spracúva osobné údaje Zákazníka.
+13.1 The agreement takes effect on the day it is signed by both parties (or accepted electronically in the service) and remains in force for as long as Ozvi processes the Customer's personal data.
 
-13.2 Zmluva sa riadi právom Slovenskej republiky. Na zmeny je potrebná písomná forma; zmenu zoznamu subdodávateľov upravuje bod 6.
+13.2 The agreement is governed by the law of the Slovak Republic. Amendments require written form; changes to the list of sub-processors are governed by clause 6.
 
-13.3 Ak by niektoré ustanovenie bolo neplatné, ostatné zostávajú v platnosti.
+13.3 If any provision is invalid, the remaining provisions remain in force.
 
 ---
 
-| Za Zákazníka | Za Ozvi |
+| For the Customer | For Ozvi |
 |---|---|
-| Meno, funkcia: [ ] | Meno, funkcia: [ ] |
-| Dátum: [ ] | Dátum: [ ] |
-| Podpis: | Podpis: |
+| Name, position: [ ] | Name, position: [ ] |
+| Date: [ ] | Date: [ ] |
+| Signature: | Signature: |
