@@ -2576,7 +2576,8 @@
           "You get it with a screenshot and fix it",
           "The customer gets an e-mail"
         ]
-      }
+      },
+      "own": "We use Ozvi ourselves: our board and changelog"
     },
     "monitoring": {
       "title": "Monitoring catches what crashes. Ozvi catches what your customers tell you.",
@@ -2652,7 +2653,7 @@
       }
     ],
     "dev": {
-      "title": "Set it up in an afternoon.",
+      "title": "One line for the widget, one endpoint for sign-in.",
       "lede": "All you need is the widget script and one endpoint that signs the customer in. Everything else goes through the API: webhooks, GitHub and MCP for AI assistants.",
       "points": [
         "A bug on the board becomes a GitHub issue in one click, and its status syncs back.",
@@ -2733,7 +2734,8 @@
       "feedback": "Suggest an idea for Ozvi",
       "contact": "Contact us",
       "dpa": "Data processing agreement (DPA)",
-      "blog": "Blog"
+      "blog": "Blog",
+      "operator": "Ozvi is run by {company}, company ID {id}, Bratislava, Slovakia."
     },
     "product": {
       "title": "What your customers see, and what your team sees.",

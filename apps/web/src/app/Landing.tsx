@@ -127,8 +127,8 @@ function HeroLoop({ t, e }: { t: T; e: Awaited<ReturnType<typeof getTranslations
       <p className="mt-2 font-semibold">{t("story.stage.report")}</p>
       <ol className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-[12.5px]">
         {stops.map((s, k) => (
-          <li key={s} className="inline-flex items-center gap-1.5">
-            {k > 0 && <span aria-hidden className="h-[3px] w-3 rounded-full bg-st-done sm:w-4" />}
+          <li key={s} className={cn("inline-flex items-center gap-1.5", k < 2 && "max-sm:hidden")}>
+            {k > 0 && <span aria-hidden className={cn("h-[3px] w-3 rounded-full bg-st-done sm:w-4", k === 2 && "max-sm:hidden")} />}
             <StatusMark kind="bug" status={status[k]!} />
             <span className={k === 3 ? "font-semibold" : "text-muted-foreground"}>{s}{k === 3 && <span className="font-medium text-muted-foreground"> · 2.15</span>}</span>
           </li>
@@ -225,6 +225,11 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                   <a href="#how" className={cn(ghost, "hidden border-transparent bg-transparent px-3 sm:inline-flex")}>{t("hero.secondary")}</a>
                 </div>
                 <p className="mt-4 text-[13.5px] text-muted-foreground sm:mt-5">{t("hero.note", { pro: eur(PRICES.pro.year) })}</p>
+                {/* proof that it is real and alive: the public code, and our own board running on Ozvi */}
+                <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13.5px]">
+                  <StarLink label={t("star.cta")} stars={stars} tag={tag} className="h-9 text-[13.5px]" />
+                  {own && <a href={own.ideas} className="font-medium underline decoration-line-strong underline-offset-4 hover:decoration-foreground">{t("hero.own")}</a>}
+                </div>
               </div>
               <HeroLoop t={t} e={tMail} />
             </div>
@@ -286,6 +291,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 <h2 id="monitoring-h" className={cn(h2, "max-w-[18ch]")}>{t("monitoring.title")}</h2>
                 <p className={cn(lede, "mt-4 max-w-[42ch]")}>{t("monitoring.both")}</p>
                 {sentryHref && <a href={sentryHref} className="mt-5 inline-flex text-[14.5px] font-semibold underline decoration-line-strong underline-offset-4 hover:decoration-foreground">{t("monitoring.link")}</a>}
+                {compare && <p className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[14px] text-muted-foreground">{compare.title}:{compare.items.map((c) => <a key={c.href} href={c.href} className="font-medium text-foreground underline decoration-line-strong underline-offset-4 hover:decoration-foreground">{c.title}</a>)}</p>}
               </div>
               <dl className="grid gap-8 sm:grid-cols-2">
                 <div className="grid content-start gap-2 border-t pt-4">
@@ -561,7 +567,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             </nav>
           </div>
           <div className="oz-frame flex flex-wrap justify-between gap-3 border-t py-6 text-[13px] text-muted-foreground">
-            <span>© {new Date().getFullYear()} Ozvi</span>
+            <span>© {new Date().getFullYear()} Ozvi · {t("footer.operator", { company: LEGAL.operator, id: LEGAL.companyId })} <a href="https://zamiska.solutions" className="underline underline-offset-4 hover:text-foreground">zamiska.solutions</a></span>
             <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
               <a href={GITHUB_REPO} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 hover:text-foreground"><Star className="size-3.5" aria-hidden />{t("star.cta")}</a>
               <span>{t("footer.license")}</span>

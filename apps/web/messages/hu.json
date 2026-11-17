@@ -2576,7 +2576,8 @@
           "Megkapod képernyőképpel együtt, és kijavítod",
           "Az ügyfél e-mailt kap"
         ]
-      }
+      },
+      "own": "Mi is az Ozvit használjuk: a táblánk és az újdonságaink"
     },
     "monitoring": {
       "title": "A hibamonitorozás azt jelzi, ami összeomlik, az Ozvi pedig azt, amit az ügyfeleid mondanak.",
@@ -2652,7 +2653,7 @@
       }
     ],
     "dev": {
-      "title": "Egy délután alatt beüzemeled.",
+      "title": "Egy sor a widgetnek, egy végpont a bejelentkezésnek.",
       "lede": "Elég egy widgetszkript és egy végpont, amely bejelentkezteti a felhasználót. Minden más API-n keresztül megy: webhookok, GitHub és MCP az AI-asszisztenseknek.",
       "points": [
         "A táblán lévő hibából egy kattintással GitHub-issue lesz, és az állapota visszaszinkronizálódik.",
@@ -2733,7 +2734,8 @@
       "feedback": "Javasolj ötletet az Ozvinak",
       "contact": "Írj nekünk",
       "dpa": "Adatfeldolgozási szerződés (DPA)",
-      "blog": "Blog"
+      "blog": "Blog",
+      "operator": "Az Ozvit a {company} üzemelteti (cégazonosító: {id}, Pozsony, Szlovákia)."
     },
     "product": {
       "title": "Ezt látják az ügyfeleid, és ezt látja a csapatod.",

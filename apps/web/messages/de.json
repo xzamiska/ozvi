@@ -2576,7 +2576,8 @@
           "Sie bekommen ihn mit Screenshot und beheben ihn",
           "Der Kunde bekommt eine E-Mail"
         ]
-      }
+      },
+      "own": "Wir nutzen Ozvi selbst: unser Board und unsere Neuigkeiten"
     },
     "monitoring": {
       "title": "Monitoring erfasst, was abstürzt. Ozvi erfasst, was Ihnen Ihre Kunden sagen.",
@@ -2652,7 +2653,7 @@
       }
     ],
     "dev": {
-      "title": "Die Einbindung schaffen Sie an einem Nachmittag.",
+      "title": "Eine Zeile für das Widget, ein Endpunkt für die Anmeldung.",
       "lede": "Sie brauchen nur das Widget-Skript und einen Endpunkt, der die Anmeldung Ihrer Nutzer signiert. Alles andere läuft über die API: Webhooks, GitHub und MCP für KI-Assistenten.",
       "points": [
         "Aus einem Fehler auf dem Board wird mit einem Klick ein GitHub-Issue, und dessen Status wird zurück synchronisiert.",
@@ -2733,7 +2734,8 @@
       "feedback": "Idee für Ozvi vorschlagen",
       "contact": "Schreiben Sie uns",
       "dpa": "Auftragsverarbeitung (DPA)",
-      "blog": "Blog"
+      "blog": "Blog",
+      "operator": "Ozvi wird von der {company} betrieben, Firmen-ID {id}, Bratislava, Slowakei."
     },
     "product": {
       "title": "Was Ihre Kunden sehen und was Ihr Team sieht.",

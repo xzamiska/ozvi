@@ -2576,7 +2576,8 @@
           "Dostajesz go ze zrzutem ekranu i naprawiasz",
           "Klient dostaje e-mail"
         ]
-      }
+      },
+      "own": "Sami używamy Ozvi: nasza tablica i nowości"
     },
     "monitoring": {
       "title": "Monitoring wyłapuje to, co się wysypie. Ozvi zbiera to, co mówią ci klienci.",
@@ -2652,7 +2653,7 @@
       }
     ],
     "dev": {
-      "title": "Podłączysz to w jedno popołudnie.",
+      "title": "Jedna linijka dla widgetu, jeden endpoint do logowania.",
       "lede": "Wystarczy skrypt widżetu i jeden endpoint, który podpisuje dane użytkownika. Cała reszta idzie przez API: webhooki, GitHub i MCP dla asystentów AI.",
       "points": [
         "Błąd z tablicy jednym kliknięciem staje się issue na GitHubie, a zmiany statusu wracają do Ozvi.",
@@ -2733,7 +2734,8 @@
       "feedback": "Zaproponuj pomysł dla Ozvi",
       "contact": "Napisz do nas",
       "dpa": "Umowa powierzenia (DPA)",
-      "blog": "Blog"
+      "blog": "Blog",
+      "operator": "Ozvi prowadzi {company}, nr rej. {id}, Bratysława, Słowacja."
     },
     "product": {
       "title": "Co zobaczą twoi klienci, a co twój zespół.",

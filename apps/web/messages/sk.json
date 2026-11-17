@@ -2576,7 +2576,8 @@
           "Vy ju dostanete aj so screenshotom a opravíte ju",
           "Zákazník dostane e-mail"
         ]
-      }
+      },
+      "own": "Ozvi používame aj my: náš board a novinky"
     },
     "monitoring": {
       "title": "Monitoring zachytí, čo spadne. Ozvi zachytí, čo vám povedia ľudia.",
@@ -2652,7 +2653,7 @@
       }
     ],
     "dev": {
-      "title": "Pripojíte to za jedno popoludnie.",
+      "title": "Jeden riadok pre widget, jeden endpoint pre prihlásenie.",
       "lede": "Stačí skript s widgetom a jeden endpoint, ktorý podpíše používateľa. Všetko ostatné ide cez API: webhooky, GitHub a MCP pre AI asistentov.",
       "points": [
         "Chyba z boardu sa jedným klikom stane GitHub issue a stav sa vráti späť.",
@@ -2733,7 +2734,8 @@
       "feedback": "Navrhnite nápad na Ozvi",
       "contact": "Napíšte nám",
       "dpa": "Zmluva o spracúvaní (DPA)",
-      "blog": "Blog"
+      "blog": "Blog",
+      "operator": "Ozvi prevádzkuje {company}, IČO {id}, Bratislava."
     },
     "product": {
       "title": "Čo uvidia vaši používatelia. A čo váš tím.",
@@ -3037,7 +3039,7 @@
     },
     "ideasStep": {
       "title": "Nápady sa zoradia podľa hlasov.",
-      "text": "Zákazníci navrhujú a hlasujú a pri písaní uvidia podobné nápady. Na roadmape vidia, čo plánujete a na čom pracujete. Keď nápadu zmeníte stav, posunie sa na nej sám."
+      "text": "Zákazníci navrhujú a hlasujú. Pri písaní uvidia podobné nápady. Na roadmape vidia, čo plánujete a na čom pracujete. Keď nápadu zmeníte stav, posunie sa na nej sám."
     },
     "scene": {
       "widget": {
