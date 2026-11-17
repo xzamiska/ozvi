@@ -1750,7 +1750,7 @@
         "subject": "Aktualizácia Ozvi zlyhala, skontrolujte server",
         "text": "Pri aktualizácii na serveri {url} nastala chyba, ktorú updater nevedel vyriešiť sám.",
         "reason": "Chyba: {message}",
-        "restore": "Postup obnovy zo zálohy je v dokumentácii SELFHOST.md, časť Aktualizácie."
+        "restore": "Postup obnovy zo zálohy je v dokumentácii SELFHOST.sk.md, časť Aktualizácie."
       },
       "open": "Otvoriť nastavenia"
     },

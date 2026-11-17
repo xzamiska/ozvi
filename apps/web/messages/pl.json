@@ -1750,7 +1750,7 @@
         "subject": "Aktualizacja Ozvi nie powiodła się, sprawdź serwer",
         "text": "Podczas aktualizacji serwera {url} wystąpił błąd, którego updater nie rozwiązał sam.",
         "reason": "Błąd: {message}",
-        "restore": "Jak przywrócić kopię zapasową: SELFHOST.md, sekcja Aktualizácie (Aktualizacje)."
+        "restore": "Jak przywrócić kopię zapasową: SELFHOST.md, sekcja Updates."
       },
       "open": "Otwórz ustawienia"
     },

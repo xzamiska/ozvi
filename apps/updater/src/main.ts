@@ -6,7 +6,7 @@ import { run } from "./sh";
 import { loadState, saveState, type State } from "./state";
 
 /**
- * ozvi-updater: an optional sidecar for self-hosted Ozvi (docs/SELFHOST.md → Aktualizácie).
+ * ozvi-updater: an optional sidecar for self-hosted Ozvi (docs/SELFHOST.md → Updates).
  * Talks only to the Ozvi web container (status API, event callback) and to Docker for the "ozvi"
  * service of its own compose project. Modes: notify (shown in the admin only) · manual (button in the admin) ·
  * auto (nightly window; minor and patch only, never a new major or a release marked breaking).

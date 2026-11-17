@@ -1750,7 +1750,7 @@
         "subject": "Ozvi-Aktualisierung fehlgeschlagen, prüfen Sie den Server",
         "text": "Bei der Aktualisierung von {url} ist ein Fehler aufgetreten, den der Updater nicht selbst beheben konnte.",
         "reason": "Fehler: {message}",
-        "restore": "Wiederherstellung aus der Sicherung: SELFHOST.md, Abschnitt Aktualizácie (Aktualisierungen)."
+        "restore": "Wiederherstellung aus der Sicherung: SELFHOST.md, Abschnitt Updates."
       },
       "open": "Einstellungen öffnen"
     },

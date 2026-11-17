@@ -1750,7 +1750,7 @@
         "subject": "Az Ozvi frissítése sikertelen, ellenőrizze a szervert",
         "text": "A(z) {url} frissítése közben olyan hiba történt, amelyet az updater nem tudott magától megoldani.",
         "reason": "Hiba: {message}",
-        "restore": "A mentésből való visszaállítás leírása: SELFHOST.md, Aktualizácie (Frissítések) szakasz."
+        "restore": "A mentésből való visszaállítás leírása: SELFHOST.md, Updates szakasz."
       },
       "open": "Beállítások megnyitása"
     },

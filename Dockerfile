@@ -23,7 +23,7 @@ RUN pnpm --filter @ozvi/widget exec esbuild ../db/src/migrate.ts --bundle --plat
 
 FROM node:22.23.4-alpine AS runtime
 WORKDIR /app
-# Release version shown in the admin and compared with the public release list (docs/SELFHOST.md → Aktualizácie).
+# Release version shown in the admin and compared with the public release list (docs/SELFHOST.md → Updates).
 ARG OZVI_VERSION=dev
 # Builds of main for ozvi.io: the newest version whose release images exist (lib/releases.ts). Empty for releases.
 ARG OZVI_RELEASED=

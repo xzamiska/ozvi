@@ -1,145 +1,149 @@
-# Self-host
+# Self-hosting Ozvi
 
-Dva kontajnery: Postgres 17 a Ozvi (plus voliteľný updater, pozri [Aktualizácie](#aktualizácie)). Pred port 3000 dajte TLS proxy (Caddy, Traefik). Port je predvolene otvorený len na tom istom stroji (`OZVI_BIND=127.0.0.1`); ak proxy beží inde, nastavte `OZVI_BIND` na adresu, ktorú proxy vidí. Bez proxy (`OZVI_BIND=0.0.0.0`) nastavte aj `OZVI_TRUSTED_PROXIES=0`, inak si klient vie podvrhnúť IP adresu a obísť limity.
+> Slovak version: [SELFHOST.sk.md](SELFHOST.sk.md). This English guide is the main one.
+
+Two containers: Postgres 17 and Ozvi (plus an optional updater, see [Updates](#updates)). Put a TLS proxy (Caddy, Traefik) in front of port 3000. By default the port only listens on the same machine (`OZVI_BIND=127.0.0.1`); if the proxy runs elsewhere, set `OZVI_BIND` to an address the proxy can reach. Without a proxy (`OZVI_BIND=0.0.0.0`) also set `OZVI_TRUSTED_PROXIES=0`, otherwise clients can fake their IP address and get around rate limits.
 
 ```sh
 cd deploy
-cp .env.example .env          # doplňte heslá a PUBLIC_URL
-docker compose up -d          # migrácie prebehnú pri štarte
-docker compose exec ozvi node ozvi.mjs project:create mojaappka "Moja appka" --origin https://app.example.com
+cp .env.example .env          # fill in the passwords and PUBLIC_URL
+docker compose up -d          # migrations run on start
+docker compose exec ozvi node ozvi.mjs project:create myapp "My app" --origin https://app.example.com
 ```
 
-- **Postgres rola appky nie je superuser** (`deploy/initdb/01-ozvi.sh`). Superuser by obišiel row-level security; `/api/health` v takom prípade vráti 500 s `"rls":"bypassed"`.
-- **E-maily — vlastný SMTP je na prevádzkovateľovi.** Ozvi neposiela cez nás; nastavte `SMTP_URL` na svoj server alebo službu so SMTP:
+- **The app's Postgres role is not a superuser** (`deploy/initdb/01-ozvi.sh`). A superuser would bypass row-level security; in that case `/api/health` returns 500 with `"rls":"bypassed"`.
+- **E-mail: you bring the SMTP.** Ozvi does not send through us; set `SMTP_URL` to your own server or any service with SMTP:
 
-  | Služba | `SMTP_URL` |
+  | Service | `SMTP_URL` |
   |---|---|
   | Resend | `smtp://resend:<API_KEY>@smtp.resend.com:587` |
   | Postmark | `smtp://<TOKEN>:<TOKEN>@smtp.postmarkapp.com:587` |
   | Amazon SES | `smtp://<USER>:<PASS>@email-smtp.eu-central-1.amazonaws.com:587` |
   | Brevo | `smtp://<LOGIN>:<KEY>@smtp-relay.brevo.com:587` |
-  | vlastný server | `smtp://user:pass@mail.firma.sk:587` (alebo `smtps://…:465`) |
+  | Your own server | `smtp://user:pass@mail.example.com:587` (or `smtps://…:465`) |
 
-  **Ecomail** (len API, bez SMTP): namiesto `SMTP_URL` nastavte `ECOMAIL_API_KEY` (platený účet, overená doména odosielateľa). Sledovanie klikov a otvorení je vypnuté; API neumožňuje vlastné hlavičky, takže chýba `List-Unsubscribe` — odhlasovací odkaz ostáva v pätičke každého e-mailu.
+  **Ecomail** (API only, no SMTP): set `ECOMAIL_API_KEY` instead of `SMTP_URL` (paid account, verified sender domain). Click and open tracking are off; the API does not allow custom headers, so `List-Unsubscribe` is missing and the unsubscribe link stays in the footer of every e-mail.
 
-  `OZVI_MAIL_FROM` musí byť adresa z domény overenej u služby (SPF + DKIM), inak e-maily skončia v spame. Odosielateľ sa zobrazí ako názov projektu („Billiwo“ &lt;feedback@billiwo.com&gt;). Bez `SMTP_URL` appka funguje, len notifikácie sa zalogujú ako `skipped` a Nastavenia to ukážu. V self-hoste nie je limit e-mailov.
-- **Prílohy:** volume `uploads` (`/data/uploads`), alebo S3-kompatibilné úložisko cez `S3_*`.
-- **Kľúče:** `OZVI_SECRET_KEY` šifruje SSO secrety v DB — ak ho stratíte, vygenerujte projektom nové secrety v Nastaveniach. `OZVI_SESSION_SECRET` podpisuje cookies a odhlasovacie odkazy v e-mailoch.
-- **Proxy:** `OZVI_TRUSTED_PROXIES` = počet proxy pred Ozvi (default 1). Rate limit berie IP z `X-Forwarded-For` len od nich, nie čo pošle klient. **Ozvi bez proxy (port otvorený do internetu) musí mať `OZVI_TRUSTED_PROXIES=0`**, inak si klient podvrhne IP adresu a obíde limity prihlásenia, widgetu aj API. Keď Ozvi očakáva proxy, ale verejná požiadavka príde bez `X-Forwarded-For`, raz to zapíše do logu (`[ozvi] A request arrived without X-Forwarded-For…`).
-- **Zálohy:** `pg_dump` databázy + volume `uploads`.
-- **AI pomocník (voliteľné):** zhrnutie diskusie, návrhy noviniek, týždenný prehľad, preklad príspevkov. Výstup je vždy návrh, ktorý schváli človek ([AI.md](AI.md)). Ľubovoľný poskytovateľ:
+  `OZVI_MAIL_FROM` must be an address on a domain verified with the service (SPF + DKIM), or the e-mails end up in spam. The sender is shown as the project name ("Billiwo" &lt;feedback@billiwo.com&gt;). Without `SMTP_URL` the app still works; notifications are logged as `skipped` and the settings say so. Self-hosted servers have no e-mail limit.
+- **Attachments:** the `uploads` volume (`/data/uploads`), or S3-compatible storage through `S3_*`.
+- **Keys:** `OZVI_SECRET_KEY` encrypts SSO secrets in the database. If you lose it, generate new secrets for your projects in their settings. `OZVI_SESSION_SECRET` signs cookies and the unsubscribe links in e-mails.
+- **Proxy:** `OZVI_TRUSTED_PROXIES` = the number of proxies in front of Ozvi (default 1). Rate limits take the IP from `X-Forwarded-For` only from them, not from whatever the client sends. **Ozvi without a proxy (port open to the internet) must have `OZVI_TRUSTED_PROXIES=0`**, otherwise a client can fake its IP and get around the limits on sign-in, the widget and the API. When Ozvi expects a proxy but a public request arrives without `X-Forwarded-For`, it logs it once (`[ozvi] A request arrived without X-Forwarded-For…`).
+- **Backups:** `pg_dump` of the database plus the `uploads` volume.
+- **AI helper (optional):** discussion summaries, changelog drafts, the weekly digest, post translation. The output is always a draft that a person approves ([AI.md](AI.md)). Any provider:
 
-  | Poskytovateľ | Nastavenie |
+  | Provider | Settings |
   |---|---|
   | OpenAI | `OZVI_AI_PROVIDER=openai` `OZVI_AI_API_KEY=sk-…` `OZVI_AI_MODEL=gpt-4o-mini` |
-  | Mistral (EÚ) | `OZVI_AI_PROVIDER=openai` `OZVI_AI_BASE_URL=https://api.mistral.ai/v1` `OZVI_AI_API_KEY=…` `OZVI_AI_MODEL=mistral-small-latest` |
-  | Ollama (lokálne, bez kľúča) | `OZVI_AI_PROVIDER=openai` `OZVI_AI_BASE_URL=http://ollama:11434/v1` `OZVI_AI_MODEL=qwen2.5:14b` |
-  | Azure OpenAI, OpenRouter, Groq, vLLM, LM Studio | `OZVI_AI_PROVIDER=openai` + ich `/v1` adresa, kľúč a model |
-  | Anthropic (Claude) | `OZVI_AI_PROVIDER=anthropic` `OZVI_AI_API_KEY=sk-ant-…` (model predvolene `claude-opus-5-5`, inak `OZVI_AI_MODEL`) |
+  | Mistral (EU) | `OZVI_AI_PROVIDER=openai` `OZVI_AI_BASE_URL=https://api.mistral.ai/v1` `OZVI_AI_API_KEY=…` `OZVI_AI_MODEL=mistral-small-latest` |
+  | Ollama (local, no key) | `OZVI_AI_PROVIDER=openai` `OZVI_AI_BASE_URL=http://ollama:11434/v1` `OZVI_AI_MODEL=qwen2.5:14b` |
+  | Azure OpenAI, OpenRouter, Groq, vLLM, LM Studio | `OZVI_AI_PROVIDER=openai` + their `/v1` address, key and model |
+  | Anthropic (Claude) | `OZVI_AI_PROVIDER=anthropic` `OZVI_AI_API_KEY=sk-ant-…` (model `claude-opus-5-5` by default, or `OZVI_AI_MODEL`) |
 
-  `OZVI_AI_MODEL_FAST` = voliteľný lacnejší model na preklady. Starší `ANTHROPIC_API_KEY` funguje ďalej ako `anthropic`. Bez nastavenia (alebo `OZVI_AI_PROVIDER=off`) appka funguje bez AI. Pri `openai` musí model zvládať aspoň JSON v odpovedi; štruktúrovaný výstup (`json_schema`) sa použije, keď ho server podporuje. Poskytovateľa uveďte vo svojich zásadách ochrany súkromia ako subdodávateľa (lokálny model nie).
-- **AI duplicity (voliteľné):** `OZVI_EMBEDDINGS_URL` + `OZVI_EMBEDDINGS_MODEL` (+ `OZVI_EMBEDDINGS_KEY`) — ľubovoľné API kompatibilné s OpenAI `/embeddings` (OpenAI, Ollama, LM Studio, vLLM). Pri `OZVI_AI_PROVIDER=openai` stačí `OZVI_EMBEDDINGS_MODEL` (adresa a kľúč sa prevezmú). Worker zaindexuje záznamy na pozadí; bez nastavenia sa duplicity hľadajú fuzzy porovnaním textu (pg_trgm). Rozšírenie `vector` vytvára `initdb` skript; ak chýba, embeddingy sa preskočia.
-- <a id="github"></a>**GitHub (voliteľné):** najjednoduchšie cez vlastnú GitHub App. Admin boardu potom len klikne na Pripojiť GitHub, appku nainštaluje na zvolené repozitáre a v Ozvi jeden vyberie, bez tokenu a webhooku ([ADR-0011](adr/0011-github-app.md)). Appku vytvoríte jedným potvrdením na GitHube:
+  `OZVI_AI_MODEL_FAST` = an optional cheaper model for translations. The older `ANTHROPIC_API_KEY` still works as `anthropic`. Without these settings (or with `OZVI_AI_PROVIDER=off`) the app runs without AI. With `openai` the model must at least return JSON; structured output (`json_schema`) is used when the server supports it. List the provider as a sub-processor in your privacy policy (not needed for a local model).
+- **AI duplicates (optional):** `OZVI_EMBEDDINGS_URL` + `OZVI_EMBEDDINGS_MODEL` (+ `OZVI_EMBEDDINGS_KEY`): any API compatible with OpenAI `/embeddings` (OpenAI, Ollama, LM Studio, vLLM). With `OZVI_AI_PROVIDER=openai`, `OZVI_EMBEDDINGS_MODEL` is enough (the address and key are reused). The worker indexes items in the background; without it, duplicates are found by fuzzy text matching (pg_trgm). The `vector` extension is created by the `initdb` script; if it is missing, embeddings are skipped.
+- <a id="github"></a>**GitHub (optional):** easiest through your own GitHub App. A board admin then just clicks Connect GitHub, installs the app on the chosen repositories and picks one in Ozvi, with no token and no webhook to set up ([ADR-0011](adr/0011-github-app.md)). You create the app with one confirmation on GitHub:
 
   ```
-  node scripts/create-github-app.mjs --url https://feedback.vasafirma.sk [--org vasa-organizacia]
+  node scripts/create-github-app.mjs --url https://feedback.example.com [--org your-organisation]
   ```
 
-  Skript zapíše `OZVI_GITHUB_APP_*` do `github-app.env`. Riadky pridajte do `.env` a Ozvi reštartujte. Server musí byť dostupný z internetu (webhooky z GitHubu). Bez appky sa GitHub pripája fine-grained tokenom a webhookom v nastaveniach projektu.
-- **Webhooky:** v self-hoste smú smerovať aj do internej siete (Mattermost, n8n na LAN); v cloud režime (`OZVI_MODE=cloud`) sú interné adresy blokované.
-- **Správa cez `/app` (voliteľné):** `OZVI_ADMIN_EMAILS=vy@firma.sk` — tieto e-maily sa prihlásia kódom do `/app`, vidia všetky projekty, zakladajú nové a jedným klikom sa dostanú do ich nastavení. Bez nastavenia sa projekty zakladajú CLI príkazom ako doteraz.
-- **Prihlásenie e-mailom na boarde:** Nastavenia → Projekt → „Prihlásenie e-mailom“ (pre ľudí bez účtu v appke). Potrebuje `SMTP_URL`.
-- **Písma (GDPR):** prehliadače návštevníkov nikdy nesťahujú písma z Google. Ozvi si písmo témy (Google Fonts) stiahne raz na serveri a ďalej ho servíruje sám z `/fonts/css` a `/fonts/file/…` (dlhá cache, `immutable`); vlastné písma Ozvi (Geist, Geist Mono) sú priamo v image. Povolené sú len rodiny z katalógu (`FONT_CATALOGUE` v `@ozvi/theme`) a rodiny uložené v téme niektorého projektu — nie je to otvorená proxy.
-  - Cache je na disku v `OZVI_FONTS_DIR` (predvolene `fonts` vedľa priečinka s prílohami, v Dockeri `/data/fonts`, teda na tom istom volume) a v pamäti.
-  - Server potrebuje odchádzajúci HTTPS na `fonts.googleapis.com` a `fonts.gstatic.com` len pri prvom použití písma. Ak Google nie je dostupný, stránka sa nerozbije — použije sa systémové písmo z témy.
-  - `OZVI_FONTS_PREFETCH=1` stiahne pri štarte celý katalóg na pozadí (~10 MB). Potom môžete nastaviť `OZVI_FONTS_REMOTE=0`: Ozvi sa na Google nepripojí vôbec a servíruje len to, čo je na disku (inak systémové písmo). Pre úplne offline inštaláciu stačí raz spustiť s prefetchom a priečinok `fonts` zachovať.
-  - Typ zdroja „Vlastné“ v téme znamená, že písmo načítava vaša appka sama; Ozvi ho nesťahuje.
-- **GDPR a zásady ochrany súkromia:** pri vlastnej inštalácii ste prevádzkovateľ vy a s autormi Ozvi DPA nepotrebujete. Zmluvy uzatvárate s hostingom, e-mailovou službou, poskytovateľom AI a integráciami. Hotové texty do zásad podľa vašej konfigurácie nájdete v Nastaveniach → Dáta projektu → Texty pre vaše zásady ochrany súkromia, checklist je v [PRIVACY-KIT](PRIVACY-KIT.md).
-- **Vývojárske prihlásenie** (`/dev/login`, `/demo`) funguje len pri `pnpm dev` s `OZVI_DEV_LOGIN=1`; v produkčnom image ani v cloud režime sa zapnúť nedá.
+  The script writes `OZVI_GITHUB_APP_*` to `github-app.env`. Add those lines to `.env` and restart Ozvi. The server must be reachable from the internet (GitHub webhooks). Without the app, GitHub is connected with a fine-grained token and a webhook in the project settings.
+- **Webhooks:** on a self-hosted server they may point into your internal network (Mattermost, n8n on the LAN); in cloud mode (`OZVI_MODE=cloud`) internal addresses are blocked.
+- **Managing projects in `/app` (optional):** `OZVI_ADMIN_EMAILS=you@example.com`: these addresses sign in to `/app` with a code, see every project, create new ones and open their settings in one click. Without it, projects are created with the CLI command.
+- **E-mail sign-in on the board:** Settings → Project → "E-mail sign-in" (for people without an account in your app). Needs `SMTP_URL`.
+- **Fonts (GDPR):** visitors' browsers never load fonts from Google. Ozvi downloads the theme's font (Google Fonts) once on the server and then serves it itself from `/fonts/css` and `/fonts/file/…` (long cache, `immutable`); Ozvi's own fonts (Geist, Geist Mono) are in the image. Only families from the catalogue (`FONT_CATALOGUE` in `@ozvi/theme`) and families saved in some project's theme are allowed, so it is not an open proxy.
+  - The cache lives on disk in `OZVI_FONTS_DIR` (by default `fonts` next to the attachments folder, `/data/fonts` in Docker, so on the same volume) and in memory.
+  - The server needs outgoing HTTPS to `fonts.googleapis.com` and `fonts.gstatic.com` only the first time a font is used. If Google is unreachable, nothing breaks: the theme's system font is used.
+  - `OZVI_FONTS_PREFETCH=1` downloads the whole catalogue in the background on start (~10 MB). After that you can set `OZVI_FONTS_REMOTE=0`: Ozvi never contacts Google and serves only what is on disk (otherwise the system font). For a fully offline install, run once with prefetch and keep the `fonts` folder.
+  - The font source "Custom" in the theme means your app loads the font itself; Ozvi does not download it.
+- **GDPR and your privacy policy:** on your own server you are the controller and need no DPA with Ozvi's authors. Your contracts are with your hosting, e-mail service, AI provider and integrations. Ready-made wording for your privacy policy, based on your configuration, is in Settings → Project data → "Text for your privacy policy"; the checklist is in [PRIVACY-KIT](PRIVACY-KIT.md).
+- **Developer sign-in** (`/dev/login`, `/demo`) only works with `pnpm dev` and `OZVI_DEV_LOGIN=1`; it cannot be turned on in the production image or in cloud mode.
 
-## Aktualizácie
+## Updates
 
-Ozvi vychádza vo verziách (semver) s poznámkami na [ozvi.io/releases](https://ozvi.io/releases). O tom, kedy sa zmení váš server, rozhodujete vy: ručne, tlačidlom v admine alebo automaticky v noci.
+Ozvi ships versioned releases (semver) with notes at [ozvi.io/releases](https://ozvi.io/releases). You decide when your server changes: by hand, with a button in the admin, or automatically at night.
 
-### Obrazy a prístup
+### Images and access
 
-- Obrazy sú verejné, bez prihlásenia: `ghcr.io/xzamiska/ozvi` (aplikácia) a `ghcr.io/xzamiska/ozvi-updater` (voliteľný updater), pre `amd64` aj `arm64`.
-- Ak ich zrkadlíte do vlastného súkromného registra, nastavte pre updater `OZVI_REGISTRY`, `OZVI_REGISTRY_USER` a `OZVI_REGISTRY_TOKEN`.
-- Značky: `1.4.2` (presná verzia, nikdy sa nemení), `1.4` (len opravy), `1` (opravy aj nové funkcie, nič zásadné), `latest` (všetko vrátane 2.0).
-- Predvolená je `OZVI_IMAGE=ghcr.io/xzamiska/ozvi:1`. Zásadné zmeny prídu až so `:2` a vyžadujú, aby ste značku zmenili sami.
+- The images are public, no sign-in needed: `ghcr.io/xzamiska/ozvi` (the app) and `ghcr.io/xzamiska/ozvi-updater` (the optional updater), for `amd64` and `arm64`.
+- If you mirror them to your own private registry, set `OZVI_REGISTRY`, `OZVI_REGISTRY_USER` and `OZVI_REGISTRY_TOKEN` for the updater.
+- Tags: `1.4.2` (an exact version, never changes), `1.4` (fixes only), `1` (fixes and new features, nothing breaking), `latest` (everything, including 2.0).
+- The default is `OZVI_IMAGE=ghcr.io/xzamiska/ozvi:1`. Breaking changes only come with `:2` and need you to change the tag yourself.
 
-### Upozornenie na novú verziu
+### New version notice
 
-Nastavenia boardu ukazujú bežiacu verziu. Raz denne ju porovnajú s verejným zoznamom vydaní (`OZVI_RELEASES_URL`, predvolene `https://ozvi.io/releases.json`). Ide o obyčajný GET a o inštancii sa nič neposiela. Vypnete ho cez `OZVI_UPDATE_CHECK=0`.
+The board settings show the running version. Once a day they compare it with the public release list (`OZVI_RELEASES_URL`, by default `https://ozvi.io/releases.json`). It is a plain GET and nothing about your instance is sent. Turn it off with `OZVI_UPDATE_CHECK=0`.
 
-### Chyby servera do vlastného GlitchTipu alebo Sentry (voliteľné)
+### Server errors to your own GlitchTip or Sentry (optional)
 
-Ak máte GlitchTip alebo Sentry, nastavte `OZVI_ERROR_DSN` na DSN projektu. Ozvi tam pošle chyby servera (vykresľovanie, API, akcie, úlohy na pozadí): typ, správu, stack, metódu a cestu bez query stringu. Nikdy hlavičky, cookies, telá požiadaviek ani údaje používateľov. Bez premennej sa neposiela nič.
+If you run GlitchTip or Sentry, set `OZVI_ERROR_DSN` to the project's DSN. Ozvi sends server errors there (rendering, API, actions, background jobs): the type, message, stack, method and path without the query string. Never headers, cookies, request bodies or user data. Without the variable nothing is sent.
 
-### Anonymná štatistika (dobrovoľná, predvolene vypnutá)
+### Heartbeat for an uptime monitor (optional)
 
-Na uptime monitor (GlitchTip Heartbeat, Uptime Kuma Push, healthchecks.io) nastavte `OZVI_HEARTBEAT_URL` na jeho adresu. Ozvi ju zavolá (POST) každú minútu, ale len kým odpovedá databáza a e-maily neviaznu vo fronte dlhšie ako 15 minút. Keď údery prestanú, monitor vás upozorní. O inštancii sa nič neposiela; bez premennej je vypnutý. Na dostupnosť zvonku (DNS, TLS, proxy) použite monitor, ktorý beží mimo servera s Ozvi, napríklad `GET /api/health`.
+Set `OZVI_HEARTBEAT_URL` to the address of your uptime monitor's heartbeat (GlitchTip Heartbeat, Uptime Kuma Push, healthchecks.io). Ozvi calls it (POST) every minute, but only while the database answers and no e-mail has been stuck in the queue for more than 15 minutes. When the beats stop, the monitor alerts you. Nothing about the instance is sent; without the variable it is off. To check reachability from outside (DNS, TLS, proxy), use a monitor that runs somewhere other than the Ozvi server, for example `GET /api/health`.
 
-Ozvi bez vášho súhlasu nič o vašej inštancii neposiela. Ak nám chcete pomôcť vedieť, koľko ľudí Ozvi na vlastných serveroch používa, nastavte `OZVI_TELEMETRY=1`. Server potom raz denne pošle na `https://ozvi.io/api/telemetry` (`OZVI_TELEMETRY_URL`) presne toto:
+### Anonymous statistics (opt-in, off by default)
 
-| Pole | Význam |
+Ozvi sends nothing about your instance without your consent. If you want to help us know how many people run Ozvi on their own servers, set `OZVI_TELEMETRY=1`. Once a day the server then sends exactly this to `https://ozvi.io/api/telemetry` (`OZVI_TELEMETRY_URL`):
+
+| Field | Meaning |
 |---|---|
-| `instance` | 32 znakov: jednosmerný hash z vášho `OZVI_SECRET_KEY`. Je stále rovnaký, ale nedá sa z neho zistiť kľúč ani nič iné. |
-| `version` | bežiaca verzia Ozvi |
-| `projects` | počet projektov (boardov) |
-| `users` | počet používateľov boardov |
-| `activeUsers30` | z nich aktívni za posledných 30 dní |
-| `items` | počet záznamov (nápady a hlásenia) |
-| `items30` | z nich za posledných 30 dní |
+| `instance` | 32 characters: a one-way hash of your `OZVI_SECRET_KEY`. It stays the same, but reveals neither the key nor anything else. |
+| `version` | the running Ozvi version |
+| `projects` | number of projects (boards) |
+| `users` | number of board users |
+| `activeUsers30` | of those, active in the last 30 days |
+| `items` | number of items (ideas and reports) |
+| `items30` | of those, from the last 30 days |
 
-Nikdy sa neposielajú mená, e-maily, adresy, názvy projektov ani obsah. Ozvi.io si pre každú inštanciu drží jeden riadok s poslednými počtami a dátumom posledného hlásenia. Vypnete to odstránením premennej; riadok vám na požiadanie zmažeme (support@ozvi.io). Rozhodnutie: [ADR-0012](adr/0012-opt-in-telemetry.md).
+Names, e-mail addresses, URLs, project names and content are never sent. Ozvi.io keeps one row per instance with the latest counts and the date of the last report. Turn it off by removing the variable; we delete your row on request (support@ozvi.io). Decision: [ADR-0012](adr/0012-opt-in-telemetry.md).
 
-### Ručná aktualizácia
+### Updating by hand
 
-1. Zálohujte databázu: `docker compose exec postgres pg_dump -U postgres -Fc ozvi > ozvi-$(date +%F).dump`.
-2. Spustite `docker compose pull && docker compose up -d`.
-3. Migrácie databázy prebehnú pri štarte. Ak zlyhajú, kontajner nenaštartuje.
+1. Back up the database: `docker compose exec postgres pg_dump -U postgres -Fc ozvi > ozvi-$(date +%F).dump`.
+2. Run `docker compose pull && docker compose up -d`.
+3. Database migrations run on start. If they fail, the container does not start.
 
-### Updater (voliteľný)
+### Updater (optional)
 
-Malý kontajner `ozvi-updater` vedľa Ozvi. V admine pribudne časť **Aktualizácie** s výberom režimu:
+A small `ozvi-updater` container next to Ozvi. The admin gets an **Updates** section with a mode:
 
-| Režim | Čo robí |
+| Mode | What it does |
 |---|---|
-| Len upozorniť | Novú verziu ukáže v admine. Nič nemení. |
-| Na pokyn (predvolený) | Tlačidlo „Aktualizovať na X.Y.Z“ v admine. |
-| Automaticky | V nočnom okne (`OZVI_UPDATE_WINDOW`, predvolene 02:00–05:00 v `TZ`) nainštaluje opravy a menšie verzie. Novú hlavnú verziu ani vydanie označené ako zásadné nikdy nenainštaluje sám. Verziu, ktorá raz zlyhala, sám znova neskúša. |
+| Notify only | Shows the new version in the admin. Changes nothing. |
+| On request (default) | An "Update to X.Y.Z" button in the admin. |
+| Automatic | Installs fixes and minor versions in the night window (`OZVI_UPDATE_WINDOW`, by default 02:00–05:00 in `TZ`). Never installs a new major version or a release marked as breaking by itself. Does not retry a version that failed once. |
 
-Pri každej aktualizácii:
-1. zálohuje databázu do `./backups` (`pg_dump`, uchová posledných 5); bez zálohy nič nemení,
-2. stiahne nový obraz (`docker compose pull ozvi`) a spustí ho (`docker compose up -d ozvi`),
-3. počká, kým `/api/health` odpovie a beží nová verzia (najviac 3 minúty),
-4. ak nie, zastaví ju, obnoví databázu zo zálohy a spustí predchádzajúci obraz,
-5. zapíše výsledok do histórie v admine; ak sa aktualizácia vrátila alebo zlyhala, pošle aj e-mail.
+Every update:
+1. backs up the database to `./backups` (`pg_dump`, keeps the last 5); without a backup it changes nothing,
+2. pulls the new image (`docker compose pull ozvi`) and starts it (`docker compose up -d ozvi`),
+3. waits until `/api/health` answers and the new version runs (at most 3 minutes),
+4. if not, stops it, restores the database from the backup and starts the previous image,
+5. writes the result to the history in the admin, and also sends an e-mail if the update was rolled back or failed.
 
-O novej verzii ani o úspešnej aktualizácii e-maily nechodia, ukážu sa iba v admine.
+A new version or a successful update sends no e-mail; it only shows in the admin.
 
-Zapnutie v `.env` (vzor je v `deploy/.env.example`):
+Turning it on in `.env` (see `deploy/.env.example`):
 
 ```sh
 COMPOSE_PROFILES=updater
 OZVI_UPDATER_URL=http://updater:8787
-OZVI_UPDATER_TOKEN=…            # openssl rand -hex 32
-OZVI_ADMIN_EMAILS=vy@firma.sk   # komu príde e-mail, keď aktualizácia zlyhá
+OZVI_UPDATER_TOKEN=…                # openssl rand -hex 32
+OZVI_ADMIN_EMAILS=you@example.com   # who gets the e-mail when an update fails
 ```
 
-potom `docker compose up -d`.
+then `docker compose up -d`.
 
-- **Bezpečnosť:** updater potrebuje Docker socket, čo je v praxi plná kontrola nad serverom. Preto beží len s profilom `updater`, nemá žiadny verejný port, príkazy prijíma len od Ozvi so zdieľaným tokenom a mení iba službu `ozvi` svojho compose projektu. Kto mu tento prístup nechce dať, ostane pri ručnej aktualizácii.
-- **Nastavenie celé v `.env`:** updater spúšťa `docker compose` v priečinku projektu len s jeho `.env`, nie s premennými z vášho shellu. Všetko, čo compose potrebuje, preto musí byť v `.env`.
-- **Ručný `docker compose up -d` po aktualizácii** môže Ozvi raz reštartovať (pár sekúnd), ak má server inú verziu Docker Compose ako updater. Obraz ani dáta sa nemenia.
-- **Priečinok projektu:** updater ho vidí na tej istej ceste ako hostiteľ (`OZVI_DIR`, predvolene `$PWD` pri spustení compose). Ak spúšťate compose inak (systemd, Portainer), nastavte `OZVI_DIR` na absolútnu cestu.
-- **Obnova, keď zlyhá aj návrat** (e-mail „Aktualizácia Ozvi zlyhala“):
+- **Security:** the updater needs the Docker socket, which in practice is full control over the server. That is why it only runs with the `updater` profile, has no public port, accepts commands only from Ozvi with a shared token, and only changes the `ozvi` service of its own compose project. If you don't want to give it that access, stay with updating by hand.
+- **Everything in `.env`:** the updater runs `docker compose` in the project folder with only its `.env`, not with the variables from your shell. Everything compose needs must therefore be in `.env`.
+- **A manual `docker compose up -d` after an update** may restart Ozvi once (a few seconds) if the server has a different Docker Compose version than the updater. Neither the image nor the data change.
+- **Project folder:** the updater sees it at the same path as the host (`OZVI_DIR`, by default `$PWD` when compose starts). If you start compose some other way (systemd, Portainer), set `OZVI_DIR` to the absolute path.
+- **Recovery when the rollback fails too** (e-mail "Ozvi update failed, check the server"):
   1. `docker compose stop ozvi`
   2. `docker compose exec postgres psql -U postgres -c 'DROP DATABASE ozvi WITH (FORCE)' -c 'CREATE DATABASE ozvi OWNER ozvi'`
-  3. `docker compose exec -T postgres pg_restore -U postgres -d ozvi < backups/<súbor>.dump`
-  4. V `.env` nastavte `OZVI_IMAGE` na predchádzajúcu presnú verziu (napr. `ghcr.io/xzamiska/ozvi:1.4.2`) a spustite `docker compose up -d`.
+  3. `docker compose exec -T postgres pg_restore -U postgres -d ozvi < backups/<file>.dump`
+  4. In `.env`, set `OZVI_IMAGE` to the previous exact version (e.g. `ghcr.io/xzamiska/ozvi:1.4.2`) and run `docker compose up -d`.
 
-### Návrat na staršiu verziu
+### Going back to an older version
 
-Nastavte predchádzajúcu presnú verziu v `OZVI_IMAGE` a obnovte zálohu spred aktualizácie (postup vyššie). Migrácie idú len dopredu, preto bez obnovy zálohy návrat nefunguje.
+Set the previous exact version in `OZVI_IMAGE` and restore the backup from before the update (steps above). Migrations only go forward, so going back does not work without restoring the backup.

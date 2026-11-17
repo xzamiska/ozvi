@@ -1750,7 +1750,7 @@
         "subject": "Ozvi update failed, check the server",
         "text": "The update of {url} hit an error the updater could not resolve by itself.",
         "reason": "Error: {message}",
-        "restore": "How to restore from the backup: SELFHOST.md, section Aktualizácie (Updates)."
+        "restore": "How to restore from the backup: SELFHOST.md, section Updates."
       },
       "open": "Open settings"
     },

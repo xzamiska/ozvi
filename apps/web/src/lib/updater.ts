@@ -2,7 +2,7 @@ import "server-only";
 import { timingSafeEqual } from "node:crypto";
 
 /**
- * Client for the optional ozvi-updater sidecar (apps/updater, docs/SELFHOST.md → Aktualizácie).
+ * Client for the optional ozvi-updater sidecar (apps/updater, docs/SELFHOST.md → Updates).
  * Configured with OZVI_UPDATER_URL + OZVI_UPDATER_TOKEN; without them the admin shows the manual command.
  */
 
