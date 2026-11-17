@@ -2560,7 +2560,7 @@
       "devFeature": {
         "href": "#self-host",
         "title": "Self-Hosting",
-        "text": "Ein Docker-Image und Postgres genügen. Alle Funktionen für 0 €."
+        "text": "Ein Docker-Image und Postgres genügen. Alle Funktionen für 0 €."
       },
       "soon": "Bald verfügbar"
     },
@@ -2691,7 +2691,7 @@
       "lede": "Die Zahl der Nutzer und Einträge ist nicht begrenzt. Sie zahlen nur für das, was uns Geld kostet: E-Mails, Speicher und Domains. Alle Preise zzgl. MwSt.",
       "plan": "Tarif",
       "forever": "dauerhaft, ohne Kreditkarte",
-      "yearly": "pro Jahr oder {q} pro Quartal",
+      "yearly": "oder {q} pro Quartal",
       "choose": "{p} wählen",
       "unlimited": "unbegrenzt",
       "rows": {
@@ -2706,11 +2706,12 @@
         "translations": "KI-Übersetzungen pro Monat"
       },
       "yes": "ja",
-      "no": "nein"
+      "no": "nein",
+      "perYear": "/ Jahr"
     },
     "self": {
-      "title": "Auf dem eigenen Server: 0 € und alle Funktionen.",
-      "text": "Ein Docker-Image und Postgres genügen. Keine Funktion ist hinter einem Tarif versteckt. Der Quellcode ist öffentlich und steht unter der FSL, die nach zwei Jahren zu Apache 2.0 wird.",
+      "title": "Auf dem eigenen Server: 0 € und alle Funktionen.",
+      "text": "Ein Docker-Image und Postgres genügen. Keine Funktion ist hinter einem Tarif versteckt. Der Quellcode ist öffentlich und steht unter der FSL, die nach zwei Jahren zu Apache 2.0 wird. KI-Funktionen laufen mit Ihrem eigenen Schlüssel für einen beliebigen Anbieter oder mit einem lokalen Modell.",
       "c1": "Ozvi + Postgres",
       "c2": "erstes Projekt",
       "name": "Meine App"
@@ -2904,7 +2905,7 @@
         },
         "self": {
           "title": "Oder auf dem eigenen Server",
-          "text": "Ein Docker-Image und Postgres genügen. Sie bekommen alle Funktionen für 0 €."
+          "text": "Ein Docker-Image und Postgres genügen. Sie bekommen alle Funktionen für 0 €."
         },
         "fider": {
           "title": "Umstieg von Fider",
@@ -2931,12 +2932,8 @@
         "text": "Sie klicken direkt in Ihrer App auf „Feedback“ und schreiben, was nicht funktioniert. Screenshot und Seite hängt Ozvi von selbst an und verdeckt Passwörter, bevor etwas den Browser verlässt. Entwickler bekommen zusätzlich die Version und die Konsolenfehler."
       },
       {
-        "title": "Ihr Team erledigt alles an einem Ort.",
-        "text": "Alle Meldungen liegen an einem Ort und lassen sich filtern. Ähnliche führen Sie mit einem Klick zusammen. Interne Notizen und Tags sieht der Kunde nicht. So bleibt nichts ohne Antwort liegen."
-      },
-      {
-        "title": "Ozvi arbeitet mit den Tools, die Sie schon nutzen.",
-        "text": "Eine Meldung wird mit einem Klick zum Issue in GitHub, Linear oder Jira. Wenn Sie das Issue schließen oder ein Release veröffentlichen, setzt Ozvi den Fehler von selbst auf „Behoben“. Neuigkeiten schicken Sie an Slack oder Discord."
+        "title": "Sie beheben ihn dort, wo Sie ohnehin arbeiten.",
+        "text": "Die Meldung kommt mit Screenshot, App-Version und Konsolenfehler, ähnliche führen Sie mit einem Klick zusammen. Aus der Meldung wird ein Issue in GitHub, Linear oder Jira. Sobald der Fix gemergt oder veröffentlicht ist, setzt Ozvi den Fehler von selbst auf „Behoben“."
       },
       {
         "title": "Und der Kunde erfährt, wie es ausgegangen ist.",
@@ -3003,31 +3000,6 @@
       "note": "Ohne Widget melden Kunden Fehler direkt auf dem Board. Dann fehlt nur der Kontext, den das Widget von selbst anhängt: Screenshot, Konsolenfehler und die Schritte vor dem Fehler."
     },
     "github": {
-      "title": "Von der Meldung bis zur Behebung, direkt aus GitHub.",
-      "lede": "Das Team arbeitet weiter in GitHub. Ozvi macht aus der Meldung ein Issue, verfolgt es und sagt dem Kunden Bescheid, sobald die Korrektur veröffentlicht ist. Niemand muss etwas von Hand übertragen.",
-      "ui": {
-        "connect": "GitHub verbinden",
-        "bug": "Kalender auf dem Handy",
-        "create": "Issue erstellen"
-      },
-      "steps": [
-        {
-          "title": "GitHub mit zwei Klicks verbinden",
-          "text": "Auf GitHub wählen Sie die Repositories für die Ozvi-App aus, in Ozvi dann eines davon. Sie brauchen weder ein Token noch einen von Hand eingerichteten Webhook."
-        },
-        {
-          "title": "Aus der Meldung wird ein Issue",
-          "text": "Ein Klick erstellt das Issue mit Beschreibung und technischen Daten. Sie können die Meldung auch mit einem vorhandenen Issue verknüpfen."
-        },
-        {
-          "title": "Issue schließen oder Release veröffentlichen",
-          "text": "Ozvi bemerkt das von selbst und setzt den Fehler auf „Behoben in Version 2.15“. Wenn Sie keine Releases veröffentlichen, genügt es, das Issue zu schließen."
-        },
-        {
-          "title": "Der Kunde bekommt eine E-Mail",
-          "text": "Wir schreiben ihm, dass der Fehler behoben ist, und mit einem Klick bestätigt er, ob es jetzt funktioniert."
-        }
-      ],
       "note": "Ein gemergter Pull Request mit „Fixes #412“ wird der Meldung von selbst als Nachweis der Behebung hinzugefügt. Linear und Jira verbinden Sie per API-Schlüssel, und sie synchronisieren den Status genauso. Auf dem eigenen Server erstellen Sie die GitHub-App mit einem einzigen Befehl."
     },
     "star": {
@@ -3906,7 +3878,7 @@
       "note": "Notiz",
       "noteText": "Empfindliche Haut, Ammoniak-Allergie",
       "service": "Leistung",
-      "serviceText": "Färben · Lucia · 65,00 €",
+      "serviceText": "Färben · Lucia · 65,00 €",
       "pin": "Filial-PIN",
       "detail": "Detail",
       "history": "Verlauf",

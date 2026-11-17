@@ -20,7 +20,7 @@ const clamp = (x: number) => Math.min(1, Math.max(0, x));
 const ease = "transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none";
 const from = (p: number, at: number) => (p >= at ? "opacity-100 translate-y-0" : "pointer-events-none translate-y-1.5 opacity-0");
 
-export function ScrollStory({ phonePanels = [1, 2] }: { phonePanels?: number[] }) {
+export function ScrollStory({ phonePanels = [1] }: { phonePanels?: number[] }) {
   const t = useTranslations("landing");
   const steps = t.raw("steps") as Step[];
   const where = t.raw("hero.loop.where") as string[];
@@ -61,15 +61,15 @@ export function ScrollStory({ phonePanels = [1, 2] }: { phonePanels?: number[] }
     };
   }, []);
 
-  const scenes = [AppScene, ReportScene, FixScene, MailScene];
-  const label = (i: number) => where[i === 0 ? 0 : i === 3 ? 2 : 1];
+  const scenes = [AppScene, DeskScene, MailScene];
+  const label = (i: number) => where[i]!;
   return (
     <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-14">
       <ol className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-14 lg:gap-0">
         {steps.map((s, i) => {
           const Scene = scenes[i]!;
           return (
-            <li key={s.title} ref={(el) => { refs.current[i] = el; }} className="min-w-0 lg:flex lg:min-h-[85vh] lg:flex-col lg:justify-center">
+            <li key={s.title} ref={(el) => { refs.current[i] = el; }} className="min-w-0 lg:flex lg:min-h-[75vh] lg:flex-col lg:justify-center">
               <p className={cn("text-[13px] font-semibold transition-colors", at === i ? "text-brand-text" : "text-muted-foreground")}>{String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}</p>
               <h3 className={cn("mt-3 max-w-[18ch] text-[30px] leading-tight font-extrabold tracking-[-0.035em] transition-opacity lg:text-[38px]", at !== i && "lg:opacity-35")}>{s.title}</h3>
               <p className={cn("mt-4 max-w-[46ch] text-[16.5px] leading-relaxed text-muted-foreground transition-opacity", at !== i && "lg:opacity-35")}>{s.text}</p>
@@ -177,26 +177,17 @@ function AppScene({ p }: { p: number }) {
   );
 }
 
-/** 2. In Ozvi: #128 lands on top of the queue, then what came with it. */
-function ReportScene({ p }: { p: number }) {
+/** 2. In Ozvi: #128 lands with what came with it, the pull request is merged, it moves to "Fixed in 2.15", the author is told. */
+function DeskScene({ p }: { p: number }) {
+  const status = p < 0.5 ? "new" : p < 0.62 ? "in_progress" : "fixed";
   return (
     <div className="look-ozvi oz-scope overflow-hidden rounded-xl border bg-background font-sans text-foreground">
-      <TeamDesk play={{ landed: p >= 0.08, reveal: clamp((p - 0.08) / 0.75), status: "new", pr: false, sent: false }} />
+      <TeamDesk play={{ landed: p >= 0.06, reveal: clamp((p - 0.06) / 0.4), status, pr: p >= 0.62, sent: p >= 0.8 }} />
     </div>
   );
 }
 
-/** 3. Still in Ozvi: the pull request is merged, the report moves to "Fixed in 2.15" and the author is told. */
-function FixScene({ p }: { p: number }) {
-  const status = p < 0.15 ? "confirmed" : p < 0.4 ? "in_progress" : "fixed";
-  return (
-    <div className="look-ozvi oz-scope overflow-hidden rounded-xl border bg-background font-sans text-foreground">
-      <TeamDesk play={{ landed: true, reveal: 1, status, pr: p >= 0.25, sent: p >= 0.62 }} />
-    </div>
-  );
-}
-
-/** 4. The customer's inbox: the e-mail Ozvi sends (lib/email/render.ts), the customer confirms, #128 is verified. */
+/** 3. The customer's inbox: the e-mail Ozvi sends (lib/email/render.ts), the customer confirms, #128 is verified. */
 function MailScene({ p }: { p: number }) {
   const t = useTranslations("landing");
   const e = useTranslations("email");

@@ -2560,7 +2560,7 @@
       "devFeature": {
         "href": "#self-host",
         "title": "Własny hosting",
-        "text": "Jeden obraz Dockera i Postgres. Wszystkie funkcje za 0 €."
+        "text": "Jeden obraz Dockera i Postgres. Wszystkie funkcje za 0 €."
       },
       "soon": "Startujemy wkrótce"
     },
@@ -2691,7 +2691,7 @@
       "lede": "Nie ograniczamy liczby użytkowników ani wpisów. Płacisz tylko za to, co nas kosztuje: e-maile, miejsce na pliki i domeny. Ceny nie zawierają VAT.",
       "plan": "Plan",
       "forever": "na zawsze, bez karty",
-      "yearly": "rocznie albo {q} kwartalnie",
+      "yearly": "albo {q} kwartalnie",
       "choose": "Wybierz {p}",
       "unlimited": "bez limitu",
       "rows": {
@@ -2706,11 +2706,12 @@
         "translations": "Tłumaczenia AI miesięcznie"
       },
       "yes": "tak",
-      "no": "nie"
+      "no": "nie",
+      "perYear": "/ rok"
     },
     "self": {
-      "title": "Własny hosting: 0 €, wszystkie funkcje.",
-      "text": "Jeden obraz Dockera i Postgres. Żadna funkcja nie jest zarezerwowana dla droższego planu. Publiczny kod źródłowy na licencji FSL, która po dwóch latach zmienia się w Apache 2.0.",
+      "title": "Własny hosting: 0 €, wszystkie funkcje.",
+      "text": "Jeden obraz Dockera i Postgres. Żadna funkcja nie jest zarezerwowana dla droższego planu. Publiczny kod źródłowy na licencji FSL, która po dwóch latach zmienia się w Apache 2.0. Funkcje AI włączysz własnym kluczem do dowolnego dostawcy albo lokalnym modelem.",
       "c1": "Ozvi + Postgres",
       "c2": "pierwszy projekt",
       "name": "Moja aplikacja"
@@ -2904,7 +2905,7 @@
         },
         "self": {
           "title": "Albo na własnym serwerze",
-          "text": "Jeden obraz Dockera i Postgres. Wszystkie funkcje za 0 €."
+          "text": "Jeden obraz Dockera i Postgres. Wszystkie funkcje za 0 €."
         },
         "fider": {
           "title": "Przejście z Fidera",
@@ -2931,12 +2932,8 @@
         "text": "Klika „Opinie” prosto w twojej aplikacji i pisze, co nie działa. Ozvi sam dołącza zrzut ekranu i adres strony, a hasła zakrywa, zanim cokolwiek opuści przeglądarkę klienta. Programiści dostają dodatkowo wersję i błędy z konsoli."
       },
       {
-        "title": "Zespół załatwia wszystko w jednym miejscu.",
-        "text": "Wszystkie zgłoszenia masz w jednym miejscu i możesz je filtrować. Podobne scalasz jednym kliknięciem. Wewnętrznych notatek i tagów klient nie widzi. Nic nie zostaje bez odpowiedzi."
-      },
-      {
-        "title": "Działa z narzędziami, których już używasz.",
-        "text": "Zgłoszenie jednym kliknięciem staje się issue na GitHubie, w Linearze albo w Jirze. Gdy zamkniesz issue albo opublikujesz wydanie, Ozvi sam przeniesie błąd na „Naprawione”. Nowości wyślesz do Slacka lub Discorda."
+        "title": "Naprawiasz go tam, gdzie już pracujesz.",
+        "text": "Zgłoszenie przychodzi ze zrzutem ekranu, wersją aplikacji i błędem z konsoli, a podobne scalasz jednym kliknięciem. Ze zgłoszenia robisz issue na GitHubie, w Linearze albo w Jirze. Gdy poprawka zostanie scalona albo wydana, Ozvi sam przeniesie błąd na „Naprawione”."
       },
       {
         "title": "A autor dowiaduje się, jak sprawa się skończyła.",
@@ -3003,31 +3000,6 @@
       "note": "Bez widżetu klienci zgłaszają błędy prosto na tablicy. Brakuje wtedy tylko kontekstu, który widżet dołącza sam: zrzutu ekranu, błędów z konsoli i kroków przed błędem."
     },
     "github": {
-      "title": "Od zgłoszenia do poprawki, bez wychodzenia z GitHuba.",
-      "lede": "Zespół pracuje na GitHubie tak jak dotąd. Ozvi tworzy ze zgłoszenia issue, śledzi je, a gdy poprawka zostanie wydana, daje znać autorowi. Nikt niczego nie przepisuje ręcznie.",
-      "ui": {
-        "connect": "Połącz GitHub",
-        "bug": "Kalendarz na telefonie",
-        "create": "Utwórz issue"
-      },
-      "steps": [
-        {
-          "title": "Połączysz GitHub dwoma kliknięciami",
-          "text": "Na GitHubie wybierasz repozytoria dla aplikacji Ozvi, a w Ozvi wskazujesz jedno z nich. Nie potrzebujesz tokenu ani ręcznie ustawianego webhooka."
-        },
-        {
-          "title": "Ze zgłoszenia robisz issue",
-          "text": "Jednym kliknięciem powstaje issue z opisem i danymi technicznymi. Możesz też połączyć zgłoszenie z issue, które już masz."
-        },
-        {
-          "title": "Zamykasz issue albo publikujesz wydanie",
-          "text": "Ozvi wychwyci to samo i błąd przejdzie na „Naprawione w wersji 2.15”. Jeśli nie robisz wydań, wystarczy zamknąć issue."
-        },
-        {
-          "title": "Autor dostaje e-mail",
-          "text": "Piszemy mu, że błąd jest naprawiony, a on jednym kliknięciem potwierdza, czy już działa."
-        }
-      ],
       "note": "Scalony pull request z „Fixes #412” sam dołącza się do zgłoszenia jako dowód naprawy. Linear i Jira łączą się przez klucz API i podobnie synchronizują status. Na własnym serwerze aplikację dla GitHuba utworzysz jednym poleceniem."
     },
     "star": {
@@ -3906,7 +3878,7 @@
       "note": "Notatka",
       "noteText": "Wrażliwa skóra, alergia na amoniak",
       "service": "Usługa",
-      "serviceText": "Koloryzacja · Łucja · 65,00 €",
+      "serviceText": "Koloryzacja · Łucja · 65,00 €",
       "pin": "PIN oddziału",
       "detail": "Szczegóły",
       "history": "Historia",

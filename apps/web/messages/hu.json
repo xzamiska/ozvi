@@ -2560,7 +2560,7 @@
       "devFeature": {
         "href": "#self-host",
         "title": "Saját üzemeltetés",
-        "text": "Egy Docker-image és Postgres, minden funkcióval, 0 €-ért."
+        "text": "Egy Docker-image és Postgres, minden funkcióval, 0 €-ért."
       },
       "soon": "Hamarosan indulunk"
     },
@@ -2691,7 +2691,7 @@
       "lede": "A felhasználók és a rekordok számát nem korlátozzuk. Csak azért fizetsz, ami nekünk is pénzbe kerül: az e-mailekért, a tárhelyért és a domainekért. Az árak nem tartalmazzák az áfát.",
       "plan": "Csomag",
       "forever": "örökre, bankkártya nélkül",
-      "yearly": "évente, vagy negyedévente {q}",
+      "yearly": "vagy negyedévente {q}",
       "choose": "{p} kiválasztása",
       "unlimited": "korlátlan",
       "rows": {
@@ -2706,11 +2706,12 @@
         "translations": "AI-fordítás havonta"
       },
       "yes": "igen",
-      "no": "nem"
+      "no": "nem",
+      "perYear": "/ év"
     },
     "self": {
-      "title": "Saját szerveren: 0 €, minden funkcióval.",
-      "text": "Egy Docker-image és Postgres. Egyetlen funkció sincs csomaghoz kötve. A forráskód nyilvános, és FSL-licenc alatt érhető el, amely két év után Apache 2.0-ra vált.",
+      "title": "Saját szerveren: 0 €, minden funkcióval.",
+      "text": "Egy Docker-image és Postgres. Egyetlen funkció sincs csomaghoz kötve. A forráskód nyilvános, és FSL-licenc alatt érhető el, amely két év után Apache 2.0-ra vált. Az AI-funkciókat saját kulccsal bármely szolgáltatóhoz vagy helyi modellel kapcsolod be.",
       "c1": "Ozvi + Postgres",
       "c2": "első projekt",
       "name": "Saját alkalmazás"
@@ -2904,7 +2905,7 @@
         },
         "self": {
           "title": "Vagy a saját szervereden",
-          "text": "Egy Docker-image és Postgres, minden funkcióval, 0 €-ért."
+          "text": "Egy Docker-image és Postgres, minden funkcióval, 0 €-ért."
         },
         "fider": {
           "title": "Átállás a Fiderről",
@@ -2931,12 +2932,8 @@
         "text": "Az alkalmazásodban rákattint a „Visszajelzés” gombra, és leírja, mi nem működik. A képernyőképet és az oldal címét az Ozvi magától csatolja, a jelszavakat pedig még azelőtt kitakarja, hogy bármi elhagyná a böngészőt. A fejlesztők a verziót és a konzolhibákat is megkapják."
       },
       {
-        "title": "A csapat mindent egy helyen intéz el.",
-        "text": "Az összes bejelentés egy helyen van, és szűrhető. A hasonlókat egy kattintással összevonod, a belső jegyzeteket és címkéket pedig az ügyfél nem látja. Semmi sem marad válasz nélkül."
-      },
-      {
-        "title": "Összekötheted a már használt eszközeiddel.",
-        "text": "A bejelentésből egy kattintással issue lesz a GitHubon, a Linearben vagy a Jirában. Ha lezárod az issue-t vagy kiadsz egy verziót, az Ozvi magától „Javítva” állapotba teszi a hibát. Az újdonságokat Slackre vagy Discordra is elküldheted."
+        "title": "Ott javítod, ahol amúgy is dolgozol.",
+        "text": "A bejelentés képernyőképpel, az alkalmazás verziójával és a konzolhibával érkezik, a hasonlókat egy kattintással összevonod. A bejelentésből issue lesz a GitHubon, a Linearben vagy a Jirában. Ha a javítást beolvasztod vagy kiadod, az Ozvi magától „Javítva” állapotba teszi a hibát."
       },
       {
         "title": "A bejelentő pedig megtudja, mi lett a bejelentésével.",
@@ -3003,31 +3000,6 @@
       "note": "Widget nélkül az ügyfelek közvetlenül a táblán jelentik be a hibákat. Csak az a kontextus hiányzik, amelyet a widget magától csatol: a képernyőkép, a konzolhibák és a hiba előtti lépések."
     },
     "github": {
-      "title": "A bejelentéstől a javításig, közvetlenül a GitHubból.",
-      "lede": "A csapat ugyanúgy a GitHubon dolgozik, mint eddig. Az Ozvi a bejelentésből issue-t készít, követi, és amikor kijön a javítás, szól a bejelentőnek. Senkinek semmit nem kell kézzel átmásolnia.",
-      "ui": {
-        "connect": "GitHub csatlakoztatása",
-        "bug": "Naptár mobilon",
-        "create": "Issue létrehozása"
-      },
-      "steps": [
-        {
-          "title": "Két kattintással csatlakoztatod a GitHubot",
-          "text": "A GitHubon kiválasztod, mely tárolókhoz férhet hozzá az Ozvi alkalmazás, az Ozviban pedig kijelölsz közülük egyet. Nem kell token, és webhookot sem kell kézzel beállítani."
-        },
-        {
-          "title": "A bejelentésből issue lesz",
-          "text": "Egy kattintással létrejön az issue a leírással és a technikai adatokkal együtt. A bejelentést egy már meglévő issue-hoz is kapcsolhatod."
-        },
-        {
-          "title": "Lezárod az issue-t vagy kiadsz egy verziót",
-          "text": "Az Ozvi ezt magától észreveszi, és a hiba „Javítva a 2.15-ös verzióban” állapotba kerül. Ha nem adsz ki verziókat, elég lezárni az issue-t."
-        },
-        {
-          "title": "A bejelentő e-mailt kap",
-          "text": "Megírjuk neki, hogy a hibát kijavították, ő pedig egy kattintással jelzi, hogy most már működik-e."
-        }
-      ],
       "note": "Ha egy összevont pull request leírásában szerepel a „Fixes #412” sor, a PR magától a bejelentéshez kerül a javítás bizonyítékaként. A Linear és a Jira API-kulccsal csatlakozik, és ugyanígy szinkronizálja az állapotokat. Saját szerveren a GitHub-alkalmazást egyetlen paranccsal hozod létre."
     },
     "star": {
@@ -3906,7 +3878,7 @@
       "note": "Megjegyzés",
       "noteText": "Érzékeny bőr, ammónia-allergia",
       "service": "Szolgáltatás",
-      "serviceText": "Festés · Lúcia · 65,00 €",
+      "serviceText": "Festés · Lúcia · 65,00 €",
       "pin": "Fiók PIN",
       "detail": "Részletek",
       "history": "Előzmények",

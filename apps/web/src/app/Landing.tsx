@@ -403,21 +403,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               </div>
               <div data-r className="min-w-0"><DevTabs tabs={devTabs(t, locale)} /></div>
               {/* GitHub: from the report to the fix and back to the author, in four lines */}
-              <div id="github" data-r className="scroll-mt-24 border-t pt-10 lg:col-span-2">
-                <div className="grid gap-4 lg:grid-cols-2 lg:items-end">
-                  <h3 className="max-w-[24ch] text-[24px] leading-tight font-semibold tracking-[-0.03em]">{t("github.title")}</h3>
-                  <p className="max-w-[52ch] text-[15px] leading-relaxed text-muted-foreground lg:justify-self-end">{t("github.lede")}</p>
-                </div>
-                <ol className="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-                  {(t.raw("github.steps") as { title: string; text: string }[]).map((st, i) => (
-                    <li key={st.title} className="grid content-start gap-2 border-t pt-4">
-                      <h4 className="flex items-baseline gap-2 text-[15.5px] leading-snug font-semibold"><span className="text-[13px] text-muted-foreground tabular-nums">{i + 1}</span>{st.title}</h4>
-                      <p className="text-[14px] leading-relaxed text-muted-foreground">{st.text}</p>
-                    </li>
-                  ))}
-                </ol>
-                <p className="mt-6 max-w-[80ch] text-[14px] leading-relaxed text-muted-foreground">{t("github.note")}</p>
-              </div>
+              <p id="github" data-r className="max-w-[80ch] scroll-mt-24 border-t pt-8 text-[14.5px] leading-relaxed text-muted-foreground lg:col-span-2">{t("github.note")}</p>
             </Reveal>
             <dl aria-label="Spec" className="oz-frame grid border-t pb-4 sm:grid-cols-2 lg:grid-cols-4">
               {(t.raw("spec") as { k: string; v: string }[]).map((s, i) => (
@@ -441,7 +427,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                   <div key={p} className={cn("rounded-xl border bg-background p-5", p === "pro" && "border-primary/40")}>
                     <div className="flex items-baseline justify-between gap-3">
                       <h3 className="text-[16px] font-semibold">{PLAN_NAME[p]}</h3>
-                      <span className="text-[26px] leading-none font-semibold tracking-[-0.04em] tabular-nums">{price(p)}</span>
+                      <span className="text-[26px] leading-none font-semibold tracking-[-0.04em] tabular-nums">{price(p)}{p !== "free" && <span className="ml-1 text-[14px] font-medium tracking-normal text-muted-foreground">{t("pricing.perYear")}</span>}</span>
                     </div>
                     <p className="mt-1 text-right text-[12.5px] text-muted-foreground">{priceNote(p)}</p>
                     <dl className="mt-4 grid gap-2 border-t pt-4 text-[14px]">
@@ -464,7 +450,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                       {PLANS.map((p) => (
                         <th key={p} scope="col" className={cn("px-5 py-6 text-left align-top font-normal", p === "pro" && "bg-primary/[0.05]")}>
                           <span className="text-[15px] font-semibold">{PLAN_NAME[p]}</span>
-                          <span className="mt-3 block text-[32px] leading-none font-semibold tracking-[-0.04em] tabular-nums">{price(p)}</span>
+                          <span className="mt-3 block text-[32px] leading-none font-semibold tracking-[-0.04em] tabular-nums">{price(p)}{p !== "free" && <span className="ml-1 text-[14px] font-medium tracking-normal text-muted-foreground">{t("pricing.perYear")}</span>}</span>
                           <span className="mt-2 block text-[12.5px] text-muted-foreground">{priceNote(p)}</span>
                         </th>
                       ))}

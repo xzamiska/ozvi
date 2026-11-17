@@ -2560,7 +2560,7 @@
       "devFeature": {
         "href": "#self-host",
         "title": "Vlastní server",
-        "text": "Jeden Docker image a Postgres. Všechny funkce, 0 €."
+        "text": "Jeden Docker image a Postgres. Všechny funkce, 0 €."
       },
       "soon": "Spouštíme brzy"
     },
@@ -2691,7 +2691,7 @@
       "lede": "Neomezujeme uživatele ani záznamy. Platíte jen za to, co nás stojí peníze: e-maily, úložiště a domény. Ceny jsou bez DPH.",
       "plan": "Plán",
       "forever": "navždy, bez karty",
-      "yearly": "ročně nebo {q} čtvrtletně",
+      "yearly": "nebo {q} čtvrtletně",
       "choose": "Vybrat {p}",
       "unlimited": "neomezeně",
       "rows": {
@@ -2706,11 +2706,12 @@
         "translations": "AI překlady měsíčně"
       },
       "yes": "ano",
-      "no": "ne"
+      "no": "ne",
+      "perYear": "/ rok"
     },
     "self": {
-      "title": "Vlastní server: 0 €, všechny funkce.",
-      "text": "Jeden Docker image a Postgres. Žádné funkce zamčené za plánem. Veřejný zdrojový kód pod licencí FSL, která se po dvou letech mění na Apache 2.0.",
+      "title": "Vlastní server: 0 €, všechny funkce.",
+      "text": "Jeden Docker image a Postgres. Žádné funkce zamčené za plánem. Veřejný zdrojový kód pod licencí FSL, která se po dvou letech mění na Apache 2.0. AI funkce zapnete vlastním klíčem k libovolnému poskytovateli nebo lokálnímu modelu.",
       "c1": "Ozvi + Postgres",
       "c2": "první projekt",
       "name": "Moje aplikace"
@@ -2904,7 +2905,7 @@
         },
         "self": {
           "title": "Nebo na vlastním serveru",
-          "text": "Jeden Docker image a Postgres. Všechny funkce, 0 €."
+          "text": "Jeden Docker image a Postgres. Všechny funkce, 0 €."
         },
         "fider": {
           "title": "Přechod z Fideru",
@@ -2931,12 +2932,8 @@
         "text": "Klikne na „Zpětná vazba“ přímo ve vaší aplikaci a napíše, co nefunguje. Screenshot a stránku přibalí Ozvi sám a hesla zakryje dřív, než něco odejde z jeho prohlížeče. Vývojáři dostanou i verzi a chyby z konzole."
       },
       {
-        "title": "Tým vyřídí všechno na jednom místě.",
-        "text": "Všechna hlášení máte pohromadě a můžete je filtrovat. Podobná sloučíte jedním klikem. Interní poznámky a štítky zákazník nevidí. Nic nezůstane ležet bez odpovědi."
-      },
-      {
-        "title": "Funguje s nástroji, které už používáte.",
-        "text": "Hlášení se jedním klikem stane issue na GitHubu, v Linearu nebo Jiře. Když issue zavřete nebo vydáte release, Ozvi chybu sám přesune na „Opraveno“. Novinky pošlete do Slacku či Discordu."
+        "title": "Opravíte ji tam, kde pracujete.",
+        "text": "Hlášení přijde se snímkem obrazovky, verzí i chybou z konzole a podobná sloučíte jedním klikem. Z hlášení uděláte issue na GitHubu, v Linearu nebo Jiře. Když opravu sloučíte nebo vydáte release, Ozvi chybu sám přesune na „Opraveno“."
       },
       {
         "title": "A autor se dozví, jak to dopadlo.",
@@ -3003,31 +3000,6 @@
       "note": "Bez widgetu hlásí zákazníci chyby přímo na boardu. Chybí jim jen kontext, který widget přibalí sám: screenshot, chyby z konzole a kroky před chybou."
     },
     "github": {
-      "title": "Od hlášení po opravu, přímo z GitHubu.",
-      "lede": "Tým pracuje v GitHubu jako dosud. Ozvi z hlášení udělá issue, sleduje ho, a když je oprava venku, dá autorovi vědět. Nikdo nic nepřepisuje ručně.",
-      "ui": {
-        "connect": "Připojit GitHub",
-        "bug": "Kalendář na mobilu",
-        "create": "Vytvořit issue"
-      },
-      "steps": [
-        {
-          "title": "Připojíte GitHub dvěma kliky",
-          "text": "Na GitHubu vyberete repozitáře pro aplikaci Ozvi a v Ozvi jeden zvolíte. Žádný token ani ručně nastavený webhook."
-        },
-        {
-          "title": "Z hlášení je issue",
-          "text": "Jedním klikem vznikne issue i s popisem a technickými údaji. Nebo hlášení propojíte s issue, které už máte."
-        },
-        {
-          "title": "Zavřete issue nebo vydáte release",
-          "text": "Ozvi to zachytí samo. Chyba se posune na „Opraveno ve verzi 2.15“, případně hned po zavření issue, pokud releasy neděláte."
-        },
-        {
-          "title": "Autor dostane e-mail",
-          "text": "Napíšeme mu, že je to opravené, a jedním klikem potvrdí, jestli mu to už funguje."
-        }
-      ],
       "note": "Sloučený pull request s „Fixes #412“ se k hlášení přidá sám jako důkaz opravy. Linear a Jira se připojují API klíčem a stav synchronizují podobně. Na vlastním serveru si aplikaci pro GitHub vytvoříte jedním příkazem."
     },
     "star": {
@@ -3906,7 +3878,7 @@
       "note": "Poznámka",
       "noteText": "Citlivá pokožka, alergie na amoniak",
       "service": "Služba",
-      "serviceText": "Barvení · Lucie · 65,00 €",
+      "serviceText": "Barvení · Lucie · 65,00 €",
       "pin": "PIN pobočky",
       "detail": "Detail",
       "history": "Historie",

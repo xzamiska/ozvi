@@ -2691,7 +2691,7 @@
       "lede": "We don’t limit users or records. You pay only for what costs us money: e-mails, storage and domains. Prices exclude VAT.",
       "plan": "Plan",
       "forever": "forever, no card",
-      "yearly": "per year, or {q} per quarter",
+      "yearly": "or {q} per quarter",
       "choose": "Choose {p}",
       "unlimited": "unlimited",
       "rows": {
@@ -2706,11 +2706,12 @@
         "translations": "AI translations per month"
       },
       "yes": "yes",
-      "no": "no"
+      "no": "no",
+      "perYear": "/ year"
     },
     "self": {
       "title": "Self-host it for €0, with every feature.",
-      "text": "All it takes is one Docker image and Postgres. No feature is locked behind a plan. The code is source-available under the FSL, which converts to Apache 2.0 after two years.",
+      "text": "All it takes is one Docker image and Postgres. No feature is locked behind a plan. The code is source-available under the FSL, which converts to Apache 2.0 after two years. AI features run on your own key for any provider, or on a local model.",
       "c1": "Ozvi + Postgres",
       "c2": "first project",
       "name": "My App"
@@ -2931,12 +2932,8 @@
         "text": "They click “Feedback” in your app and describe what’s wrong. Ozvi adds a screenshot and the page address on its own, and hides passwords before anything leaves the browser. Your developers also get the version and any console errors."
       },
       {
-        "title": "Your team handles it all in one place.",
-        "text": "All reports are in one place, and you can filter them. Merge similar ones in one click. Customers never see internal notes or tags. Nothing is left unanswered."
-      },
-      {
-        "title": "Connected to the tools you already use.",
-        "text": "One click turns a report into an issue in GitHub, Linear or Jira. When you close the issue or publish a release, Ozvi moves the bug to “Fixed” by itself. You can also send updates to Slack or Discord."
+        "title": "Fix it where you already work.",
+        "text": "The report arrives with a screenshot, the app version and the console error, and you merge duplicates in one click. Turn it into an issue in GitHub, Linear or Jira. When the fix is merged or released, Ozvi moves the bug to “Fixed” by itself."
       },
       {
         "title": "And the customer hears how it turned out.",
@@ -3003,31 +3000,6 @@
       "note": "Without the widget, customers report bugs right on the board. All they miss is the context the widget adds by itself: a screenshot, console errors and the steps before the bug."
     },
     "github": {
-      "title": "From report to fix, straight from GitHub.",
-      "lede": "Your team keeps working in GitHub as before. Ozvi turns the report into an issue, tracks it, and tells the customer when the fix is out. Nobody has to copy anything by hand.",
-      "ui": {
-        "connect": "Connect GitHub",
-        "bug": "Calendar on mobile",
-        "create": "Create issue"
-      },
-      "steps": [
-        {
-          "title": "Connect GitHub in two clicks",
-          "text": "On GitHub, give the Ozvi app access to your repositories, then pick one in Ozvi. There’s no token or webhook to set up by hand."
-        },
-        {
-          "title": "Turn the report into an issue",
-          "text": "One click creates an issue with the description and technical details. You can also link the report to an issue you already have."
-        },
-        {
-          "title": "Close the issue or publish a release",
-          "text": "Ozvi picks it up and moves the bug to “Fixed in 2.15”. If you don’t do releases, closing the issue is enough."
-        },
-        {
-          "title": "The customer gets an e-mail",
-          "text": "We tell them it’s fixed, and they can confirm with one click whether it works for them now."
-        }
-      ],
       "note": "A merged pull request with “Fixes #412” is attached to the report automatically as proof of the fix. Linear and Jira connect with an API key and sync statuses in a similar way. On your own server, you create the GitHub app with one command."
     },
     "star": {
