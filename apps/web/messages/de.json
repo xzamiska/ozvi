@@ -2874,32 +2874,6 @@
         }
       ],
       "tiles": {
-        "stream": {
-          "title": "Meldungen kommen mit Kontext",
-          "text": "Screenshot, Version, Browser und Konsolenfehler hängt das Widget von selbst an. Ihre Kunden müssen nichts erklären.",
-          "items": [
-            {
-              "title": "SMS-Erinnerung hat nach der Zeitumstellung die falsche Uhrzeit",
-              "meta": "Chrome 141 · v2.14.0 · 1 Konsolenfehler"
-            },
-            {
-              "title": "Gewählte Sprache geht nach der Anmeldung verloren",
-              "meta": "Safari 19 · v2.14.0"
-            },
-            {
-              "title": "Mobiler Kalender zeigt keine Samstagstermine",
-              "meta": "Chrome 141 · v2.14.0 · Screenshot"
-            },
-            {
-              "title": "Synchronisierung mit Google Kalender",
-              "meta": "41 Stimmen · Geplant"
-            },
-            {
-              "title": "Wöchentlich wiederkehrende Buchungen",
-              "meta": "17 Stimmen · In Arbeit"
-            }
-          ]
-        },
         "mcp": {
           "title": "Ein KI-Assistent in Ihrem Editor",
           "text": "Der MCP-Server bietet 17 Werkzeuge. Schritte, die etwas zusammenführen oder veröffentlichen, warten auf Ihre Bestätigung.",
@@ -2969,25 +2943,7 @@
       },
       "moreTitle": "Alle Funktionen"
     },
-    "flow": {
-      "sources": [
-        "Widget in Ihrer App",
-        "Board unter Ihrer Adresse",
-        "E-Mail",
-        "REST API"
-      ],
-      "tools": [
-        "GitHub",
-        "Linear und Jira",
-        "Slack, Discord, Webhooks",
-        "Antwort an den Kunden"
-      ]
-    },
     "steps": [
-      {
-        "title": "Kunden melden einen Fehler dort, wo sie ihn sehen.",
-        "text": "Sie klicken direkt in Ihrer App auf „Feedback“ und schreiben, was nicht funktioniert. Screenshot und Seite hängt Ozvi von selbst an und verdeckt Passwörter, bevor etwas den Browser verlässt. Entwickler bekommen zusätzlich die Version und die Konsolenfehler."
-      },
       {
         "title": "Ihr Team erledigt alles an einem Ort.",
         "text": "Alle Meldungen liegen an einem Ort und lassen sich filtern. Ähnliche führen Sie mit einem Klick zusammen. Interne Notizen und Tags sieht der Kunde nicht. So bleibt nichts ohne Antwort liegen."
@@ -2998,11 +2954,7 @@
       },
       {
         "title": "Ozvi arbeitet mit den Tools, die Sie schon nutzen.",
-        "text": "Eine Meldung wird mit einem Klick zum Issue in GitHub, Linear oder Jira. Neuigkeiten schicken Sie an Slack oder Discord."
-      },
-      {
-        "title": "Und der Kunde erfährt, wie es ausgegangen ist.",
-        "text": "Markieren Sie einen Fehler als behoben, bekommt der Kunde eine E-Mail mit der Frage, ob es jetzt funktioniert. Wird eine Idee umgesetzt, informiert ein einziger Eintrag alle, die dafür gestimmt haben."
+        "text": "Eine Meldung wird mit einem Klick zum Issue in GitHub, Linear oder Jira. Wenn Sie das Issue schließen oder ein Release veröffentlichen, setzt Ozvi den Fehler von selbst auf „Behoben“. Neuigkeiten schicken Sie an Slack oder Discord."
       }
     ],
     "try": {
@@ -3124,6 +3076,10 @@
         "q": "Was kostet es?",
         "a": "Der Free-Tarif ist dauerhaft kostenlos, ohne Kreditkarte. Pro kostet {pro} und Studio {studio} pro Jahr. Sie zahlen nicht pro Nutzer oder Eintrag."
       }
+    },
+    "ghPanel": {
+      "from": "aus Ozvi-Meldung #128",
+      "closed": "Release 2.15 hat Issue #482 geschlossen"
     }
   },
   "net": {

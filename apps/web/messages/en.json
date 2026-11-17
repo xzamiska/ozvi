@@ -2874,32 +2874,6 @@
         }
       ],
       "tiles": {
-        "stream": {
-          "title": "Reports arrive with context",
-          "text": "The widget attaches a screenshot, the version, the browser and console errors by itself, so customers don’t have to explain anything.",
-          "items": [
-            {
-              "title": "SMS reminder has the wrong time after the clock change",
-              "meta": "Chrome 141 · v2.14.0 · 1 console error"
-            },
-            {
-              "title": "Chosen language is lost after sign-in",
-              "meta": "Safari 19 · v2.14.0"
-            },
-            {
-              "title": "Mobile calendar doesn’t show Saturday slots",
-              "meta": "Chrome 141 · v2.14.0 · screenshot"
-            },
-            {
-              "title": "Sync with Google Calendar",
-              "meta": "41 votes · Planned"
-            },
-            {
-              "title": "Weekly recurring bookings",
-              "meta": "17 votes · In progress"
-            }
-          ]
-        },
         "mcp": {
           "title": "An AI assistant in your editor",
           "text": "Ozvi has an MCP server with 17 tools. Anything that merges or publishes waits for your confirmation.",
@@ -2969,25 +2943,7 @@
       },
       "moreTitle": "All features"
     },
-    "flow": {
-      "sources": [
-        "Widget in your app",
-        "Board at your address",
-        "E-mail",
-        "REST API"
-      ],
-      "tools": [
-        "GitHub",
-        "Linear and Jira",
-        "Slack, Discord, webhooks",
-        "Reply to the customer"
-      ]
-    },
     "steps": [
-      {
-        "title": "Customers report a bug right where they see it.",
-        "text": "They click “Feedback” in your app and describe what’s wrong. Ozvi adds a screenshot and the page address on its own, and hides passwords before anything leaves the browser. Your developers also get the version and any console errors."
-      },
       {
         "title": "Your team handles it all in one place.",
         "text": "All reports are in one place, and you can filter them. Merge similar ones in one click. Customers never see internal notes or tags. Nothing is left unanswered."
@@ -2998,11 +2954,7 @@
       },
       {
         "title": "Connected to the tools you already use.",
-        "text": "One click turns a report into an issue in GitHub, Linear or Jira. You can also send updates to Slack or Discord."
-      },
-      {
-        "title": "And the customer hears how it turned out.",
-        "text": "When you mark a bug as fixed, the customer gets an e-mail asking whether it works for them now. When you ship an idea, one changelog entry lets everyone who voted for it know."
+        "text": "One click turns a report into an issue in GitHub, Linear or Jira. When you close the issue or publish a release, Ozvi moves the bug to “Fixed” by itself. You can also send updates to Slack or Discord."
       }
     ],
     "try": {
@@ -3124,6 +3076,10 @@
         "q": "How much does it cost?",
         "a": "The Free plan is free forever and doesn’t need a card. Pro costs {pro} and Studio {studio} a year. You don’t pay per user or per record."
       }
+    },
+    "ghPanel": {
+      "from": "from Ozvi report #128",
+      "closed": "Release 2.15 closed issue #482"
     }
   },
   "net": {

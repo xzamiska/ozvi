@@ -2874,32 +2874,6 @@
         }
       ],
       "tiles": {
-        "stream": {
-          "title": "Hlásenia prichádzajú s kontextom",
-          "text": "Screenshot, verziu, prehliadač a chyby z konzoly pribalí widget sám. Používateľ nič nevysvetľuje.",
-          "items": [
-            {
-              "title": "Pripomienka SMS má zlý čas po zmene na zimný čas",
-              "meta": "Chrome 141 · v2.14.0 · 1 chyba z konzoly"
-            },
-            {
-              "title": "Po prihlásení sa stratí vybraný jazyk",
-              "meta": "Safari 19 · v2.14.0"
-            },
-            {
-              "title": "Kalendár na mobile nezobrazí sobotné termíny",
-              "meta": "Chrome 141 · v2.14.0 · screenshot"
-            },
-            {
-              "title": "Synchronizácia s Google Kalendárom",
-              "meta": "41 hlasov · Plánované"
-            },
-            {
-              "title": "Opakované rezervácie každý týždeň",
-              "meta": "17 hlasov · Rozpracované"
-            }
-          ]
-        },
         "mcp": {
           "title": "AI asistent vo vašom editore",
           "text": "MCP server s 17 nástrojmi. Kroky, ktoré niečo zlúčia alebo zverejnia, čakajú na vaše potvrdenie.",
@@ -2969,25 +2943,7 @@
       },
       "moreTitle": "Všetky funkcie"
     },
-    "flow": {
-      "sources": [
-        "Widget v aplikácii",
-        "Board na vašej adrese",
-        "E-mail",
-        "REST API"
-      ],
-      "tools": [
-        "GitHub",
-        "Linear a Jira",
-        "Slack, Discord, webhooky",
-        "Odpoveď autorovi"
-      ]
-    },
     "steps": [
-      {
-        "title": "Zákazník nahlási chybu tam, kde ju vidí.",
-        "text": "Klikne na „Spätná väzba“ priamo vo vašej appke a napíše, čo nefunguje. Screenshot a stránku pribalí Ozvi sám a heslá zakryje skôr, než niečo odíde z jeho prehliadača. Vývojári dostanú aj verziu a chyby z konzoly."
-      },
       {
         "title": "Tím vybaví všetko na jednom mieste.",
         "text": "Všetky hlásenia máte pokope a viete ich filtrovať. Podobné zlúčite jedným klikom. Interné poznámky a štítky zákazník nevidí. Nič neostane ležať bez odpovede."
@@ -2998,11 +2954,7 @@
       },
       {
         "title": "Funguje s nástrojmi, ktoré už používate.",
-        "text": "Hlásenie sa jedným klikom stane issue na GitHube, v Lineari alebo Jire. Novinky pošlete do Slacku či Discordu."
-      },
-      {
-        "title": "A autor sa dozvie, ako to dopadlo.",
-        "text": "Keď chybu označíte ako opravenú, príde mu e-mail s otázkou, či mu to už funguje. Keď vydáte nápad, jedna novinka dá vedieť každému, kto zaň hlasoval."
+        "text": "Hlásenie sa jedným klikom stane issue na GitHube, v Lineari alebo Jire. Keď issue zatvoríte alebo vydáte release, Ozvi chybu sám presunie na „Opravené“. Novinky pošlete do Slacku či Discordu."
       }
     ],
     "try": {
@@ -3124,6 +3076,10 @@
         "q": "Koľko to stojí?",
         "a": "Plán Free je zadarmo natrvalo a bez platobnej karty. Pro stojí {pro} a Studio {studio} ročne. Neplatíte za používateľov ani za záznamy."
       }
+    },
+    "ghPanel": {
+      "from": "z hlásenia #128 v Ozvi",
+      "closed": "Release 2.15 zatvoril issue #482"
     }
   },
   "net": {

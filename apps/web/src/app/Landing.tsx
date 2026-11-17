@@ -1,10 +1,9 @@
 import { limitSize, PLAN_LIMITS, PRICES } from "@ozvi/db";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
-import { Accessibility, ArrowRightLeft, Camera, Globe, Palette, Check, ChevronDown, Code, EyeOff, GitPullRequest, Inbox, Languages, Mail, MessageSquare, Minus, ListTodo, Star, Webhook } from "lucide-react";
+import { Accessibility, ArrowRightLeft, Camera, Check, ChevronDown, CircleDot, EyeOff, GitPullRequest, Languages, MessageSquare, Minus, Palette, Star, Tag } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
-import { Beams, ReportStream, RouteFill } from "@/components/landing/Live";
 import { Reveal } from "@/components/landing/Reveal";
 import { MiniBoard } from "@/components/landing/SampleBoard";
 import { SmoothScroll } from "@/components/landing/SmoothScroll";
@@ -97,7 +96,6 @@ const lede = "text-[16.5px] leading-relaxed text-muted-foreground";
 const primary = "inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-foreground px-5 text-[14.5px] font-semibold text-background transition-opacity hover:opacity-85";
 /** Before launch (OZVI_SIGNUP=closed) the sign-up buttons become this plain label. */
 const soonLabel = "inline-flex h-11 items-center justify-center rounded-lg border border-dashed border-line-strong px-5 text-[14.5px] font-medium text-muted-foreground";
-const flowChip = "inline-flex items-center gap-2.5 rounded-xl border bg-background px-3.5 py-2.5 text-[13.5px] font-medium whitespace-nowrap";
 const hostPanel = "look-host oz-scope overflow-hidden rounded-xl border bg-background font-sans text-foreground";
 const note = "pointer-events-none absolute hidden items-center gap-2.5 rounded-xl border bg-surface/90 px-3.5 py-2.5 text-left text-[13px] leading-snug backdrop-blur lg:flex";
 const tile = "relative border-t-2 border-foreground pt-5";
@@ -272,24 +270,28 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
           {/* how it works: the steps scroll past, the picture on the right follows */}
           <section id="how" aria-labelledby="how-h" className="oz-frame scroll-mt-24 py-16 lg:py-8">
             <h2 id="how-h" className="sr-only">{t("hero.secondary")}</h2>
-            <StickySteps phonePanels={[2]} steps={(t.raw("steps") as { title: string; text: string }[]).map((s, i) => ({ ...s, panel: [
-              <div key="s" className="rounded-xl border bg-surface p-5 sm:p-6"><ReportStream items={(t.raw("features.tiles.stream.items") as { title: string; meta: string }[]).map((r, k) => ({ ...r, n: 126 + k, tone: k < 3 ? "bug" as const : "idea" as const }))} /></div>,
+            <StickySteps phonePanels={[1, 2]} steps={(t.raw("steps") as { title: string; text: string }[]).map((s, i) => ({ ...s, panel: [
               <div key="t" className={hostPanel}><TeamDesk /></div>,
               <div key="i" inert className={cn(hostPanel, "pointer-events-none select-none")}><MiniBoard name={t("product.app")} compact={false} view="roadmap" fit /></div>,
-              <div key="b" className="grid gap-6">
-                <div className="overflow-x-auto pb-1 [scrollbar-width:none]"><Beams className="min-w-[560px]"
-                  left={(t.raw("flow.sources") as string[]).map((l, k) => { const Icon = [MessageSquare, Globe, Mail, Code][k]!; return <span key={l} className={flowChip}><Icon className="size-4 text-brand-text" aria-hidden />{l}</span>; })}
-                  hub={<span className="grid size-20 place-items-center rounded-xl border bg-background"><OzviMark className="size-10" /></span>}
-                  right={(t.raw("flow.tools") as string[]).map((l, k) => { const Icon = [GitPullRequest, ListTodo, Webhook, Inbox][k]!; return <span key={l} className={flowChip}><Icon className="size-4 text-success" aria-hidden />{l}</span>; })} /></div>
-                
-              </div>,
-              <div key="r" className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-center">
-                <div className="rounded-xl border bg-surface p-7"><RouteFill stops={t.raw("features.tiles.route.stops") as string[]} /></div>
-                <div className={cn(hostPanel, "p-6")}>
-                  <p className="text-[12.5px] text-muted-foreground">{t("story.stage.app")} → jana@firma.sk</p>
-                  <p className="mt-2 text-[17px] font-semibold">{t("hero.loop.mailSubject")}</p>
-                  <p className="mt-1.5 text-[14px] leading-relaxed">{t("hero.loop.mailBody")}</p>
-                  <div className="mt-4 flex gap-2 text-[13px] font-semibold"><span className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground">{t("hero.loop.yes")}</span><span className="rounded-md border border-line-strong px-3 py-1.5">{t("hero.loop.no")}</span></div>
+              // the same #128 as in the hero: an issue in GitHub, closed by a release, and the report moves to "Fixed" on its own
+              <div key="g" className="grid w-full max-w-[520px] text-[13.5px] lg:mx-auto">
+                <div className={hostPanel}>
+                  <p className="flex items-center gap-2 border-b px-4 py-2.5 font-mono text-[12px] text-muted-foreground"><GitPullRequest className="size-3.5" aria-hidden />acme/app</p>
+                  <div className="grid gap-3 p-4">
+                    <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3">
+                      <CircleDot className="mt-0.5 size-4 text-muted-foreground" aria-hidden />
+                      <div className="min-w-0"><p className="font-semibold">{t("story.stage.report")}</p><p className="mt-0.5 text-[12.5px] text-muted-foreground">#482 · {t("ghPanel.from")}</p></div>
+                    </div>
+                    <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 border-t pt-3">
+                      <Tag className="mt-0.5 size-4 text-muted-foreground" aria-hidden />
+                      <p>{t("ghPanel.closed")}</p>
+                    </div>
+                  </div>
+                </div>
+                <span aria-hidden className="ml-[26px] h-6 w-[3px] bg-st-done" />
+                <div className="rounded-xl border-2 border-foreground bg-surface p-4">
+                  <p className="flex items-baseline gap-3"><span className="text-[22px] leading-none font-extrabold tracking-[-0.03em] tabular-nums">#128</span><span className="min-w-0 font-semibold">{t("story.stage.report")}</span></p>
+                  <p className="mt-3 inline-flex items-center gap-1.5 font-semibold"><StatusMark kind="bug" status="fixed" />{(t.raw("features.tiles.route.stops") as string[])[3]}</p>
                 </div>
               </div>,
             ][i] }))} />
@@ -346,14 +348,14 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 </div>
               </div>
               {/* a still of the demo: the app with masked fields, and what the team gets */}
-              <div aria-hidden className="relative min-h-[320px] border-t bg-background p-6 lg:border-t-0 lg:border-l">
-                <div className={cn(hostPanel, "max-w-[360px] p-5 text-[13px]")}>
+              <div aria-hidden className="grid content-center gap-4 border-t bg-background p-6 sm:p-8 lg:border-t-0 lg:border-l">
+                <div className={cn(hostPanel, "w-full max-w-[360px] p-5 text-[13px]")}>
                   <p className="text-[15px] font-semibold">{t("demo.app")}</p>
                   <p className="mt-2 flex justify-between text-muted-foreground">{t("demo.phone")}<span className="rounded bg-foreground/15 px-10 blur-[3px]">+421 905</span></p>
                   <p className="mt-1.5 flex justify-between text-muted-foreground">{t("demo.noteLabel")}<span className="rounded bg-foreground/15 px-14 blur-[3px]">alergia</span></p>
                   <p className="mt-3 font-medium text-destructive">{t("demo.failed")}</p>
                 </div>
-                <div className="absolute right-6 bottom-6 left-16 max-w-[380px] rounded-xl border bg-background p-4 sm:left-auto sm:w-[360px]">
+                <div className="w-full max-w-[380px] justify-self-end rounded-xl border bg-surface p-4">
                   <p className="text-[13px] font-semibold">{t("demo.teamGets")}</p>
                   <p className="mt-2 text-[13.5px]">{t("demo.quote")}</p>
                   <p className="mt-2 font-mono text-[11px] text-muted-foreground">500 PUT /api/bookings/2026-11-14</p>
