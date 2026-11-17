@@ -2577,7 +2577,8 @@
           "Klient dostaje e-mail"
         ]
       },
-      "own": "Sami używamy Ozvi: nasza tablica i nowości"
+      "own": "Sami używamy Ozvi: nasza tablica i nowości",
+      "source": "Kod źródłowy na GitHubie"
     },
     "monitoring": {
       "title": "Monitoring wyłapuje to, co się wysypie. Ozvi zbiera to, co mówią ci klienci.",

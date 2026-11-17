@@ -2577,7 +2577,8 @@
           "Az ügyfél e-mailt kap"
         ]
       },
-      "own": "Mi is az Ozvit használjuk: a táblánk és az újdonságaink"
+      "own": "Mi is az Ozvit használjuk: a táblánk és az újdonságaink",
+      "source": "Forráskód a GitHubon"
     },
     "monitoring": {
       "title": "A hibamonitorozás azt jelzi, ami összeomlik, az Ozvi pedig azt, amit az ügyfeleid mondanak.",

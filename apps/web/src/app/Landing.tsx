@@ -227,7 +227,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 <p className="mt-4 text-[13.5px] text-muted-foreground sm:mt-5">{t("hero.note", { pro: eur(PRICES.pro.year) })}</p>
                 {/* proof that it is real and alive: the public code, and our own board running on Ozvi */}
                 <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13.5px]">
-                  <StarLink label={t("star.cta")} stars={stars} tag={tag} className="h-9 text-[13.5px]" />
+                  <a href={GITHUB_REPO} target="_blank" rel="noopener" className="font-medium underline decoration-line-strong underline-offset-4 hover:decoration-foreground">{t("hero.source")}</a>
                   {own && <a href={own.ideas} className="font-medium underline decoration-line-strong underline-offset-4 hover:decoration-foreground">{t("hero.own")}</a>}
                 </div>
               </div>

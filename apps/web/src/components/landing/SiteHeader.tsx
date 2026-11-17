@@ -132,7 +132,7 @@ export function SiteHeader({ locale, signedIn, soon = false }: { locale: Locale;
           {!signedIn && !soon && <Link href="/app/login" className="hidden h-9 items-center rounded-md px-3 text-[14px] font-medium hover:bg-wash sm:inline-flex">{t("nav.signIn")}</Link>}
           {soon
             ? <span className="inline-flex h-9 items-center rounded-lg border border-dashed border-line-strong px-4 text-[14px] font-medium whitespace-nowrap text-muted-foreground">{t("nav.soon")}</span>
-            : <Link href={start.href} className="inline-flex h-9 items-center rounded-lg bg-foreground px-4 text-[14px] font-semibold whitespace-nowrap text-background transition-opacity hover:opacity-85">{start.label}</Link>}
+            : <Link href={start.href} className="inline-flex h-9 items-center rounded-lg border border-line-strong bg-surface px-4 text-[14px] font-semibold whitespace-nowrap text-foreground transition-colors hover:bg-wash">{start.label}</Link>}
           <Sheet open={sheet} onOpenChange={setSheet}>
             <SheetTrigger className="grid size-9 place-items-center rounded-md hover:bg-wash lg:hidden" aria-label={t("nav.menu")}><Menu className="size-5" /></SheetTrigger>
             <SheetContent side="right" className="w-[320px] gap-0 overflow-y-auto bg-surface p-0">

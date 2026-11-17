@@ -20,7 +20,7 @@ const clamp = (x: number) => Math.min(1, Math.max(0, x));
 const ease = "transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none";
 const from = (p: number, at: number) => (p >= at ? "opacity-100 translate-y-0" : "pointer-events-none translate-y-1.5 opacity-0");
 
-export function ScrollStory({ phonePanels = [1] }: { phonePanels?: number[] }) {
+export function ScrollStory({ phonePanels = [0, 1, 2] }: { phonePanels?: number[] }) {
   const t = useTranslations("landing");
   const steps = t.raw("steps") as Step[];
   const where = t.raw("hero.loop.where") as string[];
@@ -76,7 +76,8 @@ export function ScrollStory({ phonePanels = [1] }: { phonePanels?: number[] }) {
               {phonePanels.includes(i) && (
                 <div inert className="mt-6 grid min-w-0 gap-2 select-none lg:hidden">
                   <p className="text-[13px] font-medium text-muted-foreground">{label(i)}</p>
-                  <Scene p={1} />
+                  {/* phones: the widget alone (the app behind it would not fit), the queue and the e-mail as they end */}
+                  {i === 0 ? <WidgetForm typed={1} shot sent={false} className="w-full" /> : <Scene p={1} />}
                 </div>
               )}
             </li>
@@ -128,8 +129,8 @@ export function WidgetForm({ typed, shot, sent, compact, className }: { typed: n
       <div className={cn("relative mt-2.5 overflow-hidden rounded-lg border", ease, shot ? "h-[112px] opacity-100" : "h-0 border-0 opacity-0")}>
         <MiniApp className="pointer-events-none w-[200%] origin-top-left scale-50" masked />
         <div className="absolute top-1.5 right-1.5 flex gap-1.5 text-[11px] font-semibold text-white">
-          <span className="inline-flex items-center gap-1 rounded-full bg-black/70 px-2 py-1"><Pencil className="size-3" aria-hidden />{w("ann")}</span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-black/70 px-2 py-1"><Trash2 className="size-3" aria-hidden />{w("shotDel")}</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-black/90 px-2 py-1"><Pencil className="size-3" aria-hidden />{w("ann")}</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-black/90 px-2 py-1"><Trash2 className="size-3" aria-hidden />{w("shotDel")}</span>
         </div>
       </div>
       <p className={cn("mt-3 grid grid-cols-[auto_1fr] gap-x-2 font-semibold", compact && "hidden")}><span className="mt-0.5 grid size-4 place-items-center rounded-[4px] bg-primary text-primary-foreground"><Check className="size-3" strokeWidth={3} aria-hidden /></span>{w("tech")}</p>

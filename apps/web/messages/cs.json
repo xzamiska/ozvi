@@ -2577,13 +2577,14 @@
           "Zákazník dostane e-mail"
         ]
       },
-      "own": "Ozvi používáme i my: náš board a novinky"
+      "own": "Ozvi používáme i my: náš board a novinky",
+      "source": "Zdrojový kód na GitHubu"
     },
     "monitoring": {
       "title": "Monitoring zachytí, co spadne. Ozvi zachytí, co vám řeknou lidé.",
       "themLabel": "Monitoring chyb",
       "them": "Výjimky, pomalé požadavky a stack trace. Slouží vývojářům a ozve se, když spadne kód.",
-      "ozvi": "I to, co nikdy nespadne. A autorovi dá vědět, jak to dopadlo. Například:",
+      "ozvi": "Zachytí i chyby, při kterých nic nespadne. A autorovi dá vědět, jak to dopadlo. Například:",
       "examples": [
         "„Na faktuře mi vyšla špatná částka.“",
         "„Nevím, kde se ruší rezervace.“",

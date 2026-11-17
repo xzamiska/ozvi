@@ -2577,7 +2577,8 @@
           "The customer gets an e-mail"
         ]
       },
-      "own": "We use Ozvi ourselves: our board and changelog"
+      "own": "We use Ozvi ourselves: our board and changelog",
+      "source": "Source code on GitHub"
     },
     "monitoring": {
       "title": "Monitoring catches what crashes. Ozvi catches what your customers tell you.",
