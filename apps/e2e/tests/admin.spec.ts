@@ -136,6 +136,15 @@ test.describe("board settings: project", () => {
     expect((await request.get(`/${next}/ideas`)).status()).toBe(200);
   });
 
+  test("saving settings after the board session ended goes back to the sign-in gate, not a crash", async ({ page }) => {
+    const { slug } = await ownerAdmin(page);
+    // The board session cookie goes (signed out in another tab, expired): the open form still posts.
+    await page.context().clearCookies({ name: `ozvi_${slug}` });
+    await section(page, "Projekt").getByRole("button", { name: "Uložiť nastavenia" }).click();
+    await page.waitForURL(new RegExp(`/${slug}/admin`));
+    await expect(page.getByRole("heading", { name: "Nastavenia boardu sú len pre adminov" })).toBeVisible();
+  });
+
   test("login URL and app origins: validated, saved, and used by the board and the widget API", async ({ page, browser, request }) => {
     const { slug } = await ownerAdmin(page);
     const proj = section(page, "Projekt");

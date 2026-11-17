@@ -13,6 +13,7 @@ import { reportError } from "./error-report";
 import { webhookTick } from "./webhooks";
 import { trackerTick } from "./tracker-sync";
 import { jiraPollTick } from "./jira";
+import { heartbeatTick } from "./heartbeat";
 
 /** Background jobs next to the e-mail worker: webhook deliveries every 5 s, embeddings every 30 s. */
 export function startJobs(db: Db) {
@@ -44,6 +45,8 @@ export function startJobs(db: Db) {
     every(15 * 60_000, "team digest", () => teamDigests(db)),
     every(3_600_000, "usage alerts", () => usageAlertsTick(db)),
     every(3_600_000, "manual plans", () => expireManualPlans(db)),
+    // Uptime monitor heartbeat (OZVI_HEARTBEAT_URL): only while the database answers and e-mails move.
+    every(60_000, "heartbeat", () => heartbeatTick(db)),
     every(86_400_000, "telemetry", () => telemetryTick(db)),
     // The first report soon after start: a server restarted every night would otherwise never send one.
     once(10 * 60_000, "telemetry", () => telemetryTick(db)),

@@ -32,7 +32,8 @@ async function requireTeam(slug: string) {
 async function requireAdmin(slug: string) {
   const ctx = await getCtx(slug);
   const t = await getTranslations({ locale: ctx.locale, namespace: "integrations.act" });
-  if (ctx.user?.role !== "admin") throw new Error(t("adminOnly"));
+  // No longer an admin: back to the settings page and its sign-in gate (lib/admin-actions requireAdmin).
+  if (ctx.user?.role !== "admin") redirect(`/${ctx.project.slug}/admin`);
   return { ...ctx, user: ctx.user, t };
 }
 const log = (project: { id: string; workspaceId: string }, user: { name: string | null; email: string | null }, action: Parameters<typeof logActivity>[0]["action"], detail?: string) =>

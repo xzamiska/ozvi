@@ -78,6 +78,8 @@ Ak máte GlitchTip alebo Sentry, nastavte `OZVI_ERROR_DSN` na DSN projektu. Ozvi
 
 ### Anonymná štatistika (dobrovoľná, predvolene vypnutá)
 
+Na uptime monitor (GlitchTip Heartbeat, Uptime Kuma Push, healthchecks.io) nastavte `OZVI_HEARTBEAT_URL` na jeho adresu. Ozvi ju zavolá (POST) každú minútu, ale len kým odpovedá databáza a e-maily neviaznu vo fronte dlhšie ako 15 minút. Keď údery prestanú, monitor vás upozorní. O inštancii sa nič neposiela; bez premennej je vypnutý. Na dostupnosť zvonku (DNS, TLS, proxy) použite monitor, ktorý beží mimo servera s Ozvi, napríklad `GET /api/health`.
+
 Ozvi bez vášho súhlasu nič o vašej inštancii neposiela. Ak nám chcete pomôcť vedieť, koľko ľudí Ozvi na vlastných serveroch používa, nastavte `OZVI_TELEMETRY=1`. Server potom raz denne pošle na `https://ozvi.io/api/telemetry` (`OZVI_TELEMETRY_URL`) presne toto:
 
 | Pole | Význam |

@@ -24,8 +24,10 @@ import { ownBoardSlug, slugAllowed } from "./slug";
 async function requireAdmin(slug: string) {
   const ctx = await getCtx(slug);
   const t = await getTranslations({ locale: ctx.locale, namespace: "admin.actions" });
-  if (ctx.user?.role !== "admin") throw new Error(t("adminOnly"));
-  return { ...ctx, t };
+  // No longer an admin (signed out, signed in as someone else, role changed in another tab): back to the
+  // settings page, which shows its sign-in gate. A thrown error here was a crash screen and a server error report.
+  if (ctx.user?.role !== "admin") redirect(`/${ctx.project.slug}/admin`);
+  return { ...ctx, t, user: ctx.user };
 }
 
 /** `replaced`: the new SSO secret replaced an older one (the old one stopped working), not a first one. */
@@ -88,10 +90,10 @@ export async function changeSlug(slug: string, _: AdminState, form: FormData): P
     // Taken between the check and the update (unique index).
     return { error: t("slugTaken", { slug: next }) };
   }
-  await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user!), action: "project.settings", detail: `/${project.slug} → /${next}` });
+  await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "project.settings", detail: `/${project.slug} → /${next}` });
   const jar = await cookies();
   jar.set({ name: cookieName(project.slug), value: "", path: `/${project.slug}`, maxAge: 0 });
-  jar.set(sessionCookie(next, user!, project.id));
+  jar.set(sessionCookie(next, user, project.id));
   revalidatePath(`/${project.slug}`, "layout");
   redirect(`/${next}/admin#project`);
 }

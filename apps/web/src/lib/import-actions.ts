@@ -3,6 +3,7 @@
 import { schema, withProject } from "@ozvi/db";
 import { and, eq, inArray } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { randomUUID } from "node:crypto";
 import { translator } from "@/i18n/messages";
 import { logActivity, who } from "./activity";
@@ -28,7 +29,8 @@ const MAX_ROWS = 20_000;
 async function requireAdmin(slug: string) {
   const ctx = await getCtx(slug);
   const t = translator(ctx.locale, "import");
-  if (ctx.user?.role !== "admin") throw new Error(t("errors.adminOnly"));
+  // No longer an admin: back to the settings page and its sign-in gate (lib/admin-actions requireAdmin).
+  if (ctx.user?.role !== "admin") redirect(`/${ctx.project.slug}/admin`);
   if (!allow("import", ctx.user.id)) throw new Error(translator(ctx.locale, "errors")("rateLimit"));
   return { ...ctx, user: ctx.user, t };
 }
