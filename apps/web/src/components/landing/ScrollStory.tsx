@@ -1,29 +1,29 @@
 "use client";
 
-import { Camera, Check, CircleDot, Lock, MonitorSmartphone, Tag, TriangleAlert } from "lucide-react";
+import { Check, MessageSquare, Pencil, Trash2, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { StatusMark } from "@/components/ozvi/route";
+import { TeamDesk } from "@/components/landing/TeamDesk";
 import { cn } from "@/lib/utils";
 
 /**
- * Landing: one bug report, #128, followed the whole way. The steps scroll past on the left; the frame
- * on the right shows the scene of the step at the middle of the screen, and how far that step has
- * scrolled moves the scene along (the text types, the screenshot is taken, the report lands, the route
- * fills, the customer answers). Scroll back and it plays back; nothing runs on a timer.
- * Reduced motion and phones see every scene finished (phones only the ones in `phonePanels`).
+ * Landing: one bug report, #128, followed the whole way, on copies of the real screens: the widget in
+ * the customer's app, the team's queue in Ozvi, the fix and the reply, the e-mail Ozvi sends. Steps
+ * scroll past on the left; the frame on the right shows the scene of the step at the middle of the
+ * screen, and how far that step has scrolled moves the scene along. Scroll back and it plays back;
+ * nothing runs on a timer. Reduced motion and phones see the scenes finished (phones only `phonePanels`).
+ * Themes: `.look-host` is the customer's app, `.look-ozvi` is Ozvi's own (the widget, the console, the e-mail).
  */
 type Step = { title: string; text: string };
-const STATUS = ["new", "confirmed", "in_progress", "fixed"] as const;
-const host = "look-host oz-scope overflow-hidden rounded-xl border bg-background font-sans text-foreground";
-const chip = "inline-flex items-center gap-1 rounded bg-wash px-1.5 py-0.5 text-[11.5px] text-muted-foreground";
-/** Shown from `at` of the step's progress on (CSS fades it; the threshold is what scroll decides). */
-const from = (p: number, at: number) => (p >= at ? "opacity-100 translate-y-0" : "pointer-events-none translate-y-1.5 opacity-0");
 const clamp = (x: number) => Math.min(1, Math.max(0, x));
+const ease = "transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none";
+const from = (p: number, at: number) => (p >= at ? "opacity-100 translate-y-0" : "pointer-events-none translate-y-1.5 opacity-0");
 
 export function ScrollStory({ phonePanels = [1, 2] }: { phonePanels?: number[] }) {
   const t = useTranslations("landing");
   const steps = t.raw("steps") as Step[];
+  const where = t.raw("hero.loop.where") as string[];
   const [at, setAt] = useState(0);
   const [p, setP] = useState(0);
   const [still, setStill] = useState(false);
@@ -61,29 +61,38 @@ export function ScrollStory({ phonePanels = [1, 2] }: { phonePanels?: number[] }
     };
   }, []);
 
-  const scenes = [AppScene, DeskScene, GithubScene, MailScene];
+  const scenes = [AppScene, ReportScene, FixScene, MailScene];
+  const label = (i: number) => where[i === 0 ? 0 : i === 3 ? 2 : 1];
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-14">
       <ol className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-14 lg:gap-0">
         {steps.map((s, i) => {
           const Scene = scenes[i]!;
           return (
-            <li key={s.title} ref={(el) => { refs.current[i] = el; }} className="min-w-0 lg:flex lg:min-h-[80vh] lg:flex-col lg:justify-center">
+            <li key={s.title} ref={(el) => { refs.current[i] = el; }} className="min-w-0 lg:flex lg:min-h-[85vh] lg:flex-col lg:justify-center">
               <p className={cn("text-[13px] font-semibold transition-colors", at === i ? "text-brand-text" : "text-muted-foreground")}>{String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}</p>
               <h3 className={cn("mt-3 max-w-[18ch] text-[30px] leading-tight font-extrabold tracking-[-0.035em] transition-opacity lg:text-[38px]", at !== i && "lg:opacity-35")}>{s.title}</h3>
               <p className={cn("mt-4 max-w-[46ch] text-[16.5px] leading-relaxed text-muted-foreground transition-opacity", at !== i && "lg:opacity-35")}>{s.text}</p>
-              {phonePanels.includes(i) && <div inert className="mt-6 min-w-0 select-none lg:hidden"><Frame scene={i}><Scene p={1} /></Frame></div>}
+              {phonePanels.includes(i) && (
+                <div inert className="mt-6 grid min-w-0 gap-2 select-none lg:hidden">
+                  <p className="text-[13px] font-medium text-muted-foreground">{label(i)}</p>
+                  <Scene p={1} />
+                </div>
+              )}
             </li>
           );
         })}
       </ol>
       <div className="relative hidden lg:block">
-        <div className="sticky top-[15vh] flex h-[70vh] items-center">
-          <div inert className="relative h-[400px] w-full select-none">
+        <div className="sticky top-[calc(50vh-290px)] grid gap-2">
+          <p className="relative h-6 text-[13px] font-medium text-muted-foreground">
+            {scenes.map((_, i) => <span key={i} className={cn("absolute inset-0 transition-opacity duration-300", at === i ? "opacity-100" : "opacity-0")}>{label(i)}</span>)}
+          </p>
+          <div inert className="relative h-[540px] select-none">
             {scenes.map((Scene, i) => (
               <div key={i} aria-hidden className={cn("absolute inset-0 transition-[opacity,transform] ease-out motion-reduce:transition-none",
                 at === i ? "opacity-100 delay-100 duration-500" : cn("opacity-0 duration-200", i < at ? "-translate-y-3" : "translate-y-3"))}>
-                <Frame scene={i}><Scene p={still ? 1 : at === i ? p : i < at ? 1 : 0} /></Frame>
+                <Scene p={still ? 1 : at === i ? p : i < at ? 1 : 0} />
               </div>
             ))}
           </div>
@@ -93,135 +102,119 @@ export function ScrollStory({ phonePanels = [1, 2] }: { phonePanels?: number[] }
   );
 }
 
-/** The window the scene plays in; the bar says whose screen it is. */
-function Frame({ scene, children }: { scene: number; children: React.ReactNode }) {
+/**
+ * The Ozvi widget's bug form, as the real one draws it (packages/widget: .panel, labels, the screenshot
+ * with its two buttons, the request-log checkbox, the full-width submit). `typed` is how much of the
+ * report is written (0..1); `shot` adds the screenshot; `sent` presses the button.
+ */
+export function WidgetForm({ typed, shot, sent, compact, className }: { typed: number; shot: boolean; sent: boolean; compact?: boolean; className?: string }) {
   const t = useTranslations("landing");
-  const where = [t("story.stage.url"), t("product.team.title"), "acme/app", "jana@firma.sk"][scene];
+  const w = (k: string) => t(`scene.widget.${k}`);
+  const report = t("story.stage.report");
+  const k = clamp(typed);
+  const text = report.slice(0, Math.round(report.length * k));
+  const field = "w-full rounded-lg border border-line-strong bg-surface px-[11px] py-[9px] text-[14px]";
   return (
-    <div className={cn(host, "flex h-full flex-col text-[13.5px] max-lg:h-auto")}>
-      <div className="flex h-10 shrink-0 items-center gap-3 border-b bg-surface px-4">
-        <span aria-hidden className="flex gap-1.5"><i className="size-2 rounded-full bg-line-strong" /><i className="size-2 rounded-full bg-line-strong" /></span>
-        <span className="truncate font-mono text-[11.5px] text-muted-foreground">{where}</span>
+    <div className={cn("look-ozvi oz-scope w-[340px] max-w-full rounded-xl border bg-surface p-4 font-sans text-[13px] text-foreground shadow-[0_18px_50px_rgba(0,0,0,.22)]", className)}>
+      <div className="flex items-center justify-between"><p className="text-[16px] font-bold">{w("bug")}</p><X className="size-4 text-muted-foreground" aria-hidden /></div>
+      <p className="mt-3 mb-1 font-semibold">{w("what")}</p>
+      <p className={cn(field, "min-h-[40px]", k > 0 && k < 1 && "border-primary shadow-[0_0_0_3px_color-mix(in_srgb,var(--oz-accent)_25%,transparent)]")}>
+        {text}{k > 0 && k < 1 && <span aria-hidden className="ml-px inline-block h-4 w-px translate-y-[3px] bg-foreground" />}
+      </p>
+      {!compact && <>
+        <p className="mt-2.5 mb-1 font-semibold">{w("how")} <span className="font-normal text-muted-foreground">{w("opt")}</span></p>
+        <p className={cn(field, "h-[48px]")} />
+      </>}
+      <div className={cn("relative mt-2.5 overflow-hidden rounded-lg border", ease, shot ? "h-[112px] opacity-100" : "h-0 border-0 opacity-0")}>
+        <MiniApp className="pointer-events-none w-[200%] origin-top-left scale-50" masked />
+        <div className="absolute top-1.5 right-1.5 flex gap-1.5 text-[11px] font-semibold text-white">
+          <span className="inline-flex items-center gap-1 rounded-full bg-black/70 px-2 py-1"><Pencil className="size-3" aria-hidden />{w("ann")}</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-black/70 px-2 py-1"><Trash2 className="size-3" aria-hidden />{w("shotDel")}</span>
+        </div>
       </div>
-      <div className="relative min-h-0 flex-1">{children}</div>
+      <p className={cn("mt-3 grid grid-cols-[auto_1fr] gap-x-2 font-semibold", compact && "hidden")}><span className="mt-0.5 grid size-4 place-items-center rounded-[4px] bg-primary text-primary-foreground"><Check className="size-3" strokeWidth={3} aria-hidden /></span>{w("tech")}</p>
+      <p className={cn("mt-3.5 flex w-full items-center justify-center gap-1.5 rounded-lg bg-primary py-[11px] font-semibold text-primary-foreground transition-[filter]", sent && "brightness-90")}>
+        {sent && <Check className="size-4" aria-hidden />}{w("bug")}
+      </p>
     </div>
   );
 }
 
-const fade = "transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none";
-
-/** 1. The customer's app: the widget opens, the report types itself, the screenshot is taken, it is sent. */
-function AppScene({ p }: { p: number }) {
+/** The customer's app (a booking calendar), in the customer's own look. `masked`: as the screenshot sends it. */
+export function MiniApp({ masked, className }: { masked?: boolean; className?: string }) {
   const t = useTranslations("landing");
-  const report = t("story.stage.report");
-  const typed = report.slice(0, Math.round(report.length * clamp((p - 0.12) / 0.38)));
-  const shot = p >= 0.58, sent = p >= 0.8;
   const lines = t.raw("story.stage.lines") as [string, string][];
   return (
-    <div className="grid h-full grid-cols-[minmax(0,1fr)] gap-4 p-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] max-lg:gap-5">
-      {/* the app behind the widget: Saturday has bookings on desktop, the bug is the empty phone view */}
-      <div className={cn("grid content-start gap-2 rounded-lg border bg-surface p-4", shot && !sent && "oz-shot")}>
+    <div className={cn("look-host oz-scope grid content-start gap-3 bg-background p-5 font-sans text-[13.5px] text-foreground", className)}>
+      <div className="flex items-center justify-between gap-3 border-b pb-3">
         <p className="font-semibold">{t("story.stage.app")}</p>
-        <p className="text-[12.5px] text-muted-foreground">{t("story.stage.invoice")}</p>
-        {lines.map(([what, when]) => (
-          <p key={what} className="flex justify-between gap-3 rounded-md border bg-background px-3 py-2 text-[12.5px]"><span className={cn("truncate", shot && "rounded bg-foreground/15 text-transparent blur-[3px]")}>{what}</span><span className="tabular-nums">{when}</span></p>
-        ))}
+        <span className="rounded-md bg-primary px-3 py-1.5 text-[12.5px] font-semibold text-primary-foreground">{t("story.stage.download")}</span>
       </div>
-      <div className={cn("grid content-start gap-3 rounded-lg border-2 border-foreground bg-background p-4", fade, from(p, 0.04))}>
-        <p className="font-semibold">{t("hero.loop.widgetTitle")}</p>
-        <p className="min-h-[64px] rounded-md border bg-surface px-3 py-2">{typed}{!sent && typed.length < report.length && <span aria-hidden className="ml-px inline-block h-4 w-[2px] translate-y-[3px] bg-foreground" />}</p>
-        <p className={cn("inline-flex items-center gap-1.5 text-[12.5px] text-muted-foreground", fade, from(p, 0.58))}><Camera className="size-3.5" aria-hidden />{t("product.team.shot")}</p>
-        <span className={cn("inline-flex w-fit items-center gap-1.5 justify-self-end rounded-md px-3 py-1.5 text-[12.5px] font-semibold bg-primary text-primary-foreground")}>
-          {sent && <Check className="size-3.5" aria-hidden />}{t("hero.loop.widgetSend")}
-        </span>
-      </div>
+      <p className="text-[12.5px] text-muted-foreground">{t("story.stage.invoice")}</p>
+      {lines.map(([what, when]) => (
+        <p key={what} className="flex justify-between gap-3 rounded-md border bg-surface px-3 py-2.5">
+          <span className={cn("truncate", masked && "rounded bg-foreground/15 text-transparent blur-[3px]")}>{what}</span><span className="tabular-nums">{when}</span>
+        </p>
+      ))}
     </div>
   );
 }
 
-/** 2. The team's queue: #128 lands on top, then what came with it. */
-function DeskScene({ p }: { p: number }) {
+/** 1. In the customer's app: the launcher opens the widget, the report is written, the screenshot taken, sent. */
+function AppScene({ p }: { p: number }) {
   const t = useTranslations("landing");
-  const queue = t.raw("product.team.queue") as string[];
-  const landed = p >= 0.1;
+  const open = p >= 0.1, shot = p >= 0.58, sent = p >= 0.8;
   return (
-    <div className="grid h-full grid-cols-[minmax(0,1fr)] sm:grid-cols-[200px_minmax(0,1fr)]">
-      <ul className="hidden border-r bg-surface sm:block">
-        <li className={cn("grid gap-1 border-b border-l-2 border-l-primary bg-background px-4 py-3", fade, landed ? "opacity-100" : "-translate-y-2 opacity-0")}>
-          <span className="flex items-center justify-between font-bold tabular-nums">#128<StatusMark kind="bug" status="new" /></span>
-          <span className="line-clamp-2 text-[12.5px]">{t("story.stage.report")}</span>
-        </li>
-        {[[127, queue[2]!], [126, queue[0]!]].map(([n, title]) => (
-          <li key={n} className={cn("grid gap-1 border-b px-4 py-3 text-muted-foreground", fade, landed ? "translate-y-0" : "-translate-y-[68px]")}>
-            <span className="font-bold tabular-nums">#{n}</span><span className="line-clamp-2 text-[12.5px]">{title}</span>
-          </li>
-        ))}
-      </ul>
-      <div className={cn("grid min-w-0 grid-cols-[minmax(0,1fr)] content-start gap-3 p-4 sm:p-5", fade, from(p, 0.22))}>
-        <p className="text-[16px] font-semibold"><span className="mr-2 font-extrabold tabular-nums">#128</span>{t("story.stage.report")}</p>
-        <p className="text-[12.5px] text-muted-foreground">{(t.raw("product.team.reporters") as string[])[1]}</p>
-        <div className="flex flex-wrap gap-1.5">
-          <span className={cn(chip, fade, from(p, 0.34))}><Camera className="size-3" aria-hidden />{t("product.team.shot")}</span>
-          <span className={cn(chip, "font-mono", fade, from(p, 0.4))}>v2.14.0</span>
-          <span className={cn(chip, fade, from(p, 0.46))}><MonitorSmartphone className="size-3" aria-hidden />Chrome 141 · macOS</span>
-          <span className={cn(chip, "font-mono", fade, from(p, 0.52))}>/kalendar/2026-11-14</span>
-        </div>
-        <p className={cn("flex items-center gap-2 rounded-md border px-3 py-2 font-mono text-[12px]", fade, from(p, 0.6))}><TriangleAlert className="size-3.5 shrink-0 text-destructive" aria-hidden /><span className="truncate">{t("product.team.console")}</span></p>
-        <p className={cn("inline-flex items-center gap-1.5 text-[12px] text-muted-foreground", fade, from(p, 0.7))}><Lock className="size-3" aria-hidden />{t("product.team.private")}</p>
+    <div className="relative h-[540px] overflow-hidden rounded-xl border max-lg:h-[520px]">
+      <MiniApp className={cn("h-full", shot && !sent && "oz-shot")} />
+      <span className={cn("look-ozvi oz-scope absolute right-4 bottom-4 inline-flex h-11 items-center gap-2 rounded-full bg-primary pr-[18px] pl-3.5 text-[14px] font-semibold text-primary-foreground shadow-[0_10px_28px_-8px_rgba(0,0,0,.35)]", ease, open ? "scale-95 opacity-0" : "opacity-100")}>
+        <MessageSquare className="size-4" aria-hidden />{t("scene.widget.fb")}
+      </span>
+      <div className={cn("absolute right-3 bottom-3 left-3 flex justify-end origin-bottom-right", ease, open ? "scale-100 opacity-100" : "scale-95 opacity-0")}>
+        <WidgetForm typed={(p - 0.14) / 0.36} shot={shot} sent={sent} />
       </div>
     </div>
   );
 }
 
-/** 3. GitHub: an issue from #128, a release closes it, and the route fills to "Fixed" on its own. */
-function GithubScene({ p }: { p: number }) {
-  const t = useTranslations("landing");
-  const stops = t.raw("features.tiles.route.stops") as string[];
-  const filled = p < 0.5 ? 2 : p < 0.62 ? 3 : 4; // stops reached; the release lands at 0.5
+/** 2. In Ozvi: #128 lands on top of the queue, then what came with it. */
+function ReportScene({ p }: { p: number }) {
   return (
-    <div className="grid h-full grid-cols-[minmax(0,1fr)] content-start gap-4 p-4 sm:p-5">
-      <div className={cn("grid gap-3 rounded-lg border p-4", fade, from(p, 0.08))}>
-        <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3">
-          <CircleDot className="mt-0.5 size-4 text-muted-foreground" aria-hidden />
-          <div className="min-w-0"><p className="font-semibold">{t("story.stage.report")}</p><p className="mt-0.5 text-[12.5px] text-muted-foreground">#482 · {t("ghPanel.from")}</p></div>
-        </div>
-        <div className={cn("grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 border-t pt-3", fade, from(p, 0.5))}>
-          <Tag className="mt-0.5 size-4 text-muted-foreground" aria-hidden />
-          <p>{t("ghPanel.closed")}</p>
-        </div>
-      </div>
-      <div className={cn("rounded-lg border-2 border-foreground bg-surface p-4", fade, from(p, 0.2))}>
-        <p className="flex items-baseline gap-3"><span className="text-[22px] leading-none font-extrabold tracking-[-0.03em] tabular-nums">#128</span><span className="min-w-0 font-semibold">{t("story.stage.report")}</span></p>
-        <ol className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-[12.5px]">
-          {stops.map((s, k) => (
-            <li key={s} className="inline-flex items-center gap-1.5">
-              {k > 0 && <span aria-hidden className={cn("h-[3px] w-3 rounded-full transition-colors duration-300 sm:w-4", k < filled ? "bg-st-done" : "bg-line")} />}
-              <span className={cn("transition-opacity duration-300", k < filled ? "opacity-100" : "opacity-30")}><StatusMark kind="bug" status={STATUS[k]!} /></span>
-              <span className={cn(k === filled - 1 ? "font-semibold" : "text-muted-foreground")}>{s}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
+    <div className="look-ozvi oz-scope overflow-hidden rounded-xl border bg-background font-sans text-foreground">
+      <TeamDesk play={{ landed: p >= 0.08, reveal: clamp((p - 0.08) / 0.75), status: "new", pr: false, sent: false }} />
     </div>
   );
 }
 
-/** 4. The customer's inbox: the e-mail arrives, the customer says it works, the report is verified. */
+/** 3. Still in Ozvi: the pull request is merged, the report moves to "Fixed in 2.15" and the author is told. */
+function FixScene({ p }: { p: number }) {
+  const status = p < 0.15 ? "confirmed" : p < 0.4 ? "in_progress" : "fixed";
+  return (
+    <div className="look-ozvi oz-scope overflow-hidden rounded-xl border bg-background font-sans text-foreground">
+      <TeamDesk play={{ landed: true, reveal: 1, status, pr: p >= 0.25, sent: p >= 0.62 }} />
+    </div>
+  );
+}
+
+/** 4. The customer's inbox: the e-mail Ozvi sends (lib/email/render.ts), the customer confirms, #128 is verified. */
 function MailScene({ p }: { p: number }) {
   const t = useTranslations("landing");
-  const yes = p >= 0.55;
+  const e = useTranslations("email");
+  const title = t("story.stage.report"), app = t("story.stage.app");
+  const yes = p >= 0.5;
   return (
-    <div className="grid h-full grid-cols-[minmax(0,1fr)] content-start gap-4 p-4 sm:p-5">
-      <div className={cn("grid gap-1.5 rounded-lg border p-5", fade, from(p, 0.1))}>
-        <p className="text-[12.5px] text-muted-foreground">{t("story.stage.app")} → jana@firma.sk</p>
-        <p className="mt-1 text-[17px] font-semibold">{t("hero.loop.mailSubject")}</p>
-        <p className="leading-relaxed">{t("hero.loop.mailBody")}</p>
-        <div className="mt-3 flex gap-2 text-[13px] font-semibold">
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-primary-foreground">{yes && <Check className="size-3.5" aria-hidden />}{t("hero.loop.yes")}</span>
-          <span className={cn("rounded-md border border-line-strong px-3 py-1.5 transition-opacity", yes && "opacity-40")}>{t("hero.loop.no")}</span>
+    <div className="look-ozvi oz-scope grid h-[540px] content-start gap-4 overflow-hidden rounded-xl border bg-background p-5 font-sans text-foreground max-lg:h-auto">
+      <div className={cn("grid gap-4", ease, from(p, 0.06))}>
+        <p className="flex min-w-0 flex-wrap items-baseline gap-x-3 border-b pb-3 text-[13px]"><b className="font-semibold">{app}</b><span className="min-w-0 truncate text-muted-foreground">{e("bugFixedSubject", { title })}</span></p>
+        <div className="flex items-center gap-2.5"><span className="grid size-7 place-items-center rounded-lg bg-primary text-[15px] font-bold text-primary-foreground">{app.slice(0, 1)}</span><b className="text-[16px]">{app}</b></div>
+        <div className="rounded-xl border bg-surface px-6 py-6 text-[14.5px] leading-relaxed">
+          <p className="text-[20px] leading-snug font-bold tracking-[-0.01em]">{e("bugFixedHeading")}</p>
+          <p className="mt-3">{e("bugFixedBodyVersion", { title, version: "2.15" })}</p>
+          <p className="mt-2">{e("bugFixedAsk")}</p>
+          <p className="mt-5"><span className={cn("inline-flex items-center gap-1.5 rounded-lg bg-primary px-5 py-3 text-[15px] font-semibold text-primary-foreground transition-[filter]", yes && "brightness-90")}>{yes && <Check className="size-4" aria-hidden />}{e("confirmFix")}</span></p>
         </div>
       </div>
-      <p className={cn("inline-flex items-center gap-2 rounded-lg border-2 border-foreground bg-surface px-4 py-3 font-semibold", fade, from(p, 0.68))}>
+      <p className={cn("inline-flex w-fit items-center gap-2 rounded-lg border-2 border-foreground bg-surface px-4 py-3 text-[14px] font-semibold", ease, from(p, 0.62))}>
         <span className="font-extrabold tabular-nums">#128</span><StatusMark kind="bug" status="verified" />{(t.raw("story.stage.stops") as string[])[4]}
       </p>
     </div>

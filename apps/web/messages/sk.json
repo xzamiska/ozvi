@@ -2575,14 +2575,7 @@
           "Zákazník ju nahlási vo vašej appke",
           "Vy ju dostanete aj so screenshotom a opravíte ju",
           "Zákazník dostane e-mail"
-        ],
-        "widgetTitle": "Nahlásiť chybu",
-        "widgetSend": "Nahlásiť",
-        "mailSubject": "Opravené vo verzii 2.15",
-        "mailBody": "Chybu, ktorú ste nahlásili, sme opravili. Funguje vám to už?",
-        "yes": "Áno, funguje",
-        "no": "Ešte nie",
-        "shot": "Priloží sa screenshot"
+        ]
       }
     },
     "monitoring": {
@@ -2602,7 +2595,6 @@
       "stage": {
         "label": "Ukážka: používateľ nahlási chybu, tím ju opraví a používateľ dostane odpoveď",
         "app": "Rezervácie",
-        "url": "app.vasafirma.sk/kalendar/2026-11-14",
         "invoice": "Sobota 14. novembra",
         "download": "Nová rezervácia",
         "lines": [
@@ -2900,16 +2892,6 @@
             }
           ]
         },
-        "route": {
-          "title": "Autor vie, kde je jeho hlásenie",
-          "text": "Pri „Opravené“ mu príde e-mail s otázkou, či mu to už funguje.",
-          "stops": [
-            "Prijaté",
-            "Potvrdené",
-            "Rozpracované",
-            "Opravené vo 2.15"
-          ]
-        },
         "privacy": {
           "title": "Heslá sa nikam nedostanú",
           "text": "Polia s heslom a označené časti stránky rozmaže widget ešte v prehliadači.",
@@ -3081,13 +3063,24 @@
         "a": "Plán Free je zadarmo natrvalo a bez platobnej karty. Pro stojí {pro} a Studio {studio} ročne. Neplatíte za používateľov ani za záznamy."
       }
     },
-    "ghPanel": {
-      "from": "z hlásenia #128 v Ozvi",
-      "closed": "Release 2.15 zatvoril issue #482"
-    },
     "ideasStep": {
       "title": "Nápady sa zoradia podľa hlasov.",
       "text": "Zákazníci navrhujú a hlasujú a pri písaní uvidia podobné nápady. Na roadmape vidia, čo plánujete a na čom pracujete. Keď nápadu zmeníte stav, posunie sa na nej sám."
+    },
+    "scene": {
+      "widget": {
+        "bug": "Nahlásiť chybu",
+        "what": "Čo nefunguje?",
+        "how": "Čo ste robili a čo ste čakali?",
+        "opt": "(nepovinné)",
+        "ann": "Označiť",
+        "shotDel": "Odstrániť screenshot",
+        "attach": "Priložiť súbor",
+        "tech": "Priložiť záznam požiadaviek a krokov",
+        "techSub": "Bez obsahu polí, citlivé údaje maskujeme. Vidí ho len tím.",
+        "note": "Priložíme adresu stránky, verziu aplikácie, prehliadač a posledné chyby z konzoly. Hlásenie uvidíte len vy a tím.",
+        "fb": "Spätná väzba"
+      }
     }
   },
   "net": {

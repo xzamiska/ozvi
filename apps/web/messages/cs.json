@@ -2575,14 +2575,7 @@
           "Zákazník ji nahlásí ve vaší aplikaci",
           "Vy ji dostanete i se screenshotem a opravíte ji",
           "Zákazník dostane e-mail"
-        ],
-        "widgetTitle": "Nahlásit chybu",
-        "widgetSend": "Nahlásit",
-        "mailSubject": "Opraveno ve verzi 2.15",
-        "mailBody": "Chybu, kterou jste nahlásili, jsme opravili. Funguje vám to už?",
-        "yes": "Ano, funguje",
-        "no": "Ještě ne",
-        "shot": "Přiloží se screenshot"
+        ]
       }
     },
     "monitoring": {
@@ -2602,7 +2595,6 @@
       "stage": {
         "label": "Ukázka: uživatel nahlásí chybu, tým ji opraví a uživatel dostane odpověď",
         "app": "Rezervace",
-        "url": "app.vasefirma.cz/kalendar/2026-11-14",
         "invoice": "Sobota 14. listopadu",
         "download": "Nová rezervace",
         "lines": [
@@ -2900,16 +2892,6 @@
             }
           ]
         },
-        "route": {
-          "title": "Autor ví, kde je jeho hlášení",
-          "text": "U „Opraveno“ mu přijde e-mail s otázkou, jestli mu to už funguje.",
-          "stops": [
-            "Přijato",
-            "Potvrzeno",
-            "Rozpracováno",
-            "Opraveno ve 2.15"
-          ]
-        },
         "privacy": {
           "title": "Hesla se nikam nedostanou",
           "text": "Pole s heslem a označené části stránky rozmaže widget už v prohlížeči.",
@@ -3081,13 +3063,24 @@
         "a": "Plán Free je zdarma navždy a bez karty. Pro stojí {pro} a Studio {studio} ročně. Neplatíte za uživatele ani za záznamy."
       }
     },
-    "ghPanel": {
-      "from": "z hlášení #128 v Ozvi",
-      "closed": "Release 2.15 zavřel issue #482"
-    },
     "ideasStep": {
       "title": "Nápady se seřadí podle hlasů.",
       "text": "Zákazníci navrhují a hlasují a při psaní uvidí podobné nápady. Na roadmapě vidí, co plánujete a na čem pracujete. Když nápadu změníte stav, posune se na ní sám."
+    },
+    "scene": {
+      "widget": {
+        "bug": "Nahlásit chybu",
+        "what": "Co nefunguje?",
+        "how": "Co jste dělali a co jste čekali?",
+        "opt": "(nepovinné)",
+        "ann": "Označit",
+        "shotDel": "Odebrat snímek",
+        "attach": "Přiložit soubor",
+        "tech": "Přiložit záznam požadavků a kroků",
+        "techSub": "Bez obsahu polí, citlivé údaje maskujeme. Vidí ho jen tým.",
+        "note": "Přiložíme adresu stránky, verzi aplikace, prohlížeč a poslední chyby z konzole. Hlášení uvidíte jen vy a tým.",
+        "fb": "Zpětná vazba"
+      }
     }
   },
   "net": {

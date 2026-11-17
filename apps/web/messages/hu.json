@@ -2575,14 +2575,7 @@
           "Az ügyfél bejelenti a hibát az alkalmazásban",
           "Megkapod képernyőképpel együtt, és kijavítod",
           "Az ügyfél e-mailt kap"
-        ],
-        "widgetTitle": "Hiba bejelentése",
-        "widgetSend": "Bejelentés",
-        "mailSubject": "Javítva a 2.15-ös verzióban",
-        "mailBody": "Kijavítottuk a bejelentett hibát. Most már működik?",
-        "yes": "Igen, működik",
-        "no": "Még nem",
-        "shot": "Képernyőkép csatolva"
+        ]
       }
     },
     "monitoring": {
@@ -2602,7 +2595,6 @@
       "stage": {
         "label": "Bemutató: egy ügyfél hibát jelent be, a csapat kijavítja, az ügyfél pedig választ kap",
         "app": "Foglalások",
-        "url": "app.cegetek.hu/naptar/2026-11-14",
         "invoice": "Szombat, november 14.",
         "download": "Új foglalás",
         "lines": [
@@ -2900,16 +2892,6 @@
             }
           ]
         },
-        "route": {
-          "title": "Az ügyfél látja, hol tart a bejelentése",
-          "text": "Amikor a hibát „Javítva” állapotba teszed, e-mailt kap, és jelezheti, hogy most már működik-e.",
-          "stops": [
-            "Beérkezett",
-            "Megerősítve",
-            "Folyamatban",
-            "Javítva a 2.15-ben"
-          ]
-        },
         "privacy": {
           "title": "A jelszavak nem jutnak ki sehová",
           "text": "A widget már a böngészőben elmossa a jelszómezőket és a megjelölt részeket.",
@@ -3081,13 +3063,24 @@
         "a": "A Free csomag örökre ingyenes, bankkártya nélkül. A Pro évi {pro}, a Studio évi {studio}. A felhasználók és a bejegyzések száma után nem fizetsz."
       }
     },
-    "ghPanel": {
-      "from": "az Ozvi #128-as bejelentéséből",
-      "closed": "A 2.15-ös kiadás lezárta a #482-es issue-t"
-    },
     "ideasStep": {
       "title": "Az ötletek a szavazatok szerint rendeződnek.",
       "text": "Az ügyfelek javasolnak és szavaznak, írás közben pedig látják a hasonló ötleteket. Az ütemtervből kiderül, mit tervez és min dolgozik a csapat. Ha egy ötlet állapota megváltozik, magától továbblép rajta."
+    },
+    "scene": {
+      "widget": {
+        "bug": "Hiba bejelentése",
+        "what": "Mi nem működik?",
+        "how": "Mit csináltál, és mire számítottál?",
+        "opt": "(nem kötelező)",
+        "ann": "Megjelölés",
+        "shotDel": "Képernyőkép eltávolítása",
+        "attach": "Fájl csatolása",
+        "tech": "A kérésnapló és az utolsó lépések csatolása",
+        "techSub": "A mezők tartalma nélkül, az érzékeny adatokat elrejtjük. Csak a csapat látja.",
+        "note": "Csatoljuk az oldal címét, az alkalmazás verzióját, a böngészőt és a legutóbbi konzolhibákat. A bejelentést csak te és a csapat látjátok.",
+        "fb": "Visszajelzés"
+      }
     }
   },
   "net": {

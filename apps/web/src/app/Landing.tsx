@@ -1,13 +1,13 @@
 import { limitSize, PLAN_LIMITS, PRICES } from "@ozvi/db";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
-import { Accessibility, ArrowRightLeft, Camera, Check, ChevronDown, EyeOff, Languages, MessageSquare, Minus, Palette, Star } from "lucide-react";
+import { Accessibility, ArrowRightLeft, Check, ChevronDown, EyeOff, Languages, MessageSquare, Minus, Palette, Star } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
 import { Reveal } from "@/components/landing/Reveal";
 import { MiniBoard } from "@/components/landing/SampleBoard";
 import { SmoothScroll } from "@/components/landing/SmoothScroll";
-import { ScrollStory } from "@/components/landing/ScrollStory";
+import { ScrollStory, WidgetForm } from "@/components/landing/ScrollStory";
 import { LangSwitch, SiteHeader, type NavItem } from "@/components/landing/SiteHeader";
 import { signupClosed } from "@/lib/account-rules";
 import { ownFeedback } from "@/lib/own-feedback";
@@ -116,25 +116,12 @@ function StarLink({ label, stars, tag, className }: { label: string; stars: numb
  * The hero's picture: the one loop Ozvi closes, from the customer's side. A still (inert, one
  * description for screen readers); no stack traces here, those belong to the developers' section.
  */
-function HeroLoop({ t }: { t: T }) {
+function HeroLoop({ t, e }: { t: T; e: Awaited<ReturnType<typeof getTranslations<"email">>> }) {
   const where = t.raw("hero.loop.where") as string[];
   const stops = (t.raw("story.stage.stops") as string[]).slice(0, 4);
   const status = ["new", "confirmed", "in_progress", "fixed"] as const;
   const cards = [
-    <div key="app" className={cn(hostPanel, "text-[13.5px]")}>
-      <div className="flex items-center justify-between gap-3 border-b px-4 py-2.5">
-        <span className="font-semibold">{t("story.stage.app")}</span>
-        <span className="hidden truncate font-mono text-[11px] text-muted-foreground sm:block">{t("story.stage.url")}</span>
-      </div>
-      <div className="grid gap-3 p-4">
-        <p className="font-semibold">{t("hero.loop.widgetTitle")}</p>
-        <p className="rounded-md border bg-surface px-3 py-2">{t("story.stage.report")}</p>
-        <div className="flex items-center justify-between gap-3">
-          <span className="inline-flex items-center gap-1.5 text-[12.5px] text-muted-foreground"><Camera className="size-3.5" aria-hidden />{t("hero.loop.shot")}</span>
-          <span className="rounded-md bg-primary px-3 py-1.5 text-[12.5px] font-semibold text-primary-foreground">{t("hero.loop.widgetSend")}</span>
-        </div>
-      </div>
-    </div>,
+    <WidgetForm key="app" typed={1} shot={false} sent={false} compact className="w-full shadow-none" />,
     <div key="team" className="rounded-xl border-2 border-foreground bg-surface p-4 text-[13.5px] shadow-[0_1px_0_var(--oz-ink),0_24px_48px_-24px_color-mix(in_oklab,var(--oz-ink)_45%,transparent)]">
       <p className="text-[22px] leading-none font-extrabold tracking-[-0.03em] tabular-nums">#128</p>
       <p className="mt-2 font-semibold">{t("story.stage.report")}</p>
@@ -148,11 +135,12 @@ function HeroLoop({ t }: { t: T }) {
         ))}
       </ol>
     </div>,
-    <div key="mail" className={cn(hostPanel, "p-4")}>
-      <p className="text-[12.5px] text-muted-foreground">{t("story.stage.app")} → jana@firma.sk</p>
-      <p className="mt-1.5 text-[15px] font-semibold">{t("hero.loop.mailSubject")}</p>
-      <p className="mt-1 text-[13.5px] leading-relaxed">{t("hero.loop.mailBody")}</p>
-      <div className="mt-3 flex gap-2 text-[12.5px] font-semibold"><span className="rounded-md bg-primary px-3 py-1.5 text-primary-foreground">{t("hero.loop.yes")}</span><span className="rounded-md border border-line-strong px-3 py-1.5">{t("hero.loop.no")}</span></div>
+    // the e-mail Ozvi sends when a bug is fixed (lib/email/render.ts), in Ozvi's look
+    <div key="mail" className="look-ozvi oz-scope min-w-0 rounded-xl border bg-surface p-4 font-sans text-[13.5px] text-foreground">
+      <p className="truncate text-[12.5px] text-muted-foreground"><b className="font-semibold text-foreground">{t("story.stage.app")}</b> · {e("bugFixedSubject", { title: t("story.stage.report") })}</p>
+      <p className="mt-2 text-[16px] leading-snug font-bold">{e("bugFixedHeading")}</p>
+      <p className="mt-1">{e("bugFixedBodyVersion", { title: t("story.stage.report"), version: "2.15" })}</p>
+      <p className="mt-3"><span className="inline-flex rounded-lg bg-primary px-3.5 py-2 text-[13px] font-semibold text-primary-foreground">{e("confirmFix")}</span></p>
     </div>,
   ];
   return (
@@ -178,6 +166,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
   const stars = await githubStars();
   const tA11y = await getTranslations({ locale, namespace: "a11y" });
   const tSub = await getTranslations({ locale, namespace: "subprocessors" });
+  const tMail = await getTranslations({ locale, namespace: "email" });
   const tag = LOCALE_TAG[locale];
   const eur = (c: number) => new Intl.NumberFormat(tag, { style: "currency", currency: "EUR", maximumFractionDigits: c % 100 ? 2 : 0 }).format(c / 100);
   const num = (n: number) => (Number.isFinite(n) ? n.toLocaleString(tag) : t("pricing.unlimited"));
@@ -216,7 +205,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
   return (
     <>
       {fonts.map((f) => <link key={f} rel="stylesheet" href={f} />)}
-      <style>{toCss(site) + toCss(term, ".look-term") + toCss(host, ".look-host")}</style>
+      <style>{toCss(site) + toCss(term, ".look-term") + toCss(host, ".look-host") + toCss(site, ".look-ozvi")}</style>
 
       <div className="min-h-dvh overflow-x-clip bg-background font-brand text-foreground">
         <SmoothScroll />
@@ -236,7 +225,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 </div>
                 <p className="mt-4 text-[13.5px] text-muted-foreground sm:mt-5">{t("hero.note")}</p>
               </div>
-              <HeroLoop t={t} />
+              <HeroLoop t={t} e={tMail} />
             </div>
           </section>
 

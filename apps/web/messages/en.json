@@ -2575,14 +2575,7 @@
           "The customer reports it in your app",
           "You get it with a screenshot and fix it",
           "The customer gets an e-mail"
-        ],
-        "widgetTitle": "Report a bug",
-        "widgetSend": "Report",
-        "mailSubject": "Fixed in version 2.15",
-        "mailBody": "We fixed the bug you reported. Does it work for you now?",
-        "yes": "Yes, it works",
-        "no": "Not yet",
-        "shot": "A screenshot is attached"
+        ]
       }
     },
     "monitoring": {
@@ -2602,7 +2595,6 @@
       "stage": {
         "label": "Demo: a customer reports a bug, the team fixes it and the customer gets a reply",
         "app": "Bookings",
-        "url": "app.yourcompany.com/calendar/2026-11-14",
         "invoice": "Saturday, 14 November",
         "download": "New booking",
         "lines": [
@@ -2900,16 +2892,6 @@
             }
           ]
         },
-        "route": {
-          "title": "Customers can see where their report is",
-          "text": "When it’s marked “Fixed”, they get an e-mail asking whether it works for them now.",
-          "stops": [
-            "Received",
-            "Confirmed",
-            "In progress",
-            "Fixed in 2.15"
-          ]
-        },
         "privacy": {
           "title": "Passwords never leave the page",
           "text": "The widget blurs password fields and any parts of the page you mark, right in the browser.",
@@ -3081,13 +3063,24 @@
         "a": "The Free plan is free forever and doesn’t need a card. Pro costs {pro} and Studio {studio} a year. You don’t pay per user or per record."
       }
     },
-    "ghPanel": {
-      "from": "from Ozvi report #128",
-      "closed": "Release 2.15 closed issue #482"
-    },
     "ideasStep": {
       "title": "Ideas rank themselves by votes.",
       "text": "Customers suggest ideas, vote, and see similar ideas as they type. The roadmap shows them what you’re planning and working on. When you change an idea’s status, it moves along the roadmap by itself."
+    },
+    "scene": {
+      "widget": {
+        "bug": "Report a bug",
+        "what": "What isn't working?",
+        "how": "What did you do and what did you expect?",
+        "opt": "(optional)",
+        "ann": "Mark up",
+        "shotDel": "Remove screenshot",
+        "attach": "Attach a file",
+        "tech": "Attach the request log and recent steps",
+        "techSub": "No field contents; sensitive data is masked. Only the team sees it.",
+        "note": "We'll attach the page address, app version, browser and recent console errors. Only you and the team can see the report.",
+        "fb": "Feedback"
+      }
     }
   },
   "net": {

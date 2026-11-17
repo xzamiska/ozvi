@@ -26,7 +26,10 @@ const OTHERS = 38; // the rest of "All" in the sample, not listed
 type Filter = "new" | "unanswered" | "all";
 const FILTERS: Filter[] = ["new", "unanswered", "all"];
 
-export function TeamDesk() {
+/** Driven from outside (the landing's scroll story): #128 lands, its details show up, the route moves. */
+export type DeskPlay = { landed: boolean; reveal: number; status: Status; pr: boolean; sent: boolean };
+
+export function TeamDesk({ play }: { play?: DeskPlay } = {}) {
   const t = useTranslations("landing");
   const tr = useTranslations("route");
   const titles = t.raw("product.team.queue") as string[];
@@ -46,9 +49,14 @@ export function TeamDesk() {
   const chip = "inline-flex items-center gap-1 rounded bg-wash px-1.5 py-0.5 text-[11.5px] text-muted-foreground";
   const idx = (n: number) => START.findIndex((x) => x.n === n);
   const matches = (x: Report, f: Filter) => f === "all" || (f === "new" ? x.status === "new" : !x.answered);
-  const shown = items.filter((x) => matches(x, filter));
-  const cur = items.find((x) => x.n === open) ?? items[0]!;
-  const update = (patch: Partial<Report>) => setItems((xs) => xs.map((x) => (x.n === cur.n ? { ...x, ...patch } : x)));
+  // Played: the sample as the scene has it so far (no #128 until it lands), else the visitor's own state.
+  const view = play ? START.filter((x) => x.n !== 128 || play.landed).map((x) => (x.n === 128 ? { ...x, status: play.status, pr: play.pr } : x)) : items;
+  const shown = view.filter((x) => matches(x, filter));
+  const cur = play ? view.find((x) => x.n === 128) : (items.find((x) => x.n === open) ?? items[0]!);
+  const said = play ? (play.sent ? t("product.team.sentFixed") : null) : sent;
+  /** Played: shown once the scene gets that far. */
+  const rv = (at: number) => (play ? cn("transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none", play.reveal >= at ? "opacity-100" : "translate-y-1 opacity-0") : "");
+  const update = (patch: Partial<Report>) => setItems((xs) => xs.map((x) => (x.n === cur?.n ? { ...x, ...patch } : x)));
   const label = (s: Status) => routeText(tr, "label", s);
 
   return (
@@ -60,7 +68,7 @@ export function TeamDesk() {
           {FILTERS.map((f, i) => (
             <button key={f} type="button" aria-pressed={filter === f} onClick={() => setFilter(f)} style={r}
               className={cn("inline-flex h-7 items-center gap-1.5 px-2.5 text-[12px] font-medium", filter === f ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground")}>
-              {labels[i]![0]}<span data-num className="tabular-nums opacity-70">{items.filter((x) => matches(x, f)).length + (f === "all" ? OTHERS : 0)}</span>
+              {labels[i]![0]}<span data-num className="tabular-nums opacity-70">{view.filter((x) => matches(x, f)).length + (f === "all" ? OTHERS : 0)}</span>
             </button>
           ))}
         </span>
@@ -71,8 +79,8 @@ export function TeamDesk() {
         <ul className="hidden divide-y overflow-y-auto border-r bg-surface md:block">
           {shown.map((b) => (
             <li key={b.n}>
-              <button type="button" onClick={() => { setOpen(b.n); setSent(null); setDraft(""); }} aria-current={b.n === cur.n ? "true" : undefined}
-                className={cn("grid w-full gap-1 px-3.5 py-3 text-left hover:bg-wash", b.n === cur.n && "bg-wash shadow-[inset_2px_0_0_var(--oz-accent)]")}>
+              <button type="button" onClick={() => { setOpen(b.n); setSent(null); setDraft(""); }} aria-current={b.n === cur?.n ? "true" : undefined}
+                className={cn("grid w-full gap-1 px-3.5 py-3 text-left hover:bg-wash", b.n === cur?.n && "bg-wash shadow-[inset_2px_0_0_var(--oz-accent)]", play && b.n === 128 && "oz-land")}>
                 <span className="flex items-center justify-between gap-2">
                   <span data-num className="text-[13px] font-extrabold tabular-nums">#{b.n}</span>
                   <StatusMark kind="bug" status={b.status} className="size-3.5" />
@@ -86,26 +94,27 @@ export function TeamDesk() {
 
         {/* the report, open */}
         <div className="min-w-0 overflow-y-auto p-4">
+          {cur && <>
           <p className="flex items-baseline gap-2">
             <span data-num className="text-[18px] leading-none font-extrabold tracking-tight">#{cur.n}</span>
             <span className="truncate text-[14.5px] font-semibold">{titles[idx(cur.n)]}</span>
           </p>
-          <p className="mt-1 text-[12px] text-muted-foreground">{reporters[idx(cur.n)]}</p>
+          <p className={cn("mt-1 text-[12px] text-muted-foreground", rv(0.1))}>{reporters[idx(cur.n)]}</p>
 
-          <div className="mt-3 flex flex-wrap gap-1.5">
+          <div className={cn("mt-3 flex flex-wrap gap-1.5", rv(0.25))}>
             <span className={chip}><Camera className="size-3" />{t("product.team.shot")}</span>
             <span className={cn(chip, "font-mono")}>v2.14.0</span>
             <span className={chip}><MonitorSmartphone className="size-3" />{cur.browser}</span>
             <span className={cn(chip, "font-mono")}>{cur.path}</span>
           </div>
-          <p className="mt-2 flex items-start gap-1.5 rounded-md border bg-surface px-2.5 py-2 text-[11.5px] leading-snug" style={r}>
+          <p className={cn("mt-2 flex items-start gap-1.5 rounded-md border bg-surface px-2.5 py-2 text-[11.5px] leading-snug", rv(0.4))} style={r}>
             {cur.error
               ? <><TriangleAlert className="mt-px size-3.5 shrink-0 text-destructive" /><span className="min-w-0 font-mono break-words">{cur.error === "calendar" ? t("product.team.console") : "Error: request timed out after 30000 ms · export.ts:41"}</span></>
               : <><Check className="mt-px size-3.5 shrink-0 text-success" /><span className="min-w-0 text-muted-foreground">{t("product.team.noErrors")}</span></>}
           </p>
 
           {cur.similar && (
-            <div className="mt-3 flex items-center gap-2.5 border bg-surface px-3 py-2 text-[12.5px]" style={r}>
+            <div className={cn("mt-3 flex items-center gap-2.5 border bg-surface px-3 py-2 text-[12.5px]", rv(0.55))} style={r}>
               <GitMerge className={cn("size-3.5 shrink-0", merged ? "text-success" : "text-muted-foreground")} />
               <span className="min-w-0 flex-1 truncate">{merged ? t("product.team.merged") : t("product.team.similar")}</span>
               {!merged && <button type="button" onClick={() => setMerged(true)} className="shrink-0 font-semibold text-brand-text hover:underline">{t("product.team.merge")}</button>}
@@ -113,7 +122,7 @@ export function TeamDesk() {
           )}
 
           {/* team notes */}
-          <div className="mt-3 grid gap-2 border border-dashed bg-st-ack/8 px-3 py-2.5" style={r}>
+          <div className={cn("mt-3 grid gap-2 border border-dashed bg-st-ack/8 px-3 py-2.5", rv(0.7))} style={r}>
             <p className="text-[11.5px] font-semibold text-muted-foreground">{t("product.team.noteLabel")}</p>
             {(notes[cur.n] ?? []).map((n, i) => <p key={i} className="text-[12.5px] leading-snug">{n}</p>)}
             <form className="flex gap-1.5" onSubmit={(e) => {
@@ -130,7 +139,7 @@ export function TeamDesk() {
           </div>
 
           {cur.pr && (
-            <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px]">
+            <p className={cn("mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px]", play && "oz-land")}>
               <span className="inline-flex items-center gap-1.5"><GitPullRequestArrow className="size-3.5 text-muted-foreground" />acme/app#482</span>
               <span className="text-muted-foreground">{t("product.team.pr")}</span>
             </p>
@@ -149,7 +158,8 @@ export function TeamDesk() {
               onClick={() => { update({ answered: true }); setSent(cur.status === "fixed" ? t("product.team.sentFixed") : t("product.team.sentStatus", { status: label(cur.status) })); }}
               className="inline-flex h-8 items-center bg-primary px-3 text-[12.5px] font-semibold text-primary-foreground hover:opacity-90">{t("product.team.save")}</button>
           </div>
-          {sent && <p role="status" className="mt-2.5 flex items-start gap-1.5 text-[12.5px] text-success"><Mail className="mt-0.5 size-3.5 shrink-0" />{sent}</p>}
+          {said && <p role="status" className={cn("mt-2.5 flex items-start gap-1.5 text-[12.5px] text-success", play && "oz-land")}><Mail className="mt-0.5 size-3.5 shrink-0" />{said}</p>}
+          </>}
         </div>
       </div>
     </div>

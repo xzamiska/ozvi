@@ -2575,14 +2575,7 @@
           "Klient zgłasza go w twojej aplikacji",
           "Dostajesz go ze zrzutem ekranu i naprawiasz",
           "Klient dostaje e-mail"
-        ],
-        "widgetTitle": "Zgłoś błąd",
-        "widgetSend": "Zgłoś",
-        "mailSubject": "Naprawione w wersji 2.15",
-        "mailBody": "Naprawiliśmy zgłoszony przez ciebie błąd. Czy już działa?",
-        "yes": "Tak, działa",
-        "no": "Jeszcze nie",
-        "shot": "Zrzut ekranu zostanie dołączony"
+        ]
       }
     },
     "monitoring": {
@@ -2602,7 +2595,6 @@
       "stage": {
         "label": "Przykład: klient zgłasza błąd, zespół go naprawia, a klient dostaje odpowiedź",
         "app": "Rezerwacje",
-        "url": "app.twojafirma.pl/kalendarz/2026-11-14",
         "invoice": "Sobota 14 listopada",
         "download": "Nowa rezerwacja",
         "lines": [
@@ -2900,16 +2892,6 @@
             }
           ]
         },
-        "route": {
-          "title": "Autor wie, na jakim etapie jest jego zgłoszenie",
-          "text": "Gdy zgłoszenie dostanie status „Naprawione”, autor dostaje e-mail z pytaniem, czy już wszystko działa.",
-          "stops": [
-            "Przyjęte",
-            "Potwierdzone",
-            "W realizacji",
-            "Naprawione w 2.15"
-          ]
-        },
         "privacy": {
           "title": "Hasła nigdzie nie trafiają",
           "text": "Widżet rozmywa pola z hasłem i oznaczone części strony już w przeglądarce.",
@@ -3081,13 +3063,24 @@
         "a": "Plan Free jest darmowy na zawsze i nie wymaga karty. Pro kosztuje {pro}, a Studio {studio} rocznie. Nie płacisz za użytkowników ani za wpisy."
       }
     },
-    "ghPanel": {
-      "from": "ze zgłoszenia #128 w Ozvi",
-      "closed": "Wydanie 2.15 zamknęło issue #482"
-    },
     "ideasStep": {
       "title": "Pomysły układają się według liczby głosów.",
       "text": "Klienci proponują pomysły i na nie głosują, a podczas pisania widzą podobne propozycje. Na roadmapie widzą, co planujesz i nad czym pracujesz. Gdy zmienisz status pomysłu, sam przesunie się na roadmapie."
+    },
+    "scene": {
+      "widget": {
+        "bug": "Zgłoś błąd",
+        "what": "Co nie działa?",
+        "how": "Co robisz i co powinno się stać?",
+        "opt": "(opcjonalnie)",
+        "ann": "Zaznacz",
+        "shotDel": "Usuń zrzut ekranu",
+        "attach": "Dołącz plik",
+        "tech": "Dołącz dziennik żądań i ostatnie kroki",
+        "techSub": "Bez zawartości pól; wrażliwe dane są maskowane. Widzi to tylko zespół.",
+        "note": "Dołączymy adres strony, wersję aplikacji, przeglądarkę i ostatnie błędy z konsoli. Zgłoszenie widzisz tylko ty i zespół.",
+        "fb": "Opinie"
+      }
     }
   },
   "net": {

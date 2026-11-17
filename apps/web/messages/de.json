@@ -2575,14 +2575,7 @@
           "Der Kunde meldet ihn in Ihrer App",
           "Sie bekommen ihn mit Screenshot und beheben ihn",
           "Der Kunde bekommt eine E-Mail"
-        ],
-        "widgetTitle": "Fehler melden",
-        "widgetSend": "Melden",
-        "mailSubject": "Behoben in Version 2.15",
-        "mailBody": "Wir haben den gemeldeten Fehler behoben. Funktioniert es jetzt?",
-        "yes": "Ja, es funktioniert",
-        "no": "Noch nicht",
-        "shot": "Ein Screenshot wird angehängt"
+        ]
       }
     },
     "monitoring": {
@@ -2602,7 +2595,6 @@
       "stage": {
         "label": "Demo: Ein Kunde meldet einen Fehler, das Team behebt ihn und der Kunde bekommt eine Antwort",
         "app": "Buchungen",
-        "url": "app.ihrefirma.de/kalender/2026-11-14",
         "invoice": "Samstag, 14. November",
         "download": "Neue Buchung",
         "lines": [
@@ -2900,16 +2892,6 @@
             }
           ]
         },
-        "route": {
-          "title": "Kunden wissen, wo ihre Meldung steht",
-          "text": "Steht die Meldung auf „Behoben“, bekommen sie eine E-Mail mit der Frage, ob es jetzt funktioniert.",
-          "stops": [
-            "Eingegangen",
-            "Bestätigt",
-            "In Arbeit",
-            "Behoben in 2.15"
-          ]
-        },
         "privacy": {
           "title": "Passwörter verlassen die Seite nie",
           "text": "Passwortfelder und markierte Bereiche macht das Widget schon im Browser unkenntlich.",
@@ -3081,13 +3063,24 @@
         "a": "Der Free-Tarif ist dauerhaft kostenlos, ohne Kreditkarte. Pro kostet {pro} und Studio {studio} pro Jahr. Sie zahlen nicht pro Nutzer oder Eintrag."
       }
     },
-    "ghPanel": {
-      "from": "aus Ozvi-Meldung #128",
-      "closed": "Release 2.15 hat Issue #482 geschlossen"
-    },
     "ideasStep": {
       "title": "Ideen ordnen sich nach Stimmen.",
       "text": "Kunden schlagen Ideen vor, stimmen ab und sehen beim Schreiben ähnliche Vorschläge. Auf der Roadmap sehen sie, was Sie planen und woran Sie arbeiten. Ändern Sie den Status einer Idee, rückt sie dort von selbst weiter."
+    },
+    "scene": {
+      "widget": {
+        "bug": "Fehler melden",
+        "what": "Was funktioniert nicht?",
+        "how": "Was haben Sie getan und was erwartet?",
+        "opt": "(optional)",
+        "ann": "Markieren",
+        "shotDel": "Screenshot entfernen",
+        "attach": "Datei anhängen",
+        "tech": "Anfrageprotokoll und letzte Schritte anhängen",
+        "techSub": "Ohne Feldinhalte; sensible Daten werden maskiert. Nur das Team sieht es.",
+        "note": "Wir hängen Seitenadresse, App-Version, Browser und aktuelle Konsolenfehler an. Nur Sie und das Team sehen die Meldung.",
+        "fb": "Feedback"
+      }
     }
   },
   "net": {
