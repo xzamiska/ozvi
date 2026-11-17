@@ -2568,7 +2568,7 @@
       "title": "Zákazníci nahlásia chybu priamo v appke. Keď ju opravíte, dozvedia sa to.",
       "lede": "Do aplikácie pridáte tlačidlo „Spätná väzba“ a k tomu board na nápady a novinky. Hlásenie vám príde aj so screenshotom a stránkou, na ktorej sa to stalo, takže sa nemusíte dopytovať.",
       "secondary": "Ako to funguje",
-      "note": "Plán Free funguje bez platobnej karty. Na vlastnom serveri je Ozvi zadarmo a so všetkými funkciami.",
+      "note": "Plán Free funguje bez platobnej karty, Pro stojí {pro} na rok. Na vlastnom serveri je Ozvi zadarmo a so všetkými funkciami.",
       "loop": {
         "label": "Ukážka: zákazník nahlási chybu vo vašej appke, vy ju opravíte a zákazník dostane e-mail",
         "where": [
@@ -2711,7 +2711,7 @@
     },
     "self": {
       "title": "Vlastný server: 0 €, všetky funkcie.",
-      "text": "Jeden Docker image a Postgres. Žiadne funkcie zamknuté za plánom. Verejný zdrojový kód pod licenciou FSL, ktorá sa po dvoch rokoch mení na Apache 2.0. AI funkcie zapnete vlastným kľúčom k ľubovoľnému poskytovateľovi alebo lokálnemu modelu.",
+      "text": "Jeden Docker image a Postgres. Žiadne funkcie zamknuté za plánom. Verejný zdrojový kód pod licenciou FSL, ktorá sa po dvoch rokoch mení na Apache 2.0. FSL vám dovoľuje Ozvi používať a upravovať, aj vo firme. Zakazuje len ponúkať ho ako konkurenčnú službu. AI funkcie zapnete vlastným kľúčom k ľubovoľnému poskytovateľovi alebo lokálnemu modelu.",
       "c1": "Ozvi + Postgres",
       "c2": "prvý projekt",
       "name": "Moja aplikácia"

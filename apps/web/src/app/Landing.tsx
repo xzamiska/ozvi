@@ -219,14 +219,64 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
                 <h1 className="oz-rise max-w-[21ch] text-[30px] leading-[1.08] font-extrabold tracking-[-0.035em] text-balance sm:text-[46px] lg:text-[54px]">{t("hero.title")}</h1>
                 <p className={cn(lede, "oz-rise mt-5 max-w-[50ch] text-[16.5px] [animation-delay:80ms] sm:mt-6 sm:text-[17px] md:text-[18.5px]")}>{t("hero.lede")}</p>
                 <div className="oz-rise mt-7 flex flex-wrap gap-3 [animation-delay:160ms] sm:mt-8">
-                  {go(start.label, primary)}
-                  <Link href={DEMO_PATH[locale]} className={soon ? primary : ghost}>{t("demo.hero")}</Link>
+                  {/* reviewers would try the demo before signing up, so it leads */}
+                  <Link href={DEMO_PATH[locale]} className={primary}>{t("demo.hero")}</Link>
+                  {go(start.label, ghost)}
                   <a href="#how" className={cn(ghost, "hidden border-transparent bg-transparent px-3 sm:inline-flex")}>{t("hero.secondary")}</a>
                 </div>
-                <p className="mt-4 text-[13.5px] text-muted-foreground sm:mt-5">{t("hero.note")}</p>
+                <p className="mt-4 text-[13.5px] text-muted-foreground sm:mt-5">{t("hero.note", { pro: eur(PRICES.pro.year) })}</p>
               </div>
               <HeroLoop t={t} e={tMail} />
             </div>
+          </section>
+
+          {/* how it works: one report, #128, followed from the customer's app to the team, GitHub and back */}
+          <section id="how" aria-labelledby="how-h" className="oz-frame scroll-mt-24 py-16 lg:py-8">
+            <h2 id="how-h" className="sr-only">{t("hero.secondary")}</h2>
+            <ScrollStory />
+          </section>
+
+          {/* the demo: report a bug in someone else's app and see what the team gets */}
+          <section id="demo" aria-labelledby="demo-h" className="oz-frame scroll-mt-24 pt-8 pb-24 lg:pt-20 lg:pb-28">
+            <div className="grid overflow-hidden rounded-xl border bg-surface lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+              <div className="p-7 sm:p-10 lg:p-12">
+                <h2 id="demo-h" className={cn(h2, "max-w-[16ch]")}>{t("demo.title")}</h2>
+                <p className={cn(lede, "mt-5 max-w-[48ch]")}>{t("demo.lede")}</p>
+                <ul className="mt-6 grid gap-2.5 text-[14.5px] text-foreground/85">
+                  {(t.raw("demo.points") as string[]).map((x) => <li key={x} className="grid grid-cols-[auto_1fr] gap-2.5"><Check className="mt-0.5 size-4 text-primary" strokeWidth={2.5} aria-hidden />{x}</li>)}
+                </ul>
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <Link href={DEMO_PATH[locale]} className={primary}>{t("demo.cta")}</Link>
+                  <span className="text-[13.5px] text-muted-foreground">{t("demo.note")}</span>
+                </div>
+              </div>
+              {/* a still of the demo: the app with masked fields, and what the team gets */}
+              <div aria-hidden className="grid content-center gap-4 border-t bg-background p-6 sm:p-8 lg:border-t-0 lg:border-l">
+                <div className={cn(hostPanel, "w-full max-w-[360px] p-5 text-[13px]")}>
+                  <p className="text-[15px] font-semibold">{t("demo.app")}</p>
+                  <p className="mt-2 flex justify-between text-muted-foreground">{t("demo.phone")}<span className="rounded bg-foreground/15 px-10 blur-[3px]">+421 905</span></p>
+                  <p className="mt-1.5 flex justify-between text-muted-foreground">{t("demo.noteLabel")}<span className="rounded bg-foreground/15 px-14 blur-[3px]">alergia</span></p>
+                  <p className="mt-3 font-medium text-destructive">{t("demo.failed")}</p>
+                </div>
+                <div className="w-full max-w-[380px] justify-self-end rounded-xl border bg-surface p-4">
+                  <p className="text-[13px] font-semibold">{t("demo.teamGets")}</p>
+                  <p className="mt-2 text-[13.5px]">{t("demo.quote")}</p>
+                  <p className="mt-2 font-mono text-[11px] text-muted-foreground">500 PUT /api/bookings/2026-11-14</p>
+                  <div className="mt-3 flex flex-wrap gap-1.5 text-[11.5px] text-muted-foreground">
+                    {(t.raw("demo.chips") as string[]).map((c) => <span key={c} className="rounded bg-wash px-1.5 py-0.5">{c}</span>)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* the other half: ideas, votes and the roadmap */}
+          <section aria-labelledby="ideas-h" className="oz-frame grid gap-10 pb-24 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center lg:gap-16 lg:pt-8 lg:pb-28">
+            <div>
+              <h2 id="ideas-h" className="max-w-[18ch] text-[30px] leading-tight font-extrabold tracking-[-0.035em] lg:text-[38px]">{t("ideasStep.title")}</h2>
+              <p className="mt-4 max-w-[46ch] text-[16.5px] leading-relaxed text-muted-foreground">{t("ideasStep.text")}</p>
+            </div>
+            <div inert className={cn(hostPanel, "pointer-events-none select-none")}><MiniBoard name={t("product.app")} compact={false} view="roadmap" fit /></div>
           </section>
 
           {/* the question the launch post kept getting ("why not Sentry?"), answered without naming anyone here */}
@@ -255,23 +305,8 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             </div>
           </section>
 
-          {/* how it works: one report, #128, followed from the customer's app to the team, GitHub and back */}
-          <section id="how" aria-labelledby="how-h" className="oz-frame scroll-mt-24 py-16 lg:py-8">
-            <h2 id="how-h" className="sr-only">{t("hero.secondary")}</h2>
-            <ScrollStory />
-          </section>
-
-          {/* the other half: ideas, votes and the roadmap */}
-          <section aria-labelledby="ideas-h" className="oz-frame grid gap-10 pb-24 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center lg:gap-16 lg:pt-8 lg:pb-28">
-            <div>
-              <h2 id="ideas-h" className="max-w-[18ch] text-[30px] leading-tight font-extrabold tracking-[-0.035em] lg:text-[38px]">{t("ideasStep.title")}</h2>
-              <p className="mt-4 max-w-[46ch] text-[16.5px] leading-relaxed text-muted-foreground">{t("ideasStep.text")}</p>
-            </div>
-            <div inert className={cn(hostPanel, "pointer-events-none select-none")}><MiniBoard name={t("product.app")} compact={false} view="roadmap" fit /></div>
-          </section>
-
           {/* where it lives: the board alone is enough; the widget and the embeds are optional */}
-          <section id="ways" aria-labelledby="ways-h" className="oz-frame scroll-mt-24 pb-24 lg:pb-28">
+          <section id="ways" aria-labelledby="ways-h" className="oz-frame scroll-mt-24 py-24 lg:py-28">
             <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
               <h2 id="ways-h" className={cn(h2, "max-w-[18ch]")}>{t("ways.title")}</h2>
               <p className={cn(lede, "max-w-[52ch]")}>{t("ways.lede")}</p>
@@ -304,40 +339,6 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
               ))}
             </ol>
             <p className="mt-5 max-w-[80ch] text-[14px] leading-relaxed text-muted-foreground">{t("ways.note")}</p>
-          </section>
-
-          {/* the demo: report a bug in someone else's app and see what the team gets */}
-          <section id="demo" aria-labelledby="demo-h" className="oz-frame scroll-mt-24 pb-24 lg:pb-28">
-            <div className="grid overflow-hidden rounded-xl border bg-surface lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
-              <div className="p-7 sm:p-10 lg:p-12">
-                <h2 id="demo-h" className={cn(h2, "max-w-[16ch]")}>{t("demo.title")}</h2>
-                <p className={cn(lede, "mt-5 max-w-[48ch]")}>{t("demo.lede")}</p>
-                <ul className="mt-6 grid gap-2.5 text-[14.5px] text-foreground/85">
-                  {(t.raw("demo.points") as string[]).map((x) => <li key={x} className="grid grid-cols-[auto_1fr] gap-2.5"><Check className="mt-0.5 size-4 text-primary" strokeWidth={2.5} aria-hidden />{x}</li>)}
-                </ul>
-                <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <Link href={DEMO_PATH[locale]} className={primary}>{t("demo.cta")}</Link>
-                  <span className="text-[13.5px] text-muted-foreground">{t("demo.note")}</span>
-                </div>
-              </div>
-              {/* a still of the demo: the app with masked fields, and what the team gets */}
-              <div aria-hidden className="grid content-center gap-4 border-t bg-background p-6 sm:p-8 lg:border-t-0 lg:border-l">
-                <div className={cn(hostPanel, "w-full max-w-[360px] p-5 text-[13px]")}>
-                  <p className="text-[15px] font-semibold">{t("demo.app")}</p>
-                  <p className="mt-2 flex justify-between text-muted-foreground">{t("demo.phone")}<span className="rounded bg-foreground/15 px-10 blur-[3px]">+421 905</span></p>
-                  <p className="mt-1.5 flex justify-between text-muted-foreground">{t("demo.noteLabel")}<span className="rounded bg-foreground/15 px-14 blur-[3px]">alergia</span></p>
-                  <p className="mt-3 font-medium text-destructive">{t("demo.failed")}</p>
-                </div>
-                <div className="w-full max-w-[380px] justify-self-end rounded-xl border bg-surface p-4">
-                  <p className="text-[13px] font-semibold">{t("demo.teamGets")}</p>
-                  <p className="mt-2 text-[13.5px]">{t("demo.quote")}</p>
-                  <p className="mt-2 font-mono text-[11px] text-muted-foreground">500 PUT /api/bookings/2026-11-14</p>
-                  <div className="mt-3 flex flex-wrap gap-1.5 text-[11.5px] text-muted-foreground">
-                    {(t.raw("demo.chips") as string[]).map((c) => <span key={c} className="rounded bg-wash px-1.5 py-0.5">{c}</span>)}
-                  </div>
-                </div>
-              </div>
-            </div>
           </section>
 
           {/* everything it does: live tiles for the essentials, the rest by job */}

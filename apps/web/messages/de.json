@@ -2568,7 +2568,7 @@
       "title": "Kunden melden einen Fehler direkt in Ihrer App. Sobald Sie ihn behoben haben, erfahren sie es.",
       "lede": "Sie bauen einen „Feedback“-Button in Ihre App ein und bekommen dazu ein Board für Ideen und Neuigkeiten. Jede Meldung kommt mit Screenshot und der Seite, auf der es passiert ist. So müssen Sie nicht erst nachfragen.",
       "secondary": "So funktioniert’s",
-      "note": "Für den Free-Tarif brauchen Sie keine Kreditkarte. Auf Ihrem eigenen Server ist Ozvi kostenlos und hat alle Funktionen.",
+      "note": "Für den Free-Tarif brauchen Sie keine Kreditkarte, Pro kostet {pro} pro Jahr. Auf Ihrem eigenen Server ist Ozvi kostenlos und hat alle Funktionen.",
       "loop": {
         "label": "Beispiel: Ein Kunde meldet einen Fehler in Ihrer App, Sie beheben ihn und der Kunde bekommt eine E-Mail",
         "where": [
@@ -2711,7 +2711,7 @@
     },
     "self": {
       "title": "Auf dem eigenen Server: 0 € und alle Funktionen.",
-      "text": "Ein Docker-Image und Postgres genügen. Keine Funktion ist hinter einem Tarif versteckt. Der Quellcode ist öffentlich und steht unter der FSL, die nach zwei Jahren zu Apache 2.0 wird. KI-Funktionen laufen mit Ihrem eigenen Schlüssel für einen beliebigen Anbieter oder mit einem lokalen Modell.",
+      "text": "Ein Docker-Image und Postgres genügen. Keine Funktion ist hinter einem Tarif versteckt. Der Quellcode ist öffentlich und steht unter der FSL, die nach zwei Jahren zu Apache 2.0 wird. Die FSL erlaubt Ihnen, Ozvi zu nutzen und zu ändern, auch im Unternehmen. Verboten ist nur, es als konkurrierenden Dienst anzubieten. KI-Funktionen laufen mit Ihrem eigenen Schlüssel für einen beliebigen Anbieter oder mit einem lokalen Modell.",
       "c1": "Ozvi + Postgres",
       "c2": "erstes Projekt",
       "name": "Meine App"

@@ -2568,7 +2568,7 @@
       "title": "Az ügyfeleid közvetlenül az alkalmazásodban jelentik be a hibát. Ha kijavítod, értesítést kapnak róla.",
       "lede": "Kapsz egy „Visszajelzés” gombot az alkalmazásodba, mellé pedig egy táblát az ötleteknek és az újdonságoknak. A bejelentés képernyőképpel és azzal az oldallal együtt érkezik, ahol a hiba történt, így nem kell visszakérdezned.",
       "secondary": "Hogyan működik",
-      "note": "Az ingyenes csomaghoz nem kell bankkártya. Saját szerveren az Ozvi ingyenes, és minden funkció elérhető benne.",
+      "note": "Az ingyenes csomaghoz nem kell bankkártya, a Pro évi {pro}. Saját szerveren az Ozvi ingyenes, és minden funkció elérhető benne.",
       "loop": {
         "label": "Példa: egy ügyfél hibát jelent be az alkalmazásodban, te kijavítod, ő pedig e-mailt kap",
         "where": [
@@ -2711,7 +2711,7 @@
     },
     "self": {
       "title": "Saját szerveren: 0 €, minden funkcióval.",
-      "text": "Egy Docker-image és Postgres. Egyetlen funkció sincs csomaghoz kötve. A forráskód nyilvános, és FSL-licenc alatt érhető el, amely két év után Apache 2.0-ra vált. Az AI-funkciókat saját kulccsal bármely szolgáltatóhoz vagy helyi modellel kapcsolod be.",
+      "text": "Egy Docker-image és Postgres. Egyetlen funkció sincs csomaghoz kötve. A forráskód nyilvános, és FSL-licenc alatt érhető el, amely két év után Apache 2.0-ra vált. Az FSL megengedi, hogy az Ozvit használd és módosítsd, cégen belül is. Csak azt tiltja, hogy versenytárs szolgáltatásként kínáld. Az AI-funkciókat saját kulccsal bármely szolgáltatóhoz vagy helyi modellel kapcsolod be.",
       "c1": "Ozvi + Postgres",
       "c2": "első projekt",
       "name": "Saját alkalmazás"

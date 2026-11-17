@@ -2568,7 +2568,7 @@
       "title": "Klienci zgłaszają błędy prosto w aplikacji. Gdy je naprawisz, dowiedzą się o tym.",
       "lede": "Dodajesz do aplikacji przycisk „Opinie”, a do tego tablicę na pomysły i nowości. Zgłoszenie przychodzi ze zrzutem ekranu i adresem strony, na której wystąpił problem, więc nie musisz dopytywać.",
       "secondary": "Jak to działa",
-      "note": "Plan Free nie wymaga karty płatniczej. Na własnym serwerze Ozvi jest bezpłatny i ma wszystkie funkcje.",
+      "note": "Plan Free nie wymaga karty płatniczej, a Pro kosztuje {pro} rocznie. Na własnym serwerze Ozvi jest bezpłatny i ma wszystkie funkcje.",
       "loop": {
         "label": "Przykład: klient zgłasza błąd w twojej aplikacji, ty go naprawiasz, a klient dostaje e-mail",
         "where": [
@@ -2711,7 +2711,7 @@
     },
     "self": {
       "title": "Własny hosting: 0 €, wszystkie funkcje.",
-      "text": "Jeden obraz Dockera i Postgres. Żadna funkcja nie jest zarezerwowana dla droższego planu. Publiczny kod źródłowy na licencji FSL, która po dwóch latach zmienia się w Apache 2.0. Funkcje AI włączysz własnym kluczem do dowolnego dostawcy albo lokalnym modelem.",
+      "text": "Jeden obraz Dockera i Postgres. Żadna funkcja nie jest zarezerwowana dla droższego planu. Publiczny kod źródłowy na licencji FSL, która po dwóch latach zmienia się w Apache 2.0. FSL pozwala używać i modyfikować Ozvi, także w firmie. Zabrania tylko oferowania go jako konkurencyjnej usługi. Funkcje AI włączysz własnym kluczem do dowolnego dostawcy albo lokalnym modelem.",
       "c1": "Ozvi + Postgres",
       "c2": "pierwszy projekt",
       "name": "Moja aplikacja"

@@ -2568,7 +2568,7 @@
       "title": "Customers report a bug right inside your app. When you fix it, they hear about it.",
       "lede": "You add a “Feedback” button to your app, plus a board for ideas and product updates. Every report comes with a screenshot and the page it happened on, so you don’t have to ask.",
       "secondary": "How it works",
-      "note": "The Free plan doesn’t need a card. On your own server, Ozvi is free with every feature.",
+      "note": "The Free plan doesn’t need a card, and Pro costs {pro} a year. On your own server, Ozvi is free with every feature.",
       "loop": {
         "label": "Example: a customer reports a bug in your app, you fix it and the customer gets an e-mail",
         "where": [
@@ -2711,7 +2711,7 @@
     },
     "self": {
       "title": "Self-host it for €0, with every feature.",
-      "text": "All it takes is one Docker image and Postgres. No feature is locked behind a plan. The code is source-available under the FSL, which converts to Apache 2.0 after two years. AI features run on your own key for any provider, or on a local model.",
+      "text": "All it takes is one Docker image and Postgres. No feature is locked behind a plan. The code is source-available under the FSL, which converts to Apache 2.0 after two years. The FSL lets you use and modify Ozvi, including at work; it only forbids offering it as a competing service. AI features run on your own key for any provider, or on a local model.",
       "c1": "Ozvi + Postgres",
       "c2": "first project",
       "name": "My App"
