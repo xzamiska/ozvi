@@ -483,6 +483,13 @@
         "invalid": "Wybierz sposób głosowania.",
         "budgetRange": "Liczba głosów musi być liczbą całkowitą od 1 do 100.",
         "saved": "Ustawienia głosowania zapisane."
+      },
+      "slug": {
+        "label": "Adres tablicy",
+        "hint": "Tablica jest pod adresem {url}. Małe litery, cyfry i łączniki.",
+        "warn": "Po zmianie stary adres przestanie działać. Zmień go wszędzie, gdzie go używasz: atrybut project w widgecie i roadmapie, webhooki GitHuba, Lineara i Jiry, adres MCP oraz adres powrotu po logowaniu (SSO, OIDC). Pozostałe zalogowane osoby zalogują się na tablicę ponownie.",
+        "confirm": "Rozumiem, że stary adres przestanie działać.",
+        "save": "Zmień adres"
       }
     },
     "theme": {
@@ -562,7 +569,10 @@
       "faviconTooBig": "Ikona może mieć najwyżej 200 kB.",
       "faviconBadType": "Ten plik nie jest obrazem. Użyj PNG, SVG, ICO, JPEG, GIF lub WebP.",
       "faviconSaved": "Favicon zapisany.",
-      "faviconCleared": "Tablica znów używa litery w kolorze akcentu."
+      "faviconCleared": "Tablica znów używa litery w kolorze akcentu.",
+      "slugInvalid": "Adres może zawierać małe litery, cyfry i łączniki (2–41 znaków) i nie może być słowem zastrzeżonym.",
+      "slugTaken": "Adres „{slug}” jest zajęty.",
+      "slugSame": "To jest obecny adres."
     },
     "tokens": {
       "gateTitle": "Tokeny API są dla zespołu",

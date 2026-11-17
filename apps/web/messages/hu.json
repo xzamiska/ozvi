@@ -483,6 +483,13 @@
         "invalid": "Válassz szavazási módot.",
         "budgetRange": "A szavazatok száma 1 és 100 közötti egész szám lehet.",
         "saved": "Szavazási beállítások mentve."
+      },
+      "slug": {
+        "label": "A tábla címe",
+        "hint": "A tábla itt érhető el: {url}. Kisbetűk, számjegyek és kötőjelek.",
+        "warn": "A módosítás után a régi cím nem működik. Írd át mindenhol, ahol használod: a widget és a roadmap project attribútuma, a GitHub-, Linear- és Jira-webhookok, az MCP-cím és a bejelentkezés visszatérési címe (SSO, OIDC). A többi bejelentkezett embernek újra be kell jelentkeznie a táblára.",
+        "confirm": "Értem, hogy a régi cím nem fog működni.",
+        "save": "Cím módosítása"
       }
     },
     "theme": {
@@ -562,7 +569,10 @@
       "faviconTooBig": "Az ikon legfeljebb 200 kB lehet.",
       "faviconBadType": "Ez a fájl nem kép. Használj PNG, SVG, ICO, JPEG, GIF vagy WebP formátumot.",
       "faviconSaved": "Favicon mentve.",
-      "faviconCleared": "A tábla újra a kiemelőszínű betűt használja."
+      "faviconCleared": "A tábla újra a kiemelőszínű betűt használja.",
+      "slugInvalid": "A cím kisbetűket, számjegyeket és kötőjeleket tartalmazhat (2–41 karakter), és nem lehet foglalt szó.",
+      "slugTaken": "A(z) „{slug}” cím már foglalt.",
+      "slugSame": "Ez a jelenlegi cím."
     },
     "tokens": {
       "gateTitle": "Az API-tokenek a csapatnak szólnak",

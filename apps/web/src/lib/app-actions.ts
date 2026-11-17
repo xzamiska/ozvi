@@ -1,6 +1,7 @@
 "use server";
 
 import { noStatsCookie } from "./analytics";
+import { ownBoardSlug, slugAllowed } from "./slug";
 import { PLAN_LIMITS, PRICES, schema, withSystem, type Interval, type PaidPlan, type PlanName } from "@ozvi/db";
 import { applyCreemEvent, BillingError, cancelSubscription, changeSubscription, createCheckout, creemConfig, DEV_CREEM, devBilling, devSubscription, portalLink, resumeSubscription, type CreemConfig, type Sub } from "./creem";
 import { roleIn } from "./workspace";
@@ -91,12 +92,6 @@ export async function signOutApp() {
 /* ---------- Projects ---------- */
 
 export interface NewProjectState { error?: string; created?: string }
-const SLUG = /^[a-z0-9][a-z0-9-]{1,40}$/;
-const RESERVED = new Set(["app", "api", "mcp", "dev", "demo", "admin", "www", "static", "login", "signup", "billing", "docs", "help", "status", "widget", "fonts", "oauth", "well-known",
-  "mail", "smtp", "imap", "ns1", "ns2", "cdn", "assets", "staging", "blog", "domains", "cname", "support", "security", "abuse", "ozvi", "pay", "checkout", "send", "rsend",
-  "podmienky", "sukromie", "pristupnost", "accessibility", "legal", "terms", "privacy", "subprocessors", "releases", "dpa", "invite", "account", "sk", "cs", "en", "de", "pl", "hu",
-  // comparison pages (lib/compare.ts COMPARE_ROOTS)
-  "vs", "alternativa-k-fideru"]);
 
 export async function createProject(_: NewProjectState, form: FormData): Promise<NewProjectState> {
   const account = await getAccount();
@@ -113,8 +108,8 @@ export async function createProject(_: NewProjectState, form: FormData): Promise
   if (name.length < 2 || name.length > 60) return { error: t("nameLength") };
   // Ozvi's own board (OZVI_FEEDBACK_PROJECT) is reserved too: if it were missing, someone could create it and
   // receive every console account's feedback and identity.
-  const own = process.env.OZVI_FEEDBACK_PROJECT?.trim().toLowerCase();
-  if (!SLUG.test(slug) || RESERVED.has(slug) || (own && slug === own && !isAdminEmail(account.email))) return { error: t("slugInvalid") };
+  const own = ownBoardSlug();
+  if (!slugAllowed(slug) || (own && slug === own && !isAdminEmail(account.email))) return { error: t("slugInvalid") };
   if (!presets[preset]) return { error: t("pickLook") };
 
   if (workspaceId) {

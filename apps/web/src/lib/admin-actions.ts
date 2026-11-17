@@ -15,6 +15,11 @@ import { appSite, fetchSiteIcon, iconType, MAX_ICON_BYTES } from "./favicon";
 import { BlockedAddressError } from "./net";
 import { storage } from "./storage";
 import { normalizeSections } from "./sections";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { cookieName } from "./session-core";
+import { sessionCookie } from "./session";
+import { ownBoardSlug, slugAllowed } from "./slug";
 
 async function requireAdmin(slug: string) {
   const ctx = await getCtx(slug);
@@ -63,6 +68,32 @@ export async function saveSettings(slug: string, _: AdminState, form: FormData):
   }
   revalidatePath(`/${slug}`, "layout");
   return { ok: t("saved") };
+}
+
+/**
+ * The board's address (/<slug>). Everything is keyed by the project id except the URL and the board
+ * session cookie (ozvi_<slug>, path /<slug>): the admin who changes it gets a cookie under the new name,
+ * everyone else signs in again. The old address is not kept (it may be taken by another project later).
+ */
+export async function changeSlug(slug: string, _: AdminState, form: FormData): Promise<AdminState> {
+  const { project, user, t } = await requireAdmin(slug);
+  const next = String(form.get("slug") ?? "").trim().toLowerCase();
+  if (next === project.slug) return { error: t("slugSame") };
+  const own = ownBoardSlug();
+  if (!slugAllowed(next) || (own && (next === own || project.slug === own))) return { error: t("slugInvalid") };
+  if (await db.query.projects.findFirst({ where: eq(schema.projects.slug, next), columns: { id: true } })) return { error: t("slugTaken", { slug: next }) };
+  try {
+    await db.update(schema.projects).set({ slug: next }).where(eq(schema.projects.id, project.id));
+  } catch {
+    // Taken between the check and the update (unique index).
+    return { error: t("slugTaken", { slug: next }) };
+  }
+  await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user!), action: "project.settings", detail: `/${project.slug} → /${next}` });
+  const jar = await cookies();
+  jar.set({ name: cookieName(project.slug), value: "", path: `/${project.slug}`, maxAge: 0 });
+  jar.set(sessionCookie(next, user!, project.id));
+  revalidatePath(`/${project.slug}`, "layout");
+  redirect(`/${next}/admin#project`);
 }
 
 /** Board sections (lib/sections): which the project uses and which the board opens on. Data is never deleted. */

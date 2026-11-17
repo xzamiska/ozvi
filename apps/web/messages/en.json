@@ -483,6 +483,13 @@
         "invalid": "Choose a voting style.",
         "budgetRange": "Votes must be a whole number from 1 to 100.",
         "saved": "Voting settings saved."
+      },
+      "slug": {
+        "label": "Board address",
+        "hint": "The board is at {url}. Lowercase letters, digits and hyphens.",
+        "warn": "After the change the old address stops working. Update it everywhere you use it: the project attribute of the widget and roadmap, the GitHub, Linear and Jira webhooks, the MCP address and the sign-in return address (SSO, OIDC). Other signed-in people will sign in to the board again.",
+        "confirm": "I understand the old address will stop working.",
+        "save": "Change address"
       }
     },
     "theme": {
@@ -562,7 +569,10 @@
       "faviconTooBig": "The icon can be at most 200 kB.",
       "faviconBadType": "This file isn't an image. Use PNG, SVG, ICO, JPEG, GIF or WebP.",
       "faviconSaved": "Favicon saved.",
-      "faviconCleared": "The board uses its letter in the accent colour again."
+      "faviconCleared": "The board uses its letter in the accent colour again.",
+      "slugInvalid": "The address may use lowercase letters, digits and hyphens (2–41 characters) and can’t be a reserved word.",
+      "slugTaken": "The address “{slug}” is taken.",
+      "slugSame": "This is the current address."
     },
     "tokens": {
       "gateTitle": "API tokens are for the team",

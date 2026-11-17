@@ -109,6 +109,33 @@ test.describe("board settings: project", () => {
     await v.ctx.close();
   });
 
+  test("board address: validated, changed after a tick, the admin stays signed in and the old address is gone", async ({ page, request }) => {
+    const { slug } = await ownerAdmin(page);
+    const proj = section(page, "Projekt");
+    const field = proj.getByLabel("Adresa boardu");
+    const save = proj.getByRole("button", { name: "Zmeniť adresu" });
+    await expect(field).toHaveValue(slug);
+    await expect(save).toBeDisabled();
+
+    // Reserved word: refused by the server.
+    await field.fill("admin");
+    await proj.getByRole("checkbox", { name: "Rozumiem, stará adresa prestane fungovať." }).click();
+    await save.click();
+    await expect(proj.getByRole("alert")).toHaveText("Adresa smie mať malé písmená, číslice a pomlčky (2–41 znakov) a nesmie byť vyhradená.");
+
+    // A new address: the admin lands on the new settings, still signed in; the old address is gone.
+    const next = `${slug}-nova`;
+    await field.fill(next);
+    // The form resets after a refused try: the tick has to be given again.
+    await proj.getByRole("checkbox", { name: "Rozumiem, stará adresa prestane fungovať." }).click();
+    await save.click();
+    await page.waitForURL(new RegExp(`/${next}/admin`));
+    await expect(page.getByRole("heading", { level: 1, name: "Nastavenia boardu" })).toBeVisible();
+    await expect(section(page, "Projekt").getByLabel("Adresa boardu")).toHaveValue(next);
+    expect((await request.get(`/${slug}/ideas`)).status()).toBe(404);
+    expect((await request.get(`/${next}/ideas`)).status()).toBe(200);
+  });
+
   test("login URL and app origins: validated, saved, and used by the board and the widget API", async ({ page, browser, request }) => {
     const { slug } = await ownerAdmin(page);
     const proj = section(page, "Projekt");

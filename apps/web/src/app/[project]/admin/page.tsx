@@ -1,7 +1,7 @@
 import { PLAN_LIMITS, schema, withProject, type PlanName, limitSize } from "@ozvi/db";
 import { and, desc, eq, gte, inArray, isNull, sql } from "drizzle-orm";
 import { Check, Download, TriangleAlert } from "lucide-react";
-import { LockdownForm, SecretForm, SectionsForm, SettingsForm } from "@/components/AdminForms";
+import { LockdownForm, SecretForm, SectionsForm, SettingsForm, SlugForm } from "@/components/AdminForms";
 import { BlockToggle } from "@/components/Moderation";
 import { DomainForm, GithubAppForm, GithubForm, OidcForm, PersonActions, RevokeToken, WebhookActions, WebhookForm } from "@/components/IntegrationForms";
 import { allowedReposOf, installationOf, parseGithubConfig } from "@/lib/github";
@@ -193,6 +193,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
 
           <SettingsSection id="project" title={t("nav.project")} text={t("project.text")}>
             <SettingsForm slug={slug} name={project.name} loginUrl={project.loginUrl ?? ""} origins={project.allowedOrigins} ideasPublic={project.ideasPublic} emailLogin={project.emailLogin} moderateIdeas={project.moderateIdeas} />
+            <SlugForm slug={slug} base={base} />
           </SettingsSection>
 
           <SettingsSection id="sections" title={t("nav.sections")} text={t("sections.text")}>

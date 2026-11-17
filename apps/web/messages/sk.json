@@ -483,6 +483,13 @@
         "invalid": "Vyberte spôsob hlasovania.",
         "budgetRange": "Počet hlasov musí byť celé číslo od 1 do 100.",
         "saved": "Hlasovanie je uložené."
+      },
+      "slug": {
+        "label": "Adresa boardu",
+        "hint": "Board je na {url}. Malé písmená, číslice a pomlčky.",
+        "warn": "Po zmene stará adresa prestane fungovať. Prepíšte ju všade, kde ju používate: atribút project vo widgete a roadmape, webhooky GitHubu, Linearu a Jiry, adresa MCP a návratová adresa prihlásenia (SSO, OIDC). Ostatní prihlásení ľudia sa na board prihlásia znova.",
+        "confirm": "Rozumiem, stará adresa prestane fungovať.",
+        "save": "Zmeniť adresu"
       }
     },
     "theme": {
@@ -562,7 +569,10 @@
       "faviconTooBig": "Ikona môže mať najviac 200 kB.",
       "faviconBadType": "Tento súbor nie je obrázok. Použite PNG, SVG, ICO, JPEG, GIF alebo WebP.",
       "faviconSaved": "Favicon uložený.",
-      "faviconCleared": "Board znova používa písmeno vo farbe akcentu."
+      "faviconCleared": "Board znova používa písmeno vo farbe akcentu.",
+      "slugInvalid": "Adresa smie mať malé písmená, číslice a pomlčky (2–41 znakov) a nesmie byť vyhradená.",
+      "slugTaken": "Adresa „{slug}“ je obsadená.",
+      "slugSame": "Toto je súčasná adresa."
     },
     "tokens": {
       "gateTitle": "API tokeny sú pre tím",

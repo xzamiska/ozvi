@@ -12,7 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useLocale, useTranslations } from "next-intl";
 import { LOCALE_NAME, LOCALE_TAG, LOCALES, type Locale } from "@/i18n/locales";
-import { rotateSecret, saveLanguages, saveMcpLockdown, saveSections, saveSettings, type AdminState } from "@/lib/admin-actions";
+import { changeSlug, rotateSecret, saveLanguages, saveMcpLockdown, saveSections, saveSettings, type AdminState } from "@/lib/admin-actions";
 import { SECTIONS, type Section } from "@/lib/sections";
 import { Field, hint, noFill, panel, Result, SecretBox } from "./settings";
 
@@ -54,6 +54,39 @@ export function SettingsForm({ slug, name, loginUrl, origins, ideasPublic, email
       <div className="grid gap-3">
         <Result error={state.error} ok={state.ok} />
         <div><Button type="submit" disabled={pending} aria-busy={pending || undefined}>{pending ? t("saving") : t("project.save")}</Button></div>
+      </div>
+    </form>
+  );
+}
+
+/** The board's address. Changing it breaks every place the old one was pasted, so it asks for a tick first. */
+export function SlugForm({ slug, base }: { slug: string; base: string }) {
+  const t = useTranslations("admin.settings.slug");
+  const ts = useTranslations("admin.settings");
+  const [state, action, pending] = useActionState((p: AdminState, f: FormData) => changeSlug(slug, p, f), {});
+  const [value, setValue] = useState(slug);
+  const [sure, setSure] = useState(false);
+  const changed = value.trim().toLowerCase() !== slug;
+  return (
+    <form action={action} className={panel}>
+      <Field id="s-slug" label={t("label")} hint={t("hint", { url: `${base}/${slug}` })}>
+        <div className="flex max-w-md items-center gap-2">
+          <span className="shrink-0 font-mono text-[13px] text-muted-foreground">{base.replace(/^https?:\/\//, "")}/</span>
+          <Input id="s-slug" name="slug" value={value} onChange={(e) => setValue(e.target.value)} required minLength={2} maxLength={41}
+            pattern="[a-z0-9][a-z0-9\-]{1,40}" spellCheck={false} {...noFill} className="font-mono text-[13px]" />
+        </div>
+      </Field>
+      {changed && (
+        <div className="grid gap-3">
+          <p className={hint}>{t("warn")}</p>
+          <label className="flex items-start gap-2 text-[14px] font-medium">
+            <Checkbox checked={sure} onCheckedChange={(v) => setSure(v === true)} className="mt-0.5" />{t("confirm")}
+          </label>
+        </div>
+      )}
+      <div className="grid gap-3">
+        <Result error={state.error} ok={state.ok} />
+        <div><Button type="submit" variant="outline" disabled={pending || !changed || !sure} aria-busy={pending || undefined}>{pending ? ts("saving") : t("save")}</Button></div>
       </div>
     </form>
   );

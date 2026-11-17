@@ -483,6 +483,13 @@
         "invalid": "Wählen Sie eine Art der Abstimmung.",
         "budgetRange": "Die Stimmen müssen eine ganze Zahl von 1 bis 100 sein.",
         "saved": "Einstellungen zur Abstimmung gespeichert."
+      },
+      "slug": {
+        "label": "Adresse des Boards",
+        "hint": "Das Board ist unter {url} erreichbar. Kleinbuchstaben, Ziffern und Bindestriche.",
+        "warn": "Nach der Änderung funktioniert die alte Adresse nicht mehr. Ersetzen Sie sie überall, wo Sie sie verwenden: im Attribut project von Widget und Roadmap, in den Webhooks von GitHub, Linear und Jira, in der MCP-Adresse und in der Rückkehradresse der Anmeldung (SSO, OIDC). Andere angemeldete Personen melden sich erneut am Board an.",
+        "confirm": "Ich verstehe, dass die alte Adresse nicht mehr funktioniert.",
+        "save": "Adresse ändern"
       }
     },
     "theme": {
@@ -562,7 +569,10 @@
       "faviconTooBig": "Das Icon darf höchstens 200 kB groß sein.",
       "faviconBadType": "Diese Datei ist kein Bild. Verwenden Sie PNG, SVG, ICO, JPEG, GIF oder WebP.",
       "faviconSaved": "Favicon gespeichert.",
-      "faviconCleared": "Das Board nutzt wieder seinen Buchstaben in der Akzentfarbe."
+      "faviconCleared": "Das Board nutzt wieder seinen Buchstaben in der Akzentfarbe.",
+      "slugInvalid": "Die Adresse darf Kleinbuchstaben, Ziffern und Bindestriche enthalten (2–41 Zeichen) und kein reserviertes Wort sein.",
+      "slugTaken": "Die Adresse „{slug}“ ist bereits vergeben.",
+      "slugSame": "Das ist die aktuelle Adresse."
     },
     "tokens": {
       "gateTitle": "API-Tokens sind für das Team",
