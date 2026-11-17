@@ -2945,16 +2945,20 @@
     },
     "steps": [
       {
+        "title": "Az ügyfél ott jelenti be a hibát, ahol észreveszi.",
+        "text": "Az alkalmazásodban rákattint a „Visszajelzés” gombra, és leírja, mi nem működik. A képernyőképet és az oldal címét az Ozvi magától csatolja, a jelszavakat pedig még azelőtt kitakarja, hogy bármi elhagyná a böngészőt. A fejlesztők a verziót és a konzolhibákat is megkapják."
+      },
+      {
         "title": "A csapat mindent egy helyen intéz el.",
         "text": "Az összes bejelentés egy helyen van, és szűrhető. A hasonlókat egy kattintással összevonod, a belső jegyzeteket és címkéket pedig az ügyfél nem látja. Semmi sem marad válasz nélkül."
       },
       {
-        "title": "Az ötletek a szavazatok szerint rendeződnek.",
-        "text": "Az ügyfelek javasolnak és szavaznak, írás közben pedig látják a hasonló ötleteket. Az ütemtervből kiderül, mit tervez és min dolgozik a csapat. Ha egy ötlet állapota megváltozik, magától továbblép rajta."
-      },
-      {
         "title": "Összekötheted a már használt eszközeiddel.",
         "text": "A bejelentésből egy kattintással issue lesz a GitHubon, a Linearben vagy a Jirában. Ha lezárod az issue-t vagy kiadsz egy verziót, az Ozvi magától „Javítva” állapotba teszi a hibát. Az újdonságokat Slackre vagy Discordra is elküldheted."
+      },
+      {
+        "title": "A bejelentő pedig megtudja, mi lett a bejelentésével.",
+        "text": "Amikor a hibát javítottnak jelölöd, e-mailben megkérdezzük tőle, hogy most már működik-e. Ha egy ötlet megvalósul, egyetlen újdonság-bejegyzéssel mindenkit értesítesz, aki rá szavazott."
       }
     ],
     "try": {
@@ -3080,6 +3084,10 @@
     "ghPanel": {
       "from": "az Ozvi #128-as bejelentéséből",
       "closed": "A 2.15-ös kiadás lezárta a #482-es issue-t"
+    },
+    "ideasStep": {
+      "title": "Az ötletek a szavazatok szerint rendeződnek.",
+      "text": "Az ügyfelek javasolnak és szavaznak, írás közben pedig látják a hasonló ötleteket. Az ütemtervből kiderül, mit tervez és min dolgozik a csapat. Ha egy ötlet állapota megváltozik, magától továbblép rajta."
     }
   },
   "net": {

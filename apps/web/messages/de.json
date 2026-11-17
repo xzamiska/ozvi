@@ -2945,16 +2945,20 @@
     },
     "steps": [
       {
+        "title": "Kunden melden einen Fehler dort, wo sie ihn sehen.",
+        "text": "Sie klicken direkt in Ihrer App auf „Feedback“ und schreiben, was nicht funktioniert. Screenshot und Seite hängt Ozvi von selbst an und verdeckt Passwörter, bevor etwas den Browser verlässt. Entwickler bekommen zusätzlich die Version und die Konsolenfehler."
+      },
+      {
         "title": "Ihr Team erledigt alles an einem Ort.",
         "text": "Alle Meldungen liegen an einem Ort und lassen sich filtern. Ähnliche führen Sie mit einem Klick zusammen. Interne Notizen und Tags sieht der Kunde nicht. So bleibt nichts ohne Antwort liegen."
       },
       {
-        "title": "Ideen ordnen sich nach Stimmen.",
-        "text": "Kunden schlagen Ideen vor, stimmen ab und sehen beim Schreiben ähnliche Vorschläge. Auf der Roadmap sehen sie, was Sie planen und woran Sie arbeiten. Ändern Sie den Status einer Idee, rückt sie dort von selbst weiter."
-      },
-      {
         "title": "Ozvi arbeitet mit den Tools, die Sie schon nutzen.",
         "text": "Eine Meldung wird mit einem Klick zum Issue in GitHub, Linear oder Jira. Wenn Sie das Issue schließen oder ein Release veröffentlichen, setzt Ozvi den Fehler von selbst auf „Behoben“. Neuigkeiten schicken Sie an Slack oder Discord."
+      },
+      {
+        "title": "Und der Kunde erfährt, wie es ausgegangen ist.",
+        "text": "Markieren Sie einen Fehler als behoben, bekommt der Kunde eine E-Mail mit der Frage, ob es jetzt funktioniert. Wird eine Idee umgesetzt, informiert ein einziger Eintrag alle, die dafür gestimmt haben."
       }
     ],
     "try": {
@@ -3080,6 +3084,10 @@
     "ghPanel": {
       "from": "aus Ozvi-Meldung #128",
       "closed": "Release 2.15 hat Issue #482 geschlossen"
+    },
+    "ideasStep": {
+      "title": "Ideen ordnen sich nach Stimmen.",
+      "text": "Kunden schlagen Ideen vor, stimmen ab und sehen beim Schreiben ähnliche Vorschläge. Auf der Roadmap sehen sie, was Sie planen und woran Sie arbeiten. Ändern Sie den Status einer Idee, rückt sie dort von selbst weiter."
     }
   },
   "net": {

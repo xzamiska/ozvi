@@ -1,14 +1,13 @@
 import { limitSize, PLAN_LIMITS, PRICES } from "@ozvi/db";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
-import { Accessibility, ArrowRightLeft, Camera, Check, ChevronDown, CircleDot, EyeOff, GitPullRequest, Languages, MessageSquare, Minus, Palette, Star, Tag } from "lucide-react";
+import { Accessibility, ArrowRightLeft, Camera, Check, ChevronDown, EyeOff, Languages, MessageSquare, Minus, Palette, Star } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
 import { Reveal } from "@/components/landing/Reveal";
 import { MiniBoard } from "@/components/landing/SampleBoard";
 import { SmoothScroll } from "@/components/landing/SmoothScroll";
-import { StickySteps } from "@/components/landing/StickySteps";
-import { TeamDesk } from "@/components/landing/TeamDesk";
+import { ScrollStory } from "@/components/landing/ScrollStory";
 import { LangSwitch, SiteHeader, type NavItem } from "@/components/landing/SiteHeader";
 import { signupClosed } from "@/lib/account-rules";
 import { ownFeedback } from "@/lib/own-feedback";
@@ -267,34 +266,19 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
             </div>
           </section>
 
-          {/* how it works: the steps scroll past, the picture on the right follows */}
+          {/* how it works: one report, #128, followed from the customer's app to the team, GitHub and back */}
           <section id="how" aria-labelledby="how-h" className="oz-frame scroll-mt-24 py-16 lg:py-8">
             <h2 id="how-h" className="sr-only">{t("hero.secondary")}</h2>
-            <StickySteps phonePanels={[1, 2]} steps={(t.raw("steps") as { title: string; text: string }[]).map((s, i) => ({ ...s, panel: [
-              <div key="t" className={hostPanel}><TeamDesk /></div>,
-              <div key="i" inert className={cn(hostPanel, "pointer-events-none select-none")}><MiniBoard name={t("product.app")} compact={false} view="roadmap" fit /></div>,
-              // the same #128 as in the hero: an issue in GitHub, closed by a release, and the report moves to "Fixed" on its own
-              <div key="g" className="grid w-full max-w-[520px] text-[13.5px] lg:mx-auto">
-                <div className={hostPanel}>
-                  <p className="flex items-center gap-2 border-b px-4 py-2.5 font-mono text-[12px] text-muted-foreground"><GitPullRequest className="size-3.5" aria-hidden />acme/app</p>
-                  <div className="grid gap-3 p-4">
-                    <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3">
-                      <CircleDot className="mt-0.5 size-4 text-muted-foreground" aria-hidden />
-                      <div className="min-w-0"><p className="font-semibold">{t("story.stage.report")}</p><p className="mt-0.5 text-[12.5px] text-muted-foreground">#482 · {t("ghPanel.from")}</p></div>
-                    </div>
-                    <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 border-t pt-3">
-                      <Tag className="mt-0.5 size-4 text-muted-foreground" aria-hidden />
-                      <p>{t("ghPanel.closed")}</p>
-                    </div>
-                  </div>
-                </div>
-                <span aria-hidden className="ml-[26px] h-6 w-[3px] bg-st-done" />
-                <div className="rounded-xl border-2 border-foreground bg-surface p-4">
-                  <p className="flex items-baseline gap-3"><span className="text-[22px] leading-none font-extrabold tracking-[-0.03em] tabular-nums">#128</span><span className="min-w-0 font-semibold">{t("story.stage.report")}</span></p>
-                  <p className="mt-3 inline-flex items-center gap-1.5 font-semibold"><StatusMark kind="bug" status="fixed" />{(t.raw("features.tiles.route.stops") as string[])[3]}</p>
-                </div>
-              </div>,
-            ][i] }))} />
+            <ScrollStory />
+          </section>
+
+          {/* the other half: ideas, votes and the roadmap */}
+          <section aria-labelledby="ideas-h" className="oz-frame grid gap-10 pb-24 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center lg:gap-16 lg:pt-8 lg:pb-28">
+            <div>
+              <h2 id="ideas-h" className="max-w-[18ch] text-[30px] leading-tight font-extrabold tracking-[-0.035em] lg:text-[38px]">{t("ideasStep.title")}</h2>
+              <p className="mt-4 max-w-[46ch] text-[16.5px] leading-relaxed text-muted-foreground">{t("ideasStep.text")}</p>
+            </div>
+            <div inert className={cn(hostPanel, "pointer-events-none select-none")}><MiniBoard name={t("product.app")} compact={false} view="roadmap" fit /></div>
           </section>
 
           {/* where it lives: the board alone is enough; the widget and the embeds are optional */}

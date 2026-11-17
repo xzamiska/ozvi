@@ -2945,16 +2945,20 @@
     },
     "steps": [
       {
+        "title": "Zákazník nahlásí chybu tam, kde ji vidí.",
+        "text": "Klikne na „Zpětná vazba“ přímo ve vaší aplikaci a napíše, co nefunguje. Screenshot a stránku přibalí Ozvi sám a hesla zakryje dřív, než něco odejde z jeho prohlížeče. Vývojáři dostanou i verzi a chyby z konzole."
+      },
+      {
         "title": "Tým vyřídí všechno na jednom místě.",
         "text": "Všechna hlášení máte pohromadě a můžete je filtrovat. Podobná sloučíte jedním klikem. Interní poznámky a štítky zákazník nevidí. Nic nezůstane ležet bez odpovědi."
       },
       {
-        "title": "Nápady se seřadí podle hlasů.",
-        "text": "Zákazníci navrhují a hlasují a při psaní uvidí podobné nápady. Na roadmapě vidí, co plánujete a na čem pracujete. Když nápadu změníte stav, posune se na ní sám."
-      },
-      {
         "title": "Funguje s nástroji, které už používáte.",
         "text": "Hlášení se jedním klikem stane issue na GitHubu, v Linearu nebo Jiře. Když issue zavřete nebo vydáte release, Ozvi chybu sám přesune na „Opraveno“. Novinky pošlete do Slacku či Discordu."
+      },
+      {
+        "title": "A autor se dozví, jak to dopadlo.",
+        "text": "Když chybu označíte jako opravenou, přijde mu e-mail s otázkou, jestli mu to už funguje. Když vydáte nápad, jedna novinka dá vědět každému, kdo pro něj hlasoval."
       }
     ],
     "try": {
@@ -3080,6 +3084,10 @@
     "ghPanel": {
       "from": "z hlášení #128 v Ozvi",
       "closed": "Release 2.15 zavřel issue #482"
+    },
+    "ideasStep": {
+      "title": "Nápady se seřadí podle hlasů.",
+      "text": "Zákazníci navrhují a hlasují a při psaní uvidí podobné nápady. Na roadmapě vidí, co plánujete a na čem pracujete. Když nápadu změníte stav, posune se na ní sám."
     }
   },
   "net": {

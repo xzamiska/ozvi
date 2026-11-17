@@ -2945,16 +2945,20 @@
     },
     "steps": [
       {
+        "title": "Customers report a bug right where they see it.",
+        "text": "They click “Feedback” in your app and describe what’s wrong. Ozvi adds a screenshot and the page address on its own, and hides passwords before anything leaves the browser. Your developers also get the version and any console errors."
+      },
+      {
         "title": "Your team handles it all in one place.",
         "text": "All reports are in one place, and you can filter them. Merge similar ones in one click. Customers never see internal notes or tags. Nothing is left unanswered."
       },
       {
-        "title": "Ideas rank themselves by votes.",
-        "text": "Customers suggest ideas, vote, and see similar ideas as they type. The roadmap shows them what you’re planning and working on. When you change an idea’s status, it moves along the roadmap by itself."
-      },
-      {
         "title": "Connected to the tools you already use.",
         "text": "One click turns a report into an issue in GitHub, Linear or Jira. When you close the issue or publish a release, Ozvi moves the bug to “Fixed” by itself. You can also send updates to Slack or Discord."
+      },
+      {
+        "title": "And the customer hears how it turned out.",
+        "text": "When you mark a bug as fixed, the customer gets an e-mail asking whether it works for them now. When you ship an idea, one changelog entry lets everyone who voted for it know."
       }
     ],
     "try": {
@@ -3080,6 +3084,10 @@
     "ghPanel": {
       "from": "from Ozvi report #128",
       "closed": "Release 2.15 closed issue #482"
+    },
+    "ideasStep": {
+      "title": "Ideas rank themselves by votes.",
+      "text": "Customers suggest ideas, vote, and see similar ideas as they type. The roadmap shows them what you’re planning and working on. When you change an idea’s status, it moves along the roadmap by itself."
     }
   },
   "net": {
