@@ -142,6 +142,11 @@ export const users = pgTable("users", {
   traits: jsonb("traits").notNull().default({}),
   role: userRole("role").notNull().default("member"),
   emailOptOut: boolean("email_opt_out").notNull().default(false),
+  /**
+   * Team members only: which team e-mails they want ("My data" → Team e-mails). Keys newBug, newIdea, comments,
+   * digest; a missing key means on. Their own items and conversations still reach them like anyone else.
+   */
+  teamMail: jsonb("team_mail").$type<Partial<Record<"newBug" | "newIdea" | "comments" | "digest", boolean>>>().notNull().default({}),
   /** Bumped to sign the user out everywhere; sessions carry the version they were issued with. */
   sessionVersion: integer("session_version").notNull().default(0),
   /** Last language the user acted in (sk|cs|en|pl|hu|de); e-mails go out in it. Null → project default. */

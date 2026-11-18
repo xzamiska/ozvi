@@ -8,7 +8,7 @@ process.env.OZVI_SECRET_KEY ??= "test-secret-key-0123456789abcdef-xyz";
 process.env.DATABASE_URL ??= "postgres://ozvi:ozvi@localhost:5446/ozvi";
 
 const { addCommentTo, changeStatus } = await import("./domain");
-const { notifyNewIdea } = await import("./email/notify");
+const { notifyNewBug, notifyNewIdea } = await import("./email/notify");
 
 const db = createDb(process.env.DATABASE_URL);
 const up = await db.execute(sql`select 1`).then(() => true, () => false);
@@ -82,6 +82,17 @@ describe.skipIf(!up)("notifications follow the item", () => {
   it("a bug status change tells the reporter and the team members following it", async () => {
     await withProject(db, project.id, (tx) => changeStatus(tx, project, u.team2, bug, "confirmed"));
     expect(await sent("bug_status")).toEqual(["author", "team"]);
+  });
+
+  it("each team member chooses their team e-mails; conversations they are in still reach them", async () => {
+    await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: { newBug: false, comments: false } }).where(eq(schema.users.id, u.team2.id)));
+    await withProject(db, project.id, (tx) => notifyNewBug(tx, project, bug));
+    expect(await sent("new_bug")).toEqual(["team"]);
+    await withProject(db, project.id, (tx) => notifyNewIdea(tx, project, idea));
+    expect(await sent("new_idea")).toEqual(["team", "team2"]);
+    await withProject(db, project.id, (tx) => addCommentTo(tx, project, u.stranger, idea, "Pridávam sa.", false));
+    expect(await sent("comment")).toEqual(["author", "talker", "team"]);
+    await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: {} }).where(eq(schema.users.id, u.team2.id)));
   });
 
   it("the team's own words travel with the status e-mail; a quiet move e-mails nobody", async () => {

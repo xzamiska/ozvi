@@ -329,7 +329,8 @@
       "show": "show",
       "hide": "hide",
       "since": "joined {when}",
-      "note": "“Sign out everywhere” ends their sessions and revokes their API tokens immediately. If they sign in through your app again, access comes back; remove it for good in your app."
+      "note": "“Sign out everywhere” ends their sessions and revokes their API tokens immediately. If they sign in through your app again, access comes back; remove it for good in your app.",
+      "mail": "Everyone on the team gets an e-mail about each new report, idea and comment, plus the Monday digest. Each person chooses what they get in <link>My data → Team e-mails</link>."
     },
     "integrations": {
       "text": "Connect GitHub, send notifications to chat or your own backend, and give AI assistants access.",
@@ -1104,7 +1105,30 @@
         "This can’t be undone. If you want to keep anything, download your data first."
       ],
       "exportFile": "my-data",
-      "erased": "Your data has been deleted and you’re signed out. Your ideas stay on the board without your name."
+      "erased": "Your data has been deleted and you’re signed out. Your ideas stay on the board without your name.",
+      "teamMail": "Team e-mails",
+      "teamMailText": "What you get as a team member. Reports and discussions you took part in always reach you.",
+      "teamMailAllOff": "Your e-mails are turned off above; until you turn them on, nothing from this list arrives.",
+      "teamMailSave": "Save",
+      "teamMailSaved": "Saved",
+      "teamMailItems": {
+        "newBug": {
+          "title": "New bug report",
+          "text": "As soon as someone sends one."
+        },
+        "newIdea": {
+          "title": "New idea",
+          "text": "As soon as someone suggests one."
+        },
+        "comments": {
+          "title": "Comments and internal notes",
+          "text": "On every item on the board."
+        },
+        "digest": {
+          "title": "Monday digest",
+          "text": "Once a week: the numbers, what waits for a reply and what shipped but wasn't announced."
+        }
+      }
     },
     "pendingBadge": "Awaiting approval",
     "paging": {

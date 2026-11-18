@@ -49,9 +49,15 @@ async function enqueue(tx: Tx, project: Project, kind: string, recipientIds: str
 const itemUrl = (p: Project, item: Item) => `${projectOrigin(p)}/${p.slug}/i/${item.number}`;
 const NOBODY = "00000000-0000-0000-0000-000000000000";
 
-async function teamIds(tx: Tx) {
-  const rows = await tx.select({ id: users.id }).from(users).where(or(eq(users.role, "team"), eq(users.role, "admin")));
-  return rows.map((r) => r.id);
+export type TeamMail = "newBug" | "newIdea" | "comments" | "digest";
+
+/**
+ * The team (team and admins); with `want`, only those who did not switch that kind of team e-mail off
+ * ("My data" → Team e-mails; a missing key means on).
+ */
+async function teamIds(tx: Tx, want?: TeamMail) {
+  const rows = await tx.select({ id: users.id, prefs: users.teamMail }).from(users).where(or(eq(users.role, "team"), eq(users.role, "admin")));
+  return rows.filter((r) => !want || r.prefs?.[want] !== false).map((r) => r.id);
 }
 
 /**
@@ -154,9 +160,11 @@ export async function notifyComment(
 ) {
   if (item.deletedAt) return;
   const team = await teamIds(tx);
-  const recipients = (c.audience === "internal" || c.audience === "queued" ? team
+  // Team members who switched comment e-mails off still hear about conversations they are part of (followers).
+  const listening = await teamIds(tx, "comments");
+  const recipients = (c.audience === "internal" || c.audience === "queued" ? listening
     : c.audience === "approved" ? (await followers(tx, item)).filter((id) => !team.includes(id))
-    : [...(await followers(tx, item)), ...team]).filter((id) => id !== c.authorId);
+    : [...(await followers(tx, item)), ...listening]).filter((id) => id !== c.authorId);
   const internal = c.audience === "internal";
   const queued = c.audience === "queued";
   const href = `${itemUrl(project, item)}${c.commentId ? `#c-${c.commentId}` : ""}`;
@@ -196,7 +204,7 @@ export async function notifyRejected(tx: Tx, project: Project, item: Item, actor
 
 /** A new idea goes to the team so nothing waits unseen until the weekly digest. */
 export async function notifyNewIdea(tx: Tx, project: Project, item: Item) {
-  const team = (await teamIds(tx)).filter((id) => id !== (item.authorId ?? NOBODY));
+  const team = (await teamIds(tx, "newIdea")).filter((id) => id !== (item.authorId ?? NOBODY));
   await enqueue(tx, project, "new_idea", team, (t) => ({
     subject: t("newIdeaSubject", { title: item.title }),
     summary: t("newIdeaSummary", { title: item.title }),
@@ -209,7 +217,7 @@ export async function notifyNewIdea(tx: Tx, project: Project, item: Item) {
 }
 
 export async function notifyNewBug(tx: Tx, project: Project, item: Item) {
-  const team = (await teamIds(tx)).filter((id) => id !== (item.authorId ?? NOBODY));
+  const team = (await teamIds(tx, "newBug")).filter((id) => id !== (item.authorId ?? NOBODY));
   await enqueue(tx, project, "new_bug", team, (t) => ({
     subject: t("newBugSubject", { title: item.title }),
     summary: t("newBugSummary", { title: item.title }),
@@ -279,8 +287,7 @@ export async function notifyTeamDigest(tx: Tx, project: Project, d: {
   /** "Vydané, ale neoznámené": shipped/fixed items no published changelog mentions yet. */
   unannounced?: { n: number; top: string[] };
 }) {
-  const team = await tx.select({ id: users.id }).from(users).where(or(eq(users.role, "team"), eq(users.role, "admin")));
-  return enqueue(tx, project, "team_digest", team.map((t) => t.id), (t) => ({
+  return enqueue(tx, project, "team_digest", await teamIds(tx, "digest"), (t) => ({
     subject: t("teamDigestSubject", { project: project.name }),
     summary: t("teamDigestSummary", { ideas: d.newIdeas, bugs: d.newBugs, open: d.openBugs }),
     heading: t("teamDigestHeading"),

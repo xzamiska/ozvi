@@ -329,7 +329,8 @@
       "show": "pokaż",
       "hide": "ukryj",
       "since": "dołączono {when}",
-      "note": "„Wyloguj wszędzie” natychmiast kończy sesje danej osoby i unieważnia jej tokeny API. Jeśli znów zaloguje się przez twoją aplikację, odzyska dostęp; na stałe odbierz go w swojej aplikacji."
+      "note": "„Wyloguj wszędzie” natychmiast kończy sesje danej osoby i unieważnia jej tokeny API. Jeśli znów zaloguje się przez twoją aplikację, odzyska dostęp; na stałe odbierz go w swojej aplikacji.",
+      "mail": "Każdy w zespole dostaje e-mail o nowym zgłoszeniu, pomyśle i komentarzu oraz poniedziałkowe podsumowanie. Co dostaje, ustawia sam w <link>Moje dane → E-maile dla zespołu</link>."
     },
     "integrations": {
       "text": "Połącz GitHub, wysyłaj powiadomienia na czat lub do własnego backendu i daj dostęp asystentom AI.",
@@ -1104,7 +1105,30 @@
         "Tej operacji nie można cofnąć. Jeśli chcesz coś zachować, najpierw pobierz swoje dane."
       ],
       "exportFile": "moje-dane",
-      "erased": "Twoje dane zostały usunięte, a ty wylogowany. Twoje pomysły zostały na tablicy bez twojego imienia."
+      "erased": "Twoje dane zostały usunięte, a ty wylogowany. Twoje pomysły zostały na tablicy bez twojego imienia.",
+      "teamMail": "E-maile dla zespołu",
+      "teamMailText": "Co dostajesz jako członek zespołu. O zgłoszeniach i dyskusjach, w których brałeś udział, napiszemy zawsze.",
+      "teamMailAllOff": "E-maile masz wyłączone powyżej; dopóki ich nie włączysz, nic z tej listy nie przyjdzie.",
+      "teamMailSave": "Zapisz",
+      "teamMailSaved": "Zapisano",
+      "teamMailItems": {
+        "newBug": {
+          "title": "Nowe zgłoszenie błędu",
+          "text": "Od razu, gdy ktoś je wyśle."
+        },
+        "newIdea": {
+          "title": "Nowy pomysł",
+          "text": "Od razu, gdy ktoś go zaproponuje."
+        },
+        "comments": {
+          "title": "Komentarze i notatki wewnętrzne",
+          "text": "Do wszystkich wpisów na tablicy."
+        },
+        "digest": {
+          "title": "Poniedziałkowe podsumowanie",
+          "text": "Raz w tygodniu: liczby, co czeka na odpowiedź i co wydano, ale nie ogłoszono."
+        }
+      }
     },
     "pendingBadge": "Czeka na zatwierdzenie",
     "paging": {

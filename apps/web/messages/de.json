@@ -329,7 +329,8 @@
       "show": "anzeigen",
       "hide": "ausblenden",
       "since": "dabei seit {when}",
-      "note": "„Überall abmelden“ beendet sofort alle Sitzungen der Person und widerruft ihre API-Tokens. Meldet sie sich erneut über Ihre App an, erhält sie wieder Zugriff; dauerhaft entziehen Sie ihn in Ihrer App."
+      "note": "„Überall abmelden“ beendet sofort alle Sitzungen der Person und widerruft ihre API-Tokens. Meldet sie sich erneut über Ihre App an, erhält sie wieder Zugriff; dauerhaft entziehen Sie ihn in Ihrer App.",
+      "mail": "Alle im Team erhalten eine E-Mail zu jeder neuen Meldung, Idee und jedem Kommentar sowie die Montagsübersicht. Was sie bekommen, stellt jede Person selbst ein unter <link>Meine Daten → Team-E-Mails</link>."
     },
     "integrations": {
       "text": "Verbinden Sie GitHub, senden Sie Benachrichtigungen in den Chat oder an Ihr eigenes Backend und geben Sie KI-Assistenten Zugriff.",
@@ -1104,7 +1105,30 @@
         "Das lässt sich nicht rückgängig machen. Wenn Sie etwas behalten möchten, laden Sie Ihre Daten zuerst herunter."
       ],
       "exportFile": "meine-daten",
-      "erased": "Ihre Daten wurden gelöscht und Sie sind abgemeldet. Ihre Ideen bleiben ohne Ihren Namen auf dem Board."
+      "erased": "Ihre Daten wurden gelöscht und Sie sind abgemeldet. Ihre Ideen bleiben ohne Ihren Namen auf dem Board.",
+      "teamMail": "Team-E-Mails",
+      "teamMailText": "Was Sie als Teammitglied erhalten. Über Meldungen und Diskussionen, an denen Sie beteiligt sind, schreiben wir Ihnen immer.",
+      "teamMailAllOff": "Ihre E-Mails sind oben ausgeschaltet; bis Sie sie einschalten, kommt nichts aus dieser Liste.",
+      "teamMailSave": "Speichern",
+      "teamMailSaved": "Gespeichert",
+      "teamMailItems": {
+        "newBug": {
+          "title": "Neue Fehlermeldung",
+          "text": "Sobald jemand eine sendet."
+        },
+        "newIdea": {
+          "title": "Neue Idee",
+          "text": "Sobald jemand eine vorschlägt."
+        },
+        "comments": {
+          "title": "Kommentare und interne Notizen",
+          "text": "Zu allen Einträgen im Board."
+        },
+        "digest": {
+          "title": "Montagsübersicht",
+          "text": "Einmal pro Woche: Zahlen, was auf Antwort wartet und was veröffentlicht, aber nicht angekündigt wurde."
+        }
+      }
     },
     "pendingBadge": "Wartet auf Freigabe",
     "paging": {

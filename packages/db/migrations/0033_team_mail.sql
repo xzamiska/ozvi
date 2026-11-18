@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "team_mail" jsonb DEFAULT '{}'::jsonb NOT NULL;

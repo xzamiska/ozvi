@@ -329,7 +329,8 @@
       "show": "megjelenítés",
       "hide": "elrejtés",
       "since": "csatlakozott: {when}",
-      "note": "A „Kijelentkeztetés mindenhol” azonnal megszünteti a munkameneteit, és visszavonja az API-tokenjeit. Ha újra bejelentkezik az alkalmazásodon keresztül, a hozzáférése visszaáll; végleg az alkalmazásodban vonhatod meg."
+      "note": "A „Kijelentkeztetés mindenhol” azonnal megszünteti a munkameneteit, és visszavonja az API-tokenjeit. Ha újra bejelentkezik az alkalmazásodon keresztül, a hozzáférése visszaáll; végleg az alkalmazásodban vonhatod meg.",
+      "mail": "A csapat minden tagja e-mailt kap minden új bejelentésről, ötletről és hozzászólásról, valamint a hétfői összefoglalót. Hogy mit kap, mindenki maga állítja be: <link>Saját adatok → Csapat e-mailek</link>."
     },
     "integrations": {
       "text": "Csatlakoztasd a GitHubot, küldj értesítéseket csevegőbe vagy saját backendedre, és adj hozzáférést AI-asszisztenseknek.",
@@ -1104,7 +1105,30 @@
         "Ez nem vonható vissza. Ha meg szeretnél tartani valamit, előbb töltsd le az adataidat."
       ],
       "exportFile": "adataim",
-      "erased": "Az adataidat töröltük, és kijelentkeztettünk. Az ötleteid a neved nélkül a táblán maradtak."
+      "erased": "Az adataidat töröltük, és kijelentkeztettünk. Az ötleteid a neved nélkül a táblán maradtak.",
+      "teamMail": "Csapat e-mailek",
+      "teamMailText": "Amit csapattagként kap. Azokról a bejelentésekről és beszélgetésekről, amelyekben részt vett, mindig írunk.",
+      "teamMailAllOff": "Az e-maileket fent kikapcsolta; amíg vissza nem kapcsolja, ebből a listából semmi sem érkezik.",
+      "teamMailSave": "Mentés",
+      "teamMailSaved": "Mentve",
+      "teamMailItems": {
+        "newBug": {
+          "title": "Új hibabejelentés",
+          "text": "Amint valaki elküldi."
+        },
+        "newIdea": {
+          "title": "Új ötlet",
+          "text": "Amint valaki javasolja."
+        },
+        "comments": {
+          "title": "Hozzászólások és belső jegyzetek",
+          "text": "A tábla minden bejegyzéséhez."
+        },
+        "digest": {
+          "title": "Hétfői összefoglaló",
+          "text": "Hetente egyszer: számok, mi vár válaszra, és mi jelent meg bejelentés nélkül."
+        }
+      }
     },
     "pendingBadge": "Jóváhagyásra vár",
     "paging": {

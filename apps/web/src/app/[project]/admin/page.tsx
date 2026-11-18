@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PLAN_LIMITS, schema, withProject, type PlanName, limitSize } from "@ozvi/db";
 import { and, desc, eq, gte, inArray, isNull, sql } from "drizzle-orm";
 import { Check, Download, TriangleAlert } from "lucide-react";
@@ -261,6 +262,10 @@ app.get("/api/ozvi-token", requireLogin, (req, res) => {
           </SettingsSection>
 
           <SettingsSection id="people" title={t("nav.people")} text={<>{t("people.textA")}<code className="font-mono text-[13px]">role</code>{t("people.textB")}</>}>
+            {/* Team e-mails are each member's own choice, set on their "My data" page. */}
+            <p className="mb-3 text-[13.5px] text-muted-foreground">
+              {t.rich("people.mail", { link: (c) => <Link href={`/${slug}/me#emaily-timu`} className="oz-link">{c}</Link> })}
+            </p>
             <Panel as="ul" className="divide-y">
               {team.map((p) => (
                 <li key={p.id} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 sm:px-5">

@@ -284,6 +284,28 @@ test.describe("public board", () => {
     await ann.ctx.close();
   });
 
+  test("team e-mails: a team member switches off new bug e-mails on My data; a new bug then e-mails nobody on the team", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    await page.goto(`/${b.slug}/admin#people`);
+    await page.getByRole("link", { name: "Moje údaje → E-maily pre tím" }).click();
+    await expect(page.getByRole("heading", { name: "E-maily pre tím" })).toBeVisible();
+    const box = page.getByRole("checkbox", { name: /Nové hlásenie chyby/ });
+    await expect(box).toBeChecked();
+    await box.click();
+    await page.getByRole("button", { name: "Uložiť" }).click();
+    await expect(page.getByText("Uložené")).toBeVisible();
+    await page.reload();
+    await expect(page.getByRole("checkbox", { name: /Nové hlásenie chyby/ })).not.toBeChecked();
+    await expect(page.getByRole("checkbox", { name: /Pondelňajší súhrn/ })).toBeChecked();
+
+    const ann = await boardUser(browser, b, "anna");
+    const before = await mailCount(b.owner);
+    await createItem(ann.page, b.slug, "bug", uniq("Chyba bez e-mailu"));
+    await page.waitForTimeout(1500);
+    expect(await mailCount(b.owner)).toBe(before);
+    await ann.ctx.close();
+  });
+
   test("changelog: a published entry ships the idea, e-mails voters, appears on /changelog and in the RSS feed", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");

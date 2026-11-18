@@ -7,7 +7,8 @@ import { SettingsSection } from "@/components/settings-base";
 import { Button } from "@/components/ui/button";
 import { getCtx } from "@/lib/project";
 import { getTranslations } from "next-intl/server";
-import { setEmails } from "@/lib/privacy-actions";
+import { setEmails, setTeamMail } from "@/lib/privacy-actions";
+import { TeamMailForm } from "@/components/TeamMailForm";
 import { boardTitle } from "@/lib/board-meta";
 
 export const generateMetadata = boardTitle("board.me");
@@ -48,6 +49,11 @@ export default async function Me({ params }: { params: Promise<{ project: string
             )}
           </Panel>
         </SettingsSection>
+        {(user.role === "team" || user.role === "admin") && user.email && (
+          <SettingsSection id="emaily-timu" title={t("teamMail")} text={t("teamMailText")}>
+            <TeamMailForm action={setTeamMail.bind(null, slug)} prefs={user.teamMail ?? {}} off={user.emailOptOut} />
+          </SettingsSection>
+        )}
         <SettingsSection id="stiahnut" title={t("download")} text={t("downloadText")}>
           <Panel className="flex flex-wrap items-center justify-between gap-4 p-5 sm:p-6">
             <p className="text-[14.5px]">{t("downloadWhat")}</p>

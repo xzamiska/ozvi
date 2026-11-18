@@ -329,7 +329,8 @@
       "show": "zobraziť",
       "hide": "skryť",
       "since": "od {when}",
-      "note": "„Odhlásiť všade“ okamžite zruší prihlásenia aj API tokeny. Keď sa človek znova prihlási cez aplikáciu, prístup sa vráti; natrvalo ho odoberiete v aplikácii."
+      "note": "„Odhlásiť všade“ okamžite zruší prihlásenia aj API tokeny. Keď sa človek znova prihlási cez aplikáciu, prístup sa vráti; natrvalo ho odoberiete v aplikácii.",
+      "mail": "Každý z tímu dostáva e-mail o novom hlásení, nápade a komentári a pondelňajší súhrn. Čo mu chodí, si nastaví sám v <link>Moje údaje → E-maily pre tím</link>."
     },
     "integrations": {
       "text": "Prepojenie s GitHubom, upozornenia do chatu alebo vlastného backendu a prístup pre AI asistentov.",
@@ -1104,7 +1105,30 @@
         "Vrátiť sa to nedá. Ak si chcete niečo nechať, najprv si údaje stiahnite."
       ],
       "exportFile": "moje-udaje",
-      "erased": "Vaše údaje sú zmazané a ste odhlásení. Vaše nápady zostali na boarde bez vášho mena."
+      "erased": "Vaše údaje sú zmazané a ste odhlásení. Vaše nápady zostali na boarde bez vášho mena.",
+      "teamMail": "E-maily pre tím",
+      "teamMailText": "Čo vám chodí ako členovi tímu. O hláseniach a diskusiách, v ktorých ste sa ozvali, vám napíšeme vždy.",
+      "teamMailAllOff": "E-maily máte vypnuté vyššie, kým ich nezapnete, nepríde vám nič z tohto zoznamu.",
+      "teamMailSave": "Uložiť",
+      "teamMailSaved": "Uložené",
+      "teamMailItems": {
+        "newBug": {
+          "title": "Nové hlásenie chyby",
+          "text": "Hneď, ako ho niekto pošle."
+        },
+        "newIdea": {
+          "title": "Nový nápad",
+          "text": "Hneď, ako ho niekto navrhne."
+        },
+        "comments": {
+          "title": "Komentáre a interné poznámky",
+          "text": "Ku všetkým záznamom na boarde."
+        },
+        "digest": {
+          "title": "Pondelňajší súhrn",
+          "text": "Raz týždenne: čísla, čo čaká na odpoveď a čo je vydané, ale neoznámené."
+        }
+      }
     },
     "pendingBadge": "Čaká na schválenie",
     "paging": {

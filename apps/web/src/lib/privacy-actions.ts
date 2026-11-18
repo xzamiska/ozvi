@@ -43,3 +43,15 @@ export async function setEmails(slug: string, on: boolean) {
   await withProject(db, project.id, (tx) => tx.update(schema.users).set({ emailOptOut: !on }).where(eq(schema.users.id, user.id)));
   revalidatePath(`/${slug}/me`);
 }
+
+const TEAM_MAIL = ["newBug", "newIdea", "comments", "digest"] as const;
+
+/** "My data" → Team e-mails (team and admins): which team e-mails this person wants. */
+export async function setTeamMail(slug: string, form: FormData) {
+  const { project, user } = await getCtx(slug);
+  if (!user) redirect(`/${slug}`);
+  if (user.role !== "team" && user.role !== "admin") return;
+  const prefs = Object.fromEntries(TEAM_MAIL.map((k) => [k, form.get(k) === "on"]));
+  await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: prefs }).where(eq(schema.users.id, user.id)));
+  revalidatePath(`/${slug}/me`);
+}
