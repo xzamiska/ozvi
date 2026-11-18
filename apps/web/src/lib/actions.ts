@@ -101,7 +101,12 @@ export async function setStatus(slug: string, itemId: string, form: FormData) {
     if (!item) throw new Error(t("itemMissing"));
     // "sub": a custom sub-status of the chosen stage ("" = the plain stage); validated in changeStatus.
     const sub = form.has("sub") ? (/^[0-9a-f-]{36}$/i.test(str(form, "sub")) ? str(form, "sub") : null) : undefined;
-    await changeStatus(tx, project, user, item, str(form, "status"), str(form, "fixedInVersion") || null, { subStatusId: sub });
+    // The team may add its own words (a public comment, quoted in the status e-mail) or move without e-mailing anyone.
+    const note = str(form, "note").trim().slice(0, 5000) || null;
+    const notify = str(form, "notify") !== "0";
+    const moved = await changeStatus(tx, project, user, item, str(form, "status"), str(form, "fixedInVersion") || null, { subStatusId: sub, note: notify ? note : null, notify });
+    // The words go on the item as a comment. Its own e-mail is skipped: the status e-mail already carries them.
+    if (note && moved) await tx.insert(schema.comments).values({ projectId: project.id, itemId: item.id, authorId: user.id, body: note, internal: false, source: "board" });
   });
   revalidatePath(`/${slug}`, "layout");
 }

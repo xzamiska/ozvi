@@ -83,4 +83,16 @@ describe.skipIf(!up)("notifications follow the item", () => {
     await withProject(db, project.id, (tx) => changeStatus(tx, project, u.team2, bug, "confirmed"));
     expect(await sent("bug_status")).toEqual(["author", "team"]);
   });
+
+  it("the team's own words travel with the status e-mail; a quiet move e-mails nobody", async () => {
+    const fresh = await withProject(db, project.id, (tx) => tx.query.items.findFirst({ where: eq(schema.items.id, bug.id) }));
+    await withProject(db, project.id, (tx) => changeStatus(tx, project, u.team2, fresh!, "in_progress", null, { note: "Opravujeme, oprava príde v piatok." }));
+    const mails = await withProject(db, project.id, (tx) => tx.select({ to: schema.emails.to, text: schema.emails.text }).from(schema.emails)
+      .where(and(eq(schema.emails.projectId, project.id), eq(schema.emails.kind, "bug_status"))));
+    expect(mails.find((m) => m.to.startsWith("author"))?.text).toContain("Opravujeme, oprava príde v piatok.");
+    await sent("bug_status");
+    const moved = await withProject(db, project.id, (tx) => tx.query.items.findFirst({ where: eq(schema.items.id, bug.id) }));
+    await withProject(db, project.id, (tx) => changeStatus(tx, project, u.team2, moved!, "confirmed", null, { notify: false }));
+    expect(await sent("bug_status")).toEqual([]);
+  });
 });

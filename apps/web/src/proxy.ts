@@ -5,6 +5,9 @@ import { primaryHost, slugForHost } from "@/lib/domains";
 import { hostOrigin } from "@/lib/email/url";
 import { indexable, NOINDEX } from "@/lib/indexing";
 import { warnIfNoProxy } from "@/lib/client-ip";
+import { localeRedirect } from "@/i18n/locale-route";
+import { LOCALE_COOKIE } from "@/i18n/locales";
+import { LOCALE_MAX_AGE } from "@/lib/storage-keys";
 
 /**
  * Host routing. The primary host (PUBLIC_URL) serves everything. A project's custom domain or
@@ -42,7 +45,16 @@ async function route(req: NextRequest) {
   const internal = !host || !host.includes(".") || isIP(host);
   // Public traffic in production should come through the proxy, which adds X-Forwarded-For.
   if (!internal && process.env.NODE_ENV === "production" && !host.endsWith("localhost")) warnIfNoProxy(req.headers);
-  if (internal || host === primaryHost()) return next(req);
+  if (internal || host === primaryHost()) {
+    // The landing's language carries on into sign-up and the console (i18n/locale-route.ts).
+    const lr = localeRedirect(req.nextUrl.pathname, req.nextUrl.searchParams);
+    if (lr) {
+      const res = NextResponse.redirect(new URL(lr.to, req.url));
+      if (lr.locale) res.cookies.set(LOCALE_COOKIE, lr.locale, { path: "/", maxAge: LOCALE_MAX_AGE, sameSite: "lax" });
+      return res;
+    }
+    return next(req);
+  }
 
   const slug = await slugForHost(host);
   if (!slug) return new NextResponse("Neznáma doména.", { status: 404, headers: { "content-type": "text/plain; charset=utf-8" } });

@@ -1,5 +1,6 @@
 "use client";
 
+import { withLang } from "@/i18n/locale-route";
 import { Check, ChevronDown, Globe, Menu } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -100,7 +101,7 @@ export function SiteHeader({ locale, signedIn, soon = false }: { locale: Locale;
   }, []);
 
   const hover = (id: typeof open) => { window.clearTimeout(timer.current); timer.current = window.setTimeout(() => setOpen(id), id ? 80 : 160); };
-  const start = signedIn ? { href: "/app", label: t("nav.console") } : { href: "/app/login", label: t("nav.start") };
+  const start = signedIn ? { href: "/app", label: t("nav.console") } : { href: withLang("/app/login", locale), label: t("nav.start") };
   const trigger = (id: "product" | "dev", label: string) => (
     <button type="button" aria-expanded={open === id} aria-controls={`nav-${id}`} onClick={() => setOpen(open === id ? null : id)}
       onPointerEnter={(e) => e.pointerType === "mouse" && hover(id)}
@@ -129,7 +130,7 @@ export function SiteHeader({ locale, signedIn, soon = false }: { locale: Locale;
 
         <div className="ml-auto flex items-center gap-1.5">
           <LangSwitch locale={locale} label={t("nav.language")} className="max-sm:hidden" />
-          {!signedIn && !soon && <Link href="/app/login" className="hidden h-9 items-center rounded-md px-3 text-[14px] font-medium hover:bg-wash sm:inline-flex">{t("nav.signIn")}</Link>}
+          {!signedIn && !soon && <Link href={withLang("/app/login", locale)} className="hidden h-9 items-center rounded-md px-3 text-[14px] font-medium hover:bg-wash sm:inline-flex">{t("nav.signIn")}</Link>}
           {soon
             ? <span className="inline-flex h-9 items-center rounded-lg border border-dashed border-line-strong px-4 text-[14px] font-medium whitespace-nowrap text-muted-foreground">{t("nav.soon")}</span>
             : <Link href={start.href} className="inline-flex h-9 items-center rounded-lg border border-line-strong bg-surface px-4 text-[14px] font-semibold whitespace-nowrap text-foreground transition-colors hover:bg-wash">{start.label}</Link>}
@@ -149,7 +150,7 @@ export function SiteHeader({ locale, signedIn, soon = false }: { locale: Locale;
                 <div className="grid gap-0.5 border-t pt-4">
                   <a href="#pricing" className="rounded-md px-2 py-2 text-[15px] font-medium hover:bg-wash">{t("nav.pricing")}</a>
                   <a href="#self-host" className="rounded-md px-2 py-2 text-[15px] font-medium hover:bg-wash">{t("nav.selfHost")}</a>
-                  {!signedIn && !soon && <Link href="/app/login" className="rounded-md px-2 py-2 text-[15px] font-medium hover:bg-wash">{t("nav.signIn")}</Link>}
+                  {!signedIn && !soon && <Link href={withLang("/app/login", locale)} className="rounded-md px-2 py-2 text-[15px] font-medium hover:bg-wash">{t("nav.signIn")}</Link>}
                 </div>
                 <LangSwitch locale={locale} label={t("nav.language")} align="start" className="justify-self-start" />
               </nav>

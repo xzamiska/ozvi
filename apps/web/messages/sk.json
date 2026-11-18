@@ -548,7 +548,13 @@
           "body": "Večer sa s aplikáciou pracuje lepšie.",
           "when": "pred týždňom"
         }
-      ]
+      ],
+      "presetNames": {
+        "ozvi": "Ozvi",
+        "grafit": "Grafit",
+        "les": "Les",
+        "slivka": "Slivka"
+      }
     },
     "actions": {
       "adminOnly": "Nastavenia môže meniť len admin projektu.",
@@ -1914,7 +1920,14 @@
       "summarizing": "Zhŕňam…",
       "summarizeAgain": "Zhrnúť znova",
       "summarize": "Zhrnúť diskusiu",
-      "aiSummaryLabel": "Napísala AI · overte si to v diskusii"
+      "aiSummaryLabel": "Napísala AI · overte si to v diskusii",
+      "sendMail": "Poslať e-mail",
+      "note": "Správa k zmene",
+      "noteHint": "Nepovinné. Zobrazí sa pri hlásení ako komentár a pridáme ju do e-mailu.",
+      "noteNoMail": "Nepovinné. Zobrazí sa pri hlásení ako komentár.",
+      "versionPh": "napr. 2.15.1",
+      "mailBug": "Dostane ho autor hlásenia.",
+      "mailIdea": "Dostane ho autor a ľudia z diskusie. Hlasujúci sa to dozvedia zo zverejnenej novinky."
     },
     "changelog": {
       "votes": "{count, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasov}}",

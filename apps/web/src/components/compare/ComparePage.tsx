@@ -1,4 +1,5 @@
 import { PRICES } from "@ozvi/db";
+import { withLang } from "@/i18n/locale-route";
 import { parseTheme, presets, toCss } from "@ozvi/theme";
 import { ArrowRight, CalendarDays, Check, Minus, X } from "lucide-react";
 import type { Metadata } from "next";
@@ -78,7 +79,7 @@ export async function ComparePage({ id, locale }: { id: CompareId; locale: Compa
   const home = HOME[locale];
   const signedIn = !!(await getAccount());
   const soon = !signedIn && signupClosed();
-  const start = signedIn ? { href: "/app", label: ui.console } : { href: "/app/login", label: ui.start };
+  const start = signedIn ? { href: "/app", label: ui.console } : { href: withLang("/app/login", locale), label: ui.start };
   const go = (className: string) => (soon ? <span className={soonLabel}>{ui.soon}</span> : <Link href={start.href} className={className}>{start.label}</Link>);
   const more = COMPARE_IDS.filter((x) => x !== id);
 

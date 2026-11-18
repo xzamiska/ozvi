@@ -122,18 +122,20 @@ export const statusMails = {
   },
 };
 
-export async function notifyStatusChange(tx: Tx, project: Project, item: Item, actorId: string, proof: ProofSnapshot | null = null) {
+/** `note`: the team's own words with the move (also posted as a comment), quoted in the mail. */
+export async function notifyStatusChange(tx: Tx, project: Project, item: Item, actorId: string, proof: ProofSnapshot | null = null, note: string | null = null) {
   if (item.deletedAt) return;
   const recipients = (await followers(tx, item)).filter((id) => id !== actorId);
   const url = itemUrl(project, item);
+  const said = note ? { quote: note.slice(0, 1000), quoteBase: quoteBase(project) } : {};
   if (item.kind === "bug") {
     // The reporter gets the "does it work for you?" mail; other followers (team) a plain update.
     const reporter = item.authorId && item.authorId !== actorId ? [item.authorId] : [];
-    await enqueue(tx, project, "bug_status", reporter, (t, l) => statusMails.bugReporter(t, l, item, url, project, proof));
-    await enqueue(tx, project, "bug_status", recipients.filter((id) => id !== item.authorId), (t, l) => statusMails.bugFollower(t, l, item, url, project));
+    await enqueue(tx, project, "bug_status", reporter, (t, l) => ({ ...statusMails.bugReporter(t, l, item, url, project, proof), ...said }));
+    await enqueue(tx, project, "bug_status", recipients.filter((id) => id !== item.authorId), (t, l) => ({ ...statusMails.bugFollower(t, l, item, url, project), ...said }));
     return;
   }
-  await enqueue(tx, project, "idea_status", recipients, (t, l) => statusMails.idea(t, l, item, url, project, proof));
+  await enqueue(tx, project, "idea_status", recipients, (t, l) => ({ ...statusMails.idea(t, l, item, url, project, proof), ...said }));
 }
 
 const quoteBase = (p: Project) => ({ origin: projectOrigin(p), slug: p.slug });

@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
 import { mergeInto, setStatus } from "@/lib/actions";
 import { aiSummarizeItem } from "@/lib/changelog-actions";
 import { githubLink, githubUnlink, type ActState } from "@/lib/integration-actions";
@@ -26,6 +28,8 @@ export function RouteControl({ slug, itemId, kind, status, version, statuses, su
   const [value, setValue] = useState(status);
   const [subValue, setSub] = useState<string | null>(sub);
   const [ver, setVer] = useState(version ?? "");
+  const [mail, setMail] = useState(true);
+  const [note, setNote] = useState("");
   const [pending, start] = useTransition();
   const dirty = value !== status || subValue !== sub || (kind === "bug" && value === "fixed" && ver !== (version ?? ""));
   const tf = useTranslations("forms");
@@ -40,8 +44,12 @@ export function RouteControl({ slug, itemId, kind, status, version, statuses, su
     f.set("status", value);
     f.set("sub", subValue ?? "");
     f.set("fixedInVersion", value === "fixed" ? ver : "");
+    f.set("notify", mail ? "1" : "0");
+    f.set("note", note);
     await setStatus(slug, itemId, f);
-    toast.success(t("statusToast", { s: target }), value !== status ? { description: kind === "bug" ? t("notifyBug") : t("notifyIdea") } : undefined);
+    toast.success(t("statusToast", { s: target }), value !== status && mail ? { description: kind === "bug" ? t("notifyBug") : t("notifyIdea") } : undefined);
+    setNote("");
+    setMail(true);
   });
 
   const row = "flex h-9 items-center gap-2.5 rounded-md px-2.5 text-left text-[14px] font-medium transition-colors hover:bg-muted";
@@ -83,7 +91,21 @@ export function RouteControl({ slug, itemId, kind, status, version, statuses, su
       {kind === "bug" && value === "fixed" && (
         <div className="grid gap-1.5">
           <Label htmlFor="fixed-version">{t("fixedIn")}</Label>
-          <Input id="fixed-version" value={ver} onChange={(e) => setVer(e.target.value)} placeholder="2.15.1" maxLength={40} autoComplete="off" data-1p-ignore />
+          <Input id="fixed-version" value={ver} onChange={(e) => setVer(e.target.value)} placeholder={t("versionPh")} maxLength={40} autoComplete="off" data-1p-ignore />
+        </div>
+      )}
+      {value !== status && (
+        // Who hears about the move, said before it happens; the team can add its own words or move quietly.
+        <div className="grid gap-2 rounded-md border bg-wash/60 p-2.5 animate-in fade-in-0">
+          <label className="flex items-start gap-2 text-[13.5px] font-medium">
+            <Checkbox checked={mail} onCheckedChange={(v) => setMail(v === true)} className="mt-0.5" />
+            <span className="grid gap-0.5">{t("sendMail")}<span className="text-[12.5px] font-normal text-muted-foreground">{kind === "bug" ? t("mailBug") : t("mailIdea")}</span></span>
+          </label>
+          <div className="grid gap-1">
+            <Label htmlFor="status-note" className="text-[13px]">{t("note")}</Label>
+            <Textarea id="status-note" value={note} onChange={(e) => setNote(e.target.value)} rows={2} maxLength={5000} className="min-h-14 text-[13.5px]" />
+            <p className="text-[12px] text-muted-foreground">{mail ? t("noteHint") : t("noteNoMail")}</p>
+          </div>
         </div>
       )}
       {dirty && (

@@ -548,7 +548,13 @@
           "body": "Este kényelmesebb vele dolgozni.",
           "when": "múlt héten"
         }
-      ]
+      ],
+      "presetNames": {
+        "ozvi": "Ozvi",
+        "grafit": "Grafit",
+        "les": "Erdő",
+        "slivka": "Szilva"
+      }
     },
     "actions": {
       "adminOnly": "A beállításokat csak a projekt adminisztrátora módosíthatja.",
@@ -1914,7 +1920,14 @@
       "summarizing": "Összefoglalás…",
       "summarizeAgain": "Újbóli összefoglalás",
       "summarize": "Beszélgetés összefoglalása",
-      "aiSummaryLabel": "AI írta · vesd össze a beszélgetéssel"
+      "aiSummaryLabel": "AI írta · vesd össze a beszélgetéssel",
+      "sendMail": "E-mail küldése",
+      "note": "Üzenet a változáshoz",
+      "noteHint": "Nem kötelező. Megjegyzésként jelenik meg a bejegyzésnél, és bekerül az e-mailbe.",
+      "noteNoMail": "Nem kötelező. Megjegyzésként jelenik meg a bejegyzésnél.",
+      "versionPh": "pl. 2.15.1",
+      "mailBug": "A bejelentő kapja meg.",
+      "mailIdea": "A szerző és a hozzászólók kapják meg. A szavazók a közzétett újdonságból értesülnek."
     },
     "changelog": {
       "votes": "{count, plural, one {# szavazat} other {# szavazat}}",

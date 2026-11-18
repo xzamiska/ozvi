@@ -57,3 +57,19 @@ export function LanguageChoice({ label }: { label: string }) {
     </div>
   );
 }
+
+/** A quiet line of language names under the sign-in form, before anyone has an account menu. */
+export function LanguageLine({ label }: { label: string }) {
+  const locale = useLocale();
+  const { choose, pending } = useSwitch();
+  return (
+    <nav aria-label={label} aria-busy={pending || undefined} className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[13px]">
+      {LOCALES.map((l: Locale) => (
+        <button key={l} type="button" lang={l} aria-current={l === locale ? "true" : undefined} disabled={pending} onClick={() => l !== locale && choose(l)}
+          className={cn("rounded px-1 py-1 text-muted-foreground hover:text-foreground", l === locale && "font-semibold text-foreground")}>
+          {LOCALE_NAME[l]}
+        </button>
+      ))}
+    </nav>
+  );
+}

@@ -562,7 +562,7 @@ test.describe("public site", () => {
       expect(res?.status()).toBe(200);
       await expect(page.locator("html")).toHaveAttribute("lang", l.lang);
       await expectHeading(page);
-      await expect(page.locator('main a[href="/app/login"]').filter({ visible: true }).first()).toBeVisible();
+      await expect(page.locator(`main a[href="/app/login?hl=${l.lang}"]`).filter({ visible: true }).first()).toBeVisible();
       await expect(page.locator(`main a[href="${l.demo}"]`).filter({ visible: true }).first()).toBeVisible();
       await page.waitForLoadState("networkidle");
       expect(errors, errors.join("\n")).toEqual([]);
@@ -571,12 +571,33 @@ test.describe("public site", () => {
 
   test("main CTA leads to the console sign-in, the demo CTA to the demo", async ({ page }) => {
     await page.goto("/");
-    await page.locator('main a[href="/app/login"]').filter({ visible: true }).first().click();
+    await page.locator('main a[href="/app/login?hl=sk"]').filter({ visible: true }).first().click();
     await expect(page).toHaveURL(/\/app\/login$/);
     await expect(page.getByLabel("E-mail")).toBeVisible();
     await page.goto("/");
     await page.locator('main a[href="/demo"]').filter({ visible: true }).first().click();
     await expect(page).toHaveURL(/\/demo$/);
+  });
+
+  test("the landing's language carries on into sign-up, whatever the browser says; /en/app/login and /en/pricing work", async ({ browser }) => {
+    // Regression (internal review 17 Nov): "Start for free" on /en opened a Slovak sign-in for a Slovak browser.
+    const ctx = await browser.newContext({ locale: "sk-SK", extraHTTPHeaders: { "accept-language": "sk-SK,sk;q=0.9" } });
+    const page = await ctx.newPage();
+    await page.goto("/en");
+    await page.locator('main a[href="/app/login?hl=en"]').filter({ visible: true }).first().click();
+    await expect(page).toHaveURL(/\/app\/login$/);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Sign in to Ozvi");
+    // The language stays for the next visit, and the sign-in page offers a switch.
+    await page.goto("/app/login");
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    await page.getByRole("navigation", { name: "Language" }).getByRole("button", { name: "Slovenčina" }).click();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Prihláste sa do Ozvi");
+    await page.goto("/en/app/login");
+    await expect(page).toHaveURL(/\/app\/login$/);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Sign in to Ozvi");
+    await page.goto("/en/pricing");
+    await expect(page).toHaveURL(/\/en#pricing$/);
+    await ctx.close();
   });
 
   test("a Czech browser arriving at / gets /cs; the language menu and in-site links do not bounce back", async ({ browser }) => {

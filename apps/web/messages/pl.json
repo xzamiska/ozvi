@@ -548,7 +548,13 @@
           "body": "Wieczorem pracuje się z aplikacją wygodniej.",
           "when": "w zeszłym tygodniu"
         }
-      ]
+      ],
+      "presetNames": {
+        "ozvi": "Ozvi",
+        "grafit": "Grafit",
+        "les": "Las",
+        "slivka": "Śliwka"
+      }
     },
     "actions": {
       "adminOnly": "Ustawienia może zmieniać tylko administrator projektu.",
@@ -1914,7 +1920,14 @@
       "summarizing": "Podsumowywanie…",
       "summarizeAgain": "Podsumuj ponownie",
       "summarize": "Podsumuj dyskusję",
-      "aiSummaryLabel": "Napisane przez AI · porównaj z dyskusją"
+      "aiSummaryLabel": "Napisane przez AI · porównaj z dyskusją",
+      "sendMail": "Wyślij e-mail",
+      "note": "Wiadomość do zmiany",
+      "noteHint": "Opcjonalne. Pojawi się przy zgłoszeniu jako komentarz i dodamy ją do e-maila.",
+      "noteNoMail": "Opcjonalne. Pojawi się przy zgłoszeniu jako komentarz.",
+      "versionPh": "np. 2.15.1",
+      "mailBug": "Otrzyma go autor zgłoszenia.",
+      "mailIdea": "Otrzyma go autor i osoby z dyskusji. Głosujący dowiedzą się z opublikowanej nowości."
     },
     "changelog": {
       "votes": "{count, plural, one {# głos} few {# głosy} many {# głosów} other {# głosu}}",

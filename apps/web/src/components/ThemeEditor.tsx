@@ -72,7 +72,7 @@ export function ThemeEditor({ slug, initial }: { slug: string; initial: Theme })
               <Button key={k} type="button" variant="outline" size="sm"
                 onClick={() => setTheme(themeSchema.parse({ ...p, logoUrl: theme.logoUrl, logoWithName: theme.logoWithName }))}>
                 <span aria-hidden className="size-3 rounded-full border" style={{ background: p.colors.accent }} />
-                {p.name}
+                {t.has(`presetNames.${k}`) ? t(`presetNames.${k}` as never) : p.name}
               </Button>
             ))}
           </div>

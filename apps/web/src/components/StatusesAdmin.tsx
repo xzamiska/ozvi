@@ -3,7 +3,7 @@
 import { CornerDownRight, Plus, X } from "lucide-react";
 import { useActionState, useState, useTransition } from "react";
 import { toast } from "sonner";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { StatusMark } from "@/components/ozvi/route";
@@ -27,6 +27,8 @@ export function StatusesAdmin({ slug, locales, labels, subs, defaults }: {
 }) {
   const t = useTranslations("admin.statuses");
   const s = useTranslations("admin.settings");
+  // Row names in the admin's own language; the inputs below still rename them per board language.
+  const ui = useLocale() as Locale;
   const [kind, setKind] = useState<Kind>("idea");
   const [names, setNames] = useState<StatusLabels>(labels);
   const [drafts, setDrafts] = useState<Draft[]>(subs.map((x) => ({ key: x.id, id: x.id, kind: x.kind, stage: x.stage, labels: x.labels })));
@@ -76,7 +78,7 @@ export function StatusesAdmin({ slug, locales, labels, subs, defaults }: {
               <div className="grid gap-2 md:grid-cols-[200px_minmax(0,1fr)] md:items-center md:gap-4">
                 <div className="flex min-w-0 items-center gap-2.5">
                   <StatusMark kind={kind} status={stage} />
-                  <span className="text-[14px] font-semibold">{defaults[locales[0]!]?.[stage] ?? stage}</span>
+                  <span className="text-[14px] font-semibold">{defaults[ui]?.[stage] ?? defaults[locales[0]!]?.[stage] ?? stage}</span>
                   {stage === "in_progress" && <span className="shrink-0 rounded-sm bg-muted px-1.5 py-px text-[11px] font-medium text-muted-foreground" title={t("sharedHint")}>{t("shared")}</span>}
                 </div>
                 {inputs(names[stage], (l, v) => setName(stage, l, v), (l) => defaults[l]?.[stage] ?? "", t("rename"))}

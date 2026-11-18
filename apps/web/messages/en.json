@@ -548,7 +548,13 @@
           "body": "The app is easier on the eyes in the evening.",
           "when": "last week"
         }
-      ]
+      ],
+      "presetNames": {
+        "ozvi": "Ozvi",
+        "grafit": "Graphite",
+        "les": "Forest",
+        "slivka": "Plum"
+      }
     },
     "actions": {
       "adminOnly": "Only a project admin can change settings.",
@@ -1914,7 +1920,14 @@
       "summarizing": "Summarising…",
       "summarizeAgain": "Summarise again",
       "summarize": "Summarise discussion",
-      "aiSummaryLabel": "Written by AI · check it against the discussion"
+      "aiSummaryLabel": "Written by AI · check it against the discussion",
+      "sendMail": "Send e-mail",
+      "note": "Message with the change",
+      "noteHint": "Optional. Shown on the item as a comment and included in the e-mail.",
+      "noteNoMail": "Optional. Shown on the item as a comment.",
+      "versionPh": "e.g. 2.15.1",
+      "mailBug": "Goes to the reporter.",
+      "mailIdea": "Goes to the author and everyone in the discussion. Voters hear about it from a published update."
     },
     "changelog": {
       "votes": "{count, plural, one {# vote} other {# votes}}",

@@ -548,7 +548,13 @@
           "body": "Abends arbeitet es sich angenehmer.",
           "when": "letzte Woche"
         }
-      ]
+      ],
+      "presetNames": {
+        "ozvi": "Ozvi",
+        "grafit": "Graphit",
+        "les": "Wald",
+        "slivka": "Pflaume"
+      }
     },
     "actions": {
       "adminOnly": "Nur ein Projekt-Admin kann Einstellungen ändern.",
@@ -1914,7 +1920,14 @@
       "summarizing": "Wird zusammengefasst …",
       "summarizeAgain": "Erneut zusammenfassen",
       "summarize": "Diskussion zusammenfassen",
-      "aiSummaryLabel": "Von KI geschrieben · mit der Diskussion abgleichen"
+      "aiSummaryLabel": "Von KI geschrieben · mit der Diskussion abgleichen",
+      "sendMail": "E-Mail senden",
+      "note": "Nachricht zur Änderung",
+      "noteHint": "Optional. Erscheint als Kommentar beim Eintrag und steht in der E-Mail.",
+      "noteNoMail": "Optional. Erscheint als Kommentar beim Eintrag.",
+      "versionPh": "z. B. 2.15.1",
+      "mailBug": "Geht an die meldende Person.",
+      "mailIdea": "Geht an den Autor und alle aus der Diskussion. Abstimmende erfahren es aus der veröffentlichten Neuigkeit."
     },
     "changelog": {
       "votes": "{count, plural, one {# Stimme} other {# Stimmen}}",

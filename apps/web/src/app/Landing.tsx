@@ -1,4 +1,5 @@
 import { limitSize, PLAN_LIMITS, PRICES } from "@ozvi/db";
+import { withLang } from "@/i18n/locale-route";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
 import { Accessibility, ArrowRightLeft, Check, ChevronDown, EyeOff, Languages, MessageSquare, Minus, Palette, Star } from "lucide-react";
 import Link from "next/link";
@@ -187,7 +188,7 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
   const price = (p: (typeof PLANS)[number]) => (p === "free" ? eur(0) : eur(PRICES[p].year));
   const priceNote = (p: (typeof PLANS)[number]) => (p === "free" ? t("pricing.forever") : t("pricing.yearly", { q: eur(PRICES[p].quarter) }));
   const cta = (p: (typeof PLANS)[number]) => (p === "free" ? t("nav.start") : t("pricing.choose", { p: PLAN_NAME[p] }));
-  const start = signedIn ? { href: "/app", label: t("nav.console") } : { href: "/app/login", label: t("nav.start") };
+  const start = signedIn ? { href: "/app", label: t("nav.console") } : { href: withLang("/app/login", locale), label: t("nav.start") };
   const soon = !signedIn && signupClosed();
   /** The sign-up button, or before launch a plain "launching soon" label in the same place and size. */
   const go = (label: string, className: string, extra?: string) => soon

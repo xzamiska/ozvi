@@ -249,6 +249,41 @@ test.describe("public board", () => {
     await ann.ctx.close(); await ben.ctx.close();
   });
 
+  test("a move with the team's own words: one e-mail quoting them, the words as a comment; a quiet move e-mails nobody", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    const n = await createItem(ann.page, b.slug, "idea", uniq("Nápad so správou"));
+    const before = await mailCount(ann.email);
+    const words = `Plánujeme na december ${uniq("m")}`;
+
+    await page.goto(`/${b.slug}/i/${n}`);
+    await page.getByRole("radiogroup", { name: "Stav" }).getByRole("radio", { name: /^Plánované/ }).click();
+    // Who hears about it is said before the move, and can be switched off.
+    await expect(page.getByRole("checkbox", { name: /Poslať e-mail/ })).toBeChecked();
+    await page.getByLabel("Správa k zmene").fill(words);
+    await page.getByRole("button", { name: "Posunúť na Plánované" }).click();
+    await expect(page.getByText("Stav: Plánované")).toBeVisible();
+    const mail = await lastMail(ann.email, { subject: /^Plánované:/ });
+    expect(mail.text).toContain(words);
+    await expect(page.getByRole("listitem").filter({ hasText: words }).first()).toBeVisible();
+    // The words did not send a second ("new comment") e-mail.
+    await page.waitForTimeout(1500);
+    expect(await mailCount(ann.email)).toBe(before + 1);
+
+    await page.getByRole("radiogroup", { name: "Stav" }).getByRole("radio", { name: /^Rozpracované/ }).click();
+    await page.getByRole("checkbox", { name: /Poslať e-mail/ }).click();
+    await page.getByRole("button", { name: "Posunúť na Rozpracované" }).click();
+    await expect(page.getByText("Stav: Rozpracované")).toBeVisible();
+    await page.waitForTimeout(1500);
+    expect(await mailCount(ann.email)).toBe(before + 1);
+
+    // "Team only" stays on for the next note (it used to reset to public after each one).
+    await page.getByRole("switch", { name: /Len pre tím/ }).click();
+    await addComment(page, `Interná poznámka ${uniq("i")}`);
+    await expect(page.getByRole("switch", { name: /Len pre tím/ })).toBeChecked();
+    await ann.ctx.close();
+  });
+
   test("changelog: a published entry ships the idea, e-mails voters, appears on /changelog and in the RSS feed", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");

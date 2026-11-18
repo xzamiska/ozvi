@@ -55,7 +55,7 @@ export function assertCanParticipate(user: Pick<User, "role" | "blockedAt">) {
 
 export async function changeStatus(
   tx: Tx, project: Project, actor: User | null, item: Item, status: string, fixedInVersion?: string | null,
-  opts: { notify?: boolean; subStatusId?: string | null; release?: { tag: string; url: string | null } | null } = {},
+  opts: { notify?: boolean; subStatusId?: string | null; release?: { tag: string; url: string | null } | null; note?: string | null } = {},
 ): Promise<Item | null> {
   const allowed = ITEM_STATUSES[item.kind] as readonly string[];
   if (!allowed.includes(status)) throw fail((t) => t("badStatus", { status, allowed: allowed.join(", ") }));
@@ -81,7 +81,7 @@ export async function changeStatus(
     await recordStatus(tx, project.id, item.id, item.status, status, version, actor?.id ?? null, sub, proof);
   }
   if (item.status !== status) {
-    if (opts.notify !== false) await notifyStatusChange(tx, project, updated!, actor?.id ?? "", proof);
+    if (opts.notify !== false) await notifyStatusChange(tx, project, updated!, actor?.id ?? "", proof, opts.note ?? null);
     await emit(tx, project, "item.status_changed", { item: updated!, actorName: actor?.name, previousStatus: item.status, ...(proof ? { proof } : {}) });
   }
   return updated!;
