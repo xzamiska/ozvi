@@ -193,7 +193,7 @@ describe.skipIf(!up)("tags, statuses and unanswered against the database", () =>
     await withProject(db, project.id, (tx) => changeStatus(tx, project, tm, idea, "in_progress", undefined, { subStatusId: ideaSub.id }));
     idea = await byNumber(ideaN);
     expect(idea).toMatchObject({ status: "in_progress", subStatusId: ideaSub.id });
-    const events = await withProject(db, project.id, (tx) => tx.select().from(schema.itemEvents).where(eq(schema.itemEvents.itemId, idea.id)));
+    const events = await withProject(db, project.id, (tx) => tx.select().from(schema.itemEvents).where(eq(schema.itemEvents.itemId, idea.id)).orderBy(schema.itemEvents.createdAt));
     expect(events.at(-1)).toMatchObject({ toStatus: "in_progress", subStatusId: ideaSub.id });
     // Same stage, no sub: back to the plain stage (no new status e-mail, still a dated stop).
     await withProject(db, project.id, (tx) => changeStatus(tx, project, tm, idea, "in_progress", undefined, { subStatusId: null }));

@@ -9,7 +9,11 @@ import {
  */
 
 const id = () => uuid("id").primaryKey().defaultRandom();
-const createdAt = () => timestamp("created_at", { withTimezone: true }).notNull().defaultNow();
+/**
+ * clock_timestamp(), not now(): rows inserted in one transaction (two comments, two status stops) get distinct,
+ * increasing times, so "order by created_at" keeps the order they were written in (QA audit 17 Nov 2026).
+ */
+const createdAt = () => timestamp("created_at", { withTimezone: true }).notNull().default(sql`clock_timestamp()`);
 
 export const plan = pgEnum("plan", ["self", "free", "pro", "studio"]);
 export const itemKind = pgEnum("item_kind", ["bug", "idea"]);

@@ -255,7 +255,7 @@ describe.skipIf(!up)("provenance, lockdown, insights and tag webhooks against th
     const created = await withProject(db, project.id, (tx) => tx.select().from(schema.webhookDeliveries).where(eq(schema.webhookDeliveries.event, "item.created")));
     const p = created.map((d) => d.payload as { item: { number: number; author: unknown; source: string } }).find((x) => x.item.number === ssoIdea)!;
     expect(p.item).toMatchObject({ author: { name: "Zákazník", trust: "sso_customer" }, source: "widget" });
-    const comments = await withProject(db, project.id, (tx) => tx.select().from(schema.webhookDeliveries).where(eq(schema.webhookDeliveries.event, "comment.created")));
+    const comments = await withProject(db, project.id, (tx) => tx.select().from(schema.webhookDeliveries).where(eq(schema.webhookDeliveries.event, "comment.created")).orderBy(schema.webhookDeliveries.createdAt));
     expect(comments.map((d) => (d.payload as { comment: { author: { trust: string }; source: string } }).comment).map((c) => [c.author.trust, c.source]))
       .toEqual([["anonymous", "board"], ["team", "mcp"]]);
 
