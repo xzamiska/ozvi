@@ -51,5 +51,7 @@ jobs:
           pnpm db:migrate
       - run: pnpm typecheck
       - run: pnpm test
+      - name: Upgrade from the last release with data in the database
+        run: UPGRADE_CI=1 scripts/upgrade-test.sh
       - name: Widget size budget
         run: pnpm --filter @ozvi/widget build
