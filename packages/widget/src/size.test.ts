@@ -12,7 +12,7 @@ describe("size budget", () => {
     const main = gzipSync(await out("src/index.tsx")).length;
     console.log(`widget.js ${(main / 1024).toFixed(1)} kB gzip`);
     expect(main).toBeLessThanOrEqual(BUDGET);
-    for (const chunk of ["src/ideas.tsx", "src/embeds.tsx"]) {
+    for (const chunk of ["src/ideas.tsx", "src/verify.tsx", "src/embeds.tsx"]) {
       const code = new TextDecoder().decode(await out(chunk, [sharedPreact]));
       expect(code).toContain("__ozviP");
       // Preact's own internals (its options hook names) would mean a second copy.

@@ -18,9 +18,13 @@ Docs: [ozvi.io/docs/widget](https://ozvi.io/docs/widget). Signing people in from
   and a new idea with similar ideas shown while typing, all inside the widget) and "My reports" (the board in a new tab).
 - Styled only through `--oz-*` variables from `@ozvi/theme` `toCss(theme, ":host")`; fonts only from the Ozvi host
   (`/fonts/css`), never from Google.
-- **Size**: `widget.js` stays within **20 kB gzip** (a test fails above it: `src/size.test.ts`; today 18.4 kB). Everything
-  else loads on demand and reuses the widget's Preact: `widget-shot.js` (screenshot, 9.6 kB), `widget-annotate.js`
-  (mark-up, 3.9 kB), `widget-ideas.js` (ideas, 4.9 kB), `widget-embeds.js` (roadmap/changelog, 4.9 kB).
+- **Without a backend**: leave out `token-url`. With e-mail sign-in on in the project (on by default in the cloud), the widget
+  asks for the person's e-mail and a 6-digit code when they send something, right inside the widget, and remembers it for
+  30 days (`localStorage` key `ozvi:wt:<host>/<project>`; `Ozvi.logout()` removes it). A token from your app always wins.
+- **Size**: `widget.js` stays within **20 kB gzip** (a test fails above it: `src/size.test.ts`; today 19.5 kB). Everything
+  else loads on demand and reuses the widget's Preact: `widget-shot.js` (screenshot, 10.8 kB), `widget-annotate.js`
+  (mark-up, 3.9 kB), `widget-ideas.js` (ideas, 5.0 kB), `widget-verify.js` (e-mail verification, 2.6 kB),
+  `widget-embeds.js` (roadmap/changelog, 5.0 kB).
 
 ## JavaScript API
 

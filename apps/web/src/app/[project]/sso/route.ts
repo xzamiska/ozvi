@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { cookieName, decodeSession, safeReturn, sessionCookie } from "@/lib/session";
 import { esc } from "@/lib/email/render";
 import { userFromToken } from "@/lib/sso";
+import { isWidgetToken } from "@/lib/widget-token";
 import { LOCALE_COOKIE, matchLocale } from "@/i18n/locales";
 import { LOCALE_MAX_AGE } from "@/lib/storage-keys";
 import { getTranslations } from "next-intl/server";
@@ -14,7 +15,7 @@ import { rememberLocale } from "@/lib/user-locale";
 import { requestOrigin } from "@/lib/email/url";
 
 /**
- * Host-app SSO entry: GET /<project>/sso?token=<signOzviToken>&return=/<project>/ideas
+ * Host-app SSO entry: GET /<project>/sso?token=<signOzviToken | widget token>&return=/<project>/ideas
  * Verifies the token with the project's secret, upserts the user, sets the session cookie.
  */
 export async function GET(req: NextRequest, { params }: { params: Promise<{ project: string }> }) {
@@ -24,11 +25,13 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ proj
   if (!project) return new NextResponse((await getTranslations({ locale: matchLocale(req.headers.get("accept-language")), namespace: "boardAuth" }))("noProject"), { status: 404 });
   let locale = await boardRequestLocale(project);
   let t = await getTranslations({ locale, namespace: "boardAuth" });
-  if (!project.ssoSecretEnc) return new NextResponse(t("ssoOff"), { status: 400 });
+  const token = url.searchParams.get("token") ?? "";
+  // A widget token (e-mail verified in the widget, ADR-0014) works without host-app SSO.
+  if (!project.ssoSecretEnc && !isWidgetToken(token)) return new NextResponse(t("ssoOff"), { status: 400 });
 
   let user;
   try {
-    user = await userFromToken(project, url.searchParams.get("token") ?? "");
+    user = await userFromToken(project, token);
   } catch (e) {
     const msg = e instanceof OzviTokenError && e.reason === "expired" ? t("ssoExpired") : t("ssoFailed");
     return new NextResponse(msg, { status: 401, headers: { "content-type": "text/plain; charset=utf-8" } });

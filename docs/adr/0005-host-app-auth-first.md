@@ -1,6 +1,6 @@
 # 0005 — Sign-in primarily through the host app
 
-**Status:** accepted 2026-11-05
+**Status:** accepted 2026-11-05, amended by [0014](0014-widget-email-verification.md) (the widget also works with an e-mail code)
 
 **Decision.** Order of support:
 1. **Signed token** (HS256 JWT, `@ozvi/sdk` `signOzviToken`, with plan/MRR traits) — the simplest integration, no redirect.

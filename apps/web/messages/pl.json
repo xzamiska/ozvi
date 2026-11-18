@@ -438,7 +438,7 @@
         "publicTitle": "Pomysły są publiczne",
         "publicText": "Włączone: pomysły, roadmapę i nowości przeczyta każdy, także bez logowania; głosować i pisać mogą tylko zalogowani. Wyłączone: tablicę widzą tylko zalogowani. Zgłoszenia błędów są zawsze prywatne.",
         "emailTitle": "Logowanie e-mailem",
-        "emailText": "Włączone: do tablicy można się zalogować bez konta w twojej aplikacji. Wystarczy podać e-mail, a wyślemy jednorazowy kod lub link. Wyłączone: logowanie działa tylko przez twoją aplikację (SSO lub OIDC).",
+        "emailText": "Włączone: do tablicy i widżetu można się zalogować bez konta w twojej aplikacji. Wystarczy podać e-mail, a wyślemy jednorazowy kod lub link; widżet działa więc także bez SSO. Wyłączone: logowanie działa tylko przez twoją aplikację (SSO lub OIDC).",
         "loginUrl": "Dokąd kierować do logowania",
         "loginUrlHint": "Strona twojej aplikacji, na którą wyślemy osobę klikającą „Zaloguj się” na tablicy. Dodamy parametr ozvi_return z adresem, na który ją po zalogowaniu odeślesz. Puste: użyte zostanie logowanie e-mailem, jeśli jest włączone.",
         "origins": "Adresy twojej aplikacji",
@@ -3244,7 +3244,8 @@
     "form": "Nieprawidłowy formularz.",
     "failed": "Nie udało się zapisać zgłoszenia. Spróbuj ponownie.",
     "private": "Pomysły tego projektu widzą tylko zalogowani. Zaloguj się w aplikacji i spróbuj ponownie.",
-    "sectionOff": "Ta część jest w projekcie wyłączona."
+    "sectionOff": "Ta część jest w projekcie wyłączona.",
+    "emailOff": "Weryfikacja e-mailem jest w tym projekcie wyłączona. Zaloguj się w aplikacji i spróbuj ponownie."
   },
   "moderation": {
     "menu": "Opcje wpisu",
@@ -3855,10 +3856,12 @@
         "session": "Utrzymuje Twoje zalogowanie na tablicy.",
         "oidc": "Chroni logowanie przez {issuer} przed podrobieniem.",
         "locale": "Zapamiętuje wybrany przez Ciebie język.",
-        "csv": "Zapamiętuje separator do eksportu CSV."
+        "csv": "Zapamiętuje separator do eksportu CSV.",
+        "widgetLogin": "Zapamiętuje, że zweryfikowałeś swój e-mail w widżecie, aby nie trzeba było podawać kodu przy każdym zgłoszeniu."
       },
       "untilCleared": "Do wyczyszczenia danych przeglądarki",
-      "widgetNote": "Sam widżet nie ustawia żadnych plików cookie: loguje Cię krótkotrwałym tokenem z naszej aplikacji."
+      "widgetNote": "Sam widżet nie ustawia żadnych plików cookie: loguje Cię krótkotrwałym tokenem z naszej aplikacji.",
+      "widgetNoteEmail": "Sam widżet nie ustawia żadnych plików cookie. Gdy zweryfikujesz w nim swój e-mail, zapamięta to w przeglądarce (pozycja powyżej)."
     },
     "units": {
       "years": "{n, plural, one {# rok} few {# lata} many {# lat} other {# roku}}",

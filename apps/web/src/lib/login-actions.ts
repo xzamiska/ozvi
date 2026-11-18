@@ -3,8 +3,8 @@
 import { rememberLocale } from "@/lib/user-locale";
 import type { Locale } from "@/i18n/locales";
 
-import { schema, withProject } from "@ozvi/db";
-import { asc, eq, sql } from "drizzle-orm";
+import { schema } from "@ozvi/db";
+import { eq } from "drizzle-orm";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { clientIp } from "./client-ip";
@@ -12,6 +12,7 @@ import { resolveBoardLocale } from "@/i18n/board";
 import { LOCALE_COOKIE } from "@/i18n/locales";
 import { getTranslations } from "next-intl/server";
 import { db } from "./db";
+import { emailUser } from "./email-user";
 import { issueLogin, LoginError, normalizeEmail, verifyCode, verifyLink } from "./email-login";
 import { projectOrigin } from "./email/url";
 import { allow } from "./ratelimit";
@@ -51,27 +52,9 @@ export async function requestBoardLogin(slug: string, ret: string, _: LoginState
   }
 }
 
-/**
- * The code proved the mailbox, so the person is whoever in this project already has that e-mail proven
- * (an e-mail user, or one the host app signed in with emailVerified): same reports, same name, one identity.
- * Only a brand-new e-mail gets its own `email:` user, without a made-up name.
- */
+/** The code or link proved the mailbox: sign in as that person (see emailUser). */
 async function signIn(slug: string, projectId: string, email: string, locale?: Locale) {
-  const user = await withProject(db, projectId, async (tx) => {
-    // Only an account whose e-mail is proven too: an app that did not verify the address (no emailVerified
-    // in its token) must not put this person into an account someone else opened with their address.
-    // An app account with team or admin rights is never joined this way.
-    const [known] = await tx.select().from(schema.users)
-      .where(sql`lower(${schema.users.email}) = ${email} and (${schema.users.externalId} like 'email:%' or (${schema.users.emailVerified} and ${schema.users.role} = 'member'))`)
-      .orderBy(sql`${schema.users.externalId} like 'email:%'`, asc(schema.users.createdAt)).limit(1);
-    // Signing in makes an imported placeholder a real person: retention never anonymises them.
-    if (known) return (await tx.update(schema.users).set({ lastSeenAt: new Date() }).where(eq(schema.users.id, known.id)).returning())[0] ?? known;
-    const [created] = await tx.insert(schema.users)
-      .values({ projectId, externalId: `email:${email}`, email, emailVerified: true, name: null, lastSeenAt: new Date() })
-      .onConflictDoUpdate({ target: [schema.users.projectId, schema.users.externalId], set: { email, lastSeenAt: new Date() } })
-      .returning();
-    return created!;
-  });
+  const user = await emailUser(projectId, email);
   (await cookies()).set(sessionCookie(slug, user, projectId));
   if (locale) await rememberLocale(projectId, user.id, locale);
   return user;

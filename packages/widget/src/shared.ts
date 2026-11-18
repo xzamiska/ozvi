@@ -8,7 +8,8 @@ import type { OzviLang } from "./types";
  */
 /** sections: the board sections the project uses (missing on older servers = all). */
 /** `allowed`: false when the page's origin may not send reports or votes (not in the project's allowed origins). */
-export interface ProjectConfig { name: string; css: string; fonts: string | null; ideasPublic?: boolean; sections?: string[]; allowed?: boolean }
+/** `email`: the project signs people in by e-mail code, so the widget can verify them without a host-app token (ADR-0014). */
+export interface ProjectConfig { name: string; css: string; fonts: string | null; ideasPublic?: boolean; sections?: string[]; allowed?: boolean; email?: boolean }
 
 export interface Shared {
   preact: unknown; hooks: unknown; jsx: unknown;

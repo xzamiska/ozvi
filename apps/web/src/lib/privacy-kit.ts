@@ -22,7 +22,7 @@ export interface StorageItem {
   name: string;
   where: "widget" | "board" | "boardTeam";
   type: "local" | "cookie" | "cookieHttpOnly";
-  purpose: "seen" | "session" | "oidc" | "locale" | "csv";
+  purpose: "seen" | "widgetLogin" | "session" | "oidc" | "locale" | "csv";
   /** Seconds; null = until the person clears browser data. */
   maxAge: number | null;
 }
@@ -169,7 +169,7 @@ export function buildKit(cfg: KitConfig, t: KitT, locale: Locale): Kit {
     { kind: "p", text: t("storage.intro") },
     { kind: "table", head: [t("storage.head.name"), t("storage.head.where"), t("storage.head.type"), t("storage.head.purpose"), t("storage.head.duration")],
       rows: cfg.storage.map((s) => [s.name, where(s.where), t(`storage.type.${s.type}`), purposeOf(s), duration(s.maxAge, t)]) },
-    { kind: "p", text: t("storage.widgetNote") },
+    { kind: "p", text: t(cfg.signIn.sso ? "storage.widgetNote" : "storage.widgetNoteEmail") },
   ] });
 
   return { title: t("title", { name }), sections: sections.map((x) => ({ ...x, blocks: closeLists(x.blocks) })) };

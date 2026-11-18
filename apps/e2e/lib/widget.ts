@@ -31,6 +31,8 @@ export interface HostOpts {
   shotDelay?: number;
   /** Hold widget-shot.js until `releaseShot()` (deterministic "the screenshot is still being taken"). */
   holdShot?: boolean;
+  /** No token-url at all: an app without any Ozvi backend code (ADR-0014, e-mail verification in the widget). */
+  noToken?: boolean;
 }
 
 interface Site { board: Board; o: HostOpts; tokenCalls: string[] }
@@ -68,7 +70,7 @@ function handle(req: IncomingMessage, res: ServerResponse) {
 <body>${o.body ?? "<h1>Faktúry</h1><p>Hostiteľská aplikácia</p>"}
 <script>window.__ev=[];</script>
 <script src="${E2E.base}/widget.js" defer></script>
-<ozvi-widget project="${board.slug}" token-url="api/token" app-version="2.15.0-e2e" ${o.attrs ?? ""}></ozvi-widget>
+<ozvi-widget project="${board.slug}"${o.noToken ? "" : ' token-url="api/token"'} app-version="2.15.0-e2e" ${o.attrs ?? ""}></ozvi-widget>
 <script>addEventListener("DOMContentLoaded",function(){["open","close","submit","submitted","error"].forEach(function(n){Ozvi.on(n,function(d){window.__ev.push({name:n,detail:d})})})});</script>
 </body></html>`);
 }

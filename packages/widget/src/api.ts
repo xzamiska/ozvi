@@ -1,3 +1,4 @@
+import { forgetTokens } from "./seen";
 import type { OzviApi, OzviConfig, OzviEventName, OzviIdentity, OzviLang, OzviOptions, OzviPrefill, OzviTab, OzviTokenSource, OzviTraits } from "./types";
 
 /**
@@ -132,7 +133,12 @@ export function createApi(w: Window & { Ozvi?: unknown; OzviConfig?: OzviConfig 
       cached = null;
       changed();
     },
-    logout() { state.identity = null; cached = null; lastUid = ""; changed(); },
+    logout() {
+      state.identity = null; cached = null; lastUid = "";
+      // The widget token from an e-mail verification (ADR-0014) belongs to the person who is leaving too.
+      try { forgetTokens(w.localStorage); } catch { /* storage off */ }
+      changed();
+    },
     setTraits(t: OzviTraits) { state.traits = t && typeof t === "object" ? { ...state.traits, ...t } : null; changed(); },
     setLanguage(l: OzviLang) { state.lang = LANGS.includes(l) ? l : null; changed(); },
     on(name: OzviEventName, fn: Fn) {

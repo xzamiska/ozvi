@@ -6,6 +6,7 @@ import { isLocale } from "@/i18n/locales";
 import type { Project } from "./project";
 import { cleanTraits } from "./traits";
 import { db } from "./db";
+import { isWidgetToken, verifyWidgetToken } from "./widget-token";
 
 /** Longest token lifetime (exp − iat) the server accepts. signOzviToken mints 10 minutes by default. */
 export const MAX_TOKEN_LIFETIME = 60 * 60;
@@ -19,8 +20,27 @@ export function tokenLifetimeOk(claims: { iat?: unknown; exp?: unknown }): boole
   return typeof iat === "number" && Number.isFinite(iat) && typeof exp === "number" && exp >= iat && exp - iat <= MAX_TOKEN_LIFETIME;
 }
 
-/** Verifies a host-app token for a project and upserts the user. Throws OzviTokenError on bad tokens. */
+/**
+ * A widget token (ADR-0014: the person verified an e-mail code in the widget). Valid only for its project,
+ * while e-mail sign-in is on, for a person who still exists and has not signed out everywhere (blocked people
+ * stay blocked from posting, as with any sign-in).
+ */
+async function userFromWidgetToken(project: Project, token: string) {
+  const c = verifyWidgetToken(token);
+  if (c.p !== project.id || !project.emailLogin) throw new OzviTokenError("claims");
+  const user = await withProject(db, project.id, (tx) => tx.query.users.findFirst({ where: eq(schema.users.id, c.u) }));
+  if (!user || user.sessionVersion !== c.v) throw new OzviTokenError("claims");
+  const [fresh] = await withProject(db, project.id, (tx) =>
+    tx.update(schema.users).set({ lastSeenAt: new Date() }).where(eq(schema.users.id, user.id)).returning());
+  return { ...(fresh ?? user), forcedLocale: null };
+}
+
+/**
+ * Verifies a host-app token for a project and upserts the user, or a widget token from the widget's e-mail
+ * verification. Throws OzviTokenError on bad tokens.
+ */
 export async function userFromToken(project: Project, token: string) {
+  if (isWidgetToken(token)) return userFromWidgetToken(project, token);
   if (!project.ssoSecretEnc) throw new Error("SSO is not configured for this project");
   const claims: OzviClaims = verifyOzviToken(token, decryptSecret(project.ssoSecretEnc));
   if (!tokenLifetimeOk(claims)) throw new OzviTokenError("claims");

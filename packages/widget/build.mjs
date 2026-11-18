@@ -13,6 +13,7 @@ await build({ ...common, entryPoints: ["src/shot.ts"], outfile: `${out}widget-sh
 await build({ ...common, entryPoints: ["src/annotate.ts"], outfile: `${out}widget-annotate.js` });
 // Lazy chunks render with widget.js's Preact (window.__ozviP), so they don't carry their own copy.
 await build({ ...common, entryPoints: ["src/ideas.tsx"], outfile: `${out}widget-ideas.js`, plugins: [sharedPreact] });
+await build({ ...common, entryPoints: ["src/verify.tsx"], outfile: `${out}widget-verify.js`, plugins: [sharedPreact] });
 await build({ ...common, entryPoints: ["src/embeds.tsx"], outfile: `${out}widget-embeds.js`, plugins: [sharedPreact] });
 // Language packs (lang-pack.ts): pl/hu/de strings of every chunk, loaded before the first render in those languages.
 for (const l of ["pl", "hu", "de"]) await build({ ...common, entryPoints: [`src/lang/${l}.ts`], outfile: `${out}widget-lang-${l}.js` });
@@ -27,5 +28,5 @@ execFileSync("npx", ["tsc", "-p", "tsconfig.dts.json"], { stdio: "inherit" });
 const kb = (f) => (gzipSync(readFileSync(`${out}${f}`)).length / 1024).toFixed(1);
 const gz = gzipSync(readFileSync(`${out}widget.js`)).length;
 console.log(`widget.js ${(gz / 1024).toFixed(1)} kB gzip (budget ${BUDGET / 1024} kB); on demand: ` +
-  ["widget-shot.js", "widget-annotate.js", "widget-ideas.js", "widget-embeds.js"].map((f) => `${f} ${kb(f)} kB`).join(", ") + " gzip");
+  ["widget-shot.js", "widget-annotate.js", "widget-ideas.js", "widget-verify.js", "widget-embeds.js"].map((f) => `${f} ${kb(f)} kB`).join(", ") + " gzip");
 if (gz > BUDGET) { console.error("widget.js is over the 20 kB budget"); process.exit(1); }

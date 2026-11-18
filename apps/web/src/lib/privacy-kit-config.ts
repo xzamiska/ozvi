@@ -1,7 +1,8 @@
 import { cookieName, MAX_AGE as SESSION_MAX_AGE } from "./session-core";
 import { flowCookieName } from "./oidc";
 import { aiProviderName } from "./ai-provider";
-import { CSV_SEP_KEY, LOCALE_MAX_AGE, OIDC_FLOW_MAX_AGE, WIDGET_SEEN_PREFIX } from "./storage-keys";
+import { CSV_SEP_KEY, LOCALE_MAX_AGE, OIDC_FLOW_MAX_AGE, WIDGET_SEEN_PREFIX, WIDGET_TOKEN_PREFIX } from "./storage-keys";
+import { WIDGET_TOKEN_TTL } from "./widget-token";
 import { LOCALE_COOKIE } from "@/i18n/locales";
 import type { AiRecipient, KitConfig, StorageItem } from "./privacy-kit";
 import { DEFAULT_CAPTURE } from "./privacy-kit";
@@ -40,9 +41,11 @@ export function aiRecipient(mode: "cloud" | "self", name: string | null = aiProv
 }
 
 /** Everything Ozvi keeps in a visitor's browser for this project (board cookies, widget storage). */
-export function browserStorage(slug: string, origin: string, oidc: boolean): StorageItem[] {
+export function browserStorage(slug: string, origin: string, oidc: boolean, email = false): StorageItem[] {
   return [
     { name: `${WIDGET_SEEN_PREFIX}${origin}|${slug}|<user ID>`, where: "widget", type: "local", purpose: "seen", maxAge: null },
+    // E-mail sign-in on: the widget can verify people without the host app (ADR-0014) and keeps that token.
+    ...(email ? [{ name: `${WIDGET_TOKEN_PREFIX}${origin}/${slug}`, where: "widget", type: "local", purpose: "widgetLogin", maxAge: WIDGET_TOKEN_TTL } as const] : []),
     { name: cookieName(slug), where: "board", type: "cookieHttpOnly", purpose: "session", maxAge: SESSION_MAX_AGE },
     ...(oidc ? [{ name: flowCookieName(slug), where: "board", type: "cookieHttpOnly", purpose: "oidc", maxAge: OIDC_FLOW_MAX_AGE } as const] : []),
     { name: LOCALE_COOKIE, where: "board", type: "cookie", purpose: "locale", maxAge: LOCALE_MAX_AGE },
@@ -79,7 +82,7 @@ export function kitConfig(f: KitFacts, env: Env = process.env, ai: (mode: "cloud
     retention: { captureDays: p.retentionCaptureDays, closedFilesDays: p.retentionClosedFilesDays, contactsMonths: p.retentionContactsMonths },
     operator: mode === "cloud" && !f.operator.startsWith("[") ? f.operator : null,
     subprocessorsUrl: `${f.publicUrl.replace(/\/$/, "")}/subprocessors`,
-    storage: browserStorage(p.slug, f.origin.replace(/\/$/, ""), !!p.oidcIssuer),
+    storage: browserStorage(p.slug, f.origin.replace(/\/$/, ""), !!p.oidcIssuer, p.emailLogin),
     capture: { ...DEFAULT_CAPTURE },
   };
 }

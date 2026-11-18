@@ -438,7 +438,7 @@
         "publicTitle": "Ideas are public",
         "publicText": "On: anyone can read ideas, the roadmap and news, signed in or not; only signed-in people can vote and write. Off: only signed-in people see the board. Bug reports are always private.",
         "emailTitle": "E-mail sign-in",
-        "emailText": "On: people can sign in to the board without an account in your app. They enter their e-mail and we send a one-time code or link. Off: signing in only works through your app (SSO or OIDC).",
+        "emailText": "On: people can sign in to the board and the widget without an account in your app. They enter their e-mail and we send a one-time code or link, so the widget works without SSO too. Off: signing in only works through your app (SSO or OIDC).",
         "loginUrl": "Where to send people to sign in",
         "loginUrlHint": "The page of your app we send someone to when they click “Sign in” on the board. We add an ozvi_return parameter with the address to send them back to after signing in. Empty: e-mail sign-in is used, if it's on.",
         "origins": "Your app's addresses",
@@ -3244,7 +3244,8 @@
     "form": "Invalid form.",
     "failed": "The report couldn’t be saved. Please try again.",
     "private": "Only signed-in people can see this project’s ideas. Sign in to the app and try again.",
-    "sectionOff": "This section is switched off for this project."
+    "sectionOff": "This section is switched off for this project.",
+    "emailOff": "E-mail verification is turned off for this project. Sign in to the app and try again."
   },
   "moderation": {
     "menu": "Post options",
@@ -3855,10 +3856,12 @@
         "session": "Keeps you signed in to the board.",
         "oidc": "Protects sign-in through {issuer} against forgery.",
         "locale": "Remembers the language you chose.",
-        "csv": "Remembers the separator for CSV exports."
+        "csv": "Remembers the separator for CSV exports.",
+        "widgetLogin": "Remembers that you verified your e-mail in the widget, so you don't need a code for every report."
       },
       "untilCleared": "Until you clear browser data",
-      "widgetNote": "The widget itself sets no cookies: it signs you in with a short-lived token from our app."
+      "widgetNote": "The widget itself sets no cookies: it signs you in with a short-lived token from our app.",
+      "widgetNoteEmail": "The widget itself sets no cookies. When you verify your e-mail in it, it remembers that in your browser (the entry above)."
     },
     "units": {
       "years": "{n, plural, one {# year} other {# years}}",

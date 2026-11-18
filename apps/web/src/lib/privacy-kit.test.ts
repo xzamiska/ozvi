@@ -4,12 +4,13 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { LOCALE_COOKIE, LOCALES, type Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
-import { SEEN_PREFIX, seenKey } from "../../../../packages/widget/src/seen";
+import { SEEN_PREFIX, seenKey, TOKEN_PREFIX, tokenKey } from "../../../../packages/widget/src/seen";
 import { flowCookieName } from "./oidc";
 import { buildKit, DEFAULT_CAPTURE, kitHtml, kitMarkdown, type KitConfig, type KitT } from "./privacy-kit";
 import { aiRecipient, browserStorage, isPrivateHost, kitConfig, type KitFacts } from "./privacy-kit-config";
 import { cookieName, MAX_AGE } from "./session-core";
-import { CSV_SEP_KEY, WIDGET_SEEN_PREFIX } from "./storage-keys";
+import { CSV_SEP_KEY, WIDGET_SEEN_PREFIX, WIDGET_TOKEN_PREFIX } from "./storage-keys";
+import { WIDGET_TOKEN_TTL } from "./widget-token";
 
 process.env.OZVI_SESSION_SECRET ??= "test-session-secret-0123456789abcdef";
 
@@ -144,12 +145,22 @@ describe("privacy kit storage table", () => {
     expect(seenKey("https://ozvi.io", "billiwo", "u1").startsWith(table[0]!.name.split("<")[0]!)).toBe(true);
     // The widget touches browser storage only through seen.ts (readSeen/writeSeen); no cookies, no sessionStorage.
     const users = files(widgetSrc).filter((f) => /localStorage|sessionStorage|document\.cookie|indexedDB/.test(readFileSync(f, "utf8")));
-    expect(users.map((f) => path.basename(f)).sort()).toEqual(["embeds.tsx", "seen.ts"]);
+    // seen.ts also keeps the widget token of an e-mail verification (ADR-0014); index.tsx and api.ts only pass the storage in.
+    expect(users.map((f) => path.basename(f)).sort()).toEqual(["api.ts", "embeds.tsx", "index.tsx", "seen.ts"]);
     for (const f of files(widgetSrc)) {
       const src = readFileSync(f, "utf8");
       expect(src, f).not.toMatch(/sessionStorage|document\.cookie|indexedDB/);
       if (path.basename(f) !== "seen.ts") expect(src, f).not.toMatch(/\.setItem\(/);
     }
+  });
+
+  it("lists the widget token key when e-mail sign-in is on, with its lifetime", () => {
+    expect(TOKEN_PREFIX).toBe(WIDGET_TOKEN_PREFIX);
+    expect(table.some((s) => s.purpose === "widgetLogin")).toBe(false);
+    const withEmail = browserStorage("billiwo", "https://ozvi.io", false, true);
+    const row = withEmail.find((s) => s.purpose === "widgetLogin")!;
+    expect(row.name).toBe(tokenKey("https://ozvi.io", "billiwo"));
+    expect(row.maxAge).toBe(WIDGET_TOKEN_TTL);
   });
 
   it("lists every board cookie and localStorage key the app sets", () => {

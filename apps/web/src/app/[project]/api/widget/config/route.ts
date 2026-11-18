@@ -10,7 +10,8 @@ import { writeAllowed } from "@/lib/widget-rules";
 /**
  * Public, cacheable: everything the widget needs to look like the host product. `allowed` says whether the
  * requesting page's origin may send reports and votes, so the widget can explain it up front instead of
- * failing on a preflight without CORS headers after the person typed a report.
+ * failing on a preflight without CORS headers after the person typed a report. `email`: without a host-app token
+ * the widget may verify the person by an e-mail code (ADR-0014).
  */
 export async function GET(req: NextRequest, { params }: { params: Promise<{ project: string }> }) {
   const { project: slug } = await params;
@@ -20,7 +21,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ proj
   try { theme = parseTheme(p.theme); } catch { theme = parseTheme(presets.ozvi); }
   const allowed = writeAllowed(p.allowedOrigins, ownOrigins(p, req), req.headers.get("origin"));
   return Response.json(
-    { name: p.name, css: toCss(theme, ":host"), fonts: fontsHref(theme), ideasPublic: p.ideasPublic, sections: enabledSections(p), allowed },
+    { name: p.name, css: toCss(theme, ":host"), fonts: fontsHref(theme), ideasPublic: p.ideasPublic, sections: enabledSections(p), allowed, email: p.emailLogin },
     { headers: { "access-control-allow-origin": "*", "cache-control": "public, max-age=300", vary: "Origin" } },
   );
 }

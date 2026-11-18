@@ -438,7 +438,7 @@
         "publicTitle": "Ideen sind öffentlich",
         "publicText": "Ein: Ideen, Roadmap und Neuigkeiten kann jede Person lesen, auch ohne Anmeldung; abstimmen und schreiben können nur Angemeldete. Aus: Das Board sehen nur angemeldete Personen. Fehlermeldungen sind immer privat.",
         "emailTitle": "Anmeldung per E-Mail",
-        "emailText": "Ein: Man kann sich am Board auch ohne Konto in Ihrer App anmelden. Die Person gibt ihre E-Mail ein und wir senden einen Einmalcode oder Link. Aus: Anmelden geht nur über Ihre App (SSO oder OIDC).",
+        "emailText": "Ein: Man kann sich am Board und im Widget auch ohne Konto in Ihrer App anmelden. Die Person gibt ihre E-Mail ein und wir senden einen Einmalcode oder Link; so funktioniert das Widget auch ohne SSO. Aus: Anmelden geht nur über Ihre App (SSO oder OIDC).",
         "loginUrl": "Wohin Menschen zur Anmeldung geschickt werden",
         "loginUrlHint": "Die Seite Ihrer App, zu der wir jemanden schicken, der am Board auf „Anmelden“ klickt. Wir hängen den Parameter ozvi_return an, mit der Adresse, zu der Sie die Person nach der Anmeldung zurückschicken. Leer: Es wird die Anmeldung per E-Mail genutzt, falls eingeschaltet.",
         "origins": "Adressen Ihrer App",
@@ -3244,7 +3244,8 @@
     "form": "Ungültiges Formular.",
     "failed": "Die Meldung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
     "private": "Die Ideen dieses Projekts sehen nur angemeldete Personen. Melden Sie sich in der App an und versuchen Sie es erneut.",
-    "sectionOff": "Dieser Bereich ist in diesem Projekt ausgeschaltet."
+    "sectionOff": "Dieser Bereich ist in diesem Projekt ausgeschaltet.",
+    "emailOff": "Die E-Mail-Bestätigung ist in diesem Projekt ausgeschaltet. Melden Sie sich in der App an und versuchen Sie es erneut."
   },
   "moderation": {
     "menu": "Optionen für den Beitrag",
@@ -3855,10 +3856,12 @@
         "session": "Hält Sie am Board angemeldet.",
         "oidc": "Schützt die Anmeldung über {issuer} vor Fälschung.",
         "locale": "Merkt sich die gewählte Sprache.",
-        "csv": "Merkt sich das Trennzeichen für CSV-Exporte."
+        "csv": "Merkt sich das Trennzeichen für CSV-Exporte.",
+        "widgetLogin": "Merkt sich, dass Sie Ihre E-Mail-Adresse im Widget bestätigt haben, damit Sie nicht bei jeder Meldung einen Code brauchen."
       },
       "untilCleared": "Bis Sie die Browserdaten löschen",
-      "widgetNote": "Das Widget selbst setzt keine Cookies: Es meldet Sie mit einem kurzlebigen Token aus unserer App an."
+      "widgetNote": "Das Widget selbst setzt keine Cookies: Es meldet Sie mit einem kurzlebigen Token aus unserer App an.",
+      "widgetNoteEmail": "Das Widget selbst setzt keine Cookies. Wenn Sie darin Ihre E-Mail-Adresse bestätigen, merkt es sich das im Browser (Eintrag oben)."
     },
     "units": {
       "years": "{n, plural, one {# Jahr} other {# Jahre}}",

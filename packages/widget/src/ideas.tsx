@@ -113,7 +113,7 @@ function Ideas({ ctx }: { ctx: IdeasCtx }) {
   /** Authorized when the host gives us a token, anonymous otherwise (public boards still list ideas). */
   async function get(path: string): Promise<List> {
     let auth: Record<string, string> = {};
-    try { auth = { authorization: `Bearer ${await ctx.token()}` }; } catch { /* anonymous */ }
+    try { auth = { authorization: `Bearer ${await ctx.token(true)}` }; } catch { /* anonymous */ }
     return getJson<List>(`${base}/${path}${path.includes("?") ? "&" : "?"}lang=${ctx.lang}`, { headers: auth });
   }
 
@@ -144,13 +144,14 @@ function Ideas({ ctx }: { ctx: IdeasCtx }) {
     const want = mode === "importance" ? (idea.weight + 1) % 4 : idea.weight ? 0 : 1;
     setBusy(idea.id); setErr("");
     try {
-      const tok = await ctx.token().catch(() => { throw new Error(t.who); });
+      const tok = await ctx.token().catch((e: Error) => { throw new Error(e.message === "cancel" ? "" : t.who); });
       const r = await getJson<{ weight: number; votes: number; left: number | null }>(`${base}/vote?lang=${ctx.lang}`, {
         method: "POST", headers: { authorization: `Bearer ${tok}`, "content-type": "application/json" }, body: JSON.stringify({ id: idea.id, weight: want }),
       });
       patch(idea.id, (i) => ({ ...i, weight: r.weight, votes: r.votes }));
       setList((l) => l && l.budget ? { ...l, budget: { ...l.budget, left: r.left } } : l);
     } catch (e) {
+      if (!(e as Error).message && (e as { status?: number }).status === undefined) return; // back from the e-mail verification
       const message = (e as Error).message || t.fail;
       setErr(message);
       api.__.emit("error", { kind: "vote", message });
@@ -164,13 +165,14 @@ function Ideas({ ctx }: { ctx: IdeasCtx }) {
     setSending(true); setErr("");
     api.__.emit("submit", { kind: "idea", title });
     try {
-      const tok = await ctx.token().catch(() => { throw new Error(t.who); });
+      const tok = await ctx.token().catch((e: Error) => { throw new Error(e.message === "cancel" ? "" : t.who); });
       const r = await getJson<{ number: number; url: string; pending: string | null }>(`${base}/items?lang=${ctx.lang}`, { method: "POST", body: f, headers: { authorization: `Bearer ${tok}` } });
       if (pre) api.__.state.prefill = null;
       setDone({ number: r.number, pending: r.pending ?? null });
       setTitle(""); setList(null);
       api.__.emit("submitted", { kind: "idea", number: r.number, url: `${ctx.host}${r.url}`, pending: r.pending ?? null });
     } catch (e) {
+      if (!(e as Error).message && (e as { status?: number }).status === undefined) return; // back from the e-mail verification
       const message = (e as Error).message || t.fail;
       setErr(message);
       api.__.emit("error", { kind: "idea", message });

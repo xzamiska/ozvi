@@ -6,6 +6,10 @@ import { ignored, install, snapshot, type OzviConfig } from "./capture";
 import type { ProjectConfig, Shared } from "./shared";
 import type { OzviTab } from "./types";
 import { PACK_LANGS, packFor, type PackLang } from "./lang-pack";
+import { readToken, tokenKey, writeToken } from "./seen";
+
+/** localStorage, or null where the browser blocks it (reading the property itself can throw). */
+const ls = () => { try { return localStorage; } catch { return null; } };
 
 /**
  * <ozvi-widget project="billiwo" token-url="/api/ozvi-token" app-version="2.15.0"></ozvi-widget>
@@ -31,7 +35,7 @@ const CUR = document.currentScript as HTMLScriptElement | null;
 const SCRIPT_ORIGIN = (() => {
   try { return new URL(CUR!.src).origin; } catch { return location.origin; }
 })();
-type Win = { Ozvi?: unknown; OzviConfig?: OzviConfig & { nonce?: string }; __ozviP?: Shared; __ozviIdeas?: unknown; __ozviEmbed?: (el: HTMLElement, kind: string) => void };
+type Win = { Ozvi?: unknown; OzviConfig?: OzviConfig & { nonce?: string }; __ozviP?: Shared; __ozviIdeas?: unknown; __ozviVerify?: unknown; __ozviEmbed?: (el: HTMLElement, kind: string) => void };
 const W = window as unknown as Win;
 // Strict CSP: the nonce of this <script> goes to every script and style the widget adds.
 const NONCE = CUR?.nonce || W.OzviConfig?.nonce || "";
@@ -208,13 +212,17 @@ a{color:var(--oz-accent,#5A3FE6)}
 :focus-visible{outline:2px solid var(--oz-accent,#5A3FE6);outline-offset:2px}
 `;
 
-/** Props of the lazy ideas view (ideas.tsx, widget-ideas.js). */
+/** Props of the lazy ideas view (ideas.tsx, widget-ideas.js). `token(true)` never asks for an e-mail (reads). */
 export interface IdeasCtx {
   host: string; project: string; lang: Lang; view: "ideas" | "idea";
   setView(v: "ideas" | "idea"): void;
-  token(): Promise<string>;
+  token(quiet?: boolean): Promise<string>;
   openBoard(path: string): void;
 }
+
+/** Props of the lazy e-mail verification (verify.tsx, widget-verify.js, ADR-0014). */
+export interface VerifyCtx { host: string; project: string; lang: Lang; done(token: string): void; cancel(): void }
+
 
 function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
   const attr = (n: string) => el.getAttribute(n) ?? "";
@@ -242,6 +250,9 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
   const [tech, setTech] = useState(true);
   const [hasTech, setHasTech] = useState(false);
   const [Ideas, setIdeas] = useState<((p: { ctx: IdeasCtx }) => JSX.Element) | null>(null);
+  /** E-mail verification in progress (no host-app token): the panel's content is hidden, not unmounted. */
+  const [ask, setAsk] = useState<{ ok(t: string): void; no(e: Error): void } | null>(null);
+  const [Verify, setVerify] = useState<((p: { ctx: VerifyCtx }) => JSX.Element) | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
   const pre = api.__.state.prefill;
 
@@ -293,7 +304,24 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
 
   useEffect(() => () => { if (shotUrl) URL.revokeObjectURL(shotUrl); }, [shotUrl]);
 
-  const token = () => api.__.token({ token: attr("token"), url: attr("token-url") });
+  const wtKey = tokenKey(host, project);
+  /**
+   * The host app's token; without one, the widget token from an earlier e-mail verification; without that, and
+   * when the project allows it, the person verifies their e-mail now (not for `quiet` reads and board links).
+   */
+  const token = async (quiet = false): Promise<string> => {
+    try {
+      return await api.__.token({ token: attr("token"), url: attr("token-url") });
+    } catch (e) {
+      const saved = readToken(ls(), wtKey);
+      if (saved) return saved;
+      if (quiet || !config?.email) throw e;
+      if (!W.__ozviVerify) await load(`${host}/widget-verify.js`);
+      setVerify(() => W.__ozviVerify as never);
+      return new Promise<string>((ok, no) => setAsk({ ok, no }));
+    }
+  };
+  const verified = (tok: string) => { writeToken(ls(), wtKey, tok); ask?.ok(tok); setAsk(null); };
 
   // Sections the project switched off are not offered; with one left the menu is skipped.
   const has = (sec: string) => !config?.sections || config.sections.includes(sec);
@@ -361,8 +389,12 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
     // Open synchronously to avoid popup blockers, then point it at the SSO URL.
     const win = window.open("about:blank", "_blank");
     try {
-      const tok = await token();
-      const url = `${host}/${project}/sso?token=${encodeURIComponent(tok)}&return=${encodeURIComponent(`/${project}${path}`)}`;
+      const tok = await token(true);
+      // A widget token never goes into a URL (it lives 30 days): the server swaps it for a one-time board link.
+      const url = tok.startsWith("ozw.")
+        ? (await (await fetch(`${host}/${project}/api/widget/login`, { method: "POST", headers: { authorization: `Bearer ${tok}`, "content-type": "application/json" }, body: JSON.stringify({ open: path }) })).json()).url
+        : `${host}/${project}/sso?token=${encodeURIComponent(tok)}&return=${encodeURIComponent(`/${project}${path}`)}`;
+      if (!url) throw 0;
       if (win) win.location.href = url; else location.href = url;
     } catch {
       if (win) win.location.href = `${host}/${project}${path}`;
@@ -402,8 +434,11 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
       const image = shotP.current ? await shotP.current : shot;
       if (image) f.append("files", image, "screenshot.jpg");
       extra.forEach((x) => f.append("files", x, x.name));
-      const r = await fetch(`${host}/${project}/api/widget/items?lang=${lang}`, { method: "POST", body: f, headers: { authorization: `Bearer ${await token()}` } });
+      const tok = await token();
+      const r = await fetch(`${host}/${project}/api/widget/items?lang=${lang}`, { method: "POST", body: f, headers: { authorization: `Bearer ${tok}` } });
       const data = await r.json().catch(() => ({}));
+      // A widget token the server no longer accepts (signed out everywhere, expired): the next send asks again.
+      if (r.status === 401 && tok.startsWith("ozw.")) writeToken(ls(), wtKey, null);
       if (!r.ok) throw new Error(data.error || t.fail);
       setSent({ number: data.number, pending: data.pending });
       setView("sent");
@@ -411,16 +446,20 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
       if (pre?.kind !== "idea") api.__.state.prefill = null;
       emit("submitted", { kind: "bug", number: data.number, url: `${host}${data.url}`, pending: data.pending ?? null });
     } catch (err) {
-      const message = (err as Error).message === "no-token" ? t.who : (err as Error).message;
-      setError(message);
-      emit("error", { kind: "bug", message });
+      const m = (err as Error).message;
+      // "back" from the e-mail verification: the form is there again, nothing to report.
+      if (m !== "cancel") {
+        const message = m === "no-token" ? t.who : m;
+        setError(message);
+        emit("error", { kind: "bug", message });
+      }
     } finally {
       sending.current = false;
       setBusy(false);
     }
   }
 
-  function close() { setOpen(false); setView("menu"); setError(""); }
+  function close() { ask?.no(new Error("cancel")); setAsk(null); setOpen(false); setView("menu"); setError(""); }
 
   // Keyboard: Escape closes, Tab cycles inside the panel (the shadow root's activeElement is ours).
   const onKey = (e: KeyboardEvent) => {
@@ -458,6 +497,10 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
             <button class="x" onClick={close} aria-label={t.close}>{svg(ICON.close)}</button>
           </div>
 
+          {ask && (Verify
+            ? <Verify ctx={{ host, project, lang, done: verified, cancel: () => { ask.no(new Error("cancel")); setAsk(null); } }} />
+            : <p class="muted" role="status">{t.loading}</p>)}
+          <div hidden={!!ask}>
           {view === "menu" && (
             <>
               {has("bugs") && <button class="opt" onClick={startBug}><i>{svg(ICON.bug)}</i><b>{t.bug}</b> <span>{t.bugSub}</span></button>}
@@ -525,6 +568,7 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
               <button class="btn" onClick={() => openBoard(`/i/${sent.number}`)}>{t.view}</button>
             </>
           )}
+          </div>
         </div>
       )}
     </>

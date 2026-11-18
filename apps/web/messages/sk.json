@@ -438,7 +438,7 @@
         "publicTitle": "Nápady vidí každý",
         "publicText": "Zapnuté: nápady, roadmapu a novinky si prečíta ktokoľvek, aj bez prihlásenia; hlasovať a písať môžu len prihlásení. Vypnuté: board uvidia len prihlásení ľudia. Hlásenia chýb sú súkromné vždy.",
         "emailTitle": "Prihlásenie e-mailom",
-        "emailText": "Zapnuté: na board sa dá prihlásiť aj bez účtu vo vašej aplikácii. Človek zadá e-mail a pošleme mu jednorazový kód alebo odkaz. Vypnuté: prihlásiť sa dá len cez vašu aplikáciu (SSO alebo OIDC).",
+        "emailText": "Zapnuté: na board aj do widgetu sa dá prihlásiť bez účtu vo vašej aplikácii. Človek zadá e-mail a pošleme mu jednorazový kód alebo odkaz; widget tak funguje aj bez SSO. Vypnuté: prihlásiť sa dá len cez vašu aplikáciu (SSO alebo OIDC).",
         "loginUrl": "Kam poslať ľudí na prihlásenie",
         "loginUrlHint": "Stránka vašej aplikácie, kam pošleme človeka, ktorý na boarde klikne na „Prihlásiť sa“. Pripojíme parameter ozvi_return s adresou, na ktorú ho po prihlásení vráťte. Prázdne: použije sa prihlásenie e-mailom, ak je zapnuté.",
         "origins": "Adresy vašej aplikácie",
@@ -3244,7 +3244,8 @@
     "form": "Neplatný formulár.",
     "failed": "Hlásenie sa nepodarilo uložiť. Skúste to prosím znova.",
     "private": "Nápady tohto projektu vidia len prihlásení. Prihláste sa v aplikácii a skúste to znova.",
-    "sectionOff": "Táto časť je v projekte vypnutá."
+    "sectionOff": "Táto časť je v projekte vypnutá.",
+    "emailOff": "Overenie e-mailom je v tomto projekte vypnuté. Prihláste sa v aplikácii a skúste to znova."
   },
   "moderation": {
     "menu": "Možnosti príspevku",
@@ -3855,10 +3856,12 @@
         "session": "Udržiava vaše prihlásenie na boarde.",
         "oidc": "Chráni prihlásenie cez {issuer} pred podvrhnutím.",
         "locale": "Pamätá si jazyk, ktorý ste si vybrali.",
-        "csv": "Pamätá si oddeľovač pre export do CSV."
+        "csv": "Pamätá si oddeľovač pre export do CSV.",
+        "widgetLogin": "Pamätá si, že ste svoj e-mail vo widgete overili, aby ste nemuseli zadávať kód pri každom hlásení."
       },
       "untilCleared": "Kým nevymažete údaje prehliadača",
-      "widgetNote": "Samotný widget žiadne cookies nenastavuje: prihlási vás krátkodobým tokenom z našej aplikácie."
+      "widgetNote": "Samotný widget žiadne cookies nenastavuje: prihlási vás krátkodobým tokenom z našej aplikácie.",
+      "widgetNoteEmail": "Samotný widget žiadne cookies nenastavuje. Keď v ňom overíte svoj e-mail, zapamätá si to v prehliadači (položka vyššie)."
     },
     "units": {
       "years": "{n, plural, one {# rok} few {# roky} many {# roka} other {# rokov}}",

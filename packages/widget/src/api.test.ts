@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { createApi, peekToken, traitsLine, type Controller } from "./api";
-import { isUnseen, readSeen, seenKey, unseenCount, writeSeen } from "./seen";
+import { forgetTokens, isUnseen, readSeen, readToken, seenKey, tokenKey, unseenCount, writeSeen, writeToken } from "./seen";
 
 const b64 = (o: object) => Buffer.from(JSON.stringify(o)).toString("base64url");
 const jwt = (claims: object) => `${b64({ alg: "HS256" })}.${b64(claims)}.sig`;
@@ -168,5 +168,45 @@ describe("traits and seen state", () => {
     const broken = { getItem: () => { throw new Error("blocked"); }, setItem: () => { throw new Error("blocked"); } };
     expect(readSeen(broken, key)).toBeNull();
     expect(() => writeSeen(broken, key, entries)).not.toThrow();
+  });
+});
+
+describe("widget token from an e-mail verification (ADR-0014)", () => {
+  /** A Storage-like map; Object.keys() lists the stored keys like the real localStorage. */
+  const memory = () => {
+    const m = Object.create({
+      getItem(k: string) { return Object.prototype.hasOwnProperty.call(m, k) ? m[k] : null; },
+      setItem(k: string, v: string) { m[k] = String(v); },
+      removeItem(k: string) { delete m[k]; },
+    });
+    return m as Storage & Record<string, string>;
+  };
+
+  it("is kept per Ozvi host and project, removed with null", () => {
+    const s = memory();
+    const a = tokenKey("https://ozvi.io", "billiwo"), b = tokenKey("https://ozvi.io", "apinido");
+    writeToken(s, a, "ozw.x.y");
+    expect(readToken(s, a)).toBe("ozw.x.y");
+    expect(readToken(s, b)).toBeNull();
+    writeToken(s, a, null);
+    expect(readToken(s, a)).toBeNull();
+  });
+
+  it("blocked storage never breaks the widget", () => {
+    const broken = { getItem: () => { throw new Error("SecurityError"); }, setItem: () => { throw new Error("quota"); }, removeItem: () => { throw new Error("x"); } };
+    expect(readToken(broken, "k")).toBeNull();
+    expect(() => writeToken(broken, "k", "v")).not.toThrow();
+    expect(() => forgetTokens(null)).not.toThrow();
+  });
+
+  it("Ozvi.logout() removes every widget token and leaves other keys alone", () => {
+    const s = memory();
+    writeToken(s, tokenKey("https://ozvi.io", "billiwo"), "ozw.a.b");
+    writeToken(s, tokenKey("https://feedback.example.com", "acme"), "ozw.c.d");
+    s.setItem("ozvi:seen:https://ozvi.io|billiwo|anon", "2026-11-01");
+    s.setItem("app-key", "keep");
+    const api = createApi({ fetch: vi.fn(), localStorage: s } as never, "1");
+    api.logout();
+    expect(Object.keys(s).sort()).toEqual(["app-key", "ozvi:seen:https://ozvi.io|billiwo|anon"]);
   });
 });

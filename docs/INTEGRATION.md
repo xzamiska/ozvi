@@ -2,6 +2,20 @@
 
 Users are signed in to Ozvi automatically from your app. No OAuth, no second account.
 
+## 0. Without any backend: the widget with e-mail verification
+
+You can start with the widget alone, before writing any backend code. Add the `<script>` and the `<ozvi-widget>` tag
+(see the project settings → "Embed code"), put your app's address into **Allowed origins** and keep **Sign-in by e-mail** on
+(on by default in the cloud). When someone sends a report, an idea or a vote, the widget asks for their e-mail and the
+6-digit code we send, right inside the widget; what they wrote stays and is sent right after. From then on they are the
+same person as on the board: they see "My reports" and get the e-mails about the fix. ([ADR-0014](adr/0014-widget-email-verification.md))
+
+- The widget remembers the verification for 30 days in your domain's `localStorage` (`ozvi:wt:<Ozvi host>/<project>`).
+  `Ozvi.logout()` removes it; "Sign out everywhere" on the board, deleting the account or turning e-mail sign-in off end it on the server.
+- Nothing is stored for a person who has not verified the code: no report, no screenshot, no account.
+- The team sees the person's e-mail, but no name, plan or MRR. For those, and to skip the code, add the SSO token below;
+  a token from your app always wins over the e-mail verification.
+
 ## 1. Backend: sign the token
 
 ```ts
@@ -88,7 +102,8 @@ everything is at `/demo` (only with `OZVI_DEV_LOGIN=1`).
 
 API for the widget (CORS: the project's allowed origins may send `Authorization: Bearer <SSO token>`, others read only
 public data): `GET /<project>/api/widget/ideas?q=&limit=`, `POST /<project>/api/widget/vote` `{id, weight}`,
-`GET /<project>/api/widget/roadmap?limit=`, `GET /<project>/api/widget/changelog?limit=`.
+`GET /<project>/api/widget/roadmap?limit=`, `GET /<project>/api/widget/changelog?limit=`,
+`POST /<project>/api/widget/login` (`{email}` sends a code, `{email, code}` returns a widget token; only with e-mail sign-in on).
 
 ## Security
 
@@ -96,7 +111,7 @@ public data): `GET /<project>/api/widget/ideas?q=&limit=`, `POST /<project>/api/
 - Users are per project and keyed by `id`, never by e-mail alone.
 - **One person, one account.** If someone also signs in to the board with an e-mail code, they are merged with the app user with the same e-mail only when the app sends `emailVerified: true` in the token (it has verified the address). Accounts with the team or admin role are never merged automatically, so an admin account from the console stays separate from the app account. Without `emailVerified` the accounts stay separate: otherwise anyone could register someone else's e-mail in your app and take over that person's account on the board.
 - The session cookie is `httpOnly`, `SameSite=Lax` and limited to the path `/<project>`.
-- **Cookies and the widget:** the widget sets no cookies (neither in the cloud nor on your own server) and signs in to Ozvi with a token in a header, not a cookie. It sends cookies only to your `token-url` (your own). In your domain's `localStorage` it remembers a single value: the date of the last seen update (`ozvi:seen:…`), for the "new" badge. Fonts come from Ozvi, not from Google; the widget calls no third parties. A session cookie exists only on the board itself after sign-in.
+- **Cookies and the widget:** the widget sets no cookies (neither in the cloud nor on your own server) and signs in to Ozvi with a token in a header, not a cookie. It sends cookies only to your `token-url` (your own). In your domain's `localStorage` it remembers the date of the last seen update (`ozvi:seen:…`), for the "new" badge, and, only after an e-mail verification in the widget (section 0), its token (`ozvi:wt:…`, 30 days). Fonts come from Ozvi, not from Google; the widget calls no third parties. A session cookie exists only on the board itself after sign-in.
 
 ## Roles
 

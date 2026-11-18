@@ -221,3 +221,17 @@ export async function issueHandoff(db: Db, projectId: string, email: string, ret
   });
   return link;
 }
+
+/**
+ * Widget → board (ADR-0014): a one-time sign-in link for a person the widget already verified, so "My reports"
+ * opens signed in. Never e-mailed; the board's link page asks for one click (the link token stays out of the
+ * widget token's URL, which lives 30 days). 2 minutes, single use.
+ */
+export async function issueBoardLink(db: Db, projectId: string, email: string, returnTo: string): Promise<string> {
+  const link = randomBytes(24).toString("base64url");
+  await db.insert(loginCodes).values({
+    projectId, email: normalizeEmail(email), codeHash: h("code", randomBytes(16).toString("hex")), linkHash: h("link", link),
+    returnTo, expiresAt: new Date(Date.now() + 2 * 60_000), attempts: MAX_ATTEMPTS,
+  });
+  return link;
+}

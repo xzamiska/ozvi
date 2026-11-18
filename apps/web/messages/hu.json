@@ -438,7 +438,7 @@
         "publicTitle": "Az ötletek nyilvánosak",
         "publicText": "Bekapcsolva: az ötleteket, az ütemtervet és az újdonságokat bárki olvashatja, bejelentkezés nélkül is; szavazni és írni csak bejelentkezve lehet. Kikapcsolva: a táblát csak bejelentkezett emberek látják. A hibajelentések mindig privátak.",
         "emailTitle": "E-mailes bejelentkezés",
-        "emailText": "Bekapcsolva: a táblára az alkalmazásodbeli fiók nélkül is be lehet jelentkezni. Az illető megadja az e-mail-címét, mi pedig egyszeri kódot vagy linket küldünk. Kikapcsolva: csak az alkalmazásodon keresztül (SSO vagy OIDC) lehet bejelentkezni.",
+        "emailText": "Bekapcsolva: a táblára és a widgetbe az alkalmazásodbeli fiók nélkül is be lehet jelentkezni. Az illető megadja az e-mail-címét, mi pedig egyszeri kódot vagy linket küldünk, így a widget SSO nélkül is működik. Kikapcsolva: csak az alkalmazásodon keresztül (SSO vagy OIDC) lehet bejelentkezni.",
         "loginUrl": "Hová küldjük az embereket bejelentkezni",
         "loginUrlHint": "Az alkalmazásod oldala, ahová azt küldjük, aki a táblán a „Bejelentkezés” gombra kattint. Hozzáadjuk az ozvi_return paramétert azzal a címmel, ahová bejelentkezés után vissza kell küldeni. Üresen: az e-mailes bejelentkezés lesz használva, ha be van kapcsolva.",
         "origins": "Az alkalmazásod címei",
@@ -3244,7 +3244,8 @@
     "form": "Érvénytelen űrlap.",
     "failed": "Nem sikerült menteni a bejelentést. Próbáld újra.",
     "private": "Ennek a projektnek az ötleteit csak bejelentkezett felhasználók láthatják. Jelentkezz be az alkalmazásba, és próbáld újra.",
-    "sectionOff": "Ez a rész ki van kapcsolva ebben a projektben."
+    "sectionOff": "Ez a rész ki van kapcsolva ebben a projektben.",
+    "emailOff": "Ebben a projektben ki van kapcsolva az e-mailes ellenőrzés. Jelentkezzen be az alkalmazásba, és próbálja újra."
   },
   "moderation": {
     "menu": "Bejegyzés beállításai",
@@ -3855,10 +3856,12 @@
         "session": "Bejelentkezve tartja a táblán.",
         "oidc": "Védi a(z) {issuer} szolgáltatáson keresztüli bejelentkezést a hamisítás ellen.",
         "locale": "Megjegyzi a választott nyelvet.",
-        "csv": "Megjegyzi a CSV-exporthoz használt elválasztót."
+        "csv": "Megjegyzi a CSV-exporthoz használt elválasztót.",
+        "widgetLogin": "Megjegyzi, hogy a widgetben ellenőrizte az e-mail-címét, így nem kell minden bejelentésnél kódot megadnia."
       },
       "untilCleared": "A böngészőadatok törléséig",
-      "widgetNote": "Maga a widget nem állít be sütit: az alkalmazásunktól kapott rövid élettartamú tokennel jelentkezteti be."
+      "widgetNote": "Maga a widget nem állít be sütit: az alkalmazásunktól kapott rövid élettartamú tokennel jelentkezteti be.",
+      "widgetNoteEmail": "Maga a widget nem állít be sütit. Ha ellenőrzi benne az e-mail-címét, ezt a böngészőben megjegyzi (a fenti tétel)."
     },
     "units": {
       "years": "{n, plural, other {# év}}",

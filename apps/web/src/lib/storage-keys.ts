@@ -6,6 +6,8 @@
 
 /** Widget, changelog embed: the newest update the person has seen (packages/widget/src/seen.ts builds the full key). */
 export const WIDGET_SEEN_PREFIX = "ozvi:seen:";
+/** Widget: the token from an e-mail verification in the widget, per Ozvi host and project (ADR-0014; packages/widget/src/seen.ts). */
+export const WIDGET_TOKEN_PREFIX = "ozvi:wt:";
 /** Board, team only: the remembered CSV separator (components/ExportMenu.tsx). */
 export const CSV_SEP_KEY = "ozvi.csvSep";
 /** OIDC sign-in flow cookie lifetime in seconds (app/[project]/oidc/start). */

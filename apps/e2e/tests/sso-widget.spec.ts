@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { withProject } from "@ozvi/db";
 import { db, schema, ssoUrl } from "../lib/db";
 import { E2E, uniq } from "../lib/env";
+import { codeIn, lastMail, mailCount } from "../lib/mail";
 import {
   boardWithSso, EVIL, events, expectInViewport, HOST, hostApp, attachmentsOf, itemsOf, launcher, ozvi, panel, site, startHost, stopHost, widget, type Board,
 } from "../lib/widget";
@@ -397,6 +398,72 @@ test.describe("widget in the host app", () => {
     const other = await boardPage(browser);
     await other.goto(ssoUrl(board.slug, board.secret, person("other"), `/${board.slug}/i/${item.number}`));
     await expect(other.getByText(title)).toHaveCount(0);
+  });
+
+  test("without a token from the app: the person verifies an e-mail code in the widget; the report keeps its text", async ({ page, browser }) => {
+    // ADR-0014: a project whose app has no Ozvi backend code at all (no token-url), e-mail sign-in on.
+    await hostApp(page, board, { user: () => null, noToken: true });
+    await ozvi(page, "open", "bug");
+    const title = `Bez SSO ${uniq("t")}`;
+    await panel(page).getByLabel("Čo nefunguje?").fill(title);
+    await panel(page).getByLabel(/Čo ste robili/).fill("Žiadny backend, len script.");
+    await expect(panel(page).getByRole("img", { name: "Screenshot, ktorý sa priloží" })).toBeVisible({ timeout: 15_000 });
+    await panel(page).getByRole("button", { name: "Nahlásiť chybu" }).click();
+
+    await expect(panel(page).getByRole("heading", { name: "Overte svoj e-mail" })).toBeVisible();
+    // Nothing is stored before the code: no report yet.
+    expect((await itemsOf(board.projectId)).some((i) => i.title === title)).toBe(false);
+    const addr = `${uniq("bezsso")}@e2e.test`.toLowerCase();
+    await panel(page).getByLabel("E-mail", { exact: true }).fill(addr);
+    await panel(page).getByRole("button", { name: "Poslať kód" }).click();
+    await expect(panel(page).getByText(`Poslali sme kód na ${addr}.`)).toBeVisible();
+    const code = codeIn((await lastMail(addr)).text)!;
+    // A wrong code: the person stays in the widget with an explanation.
+    await panel(page).getByLabel("Kód z e-mailu").fill(code === "000000" ? "111111" : "000000");
+    await panel(page).getByRole("button", { name: "Overiť a pokračovať" }).click();
+    await expect(panel(page).getByRole("alert")).toBeVisible();
+    await panel(page).getByLabel("Kód z e-mailu").fill(code);
+    await panel(page).getByRole("button", { name: "Overiť a pokračovať" }).click();
+
+    // The report the person wrote before verifying goes out right after, screenshot included.
+    await expect(panel(page).getByRole("heading", { name: "Ďakujeme" })).toBeVisible();
+    const item = (await itemsOf(board.projectId)).find((i) => i.title === title)!;
+    expect(item.body).toContain("Žiadny backend");
+    expect((await attachmentsOf(board.projectId, item.id)).map((f) => f.mime)).toContain("image/jpeg");
+    const author = await withProject(db, board.projectId, (tx) => tx.query.users.findFirst({ where: eq(schema.users.id, item.authorId!) }));
+    expect(author).toMatchObject({ email: addr, emailVerified: true, role: "member" });
+
+    // The next report needs no code (the widget remembers the verification), and no second e-mail is sent.
+    await widget(page).getByRole("button", { name: "Zavrieť" }).click();
+    await ozvi(page, "open", "bug");
+    const second = `Druhé bez SSO ${uniq("t")}`;
+    await panel(page).getByLabel("Čo nefunguje?").fill(second);
+    await panel(page).getByRole("button", { name: "Nahlásiť chybu" }).click();
+    await expect(panel(page).getByRole("heading", { name: "Ďakujeme" })).toBeVisible();
+    expect((await itemsOf(board.projectId)).some((i) => i.title === second)).toBe(true);
+    expect(await mailCount(addr)).toBe(1);
+
+    // The team sees the report under the verified address.
+    const team = await boardPage(browser);
+    await team.goto(ssoUrl(board.slug, board.secret, person("triage", { role: "team" }), `/${board.slug}/i/${item.number}`));
+    await expect(team.getByText(title).first()).toBeVisible();
+
+    // Ozvi.logout() forgets the verification.
+    await ozvi(page, "logout");
+    expect(await page.evaluate(() => Object.keys(localStorage).filter((k) => k.startsWith("ozvi:wt:")))).toEqual([]);
+  });
+
+  test("without a token: “Späť” from the e-mail step returns to the report with its text, nothing sent", async ({ page }) => {
+    await hostApp(page, board, { user: () => null, noToken: true });
+    await ozvi(page, "open", "bug");
+    const title = `Rozmyslel som sa ${uniq("t")}`;
+    await panel(page).getByLabel("Čo nefunguje?").fill(title);
+    await panel(page).getByRole("button", { name: "Nahlásiť chybu" }).click();
+    await expect(panel(page).getByRole("heading", { name: "Overte svoj e-mail" })).toBeVisible();
+    await panel(page).getByRole("button", { name: "Späť" }).click();
+    await expect(panel(page).getByLabel("Čo nefunguje?")).toHaveValue(title);
+    await expect(panel(page).getByRole("alert")).toHaveCount(0);
+    expect((await itemsOf(board.projectId)).some((i) => i.title === title)).toBe(false);
   });
 
   test("sending before the screenshot is ready waits for it and attaches it", async ({ page }) => {
