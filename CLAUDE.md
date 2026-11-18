@@ -31,7 +31,7 @@ Source-available (FSL, ADR-0008) náhrada Fideru: **súkromný tok na bugy** (au
 - Vývoj bez hostiteľskej appky: `OZVI_DEV_LOGIN=1` → `/dev/login?project=billiwo&as=team|member`, demo widgetu na `/demo`
 - `pnpm --filter @ozvi/web import:fider --from <fider db> --project <slug> [--dry-run]` — [MIGRATING-FROM-FIDER](docs/MIGRATING-FROM-FIDER.md)
 - `docker build -t ozvi .` + `deploy/docker-compose.yml` — [SELFHOST](docs/SELFHOST.md); CLI v image: `node ozvi.mjs project:create …`
-- `pnpm test` / `pnpm typecheck`
+- `pnpm test` / `pnpm typecheck` (DB testy majú vlastnú databázu `ozvi_test`, vytvorí a zmigruje ju `packages/db/test-db.ts`)
 - `pnpm db:generate` (po zmene `schema.ts`) → `pnpm db:migrate`
 
 ## Konvencie
