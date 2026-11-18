@@ -122,7 +122,8 @@ export async function tick(db: Db, t: Transporter | null = getTransport(), scope
 /** One e-mail per user summarising deferred notifications, once the oldest is a day old. */
 export async function digests(db: Db, t: Transporter | null, olderThanHours = DIGEST_AFTER_HOURS, scope: WorkerScope = {}): Promise<number> {
   if (!t) return 0;
-  const cutoff = new Date(Date.now() - olderThanHours * 3600_000);
+  // `scope.now` like tick(): tests (and a caller that already knows the time) decide what "older than" means.
+  const cutoff = new Date((scope.now ?? new Date()).getTime() - olderThanHours * 3600_000);
   const due = await withSystem(db, (tx) => tx.select({ projectId: emails.projectId, userId: emails.userId }).from(emails)
     .where(and(eq(emails.status, "deferred"), lte(emails.createdAt, cutoff), ...inScope(scope)))
     .groupBy(emails.projectId, emails.userId).limit(50));
