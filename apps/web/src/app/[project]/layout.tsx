@@ -43,7 +43,8 @@ export default async function ProjectLayout({ children, params }: { children: Re
       {fonts && <link rel="stylesheet" href={fonts} />}
       <style>{toCss(theme)}</style>
       <div className="flex min-h-dvh flex-col">
-        <header className="sticky top-0 z-30 border-b bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
+        {/* Sticky only from md up: on a phone the two-row header (name + tabs) took a sixth of the screen (mobile review 17 Nov). */}
+        <header className="z-30 border-b bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85 md:sticky md:top-0">
           <div className="oz-frame grid grid-cols-[1fr_auto] items-stretch gap-x-6 md:grid-cols-[auto_1fr_auto]">
             <Link href={`/${slug}`} className="flex h-14 min-w-0 items-center gap-2.5 md:h-16">
               {theme.logoUrl ? <img src={theme.logoUrl} alt="" className="h-7 w-auto max-w-[140px] object-contain" /> : null}

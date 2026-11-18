@@ -1900,7 +1900,8 @@
       "exhaustedShort": "Minuli ste všetky hlasy",
       "exhaustedHow": "Odoberte hlas z iného nápadu, alebo počkajte, kým niektorý vydáme — hlasy sa vám vrátia.",
       "budgetHint": "Každý má {budget, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasov}} na aktívne nápady. Po vydaní nápadu sa vám hlas vráti.",
-      "budgetHintImportance": "Každý má {budget, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasov}}. Pekné mať stojí 1, Dôležité 2, Kritické 3; po vydaní sa vrátia."
+      "budgetHintImportance": "Každý má {budget, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasov}}. Pekné mať stojí 1, Dôležité 2, Kritické 3; po vydaní sa vrátia.",
+      "signInShort": "Prihláste sa"
     },
     "confirmFix": {
       "label": "Overenie opravy",

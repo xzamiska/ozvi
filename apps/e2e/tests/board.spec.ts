@@ -89,6 +89,10 @@ test.describe("public board", () => {
     await expect(thread.getByText("Komentovať môžu prihlásení.")).toBeVisible();
     await expect(thread.getByRole("link", { name: "Prihlásiť sa" })).toHaveAttribute("href", `/${b.slug}/login?return=${encodeURIComponent(`/${b.slug}/i/${n}`)}`);
     await expect(g.getByRole("button", { name: /^Hlasovať/ })).toHaveCount(0);
+    // A tooltip never shows on a phone: the vote button says it under itself.
+    await expect(g.getByRole("link", { name: /0 hlasov\. Na hlasovanie sa prihláste\./ }).getByText("Prihláste sa", { exact: true })).toBeVisible();
+    // The header scrolls away on a phone (it took a sixth of the screen when it stuck).
+    expect(await g.evaluate(() => getComputedStyle(document.querySelector("header")!).position)).toBe("static");
     await g.getByRole("link", { name: /0 hlasov\. Na hlasovanie sa prihláste\./ }).click();
     await expect(g.getByRole("heading", { name: "Prihláste sa" })).toBeVisible();
     await g.goBack();

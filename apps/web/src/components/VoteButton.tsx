@@ -65,6 +65,15 @@ export function VoteButton({ slug, itemId, count, voters, voted, weight, login, 
 
   if (login !== null) {
     const label = `${tip}. ${t("signIn")}.`;
+    // On the item page a guest sees why the button leads away (a title tooltip never shows on a phone).
+    if (login && size === "lg") {
+      return (
+        <a href={login} aria-label={label} className="group grid content-start justify-items-center gap-1.5 text-center">
+          <span className={cn(cls, "group-hover:border-brand group-hover:text-brand-text")}>{inner}</span>
+          <span className="w-16 text-[11.5px] leading-tight font-medium text-brand-text">{t("signInShort")}</span>
+        </a>
+      );
+    }
     return login
       ? <a className={cls} href={login} aria-label={label} title={t("signIn")}>{inner}</a>
       : <span className={cls} aria-label={label} title={t("signedInOnly")}>{inner}</span>;

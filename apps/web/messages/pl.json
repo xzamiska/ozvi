@@ -1900,7 +1900,8 @@
       "exhaustedShort": "Wykorzystano wszystkie twoje głosy",
       "exhaustedHow": "Cofnij głos z innego pomysłu albo poczekaj, aż któryś zostanie wdrożony – wtedy głosy wrócą.",
       "budgetHint": "Każdy ma {budget, plural, one {# głos} few {# głosy} many {# głosów} other {# głosu}} na aktywne pomysły. Głos wraca, gdy pomysł zostanie wdrożony.",
-      "budgetHintImportance": "Każdy ma {budget, plural, one {# głos} few {# głosy} many {# głosów} other {# głosu}}. „Miło by było” kosztuje 1, „Ważne” 2, „Krytyczne” 3; głosy wracają po wdrożeniu."
+      "budgetHintImportance": "Każdy ma {budget, plural, one {# głos} few {# głosy} many {# głosów} other {# głosu}}. „Miło by było” kosztuje 1, „Ważne” 2, „Krytyczne” 3; głosy wracają po wdrożeniu.",
+      "signInShort": "Zaloguj się"
     },
     "confirmFix": {
       "label": "Weryfikacja poprawki",

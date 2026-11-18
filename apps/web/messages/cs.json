@@ -1900,7 +1900,8 @@
       "exhaustedShort": "Vyčerpali jste všechny hlasy",
       "exhaustedHow": "Odeberte hlas z jiného nápadu, nebo počkejte, až některý vydáme — hlasy se vám vrátí.",
       "budgetHint": "Každý má {budget, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}} na aktivní nápady. Po vydání nápadu se vám hlas vrátí.",
-      "budgetHintImportance": "Každý má {budget, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}}. Hezké mít stojí 1, Důležité 2, Kritické 3; po vydání se vrátí."
+      "budgetHintImportance": "Každý má {budget, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}}. Hezké mít stojí 1, Důležité 2, Kritické 3; po vydání se vrátí.",
+      "signInShort": "Přihlaste se"
     },
     "confirmFix": {
       "label": "Ověření opravy",

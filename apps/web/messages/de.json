@@ -1900,7 +1900,8 @@
       "exhaustedShort": "Sie haben alle Ihre Stimmen vergeben",
       "exhaustedHow": "Ziehen Sie eine Stimme von einer anderen Idee zurück oder warten Sie, bis eine umgesetzt wird – dann erhalten Sie sie zurück.",
       "budgetHint": "Alle haben {budget, plural, one {# Stimme} other {# Stimmen}} für aktive Ideen. Sobald eine Idee umgesetzt ist, erhalten Sie die Stimme zurück.",
-      "budgetHintImportance": "Alle haben {budget, plural, one {# Stimme} other {# Stimmen}}. „Wäre schön“ kostet 1, „Wichtig“ 2, „Entscheidend“ 3; nach der Umsetzung erhalten Sie sie zurück."
+      "budgetHintImportance": "Alle haben {budget, plural, one {# Stimme} other {# Stimmen}}. „Wäre schön“ kostet 1, „Wichtig“ 2, „Entscheidend“ 3; nach der Umsetzung erhalten Sie sie zurück.",
+      "signInShort": "Anmelden"
     },
     "confirmFix": {
       "label": "Überprüfung der Korrektur",

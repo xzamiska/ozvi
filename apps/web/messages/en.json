@@ -1900,7 +1900,8 @@
       "exhaustedShort": "You've used all your votes",
       "exhaustedHow": "Remove a vote from another idea, or wait until one ships and you get them back.",
       "budgetHint": "Everyone has {budget, plural, one {# vote} other {# votes}} for active ideas. You get a vote back when the idea ships.",
-      "budgetHintImportance": "Everyone has {budget, plural, one {# vote} other {# votes}}. Nice to have costs 1, Important 2, Critical 3; you get them back when it ships."
+      "budgetHintImportance": "Everyone has {budget, plural, one {# vote} other {# votes}}. Nice to have costs 1, Important 2, Critical 3; you get them back when it ships.",
+      "signInShort": "Sign in"
     },
     "confirmFix": {
       "label": "Fix verification",

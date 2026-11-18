@@ -1900,7 +1900,8 @@
       "exhaustedShort": "Elhasználtad az összes szavazatodat",
       "exhaustedHow": "Vonj vissza egy szavazatot egy másik ötletről, vagy várj, amíg valamelyik elkészül, és visszakapod őket.",
       "budgetHint": "Mindenkinek {budget, plural, one {# szavazata} other {# szavazata}} van az aktív ötletekre. Amikor az ötlet elkészül, visszakapod a szavazatot.",
-      "budgetHintImportance": "Mindenkinek {budget, plural, one {# szavazata} other {# szavazata}} van. A „Jó lenne” 1-be, a „Fontos” 2-be, a „Kritikus” 3-ba kerül; amikor elkészül, visszakapod őket."
+      "budgetHintImportance": "Mindenkinek {budget, plural, one {# szavazata} other {# szavazata}} van. A „Jó lenne” 1-be, a „Fontos” 2-be, a „Kritikus” 3-ba kerül; amikor elkészül, visszakapod őket.",
+      "signInShort": "Belépés"
     },
     "confirmFix": {
       "label": "Javítás ellenőrzése",
