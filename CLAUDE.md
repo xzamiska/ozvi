@@ -38,4 +38,5 @@ Source-available (FSL, ADR-0008) náhrada Fideru: **súkromný tok na bugy** (au
 
 - Slovenčina v UI, angličtina v kóde/komentároch/commitoch a v dokumentácii (`docs/`, README); výnimky: `SELFHOST.sk.md`, `DPA.sk.md` (záväzný text) a slovníky prekladov
 - Conventional commits, po funkčných blokoch; po module build + rýchla verifikácia
+- Každý `fix:` meniaci produktový kód má v tom istom commite test, ktorý bez opravy padne, alebo trailer `No-Test: <dôvod>` (CI `scripts/check-fix-tests.mjs`)
 - UI texty: sloveso podľa akcie („Nahlásiť chybu“, nie „Odoslať“), chyby hovoria čo sa stalo a čo spraviť

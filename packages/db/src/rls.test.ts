@@ -31,6 +31,32 @@ describe.skipIf(!up)("row-level security", () => {
     await db.$client.end();
   });
 
+  /**
+   * Catalog guard: every table with a project_id has RLS enabled and forced, with a policy that calls
+   * ozvi_project_ok(project_id). A new tenant table that forgets its RLS migration fails here (ADR-0004).
+   * Deliberate exceptions, read and written only through withSystem / without a project scope:
+   */
+  const NO_RLS = new Set([
+    "activity", // the workspace activity log, written for console and board events (project_id may be null)
+    "login_codes", // sign-in codes, looked up by keyed hash before any project is known (project_id null = console)
+  ]);
+
+  it("every table with a project_id has forced RLS and the tenant policy", async () => {
+    const rows = await db.execute<{ t: string; rls: boolean; forced: boolean; policy: boolean }>(sql`
+      select c.relname as t, c.relrowsecurity as rls, c.relforcerowsecurity as forced,
+        exists (select 1 from pg_policies p where p.schemaname = 'public' and p.tablename = c.relname
+          and p.qual like '%ozvi_project_ok(project_id)%' and p.with_check like '%ozvi_project_ok(project_id)%') as policy
+      from pg_class c join pg_namespace n on n.oid = c.relnamespace
+      where n.nspname = 'public' and c.relkind = 'r'
+        and exists (select 1 from information_schema.columns col where col.table_schema = 'public' and col.table_name = c.relname and col.column_name = 'project_id')
+      order by 1`);
+    const tenant = [...rows].filter((r) => !NO_RLS.has(r.t));
+    expect(tenant.length).toBeGreaterThan(20);
+    expect(tenant.filter((r) => !r.rls || !r.forced || !r.policy).map((r) => r.t)).toEqual([]);
+    // The exceptions still exist (a renamed table must be looked at again, not silently dropped from the list).
+    expect([...rows].map((r) => r.t)).toEqual(expect.arrayContaining([...NO_RLS]));
+  });
+
   it("the connection role cannot bypass RLS", async () => {
     const [r] = await db.execute<{ rolsuper: boolean; rolbypassrls: boolean }>(
       sql`select rolsuper, rolbypassrls from pg_roles where rolname = current_user`);

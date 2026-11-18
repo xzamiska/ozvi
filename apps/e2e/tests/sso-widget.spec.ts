@@ -398,6 +398,15 @@ test.describe("widget in the host app", () => {
     const other = await boardPage(browser);
     await other.goto(ssoUrl(board.slug, board.secret, person("other"), `/${board.slug}/i/${item.number}`));
     await expect(other.getByText(title)).toHaveCount(0);
+
+    // Nor its screenshot: the file answers 404 to another customer and to a visitor, and only the team gets it.
+    const shot = `/${board.slug}/files/${files.find((f) => f.mime === "image/jpeg")!.id}`;
+    expect((await other.request.get(shot)).status()).toBe(404);
+    expect((await (await boardPage(browser)).request.get(shot)).status()).toBe(404);
+    const ok = await team.request.get(shot);
+    expect(ok.status()).toBe(200);
+    expect(ok.headers()["content-type"]).toBe("image/jpeg");
+    expect(ok.headers()["cache-control"]).toContain("private");
   });
 
   test("without a token from the app: the person verifies an e-mail code in the widget; the report keeps its text", async ({ page, browser }) => {

@@ -27,6 +27,17 @@ jobs:
           --health-cmd "pg_isready -U postgres" --health-interval 5s --health-retries 20
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # the regression rule reads the pushed commits
+      - name: Every fix comes with a test (or a No-Test reason)
+        env:
+          BEFORE: ${{ github.event.before }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ -n "$BASE" ]; then range="$BASE..HEAD"
+          elif [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then range="$BEFORE..HEAD"
+          else range="HEAD~1..HEAD"; fi
+          node scripts/check-fix-tests.mjs "$range"
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v5
         with:
