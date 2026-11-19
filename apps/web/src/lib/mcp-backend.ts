@@ -1,4 +1,5 @@
 import { contextFor } from "./bug-context";
+import { logActivity, who } from "./activity";
 import { createHash } from "node:crypto";
 import { PLAN_LIMITS, schema, withProject, type PlanName, type Tx } from "@ozvi/db";
 import { strictestLockdown, ToolError, type Backend, type McpCustomer, type McpDemand, type McpItem, type McpItemDetail, type SearchInput, type Summary } from "@ozvi/mcp";
@@ -587,10 +588,15 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
       return { url: changelogEntryUrl(base, entry.id), emailed: r.emailed };
     }),
 
-    merge: (s, t) => run(async (tx) => {
-      const r = await mergeItems(tx, project, user, await mustGet(tx, s), await mustGet(tx, t));
-      const [source, target] = await withAuthors(tx, [r.source, r.target]);
-      return { source: source!, target: target! };
-    }),
+    merge: async (s, t) => {
+      const out = await run(async (tx) => {
+        const r = await mergeItems(tx, project, user, await mustGet(tx, s), await mustGet(tx, t));
+        const [source, target] = await withAuthors(tx, [r.source, r.target]);
+        return { source: source!, target: target! };
+      });
+      // Like a merge on the board: the lead sees it in the console Activity (here done by an agent's token).
+      await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "triage.merged", detail: `#${out.source.number} → #${out.target.number} (MCP)` });
+      return out;
+    },
   };
 }

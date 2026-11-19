@@ -1387,7 +1387,7 @@
     },
     "activity": {
       "title": "Activity",
-      "lede": "Changes to the workspace and project settings: team, plan, domains, tokens, webhooks and sign-in.",
+      "lede": "Changes to the workspace and project settings (team, plan, domains, tokens, webhooks, sign-in) and the team's bigger moves: merges, bulk changes and deletions.",
       "emptyTitle": "No activity yet",
       "emptyText": "Entries appear once you invite someone or change project settings.",
       "older": "Older entries",
@@ -1477,6 +1477,10 @@
         },
         "account": {
           "renamed": "Account name changed"
+        },
+        "triage": {
+          "merged": "Duplicates merged",
+          "bulk": "Bulk change"
         }
       }
     },

@@ -1387,7 +1387,7 @@
     },
     "activity": {
       "title": "Aktivita",
-      "lede": "Zmeny v priestore a v nastaveniach projektov: tím, plán, domény, tokeny, webhooky a prihlásenie.",
+      "lede": "Zmeny v priestore a v nastaveniach projektov (tím, plán, domény, tokeny, webhooky, prihlásenie) a väčšie zásahy tímu: zlúčenia, hromadné zmeny a mazanie.",
       "emptyTitle": "Zatiaľ žiadna aktivita",
       "emptyText": "Prvé záznamy pribudnú, keď niekoho pozvete alebo zmeníte nastavenia projektu.",
       "older": "Staršie záznamy",
@@ -1477,6 +1477,10 @@
         },
         "account": {
           "renamed": "Zmenené meno účtu"
+        },
+        "triage": {
+          "merged": "Zlúčené duplicity",
+          "bulk": "Hromadná zmena"
         }
       }
     },

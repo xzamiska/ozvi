@@ -1387,7 +1387,7 @@
     },
     "activity": {
       "title": "Tevékenység",
-      "lede": "A munkaterület és a projektbeállítások változásai: csapat, csomag, domainek, tokenek, webhookok és bejelentkezés.",
+      "lede": "A munkaterület és a projektbeállítások változásai (csapat, csomag, domainek, tokenek, webhookok, bejelentkezés), valamint a csapat nagyobb lépései: összevonások, csoportos módosítások és törlések.",
       "emptyTitle": "Még nincs tevékenység",
       "emptyText": "A bejegyzések akkor jelennek meg, amikor meghívsz valakit, vagy módosítod a projekt beállításait.",
       "older": "Régebbi bejegyzések",
@@ -1477,6 +1477,10 @@
         },
         "account": {
           "renamed": "Módosított fióknév"
+        },
+        "triage": {
+          "merged": "Duplikátumok összevonva",
+          "bulk": "Csoportos módosítás"
         }
       }
     },

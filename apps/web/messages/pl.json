@@ -1387,7 +1387,7 @@
     },
     "activity": {
       "title": "Aktywność",
-      "lede": "Zmiany w przestrzeni roboczej i ustawieniach projektów: zespół, plan, domeny, tokeny, webhooki i logowanie.",
+      "lede": "Zmiany w przestrzeni i ustawieniach projektów (zespół, plan, domeny, tokeny, webhooki, logowanie) oraz większe działania zespołu: scalenia, zmiany zbiorcze i usunięcia.",
       "emptyTitle": "Brak aktywności",
       "emptyText": "Wpisy pojawią się, gdy kogoś zaprosisz albo zmienisz ustawienia projektu.",
       "older": "Starsze wpisy",
@@ -1477,6 +1477,10 @@
         },
         "account": {
           "renamed": "Zmieniona nazwa konta"
+        },
+        "triage": {
+          "merged": "Scalone duplikaty",
+          "bulk": "Zmiana zbiorcza"
         }
       }
     },

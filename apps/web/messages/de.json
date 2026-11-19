@@ -1387,7 +1387,7 @@
     },
     "activity": {
       "title": "Aktivität",
-      "lede": "Änderungen am Workspace und an den Projekteinstellungen: Team, Tarif, Domains, Tokens, Webhooks und Anmeldung.",
+      "lede": "Änderungen am Arbeitsbereich und an den Projekteinstellungen (Team, Plan, Domains, Tokens, Webhooks, Anmeldung) sowie größere Eingriffe des Teams: Zusammenführungen, Sammeländerungen und Löschungen.",
       "emptyTitle": "Noch keine Aktivität",
       "emptyText": "Einträge erscheinen, sobald Sie jemanden einladen oder Projekteinstellungen ändern.",
       "older": "Ältere Einträge",
@@ -1477,6 +1477,10 @@
         },
         "account": {
           "renamed": "Kontoname geändert"
+        },
+        "triage": {
+          "merged": "Duplikate zusammengeführt",
+          "bulk": "Sammeländerung"
         }
       }
     },

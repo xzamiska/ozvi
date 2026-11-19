@@ -3,6 +3,8 @@ import { devices, expect, test } from "@playwright/test";
 import { act, addComment, addCommentOn, boardUser, createItem, itemRow, moveTo, ownerBoard, ownIp, projectRow, setProject, userByEmail } from "../lib/board";
 import { E2E, email, uniq } from "../lib/env";
 import { codeIn, lastMail, linkIn, mailCount } from "../lib/mail";
+import { db, schema } from "../lib/db";
+import { and, eq } from "drizzle-orm";
 
 test.describe("public board", () => {
   test("ideas: create, list, search, sort and filter, vote and unvote, comment, detail page", async ({ page, browser }) => {
@@ -456,6 +458,12 @@ test.describe("public board", () => {
     expect((await itemRow(b.slug, n2))!.status).toBe("confirmed");
     expect((await itemRow(b.slug, n3))!.status).toBe("new");
     expect((await itemRow(b.slug, n1))!.assigneeId).not.toBeNull();
+    // The lead can audit it: one Activity row for the whole batch.
+    const p = await projectRow(b.slug);
+    const log = await db.select().from(schema.activity).where(and(eq(schema.activity.projectId, p.id), eq(schema.activity.action, "triage.bulk")));
+    expect(log).toHaveLength(1);
+    expect(log[0]!.detail).toMatch(/→ Potvrdené · Rieši: /);
+    expect(log[0]!.detail!.split(" ").filter((w) => w.startsWith("#")).sort()).toEqual([`#${n1}`, `#${n2}`].sort());
     // "Send status e-mails" was left off: the reporter got nothing.
     await page.waitForTimeout(1500);
     expect(await mailCount(ann.email)).toBe(before);
@@ -761,6 +769,8 @@ test.describe("public board", () => {
     await expect(page.getByText("Zlúčené sem:")).toBeVisible();
     await expect(page.getByRole("link", { name: `#${n2}`, exact: true })).toBeVisible();
     expect((await itemRow(b.slug, n1))!.voteCount).toBe(2);
+    const merges = await db.select().from(schema.activity).where(and(eq(schema.activity.projectId, (await projectRow(b.slug)).id), eq(schema.activity.action, "triage.merged")));
+    expect(merges.map((r) => r.detail)).toEqual([`#${n2} → #${n1}`]);
 
     // The duplicate is nobody's work any more: no assignee control there.
     await page.goto(`/${b.slug}/i/${n2}`);
