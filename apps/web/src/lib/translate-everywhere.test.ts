@@ -203,6 +203,11 @@ describe("e-mails quote replies in the recipient's language", () => {
     process.env.OZVI_AI_PROVIDER = "off";
     try {
       const now = new Date(Date.now() + 1000);
+      // The sender alone never translates (a slow model must not delay sign-in codes): all twelve wait.
+      await tick(db, transport, { projectIds: [project.id], now });
+      expect(sent).toHaveLength(0);
+      // The translation job (lib/jobs.ts) takes one batch of ten; those go out, the other two still wait.
+      await translateMails(db, { projectIds: [project.id] });
       await tick(db, transport, { projectIds: [project.id], now });
       expect(sent).toHaveLength(10);
       const waiting = (await mailTo(polish)).filter((m) => m.status === "queued");

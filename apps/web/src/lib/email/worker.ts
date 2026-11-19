@@ -5,7 +5,7 @@ import { ecomailTransport } from "./ecomail";
 import { recipientLocale } from "../../i18n/board";
 import { translator } from "../../i18n/messages";
 import { renderMail } from "./render";
-import { TRANSLATE_WAIT_MS, translateMails } from "./translate-mail";
+import { TRANSLATE_WAIT_MS } from "./translate-mail";
 import { projectOrigin, publicUrl } from "./url";
 import { unsubscribeUrl } from "./unsubscribe";
 import { parseTheme, presets } from "@ozvi/theme";
@@ -65,8 +65,6 @@ const inScope = (scope: WorkerScope) => (scope.projectIds ? [inArray(emails.proj
 
 export async function tick(db: Db, t: Transporter | null = getTransport(), scope: WorkerScope = {}): Promise<{ sent: number; deferred: number; failed: number; digests: number }> {
   const stats = { sent: 0, deferred: 0, failed: 0, digests: 0 };
-  // AI translations of quoted posts first, outside the sending transaction (a slow model never holds the queue).
-  await translateMails(db, { projectIds: scope.projectIds }).catch((e) => console.warn("[ozvi] mail translation", e));
   const now = scope.now ?? new Date();
   await withSystem(db, async (tx) => {
     const batch = await tx.select({ e: emails, plan: workspaces.plan, projectName: projects.name, workspaceId: projects.workspaceId })
