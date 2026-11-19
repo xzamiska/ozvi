@@ -14,7 +14,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ slug
   const project = await canOpen(account.id, slug);
   if (!project) return new NextResponse((await getTranslations("account"))("server.noProjectAccess"), { status: 403, headers: { "content-type": "text/plain; charset=utf-8" } });
   const where = req.nextUrl.searchParams.get("to");
-  const to = `/${slug}/${where === "admin" ? "admin" : where === "bugs" ? "bugs" : "ideas"}`;
+  const to = `/${slug}/${where === "admin" || where === "bugs" || where === "inbox" || where === "unanswered" ? where : "ideas"}`;
   const t = await issueHandoff(db, project.id, account.email, to);
   return NextResponse.redirect(`${projectOrigin(project)}/${slug}/account?t=${t}`);
 }

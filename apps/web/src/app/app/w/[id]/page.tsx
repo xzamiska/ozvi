@@ -133,7 +133,7 @@ export default async function Overview({ params, searchParams }: { params: Promi
                   <div className="grid grid-cols-2 border-t sm:grid-cols-4 [&>*]:border-line max-sm:[&>*:nth-child(n+3)]:border-t sm:[&>*+*]:border-l max-sm:[&>*:nth-child(2n)]:border-l">
                     <Stat label={t("newBugs")} value={s.newBugs} tone="attention" href={`/app/open/${p.slug}?to=bugs`} locale={locale} />
                     <Stat label={t("ideasToDecide")} value={s.waitingIdeas} tone="attention" href={`/app/open/${p.slug}`} locale={locale} />
-                    <Stat label={t("commentsWeek")} value={s.commentsWeek} locale={locale} />
+                    <Stat label={t("commentsWeek")} value={s.commentsWeek} href={`/app/open/${p.slug}?to=inbox`} locale={locale} />
                     <Stat label={t("users")} value={s.appUsers} locale={locale} />
                   </div>
                   {s.appUsers === 0 ? (
