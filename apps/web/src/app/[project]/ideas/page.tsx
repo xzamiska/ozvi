@@ -1,4 +1,5 @@
 import { schema, withProject } from "@ozvi/db";
+import { BulkBar } from "@/components/ozvi/BulkBar";
 import { assignableTeam, assigneeFilter, assigneeOptions } from "@/lib/assign";
 import { and, desc, eq, inArray, isNull } from "drizzle-orm";
 import { Plus, Search } from "lucide-react";
@@ -158,9 +159,10 @@ export default async function Ideas({ params, searchParams }: {
           ) : (
             <Panel as="ul" className="divide-y">
               {rows.map((r) => <ItemRow key={r.id} slug={slug} row={r} voted={voted.has(r.id)} weight={weights.get(r.id)} vote={vote} login={login} locale={locale}
-                tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user?.role === "admin" } : undefined} />)}
+                tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user?.role === "admin" } : undefined} selectable={isTeam} />)}
             </Panel>
           )}
+          {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="idea" team={members} />}
           <LoadMore href={hasMore ? nextPageHref(keep, page) : null} shown={rows.length} total={total} />
         </div>
 

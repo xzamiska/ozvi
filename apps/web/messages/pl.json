@@ -1212,7 +1212,20 @@
       "statuses": "{n, plural, one {zmiana statusu} few {# zmiany statusu} other {# zmian statusu}}",
       "ruleTitle": "Co tu trafia",
       "rule": "Nowe zgłoszenia i pomysły, komentarze i notatki wewnętrzne oraz zmiany statusu od innych. Każdy w zespole ma swoje „przeczytane”."
-    }
+    },
+    "bulk": {
+      "selected": "{n, plural, one {# wybrany} few {# wybrane} other {# wybranych}}",
+      "status": "Status",
+      "assignee": "Odpowiada",
+      "keep": "Bez zmian",
+      "nobody": "Nikt",
+      "notify": "Wyślij e-maile o zmianie statusu",
+      "clear": "Wyczyść wybór",
+      "apply": "Zastosuj",
+      "applying": "Zapisuję…",
+      "done": "{n, plural, one {Zmieniono # wpis} few {Zmieniono # wpisy} other {Zmieniono # wpisów}}"
+    },
+    "select": "Wybierz #{n}"
   },
   "boardAuth": {
     "noProject": "Ten projekt nie istnieje.",

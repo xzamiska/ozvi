@@ -382,6 +382,47 @@ test.describe("public board", () => {
     await ann.ctx.close();
   });
 
+  test("bulk: the team ticks several bugs and moves them and assigns them at once; e-mails only when asked", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    const [t1, t2, t3] = [uniq("Hromadná A"), uniq("Hromadná B"), uniq("Hromadná C")];
+    const [n1, n2, n3] = [await createItem(ann.page, b.slug, "bug", t1), await createItem(ann.page, b.slug, "bug", t2), await createItem(ann.page, b.slug, "bug", t3)];
+    const before = await mailCount(ann.email);
+
+    await page.goto(`/${b.slug}/bugs?s=all`);
+    const bar = page.locator("form#bulk");
+    await expect(bar).toBeHidden();
+    await page.getByRole("checkbox", { name: `Vybrať #${n1}` }).check();
+    await page.getByRole("checkbox", { name: `Vybrať #${n2}` }).check();
+    await expect(bar).toBeVisible();
+    await expect(bar.getByRole("status")).toHaveText("2 vybrané");
+    await bar.getByRole("combobox", { name: "Stav" }).selectOption("confirmed");
+    await bar.getByRole("combobox", { name: "Rieši" }).selectOption({ index: 2 });
+    await bar.getByRole("button", { name: "Použiť" }).click();
+    await expect(page.getByText("Zmenené 2 záznamy")).toBeVisible();
+    await expect(bar).toBeHidden();
+
+    expect((await itemRow(b.slug, n1))!.status).toBe("confirmed");
+    expect((await itemRow(b.slug, n2))!.status).toBe("confirmed");
+    expect((await itemRow(b.slug, n3))!.status).toBe("new");
+    expect((await itemRow(b.slug, n1))!.assigneeId).not.toBeNull();
+    // "Send status e-mails" was left off: the reporter got nothing.
+    await page.waitForTimeout(1500);
+    expect(await mailCount(ann.email)).toBe(before);
+
+    // With e-mails on, the reporter hears about the move.
+    await page.goto(`/${b.slug}/bugs?s=all`);
+    await page.getByRole("checkbox", { name: `Vybrať #${n3}` }).check();
+    await bar.getByRole("combobox", { name: "Stav" }).selectOption("in_progress");
+    await bar.getByLabel("Poslať e-maily o zmene stavu").check();
+    await bar.getByRole("button", { name: "Použiť" }).click();
+    await lastMail(ann.email, { subject: new RegExp(`^Rozpracované: ${t3}`) });
+    // Customers get no checkboxes.
+    await ann.page.goto(`/${b.slug}/bugs`);
+    await expect(ann.page.getByRole("checkbox", { name: /^Vybrať/ })).toHaveCount(0);
+    await ann.ctx.close();
+  });
+
   test("changelog: a published entry ships the idea, e-mails voters, appears on /changelog and in the RSS feed", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");

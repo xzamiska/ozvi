@@ -1212,7 +1212,20 @@
       "statuses": "{n, plural, one {Statusänderung} other {# Statusänderungen}}",
       "ruleTitle": "Was hier erscheint",
       "rule": "Neue Meldungen und Ideen, Kommentare und interne Notizen sowie Statusänderungen anderer. Jede Person im Team hat ihr eigenes „gelesen“."
-    }
+    },
+    "bulk": {
+      "selected": "{n} ausgewählt",
+      "status": "Status",
+      "assignee": "Zuständig",
+      "keep": "Keine Änderung",
+      "nobody": "Niemand",
+      "notify": "Status-E-Mails senden",
+      "clear": "Auswahl aufheben",
+      "apply": "Anwenden",
+      "applying": "Wird gespeichert …",
+      "done": "{n, plural, one {# Eintrag geändert} other {# Einträge geändert}}"
+    },
+    "select": "#{n} auswählen"
   },
   "boardAuth": {
     "noProject": "Dieses Projekt existiert nicht.",

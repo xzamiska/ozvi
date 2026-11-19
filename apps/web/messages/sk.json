@@ -1212,7 +1212,20 @@
       "statuses": "{n, plural, one {zmena stavu} few {# zmeny stavu} other {# zmien stavu}}",
       "ruleTitle": "Čo sem patrí",
       "rule": "Nové hlásenia a nápady, komentáre a interné poznámky a zmeny stavu od iných. Každý z tímu má svoje „prečítané“."
-    }
+    },
+    "bulk": {
+      "selected": "{n, plural, one {# vybraný} few {# vybrané} other {# vybraných}}",
+      "status": "Stav",
+      "assignee": "Rieši",
+      "keep": "Bez zmeny",
+      "nobody": "Nikto",
+      "notify": "Poslať e-maily o zmene stavu",
+      "clear": "Zrušiť výber",
+      "apply": "Použiť",
+      "applying": "Ukladám…",
+      "done": "{n, plural, one {Zmenený # záznam} few {Zmenené # záznamy} other {Zmenených # záznamov}}"
+    },
+    "select": "Vybrať #{n}"
   },
   "boardAuth": {
     "noProject": "Projekt neexistuje.",

@@ -54,8 +54,10 @@ export interface VoteSetup { mode: VoteMode; left: number | null }
  * One report as a tracking line: vote (ideas) or number (bugs), title, one-line excerpt, meta,
  * and its status, shown once: on the right on wide screens, first in the meta line on phones.
  */
-export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", tagHref, tagging }: {
+export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", tagHref, tagging, selectable = false }: {
   slug: string; row: Row; voted: boolean; login: string | null | false; locale?: Locale;
+  /** Team lists: a checkbox for bulk changes (BulkBar reads every checkbox of the form "bulk"). */
+  selectable?: boolean;
   /** Makes tag chips filter links (list pages). */
   tagHref?: (tag: Tag) => string;
   tagging?: RowTagging;
@@ -66,7 +68,11 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
   const t = useTranslations("board");
   const idea = row.kind === "idea";
   return (
-    <li className="group relative grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-4 px-4 py-4 transition-colors hover:bg-wash sm:px-5 md:grid-cols-[auto_minmax(0,1fr)_auto]">
+    <li className={`group relative grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-4 px-4 py-4 transition-colors hover:bg-wash sm:px-5 md:grid-cols-[auto_minmax(0,1fr)_auto] ${selectable ? "pl-11 sm:pl-12" : ""}`}>
+      {selectable && (
+        <input type="checkbox" name="sel" value={row.id} form="bulk" aria-label={t("select", { n: row.number })}
+          className="absolute top-5 left-3.5 z-20 size-4 cursor-pointer accent-[var(--oz-accent)] sm:left-4" />
+      )}
       {idea && row.pending
         // Queued ideas take no votes yet: a quiet placeholder of the vote button's size.
         ? <span aria-hidden className="grid h-14 w-12 shrink-0 place-items-center rounded-lg border border-dashed border-line-strong text-st-ack"><Hourglass className="size-4" /></span>

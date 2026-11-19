@@ -1212,7 +1212,20 @@
       "statuses": "{n, plural, one {állapotváltozás} other {# állapotváltozás}}",
       "ruleTitle": "Mi kerül ide",
       "rule": "Új bejelentések és ötletek, hozzászólások és belső jegyzetek, valamint mások állapotváltoztatásai. Mindenkinek saját „olvasott” jelölése van."
-    }
+    },
+    "bulk": {
+      "selected": "{n} kiválasztva",
+      "status": "Állapot",
+      "assignee": "Felelős",
+      "keep": "Nincs változás",
+      "nobody": "Senki",
+      "notify": "E-mailek küldése az állapotváltozásról",
+      "clear": "Kijelölés törlése",
+      "apply": "Alkalmaz",
+      "applying": "Mentés…",
+      "done": "{n, plural, other {# bejegyzés módosítva}}"
+    },
+    "select": "#{n} kiválasztása"
   },
   "boardAuth": {
     "noProject": "Ez a projekt nem létezik.",

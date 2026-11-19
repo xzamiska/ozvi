@@ -1,7 +1,7 @@
 "use server";
 
 import { assignItem } from "./assign";
-import { schema, withProject } from "@ozvi/db";
+import { ITEM_STATUSES, schema, withProject } from "@ozvi/db";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -127,6 +127,45 @@ export async function setAssignee(slug: string, itemId: string, assigneeId: stri
   }
   revalidatePath(`/${slug}`, "layout");
   return {};
+}
+
+/**
+ * Team, list pages: the same change on many items at once (triage review: 20 items took ~80 clicks). Status
+ * (with or without the status e-mails) and/or assignee; at most 100 items; each item goes through the same
+ * rules as one by one (changeStatus, assignItem). Returns how many changed.
+ */
+export async function bulkUpdate(slug: string, form: FormData): Promise<{ changed?: number; error?: string }> {
+  const { project, user, isTeam, locale, t } = await requireUser(slug);
+  if (!isTeam) return { error: t("statusTeamOnly") };
+  const ids = [...new Set(form.getAll("sel").map(String).filter((x) => /^[0-9a-f-]{36}$/i.test(x)))].slice(0, 100);
+  const status = str(form, "status");
+  const assignee = str(form, "assignee");
+  const notify = str(form, "notify") === "on";
+  if (ids.length === 0 || (!status && !assignee)) return { changed: 0 };
+  let changed = 0;
+  try {
+    await withProject(db, project.id, async (tx) => {
+      for (const id of ids) {
+        let item = await tx.query.items.findFirst({ where: eq(items.id, id) });
+        if (!item || item.deletedAt || item.mergedIntoId) continue;
+        let did = false;
+        if (status && (ITEM_STATUSES[item.kind] as readonly string[]).includes(status)) {
+          const moved = await changeStatus(tx, project, user, item, status, undefined, { notify });
+          if (moved) { item = moved; did = true; }
+        }
+        if (assignee) {
+          const a = await assignItem(tx, project, user, item, assignee === "none" ? null : assignee);
+          if (a) did = true;
+        }
+        if (did) changed++;
+      }
+    });
+  } catch (e) {
+    if (e instanceof DomainError) return { error: e.text(locale) };
+    throw e;
+  }
+  revalidatePath(`/${slug}`, "layout");
+  return { changed };
 }
 
 /** Team: mark this item as a duplicate of #target. */

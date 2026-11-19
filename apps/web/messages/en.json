@@ -1212,7 +1212,20 @@
       "statuses": "{n, plural, one {status change} other {# status changes}}",
       "ruleTitle": "What shows up here",
       "rule": "New reports and ideas, comments and internal notes, and status changes by others. Everyone on the team has their own \"read\"."
-    }
+    },
+    "bulk": {
+      "selected": "{n} selected",
+      "status": "Status",
+      "assignee": "Assignee",
+      "keep": "No change",
+      "nobody": "Nobody",
+      "notify": "Send status e-mails",
+      "clear": "Clear selection",
+      "apply": "Apply",
+      "applying": "Saving…",
+      "done": "{n, plural, one {Changed # item} other {Changed # items}}"
+    },
+    "select": "Select #{n}"
   },
   "boardAuth": {
     "noProject": "This project doesn’t exist.",
