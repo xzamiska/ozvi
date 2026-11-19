@@ -382,6 +382,28 @@ test.describe("public board", () => {
     await ann.ctx.close();
   });
 
+  test("@mobile the team on a phone: the tab row shows there is more and keeps the current tab in view; the bulk bar stays compact", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    const n1 = await createItem(ann.page, b.slug, "bug", uniq("Mobil A"));
+    await createItem(ann.page, b.slug, "bug", uniq("Mobil B"));
+    await ann.ctx.close();
+    await page.setViewportSize({ width: 390, height: 844 }); // also on the desktop projects
+    await page.goto(`/${b.slug}/ideas`);
+    const nav = page.getByRole("navigation", { name: "Board" });
+    await expect(nav).toHaveAttribute("data-more", "true");
+    await page.goto(`/${b.slug}/unanswered`);
+    await expect(nav.getByRole("link", { name: /Bez odpovede/ })).toBeInViewport({ ratio: 1 });
+    await page.goto(`/${b.slug}/bugs?s=all`);
+    await page.getByRole("checkbox", { name: `Vybrať #${n1}` }).check();
+    const bar = page.locator("form#bulk");
+    await expect(bar).toBeVisible();
+    const box = (await bar.boundingBox())!;
+    expect(box.height).toBeLessThan(page.viewportSize()!.height * 0.25); // it took about a third before
+    await expect(bar.getByRole("button", { name: "Použiť" })).toBeInViewport({ ratio: 1 });
+    await expect(bar.getByRole("combobox", { name: "Rieši" })).toBeInViewport({ ratio: 1 });
+  });
+
   test("bulk: the team ticks several bugs and moves them and assigns them at once; e-mails only when asked", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");
