@@ -1,5 +1,5 @@
 # One image for self-host and cloud (ADR-0002). Build: docker build -t ozvi .
-FROM node:22.23.4-alpine AS base
+FROM node:22.23.5-alpine AS base
 RUN corepack enable && corepack prepare pnpm@9.15.9 --activate
 WORKDIR /app
 
@@ -21,7 +21,7 @@ RUN pnpm --filter @ozvi/widget exec esbuild ../db/src/migrate.ts --bundle --plat
  && pnpm --filter @ozvi/widget exec esbuild ../db/src/cli.ts --bundle --platform=node --format=esm \
       --outfile=/app/ozvi.mjs --banner:js="import{createRequire}from'module';const require=createRequire(import.meta.url);"
 
-FROM node:22.23.4-alpine AS runtime
+FROM node:22.23.5-alpine AS runtime
 WORKDIR /app
 # Release version shown in the admin and compared with the public release list (docs/SELFHOST.md → Updates).
 ARG OZVI_VERSION=dev
