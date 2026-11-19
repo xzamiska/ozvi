@@ -1100,7 +1100,8 @@
       "assigned": "Řeší: {who}",
       "unassigned": "Nikdo to zatím neřeší",
       "mergedHere": "Sloučeno sem:",
-      "former": "{who} (už není v týmu)"
+      "former": "{who} (už není v týmu)",
+      "you": "{who} (vy)"
     },
     "me": {
       "title": "Moje údaje",
@@ -1230,7 +1231,8 @@
       "clear": "Zrušit výběr",
       "apply": "Použít",
       "applying": "Ukládám…",
-      "done": "{n, plural, one {Změněn # záznam} few {Změněny # záznamy} other {Změněno # záznamů}}"
+      "done": "{n, plural, one {Změněn # záznam} few {Změněny # záznamy} other {Změněno # záznamů}}",
+      "you": "{who} (vy)"
     },
     "select": "Vybrat #{n}",
     "keys": {

@@ -1100,7 +1100,8 @@
       "assigned": "Zuständig: {who}",
       "unassigned": "Noch niemand zuständig",
       "mergedHere": "Hierher zusammengeführt:",
-      "former": "{who} (nicht mehr im Team)"
+      "former": "{who} (nicht mehr im Team)",
+      "you": "{who} (Sie)"
     },
     "me": {
       "title": "Meine Daten",
@@ -1230,7 +1231,8 @@
       "clear": "Auswahl aufheben",
       "apply": "Anwenden",
       "applying": "Wird gespeichert …",
-      "done": "{n, plural, one {# Eintrag geändert} other {# Einträge geändert}}"
+      "done": "{n, plural, one {# Eintrag geändert} other {# Einträge geändert}}",
+      "you": "{who} (Sie)"
     },
     "select": "#{n} auswählen",
     "keys": {

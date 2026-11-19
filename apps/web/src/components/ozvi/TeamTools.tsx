@@ -145,7 +145,7 @@ export function AssigneeControl({ slug, itemId, assignee, me, team }: {
         <SelectContent>
           <SelectItem value={NOBODY}>{t("nobody")}</SelectItem>
           {/* Former team members only while this item is theirs: it shows who has it, and it can be handed on. */}
-          {team.filter((x) => !x.former || x.id === assignee).map((x) => <SelectItem key={x.id} value={x.id}>{x.former ? t("former", { who: x.label }) : x.label}</SelectItem>)}
+          {team.filter((x) => !x.former || x.id === assignee).map((x) => <SelectItem key={x.id} value={x.id}>{x.former ? t("former", { who: x.label }) : x.id === me ? t("you", { who: x.label }) : x.label}</SelectItem>)}
         </SelectContent>
       </Select>
       {value !== me && (

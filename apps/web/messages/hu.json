@@ -1100,7 +1100,8 @@
       "assigned": "Felelős: {who}",
       "unassigned": "Még senki sem foglalkozik vele",
       "mergedHere": "Ide összevonva:",
-      "former": "{who} (már nincs a csapatban)"
+      "former": "{who} (már nincs a csapatban)",
+      "you": "{who} (Ön)"
     },
     "me": {
       "title": "Saját adatok",
@@ -1230,7 +1231,8 @@
       "clear": "Kijelölés törlése",
       "apply": "Alkalmaz",
       "applying": "Mentés…",
-      "done": "{n, plural, other {# bejegyzés módosítva}}"
+      "done": "{n, plural, other {# bejegyzés módosítva}}",
+      "you": "{who} (Ön)"
     },
     "select": "#{n} kiválasztása",
     "keys": {

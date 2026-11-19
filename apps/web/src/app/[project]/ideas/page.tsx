@@ -165,7 +165,7 @@ export default async function Ideas({ params, searchParams }: {
                 tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user?.role === "admin" } : undefined} selectable={isTeam} />)}
             </Panel>
           )}
-          {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="idea" team={members} />}
+          {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="idea" team={members} me={user?.id} />}
           <LoadMore href={hasMore ? nextPageHref(keep, page) : null} shown={rows.length} total={total} />
         </div>
 

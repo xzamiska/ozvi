@@ -1100,7 +1100,8 @@
       "assigned": "Odpowiada: {who}",
       "unassigned": "Nikt się tym jeszcze nie zajmuje",
       "mergedHere": "Scalone tutaj:",
-      "former": "{who} (już nie w zespole)"
+      "former": "{who} (już nie w zespole)",
+      "you": "{who} (Ty)"
     },
     "me": {
       "title": "Moje dane",
@@ -1230,7 +1231,8 @@
       "clear": "Wyczyść wybór",
       "apply": "Zastosuj",
       "applying": "Zapisuję…",
-      "done": "{n, plural, one {Zmieniono # wpis} few {Zmieniono # wpisy} other {Zmieniono # wpisów}}"
+      "done": "{n, plural, one {Zmieniono # wpis} few {Zmieniono # wpisy} other {Zmieniono # wpisów}}",
+      "you": "{who} (Ty)"
     },
     "select": "Wybierz #{n}",
     "keys": {

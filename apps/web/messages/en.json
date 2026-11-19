@@ -1100,7 +1100,8 @@
       "assigned": "Assigned to {who}",
       "unassigned": "Nobody is on it yet",
       "mergedHere": "Merged into this:",
-      "former": "{who} (no longer on the team)"
+      "former": "{who} (no longer on the team)",
+      "you": "{who} (you)"
     },
     "me": {
       "title": "My data",
@@ -1230,7 +1231,8 @@
       "clear": "Clear selection",
       "apply": "Apply",
       "applying": "Saving…",
-      "done": "{n, plural, one {Changed # item} other {Changed # items}}"
+      "done": "{n, plural, one {Changed # item} other {Changed # items}}",
+      "you": "{who} (you)"
     },
     "select": "Select #{n}",
     "keys": {

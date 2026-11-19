@@ -144,7 +144,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
             <Panel as="ul" className="divide-y">{rows.map((r) => <ItemRow key={r.id} slug={slug} row={r} voted={false} login={false} locale={locale}
               tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user.role === "admin" } : undefined} selectable={isTeam} />)}</Panel>
           )}
-          {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="bug" team={members} />}
+          {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="bug" team={members} me={user?.id} />}
           <LoadMore href={hasMore ? nextPageHref(keep, page) : null} shown={rows.length} total={shownTotal} />
         </div>
         <aside className="grid content-start gap-8 max-lg:hidden">
