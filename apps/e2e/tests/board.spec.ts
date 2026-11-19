@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { devices, expect, test } from "@playwright/test";
-import { act, addComment, boardUser, createItem, itemRow, moveTo, ownerBoard, ownIp, projectRow, setProject, userByEmail } from "../lib/board";
+import { act, addComment, addCommentOn, boardUser, createItem, itemRow, moveTo, ownerBoard, ownIp, projectRow, setProject, userByEmail } from "../lib/board";
 import { E2E, email, uniq } from "../lib/env";
 import { codeIn, lastMail, linkIn, mailCount } from "../lib/mail";
 
@@ -346,6 +346,40 @@ test.describe("public board", () => {
     await expect(ann.page.getByText("Rieši")).toHaveCount(0);
     await expect(ann.page.getByText(boris.name)).toHaveCount(0);
     await boris.ctx.close(); await ann.ctx.close();
+  });
+
+  test("team inbox “Nové”: what others did since I last looked, with a badge; mark as read; customers never see it", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    const title = uniq("Nápad do schránky");
+    const n = await createItem(ann.page, b.slug, "idea", title);
+
+    await page.goto(`/${b.slug}/ideas`);
+    const tab = page.getByRole("navigation", { name: "Board" }).getByRole("link", { name: /^Nové/ });
+    await expect(tab.getByLabel(/1 záznam s novinkami/)).toBeVisible();
+    await tab.click();
+    await expect(page).toHaveURL(new RegExp(`/${b.slug}/inbox$`));
+    const row = page.locator("li").filter({ hasText: title });
+    await expect(row.getByText("Nové", { exact: true })).toBeVisible();
+
+    await page.getByRole("button", { name: "Označiť ako prečítané" }).click();
+    await expect(page.getByText("Nič nové")).toBeVisible();
+    await expect(tab.getByLabel(/s novinkami/)).toHaveCount(0);
+
+    // Anna comments: back in the inbox with what happened; my own comment would not count.
+    await ann.page.goto(`/${b.slug}/i/${n}`);
+    await addComment(ann.page, "Ešte doplním: aj do XLSX.");
+    await page.goto(`/${b.slug}/inbox`);
+    await expect(page.locator("li").filter({ hasText: title }).getByText("1 komentár")).toBeVisible();
+    await addCommentOn(page, b.slug, n, "Ďakujeme, pozrieme sa.");
+    await page.goto(`/${b.slug}/inbox`);
+    await expect(page.locator("li").filter({ hasText: title }).getByText("1 komentár")).toBeVisible();
+
+    // Customers: no tab, and the page is closed.
+    await expect(ann.page.getByRole("navigation", { name: "Board" }).getByRole("link", { name: /^Nové/ })).toHaveCount(0);
+    await ann.page.goto(`/${b.slug}/inbox`);
+    await expect(ann.page.getByText("Nové vidí len tím")).toBeVisible();
+    await ann.ctx.close();
   });
 
   test("changelog: a published entry ships the idea, e-mails voters, appears on /changelog and in the RSS feed", async ({ page, browser }) => {

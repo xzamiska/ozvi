@@ -109,3 +109,9 @@ export async function userByEmail(slug: string, mail: string) {
   const rows = await withProject(db, p.id, (tx) => tx.select().from(schema.users));
   return rows.find((u) => u.email === mail);
 }
+
+/** Opens an item and adds a comment there. */
+export async function addCommentOn(page: Page, slug: string, n: number, text: string) {
+  await page.goto(`/${slug}/i/${n}`);
+  await addComment(page, text);
+}

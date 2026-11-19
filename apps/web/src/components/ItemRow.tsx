@@ -1,4 +1,4 @@
-import { Hourglass, MessageSquare, Timer, Users, UserRound } from "lucide-react";
+import { Hourglass, MessageSquare, Timer, Users, UserRound, Sparkle } from "lucide-react";
 import Link from "next/link";
 import { StatusTag } from "@/components/ozvi/route";
 import { TagChip } from "@/components/ozvi/tags";
@@ -38,6 +38,8 @@ export interface Row {
   tags?: Tag[];
   /** Team only: who handles it (lib/row-extras.ts). */
   assigneeName?: string;
+  /** Team inbox "New": what happened since the person last looked ("Nové · 2 komentáre"). */
+  news?: string;
   /** Team queue "Bez odpovede": since when somebody has been waiting for the team. */
   waitingSince?: Date | null;
 }
@@ -83,6 +85,7 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
         {row.body && <p className="mt-0.5 line-clamp-1 text-[14.5px] text-muted-foreground">{markdownExcerpt(row.body)}</p>}
         <div className="mt-1.5 flex min-w-0 items-center gap-x-3 overflow-hidden text-[13px] whitespace-nowrap text-muted-foreground">
           <StatusTag kind={row.kind} status={row.status} version={row.fixedInVersion} sub={row.subLabel} className="shrink md:hidden" />
+          {!!row.news && <span className="inline-flex shrink-0 items-center gap-1 font-semibold text-brand-text"><Sparkle className="size-3.5" aria-hidden />{row.news}</span>}
           {row.waitingSince && (
             <span className="inline-flex shrink-0 items-center gap-1 font-semibold text-st-ack" title={t("waitingSince", { date: row.waitingSince.toLocaleDateString(LOCALE_TAG[locale]) })}>
               <Timer className="size-3.5" aria-hidden />{t("waitingDays", { n: Math.max(0, Math.floor((Date.now() - row.waitingSince.getTime()) / 86_400_000)) })}

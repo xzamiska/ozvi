@@ -819,7 +819,10 @@
       "bugs": "Chyby",
       "unanswered": "Bez odpovědi",
       "unansweredHint": "Hlášení, která čekají na odpověď týmu",
-      "unansweredCount": "{n, plural, one {# hlášení čeká} few {# hlášení čekají} other {# hlášení čeká}}"
+      "unansweredCount": "{n, plural, one {# hlášení čeká} few {# hlášení čekají} other {# hlášení čeká}}",
+      "inbox": "Nové",
+      "inboxHint": "Co se stalo od vaší poslední návštěvy",
+      "inboxCount": "{n, plural, one {# záznam s novinkami} few {# záznamy s novinkami} other {# záznamů s novinkami}}"
     },
     "account": {
       "menu": "Účet",
@@ -1194,7 +1197,22 @@
       "ruleClears": "Interní poznámky se nepočítají. Vydaná, opravená a zamítnutá hlášení tu nejsou.",
       "change": "Změnit počet dní"
     },
-    "you": "Vy"
+    "you": "Vy",
+    "inbox": {
+      "title": "Nové",
+      "gateTitle": "Nové vidí jen tým",
+      "gateText": "Přehled novinek patří týmu.",
+      "ledeSince": "Co se stalo od {since}, kdy jste to naposledy označili jako přečtené. Vaše vlastní kroky se nepočítají.",
+      "ledeWeek": "Co se stalo za posledních 7 dní. Vaše vlastní kroky se nepočítají.",
+      "markRead": "Označit jako přečtené",
+      "emptyTitle": "Nic nového",
+      "emptyText": "Od vaší poslední návštěvy se nic nestalo.",
+      "created": "Nové",
+      "comments": "{n, plural, one {# komentář} few {# komentáře} other {# komentářů}}",
+      "statuses": "{n, plural, one {změna stavu} few {# změny stavu} other {# změn stavu}}",
+      "ruleTitle": "Co sem patří",
+      "rule": "Nová hlášení a nápady, komentáře a interní poznámky a změny stavu od ostatních. Každý z týmu má své „přečtené“."
+    }
   },
   "boardAuth": {
     "noProject": "Projekt neexistuje.",

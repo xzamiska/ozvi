@@ -819,7 +819,10 @@
       "bugs": "Fehler",
       "unanswered": "Unbeantwortet",
       "unansweredHint": "Meldungen, die auf eine Antwort des Teams warten",
-      "unansweredCount": "{n, plural, one {# Meldung wartet} other {# Meldungen warten}}"
+      "unansweredCount": "{n, plural, one {# Meldung wartet} other {# Meldungen warten}}",
+      "inbox": "Neu",
+      "inboxHint": "Was seit Ihrem letzten Besuch passiert ist",
+      "inboxCount": "{n, plural, one {# Eintrag mit Neuigkeiten} other {# Einträge mit Neuigkeiten}}"
     },
     "account": {
       "menu": "Konto",
@@ -1194,7 +1197,22 @@
       "ruleClears": "Interne Notizen zählen nicht. Umgesetzte, behobene und abgelehnte Meldungen erscheinen hier nie.",
       "change": "Anzahl der Tage ändern"
     },
-    "you": "Sie"
+    "you": "Sie",
+    "inbox": {
+      "title": "Neu",
+      "gateTitle": "Neu sieht nur das Team",
+      "gateText": "Die Übersicht der Neuigkeiten gehört dem Team.",
+      "ledeSince": "Was seit {since} passiert ist, als Sie zuletzt als gelesen markiert haben. Ihre eigenen Schritte zählen nicht.",
+      "ledeWeek": "Was in den letzten 7 Tagen passiert ist. Ihre eigenen Schritte zählen nicht.",
+      "markRead": "Als gelesen markieren",
+      "emptyTitle": "Nichts Neues",
+      "emptyText": "Seit Ihrem letzten Besuch ist nichts passiert.",
+      "created": "Neu",
+      "comments": "{n, plural, one {# Kommentar} other {# Kommentare}}",
+      "statuses": "{n, plural, one {Statusänderung} other {# Statusänderungen}}",
+      "ruleTitle": "Was hier erscheint",
+      "rule": "Neue Meldungen und Ideen, Kommentare und interne Notizen sowie Statusänderungen anderer. Jede Person im Team hat ihr eigenes „gelesen“."
+    }
   },
   "boardAuth": {
     "noProject": "Dieses Projekt existiert nicht.",

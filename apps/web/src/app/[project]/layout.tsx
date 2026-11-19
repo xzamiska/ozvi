@@ -1,4 +1,5 @@
 import { PLAN_LIMITS } from "@ozvi/db";
+import { inboxCount, inboxSince } from "@/lib/inbox";
 import { fontsHref, toCss } from "@ozvi/theme";
 import { LayoutGrid, Settings } from "lucide-react";
 import Link from "next/link";
@@ -15,7 +16,7 @@ import { withProject } from "@ozvi/db";
 import { db } from "@/lib/db";
 import { countItems } from "@/lib/queries";
 import { unansweredWhere } from "@/lib/unanswered";
-import { enabledSections } from "@/lib/sections";
+import { enabledSections, sectionOfKind, sectionOn } from "@/lib/sections";
 
 /** Every board page is titled "<page> – <project>" (WCAG 2.4.2); the board never shows Ozvi's name. */
 export async function generateMetadata({ params }: { params: Promise<{ project: string }> }) {
@@ -36,6 +37,9 @@ export default async function ProjectLayout({ children, params }: { children: Re
   // People who came from the Ozvi console get a way back to it (the board may live on another domain).
   // Team: the "Bez odpovede" tab with how many reports wait longer than the project's N days.
   const unanswered = isTeam ? await withProject(db, project.id, (tx) => countItems(tx, [unansweredWhere(project.unansweredDays)])).catch(() => 0) : null;
+  // Team: items with news since this person last marked the inbox read (lib/inbox.ts).
+  const inbox = isTeam && user ? await withProject(db, project.id, (tx) => inboxCount(tx, user.id, inboxSince(user.inboxSeenAt ?? null),
+    (["idea", "bug"] as const).filter((k) => sectionOn(project, sectionOfKind(k))))).catch(() => 0) : null;
   const consoleHref = user && user.role !== "member" && (await hasConsole(user.email, project.workspaceId)) ? `${publicUrl()}/app` : null;
 
   return (
@@ -51,7 +55,7 @@ export default async function ProjectLayout({ children, params }: { children: Re
               {/* A wordmark logo already says the name: keep it for screen readers only. */}
               <span className={theme.logoUrl && theme.logoWithName ? "sr-only" : "truncate font-heading text-[17px] font-bold tracking-tight"}>{project.name}</span>
             </Link>
-            <BoardNav slug={slug} unanswered={unanswered} sections={enabledSections(project)} className="col-span-2 row-start-2 h-11 md:col-span-1 md:col-start-2 md:row-start-1 md:h-16" />
+            <BoardNav slug={slug} unanswered={unanswered} inbox={inbox} sections={enabledSections(project)} className="col-span-2 row-start-2 h-11 md:col-span-1 md:col-start-2 md:row-start-1 md:h-16" />
             <div className="col-start-2 row-start-1 flex items-center justify-end gap-1.5 md:col-start-3">
               {user ? (
                 <>

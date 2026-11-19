@@ -819,7 +819,10 @@
       "bugs": "Błędy",
       "unanswered": "Bez odpowiedzi",
       "unansweredHint": "Zgłoszenia czekające na odpowiedź zespołu",
-      "unansweredCount": "{n, plural, one {# zgłoszenie czeka} few {# zgłoszenia czekają} many {# zgłoszeń czeka} other {# zgłoszenia czeka}}"
+      "unansweredCount": "{n, plural, one {# zgłoszenie czeka} few {# zgłoszenia czekają} many {# zgłoszeń czeka} other {# zgłoszenia czeka}}",
+      "inbox": "Nowe",
+      "inboxHint": "Co się wydarzyło od Twojej ostatniej wizyty",
+      "inboxCount": "{n, plural, one {# wpis z nowościami} few {# wpisy z nowościami} other {# wpisów z nowościami}}"
     },
     "account": {
       "menu": "Konto",
@@ -1194,7 +1197,22 @@
       "ruleClears": "Notatki wewnętrzne się nie liczą. Wdrożone, naprawione i odrzucone zgłoszenia nigdy się tu nie pojawiają.",
       "change": "Zmień liczbę dni"
     },
-    "you": "Ty"
+    "you": "Ty",
+    "inbox": {
+      "title": "Nowe",
+      "gateTitle": "Nowe widzi tylko zespół",
+      "gateText": "Przegląd nowości należy do zespołu.",
+      "ledeSince": "Co się wydarzyło od {since}, kiedy ostatnio oznaczyłeś to jako przeczytane. Twoje własne działania się nie liczą.",
+      "ledeWeek": "Co się wydarzyło w ciągu ostatnich 7 dni. Twoje własne działania się nie liczą.",
+      "markRead": "Oznacz jako przeczytane",
+      "emptyTitle": "Nic nowego",
+      "emptyText": "Od Twojej ostatniej wizyty nic się nie wydarzyło.",
+      "created": "Nowe",
+      "comments": "{n, plural, one {# komentarz} few {# komentarze} other {# komentarzy}}",
+      "statuses": "{n, plural, one {zmiana statusu} few {# zmiany statusu} other {# zmian statusu}}",
+      "ruleTitle": "Co tu trafia",
+      "rule": "Nowe zgłoszenia i pomysły, komentarze i notatki wewnętrzne oraz zmiany statusu od innych. Każdy w zespole ma swoje „przeczytane”."
+    }
   },
   "boardAuth": {
     "noProject": "Ten projekt nie istnieje.",

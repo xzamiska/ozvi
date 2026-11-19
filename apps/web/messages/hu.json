@@ -819,7 +819,10 @@
       "bugs": "Hibák",
       "unanswered": "Megválaszolatlan",
       "unansweredHint": "A csapat válaszára váró bejelentések",
-      "unansweredCount": "{n, plural, one {# bejelentés vár} other {# bejelentés vár}}"
+      "unansweredCount": "{n, plural, one {# bejelentés vár} other {# bejelentés vár}}",
+      "inbox": "Új",
+      "inboxHint": "Mi történt a legutóbbi látogatása óta",
+      "inboxCount": "{n, plural, other {# bejegyzés újdonsággal}}"
     },
     "account": {
       "menu": "Fiók",
@@ -1194,7 +1197,22 @@
       "ruleClears": "A belső megjegyzések nem számítanak. Az elkészült, javított és elutasított bejelentések soha nem jelennek meg itt.",
       "change": "Napok számának módosítása"
     },
-    "you": "Te"
+    "you": "Te",
+    "inbox": {
+      "title": "Új",
+      "gateTitle": "Az Új nézetet csak a csapat látja",
+      "gateText": "Az újdonságok áttekintése a csapaté.",
+      "ledeSince": "Mi történt {since} óta, amikor legutóbb olvasottnak jelölte. A saját lépései nem számítanak.",
+      "ledeWeek": "Mi történt az elmúlt 7 napban. A saját lépései nem számítanak.",
+      "markRead": "Olvasottnak jelölés",
+      "emptyTitle": "Nincs újdonság",
+      "emptyText": "A legutóbbi látogatása óta semmi sem történt.",
+      "created": "Új",
+      "comments": "{n, plural, other {# hozzászólás}}",
+      "statuses": "{n, plural, one {állapotváltozás} other {# állapotváltozás}}",
+      "ruleTitle": "Mi kerül ide",
+      "rule": "Új bejelentések és ötletek, hozzászólások és belső jegyzetek, valamint mások állapotváltoztatásai. Mindenkinek saját „olvasott” jelölése van."
+    }
   },
   "boardAuth": {
     "noProject": "Ez a projekt nem létezik.",

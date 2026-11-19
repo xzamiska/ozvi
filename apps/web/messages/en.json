@@ -819,7 +819,10 @@
       "bugs": "Bugs",
       "unanswered": "Unanswered",
       "unansweredHint": "Reports waiting for the team's reply",
-      "unansweredCount": "{n, plural, one {# report waiting} other {# reports waiting}}"
+      "unansweredCount": "{n, plural, one {# report waiting} other {# reports waiting}}",
+      "inbox": "New",
+      "inboxHint": "What happened since you last looked",
+      "inboxCount": "{n, plural, one {# item with news} other {# items with news}}"
     },
     "account": {
       "menu": "Account",
@@ -1194,7 +1197,22 @@
       "ruleClears": "Internal notes don't count. Shipped, fixed and declined reports never appear here.",
       "change": "Change the number of days"
     },
-    "you": "You"
+    "you": "You",
+    "inbox": {
+      "title": "New",
+      "gateTitle": "Only the team sees New",
+      "gateText": "The news overview belongs to the team.",
+      "ledeSince": "What happened since {since}, when you last marked it as read. Your own actions don't count.",
+      "ledeWeek": "What happened in the last 7 days. Your own actions don't count.",
+      "markRead": "Mark as read",
+      "emptyTitle": "Nothing new",
+      "emptyText": "Nothing happened since you last looked.",
+      "created": "New",
+      "comments": "{n, plural, one {# comment} other {# comments}}",
+      "statuses": "{n, plural, one {status change} other {# status changes}}",
+      "ruleTitle": "What shows up here",
+      "rule": "New reports and ideas, comments and internal notes, and status changes by others. Everyone on the team has their own \"read\"."
+    }
   },
   "boardAuth": {
     "noProject": "This project doesn’t exist.",

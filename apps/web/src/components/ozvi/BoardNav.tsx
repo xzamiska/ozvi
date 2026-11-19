@@ -7,12 +7,14 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 /** Board sections. Underline tabs; on phones the row scrolls sideways under the brand. */
-export function BoardNav({ slug, className, unanswered = null, sections }: {
+export function BoardNav({ slug, className, unanswered = null, inbox = null, sections }: {
   slug: string; className?: string;
   /** The enabled sections (lib/sections), in board order. */
   sections: readonly string[];
   /** Team only: reports waiting for a reply (null = not team, no tab). */
   unanswered?: number | null;
+  /** Team only: items with news since the person last marked the inbox read (null = not team). */
+  inbox?: number | null;
 }) {
   const path = usePathname();
   const kind = useSearchParams().get("kind");
@@ -24,6 +26,18 @@ export function BoardNav({ slug, className, unanswered = null, sections }: {
     ...(sections.includes("roadmap") ? [{ href: `/${slug}/roadmap`, label: t("roadmap"), match: [`/${slug}/roadmap`], newKind: false }] : []),
     ...(sections.includes("changelog") ? [{ href: `/${slug}/changelog`, label: t("changelog"), match: [`/${slug}/changelog`], newKind: false }] : []),
     ...(sections.includes("bugs") ? [{ href: `/${slug}/bugs`, label: t("bugs"), match: [`/${slug}/bugs`], newKind: false }] : []),
+    ...(inbox !== null ? [{
+      href: `/${slug}/inbox`, match: [`/${slug}/inbox`], newKind: false,
+      label: (
+        <span className="inline-flex items-center gap-1.5" title={t("inboxHint")}>
+          {t("inbox")}
+          {inbox > 0 && (
+            <span className="grid h-[18px] min-w-[18px] place-items-center rounded-full bg-brand px-1 font-heading text-[11px] font-bold text-primary-foreground tabular-nums" data-num
+              aria-label={t("inboxCount", { n: inbox })}>{inbox > 99 ? "99+" : inbox}</span>
+          )}
+        </span>
+      ),
+    }] : []),
     ...(unanswered !== null ? [{
       href: `/${slug}/unanswered`, match: [`/${slug}/unanswered`], newKind: false,
       label: (

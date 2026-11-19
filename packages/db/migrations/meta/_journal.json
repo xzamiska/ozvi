@@ -253,6 +253,13 @@
       "when": 1795079738709,
       "tag": "0035_item_assignee",
       "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1795084146964,
+      "tag": "0036_inbox_seen",
+      "breakpoints": true
     }
   ]
 }
