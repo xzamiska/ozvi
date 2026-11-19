@@ -457,6 +457,14 @@ test.describe("widget in the host app", () => {
     await team.goto(ssoUrl(board.slug, board.secret, person("triage", { role: "team" }), `/${board.slug}/i/${item.number}`));
     await expect(team.getByText(title).first()).toBeVisible();
 
+    // "Pozrieť hlásenie" opens the report on the board already signed in as this person (one-time link by user id).
+    const [tab] = await Promise.all([page.context().waitForEvent("page"), panel(page).getByRole("button", { name: "Pozrieť hlásenie" }).click()]);
+    await tab.waitForURL(new RegExp(`/${board.slug}/i/\\d+$`));
+    await expect(tab.getByRole("heading", { level: 1, name: second })).toBeVisible();
+    await tab.goto(`/${board.slug}/me`);
+    await expect(tab.getByText(addr).first()).toBeVisible();
+    await tab.close();
+
     // Ozvi.logout() forgets the verification.
     await ozvi(page, "logout");
     expect(await page.evaluate(() => Object.keys(localStorage).filter((k) => k.startsWith("ozvi:wt:")))).toEqual([]);

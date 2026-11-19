@@ -13,6 +13,7 @@ const { encodeSession, decodeSession } = await import("./session-core");
 const { userFromToken } = await import("./sso");
 const { emailUser } = await import("./email-user");
 
+const db = createDb();
 const reason = (f: () => unknown) => { try { f(); return null; } catch (e) { return e instanceof OzviTokenError ? e.reason : String(e); } };
 
 describe("widget token (ADR-0014): format", () => {
@@ -90,4 +91,45 @@ describe("widget token (ADR-0014): who it signs in", () => {
   });
 });
 
-const db = createDb();
+describe("widget token (ADR-0014): the \"My reports\" hand-off", () => {
+  const slug = `wopen-${Date.now().toString(36)}`;
+  const secret = "wopen-secret-0123456789abcdef-0123456789";
+  let project: typeof schema.projects.$inferSelect;
+  let owner: typeof schema.users.$inferSelect;
+
+  beforeAll(async () => {
+    const { encryptSecret } = await import("@ozvi/db");
+    await withSystem(db, async (tx) => {
+      const [w] = await tx.insert(schema.workspaces).values({ slug, name: slug }).returning();
+      project = (await tx.insert(schema.projects).values({ workspaceId: w!.id, slug, name: "Wopen", theme: presets.ozvi, emailLogin: true, ssoSecretEnc: encryptSecret(secret) }).returning())[0]!;
+      owner = (await tx.insert(schema.users).values({ projectId: project.id, externalId: "email:owner@wopen.test", email: "owner@wopen.test", emailVerified: true, role: "admin" }).returning())[0]!;
+    });
+  });
+
+  // Regression (security review 19 Nov 2026, F1): a host app with the SSO secret re-pointed its member's e-mail at
+  // the owner's address without proof, then the hand-off resolved that address and signed it in as the admin.
+  it("is bound to the token's user, even after the host app changes that user's e-mail to the owner's", async () => {
+    const { signOzviToken } = await import("@ozvi/sdk");
+    const { NextRequest } = await import("next/server");
+    const { POST } = await import("@/app/[project]/api/widget/login/route");
+    const { verifyLink } = await import("./email-login");
+    const now = Math.floor(Date.now() / 1000);
+    const mallory = await userFromToken(project, signOzviToken({ id: "app-x", email: "mallory@wopen.test", emailVerified: true, iat: now, exp: now + 600 } as never, secret));
+    expect((await emailUser(project.id, "mallory@wopen.test")).id).toBe(mallory.id);
+    const tok = signWidgetToken({ projectId: project.id, userId: mallory.id, sessionVersion: mallory.sessionVersion });
+    await userFromToken(project, signOzviToken({ id: "app-x", email: "owner@wopen.test", emailVerified: false, iat: now, exp: now + 600 } as never, secret));
+
+    const r = await POST(new NextRequest(`http://localhost/${slug}/api/widget/login`, {
+      method: "POST", headers: { authorization: `Bearer ${tok}`, "content-type": "application/json" }, body: JSON.stringify({ open: "/admin" }),
+    }), { params: Promise.resolve({ project: slug }) });
+    expect(r.status).toBe(200);
+    const url = new URL((await r.json()).url);
+    expect(url.pathname).toBe(`/${slug}/widget-open`);
+    const row = await verifyLink(db, url.searchParams.get("t")!, project.id, "widget");
+    expect(row.email).toBe(mallory.id);
+    expect(row.email).not.toBe(owner.id);
+    // The same link is no board e-mail sign-in link (that path resolves addresses).
+    await expect(verifyLink(db, url.searchParams.get("t")!, project.id, "login")).rejects.toThrow();
+  });
+});
+

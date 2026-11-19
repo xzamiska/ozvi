@@ -20,7 +20,7 @@ import { translator } from "@/i18n/messages";
  * POST JSON:
  *   { email }                → e-mails a 6-digit code (the board's sign-in code and limits)
  *   { email, code }          → { token }: a widget token for this project and person
- *   { open: "/bugs" } + Bearer <widget token> → { url }: a one-time board sign-in link ("My reports")
+ *   { open: "/bugs" } + Bearer <widget token> → { url }: a one-time board sign-in link for that very user ("My reports")
  * Only from the project's allowed origins (or the board itself) and only while e-mail sign-in is on.
  */
 const find = (slug: string) => db.query.projects.findFirst({ where: eq(schema.projects.slug, slug) });
@@ -58,10 +58,10 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ pro
     try { user = await userFromToken(project, token); } catch (e) {
       return fail(401, e instanceof OzviTokenError && e.reason === "expired" ? t("expired") : t("who"));
     }
-    if (!user.email) return fail(401, t("who"));
     if (!allow("widgetIp", `${project.id}:${ip}`)) return fail(429, new RateLimitError(locale).message);
-    const link = await issueBoardLink(db, project.id, user.email, safeReturn(slug, `/${slug}${body.open}`));
-    return json({ url: `${projectOrigin(project)}/${slug}/login/link?t=${link}` });
+    // Bound to this user's id, not to their (changeable) e-mail: see issueBoardLink.
+    const link = await issueBoardLink(db, project.id, user.id, safeReturn(slug, `/${slug}${body.open}`));
+    return json({ url: `${projectOrigin(project)}/${slug}/widget-open?t=${link}` });
   }
 
   const email = normalizeEmail(String(body.email ?? ""));

@@ -135,7 +135,7 @@ export async function verifyCode(db: Db, emailIn: string, code: string, projectI
 }
 
 /** Consumes a magic link token (only via POST after a confirm page, so mail scanners cannot burn it). */
-export async function verifyLink(db: Db, token: string, projectId: string | null, purpose: "login" | "handoff" = "login", locale?: Locale): Promise<Row> {
+export async function verifyLink(db: Db, token: string, projectId: string | null, purpose: "login" | "handoff" | "widget" = "login", locale?: Locale): Promise<Row> {
   const scope = and(projectId ? eq(loginCodes.projectId, projectId) : isNull(loginCodes.projectId), eq(loginCodes.purpose, purpose));
   const row = await db.transaction(async (tx) => {
     const [row] = await tx.select().from(loginCodes)
@@ -223,14 +223,15 @@ export async function issueHandoff(db: Db, projectId: string, email: string, ret
 }
 
 /**
- * Widget → board (ADR-0014): a one-time sign-in link for a person the widget already verified, so "My reports"
- * opens signed in. Never e-mailed; the board's link page asks for one click (the link token stays out of the
- * widget token's URL, which lives 30 days). 2 minutes, single use.
+ * Widget → board (ADR-0014): a one-time sign-in link for exactly the person the widget token stands for, so
+ * "My reports" opens signed in. Bound to the user id (stored in `email`, purpose "widget"), never to an e-mail
+ * address: an address can be changed by the host app without proof, and resolving it again once let a host app
+ * land on the board owner's account (security review 19 Nov 2026). Never e-mailed; 2 minutes, single use.
  */
-export async function issueBoardLink(db: Db, projectId: string, email: string, returnTo: string): Promise<string> {
+export async function issueBoardLink(db: Db, projectId: string, userId: string, returnTo: string): Promise<string> {
   const link = randomBytes(24).toString("base64url");
   await db.insert(loginCodes).values({
-    projectId, email: normalizeEmail(email), codeHash: h("code", randomBytes(16).toString("hex")), linkHash: h("link", link),
+    projectId, purpose: "widget", email: userId, codeHash: h("code", randomBytes(16).toString("hex")), linkHash: h("link", link),
     returnTo, expiresAt: new Date(Date.now() + 2 * 60_000), attempts: MAX_ATTEMPTS,
   });
   return link;
