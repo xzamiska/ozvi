@@ -208,3 +208,25 @@ describe("translateFor (cache, permissions, limits; Claude mocked)", () => {
     expect(await withProject(db, project.id, (tx) => tr.titlePivot(tx, idea, "Eksport faktur do XLSX"))).toBe("Export invoices to XLSX");
   });
 });
+
+describe("what is worth translating", () => {
+  it("Slovak and Czech readers read each other; other pairs are translated", async () => {
+    const { needsTranslation, foreignPosts } = await import("./translate");
+    expect(needsTranslation("sk", "cs")).toBe(false);
+    expect(needsTranslation("cs", "sk")).toBe(false);
+    expect(needsTranslation("sk", "pl")).toBe(true);
+    expect(needsTranslation("de", "cs")).toBe(true);
+    expect(needsTranslation(null, "en")).toBe(false);
+    const posts = [{ id: "1", body: "Faktúra sa neuloží, keď má viac ako dvadsať položiek a kliknem na tlačidlo." }];
+    expect(foreignPosts(posts, "cs")).toEqual([]);
+    expect(foreignPosts(posts, "en")).toHaveLength(1);
+  });
+
+  it("a text the model gave back unchanged is not a translation", async () => {
+    const { untranslated } = await import("./translate");
+    const sk = "Náš účtovník chce každý mesiac tabuľku s DPH podľa sadzieb.";
+    expect(untranslated(sk, sk, "hu")).toBe(true);
+    expect(untranslated(sk, "A könyvelőnk minden hónapban táblázatot szeretne az ÁFA kulcsai szerint.", "hu")).toBe(false);
+    expect(untranslated("+1", "+1", "de")).toBe(false);
+  });
+});

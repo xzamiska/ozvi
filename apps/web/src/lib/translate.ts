@@ -156,12 +156,33 @@ export async function cachedTranslations(tx: Tx, sources: Source[], target: stri
   return out;
 }
 
+/**
+ * Languages readers understand without translation: Slovak and Czech read each other (and the models tested
+ * on 19 Nov 2026 often returned the text unchanged between them, labelled as a translation).
+ */
+const MUTUAL = new Set(["sk", "cs"]);
+
+/** Whether text in `lang` is worth translating for a reader of `target`. */
+export function needsTranslation(lang: string | null, target: string): boolean {
+  return lang !== null && lang !== target && !(MUTUAL.has(lang) && MUTUAL.has(target));
+}
+
 /** Which posts are in another language than `target` (and so worth a "Translate" button). */
 export function foreignPosts<T extends { title?: string | null; body: string }>(posts: T[], target: string): T[] {
-  return posts.filter((x) => {
-    const lang = detectLanguage(`${x.title ?? ""}\n${x.body}`);
-    return lang !== null && lang !== target;
-  });
+  return posts.filter((x) => needsTranslation(detectLanguage(`${x.title ?? ""}\n${x.body}`), target));
+}
+
+const words = (t: string) => (t.toLowerCase().match(/\p{L}+/gu) ?? []);
+/**
+ * The model gave the text back as it was: not a translation, so it is neither cached nor shown as one.
+ * Seen with every model tested, most often between close languages. Short or neutral texts ("+1") never count.
+ */
+export function untranslated(source: string, output: string, target: string): boolean {
+  const a = words(source);
+  if (a.length < 4 || detectLanguage(output) === target) return false;
+  // Word for word the same text: what the models returned when they did not translate (a partial
+  // translation still changes words and is kept).
+  return a.join(" ") === words(output).join(" ");
 }
 
 /* ── Translate on request ──────────────────────────────────────────────────────────────────────── */
@@ -215,6 +236,7 @@ export async function translateFor(db: Db, opts: {
     await Promise.all(todo.slice(i, i + 4).map(async (s) => {
       try {
         const out = await deps.translate({ title: s.title, body: s.body }, target);
+        if (untranslated(`${s.title ?? ""}\n${s.body}`, `${out.title ?? ""}\n${out.body}`, target)) { result.errors.push({ id: s.id, code: "failed" }); return; }
         fresh.push({ subject: s.subject, id: s.id, title: s.title === null ? null : out.title, body: out.body, model: deps.model(),
           sourceLocale: detectLanguage(`${s.title ?? ""}\n${s.body}`), hash: sourceHash(s.title, s.body) });
       } catch (e) {
@@ -310,7 +332,8 @@ export async function translateTitlesFor(db: Db, opts: {
     return result;
   }
   const model = deps.model();
-  const fresh = todo.map((s, i) => ({ s, title: out[i] ?? "" })).filter((x) => x.title.trim());
+  // A title given back as it was stays untranslated (no cache, no label); its list shows the original.
+  const fresh = todo.map((s, i) => ({ s, title: out[i] ?? "" })).filter((x) => x.title.trim() && x.title.trim() !== x.s.title!.trim());
   if (fresh.length) {
     await withProject(db, project.id, (tx) => tx.insert(ct).values(fresh.map(({ s, title }) => ({
       projectId: project.id, subject: "item", subjectId: s.id, sourceHash: titleHash(s.title!), targetLocale: titleTarget(target),

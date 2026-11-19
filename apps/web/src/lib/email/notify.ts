@@ -6,7 +6,7 @@ import { recipientLocale } from "@/i18n/board";
 import type { Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
 import { detectLanguage } from "../lang-detect";
-import { translationModeOf } from "../translate";
+import { needsTranslation, translationModeOf } from "../translate";
 import type { Project } from "../project";
 import { stopLabel, type LabelSource } from "../route-text";
 import type { ProofSnapshot } from "../proof";
@@ -52,7 +52,7 @@ async function enqueue(tx: Tx, project: Project, kind: string, recipientIds: str
     const unsub = unsubscribeUrl(projectOrigin(project), project.slug, r.id);
     const locale = recipientLocale(project, r.locale);
     const mail = build(translator(locale, "email"), locale);
-    const translate = post && lang && lang !== locale && mail.quote ? { subject: post.subject, id: post.id, target: locale, mail: mail as unknown as Record<string, unknown> } : null;
+    const translate = post && needsTranslation(lang, locale) && mail.quote ? { subject: post.subject, id: post.id, target: locale, mail: mail as unknown as Record<string, unknown> } : null;
     return { projectId: project.id, userId: r.id, to: r.email!, kind, ...renderMail(mail, theme, project.name, unsub, locale), translate };
   }));
   return rows.length;
