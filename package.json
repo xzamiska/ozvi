@@ -6,7 +6,7 @@
   "license": "FSL-1.1-ALv2",
   "packageManager": "pnpm@9.15.9",
   "engines": {
-    "node": ">=22.23.4 <23"
+    "node": ">=22.23.5 <23"
   },
   "scripts": {
     "dev": "pnpm dev:infra && pnpm db:migrate && pnpm db:seed && pnpm --filter @ozvi/web dev",

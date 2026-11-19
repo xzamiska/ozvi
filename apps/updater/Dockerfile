@@ -1,6 +1,6 @@
 # ozvi-updater (optional self-host sidecar). Build from the repo root:
 #   docker build -f apps/updater/Dockerfile -t ozvi-updater .
-FROM node:22.23.4-alpine AS build
+FROM node:22.23.5-alpine AS build
 RUN corepack enable && corepack prepare pnpm@9.15.9 --activate
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
@@ -9,7 +9,7 @@ RUN pnpm install --frozen-lockfile --filter @ozvi/updater...
 COPY apps/updater apps/updater
 RUN pnpm --filter @ozvi/updater build
 
-FROM node:22.23.4-alpine
+FROM node:22.23.5-alpine
 # docker CLI + compose plugin drive the operator's compose project; the Postgres 17 client takes the backup.
 RUN apk add --no-cache docker-cli docker-cli-compose postgresql17-client tzdata
 ARG OZVI_VERSION=dev
