@@ -82,7 +82,7 @@ export async function widgetIdeas(tx: Tx, opts: { q?: string | null; limit: numb
   const words = searchWords(opts.q);
   if (opts.q && words.length === 0) return [];
   const esc = (w: string) => `%${w.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
-  return tx.select({ id: items.id, number: items.number, title: items.title, votes: items.voteCount, status: items.status, pending: items.pending })
+  return tx.select({ id: items.id, number: items.number, title: items.title, body: items.body, votes: items.voteCount, status: items.status, pending: items.pending })
     .from(items)
     .where(and(eq(items.kind, "idea"), isNull(items.mergedIntoId), moderationWhere({ viewerId: opts.viewerId }),
       words.length ? or(...words.map((w) => ilike(items.title, esc(w)))) : inArray(items.status, [...ACTIVE])))

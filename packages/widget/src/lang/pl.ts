@@ -24,6 +24,7 @@ registerPack({
     origin: "Ta strona nie może wysyłać zgłoszeń. Poinformuj administratora aplikacji, aby dodał ją do dozwolonych adresów.",
   },
   ideas: {
+    trOn: "Tytuły przetłumaczone przez AI", trOff: "Tytuły w oryginale", trOrig: "pokaż oryginały", trShow: "pokaż tłumaczenia",
     search: "Szukaj pomysłów", searchPh: "Np. eksport do CSV", none: "Nic nie znaleźliśmy. Zaproponuj to jako nowy pomysł.", empty: "Nie ma jeszcze pomysłów.",
     suggest: "Zaproponuj nowy pomysł", all: "Wszystkie pomysły na tablicy", vote: "Zagłosuj", voted: "Zagłosowano",
     votes: (n: number) => `${n} ${pl(n, "głos", "głosy", "głosów")}`,

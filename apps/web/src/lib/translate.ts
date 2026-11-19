@@ -1,7 +1,7 @@
 import { PLAN_LIMITS, schema, withProject, withSystem, type Db, type PlanName, type Tx } from "@ozvi/db";
 import { and, eq, gte, inArray, sql } from "drizzle-orm";
 import { createHash } from "node:crypto";
-import { AI_MODEL_FAST, AiError, aiConfigured, pivotTitles, translatePost, type AiErrorCode, type TranslatedText } from "./ai";
+import { AI_MODEL_FAST, AiError, aiConfigured, pivotTitles, translatePost, translateTitles, type AiErrorCode, type TranslatedText } from "./ai";
 import { detectLanguage, type Lang } from "./lang-detect";
 import { take } from "./ratelimit";
 import { sectionOfKind, sectionOn } from "./sections";
@@ -38,6 +38,11 @@ export function translationsInPlan(plan: PlanName): boolean {
 /** Translation is offered when the board turned it on and the plan includes it. */
 export function translationEnabled(p: { translationMode?: string | null }, plan: PlanName): boolean {
   return translationModeOf(p) !== "off" && translationsInPlan(plan);
+}
+
+/** A new board starts with translation on request when its plan includes translations (and AI is set up), else off. */
+export function newBoardTranslationMode(plan: PlanName): TranslationMode {
+  return translationsInPlan(plan) ? "on_demand" : "off";
 }
 
 /** Longest source text we translate (title + body); longer posts keep only the original. */
@@ -224,6 +229,94 @@ export async function translateFor(db: Db, opts: {
       sourceLocale: f.sourceLocale, title: f.title, body: f.body, model: f.model,
     }))).onConflictDoNothing());
     result.translations.push(...fresh.map(({ hash: _h, ...t }) => t));
+  }
+  return result;
+}
+
+/* ── Titles in lists (automatic mode) ──────────────────────────────────────────────────────────── */
+
+/**
+ * List titles are cached apart from whole posts: target_locale `title:<locale>`, source_hash = sha256 of the
+ * title alone (an edit of the body keeps the title's translation). Never collides with a post translation
+ * (`<locale>`) or the English pivots (`en:title`, not counted, never shown). A cached whole-post translation
+ * of the current version is reused for its title, so a post already read in detail costs nothing in a list.
+ * Each title counts as one translation of the monthly allowance; one list (one model call) takes one slot of
+ * the viewer's hourly limit.
+ */
+export const titleTarget = (locale: string) => `title:${locale}`;
+/** Most titles one request may ask for (two pages of a list). */
+export const MAX_TITLES = 50;
+
+/** Cached translations of these posts' current titles into `target`, keyed by post id. Never calls the model. */
+export async function cachedTitles(tx: Tx, sources: Source[], target: string): Promise<Map<string, Translation>> {
+  const out = new Map<string, Translation>();
+  const titled = sources.filter((s) => s.title);
+  if (titled.length === 0) return out;
+  const byId = new Map(titled.map((s) => [s.id, s]));
+  const rows = await tx.select().from(ct)
+    .where(and(inArray(ct.subjectId, titled.map((s) => s.id)), inArray(ct.targetLocale, [target, titleTarget(target)])));
+  for (const r of rows) {
+    const s = byId.get(r.subjectId);
+    if (!s || !r.title) continue;
+    const own = r.targetLocale === titleTarget(target) && r.sourceHash === titleHash(s.title!);
+    const whole = r.targetLocale === target && r.sourceHash === sourceHash(s.title, s.body);
+    if (own || (whole && !out.has(s.id))) {
+      out.set(s.id, { subject: s.subject, id: s.id, title: r.title, body: "", model: r.model, sourceLocale: r.sourceLocale });
+    }
+  }
+  return out;
+}
+
+export interface TitleDeps { translate: (titles: string[], target: string) => Promise<string[]>; model: () => string; now: () => number }
+const defaultTitleDeps: TitleDeps = { translate: translateTitles, model: AI_MODEL_FAST, now: Date.now };
+
+/**
+ * Titles of `wanted` (items) into `target` for this viewer, on boards in automatic mode only: the same
+ * permission rules as whole posts (a private bug's title never reaches the model for anyone but its
+ * reporter and the team), the same monthly allowance, one model call for all misses.
+ */
+export async function translateTitlesFor(db: Db, opts: {
+  project: BoardFlags & { id: string; workspaceId: string; translationMode?: string | null }; plan: PlanName; viewer: Viewer; target: string; rateKey: string;
+  ids: string[]; deps?: Partial<TitleDeps>;
+}): Promise<TranslateResult> {
+  const deps = { ...defaultTitleDeps, ...opts.deps };
+  const { project, viewer, target } = opts;
+  if (!translationEnabled(project, opts.plan) || translationModeOf(project) !== "auto") throw new AiError("off");
+  const wanted = [...new Set(opts.ids)].slice(0, MAX_TITLES).map((id) => ({ subject: "item" as const, id }));
+  const { sources, cached } = await withProject(db, project.id, async (tx) => {
+    const sources = (await readableSources(tx, project, viewer, wanted)).filter((s) => s.title);
+    return { sources, cached: await cachedTitles(tx, sources, target) };
+  });
+  const result: TranslateResult = { translations: [...cached.values()], errors: [] };
+  const misses = sources.filter((s) => !cached.has(s.id));
+  if (misses.length === 0) return result;
+
+  const cap = monthlyCap(opts.plan);
+  const budget = Number.isFinite(cap) ? Math.max(0, cap - await translationsUsed(db, project.workspaceId, deps.now())) : Infinity;
+  const todo = misses.slice(0, budget === Infinity ? misses.length : budget);
+  for (const s of misses.slice(todo.length)) result.errors.push({ id: s.id, code: "cap" });
+  if (todo.length === 0) return result;
+  if (!take("translate", `${project.id}:${opts.rateKey}`, deps.now()).ok) {
+    for (const s of todo) result.errors.push({ id: s.id, code: "rate" });
+    return result;
+  }
+  let out: string[];
+  try {
+    out = await deps.translate(todo.map((s) => s.title!), target);
+  } catch (e) {
+    const code: TranslateError = e instanceof AiError ? e.code : "failed";
+    if (!(e instanceof AiError)) console.error("[ozvi] translate titles", e);
+    for (const s of todo) result.errors.push({ id: s.id, code });
+    return result;
+  }
+  const model = deps.model();
+  const fresh = todo.map((s, i) => ({ s, title: out[i] ?? "" })).filter((x) => x.title.trim());
+  if (fresh.length) {
+    await withProject(db, project.id, (tx) => tx.insert(ct).values(fresh.map(({ s, title }) => ({
+      projectId: project.id, subject: "item", subjectId: s.id, sourceHash: titleHash(s.title!), targetLocale: titleTarget(target),
+      sourceLocale: detectLanguage(`${s.title}\n${s.body}`), title, body: "", model,
+    }))).onConflictDoNothing());
+    result.translations.push(...fresh.map(({ s, title }) => ({ subject: "item" as const, id: s.id, title, body: "", model, sourceLocale: null })));
   }
   return result;
 }

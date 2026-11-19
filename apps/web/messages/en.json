@@ -294,7 +294,7 @@
       "saved": "Languages saved.",
       "invalid": "Pick a language from the list.",
       "translation": "Post translation",
-      "translationHint": "AI translates ideas, comments and updates written in another language into the reader’s language. Translations are always labelled and the original is one click away. Private bug reports and team notes are only translated for people allowed to see them.",
+      "translationHint": "AI translates ideas, comments and updates written in another language into the reader’s language, in e-mail notifications too (with the original below the translation). Translations are always labelled and the original is one click away. Private bug reports and team notes are only translated for people allowed to see them.",
       "translationNoAi": "Translations aren't in your plan. Pro has 500 and Studio 2,000 new translations a month; self-hosted instances need an AI provider set up.",
       "mode": {
         "off": "Off",
@@ -302,7 +302,7 @@
         "on_demand": "On request",
         "on_demandHint": "Posts in another language get a “Translate” button.",
         "auto": "Automatic",
-        "autoHint": "Posts in another language are shown translated straight away, with a link to the original. Uses more translations than “On request”."
+        "autoHint": "Posts in another language are shown translated straight away, with a link to the original, and so are titles in the idea and bug lists and in the widget. Uses more translations than “On request”."
       },
       "allowance": "This month: {used} of {limit} new translations for the whole workspace. A translation made once isn't counted again."
     },
@@ -1869,7 +1869,9 @@
     "assignedBody": "{who} assigned {ref} to you.",
     "assignedManySubject": "Assigned to you: {n, plural, one {# item} other {# items}}",
     "assignedManyBody": "{who} assigned these items to you:",
-    "openMine": "Open mine"
+    "openMine": "Open mine",
+    "translatedLabel": "Translated with AI (model {model}); it may contain inaccuracies.",
+    "originalHeading": "Original text"
   },
   "errors": {
     "signIn": "Please sign in to do this.",
@@ -3763,7 +3765,12 @@
       "rate": "Too many translations this hour. Try again later.",
       "cap": "This month's AI translations are used up. The original stays; new translations come back on the 1st of next month.",
       "tooLong": "This post is too long to translate."
-    }
+    },
+    "titlesWorking": "Translating titles…",
+    "titlesLabel": "Titles translated with AI",
+    "titlesOriginal": "Titles in the original",
+    "showOriginals": "show originals",
+    "showTranslations": "show translations"
   },
   "subprocessors": {
     "meta": "Sub-processors – Ozvi",

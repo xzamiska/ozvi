@@ -28,6 +28,8 @@ import { Gate, signInText } from "../_gate";
 import { hasTag, listTags } from "@/lib/tags";
 import { tagFromParam } from "@/lib/tag-rules";
 import { decorateRows } from "@/lib/row-extras";
+import { listTranslationView } from "@/lib/translate-view";
+import { TitlesBar, TranslationScope } from "@/components/ozvi/Translate";
 import { boardTitle } from "@/lib/board-meta";
 import { needSection } from "@/lib/sections-server";
 
@@ -45,7 +47,7 @@ export default async function Ideas({ params, searchParams }: {
 }) {
   const { project: slug } = await params;
   const sp = await searchParams;
-  const { project, user, isTeam, locale } = await getCtx(slug);
+  const { project, user, isTeam, locale, plan: boardPlan } = await getCtx(slug);
   needSection(project, "ideas");
   const t = await getTranslations("board.ideas");
   const tb = await getTranslations("board");
@@ -66,7 +68,7 @@ export default async function Ideas({ params, searchParams }: {
   }
 
   const { items } = schema;
-  const { queued, rows, hasMore, total, voted, weights, left, plans, shipped, allTags, tag, members, who } = await withProject(db, project.id, async (tx) => {
+  const { queued, rows, hasMore, total, voted, weights, left, plans, shipped, allTags, tag, members, who, translation } = await withProject(db, project.id, async (tx) => {
     // Tags: everybody filters by public ones; team-only tags exist (and filter) only for the team.
     const allTags = await listTags(tx, isTeam);
     const tag = tagFromParam(allTags, sp.tag, isTeam);
@@ -79,6 +81,8 @@ export default async function Ideas({ params, searchParams }: {
     const queued = isTeam ? await countItems(tx, [eq(items.kind, "idea")], { queue: true }) : 0;
     const weights = await myVoteWeights(tx, user?.id, rows.map((r) => r.id));
     await decorateRows(tx, project, locale, rows, isTeam);
+    // Automatic translation: titles of ideas in another language (only rows this viewer may read).
+    const translation = await listTranslationView(tx, { project, plan: boardPlan, locale }, rows);
     const plans = isTeam ? await customerPlans(tx) : [];
     if (isTeam) {
       // Exact per-currency MRR for the rows on screen (the SQL sort sums cents without converting currencies).
@@ -87,7 +91,7 @@ export default async function Ideas({ params, searchParams }: {
     }
     const shipped = await tx.select({ number: items.number, title: items.title, updatedAt: items.updatedAt }).from(items)
       .where(and(eq(items.kind, "idea"), eq(items.status, "shipped"), isNull(items.mergedIntoId), isNull(items.deletedAt), eq(items.pending, false))).orderBy(desc(items.updatedAt)).limit(4);
-    return { queued, rows, hasMore, total, voted: new Set(weights.keys()), weights, left: await budgetLeft(tx, project, user?.id), plans, shipped, allTags, tag, members, who };
+    return { queued, rows, hasMore, total, voted: new Set(weights.keys()), weights, left: await budgetLeft(tx, project, user?.id), plans, shipped, allTags, tag, members, who, translation };
   });
   const m = await getTranslations("moderation");
   const tg = await getTranslations("tags");
@@ -160,10 +164,13 @@ export default async function Ideas({ params, searchParams }: {
                   action={<Button asChild variant="outline"><Link href={href({ f: "all" })}>{t("showAll")}</Link></Button>} />
               : <EmptyState title={t("emptyTitle")} text={user ? t("emptyUser") : t("emptyGuest")} />
           ) : (
-            <Panel as="ul" className="divide-y">
-              {rows.map((r) => <ItemRow key={r.id} slug={slug} row={r} voted={voted.has(r.id)} weight={weights.get(r.id)} vote={vote} login={login} locale={locale}
-                tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user?.role === "admin" } : undefined} selectable={isTeam} />)}
-            </Panel>
+            <TranslationScope slug={slug} view={translation}>
+              <TitlesBar className="mb-2" />
+              <Panel as="ul" className="divide-y">
+                {rows.map((r) => <ItemRow key={r.id} slug={slug} row={r} voted={voted.has(r.id)} weight={weights.get(r.id)} vote={vote} login={login} locale={locale}
+                  tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user?.role === "admin" } : undefined} selectable={isTeam} />)}
+              </Panel>
+            </TranslationScope>
           )}
           {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="idea" team={members} />}
           <LoadMore href={hasMore ? nextPageHref(keep, page) : null} shown={rows.length} total={total} />

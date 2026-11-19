@@ -5,6 +5,8 @@ import { and, eq, inArray, isNotNull, isNull, or } from "drizzle-orm";
 import { recipientLocale } from "@/i18n/board";
 import type { Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
+import { detectLanguage } from "../lang-detect";
+import { translationModeOf } from "../translate";
 import type { Project } from "../project";
 import { stopLabel, type LabelSource } from "../route-text";
 import type { ProofSnapshot } from "../proof";
@@ -31,17 +33,27 @@ export type EmailT = ReturnType<typeof translator<"email">>;
 /** Builds one mail in the recipient's language (`t` = that language's translator). */
 type Build = (t: EmailT, locale: Locale) => Mail;
 
-async function enqueue(tx: Tx, project: Project, kind: string, recipientIds: string[], build: Build) {
+/**
+ * The post a mail quotes (a comment), for AI translation into each recipient's language: when the board has
+ * translation on and the post is in another language than the mail, the row carries `translate` and the
+ * worker translates it before sending (lib/email/translate-mail.ts). Nothing here calls a model.
+ */
+export interface QuotedPost { subject: "comment"; id: string; text: string }
+
+async function enqueue(tx: Tx, project: Project, kind: string, recipientIds: string[], build: Build, post?: QuotedPost) {
   const ids = [...new Set(recipientIds)];
   if (ids.length === 0) return 0;
   const rows = await tx.select({ id: users.id, email: users.email, locale: users.locale }).from(users)
     .where(and(inArray(users.id, ids), isNotNull(users.email), eq(users.emailOptOut, false)));
   const theme = themeOf(project);
   if (rows.length === 0) return 0;
+  const lang = post && translationModeOf(project) !== "off" ? detectLanguage(post.text) : null;
   await tx.insert(emails).values(rows.map((r) => {
     const unsub = unsubscribeUrl(projectOrigin(project), project.slug, r.id);
     const locale = recipientLocale(project, r.locale);
-    return { projectId: project.id, userId: r.id, to: r.email!, kind, ...renderMail(build(translator(locale, "email"), locale), theme, project.name, unsub, locale) };
+    const mail = build(translator(locale, "email"), locale);
+    const translate = post && lang && lang !== locale && mail.quote ? { subject: post.subject, id: post.id, target: locale, mail: mail as unknown as Record<string, unknown> } : null;
+    return { projectId: project.id, userId: r.id, to: r.email!, kind, ...renderMail(mail, theme, project.name, unsub, locale), translate };
   }));
   return rows.length;
 }
@@ -128,17 +140,18 @@ export const statusMails = {
   },
 };
 
-/** `note`: the team's own words with the move (also posted as a comment), quoted in the mail. */
-export async function notifyStatusChange(tx: Tx, project: Project, item: Item, actorId: string, proof: ProofSnapshot | null = null, note: string | null = null) {
+/** `note`: the team's own words with the move (also posted as a comment, `noteId`), quoted in the mail. */
+export async function notifyStatusChange(tx: Tx, project: Project, item: Item, actorId: string, proof: ProofSnapshot | null = null, note: string | null = null, noteId: string | null = null) {
   if (item.deletedAt) return;
   const recipients = (await followers(tx, item)).filter((id) => id !== actorId);
   const url = itemUrl(project, item);
   const said = note ? { quote: note.slice(0, 1000), quoteBase: quoteBase(project) } : {};
+  const post: QuotedPost | undefined = note && noteId ? { subject: "comment", id: noteId, text: note } : undefined;
   if (item.kind === "bug") {
     // The reporter gets the "does it work for you?" mail; other followers (team) a plain update.
     const reporter = item.authorId && item.authorId !== actorId ? [item.authorId] : [];
-    await enqueue(tx, project, "bug_status", reporter, (t, l) => ({ ...statusMails.bugReporter(t, l, item, url, project, proof), ...said }));
-    await enqueue(tx, project, "bug_status", recipients.filter((id) => id !== item.authorId), (t, l) => ({ ...statusMails.bugFollower(t, l, item, url, project), ...said }));
+    await enqueue(tx, project, "bug_status", reporter, (t, l) => ({ ...statusMails.bugReporter(t, l, item, url, project, proof), ...said }), post);
+    await enqueue(tx, project, "bug_status", recipients.filter((id) => id !== item.authorId), (t, l) => ({ ...statusMails.bugFollower(t, l, item, url, project), ...said }), post);
     // Reporters of duplicates merged into this bug hear about the fix too (the merge dialog promises it), each
     // about their own report: bugs are private, so the original's title and link never reach them.
     if (item.status === "fixed") {
@@ -147,7 +160,7 @@ export async function notifyStatusChange(tx: Tx, project: Project, item: Item, a
     }
     return;
   }
-  await enqueue(tx, project, "idea_status", recipients, (t, l) => ({ ...statusMails.idea(t, l, item, url, project, proof), ...said }));
+  await enqueue(tx, project, "idea_status", recipients, (t, l) => ({ ...statusMails.idea(t, l, item, url, project, proof), ...said }), post);
 }
 
 const quoteBase = (p: Project) => ({ origin: projectOrigin(p), slug: p.slug });
@@ -198,7 +211,7 @@ export async function notifyComment(
       quoteBase: quoteBase(project),
       cta: { label: queued ? t("reviewComment") : t("reply"), href },
     };
-  });
+  }, c.commentId && !queued ? { subject: "comment", id: c.commentId, text: c.body } : undefined);
 }
 
 /**

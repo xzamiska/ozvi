@@ -4,6 +4,7 @@ import { assignItem } from "./assign";
 import { notifyAssigned } from "./email/notify";
 import { ITEM_STATUSES, schema, withProject } from "@ozvi/db";
 import { and, eq } from "drizzle-orm";
+import { randomUUID } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "./db";
@@ -106,9 +107,11 @@ export async function setStatus(slug: string, itemId: string, form: FormData) {
     // The team may add its own words (a public comment, quoted in the status e-mail) or move without e-mailing anyone.
     const note = str(form, "note").trim().slice(0, 5000) || null;
     const notify = str(form, "notify") !== "0";
-    const moved = await changeStatus(tx, project, user, item, str(form, "status"), str(form, "fixedInVersion") || null, { subStatusId: sub, note: notify ? note : null, notify });
+    // The comment's id is known up front so the status e-mail can have that comment translated (lib/email/translate-mail.ts).
+    const noteId = note ? randomUUID() : null;
+    const moved = await changeStatus(tx, project, user, item, str(form, "status"), str(form, "fixedInVersion") || null, { subStatusId: sub, note: notify ? note : null, noteId, notify });
     // The words go on the item as a comment. Its own e-mail is skipped: the status e-mail already carries them.
-    if (note && moved) await tx.insert(schema.comments).values({ projectId: project.id, itemId: item.id, authorId: user.id, body: note, internal: false, source: "board" });
+    if (note && moved) await tx.insert(schema.comments).values({ id: noteId!, projectId: project.id, itemId: item.id, authorId: user.id, body: note, internal: false, source: "board" });
   });
   revalidatePath(`/${slug}`, "layout");
 }

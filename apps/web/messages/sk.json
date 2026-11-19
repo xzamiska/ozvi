@@ -294,7 +294,7 @@
       "saved": "Jazyky sú uložené.",
       "invalid": "Vyberte jazyk zo zoznamu.",
       "translation": "Preklad príspevkov",
-      "translationHint": "Nápady, komentáre a novinky napísané v inom jazyku preloží AI do jazyka čitateľa. Preklad je vždy označený a originál je na jedno kliknutie. Súkromné hlásenia a poznámky tímu sa prekladajú len tým, kto ich smie vidieť.",
+      "translationHint": "Nápady, komentáre a novinky napísané v inom jazyku preloží AI do jazyka čitateľa, aj v e-mailových upozorneniach (s originálom pod prekladom). Preklad je vždy označený a originál je na jedno kliknutie. Súkromné hlásenia a poznámky tímu sa prekladajú len tým, kto ich smie vidieť.",
       "translationNoAi": "Preklady nie sú vo vašom pláne. Pro má 500 a Studio 2 000 nových prekladov mesačne; pri vlastnom hostingu treba nastaviť AI poskytovateľa.",
       "mode": {
         "off": "Vypnutý",
@@ -302,7 +302,7 @@
         "on_demand": "Na požiadanie",
         "on_demandHint": "Pri príspevku v inom jazyku sa zobrazí tlačidlo „Preložiť“.",
         "auto": "Automaticky",
-        "autoHint": "Príspevky v inom jazyku sa rovno zobrazia preložené, s odkazom na originál. Míňa viac prekladov ako „Na požiadanie“."
+        "autoHint": "Príspevky v inom jazyku sa rovno zobrazia preložené, s odkazom na originál, aj názvy v zoznamoch nápadov a chýb a vo widgete. Míňa viac prekladov ako „Na požiadanie“."
       },
       "allowance": "Tento mesiac: {used} z {limit} nových prekladov za celý pracovný priestor. Preklad, ktorý už raz vznikol, sa nepočíta znova."
     },
@@ -1869,7 +1869,9 @@
     "assignedBody": "{who} vám pridelil(a) {ref}.",
     "assignedManySubject": "Pridelené vám: {n, plural, one {# záznam} few {# záznamy} other {# záznamov}}",
     "assignedManyBody": "{who} vám pridelil(a) tieto záznamy:",
-    "openMine": "Otvoriť moje"
+    "openMine": "Otvoriť moje",
+    "translatedLabel": "Preložené s pomocou AI (model {model}), môže obsahovať nepresnosti.",
+    "originalHeading": "Pôvodný text"
   },
   "errors": {
     "signIn": "Na túto akciu sa treba prihlásiť.",
@@ -3763,7 +3765,12 @@
       "rate": "Priveľa prekladov za hodinu. Skúste to neskôr.",
       "cap": "Mesačný počet AI prekladov je vyčerpaný. Originál ostáva, nové preklady pribudnú od 1. dňa ďalšieho mesiaca.",
       "tooLong": "Príspevok je na preklad príliš dlhý."
-    }
+    },
+    "titlesWorking": "Prekladám názvy…",
+    "titlesLabel": "Názvy sú preložené s pomocou AI",
+    "titlesOriginal": "Názvy v origináli",
+    "showOriginals": "zobraziť originály",
+    "showTranslations": "zobraziť preklady"
   },
   "subprocessors": {
     "meta": "Subdodávatelia – Ozvi",

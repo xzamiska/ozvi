@@ -294,7 +294,7 @@
       "saved": "Nyelvek mentve.",
       "invalid": "Válassz nyelvet a listából.",
       "translation": "Bejegyzések fordítása",
-      "translationHint": "Az AI az olvasó nyelvére fordítja a más nyelven írt ötleteket, hozzászólásokat és bejelentéseket. A fordítások mindig meg vannak jelölve, az eredeti pedig egy kattintásra van. A privát hibajelentéseket és a csapat megjegyzéseit csak azoknak fordítjuk le, akik láthatják őket.",
+      "translationHint": "Az AI az olvasó nyelvére fordítja a más nyelven írt ötleteket, hozzászólásokat és bejelentéseket, az e-mail-értesítésekben is (az eredetivel a fordítás alatt). A fordítások mindig meg vannak jelölve, az eredeti pedig egy kattintásra van. A privát hibajelentéseket és a csapat megjegyzéseit csak azoknak fordítjuk le, akik láthatják őket.",
       "translationNoAi": "A fordítás nincs benne a csomagodban. A Pro havi 500, a Studio havi 2 000 új fordítást tartalmaz; saját tárhelyen AI-szolgáltatót kell beállítani.",
       "mode": {
         "off": "Ki",
@@ -302,7 +302,7 @@
         "on_demand": "Kérésre",
         "on_demandHint": "A más nyelvű bejegyzések mellett „Fordítás” gomb jelenik meg.",
         "auto": "Automatikus",
-        "autoHint": "A más nyelvű bejegyzések rögtön lefordítva jelennek meg, az eredetire mutató linkkel. Több fordítást használ, mint a „Kérésre”."
+        "autoHint": "A más nyelvű bejegyzések rögtön lefordítva jelennek meg, az eredetire mutató linkkel, és a címek is az ötletek és hibák listáiban és a widgetben. Több fordítást használ, mint a „Kérésre”."
       },
       "allowance": "Ebben a hónapban: {used} / {limit} új fordítás a teljes munkaterületen. Az egyszer elkészült fordítás nem számít újra."
     },
@@ -1869,7 +1869,9 @@
     "assignedBody": "{who} Önhöz rendelte: {ref}.",
     "assignedManySubject": "Önhöz rendelve: {n, plural, other {# bejegyzés}}",
     "assignedManyBody": "{who} ezeket a bejegyzéseket rendelte Önhöz:",
-    "openMine": "Saját megnyitása"
+    "openMine": "Saját megnyitása",
+    "translatedLabel": "AI-jal fordítva ({model} modell), pontatlanságokat tartalmazhat.",
+    "originalHeading": "Eredeti szöveg"
   },
   "errors": {
     "signIn": "Ehhez jelentkezz be.",
@@ -3763,7 +3765,12 @@
       "rate": "Túl sok fordítás ebben az órában. Próbáld újra később.",
       "cap": "Elfogyott a havi AI-fordítások száma. Az eredeti marad, új fordítások a következő hónap 1. napjától lesznek.",
       "tooLong": "Ez a bejegyzés túl hosszú a fordításhoz."
-    }
+    },
+    "titlesWorking": "Címek fordítása…",
+    "titlesLabel": "A címek AI-jal fordítva",
+    "titlesOriginal": "Címek eredetiben",
+    "showOriginals": "eredetiek mutatása",
+    "showTranslations": "fordítások mutatása"
   },
   "subprocessors": {
     "meta": "Alfeldolgozók – Ozvi",

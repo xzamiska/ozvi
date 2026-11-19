@@ -376,6 +376,12 @@ export const emails = pgTable("emails", {
   lastError: text("last_error"),
   sendAfter: timestamp("send_after", { withTimezone: true }).notNull().defaultNow(),
   sentAt: timestamp("sent_at", { withTimezone: true }),
+  /**
+   * A post in this mail (a comment) waits for its AI translation into the recipient's language: the worker
+   * translates it before sending (apps/web lib/email/translate-mail.ts) and clears this; on any failure, or after
+   * a few minutes, the mail goes out as rendered (original only). `mail` is the unrendered message to rebuild.
+   */
+  translate: jsonb("translate").$type<{ subject: "comment"; id: string; target: string; mail: Record<string, unknown> }>(),
   createdAt: createdAt(),
 }, (t) => [
   index("emails_queue").on(t.status, t.sendAfter),
