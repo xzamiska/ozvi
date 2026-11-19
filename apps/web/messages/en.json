@@ -859,7 +859,9 @@
       "next": "Next:",
       "proof": "Proof of fix",
       "proofPreview": "Try the fix",
-      "proofRelease": "Release {v}"
+      "proofRelease": "Release {v}",
+      "merged": "Merged into #{n}",
+      "mergedPrivate": "Handled under another number"
     },
     "ideas": {
       "gateTitle": "Ideas are visible to signed-in users only",
@@ -1098,7 +1100,8 @@
       "assigned": "Assigned to {who}",
       "unassigned": "Nobody is on it yet",
       "mergedHere": "Merged into this:",
-      "former": "{who} (no longer on the team)"
+      "former": "{who} (no longer on the team)",
+      "you": "{who} (you)"
     },
     "me": {
       "title": "My data",
@@ -1228,7 +1231,10 @@
       "clear": "Clear selection",
       "apply": "Apply",
       "applying": "Saving…",
-      "done": "{n, plural, one {Changed # item} other {Changed # items}}"
+      "done": "{n, plural, one {Changed # item} other {Changed # items}}",
+      "you": "{who} (you)",
+      "selectAll": "Select all on this page ({n})",
+      "dense": "Dense rows"
     },
     "select": "Select #{n}",
     "keys": {
@@ -1381,7 +1387,7 @@
     },
     "activity": {
       "title": "Activity",
-      "lede": "Changes to the workspace and project settings: team, plan, domains, tokens, webhooks and sign-in.",
+      "lede": "Changes to the workspace and project settings (team, plan, domains, tokens, webhooks, sign-in) and the team's bigger moves: merges, bulk changes and deletions.",
       "emptyTitle": "No activity yet",
       "emptyText": "Entries appear once you invite someone or change project settings.",
       "older": "Older entries",
@@ -1455,7 +1461,8 @@
         },
         "import": {
           "started": "Import started",
-          "undone": "Import undone"
+          "undone": "Import undone",
+          "cancelled": "Import cancelled"
         },
         "retention": {
           "run": "Automatic data deletion",
@@ -1470,6 +1477,10 @@
         },
         "account": {
           "renamed": "Account name changed"
+        },
+        "triage": {
+          "merged": "Duplicates merged",
+          "bulk": "Bulk change"
         }
       }
     },
@@ -1703,8 +1714,6 @@
     "mergeKinds": "You can only merge two ideas or two bugs.",
     "alreadyMerged": "#{n} is already merged.",
     "targetMerged": "#{n} is merged into another entry; merge into that one.",
-    "mergedIdea": "Merged into #{n} “{title}”. The votes moved there.",
-    "mergedBug": "We’re already handling this report under another number. We’ll let you know here once it’s fixed.",
     "blocked": "You can't post, vote or comment on this board at the moment.",
     "deleted": "This item has been deleted.",
     "mergePending": "This idea is awaiting approval. Approve or reject it first.",
@@ -3356,7 +3365,8 @@
     },
     "offRoute": "off the route",
     "stopOf": "stop {n} of {of}",
-    "now": "now"
+    "now": "now",
+    "merged": "Merged"
   },
   "widget": {
     "noProject": "This project doesn’t exist.",
@@ -3647,7 +3657,8 @@
       "queued": "Waiting to start…",
       "fetch": "{n, plural, one {Downloading from Canny: # record} other {Downloading from Canny: # records}}",
       "write": "Saving {done} of {total}",
-      "fetchFider": "{n, plural, one {Downloading from Fider: # record} other {Downloading from Fider: # records}}"
+      "fetchFider": "{n, plural, one {Downloading from Fider: # record} other {Downloading from Fider: # records}}",
+      "slow": "This is taking longer than usual. You can cancel the import and start it again; nothing is duplicated."
     },
     "summary": "{items, plural, one {# post} other {# posts}}, {votes, plural, one {# vote} other {# votes}}, {comments, plural, one {# comment} other {# comments}}, {users, plural, one {# new person} other {# new people}}",
     "runErrors": {
@@ -3660,7 +3671,8 @@
       "fiderNetwork": "Fider isn't reachable. Try again in a moment.",
       "fiderApi": "Fider returned an error. You can undo what was saved or start the import again.",
       "fiderBackup": "We couldn't read the backup.",
-      "fiderUrl": "Fider redirected to another address."
+      "fiderUrl": "Fider redirected to another address.",
+      "cancelled": "Cancelled. Start the import again whenever you like."
     },
     "undo": "Undo",
     "undoTitle": "Undo this import?",
@@ -3691,7 +3703,8 @@
       "backupTooBig": "The backup is larger than 25 MB. Use the API import or the command on the server.",
       "fiderEmpty": "There are no posts in Fider.",
       "fiderExpired": "The loaded data has expired. Load Fider again."
-    }
+    },
+    "cancel": "Cancel"
   },
   "a11y": {
     "skip": "Skip to content",

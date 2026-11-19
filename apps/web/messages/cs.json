@@ -859,7 +859,9 @@
       "next": "Dále:",
       "proof": "Důkaz opravy",
       "proofPreview": "Vyzkoušet opravu",
-      "proofRelease": "Vydání {v}"
+      "proofRelease": "Vydání {v}",
+      "merged": "Sloučeno do #{n}",
+      "mergedPrivate": "Řeší se pod jiným číslem"
     },
     "ideas": {
       "gateTitle": "Nápady vidí jen přihlášení",
@@ -1098,7 +1100,8 @@
       "assigned": "Řeší: {who}",
       "unassigned": "Nikdo to zatím neřeší",
       "mergedHere": "Sloučeno sem:",
-      "former": "{who} (už není v týmu)"
+      "former": "{who} (už není v týmu)",
+      "you": "{who} (vy)"
     },
     "me": {
       "title": "Moje údaje",
@@ -1228,7 +1231,10 @@
       "clear": "Zrušit výběr",
       "apply": "Použít",
       "applying": "Ukládám…",
-      "done": "{n, plural, one {Změněn # záznam} few {Změněny # záznamy} other {Změněno # záznamů}}"
+      "done": "{n, plural, one {Změněn # záznam} few {Změněny # záznamy} other {Změněno # záznamů}}",
+      "you": "{who} (vy)",
+      "selectAll": "Vybrat vše na stránce ({n})",
+      "dense": "Husté řádky"
     },
     "select": "Vybrat #{n}",
     "keys": {
@@ -1381,7 +1387,7 @@
     },
     "activity": {
       "title": "Aktivita",
-      "lede": "Změny v prostoru a v nastavení projektů: tým, plán, domény, tokeny, webhooky a přihlášení.",
+      "lede": "Změny v prostoru a v nastavení projektů (tým, plán, domény, tokeny, webhooky, přihlášení) a větší zásahy týmu: sloučení, hromadné změny a mazání.",
       "emptyTitle": "Zatím žádná aktivita",
       "emptyText": "První záznamy přibudou, až někoho pozvete nebo změníte nastavení projektu.",
       "older": "Starší záznamy",
@@ -1455,7 +1461,8 @@
         },
         "import": {
           "started": "Import spuštěn",
-          "undone": "Import vrácen zpět"
+          "undone": "Import vrácen zpět",
+          "cancelled": "Import zrušen"
         },
         "retention": {
           "run": "Automatické mazání dat",
@@ -1470,6 +1477,10 @@
         },
         "account": {
           "renamed": "Změněné jméno účtu"
+        },
+        "triage": {
+          "merged": "Sloučené duplicity",
+          "bulk": "Hromadná změna"
         }
       }
     },
@@ -1703,8 +1714,6 @@
     "mergeKinds": "Sloučit lze jen dva nápady nebo dvě chyby.",
     "alreadyMerged": "#{n} je už sloučený.",
     "targetMerged": "#{n} je sloučený do jiného záznamu; slučte do něj.",
-    "mergedIdea": "Sloučeno do #{n} „{title}“. Hlasy se přesunuly tam.",
-    "mergedBug": "Toto hlášení už řešíme pod jiným číslem. Až ho opravíme, dáme vědět i tady.",
     "blocked": "Na tomto boardu teď nemůžete přidávat příspěvky, hlasovat ani komentovat.",
     "deleted": "Tento záznam byl smazán.",
     "mergePending": "Nápad čeká na schválení. Nejdřív ho schvalte nebo zamítněte.",
@@ -3356,7 +3365,8 @@
     },
     "offRoute": "mimo trasu",
     "stopOf": "zastávka {n} z {of}",
-    "now": "teď"
+    "now": "teď",
+    "merged": "Sloučeno"
   },
   "widget": {
     "noProject": "Projekt neexistuje.",
@@ -3647,7 +3657,8 @@
       "queued": "Čeká na spuštění…",
       "fetch": "{n, plural, one {Stahuji z Canny: # záznam} few {Stahuji z Canny: # záznamy} other {Stahuji z Canny: # záznamů}}",
       "write": "Ukládám {done} z {total}",
-      "fetchFider": "{n, plural, one {Stahuji z Fideru: # záznam} few {Stahuji z Fideru: # záznamy} other {Stahuji z Fideru: # záznamů}}"
+      "fetchFider": "{n, plural, one {Stahuji z Fideru: # záznam} few {Stahuji z Fideru: # záznamy} other {Stahuji z Fideru: # záznamů}}",
+      "slow": "Čeká déle než obvykle. Import můžete zrušit a spustit znovu, nic se nezdvojí."
     },
     "summary": "{items, plural, one {# příspěvek} few {# příspěvky} other {# příspěvků}}, {votes, plural, one {# hlas} few {# hlasy} other {# hlasů}}, {comments, plural, one {# komentář} few {# komentáře} other {# komentářů}}, {users, plural, one {# nový člověk} few {# noví lidé} other {# nových lidí}}",
     "runErrors": {
@@ -3660,7 +3671,8 @@
       "fiderNetwork": "Fider není dostupný. Zkuste to za chvíli znovu.",
       "fiderApi": "Fider vrátil chybu. Co se stihlo uložit, můžete vrátit zpět nebo import spustit znovu.",
       "fiderBackup": "Záloze jsme neporozuměli.",
-      "fiderUrl": "Fider přesměroval na jinou adresu."
+      "fiderUrl": "Fider přesměroval na jinou adresu.",
+      "cancelled": "Zrušeno. Spusťte import znovu, až budete chtít."
     },
     "undo": "Vrátit zpět",
     "undoTitle": "Vrátit import zpět?",
@@ -3691,7 +3703,8 @@
       "backupTooBig": "Záloha je větší než 25 MB. Použijte import přes API nebo příkaz na serveru.",
       "fiderEmpty": "Ve Fideru nejsou žádné příspěvky.",
       "fiderExpired": "Načtená data vypršela. Načtěte Fider znovu."
-    }
+    },
+    "cancel": "Zrušit"
   },
   "a11y": {
     "skip": "Přeskočit na obsah",

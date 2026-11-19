@@ -859,7 +859,9 @@
       "next": "Als Nächstes:",
       "proof": "Nachweis der Korrektur",
       "proofPreview": "Korrektur ausprobieren",
-      "proofRelease": "Release {v}"
+      "proofRelease": "Release {v}",
+      "merged": "Zusammengeführt mit #{n}",
+      "mergedPrivate": "Wird unter einer anderen Nummer bearbeitet"
     },
     "ideas": {
       "gateTitle": "Ideen sind nur für angemeldete Personen sichtbar",
@@ -1098,7 +1100,8 @@
       "assigned": "Zuständig: {who}",
       "unassigned": "Noch niemand zuständig",
       "mergedHere": "Hierher zusammengeführt:",
-      "former": "{who} (nicht mehr im Team)"
+      "former": "{who} (nicht mehr im Team)",
+      "you": "{who} (Sie)"
     },
     "me": {
       "title": "Meine Daten",
@@ -1228,7 +1231,10 @@
       "clear": "Auswahl aufheben",
       "apply": "Anwenden",
       "applying": "Wird gespeichert …",
-      "done": "{n, plural, one {# Eintrag geändert} other {# Einträge geändert}}"
+      "done": "{n, plural, one {# Eintrag geändert} other {# Einträge geändert}}",
+      "you": "{who} (Sie)",
+      "selectAll": "Alle auf dieser Seite auswählen ({n})",
+      "dense": "Kompakte Zeilen"
     },
     "select": "#{n} auswählen",
     "keys": {
@@ -1381,7 +1387,7 @@
     },
     "activity": {
       "title": "Aktivität",
-      "lede": "Änderungen am Workspace und an den Projekteinstellungen: Team, Tarif, Domains, Tokens, Webhooks und Anmeldung.",
+      "lede": "Änderungen am Arbeitsbereich und an den Projekteinstellungen (Team, Plan, Domains, Tokens, Webhooks, Anmeldung) sowie größere Eingriffe des Teams: Zusammenführungen, Sammeländerungen und Löschungen.",
       "emptyTitle": "Noch keine Aktivität",
       "emptyText": "Einträge erscheinen, sobald Sie jemanden einladen oder Projekteinstellungen ändern.",
       "older": "Ältere Einträge",
@@ -1455,7 +1461,8 @@
         },
         "import": {
           "started": "Import gestartet",
-          "undone": "Import rückgängig gemacht"
+          "undone": "Import rückgängig gemacht",
+          "cancelled": "Import abgebrochen"
         },
         "retention": {
           "run": "Automatische Datenlöschung",
@@ -1470,6 +1477,10 @@
         },
         "account": {
           "renamed": "Kontoname geändert"
+        },
+        "triage": {
+          "merged": "Duplikate zusammengeführt",
+          "bulk": "Sammeländerung"
         }
       }
     },
@@ -1703,8 +1714,6 @@
     "mergeKinds": "Sie können nur zwei Ideen oder zwei Fehler zusammenführen.",
     "alreadyMerged": "#{n} ist bereits zusammengeführt.",
     "targetMerged": "#{n} wurde in einen anderen Beitrag zusammengeführt; führen Sie in diesen zusammen.",
-    "mergedIdea": "Zusammengeführt mit #{n} „{title}“. Die Stimmen wurden dorthin übertragen.",
-    "mergedBug": "Wir bearbeiten diese Meldung bereits unter einer anderen Nummer. Sobald der Fehler behoben ist, informieren wir Sie hier.",
     "blocked": "Sie können auf diesem Board derzeit keine Beiträge verfassen, nicht abstimmen und nicht kommentieren.",
     "deleted": "Dieser Beitrag wurde gelöscht.",
     "mergePending": "Diese Idee wartet auf Freigabe. Geben Sie sie zuerst frei oder lehnen Sie sie ab.",
@@ -3356,7 +3365,8 @@
     },
     "offRoute": "außerhalb des Ablaufs",
     "stopOf": "Schritt {n} von {of}",
-    "now": "jetzt"
+    "now": "jetzt",
+    "merged": "Zusammengeführt"
   },
   "widget": {
     "noProject": "Dieses Projekt existiert nicht.",
@@ -3647,7 +3657,8 @@
       "queued": "Wartet auf den Start …",
       "fetch": "{n, plural, one {Download aus Canny: # Datensatz} other {Download aus Canny: # Datensätze}}",
       "write": "{done} von {total} gespeichert",
-      "fetchFider": "{n, plural, one {Download aus Fider: # Datensatz} other {Download aus Fider: # Datensätze}}"
+      "fetchFider": "{n, plural, one {Download aus Fider: # Datensatz} other {Download aus Fider: # Datensätze}}",
+      "slow": "Das dauert länger als üblich. Sie können den Import abbrechen und neu starten; nichts wird doppelt angelegt."
     },
     "summary": "{items, plural, one {# Beitrag} other {# Beiträge}}, {votes, plural, one {# Stimme} other {# Stimmen}}, {comments, plural, one {# Kommentar} other {# Kommentare}}, {users, plural, one {# neue Person} other {# neue Personen}}",
     "runErrors": {
@@ -3660,7 +3671,8 @@
       "fiderNetwork": "Fider ist nicht erreichbar. Versuchen Sie es gleich noch einmal.",
       "fiderApi": "Fider hat einen Fehler zurückgegeben. Sie können das Gespeicherte rückgängig machen oder den Import erneut starten.",
       "fiderBackup": "Wir konnten das Backup nicht lesen.",
-      "fiderUrl": "Fider hat auf eine andere Adresse umgeleitet."
+      "fiderUrl": "Fider hat auf eine andere Adresse umgeleitet.",
+      "cancelled": "Abgebrochen. Starten Sie den Import erneut, wann Sie möchten."
     },
     "undo": "Rückgängig machen",
     "undoTitle": "Diesen Import rückgängig machen?",
@@ -3691,7 +3703,8 @@
       "backupTooBig": "Das Backup ist größer als 25 MB. Nutzen Sie den Import über die API oder den Befehl auf dem Server.",
       "fiderEmpty": "In Fider gibt es keine Beiträge.",
       "fiderExpired": "Die geladenen Daten sind abgelaufen. Laden Sie Fider erneut."
-    }
+    },
+    "cancel": "Abbrechen"
   },
   "a11y": {
     "skip": "Zum Inhalt springen",

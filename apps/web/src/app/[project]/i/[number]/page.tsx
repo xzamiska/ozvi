@@ -206,8 +206,12 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
     { type: "status", at: item.createdAt, status: ROUTE[item.kind][0]!, who: byline },
     ...history.map((h): JourneyEvent => ({ type: "status", at: h.at, status: h.to, version: h.version, who: h.who, sub: h.sub ? subName.get(h.sub) : null,
       proof: visibleProof(readProof(h.proof), item.kind, isTeam) })),
+    // A merged duplicate ends in "Merged into #n" (not the closed status the merge stored); another
+    // reporter's bug keeps the original's number private.
+    ...(item.mergedIntoId ? [{ type: "merged", at: item.updatedAt,
+      into: mergedInto && !(bug && !isTeam && mergedInto.authorId !== user?.id) ? { number: mergedInto.number, href: `/${slug}/i/${mergedInto.number}` } : null } as JourneyEvent]
     // Imported or older items may lack history: the current stop still belongs on the route.
-    ...(item.status !== ROUTE[item.kind][0] && history.at(-1)?.to !== item.status
+    : item.status !== ROUTE[item.kind][0] && history.at(-1)?.to !== item.status
       ? [{ type: "status", at: item.updatedAt, status: item.status, version: item.fixedInVersion } as JourneyEvent] : []),
     ...live.filter((c) => !c.internal && (c.role === "team" || c.role === "admin"))
       .map((c): JourneyEvent => ({ type: "reply", at: c.createdAt, who: c.name, commentId: c.id })),
@@ -234,7 +238,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
             <div className="min-w-0 flex-1">
               <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-muted-foreground">
                 <span className="font-semibold text-foreground">{bug ? t("bug") : t("idea")} <span data-num>#{item.number}</span></span>
-                <StatusTag kind={item.kind} status={item.status} version={item.fixedInVersion} sub={item.subStatusId ? subName.get(item.subStatusId) : null} />
+                <StatusTag kind={item.kind} status={item.status} version={item.fixedInVersion} sub={item.subStatusId ? subName.get(item.subStatusId) : null} merged={!!item.mergedIntoId} />
                 {bug && <span className="inline-flex items-center gap-1"><Lock className="size-3.5" />{t("privateTag")}</span>}
                 {!deleted && (
                   <span className="-my-1.5 ml-auto">

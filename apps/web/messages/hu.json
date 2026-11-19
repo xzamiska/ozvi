@@ -859,7 +859,9 @@
       "next": "Következő:",
       "proof": "A javítás bizonyítéka",
       "proofPreview": "Javítás kipróbálása",
-      "proofRelease": "Kiadás: {v}"
+      "proofRelease": "Kiadás: {v}",
+      "merged": "Összevonva ezzel: #{n}",
+      "mergedPrivate": "Másik szám alatt foglalkozunk vele"
     },
     "ideas": {
       "gateTitle": "Az ötletek csak bejelentkezett felhasználók számára láthatók",
@@ -1098,7 +1100,8 @@
       "assigned": "Felelős: {who}",
       "unassigned": "Még senki sem foglalkozik vele",
       "mergedHere": "Ide összevonva:",
-      "former": "{who} (már nincs a csapatban)"
+      "former": "{who} (már nincs a csapatban)",
+      "you": "{who} (Ön)"
     },
     "me": {
       "title": "Saját adatok",
@@ -1228,7 +1231,10 @@
       "clear": "Kijelölés törlése",
       "apply": "Alkalmaz",
       "applying": "Mentés…",
-      "done": "{n, plural, other {# bejegyzés módosítva}}"
+      "done": "{n, plural, other {# bejegyzés módosítva}}",
+      "you": "{who} (Ön)",
+      "selectAll": "Az oldal összes kijelölése ({n})",
+      "dense": "Sűrű sorok"
     },
     "select": "#{n} kiválasztása",
     "keys": {
@@ -1381,7 +1387,7 @@
     },
     "activity": {
       "title": "Tevékenység",
-      "lede": "A munkaterület és a projektbeállítások változásai: csapat, csomag, domainek, tokenek, webhookok és bejelentkezés.",
+      "lede": "A munkaterület és a projektbeállítások változásai (csapat, csomag, domainek, tokenek, webhookok, bejelentkezés), valamint a csapat nagyobb lépései: összevonások, csoportos módosítások és törlések.",
       "emptyTitle": "Még nincs tevékenység",
       "emptyText": "A bejegyzések akkor jelennek meg, amikor meghívsz valakit, vagy módosítod a projekt beállításait.",
       "older": "Régebbi bejegyzések",
@@ -1455,7 +1461,8 @@
         },
         "import": {
           "started": "Importálás elindítva",
-          "undone": "Importálás visszavonva"
+          "undone": "Importálás visszavonva",
+          "cancelled": "Import megszakítva"
         },
         "retention": {
           "run": "Automatikus adattörlés",
@@ -1470,6 +1477,10 @@
         },
         "account": {
           "renamed": "Módosított fióknév"
+        },
+        "triage": {
+          "merged": "Duplikátumok összevonva",
+          "bulk": "Csoportos módosítás"
         }
       }
     },
@@ -1703,8 +1714,6 @@
     "mergeKinds": "Csak két ötletet vagy két hibát vonhatsz össze.",
     "alreadyMerged": "A(z) #{n} már össze van vonva.",
     "targetMerged": "A(z) #{n} már egy másik bejegyzésbe van összevonva; abba vond össze.",
-    "mergedIdea": "Összevonva ezzel: #{n} „{title}”. A szavazatok átkerültek oda.",
-    "mergedBug": "Ezt a bejelentést már egy másik szám alatt kezeljük. Itt szólunk, amint ki van javítva.",
     "blocked": "Ezen a táblán jelenleg nem tehetsz közzé bejegyzést, nem szavazhatsz és nem szólhatsz hozzá.",
     "deleted": "Ezt a bejegyzést törölték.",
     "mergePending": "Ez az ötlet jóváhagyásra vár. Előbb hagyd jóvá vagy utasítsd el.",
@@ -3356,7 +3365,8 @@
     },
     "offRoute": "az útvonalon kívül",
     "stopOf": "{n}. állomás / {of}",
-    "now": "most"
+    "now": "most",
+    "merged": "Összevonva"
   },
   "widget": {
     "noProject": "Ez a projekt nem létezik.",
@@ -3647,7 +3657,8 @@
       "queued": "Indításra vár…",
       "fetch": "{n, plural, one {Letöltés a Cannyből: # rekord} other {Letöltés a Cannyből: # rekord}}",
       "write": "Mentés: {done} / {total}",
-      "fetchFider": "{n, plural, one {Letöltés a Fiderből: # rekord} other {Letöltés a Fiderből: # rekord}}"
+      "fetchFider": "{n, plural, one {Letöltés a Fiderből: # rekord} other {Letöltés a Fiderből: # rekord}}",
+      "slow": "A szokásosnál tovább vár. Megszakíthatja az importot, és újraindíthatja; semmi sem duplikálódik."
     },
     "summary": "{items, plural, one {# bejegyzés} other {# bejegyzés}}, {votes, plural, one {# szavazat} other {# szavazat}}, {comments, plural, one {# hozzászólás} other {# hozzászólás}}, {users, plural, one {# új személy} other {# új személy}}",
     "runErrors": {
@@ -3660,7 +3671,8 @@
       "fiderNetwork": "A Fider nem érhető el. Próbáld újra egy kicsit később.",
       "fiderApi": "A Fider hibát adott vissza. Visszavonhatod, ami mentésre került, vagy újraindíthatod az importálást.",
       "fiderBackup": "Nem sikerült beolvasni a biztonsági mentést.",
-      "fiderUrl": "A Fider egy másik címre irányított át."
+      "fiderUrl": "A Fider egy másik címre irányított át.",
+      "cancelled": "Megszakítva. Indítsa újra az importot, amikor szeretné."
     },
     "undo": "Visszavonás",
     "undoTitle": "Visszavonod ezt az importálást?",
@@ -3691,7 +3703,8 @@
       "backupTooBig": "A biztonsági mentés nagyobb 25 MB-nál. Használd az API-n keresztüli importálást vagy a szerveren futtatható parancsot.",
       "fiderEmpty": "A Fiderben nincsenek bejegyzések.",
       "fiderExpired": "A betöltött adatok lejártak. Töltsd be újra a Fidert."
-    }
+    },
+    "cancel": "Megszakítás"
   },
   "a11y": {
     "skip": "Ugrás a tartalomra",

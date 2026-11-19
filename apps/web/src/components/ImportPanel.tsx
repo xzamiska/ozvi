@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { cannyConnect, cannyStart, fiderLoad, fiderPreview, fiderStart, previewCsv, startCsv, undoRun, type CannyState, type CsvPreviewState, type FiderState } from "@/lib/import-actions";
+import { cancelQueuedRun, cannyConnect, cannyStart, fiderLoad, fiderPreview, fiderStart, previewCsv, startCsv, undoRun, type CannyState, type CsvPreviewState, type FiderState } from "@/lib/import-actions";
 import type { CsvField } from "@/lib/import/csv-map";
 import { routeText } from "@/lib/route";
 import { cn } from "@/lib/utils";
@@ -496,6 +496,14 @@ export function ImportRuns({ slug, runs }: { slug: string; runs: RunView[] }) {
                   <p className="text-[12.5px] text-muted-foreground tabular-nums">
                     {rep.phase === "fetch" ? t(r.source === "fider" ? "progress.fetchFider" : "progress.fetch", { n: rep.fetched ?? 0 }) : r.status === "queued" ? t("progress.queued") : t("progress.write", { done: r.done, total: r.total })}
                   </p>
+                  {/* Still queued after a minute: say so and offer a way out (it used to wait forever, B7). */}
+                  {r.status === "queued" && Date.now() - new Date(r.createdAt).getTime() > 60_000 && (
+                    <p className="flex flex-wrap items-center gap-x-2 text-[12.5px]">
+                      {t("progress.slow")}
+                      <button type="button" className="font-semibold underline underline-offset-2"
+                        onClick={async () => { const res = await cancelQueuedRun(slug, r.id); if (res.error) toast.error(res.error); router.refresh(); }}>{t("cancel")}</button>
+                    </p>
+                  )}
                 </div>
               )}
               {r.status === "done" && (

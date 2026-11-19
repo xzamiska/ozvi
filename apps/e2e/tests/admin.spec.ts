@@ -233,6 +233,19 @@ test.describe("board settings: sections, voting, languages", () => {
     await v.ctx.close();
   });
 
+  test("ideas off and on again (saved in between) brings the roadmap back", async ({ page }) => {
+    const { slug } = await ownerAdmin(page);
+    const save = async () => { await submitAction(page, section(page, "Časti boardu").getByRole("button", { name: "Uložiť časti" })); await page.reload(); };
+    await section(page, "Časti boardu").getByRole("switch", { name: "Nápady" }).click();
+    await save();
+    await expect(section(page, "Časti boardu").getByRole("switch", { name: "Roadmapa" })).toBeDisabled();
+    await section(page, "Časti boardu").getByRole("switch", { name: "Nápady" }).click();
+    await save();
+    await expect(section(page, "Časti boardu").getByRole("switch", { name: "Roadmapa" })).toHaveAttribute("aria-checked", "true");
+    await page.goto(`/${slug}/ideas`);
+    await expect(page.getByRole("navigation", { name: "Board" }).getByRole("link", { name: "Roadmapa" })).toBeVisible();
+  });
+
   test("importance voting with a budget shows on the board", async ({ page, request }) => {
     const { slug, owner } = await ownerAdmin(page);
     await createItem(request, slug, await seedToken(slug, owner), "Nápad na hlasovanie");

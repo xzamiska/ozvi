@@ -3,7 +3,7 @@ import { schema, type Tx } from "@ozvi/db";
 import { and, desc, eq, inArray, or, sql } from "drizzle-orm";
 import { aggregateDemand, readCustomer, type Customer, type Demand } from "./traits";
 
-const { users, votes } = schema;
+const { items, users, votes } = schema;
 
 /**
  * Team-only customer views over SSO traits (lib/traits.ts). Callers must check the viewer is team
@@ -25,12 +25,15 @@ export interface Wanter extends Customer {
   at: Date;
 }
 
-/** Everyone who wants an item (voters + author), biggest customers first, plus the aggregate. */
+/** Reporters of duplicates merged into an item: they want it too (same rule as the list's "affected" count). */
+const mergedAuthors = (id: string) => sql`${users.id} in (select ${items.authorId} from ${items} where ${items.mergedIntoId} = ${id})`;
+
+/** Everyone who wants an item (voters + author + authors of merged duplicates), biggest customers first, plus the aggregate. */
 export async function itemDemand(tx: Tx, item: { id: string; authorId: string | null }, limit = 100): Promise<{ people: Wanter[]; demand: Demand }> {
   const rows = await tx.select({ id: users.id, name: users.name, email: users.email, avatarUrl: users.avatarUrl, traits: users.traits,
     weight: votes.weight, voteAt: votes.createdAt, createdAt: users.createdAt })
     .from(users).leftJoin(votes, and(eq(votes.userId, users.id), eq(votes.itemId, item.id)))
-    .where(or(sql`${votes.itemId} is not null`, ...(item.authorId ? [eq(users.id, item.authorId)] : [])))
+    .where(or(sql`${votes.itemId} is not null`, mergedAuthors(item.id), ...(item.authorId ? [eq(users.id, item.authorId)] : [])))
     .orderBy(desc(votes.createdAt)).limit(2000);
   const all: Wanter[] = rows.map((r) => ({
     ...readCustomer(r.traits), userId: r.id, name: r.name, email: r.email, avatarUrl: r.avatarUrl,
@@ -47,13 +50,16 @@ export async function demandFor(tx: Tx, list: { id: string; authorId: string | n
   const ids = list.map((i) => i.id);
   const voteRows = await tx.select({ itemId: votes.itemId, userId: users.id, traits: users.traits })
     .from(votes).innerJoin(users, eq(users.id, votes.userId)).where(inArray(votes.itemId, ids));
+  const dupRows = await tx.select({ into: items.mergedIntoId, userId: users.id, traits: users.traits })
+    .from(items).innerJoin(users, eq(users.id, items.authorId)).where(inArray(items.mergedIntoId, ids));
   const authorIds = [...new Set(list.map((i) => i.authorId).filter((a): a is string => !!a))];
   const authors = authorIds.length ? await tx.select({ id: users.id, traits: users.traits }).from(users).where(inArray(users.id, authorIds)) : [];
   const out = new Map<string, Demand>();
   for (const i of list) {
     const people = voteRows.filter((v) => v.itemId === i.id);
+    const dups = dupRows.filter((d) => d.into === i.id);
     const a = authors.find((x) => x.id === i.authorId);
-    out.set(i.id, aggregateDemand([...people, ...(a ? [{ userId: a.id, traits: a.traits }] : [])]));
+    out.set(i.id, aggregateDemand([...people, ...dups, ...(a ? [{ userId: a.id, traits: a.traits }] : [])]));
   }
   return out;
 }

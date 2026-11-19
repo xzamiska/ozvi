@@ -106,6 +106,9 @@ describe.skipIf(!up)("notifications follow the item", () => {
     await withProject(db, project.id, async (t) => mergeItems(t, project, u.team, (await t.query.items.findFirst({ where: eq(schema.items.id, y.id) }))!, o));
     const rows = await withProject(db, project.id, (t) => t.select({ n: schema.items.number, m: schema.items.mergedIntoId }).from(schema.items).where(sql`${schema.items.number} in (10, 11)`));
     expect(rows.every((r) => r.m === o.id)).toBe(true);
+    // No stored auto-comment (it was in one language and read as a team reply); the page says "Merged into".
+    const notes = await withProject(db, project.id, (t) => t.select({ id: schema.comments.id }).from(schema.comments).where(sql`${schema.comments.itemId} in (${x.id}, ${y.id})`));
+    expect(notes).toEqual([]);
     // Y's reporter hears about O's fix right away, about their own report.
     const mails = await withProject(db, project.id, (t) => t.select({ to: schema.emails.to, subject: schema.emails.subject }).from(schema.emails).where(eq(schema.emails.kind, "bug_status")));
     expect(mails.map((m) => [m.to.split("@")[0], m.subject])).toEqual([["talker", "Opravené: #11 Chyba Y"]]);

@@ -1,6 +1,9 @@
 "use server";
 
 import { assignItem } from "./assign";
+import { logActivity, who } from "./activity";
+import { stopLabel } from "./route-text";
+import { translator } from "@/i18n/messages";
 import { notifyAssigned } from "./email/notify";
 import { ITEM_STATUSES, schema, withProject } from "@ozvi/db";
 import { and, eq } from "drizzle-orm";
@@ -145,8 +148,9 @@ export async function bulkUpdate(slug: string, form: FormData): Promise<{ change
   const assignee = /^(none|[0-9a-f-]{36})$/i.test(str(form, "assignee")) ? str(form, "assignee") : "";
   const notify = str(form, "notify") === "on";
   if (ids.length === 0 || (!status && !assignee)) return { changed: 0 };
-  let changed = 0;
+  let changed = 0, bulkDetail = "";
   const given: (typeof items.$inferSelect)[] = [];
+  const touched: number[] = [];
   try {
     await withProject(db, project.id, async (tx) => {
       for (const id of ids) {
@@ -161,15 +165,21 @@ export async function bulkUpdate(slug: string, form: FormData): Promise<{ change
           const a = await assignItem(tx, project, user, item, assignee === "none" ? null : assignee, { notify: false });
           if (a) { did = true; given.push(a); }
         }
-        if (did) changed++;
+        if (did) { changed++; touched.push(item.number); }
       }
       // One e-mail to the colleague for the whole batch, not one per item.
       if (assignee && assignee !== "none" && assignee !== user.id) await notifyAssigned(tx, project, given, assignee, user.name);
+      if (touched.length) {
+        const to = assignee === "none" ? "—" : assignee ? (await tx.query.users.findFirst({ where: eq(schema.users.id, assignee) }))?.name ?? "" : "";
+        bulkDetail = [touched.map((n) => `#${n}`).join(" "), status && `→ ${stopLabel(locale, status, project)}`, assignee && `· ${translator(locale, "board")("bulk.assignee")}: ${to}`].filter(Boolean).join(" ");
+      }
     });
   } catch (e) {
     if (e instanceof DomainError) return { error: e.text(locale) };
     throw e;
   }
+  // A lead can see who moved what in bulk (console Activity); single moves are in each item's history.
+  if (bulkDetail) await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "triage.bulk", detail: bulkDetail.slice(0, 500) });
   revalidatePath(`/${slug}`, "layout");
   return { changed };
 }
@@ -180,6 +190,7 @@ export async function mergeInto(slug: string, itemId: string, _prev: FormState, 
   if (!isTeam) return { error: t("mergeTeamOnly") };
   const n = Number(str(form, "target").replace(/^#/, ""));
   if (!Number.isInteger(n) || n < 1) return { error: t("mergeNumber") };
+  let merged = "";
   try {
     await withProject(db, project.id, async (tx) => {
       const source = await tx.query.items.findFirst({ where: eq(items.id, itemId) });
@@ -187,7 +198,9 @@ export async function mergeInto(slug: string, itemId: string, _prev: FormState, 
       if (!source) throw new DomainError(t("itemMissing"));
       if (!target) throw new DomainError(t("numberMissing", { n }));
       await mergeItems(tx, project, user, source, target);
+      merged = `#${source.number} → #${target.number}`;
     });
+    await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "triage.merged", detail: merged });
   } catch (e) {
     if (e instanceof DomainError) return { error: e.text(locale) };
     throw e;

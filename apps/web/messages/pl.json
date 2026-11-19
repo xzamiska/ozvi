@@ -859,7 +859,9 @@
       "next": "Dalej:",
       "proof": "Dowód poprawki",
       "proofPreview": "Wypróbuj poprawkę",
-      "proofRelease": "Wydanie {v}"
+      "proofRelease": "Wydanie {v}",
+      "merged": "Scalone z #{n}",
+      "mergedPrivate": "Rozwiązywane pod innym numerem"
     },
     "ideas": {
       "gateTitle": "Pomysły widzą tylko zalogowani użytkownicy",
@@ -1098,7 +1100,8 @@
       "assigned": "Odpowiada: {who}",
       "unassigned": "Nikt się tym jeszcze nie zajmuje",
       "mergedHere": "Scalone tutaj:",
-      "former": "{who} (już nie w zespole)"
+      "former": "{who} (już nie w zespole)",
+      "you": "{who} (Ty)"
     },
     "me": {
       "title": "Moje dane",
@@ -1228,7 +1231,10 @@
       "clear": "Wyczyść wybór",
       "apply": "Zastosuj",
       "applying": "Zapisuję…",
-      "done": "{n, plural, one {Zmieniono # wpis} few {Zmieniono # wpisy} other {Zmieniono # wpisów}}"
+      "done": "{n, plural, one {Zmieniono # wpis} few {Zmieniono # wpisy} other {Zmieniono # wpisów}}",
+      "you": "{who} (Ty)",
+      "selectAll": "Zaznacz wszystkie na stronie ({n})",
+      "dense": "Gęste wiersze"
     },
     "select": "Wybierz #{n}",
     "keys": {
@@ -1381,7 +1387,7 @@
     },
     "activity": {
       "title": "Aktywność",
-      "lede": "Zmiany w przestrzeni roboczej i ustawieniach projektów: zespół, plan, domeny, tokeny, webhooki i logowanie.",
+      "lede": "Zmiany w przestrzeni i ustawieniach projektów (zespół, plan, domeny, tokeny, webhooki, logowanie) oraz większe działania zespołu: scalenia, zmiany zbiorcze i usunięcia.",
       "emptyTitle": "Brak aktywności",
       "emptyText": "Wpisy pojawią się, gdy kogoś zaprosisz albo zmienisz ustawienia projektu.",
       "older": "Starsze wpisy",
@@ -1455,7 +1461,8 @@
         },
         "import": {
           "started": "Rozpoczęto import",
-          "undone": "Cofnięto import"
+          "undone": "Cofnięto import",
+          "cancelled": "Import anulowany"
         },
         "retention": {
           "run": "Automatyczne usuwanie danych",
@@ -1470,6 +1477,10 @@
         },
         "account": {
           "renamed": "Zmieniona nazwa konta"
+        },
+        "triage": {
+          "merged": "Scalone duplikaty",
+          "bulk": "Zmiana zbiorcza"
         }
       }
     },
@@ -1703,8 +1714,6 @@
     "mergeKinds": "Scalać można tylko dwa pomysły albo dwa błędy.",
     "alreadyMerged": "#{n} jest już scalony.",
     "targetMerged": "#{n} jest scalony z innym wpisem; scal z tamtym.",
-    "mergedIdea": "Scalono z #{n} „{title}”. Głosy zostały tam przeniesione.",
-    "mergedBug": "Tym zgłoszeniem zajmujemy się już pod innym numerem. Gdy błąd zostanie naprawiony, damy ci znać tutaj.",
     "blocked": "Obecnie nie możesz publikować, głosować ani komentować na tej tablicy.",
     "deleted": "Ten wpis został usunięty.",
     "mergePending": "Ten pomysł czeka na zatwierdzenie. Najpierw go zatwierdź albo odrzuć.",
@@ -3356,7 +3365,8 @@
     },
     "offRoute": "poza ścieżką",
     "stopOf": "etap {n} z {of}",
-    "now": "teraz"
+    "now": "teraz",
+    "merged": "Scalone"
   },
   "widget": {
     "noProject": "Ten projekt nie istnieje.",
@@ -3647,7 +3657,8 @@
       "queued": "Czeka na uruchomienie…",
       "fetch": "{n, plural, one {Pobieranie z Canny: # rekord} few {Pobieranie z Canny: # rekordy} many {Pobieranie z Canny: # rekordów} other {Pobieranie z Canny: # rekordu}}",
       "write": "Zapisywanie {done} z {total}",
-      "fetchFider": "{n, plural, one {Pobieranie z Fidera: # rekord} few {Pobieranie z Fidera: # rekordy} many {Pobieranie z Fidera: # rekordów} other {Pobieranie z Fidera: # rekordu}}"
+      "fetchFider": "{n, plural, one {Pobieranie z Fidera: # rekord} few {Pobieranie z Fidera: # rekordy} many {Pobieranie z Fidera: # rekordów} other {Pobieranie z Fidera: # rekordu}}",
+      "slow": "Czeka dłużej niż zwykle. Możesz anulować import i uruchomić go ponownie; nic się nie zdubluje."
     },
     "summary": "{items, plural, one {# wpis} few {# wpisy} many {# wpisów} other {# wpisu}}, {votes, plural, one {# głos} few {# głosy} many {# głosów} other {# głosu}}, {comments, plural, one {# komentarz} few {# komentarze} many {# komentarzy} other {# komentarza}}, {users, plural, one {# nowa osoba} few {# nowe osoby} many {# nowych osób} other {# nowej osoby}}",
     "runErrors": {
@@ -3660,7 +3671,8 @@
       "fiderNetwork": "Fider jest nieosiągalny. Spróbuj ponownie za chwilę.",
       "fiderApi": "Fider zwrócił błąd. Możesz cofnąć to, co zostało zapisane, albo uruchomić import ponownie.",
       "fiderBackup": "Nie udało się odczytać kopii zapasowej.",
-      "fiderUrl": "Fider przekierował na inny adres."
+      "fiderUrl": "Fider przekierował na inny adres.",
+      "cancelled": "Anulowano. Uruchom import ponownie, kiedy zechcesz."
     },
     "undo": "Cofnij",
     "undoTitle": "Cofnąć ten import?",
@@ -3691,7 +3703,8 @@
       "backupTooBig": "Kopia zapasowa jest większa niż 25 MB. Użyj importu przez API albo polecenia na serwerze.",
       "fiderEmpty": "W Fiderze nie ma żadnych wpisów.",
       "fiderExpired": "Wczytane dane wygasły. Wczytaj Fidera ponownie."
-    }
+    },
+    "cancel": "Anuluj"
   },
   "a11y": {
     "skip": "Przejdź do treści",
