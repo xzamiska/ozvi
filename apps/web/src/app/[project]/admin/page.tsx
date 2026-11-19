@@ -131,10 +131,11 @@ export default async function Admin({ params, searchParams }: { params: Promise<
 
   // First-run checklist: shown until somebody from the host app has signed in.
   const appUsers = members.length;
+  // Origin and widget first: with e-mail verification in the widget (ADR-0014) SSO is no longer needed to start.
   const steps = [
-    { done: !!project.ssoSecretEnc || !!project.oidcIssuer, href: "#sign-in", title: t("setup.sso.title"), text: t("setup.sso.text") },
     { done: project.allowedOrigins.length > 0, href: "#project", title: t("setup.origin.title"), text: t("setup.origin.text") },
     { done: appUsers > 0, href: "#sign-in", title: t("setup.widget.title"), text: t("setup.widget.text") },
+    { done: !!project.ssoSecretEnc || !!project.oidcIssuer, href: "#sign-in", title: t("setup.sso.title"), text: t("setup.sso.text") },
   ];
   const setup = appUsers === 0;
 
@@ -153,14 +154,15 @@ export default async function Admin({ params, searchParams }: { params: Promise<
     { id: "integrations", label: t("nav.integrations"), sub: t("nav.integrationsSub") },
     { id: "limits", label: t("nav.limits") },
     { id: "import", label: t("nav.import") },
-    { id: "data", label: t("nav.data") },
+    { id: "data", label: t("nav.data"), sub: t("nav.dataSub") },
   ];
 
   return (
     <Page>
       <PageHead title={t("title")} lede={t("lede", { name: project.name })} />
 
-      <div className="grid gap-10 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-12">
+      {/* pb-20 on phones: room for the fixed section select at the bottom (SectionNav). */}
+      <div className="grid gap-10 pb-20 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-12 lg:pb-0">
         <SectionNav items={nav} />
 
         <div className="grid min-w-0 gap-14">
@@ -223,6 +225,14 @@ export default async function Admin({ params, searchParams }: { params: Promise<
           </SettingsSection>
 
           <SettingsSection id="sign-in" title={t("nav.login")} text={t("login.text")}>
+            {/* The fastest start (ADR-0014): the widget alone, people verify their e-mail in it. */}
+            <SettingsBlock id="widget-quick" title={t("login.quickTitle")} text={project.emailLogin ? t("login.quickText") : t("login.quickOff")}>
+              <Panel className="grid gap-3 p-5 sm:p-6">
+                <pre tabIndex={0} className={preBox}>{`<script src="${base}/widget.js" defer></script>
+<ozvi-widget project="${slug}"></ozvi-widget>`}</pre>
+                <p className={hint}>{t("login.quickHint")}</p>
+              </Panel>
+            </SettingsBlock>
             <SettingsBlock id="sso" title={t("login.ssoTitle")}>
               <Panel className="grid gap-5 p-5 sm:p-6">
                 <SecretForm slug={slug} hasSecret={!!project.ssoSecretEnc} />

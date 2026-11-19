@@ -9,6 +9,7 @@ breaking: false
 - Hlásenie alebo nápad môžete prideliť kolegovi z tímu (pole „Rieši“ v časti Pre tím, alebo „Vezmem si to“). Kolega dostane e-mail a v zoznamoch nájde svoje cez filter „Rieši: Ja“, prípadne nepridelené cez „Nikto“. Riešiteľa vidí len tím.
 - Každý člen tímu si v Moje údaje → E-maily pre tím vyberie, čo mu chodí: nové hlásenia, nové nápady, komentáre, pondelňajší súhrn. O hláseniach a diskusiách, v ktorých sa ozval, mu napíšeme vždy. Prepínač „Len pre tím“ pri komentári ostane zapnutý aj po odoslaní.
 - Na telefóne sa hlavička boardu pri posúvaní neprilepí a nezaberá miesto. Pod tlačidlom hlasovania vidí neprihlásený návštevník „Prihláste sa“. Náhľad screenshotu vo widgete zaberá najviac štvrtinu obrazovky.
+- Prvé kroky v nastaveniach začínajú adresou aplikácie a widgetom; prepojenie prihlásenia (SSO) je voliteľný posledný krok. V sekcii Prihlásenie je kód widgetu, ktorý nepotrebuje nič na vašom serveri. Na telefóne sa medzi sekciami nastavení prepínate výberom na spodku obrazovky.
 - V nastaveniach sú názvy stavov a šablón vzhľadu v jazyku, v ktorom správu používate.
 - Adresu boardu (napríklad `ozvi.io/vasa-appka`) zmeníte v Nastaveniach → Projekt. Stará adresa po zmene prestane fungovať; formulár pripomenie, kde ju treba prepísať (widget, webhooky, MCP, návrat z prihlásenia).
 - Kto prišiel o rolu admina alebo sa medzičasom odhlásil, po uložení nastavení skončí na prihlásení pre adminov, nie na chybovej stránke.

@@ -259,22 +259,23 @@
       "tags": "Tags",
       "statuses": "Status",
       "statusesSub": "Namen, Unterstatus, Unbeantwortet",
-      "sections": "Bereiche des Boards"
+      "sections": "Bereiche des Boards",
+      "dataSub": "Aufbewahrung, Export, Datenschutztext"
     },
     "setup": {
-      "text": "Drei Schritte, und das Feedback fließt direkt aus Ihrer App. Das Aussehen können Sie jederzeit feinjustieren.",
+      "text": "Zwei Schritte, und Feedback kommt direkt aus Ihrer App, ohne Backend-Änderungen. Das Aussehen können Sie jederzeit anpassen.",
       "done": "Erledigt",
       "sso": {
-        "title": "Anmeldung verbinden",
-        "text": "Schalten Sie SSO (Ihre App meldet die Person an) oder OIDC ein. Bis dahin ist die Anmeldung am Board nur per E-Mail möglich, falls Sie sie unter Projekt einschalten."
+        "title": "Optional: Anmeldung verbinden",
+        "text": "Mit SSO oder OIDC brauchen Ihre Nutzer keinen E-Mail-Code, und das Team sieht bei jeder Meldung Name, Tarif und MRR."
       },
       "origin": {
         "title": "Adresse Ihrer App zulassen",
         "text": "Geben Sie im Abschnitt „Projekt“ die Adresse ein, unter der Ihre App läuft. Anderswo funktioniert das Widget nicht."
       },
       "widget": {
-        "title": "Widget in Ihre App einbinden",
-        "text": "Zwei Zeilen Code im Abschnitt „Anmeldung“. Erledigt ist es, sobald sich die erste Person über Ihre App anmeldet."
+        "title": "Widget in die App einbauen",
+        "text": "Zwei Zeilen Code aus dem Abschnitt Anmeldung. Wer nicht über Ihre App angemeldet ist, bestätigt seine E-Mail direkt im Widget. Fertig, sobald sich die erste Person meldet."
       }
     },
     "look": {
@@ -316,7 +317,11 @@
       "maskAnd": "und",
       "oidcTitle": "Anmeldung mit OIDC",
       "oidcText": "Wenn Ihre App einen eigenen Identitätsanbieter hat (Keycloak, Authentik, Auth0 …), führt die Schaltfläche „Anmelden“ dorthin. SSO-Tokens aus Ihrer App funktionieren weiterhin.",
-      "docs": "Widget-Anleitung und Datenschutz im Screenshot"
+      "docs": "Widget-Anleitung und Datenschutz im Screenshot",
+      "quickTitle": "Widget ohne Backend-Änderungen",
+      "quickText": "Fügen Sie diese zwei Zeilen in die Seite Ihrer App ein. Wer eine Meldung, Idee oder Stimme sendet, bestätigt seine E-Mail mit einem 6-stelligen Code direkt im Widget.",
+      "quickOff": "Schalten Sie zuerst die E-Mail-Anmeldung im Abschnitt Projekt ein; ohne sie kann das Widget ohne SSO niemanden bestätigen.",
+      "quickHint": "Die Adresse Ihrer App muss zu den erlaubten gehören (Abschnitt Projekt). Wenn Sie später unten SSO hinzufügen, ergänzen Sie nur token-url, und niemand wird mehr nach einem Code gefragt."
     },
     "domain": {
       "text": "Board, Widget und Links in E-Mails laufen dann unter Ihrer Adresse, z. B. feedback.ihrefirma.de."

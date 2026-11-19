@@ -259,14 +259,15 @@
       "tags": "Tags",
       "statuses": "Statuses",
       "statusesSub": "Names, sub-statuses, unanswered",
-      "sections": "Board sections"
+      "sections": "Board sections",
+      "dataSub": "Retention, export, privacy policy text"
     },
     "setup": {
-      "text": "Three steps and feedback will flow straight from your app. You can fine-tune the look any time.",
+      "text": "Two steps and feedback comes straight from your app, with no backend changes. You can fine-tune the look any time.",
       "done": "Done",
       "sso": {
-        "title": "Connect sign-in",
-        "text": "Turn on SSO (your app signs the user in) or OIDC. Until then, people can only sign in to the board by e-mail, if you turn it on under Project."
+        "title": "Optional: connect sign-in",
+        "text": "With SSO or OIDC your users skip the e-mail code, and the team sees their name, plan and MRR on every report."
       },
       "origin": {
         "title": "Allow your app’s address",
@@ -274,7 +275,7 @@
       },
       "widget": {
         "title": "Add the widget to your app",
-        "text": "Two lines of code in the Sign-in section. It’s done once the first person signs in through your app."
+        "text": "Two lines of code from the Sign-in section. Anyone not signed in through your app verifies their e-mail right in the widget. Done when the first person writes in."
       }
     },
     "look": {
@@ -316,7 +317,11 @@
       "maskAnd": "and",
       "oidcTitle": "Sign-in with OIDC",
       "oidcText": "If your app has its own identity provider (Keycloak, Authentik, Auth0…), the “Sign in” button will lead there. SSO tokens from your app keep working.",
-      "docs": "Widget guide and screenshot privacy"
+      "docs": "Widget guide and screenshot privacy",
+      "quickTitle": "Widget without backend changes",
+      "quickText": "Put these two lines into your app's page. Whoever sends a report, an idea or a vote verifies their e-mail with a 6-digit code right in the widget.",
+      "quickOff": "Turn on e-mail sign-in in the Project section first; without it the widget cannot verify anyone without SSO.",
+      "quickHint": "Your app's address must be among the allowed ones (Project section). If you add SSO below later, just add token-url and nobody gets asked for a code."
     },
     "domain": {
       "text": "The board, widget and links in e-mails will run on your address, e.g. feedback.yourcompany.com."

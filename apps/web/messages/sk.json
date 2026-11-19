@@ -259,14 +259,15 @@
       "tags": "Štítky",
       "statuses": "Stavy",
       "statusesSub": "Názvy, podstavy, bez odpovede",
-      "sections": "Časti boardu"
+      "sections": "Časti boardu",
+      "dataSub": "Uchovávanie, export, text pre zásady"
     },
     "setup": {
-      "text": "Tri kroky a spätná väzba pôjde priamo z vašej aplikácie. Vzhľad môžete doladiť kedykoľvek.",
+      "text": "Dva kroky a spätná väzba pôjde priamo z vašej aplikácie, bez úprav backendu. Vzhľad môžete doladiť kedykoľvek.",
       "done": "Hotovo",
       "sso": {
-        "title": "Prepojte prihlásenie",
-        "text": "Zapnite SSO (aplikácia podpíše používateľa) alebo OIDC. Dovtedy sa na board dá prihlásiť len e-mailom, ak ho zapnete v sekcii Projekt."
+        "title": "Voliteľné: prepojte prihlásenie",
+        "text": "So SSO alebo OIDC sa vaši používatelia nemusia overovať kódom a tím pri hlásení vidí aj meno, plán a MRR."
       },
       "origin": {
         "title": "Povoľte adresu aplikácie",
@@ -274,7 +275,7 @@
       },
       "widget": {
         "title": "Vložte widget do aplikácie",
-        "text": "Dva riadky kódu v sekcii Prihlásenie. Hotovo je, keď sa cez aplikáciu prihlási prvý človek."
+        "text": "Dva riadky kódu zo sekcie Prihlásenie. Kto nie je prihlásený cez vašu aplikáciu, overí sa e-mailom priamo vo widgete. Hotovo je, keď sa ozve prvý človek."
       }
     },
     "look": {
@@ -316,7 +317,11 @@
       "maskAnd": "a",
       "oidcTitle": "Prihlásenie cez OIDC",
       "oidcText": "Ak má aplikácia vlastného poskytovateľa identity (Keycloak, Authentik, Auth0…), tlačidlo „Prihlásiť sa“ povedie naň. SSO tokeny z aplikácie fungujú ďalej.",
-      "docs": "Návod na widget a súkromie na screenshote"
+      "docs": "Návod na widget a súkromie na screenshote",
+      "quickTitle": "Widget bez úprav backendu",
+      "quickText": "Vložte tieto dva riadky do stránky aplikácie. Kto pošle hlásenie, nápad alebo hlas, overí svoj e-mail 6-miestnym kódom priamo vo widgete.",
+      "quickOff": "Najprv zapnite prihlásenie e-mailom v sekcii Projekt; bez neho widget bez SSO nikoho neoverí.",
+      "quickHint": "Adresa aplikácie musí byť medzi povolenými (sekcia Projekt). Ak neskôr pridáte SSO nižšie, stačí doplniť token-url a kód sa už pýtať nebude."
     },
     "domain": {
       "text": "Board, widget aj odkazy v e-mailoch pobežia na vašej adrese, napr. feedback.vasafirma.sk."

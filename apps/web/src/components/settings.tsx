@@ -160,6 +160,18 @@ export function SectionNav({ items }: { items: { id: string; label: string; sub?
     held.current = { id, timer: window.setTimeout(() => { held.current = null; }, 600) };
   };
   return (
+    <>
+    {/* Phones: the side nav does not fit, so a "jump to" select fixed at the bottom stands in for it (the page is
+        14 000 px long). Fixed, not sticky: as a grid item a sticky bar could not leave its own row. */}
+    <div className="fixed inset-x-0 bottom-0 z-20 border-t bg-surface/95 px-4 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur lg:hidden">
+      <label className="flex items-center gap-2 text-[13px] font-medium text-muted-foreground">
+        <span className="shrink-0">{t("sections")}</span>
+        <select value={active} onChange={(e) => { const id = e.target.value; pick(id); document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); history.replaceState(null, "", `#${id}`); }}
+          className="h-9 min-w-0 flex-1 rounded-md border bg-surface px-2 text-[14px] text-foreground">
+          {items.map((i) => <option key={i.id} value={i.id}>{i.label}</option>)}
+        </select>
+      </label>
+    </div>
     <nav aria-label={t("sections")} className="hidden lg:sticky lg:top-24 lg:block lg:self-start">
       <ul className="grid gap-0.5 border-l">
         {items.map((i) => (
@@ -176,5 +188,6 @@ export function SectionNav({ items }: { items: { id: string; label: string; sub?
         ))}
       </ul>
     </nav>
+    </>
   );
 }

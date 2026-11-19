@@ -259,22 +259,23 @@
       "tags": "Címkék",
       "statuses": "Állapotok",
       "statusesSub": "Nevek, alállapotok, megválaszolatlanok",
-      "sections": "A tábla részei"
+      "sections": "A tábla részei",
+      "dataSub": "Megőrzés, export, adatvédelmi szöveg"
     },
     "setup": {
-      "text": "Három lépés, és a visszajelzések közvetlenül az alkalmazásodból érkeznek. A megjelenést bármikor finomhangolhatod.",
+      "text": "Két lépés, és a visszajelzés közvetlenül az alkalmazásodból érkezik, backend-módosítás nélkül. A megjelenést bármikor finomíthatod.",
       "done": "Kész",
       "sso": {
-        "title": "Bejelentkezés bekötése",
-        "text": "Kapcsold be az SSO-t (az alkalmazás írja alá a felhasználót) vagy az OIDC-t. Addig a táblára csak e-maillel lehet bejelentkezni, ha bekapcsolod a Projekt részben."
+        "title": "Nem kötelező: kösd össze a bejelentkezést",
+        "text": "SSO-val vagy OIDC-vel a felhasználóidnak nem kell kódot megadniuk, és a csapat minden bejelentésnél látja a nevet, a csomagot és az MRR-t."
       },
       "origin": {
         "title": "Engedélyezd az alkalmazásod címét",
         "text": "A Projekt szakaszban add meg a címet, ahol az alkalmazásod fut. A widget máshol nem fog működni."
       },
       "widget": {
-        "title": "Add hozzá a widgetet az alkalmazásodhoz",
-        "text": "Két sor kód a Bejelentkezés szakaszban. Akkor kész, amikor az első személy bejelentkezik az alkalmazásodon keresztül."
+        "title": "Tedd be a widgetet az alkalmazásba",
+        "text": "Két sor kód a Bejelentkezés részből. Aki nincs bejelentkezve az alkalmazásodon keresztül, a widgetben erősíti meg az e-mail-címét. Kész, amikor az első ember jelentkezik."
       }
     },
     "look": {
@@ -316,7 +317,11 @@
       "maskAnd": "és",
       "oidcTitle": "Bejelentkezés OIDC-vel",
       "oidcText": "Ha az alkalmazásodnak saját identitásszolgáltatója van (Keycloak, Authentik, Auth0…), a „Bejelentkezés” gomb oda vezet. Az alkalmazásodból érkező SSO-tokenek továbbra is működnek.",
-      "docs": "Widget-útmutató és a képernyőképek adatvédelme"
+      "docs": "Widget-útmutató és a képernyőképek adatvédelme",
+      "quickTitle": "Widget backend-módosítás nélkül",
+      "quickText": "Tedd be ezt a két sort az alkalmazás oldalába. Aki bejelentést, ötletet vagy szavazatot küld, 6 jegyű kóddal erősíti meg az e-mail-címét közvetlenül a widgetben.",
+      "quickOff": "Előbb kapcsold be az e-mailes bejelentkezést a Projekt részben; nélküle a widget SSO nélkül senkit sem tud ellenőrizni.",
+      "quickHint": "Az alkalmazás címének az engedélyezettek között kell lennie (Projekt rész). Ha később lent hozzáadod az SSO-t, elég kiegészíteni a token-url-lel, és többé nem kér kódot."
     },
     "domain": {
       "text": "A tábla, a widget és az e-mailekben lévő linkek a saját címeden futnak, pl. visszajelzes.ceged.hu."

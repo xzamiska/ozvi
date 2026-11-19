@@ -259,22 +259,23 @@
       "tags": "Tagi",
       "statuses": "Statusy",
       "statusesSub": "Nazwy, podstatusy, bez odpowiedzi",
-      "sections": "Części tablicy"
+      "sections": "Części tablicy",
+      "dataSub": "Przechowywanie, eksport, tekst do polityki"
     },
     "setup": {
-      "text": "Trzy kroki i opinie zaczną płynąć prosto z twojej aplikacji. Wygląd możesz dopracować w każdej chwili.",
+      "text": "Dwa kroki i opinie popłyną prosto z Twojej aplikacji, bez zmian w backendzie. Wygląd możesz dopracować w każdej chwili.",
       "done": "Gotowe",
       "sso": {
-        "title": "Podłącz logowanie",
-        "text": "Włącz SSO (aplikacja podpisuje użytkownika) albo OIDC. Do tego czasu do tablicy można się zalogować tylko e-mailem, jeśli włączysz go w sekcji Projekt."
+        "title": "Opcjonalnie: połącz logowanie",
+        "text": "Z SSO lub OIDC Twoi użytkownicy nie muszą podawać kodu, a zespół widzi przy zgłoszeniu imię, plan i MRR."
       },
       "origin": {
         "title": "Zezwól na adres swojej aplikacji",
         "text": "W sekcji Projekt wpisz adres, pod którym działa twoja aplikacja. Nigdzie indziej widżet nie zadziała."
       },
       "widget": {
-        "title": "Dodaj widżet do swojej aplikacji",
-        "text": "Dwie linijki kodu w sekcji Logowanie. Krok jest zaliczony, gdy pierwsza osoba zaloguje się przez twoją aplikację."
+        "title": "Dodaj widżet do aplikacji",
+        "text": "Dwie linie kodu z sekcji Logowanie. Kto nie jest zalogowany przez Twoją aplikację, potwierdzi e-mail bezpośrednio w widżecie. Gotowe, gdy odezwie się pierwsza osoba."
       }
     },
     "look": {
@@ -316,7 +317,11 @@
       "maskAnd": "i",
       "oidcTitle": "Logowanie przez OIDC",
       "oidcText": "Jeśli twoja aplikacja ma własnego dostawcę tożsamości (Keycloak, Authentik, Auth0…), przycisk „Zaloguj się” poprowadzi właśnie tam. Tokeny SSO z twojej aplikacji nadal działają.",
-      "docs": "Przewodnik po widżecie i prywatność zrzutów"
+      "docs": "Przewodnik po widżecie i prywatność zrzutów",
+      "quickTitle": "Widżet bez zmian w backendzie",
+      "quickText": "Wklej te dwie linie do strony aplikacji. Kto wyśle zgłoszenie, pomysł lub głos, potwierdzi e-mail 6-cyfrowym kodem bezpośrednio w widżecie.",
+      "quickOff": "Najpierw włącz logowanie e-mailem w sekcji Projekt; bez niego widżet bez SSO nikogo nie zweryfikuje.",
+      "quickHint": "Adres aplikacji musi być wśród dozwolonych (sekcja Projekt). Gdy później dodasz SSO poniżej, wystarczy dopisać token-url i kod nie będzie już potrzebny."
     },
     "domain": {
       "text": "Tablica, widżet i linki w e-mailach będą działać pod twoim adresem, np. opinie.twojafirma.pl."

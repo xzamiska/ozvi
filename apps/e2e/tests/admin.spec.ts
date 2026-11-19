@@ -400,6 +400,24 @@ test.describe("board settings: tags and statuses", () => {
 });
 
 test.describe("board settings: sign-in, domain, people", () => {
+  test("first steps start with the address and the widget; the widget code needs no token-url; phones jump between sections", async ({ page }) => {
+    const { slug } = await ownerAdmin(page);
+    const start = section(page, "Začíname");
+    await expect(start.getByRole("link").first()).toContainText("Povoľte adresu aplikácie");
+    await expect(start.getByRole("link").last()).toContainText("Voliteľné: prepojte prihlásenie");
+    const quick = page.locator("#widget-quick");
+    await expect(quick).toContainText("Widget bez úprav backendu");
+    const code = await quick.locator("pre").textContent();
+    expect(code).toContain(`<ozvi-widget project="${slug}"></ozvi-widget>`);
+    expect(code).not.toContain("token-url");
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    const jump = page.getByRole("combobox", { name: "Sekcie nastavení" });
+    await expect(jump).toBeVisible();
+    await jump.selectOption("data");
+    await expect(page.locator("#data")).toBeInViewport();
+  });
+
   test("SSO: the secret is shown once, the block switches to 'on' at once, rotating needs confirmation and kills the old secret", async ({ page, request }) => {
     const { slug } = await ownerAdmin(page);
     const sso = page.locator("#sso");
