@@ -197,6 +197,19 @@ describe.skipIf(!migrated)("customers + budget (DB)", () => {
     expect(await withProject(db, project.id, (tx) => customerPlans(tx))).toEqual(["business", "pro"]);
   });
 
+  it("a bug's detail counts the same people as the list's \"affected\": its reporter and the reporters of merged duplicates", async () => {
+    const [orig, dup] = await withSystem(db, (tx) => tx.insert(schema.items).values([
+      { projectId: project.id, kind: "bug" as const, number: 57, title: "Bug", status: "new" as const, authorId: acme1.id },
+      { projectId: project.id, kind: "bug" as const, number: 58, title: "Same bug", status: "wont_fix" as const, authorId: beta.id },
+    ]).returning());
+    await withSystem(db, (tx) => tx.update(schema.items).set({ mergedIntoId: orig!.id }).where(eq(schema.items.id, dup!.id)));
+    const { people, demand } = await withProject(db, project.id, (tx) => itemDemand(tx, orig!));
+    expect(people.map((p) => p.userId).sort()).toEqual([acme1.id, beta.id].sort());
+    expect(demand.people).toBe(2);
+    const [row] = await withProject(db, project.id, (tx) => listItems(tx, [eq(schema.items.number, 57)], "affected", true, { team: true }));
+    expect(row!.affected).toBe(demand.people);
+  });
+
   it("MCP returns customer data only to triage tokens", async () => {
     const tb = await mcpBackend({ project, user: team, scope: "triage", tokenId: "t" });
     const detail = await tb.get(10);
