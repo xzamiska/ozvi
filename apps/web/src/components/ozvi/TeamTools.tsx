@@ -9,7 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
-import { mergeInto, setStatus } from "@/lib/actions";
+import { mergeInto, setAssignee, setStatus } from "@/lib/actions";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { aiSummarizeItem } from "@/lib/changelog-actions";
 import { githubLink, githubUnlink, type ActState } from "@/lib/integration-actions";
 import { useTranslations } from "next-intl";
@@ -112,6 +113,41 @@ export function RouteControl({ slug, itemId, kind, status, version, statuses, su
         <Button onClick={save} disabled={pending} aria-busy={pending || undefined} className="h-auto min-h-9 py-2 whitespace-normal animate-in fade-in-0 slide-in-from-top-1">
           {pending ? tf("saving") : t("moveTo", { s: target })}
         </Button>
+      )}
+    </div>
+  );
+}
+
+const NOBODY = "none";
+
+/** Who handles the item: a team member, or nobody. "Assign to me" in one click for the common case. */
+export function AssigneeControl({ slug, itemId, assignee, me, team }: {
+  slug: string; itemId: string; assignee: string | null; me: string; team: { id: string; label: string }[];
+}) {
+  const t = useTranslations("board.item");
+  const [value, setValue] = useState(assignee ?? NOBODY);
+  const [pending, start] = useTransition();
+  const save = (next: string) => {
+    const prev = value;
+    setValue(next);
+    start(async () => {
+      const r = await setAssignee(slug, itemId, next === NOBODY ? "" : next);
+      if (r.error) { setValue(prev); toast.error(r.error); return; }
+      const who = team.find((x) => x.id === next)?.label;
+      toast.success(who ? t("assigned", { who }) : t("unassigned"));
+    });
+  };
+  return (
+    <div className="grid gap-2">
+      <Select value={value} onValueChange={save} disabled={pending}>
+        <SelectTrigger aria-label={t("assignee")} className="h-9 w-full bg-surface"><SelectValue /></SelectTrigger>
+        <SelectContent>
+          <SelectItem value={NOBODY}>{t("nobody")}</SelectItem>
+          {team.map((x) => <SelectItem key={x.id} value={x.id}>{x.label}</SelectItem>)}
+        </SelectContent>
+      </Select>
+      {value !== me && (
+        <Button type="button" variant="ghost" size="sm" className="justify-self-start px-2" disabled={pending} onClick={() => save(me)}>{t("takeIt")}</Button>
       )}
     </div>
   );

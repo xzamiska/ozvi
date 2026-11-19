@@ -889,7 +889,11 @@
       "allPlans": "Všechny tarify",
       "planOption": "Tarif {plan}",
       "noneForPlan": "Nikdo s tarifem {plan} tu nic nechce",
-      "noneForPlanText": "V tomto filtru není nápad, pro který by hlasoval nebo ho navrhl zákazník s tímto tarifem."
+      "noneForPlanText": "V tomto filtru není nápad, pro který by hlasoval nebo ho navrhl zákazník s tímto tarifem.",
+      "who": "Řeší",
+      "whoAny": "Kdokoli",
+      "whoMe": "Já",
+      "whoNone": "Nikdo"
     },
     "bugs": {
       "gateTitle": "Hlášení chyb vidí jen autor a tým",
@@ -926,7 +930,11 @@
       "nothingForText": "Zkuste jiné slovo nebo číslo hlášení.",
       "clearSearch": "Zrušit hledání",
       "noneStatus": "Žádná hlášení ve stavu {status}",
-      "noneStatusText": "Vyberte jiný stav nebo zobrazte všechna hlášení."
+      "noneStatusText": "Vyberte jiný stav nebo zobrazte všechna hlášení.",
+      "who": "Řeší",
+      "whoAny": "Kdokoli",
+      "whoMe": "Já",
+      "whoNone": "Nikdo"
     },
     "roadmap": {
       "gateTitle": "Roadmapu vidí jen přihlášení",
@@ -1075,7 +1083,12 @@
       "voters": "Hlasující",
       "votersHint": "{n, plural, =0 {Zatím nikdo nehlasoval.} one {Hlasoval # člověk: jméno, e-mail, firma a váha hlasu.} few {Hlasovali # lidé: jména, e-maily, firma a váha hlasu.} many {Hlasovalo # lidí: jména, e-maily, firma a váha hlasu.} other {Hlasovalo # lidí: jména, e-maily, firma a váha hlasu.}}",
       "proof": "Důkaz opravy",
-      "similarAi": "Podobné záznamy vybral model AI podle významu textu. Zda jde o duplicitu, rozhodněte sami."
+      "similarAi": "Podobné záznamy vybral model AI podle významu textu. Zda jde o duplicitu, rozhodněte sami.",
+      "assignee": "Řeší",
+      "nobody": "Nikdo",
+      "takeIt": "Vezmu si to",
+      "assigned": "Řeší: {who}",
+      "unassigned": "Nikdo to zatím neřeší"
     },
     "me": {
       "title": "Moje údaje",
@@ -1666,7 +1679,9 @@
     "subInvalid": "Stavy se nepodařilo uložit. Obnovte stránku a zkuste to znovu.",
     "subName": "Každý podstav potřebuje název aspoň v jednom jazyce.",
     "subTooMany": "Pod jednou zastávkou může být nejvýš {n} podstavů.",
-    "proofUrl": "Odkaz musí být celá adresa začínající https://."
+    "proofUrl": "Odkaz musí být celá adresa začínající https://.",
+    "assignTeamOnly": "Řešitele může určit jen tým.",
+    "assignNotTeam": "Řešitelem může být jen člen týmu tohoto boardu."
   },
   "email": {
     "footer": "Tento e-mail vám poslal {project}, protože sledujete tento záznam.",
@@ -1794,7 +1809,11 @@
     "verifyPreheader": "Kód pro ověření vašeho e-mailu ve widgetu {brand}. Platí 15 minut.",
     "verifyHeading": "Ověřte svůj e-mail",
     "verifyBody": "Tento kód zadejte ve widgetu zpětné vazby v aplikaci {brand}. To, co jste napsali, se pak odešle.",
-    "verifyIgnore": "Kód jsme poslali na {email}. Pokud jste nic neposílali, nemusíte nic dělat."
+    "verifyIgnore": "Kód jsme poslali na {email}. Pokud jste nic neposílali, nemusíte nic dělat.",
+    "assignedSubject": "Přiděleno vám: {title}",
+    "assignedSummary": "Řešíte „{title}“.",
+    "assignedHeading": "Máte to na starosti",
+    "assignedBody": "{who} vám přidělil(a) {ref}."
   },
   "errors": {
     "signIn": "K této akci se musíte přihlásit.",

@@ -1,4 +1,4 @@
-import { Hourglass, MessageSquare, Timer, Users } from "lucide-react";
+import { Hourglass, MessageSquare, Timer, Users, UserRound } from "lucide-react";
 import Link from "next/link";
 import { StatusTag } from "@/components/ozvi/route";
 import { TagChip } from "@/components/ozvi/tags";
@@ -36,6 +36,8 @@ export interface Row {
   subLabel?: string;
   /** Tags this viewer may see (the page resolves them with tagsByItem: team-only tags only for the team). */
   tags?: Tag[];
+  /** Team only: who handles it (lib/row-extras.ts). */
+  assigneeName?: string;
   /** Team queue "Bez odpovede": since when somebody has been waiting for the team. */
   waitingSince?: Date | null;
 }
@@ -99,6 +101,11 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
           {!!row.affected && row.affected > 1 && (
             <span className="inline-flex shrink-0 items-center gap-1" title={t("affected", { n: row.affected })} aria-label={t("affected", { n: row.affected })}>
               <Users className="size-3.5" />{row.affected}
+            </span>
+          )}
+          {!!row.assigneeName && (
+            <span className="inline-flex min-w-0 items-center gap-1" title={t("item.assigned", { who: row.assigneeName })}>
+              <UserRound className="size-3.5 shrink-0" /><span className="truncate">{row.assigneeName}</span>
             </span>
           )}
           {!!row.mrrLabel && (

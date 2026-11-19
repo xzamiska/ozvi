@@ -1,4 +1,5 @@
 import { schema, withProject } from "@ozvi/db";
+import { assignableTeam, assigneeFilter, assigneeOptions } from "@/lib/assign";
 import { and, desc, eq, inArray, isNull } from "drizzle-orm";
 import { Plus, Search } from "lucide-react";
 import Link from "next/link";
@@ -38,7 +39,7 @@ const FILTERS = {
 
 export default async function Ideas({ params, searchParams }: {
   params: Promise<{ project: string }>;
-  searchParams: Promise<{ sort?: string; f?: string; q?: string; plan?: string; p?: string; tag?: string; erased?: string }>;
+  searchParams: Promise<{ sort?: string; f?: string; q?: string; plan?: string; p?: string; tag?: string; erased?: string; who?: string }>;
 }) {
   const { project: slug } = await params;
   const sp = await searchParams;
@@ -62,11 +63,14 @@ export default async function Ideas({ params, searchParams }: {
   }
 
   const { items } = schema;
-  const { queued, rows, hasMore, total, voted, weights, left, plans, shipped, allTags, tag } = await withProject(db, project.id, async (tx) => {
+  const { queued, rows, hasMore, total, voted, weights, left, plans, shipped, allTags, tag, members, who } = await withProject(db, project.id, async (tx) => {
     // Tags: everybody filters by public ones; team-only tags exist (and filter) only for the team.
     const allTags = await listTags(tx, isTeam);
     const tag = tagFromParam(allTags, sp.tag, isTeam);
-    const where = [eq(items.kind, "idea"), inArray(items.status, [...FILTERS[f].statuses]), ...textMatch(q), ...(plan ? [wantedByPlan(plan)] : []), ...(tag ? [hasTag(tag.id)] : [])];
+    // Team: who handles it ("me", "none", a colleague).
+    const members = isTeam ? await assignableTeam(tx) : [];
+    const { who, where: byWho } = isTeam && user ? assigneeFilter(sp.who, user.id, members) : { who: "", where: [] };
+    const where = [eq(items.kind, "idea"), inArray(items.status, [...FILTERS[f].statuses]), ...textMatch(q), ...(plan ? [wantedByPlan(plan)] : []), ...(tag ? [hasTag(tag.id)] : []), ...byWho];
     const { rows, hasMore } = takePage(await listItems(tx, where, sort, isTeam, { limit: fetchLimit(page), team: isTeam, viewerId: user?.id, queue }), page);
     const total = hasMore || page > 1 ? await countItems(tx, where, { viewerId: user?.id, queue }) : rows.length;
     const queued = isTeam ? await countItems(tx, [eq(items.kind, "idea")], { queue: true }) : 0;
@@ -80,11 +84,11 @@ export default async function Ideas({ params, searchParams }: {
     }
     const shipped = await tx.select({ number: items.number, title: items.title, updatedAt: items.updatedAt }).from(items)
       .where(and(eq(items.kind, "idea"), eq(items.status, "shipped"), isNull(items.mergedIntoId), isNull(items.deletedAt), eq(items.pending, false))).orderBy(desc(items.updatedAt)).limit(4);
-    return { queued, rows, hasMore, total, voted: new Set(weights.keys()), weights, left: await budgetLeft(tx, project, user?.id), plans, shipped, allTags, tag };
+    return { queued, rows, hasMore, total, voted: new Set(weights.keys()), weights, left: await budgetLeft(tx, project, user?.id), plans, shipped, allTags, tag, members, who };
   });
   const m = await getTranslations("moderation");
   const tg = await getTranslations("tags");
-  const keep = { sort, f: fParam, ...(q ? { q } : {}), ...(plan ? { plan } : {}), ...(tag ? { tag: tag.name } : {}) };
+  const keep = { sort, f: fParam, ...(q ? { q } : {}), ...(plan ? { plan } : {}), ...(tag ? { tag: tag.name } : {}), ...(who ? { who } : {}) };
   const href = (o: Record<string, string>) => `?${new URLSearchParams({ ...keep, ...o })}`;
   const vote = { mode: voteModeOf(project), left };
   const login = user ? null : (loginHref(project, `/${slug}/ideas`) ?? false);
@@ -132,6 +136,7 @@ export default async function Ideas({ params, searchParams }: {
                 <UrlSelect name="tag" value={tag?.name ?? ""} label={tg("filter")}
                   options={[{ value: "", label: tg("all") }, ...allTags.map((x) => ({ value: x.name, label: x.public ? x.name : `${x.name} · ${tg("teamOnly")}` }))]} />
               )}
+              {isTeam && user && <UrlSelect name="who" value={who} label={t("who")} options={assigneeOptions(t, members, user.id)} />}
               {isTeam && (plans.length > 0 || plan) && (
                 <UrlSelect name="plan" value={plan} label={t("planFilter")}
                   options={[{ value: "", label: t("allPlans") }, ...[...new Set([...plans, ...(plan ? [plan] : [])])].map((p) => ({ value: p, label: t("planOption", { plan: p }) }))]} />

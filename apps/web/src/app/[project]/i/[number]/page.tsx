@@ -14,7 +14,8 @@ import { Journey, type JourneyEvent } from "@/components/ozvi/Journey";
 import { EmptyState, Page } from "@/components/ozvi/page";
 import { StatusTag } from "@/components/ozvi/route";
 import { VotersExport } from "@/components/ExportMenu";
-import { AiSummaryBox, GithubBox, MergeBox, RouteControl } from "@/components/ozvi/TeamTools";
+import { AiSummaryBox, AssigneeControl, GithubBox, MergeBox, RouteControl } from "@/components/ozvi/TeamTools";
+import { assignableTeam } from "@/lib/assign";
 import { ProofBox } from "@/components/ozvi/ProofBox";
 import { listProofs, readProof, visibleProof } from "@/lib/proof";
 import { Button } from "@/components/ui/button";
@@ -128,6 +129,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
       allTags: await listTags(tx, true),
       subs: subs.filter((s) => s.kind === item.kind).map((s) => ({ id: s.id, stage: s.stage, label: subName.get(s.id)! })),
       github: !!(await getGithub(tx).catch(() => null)),
+      members: await assignableTeam(tx),
       // Linear/Jira: usable once a team/project is picked.
       linear: !!(await getLinear(tx).catch(() => null))?.config.teamId,
       jira: !!(await getJira(tx).catch(() => null))?.config.projectKey,
@@ -398,6 +400,9 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
           {isTeam && team && !deleted && (
             <section aria-labelledby="team-h" className="grid gap-5 rounded-xl border border-dashed bg-surface p-5">
               <h2 id="team-h" className="font-heading text-[15px] font-bold">{t("forTeam")}</h2>
+              <TeamBlock title={t("assignee")}>
+                <AssigneeControl key={item.assigneeId ?? ""} slug={slug} itemId={item.id} assignee={item.assigneeId} me={user!.id} team={team.members} />
+              </TeamBlock>
               <TeamBlock title={t("status")}>
                 <RouteControl key={`${item.status}-${item.subStatusId ?? ""}-${item.fixedInVersion ?? ""}`} slug={slug} itemId={item.id} kind={item.kind}
                   status={item.status} version={item.fixedInVersion} statuses={ITEM_STATUSES[item.kind]} subs={team.subs} sub={item.subStatusId} />

@@ -172,6 +172,8 @@ export const items = pgTable("items", {
   body: text("body").notNull().default(""),
   status: itemStatus("status").notNull(),
   authorId: uuid("author_id").references(() => users.id, { onDelete: "set null" }),
+  /** Team member who handles it (team or admin of this project); null = nobody yet. */
+  assigneeId: uuid("assignee_id").references(() => users.id, { onDelete: "set null" }),
   /** Bugs: url, appVersion, browser, console, network, replay links. Masked on the client before upload. */
   context: jsonb("context"),
   fixedInVersion: text("fixed_in_version"),
@@ -200,6 +202,7 @@ export const items = pgTable("items", {
   check("items_source", sql`${t.source} in ('board', 'widget', 'mcp', 'import', 'api')`),
   uniqueIndex("items_project_number").on(t.projectId, t.number),
   index("items_board").on(t.projectId, t.kind, t.status, t.voteCount),
+  index("items_assignee").on(t.projectId, t.assigneeId),
   check("items_title_len", sql`char_length(${t.title}) between 1 and 200`),
 ]);
 

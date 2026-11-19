@@ -889,7 +889,11 @@
       "allPlans": "Minden csomag",
       "planOption": "{plan} csomag",
       "noneForPlan": "A(z) {plan} csomag ügyfelei itt semmit sem kérnek",
-      "noneForPlanText": "Ebben a szűrőben egyetlen ötletre sem szavazott, és egyet sem javasolt ilyen csomagú ügyfél."
+      "noneForPlanText": "Ebben a szűrőben egyetlen ötletre sem szavazott, és egyet sem javasolt ilyen csomagú ügyfél.",
+      "who": "Felelős",
+      "whoAny": "Bárki",
+      "whoMe": "Én",
+      "whoNone": "Senki"
     },
     "bugs": {
       "gateTitle": "A hibajelentéseket csak a bejelentő és a csapat látja",
@@ -926,7 +930,11 @@
       "nothingForText": "Próbálj másik szót vagy a bejelentés számát.",
       "clearSearch": "Keresés törlése",
       "noneStatus": "Nincs bejelentés ebben az állapotban: {status}",
-      "noneStatusText": "Válassz másik állapotot, vagy jelenítsd meg az összes bejelentést."
+      "noneStatusText": "Válassz másik állapotot, vagy jelenítsd meg az összes bejelentést.",
+      "who": "Felelős",
+      "whoAny": "Bárki",
+      "whoMe": "Én",
+      "whoNone": "Senki"
     },
     "roadmap": {
       "gateTitle": "Az ütemterv csak bejelentkezett felhasználók számára látható",
@@ -1075,7 +1083,12 @@
       "voters": "Szavazók",
       "votersHint": "{n, plural, =0 {Még senki sem szavazott.} one {# személy szavazott: név, e-mail-cím, cég és szavazatsúly.} other {# személy szavazott: nevek, e-mail-címek, cég és szavazatsúly.}}",
       "proof": "A javítás bizonyítéka",
-      "similarAi": "Ezeket egy AI-modell válogatta jelentés alapján. Hogy duplikátumok-e, azt te döntöd el."
+      "similarAi": "Ezeket egy AI-modell válogatta jelentés alapján. Hogy duplikátumok-e, azt te döntöd el.",
+      "assignee": "Felelős",
+      "nobody": "Senki",
+      "takeIt": "Elvállalom",
+      "assigned": "Felelős: {who}",
+      "unassigned": "Még senki sem foglalkozik vele"
     },
     "me": {
       "title": "Saját adatok",
@@ -1666,7 +1679,9 @@
     "subInvalid": "Nem sikerült menteni az állapotokat. Frissítsd az oldalt, és próbáld újra.",
     "subName": "Minden alállapotnak legalább egy nyelven kell, hogy legyen neve.",
     "subTooMany": "Egy állomásnak legfeljebb {n} alállapota lehet.",
-    "proofUrl": "A linknek https://-sel kezdődő teljes címnek kell lennie."
+    "proofUrl": "A linknek https://-sel kezdődő teljes címnek kell lennie.",
+    "assignTeamOnly": "Felelőst csak a csapat jelölhet ki.",
+    "assignNotTeam": "Felelős csak e tábla csapattagja lehet."
   },
   "email": {
     "footer": "Feladó: {project}. Azért kapod ezt az e-mailt, mert követed ezt a bejegyzést.",
@@ -1794,7 +1809,11 @@
     "verifyPreheader": "Kód az e-mail-címe megerősítéséhez a {brand} widgetben. 15 percig érvényes.",
     "verifyHeading": "Erősítse meg e-mail-címét",
     "verifyBody": "Írja be ezt a kódot a {brand} alkalmazás visszajelzési widgetjébe. Amit írt, utána elküldjük.",
-    "verifyIgnore": "A kódot ide küldtük: {email}. Ha nem küldött semmit, nincs teendője."
+    "verifyIgnore": "A kódot ide küldtük: {email}. Ha nem küldött semmit, nincs teendője.",
+    "assignedSubject": "Önhöz rendelve: {title}",
+    "assignedSummary": "Ön foglalkozik ezzel: „{title}”.",
+    "assignedHeading": "Ez most az Öné",
+    "assignedBody": "{who} Önhöz rendelte: {ref}."
   },
   "errors": {
     "signIn": "Ehhez jelentkezz be.",

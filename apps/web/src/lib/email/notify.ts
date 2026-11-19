@@ -202,6 +202,17 @@ export async function notifyRejected(tx: Tx, project: Project, item: Item, actor
   return enqueue(tx, project, "idea_rejected", [item.authorId], (t) => rejectionMail(t, item, reason, itemUrl(project, item)));
 }
 
+/** Someone on the team gave this item to a colleague: tell the colleague (team mail, never the customer). */
+export async function notifyAssigned(tx: Tx, project: Project, item: Item, assigneeId: string, byName: string | null) {
+  await enqueue(tx, project, "assigned", [assigneeId], (t) => ({
+    subject: t("assignedSubject", { title: item.title }),
+    summary: t("assignedSummary", { title: item.title }),
+    heading: t("assignedHeading"),
+    paragraphs: [t("assignedBody", { who: byName ?? t("someone"), ref: t("ref", { n: String(item.number), title: item.title }) })],
+    cta: { label: item.kind === "bug" ? t("openReport") : t("openIdea"), href: itemUrl(project, item) },
+  }));
+}
+
 /** A new idea goes to the team so nothing waits unseen until the weekly digest. */
 export async function notifyNewIdea(tx: Tx, project: Project, item: Item) {
   const team = (await teamIds(tx, "newIdea")).filter((id) => id !== (item.authorId ?? NOBODY));

@@ -889,7 +889,11 @@
       "allPlans": "Wszystkie plany",
       "planOption": "Plan {plan}",
       "noneForPlan": "Nikt z planu {plan} niczego tu nie potrzebuje",
-      "noneForPlanText": "Na żaden pomysł w tym filtrze nie głosował ani żadnego nie zaproponował klient z tym planem."
+      "noneForPlanText": "Na żaden pomysł w tym filtrze nie głosował ani żadnego nie zaproponował klient z tym planem.",
+      "who": "Odpowiada",
+      "whoAny": "Ktokolwiek",
+      "whoMe": "Ja",
+      "whoNone": "Nikt"
     },
     "bugs": {
       "gateTitle": "Zgłoszenia błędów widzi tylko zgłaszający i zespół",
@@ -926,7 +930,11 @@
       "nothingForText": "Spróbuj innego słowa albo numeru zgłoszenia.",
       "clearSearch": "Wyczyść wyszukiwanie",
       "noneStatus": "Brak zgłoszeń ze statusem {status}",
-      "noneStatusText": "Wybierz inny status albo pokaż wszystkie zgłoszenia."
+      "noneStatusText": "Wybierz inny status albo pokaż wszystkie zgłoszenia.",
+      "who": "Odpowiada",
+      "whoAny": "Ktokolwiek",
+      "whoMe": "Ja",
+      "whoNone": "Nikt"
     },
     "roadmap": {
       "gateTitle": "Roadmapę widzą tylko zalogowani użytkownicy",
@@ -1075,7 +1083,12 @@
       "voters": "Głosujący",
       "votersHint": "{n, plural, =0 {Nikt jeszcze nie głosował.} one {Zagłosowała # osoba: imię, e-mail, firma i waga głosu.} few {Zagłosowały # osoby: imiona, e-maile, firma i waga głosu.} many {Zagłosowało # osób: imiona, e-maile, firma i waga głosu.} other {Zagłosowało # osoby: imiona, e-maile, firma i waga głosu.}}",
       "proof": "Dowód poprawki",
-      "similarAi": "Te wpisy wybrał model AI na podstawie znaczenia. Czy to duplikaty, decydujesz ty."
+      "similarAi": "Te wpisy wybrał model AI na podstawie znaczenia. Czy to duplikaty, decydujesz ty.",
+      "assignee": "Odpowiada",
+      "nobody": "Nikt",
+      "takeIt": "Biorę to",
+      "assigned": "Odpowiada: {who}",
+      "unassigned": "Nikt się tym jeszcze nie zajmuje"
     },
     "me": {
       "title": "Moje dane",
@@ -1666,7 +1679,9 @@
     "subInvalid": "Nie udało się zapisać statusów. Odśwież stronę i spróbuj ponownie.",
     "subName": "Każdy podstatus musi mieć nazwę w co najmniej jednym języku.",
     "subTooMany": "Etap może mieć maksymalnie {n} podstatusów.",
-    "proofUrl": "Link musi być pełnym adresem zaczynającym się od https://."
+    "proofUrl": "Link musi być pełnym adresem zaczynającym się od https://.",
+    "assignTeamOnly": "Osobę odpowiedzialną może wskazać tylko zespół.",
+    "assignNotTeam": "Odpowiedzialną osobą może być tylko członek zespołu tej tablicy."
   },
   "email": {
     "footer": "Otrzymujesz tę wiadomość od {project}, ponieważ obserwujesz ten wpis.",
@@ -1794,7 +1809,11 @@
     "verifyPreheader": "Kod do potwierdzenia e-maila w widżecie {brand}. Ważny 15 minut.",
     "verifyHeading": "Potwierdź swój e-mail",
     "verifyBody": "Wpisz ten kod w widżecie opinii w aplikacji {brand}. To, co napisałeś, zostanie wtedy wysłane.",
-    "verifyIgnore": "Wysłaliśmy kod na {email}. Jeśli niczego nie wysyłałeś, nie musisz nic robić."
+    "verifyIgnore": "Wysłaliśmy kod na {email}. Jeśli niczego nie wysyłałeś, nie musisz nic robić.",
+    "assignedSubject": "Przydzielone Tobie: {title}",
+    "assignedSummary": "Zajmujesz się „{title}”.",
+    "assignedHeading": "To teraz Twoje zadanie",
+    "assignedBody": "{who} przydzielił(a) Ci {ref}."
   },
   "errors": {
     "signIn": "Zaloguj się, żeby to zrobić.",

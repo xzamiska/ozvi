@@ -889,7 +889,11 @@
       "allPlans": "All plans",
       "planOption": "{plan} plan",
       "noneForPlan": "No one on the {plan} plan wants anything here",
-      "noneForPlanText": "No idea in this filter was voted for or suggested by a customer on this plan."
+      "noneForPlanText": "No idea in this filter was voted for or suggested by a customer on this plan.",
+      "who": "Assignee",
+      "whoAny": "Anyone",
+      "whoMe": "Me",
+      "whoNone": "Nobody"
     },
     "bugs": {
       "gateTitle": "Bug reports are visible to the reporter and the team only",
@@ -926,7 +930,11 @@
       "nothingForText": "Try another word or the report number.",
       "clearSearch": "Clear search",
       "noneStatus": "No reports in {status}",
-      "noneStatusText": "Pick another status or show all reports."
+      "noneStatusText": "Pick another status or show all reports.",
+      "who": "Assignee",
+      "whoAny": "Anyone",
+      "whoMe": "Me",
+      "whoNone": "Nobody"
     },
     "roadmap": {
       "gateTitle": "The roadmap is visible to signed-in users only",
@@ -1075,7 +1083,12 @@
       "voters": "Voters",
       "votersHint": "{n, plural, =0 {Nobody has voted yet.} one {# person voted: name, e-mail, company and vote weight.} other {# people voted: names, e-mails, company and vote weight.}}",
       "proof": "Proof of fix",
-      "similarAi": "An AI model picked these by meaning. Whether they are duplicates is your call."
+      "similarAi": "An AI model picked these by meaning. Whether they are duplicates is your call.",
+      "assignee": "Assignee",
+      "nobody": "Nobody",
+      "takeIt": "Assign to me",
+      "assigned": "Assigned to {who}",
+      "unassigned": "Nobody is on it yet"
     },
     "me": {
       "title": "My data",
@@ -1666,7 +1679,9 @@
     "subInvalid": "The statuses couldn't be saved. Refresh the page and try again.",
     "subName": "Every sub-status needs a name in at least one language.",
     "subTooMany": "A stop can have at most {n} sub-statuses.",
-    "proofUrl": "The link must be a full address starting with https://."
+    "proofUrl": "The link must be a full address starting with https://.",
+    "assignTeamOnly": "Only the team can assign items.",
+    "assignNotTeam": "Only a team member of this board can be assigned."
   },
   "email": {
     "footer": "You’re getting this from {project} because you follow this item.",
@@ -1794,7 +1809,11 @@
     "verifyPreheader": "Your code to confirm your e-mail in the {brand} widget. Valid for 15 minutes.",
     "verifyHeading": "Confirm your e-mail",
     "verifyBody": "Enter this code in the feedback widget in {brand}. What you wrote is sent right after.",
-    "verifyIgnore": "We sent this code to {email}. If you didn't send anything, you don't need to do anything."
+    "verifyIgnore": "We sent this code to {email}. If you didn't send anything, you don't need to do anything.",
+    "assignedSubject": "Assigned to you: {title}",
+    "assignedSummary": "You handle “{title}”.",
+    "assignedHeading": "It's yours now",
+    "assignedBody": "{who} assigned {ref} to you."
   },
   "errors": {
     "signIn": "Please sign in to do this.",

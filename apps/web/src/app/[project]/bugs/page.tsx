@@ -1,4 +1,5 @@
 import { schema, withProject } from "@ozvi/db";
+import { assignableTeam, assigneeFilter, assigneeOptions } from "@/lib/assign";
 import { and, eq, inArray, sql } from "drizzle-orm";
 import { Bug, Lock, Search } from "lucide-react";
 import Link from "next/link";
@@ -32,7 +33,7 @@ const STAGES = {
   all: { statuses: ["new", "confirmed", "in_progress", "fixed", "verified", "wont_fix"] },
 } as const;
 
-export default async function Bugs({ params, searchParams }: { params: Promise<{ project: string }>; searchParams: Promise<{ s?: string; st?: string; q?: string; sort?: string; p?: string; tag?: string }> }) {
+export default async function Bugs({ params, searchParams }: { params: Promise<{ project: string }>; searchParams: Promise<{ s?: string; st?: string; q?: string; sort?: string; p?: string; tag?: string; who?: string }> }) {
   const { project: slug } = await params;
   const sp = await searchParams;
   const { project, user, isTeam, locale } = await getCtx(slug);
@@ -53,21 +54,24 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
   const page = pageParam(sp.p);
   const { items } = schema;
   const mine = isTeam ? [] : [eq(items.authorId, user.id)];
-  const { rows, hasMore, counts, allTags, tag } = await withProject(db, project.id, async (tx) => {
+  const { rows, hasMore, counts, allTags, tag, members, who } = await withProject(db, project.id, async (tx) => {
     // Tags: everybody filters by public ones; team-only tags exist (and filter) only for the team.
     const allTags = await listTags(tx, isTeam);
     const tag = tagFromParam(allTags, sp.tag, isTeam);
-    const search = [...textMatch(q), ...(tag ? [hasTag(tag.id)] : [])];
+    // Team: who handles it ("me", "none", a colleague).
+    const members = isTeam ? await assignableTeam(tx) : [];
+    const { who, where: byWho } = isTeam ? assigneeFilter(sp.who, user.id, members) : { who: "", where: [] };
+    const search = [...textMatch(q), ...(tag ? [hasTag(tag.id)] : []), ...byWho];
     const page_ = takePage(await listItems(tx, [eq(items.kind, "bug"), inArray(items.status, st ? [st] : [...STAGES[stage!].statuses]), ...mine, ...search], sort, isTeam,
       { limit: fetchLimit(page), team: isTeam }), page);
     await decorateRows(tx, project, locale, page_.rows, isTeam);
-    return { ...page_, allTags, tag,
+    return { ...page_, allTags, tag, members, who,
     // Counts follow the search, so the numbers on the segments match what a click shows.
     counts: Object.fromEntries((await tx.select({ status: items.status, n: sql<number>`count(*)::int` }).from(items)
       .where(and(eq(items.kind, "bug"), sql`${items.mergedIntoId} is null and ${items.deletedAt} is null`, ...mine, ...search)).groupBy(items.status)).map((r) => [r.status, r.n])) as Record<string, number>,
   }; });
   const count = (k: keyof typeof STAGES) => STAGES[k].statuses.reduce((a, s) => a + (counts[s] ?? 0), 0);
-  const keep = { ...(st ? { st } : { s: stage! }), ...(q ? { q } : {}), ...(sort !== "new" ? { sort } : {}), ...(tag ? { tag: tag.name } : {}) };
+  const keep = { ...(st ? { st } : { s: stage! }), ...(q ? { q } : {}), ...(sort !== "new" ? { sort } : {}), ...(tag ? { tag: tag.name } : {}), ...(who ? { who } : {}) };
   const tg = await getTranslations("tags");
   const href = (o: Record<string, string>) => `?${new URLSearchParams({ ...keep, ...o })}`;
   const shownTotal = st ? (counts[st] ?? 0) : count(stage!);
@@ -93,13 +97,14 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
               <div className="grid gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-4">
               <FilterBar>
                 <Segments label={t("status")} items={(Object.keys(STAGES) as (keyof typeof STAGES)[]).map((k) => ({
-                  href: `?${new URLSearchParams({ s: k, ...(q ? { q } : {}), ...(sort !== "new" ? { sort } : {}), ...(tag ? { tag: tag.name } : {}) })}`, active: k === stage,
+                  href: `?${new URLSearchParams({ s: k, ...(q ? { q } : {}), ...(sort !== "new" ? { sort } : {}), ...(tag ? { tag: tag.name } : {}), ...(who ? { who } : {}) })}`, active: k === stage,
                   label: <>{t(`stages.${k}`)}<span className="ml-1.5 tabular-nums opacity-60">{count(k)}</span></>,
                 }))} />
                 {isTeam && (
                   <UrlSelect name="st" value={st ?? ""} label={t("exactStatus")}
                     options={[{ value: "", label: t("anyStatus") }, ...STAGES.all.statuses.map((s) => ({ value: s, label: `${stopLabel(locale, s, project)} (${counts[s] ?? 0})` }))]} />
                 )}
+                {isTeam && <UrlSelect name="who" value={who} label={t("who")} options={assigneeOptions(t, members, user.id)} />}
                 {allTags.length > 0 && (
                   <UrlSelect name="tag" value={tag?.name ?? ""} label={tg("filter")}
                     options={[{ value: "", label: tg("all") }, ...allTags.map((x) => ({ value: x.name, label: x.public ? x.name : `${x.name} · ${tg("teamOnly")}` }))]} />

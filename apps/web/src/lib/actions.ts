@@ -1,5 +1,6 @@
 "use server";
 
+import { assignItem } from "./assign";
 import { schema, withProject } from "@ozvi/db";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -109,6 +110,23 @@ export async function setStatus(slug: string, itemId: string, form: FormData) {
     if (note && moved) await tx.insert(schema.comments).values({ projectId: project.id, itemId: item.id, authorId: user.id, body: note, internal: false, source: "board" });
   });
   revalidatePath(`/${slug}`, "layout");
+}
+
+/** Team: who handles this item ("" = nobody). */
+export async function setAssignee(slug: string, itemId: string, assigneeId: string): Promise<FormState> {
+  const { project, user, locale, t } = await requireUser(slug);
+  try {
+    await withProject(db, project.id, async (tx) => {
+      const item = await tx.query.items.findFirst({ where: eq(items.id, itemId) });
+      if (!item) throw new DomainError(t("itemMissing"));
+      await assignItem(tx, project, user, item, /^[0-9a-f-]{36}$/i.test(assigneeId) ? assigneeId : null);
+    });
+  } catch (e) {
+    if (e instanceof DomainError) return { error: e.text(locale) };
+    throw e;
+  }
+  revalidatePath(`/${slug}`, "layout");
+  return {};
 }
 
 /** Team: mark this item as a duplicate of #target. */

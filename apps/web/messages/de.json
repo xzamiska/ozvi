@@ -889,7 +889,11 @@
       "allPlans": "Alle Tarife",
       "planOption": "Tarif {plan}",
       "noneForPlan": "Niemand im Tarif {plan} wünscht sich hier etwas",
-      "noneForPlanText": "Für keine Idee in diesem Filter hat ein Kunde mit diesem Tarif abgestimmt oder sie vorgeschlagen."
+      "noneForPlanText": "Für keine Idee in diesem Filter hat ein Kunde mit diesem Tarif abgestimmt oder sie vorgeschlagen.",
+      "who": "Zuständig",
+      "whoAny": "Alle",
+      "whoMe": "Ich",
+      "whoNone": "Niemand"
     },
     "bugs": {
       "gateTitle": "Fehlermeldungen sind nur für die meldende Person und das Team sichtbar",
@@ -926,7 +930,11 @@
       "nothingForText": "Versuchen Sie ein anderes Wort oder die Nummer der Meldung.",
       "clearSearch": "Suche löschen",
       "noneStatus": "Keine Meldungen mit Status {status}",
-      "noneStatusText": "Wählen Sie einen anderen Status oder zeigen Sie alle Meldungen an."
+      "noneStatusText": "Wählen Sie einen anderen Status oder zeigen Sie alle Meldungen an.",
+      "who": "Zuständig",
+      "whoAny": "Alle",
+      "whoMe": "Ich",
+      "whoNone": "Niemand"
     },
     "roadmap": {
       "gateTitle": "Die Roadmap ist nur für angemeldete Personen sichtbar",
@@ -1075,7 +1083,12 @@
       "voters": "Abstimmende",
       "votersHint": "{n, plural, =0 {Bisher hat niemand abgestimmt.} one {# Person hat abgestimmt: Name, E-Mail-Adresse, Unternehmen und Stimmgewicht.} other {# Personen haben abgestimmt: Namen, E-Mail-Adressen, Unternehmen und Stimmgewicht.}}",
       "proof": "Nachweis der Korrektur",
-      "similarAi": "Diese hat ein KI-Modell nach Bedeutung ausgewählt. Ob es Duplikate sind, entscheiden Sie."
+      "similarAi": "Diese hat ein KI-Modell nach Bedeutung ausgewählt. Ob es Duplikate sind, entscheiden Sie.",
+      "assignee": "Zuständig",
+      "nobody": "Niemand",
+      "takeIt": "Selbst übernehmen",
+      "assigned": "Zuständig: {who}",
+      "unassigned": "Noch niemand zuständig"
     },
     "me": {
       "title": "Meine Daten",
@@ -1666,7 +1679,9 @@
     "subInvalid": "Die Status konnten nicht gespeichert werden. Laden Sie die Seite neu und versuchen Sie es erneut.",
     "subName": "Jeder Unterstatus braucht einen Namen in mindestens einer Sprache.",
     "subTooMany": "Ein Schritt kann höchstens {n} Unterstatus haben.",
-    "proofUrl": "Der Link muss eine vollständige Adresse sein, die mit https:// beginnt."
+    "proofUrl": "Der Link muss eine vollständige Adresse sein, die mit https:// beginnt.",
+    "assignTeamOnly": "Nur das Team kann Einträge zuweisen.",
+    "assignNotTeam": "Zugewiesen werden kann nur ein Teammitglied dieses Boards."
   },
   "email": {
     "footer": "Sie erhalten diese E-Mail von {project}, weil Sie diesem Beitrag folgen.",
@@ -1794,7 +1809,11 @@
     "verifyPreheader": "Ihr Code zur Bestätigung Ihrer E-Mail im Widget von {brand}. 15 Minuten gültig.",
     "verifyHeading": "E-Mail-Adresse bestätigen",
     "verifyBody": "Geben Sie diesen Code im Feedback-Widget in {brand} ein. Was Sie geschrieben haben, wird danach gesendet.",
-    "verifyIgnore": "Wir haben den Code an {email} gesendet. Wenn Sie nichts gesendet haben, müssen Sie nichts tun."
+    "verifyIgnore": "Wir haben den Code an {email} gesendet. Wenn Sie nichts gesendet haben, müssen Sie nichts tun.",
+    "assignedSubject": "Ihnen zugewiesen: {title}",
+    "assignedSummary": "Sie kümmern sich um „{title}“.",
+    "assignedHeading": "Das liegt jetzt bei Ihnen",
+    "assignedBody": "{who} hat Ihnen {ref} zugewiesen."
   },
   "errors": {
     "signIn": "Bitte melden Sie sich dafür an.",

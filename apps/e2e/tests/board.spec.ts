@@ -310,6 +310,44 @@ test.describe("public board", () => {
     await ann.ctx.close();
   });
 
+  test("assignee: the team gives a bug to a colleague, who gets an e-mail and finds it under “Rieši: Ja”; customers never see it", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const boris = await boardUser(browser, b, "boris", { role: "team" });
+    const ann = await boardUser(browser, b, "anna");
+    const title = uniq("Pridelená chyba");
+    const n = await createItem(ann.page, b.slug, "bug", title);
+
+    await page.goto(`/${b.slug}/i/${n}`);
+    const team = page.getByRole("region", { name: "Pre tím" });
+    await expect(team.getByRole("combobox", { name: "Rieši" })).toHaveText("Nikto");
+    await team.getByRole("combobox", { name: "Rieši" }).click();
+    await page.getByRole("option", { name: boris.name }).click();
+    await expect(page.getByText(`Rieši: ${boris.name}`)).toBeVisible();
+    const mail = await lastMail(boris.email, { subject: /^Pridelené vám:/ });
+    expect(mail.Subject).toBe(`Pridelené vám: ${title}`);
+    expect(linkIn(mail.text, new RegExp(`/${b.slug}/i/${n}`))).not.toBeNull();
+
+    // Boris finds it under "Me"; the owner's "Me" is empty, "Nobody" does not list it.
+    await boris.page.goto(`/${b.slug}/bugs?s=all&who=me`);
+    await expect(boris.page.getByRole("link", { name: title })).toBeVisible();
+    await page.goto(`/${b.slug}/bugs?s=all&who=me`);
+    await expect(page.getByRole("link", { name: title })).toHaveCount(0);
+    await page.goto(`/${b.slug}/bugs?s=all&who=none`);
+    await expect(page.getByRole("link", { name: title })).toHaveCount(0);
+    await page.goto(`/${b.slug}/bugs?s=all`);
+    await expect(page.locator("li").filter({ hasText: title }).getByText(boris.name)).toBeVisible();
+
+    // "Assign to me" in one click; the reporter sees no trace of who handles it.
+    await page.goto(`/${b.slug}/i/${n}`);
+    await page.getByRole("region", { name: "Pre tím" }).getByRole("button", { name: "Vezmem si to" }).click();
+    await expect(page.getByText(/^Rieši: /)).toBeVisible();
+    await ann.page.goto(`/${b.slug}/i/${n}`);
+    await expect(ann.page.getByText(title).first()).toBeVisible();
+    await expect(ann.page.getByText("Rieši")).toHaveCount(0);
+    await expect(ann.page.getByText(boris.name)).toHaveCount(0);
+    await boris.ctx.close(); await ann.ctx.close();
+  });
+
   test("changelog: a published entry ships the idea, e-mails voters, appears on /changelog and in the RSS feed", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");
