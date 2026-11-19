@@ -712,6 +712,9 @@ test.describe("public board", () => {
     await expect(page.getByRole("link", { name: `#${n2}`, exact: true })).toBeVisible();
     expect((await itemRow(b.slug, n1))!.voteCount).toBe(2);
 
+    // The duplicate is nobody's work any more: no assignee control there.
+    await page.goto(`/${b.slug}/i/${n2}`);
+    await expect(page.getByRole("region", { name: "Pre tím" }).getByRole("combobox", { name: "Rieši" })).toHaveCount(0);
     await carl.page.goto(`/${b.slug}/i/${n1}`);
     await expect(carl.page.getByRole("button", { name: /^Zrušiť hlas, 2 hlasy/ })).toBeVisible();
     await ben.page.goto(`/${b.slug}/i/${n2}`);

@@ -401,9 +401,12 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
           {isTeam && team && !deleted && (
             <section aria-labelledby="team-h" className="grid gap-5 rounded-xl border border-dashed bg-surface p-5">
               <h2 id="team-h" className="font-heading text-[15px] font-bold">{t("forTeam")}</h2>
-              <TeamBlock title={t("assignee")}>
-                <AssigneeControl key={item.assigneeId ?? ""} slug={slug} itemId={item.id} assignee={item.assigneeId} me={user!.id} team={team.members} />
-              </TeamBlock>
+              {/* A merged item is no work for anyone: its original is (assignItem refuses it too). */}
+              {!item.mergedIntoId && (
+                <TeamBlock title={t("assignee")}>
+                  <AssigneeControl key={item.assigneeId ?? ""} slug={slug} itemId={item.id} assignee={item.assigneeId} me={user!.id} team={team.members} />
+                </TeamBlock>
+              )}
               <TeamBlock title={t("status")}>
                 <RouteControl key={`${item.status}-${item.subStatusId ?? ""}-${item.fixedInVersion ?? ""}`} slug={slug} itemId={item.id} kind={item.kind}
                   status={item.status} version={item.fixedInVersion} statuses={ITEM_STATUSES[item.kind]} subs={team.subs} sub={item.subStatusId} />
