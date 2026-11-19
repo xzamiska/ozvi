@@ -147,10 +147,10 @@ export const users = pgTable("users", {
   role: userRole("role").notNull().default("member"),
   emailOptOut: boolean("email_opt_out").notNull().default(false),
   /**
-   * Team members only: which team e-mails they want ("My data" → Team e-mails). Keys newBug, newIdea, comments,
+   * Team members only: which team e-mails they want ("My data" → Team e-mails). Keys newBug, newIdea, comments, assigned,
    * digest; a missing key means on. Their own items and conversations still reach them like anyone else.
    */
-  teamMail: jsonb("team_mail").$type<Partial<Record<"newBug" | "newIdea" | "comments" | "digest", boolean>>>().notNull().default({}),
+  teamMail: jsonb("team_mail").$type<Partial<Record<"newBug" | "newIdea" | "comments" | "digest" | "assigned", boolean>>>().notNull().default({}),
   /** Team: when they last marked the "New" inbox as read (lib/inbox.ts); null = the last 7 days count as new. */
   inboxSeenAt: timestamp("inbox_seen_at", { withTimezone: true }),
   /** Bumped to sign the user out everywhere; sessions carry the version they were issued with. */

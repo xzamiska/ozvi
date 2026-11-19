@@ -914,7 +914,7 @@
       "report": "Report a bug",
       "titleTeam": "Bugs",
       "titleMine": "My bug reports",
-      "ledeTeam": "Everything users have reported. Move reports along the route — the reporter gets an e-mail at every change.",
+      "ledeTeam": "Everything users have reported. Move reports along the route; with each status change you choose whether the reporter gets an e-mail.",
       "ledeMine": "Your reports and where they are on the route. When we fix a bug, we’ll let you know by e-mail.",
       "status": "Status",
       "onlyYou": "Only you and the team can see these",
@@ -1097,7 +1097,8 @@
       "takeIt": "Assign to me",
       "assigned": "Assigned to {who}",
       "unassigned": "Nobody is on it yet",
-      "mergedHere": "Merged into this:"
+      "mergedHere": "Merged into this:",
+      "former": "{who} (no longer on the team)"
     },
     "me": {
       "title": "My data",
@@ -1145,6 +1146,10 @@
         "comments": {
           "title": "Comments and internal notes",
           "text": "On every item on the board."
+        },
+        "assigned": {
+          "title": "Assigned to me",
+          "text": "When someone gives you a report or an idea."
         },
         "digest": {
           "title": "Monday digest",
@@ -1209,7 +1214,7 @@
       "emptyText": "Nothing happened since you last looked.",
       "created": "New",
       "comments": "{n, plural, one {# comment} other {# comments}}",
-      "statuses": "{n, plural, one {status change} other {# status changes}}",
+      "statuses": "{n, plural, one {# status change} other {# status changes}}",
       "ruleTitle": "What shows up here",
       "rule": "New reports and ideas, comments and internal notes, and status changes by others. Everyone on the team has their own \"read\"."
     },
@@ -1728,7 +1733,8 @@
     "subTooMany": "A stop can have at most {n} sub-statuses.",
     "proofUrl": "The link must be a full address starting with https://.",
     "assignTeamOnly": "Only the team can assign items.",
-    "assignNotTeam": "Only a team member of this board can be assigned."
+    "assignNotTeam": "Only a team member of this board can be assigned.",
+    "assignClosed": "A deleted or merged item can no longer be assigned."
   },
   "email": {
     "footer": "You’re getting this from {project} because you follow this item.",
@@ -1860,7 +1866,10 @@
     "assignedSubject": "Assigned to you: {title}",
     "assignedSummary": "You handle “{title}”.",
     "assignedHeading": "It's yours now",
-    "assignedBody": "{who} assigned {ref} to you."
+    "assignedBody": "{who} assigned {ref} to you.",
+    "assignedManySubject": "Assigned to you: {n, plural, one {# item} other {# items}}",
+    "assignedManyBody": "{who} assigned these items to you:",
+    "openMine": "Open mine"
   },
   "errors": {
     "signIn": "Please sign in to do this.",
@@ -2023,7 +2032,11 @@
       "noteNoMail": "Optional. Shown on the item as a comment.",
       "versionPh": "e.g. 2.15.1",
       "mailBug": "Goes to the reporter.",
-      "mailIdea": "Goes to the author and everyone in the discussion. Voters hear about it from a published update."
+      "mailIdea": "Goes to the author and everyone in the discussion. Voters hear about it from a published update.",
+      "mergeHere": "Merge #{n} here",
+      "mergeHereTitle": "Merge #{n} here?",
+      "mergeHereIdea": "The votes of #{n} move here and #{n} closes as a duplicate of this idea.",
+      "mergeHereBug": "#{n} closes as a duplicate of this report. Its reporter hears about the fix together with this one."
     },
     "changelog": {
       "votes": "{count, plural, one {# vote} other {# votes}}",

@@ -77,6 +77,20 @@ describe.skipIf(!up)("team inbox", () => {
     await tx((t) => t.update(schema.items).set({ deletedAt: null }).where(eq(schema.items.id, idea.id)));
   });
 
+  it("ideas waiting for approval stay out (they have their own queue)", async () => {
+    await tx((t) => t.update(schema.items).set({ pending: true }).where(eq(schema.items.id, idea.id)));
+    expect((await tx((t) => inboxActivity(t, u.anna.id, before, kinds))).some((n) => n.itemId === idea.id)).toBe(false);
+    await tx((t) => t.update(schema.items).set({ pending: false }).where(eq(schema.items.id, idea.id)));
+  });
+
+  it("an older mark never rewinds a newer one", async () => {
+    const newer = new Date(Date.now() - 1000), older = new Date(Date.now() - 3_600_000);
+    await tx((t) => markInboxRead(t, u.boris.id, newer));
+    await tx((t) => markInboxRead(t, u.boris.id, older));
+    expect((await tx((t) => t.query.users.findFirst({ where: eq(schema.users.id, u.boris.id) })))!.inboxSeenAt!.getTime()).toBe(newer.getTime());
+    await tx((t) => t.update(schema.users).set({ inboxSeenAt: null }).where(eq(schema.users.id, u.boris.id)));
+  });
+
   it("mark as read: per person, only what happened before the mark; without a mark the last 7 days", async () => {
     const now = new Date();
     expect(inboxSince(null, now).getTime()).toBe(now.getTime() - INBOX_DEFAULT_DAYS * 86_400_000);

@@ -49,7 +49,7 @@ async function enqueue(tx: Tx, project: Project, kind: string, recipientIds: str
 const itemUrl = (p: Project, item: Item) => `${projectOrigin(p)}/${p.slug}/i/${item.number}`;
 const NOBODY = "00000000-0000-0000-0000-000000000000";
 
-export type TeamMail = "newBug" | "newIdea" | "comments" | "digest";
+export type TeamMail = "newBug" | "newIdea" | "comments" | "digest" | "assigned";
 
 /**
  * The team (team and admins); with `want`, only those who did not switch that kind of team e-mail off
@@ -143,11 +143,7 @@ export async function notifyStatusChange(tx: Tx, project: Project, item: Item, a
     // about their own report: bugs are private, so the original's title and link never reach them.
     if (item.status === "fixed") {
       const dups = await tx.select().from(items).where(and(eq(items.mergedIntoId, item.id), isNotNull(items.authorId), isNull(items.deletedAt)));
-      for (const d of dups) {
-        if (!d.authorId || d.authorId === actorId || d.authorId === item.authorId) continue;
-        const own = { ...d, status: item.status, fixedInVersion: item.fixedInVersion };
-        await enqueue(tx, project, "bug_status", [d.authorId], (t, l) => statusMails.bugFollower(t, l, own, itemUrl(project, d), project));
-      }
+      await notifyDuplicateFixed(tx, project, item, dups, actorId);
     }
     return;
   }
@@ -155,6 +151,18 @@ export async function notifyStatusChange(tx: Tx, project: Project, item: Item, a
 }
 
 const quoteBase = (p: Project) => ({ origin: projectOrigin(p), slug: p.slug });
+
+/**
+ * The original bug is fixed: each duplicate's reporter hears about their own report (title and link of the
+ * duplicate; bugs are private, the original's never reach them). Not its author or the person who did it.
+ */
+export async function notifyDuplicateFixed(tx: Tx, project: Project, original: Item, dups: Item[], actorId: string) {
+  for (const d of dups) {
+    if (!d.authorId || d.deletedAt || d.authorId === actorId || d.authorId === original.authorId) continue;
+    const own = { ...d, status: "fixed" as const, fixedInVersion: original.fixedInVersion };
+    await enqueue(tx, project, "bug_status", [d.authorId], (t, l) => statusMails.bugFollower(t, l, own, itemUrl(project, d), project));
+  }
+}
 
 /**
  * Who hears about a comment:
@@ -212,14 +220,22 @@ export async function notifyRejected(tx: Tx, project: Project, item: Item, actor
   return enqueue(tx, project, "idea_rejected", [item.authorId], (t) => rejectionMail(t, item, reason, itemUrl(project, item)));
 }
 
-/** Someone on the team gave this item to a colleague: tell the colleague (team mail, never the customer). */
-export async function notifyAssigned(tx: Tx, project: Project, item: Item, assigneeId: string, byName: string | null) {
+/**
+ * Someone on the team gave items to a colleague: tell the colleague once, however many items (bulk), unless they
+ * switched assignment e-mails off ("My data" → Team e-mails). Team mail, never the customer.
+ */
+export async function notifyAssigned(tx: Tx, project: Project, list: Item[], assigneeId: string, byName: string | null) {
+  if (list.length === 0 || !(await teamIds(tx, "assigned")).includes(assigneeId)) return;
+  const one = list.length === 1 ? list[0]! : null;
   await enqueue(tx, project, "assigned", [assigneeId], (t) => ({
-    subject: t("assignedSubject", { title: item.title }),
-    summary: t("assignedSummary", { title: item.title }),
+    subject: one ? t("assignedSubject", { title: one.title }) : t("assignedManySubject", { n: list.length }),
+    summary: one ? t("assignedSummary", { title: one.title }) : t("assignedManySubject", { n: list.length }),
     heading: t("assignedHeading"),
-    paragraphs: [t("assignedBody", { who: byName ?? t("someone"), ref: t("ref", { n: String(item.number), title: item.title }) })],
-    cta: { label: item.kind === "bug" ? t("openReport") : t("openIdea"), href: itemUrl(project, item) },
+    paragraphs: one
+      ? [t("assignedBody", { who: byName ?? t("someone"), ref: t("ref", { n: String(one.number), title: one.title }) })]
+      : [t("assignedManyBody", { who: byName ?? t("someone"), n: list.length }), ...list.slice(0, 20).map((i) => `• ${t("ref", { n: String(i.number), title: i.title })}`)],
+    cta: one ? { label: one.kind === "bug" ? t("openReport") : t("openIdea"), href: itemUrl(project, one) }
+      : { label: t("openMine"), href: `${projectOrigin(project)}/${project.slug}/${list[0]!.kind === "bug" ? "bugs" : "ideas"}?s=all&who=me` },
   }));
 }
 

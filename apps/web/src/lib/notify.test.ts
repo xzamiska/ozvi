@@ -7,7 +7,7 @@ process.env.OZVI_SESSION_SECRET ??= "test-session-secret-0123456789abcdef";
 process.env.OZVI_SECRET_KEY ??= "test-secret-key-0123456789abcdef-xyz";
 process.env.DATABASE_URL ??= "postgres://ozvi:ozvi@localhost:5446/ozvi";
 
-const { addCommentTo, changeStatus } = await import("./domain");
+const { addCommentTo, changeStatus, mergeItems } = await import("./domain");
 const { notifyNewBug, notifyNewIdea } = await import("./email/notify");
 
 const db = createDb(process.env.DATABASE_URL);
@@ -93,6 +93,23 @@ describe.skipIf(!up)("notifications follow the item", () => {
     await withProject(db, project.id, (tx) => addCommentTo(tx, project, u.stranger, idea, "Pridávam sa.", false));
     expect(await sent("comment")).toEqual(["author", "talker", "team"]);
     await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: {} }).where(eq(schema.users.id, u.team2.id)));
+  });
+
+  it("merging: earlier duplicates follow to the original; a merge into a fixed bug tells the reporter at once", async () => {
+    const [x, y, o] = await withSystem(db, (t) => t.insert(schema.items).values([
+      { projectId: project.id, kind: "bug", number: 10, title: "Chyba X", status: "new", authorId: u.stranger.id },
+      { projectId: project.id, kind: "bug", number: 11, title: "Chyba Y", status: "new", authorId: u.talker.id },
+      { projectId: project.id, kind: "bug", number: 12, title: "Chyba O", status: "fixed", fixedInVersion: "2.0", authorId: u.author.id },
+    ]).returning()) as [Item, Item, Item];
+    await withProject(db, project.id, (t) => mergeItems(t, project, u.team, x, y));
+    await sent("bug_status");
+    await withProject(db, project.id, async (t) => mergeItems(t, project, u.team, (await t.query.items.findFirst({ where: eq(schema.items.id, y.id) }))!, o));
+    const rows = await withProject(db, project.id, (t) => t.select({ n: schema.items.number, m: schema.items.mergedIntoId }).from(schema.items).where(sql`${schema.items.number} in (10, 11)`));
+    expect(rows.every((r) => r.m === o.id)).toBe(true);
+    // Y's reporter hears about O's fix right away, about their own report.
+    const mails = await withProject(db, project.id, (t) => t.select({ to: schema.emails.to, subject: schema.emails.subject }).from(schema.emails).where(eq(schema.emails.kind, "bug_status")));
+    expect(mails.map((m) => [m.to.split("@")[0], m.subject])).toEqual([["talker", "Opravené: #11 Chyba Y"]]);
+    await sent("bug_status");
   });
 
   it("the team's own words travel with the status e-mail; a quiet move e-mails nobody", async () => {

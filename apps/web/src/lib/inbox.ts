@@ -22,7 +22,8 @@ const { items, comments, itemEvents } = schema;
  */
 export async function inboxActivity(tx: Tx, me: string, since: Date, kinds: readonly ("idea" | "bug")[], limit = 200): Promise<InboxEntry[]> {
   if (kinds.length === 0) return [];
-  const live: SQL[] = [isNull(items.deletedAt), isNull(items.mergedIntoId), inArray(items.kind, [...kinds])];
+  // Ideas waiting for approval have their own queue (Ideas → Awaiting approval); the list could not show them here.
+  const live: SQL[] = [isNull(items.deletedAt), isNull(items.mergedIntoId), eq(items.pending, false), inArray(items.kind, [...kinds])];
   const [made, said, moved] = await Promise.all([
     tx.select({ id: items.id, at: items.createdAt }).from(items)
       .where(and(...live, gt(items.createdAt, since), or(isNull(items.authorId), ne(items.authorId, me)))),
@@ -52,5 +53,7 @@ export async function inboxCount(tx: Tx, me: string, since: Date, kinds: readonl
 
 /** "Mark as read": everything up to now is no longer new for this person. */
 export async function markInboxRead(tx: Tx, me: string, at = new Date()) {
-  await tx.update(schema.users).set({ inboxSeenAt: at }).where(eq(schema.users.id, me));
+  // Never back in time: an old tab marking "read" must not bring back what a newer one cleared.
+  const iso = at.toISOString();
+  await tx.update(schema.users).set({ inboxSeenAt: sql`greatest(coalesce(${schema.users.inboxSeenAt}, ${iso}::timestamptz), ${iso}::timestamptz)` }).where(eq(schema.users.id, me));
 }

@@ -7,7 +7,7 @@ import { Panel } from "@/components/ozvi/page";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
-const KEYS = ["newBug", "newIdea", "comments", "digest"] as const;
+const KEYS = ["newBug", "newIdea", "comments", "assigned", "digest"] as const;
 type Prefs = Partial<Record<(typeof KEYS)[number], boolean>>;
 
 /** Team e-mails a team member wants; a missing key is on (lib/email/notify.ts teamIds). */

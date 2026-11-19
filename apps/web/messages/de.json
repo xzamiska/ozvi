@@ -914,7 +914,7 @@
       "report": "Fehler melden",
       "titleTeam": "Fehler",
       "titleMine": "Meine Fehlermeldungen",
-      "ledeTeam": "Alles, was Nutzer gemeldet haben. Bewegen Sie Meldungen durch den Ablauf – die meldende Person erhält bei jeder Änderung eine E-Mail.",
+      "ledeTeam": "Alles, was Nutzer gemeldet haben. Bewegen Sie Meldungen entlang der Route; bei jeder Statusänderung wählen Sie, ob die meldende Person eine E-Mail bekommt.",
       "ledeMine": "Ihre Meldungen und wo sie im Ablauf stehen. Sobald wir einen Fehler behoben haben, informieren wir Sie per E-Mail.",
       "status": "Status",
       "onlyYou": "Nur Sie und das Team können diese sehen",
@@ -1097,7 +1097,8 @@
       "takeIt": "Selbst übernehmen",
       "assigned": "Zuständig: {who}",
       "unassigned": "Noch niemand zuständig",
-      "mergedHere": "Hierher zusammengeführt:"
+      "mergedHere": "Hierher zusammengeführt:",
+      "former": "{who} (nicht mehr im Team)"
     },
     "me": {
       "title": "Meine Daten",
@@ -1145,6 +1146,10 @@
         "comments": {
           "title": "Kommentare und interne Notizen",
           "text": "Zu allen Einträgen im Board."
+        },
+        "assigned": {
+          "title": "Mir zugewiesen",
+          "text": "Wenn Ihnen jemand eine Meldung oder Idee zuweist."
         },
         "digest": {
           "title": "Montagsübersicht",
@@ -1728,7 +1733,8 @@
     "subTooMany": "Ein Schritt kann höchstens {n} Unterstatus haben.",
     "proofUrl": "Der Link muss eine vollständige Adresse sein, die mit https:// beginnt.",
     "assignTeamOnly": "Nur das Team kann Einträge zuweisen.",
-    "assignNotTeam": "Zugewiesen werden kann nur ein Teammitglied dieses Boards."
+    "assignNotTeam": "Zugewiesen werden kann nur ein Teammitglied dieses Boards.",
+    "assignClosed": "Ein gelöschter oder zusammengeführter Eintrag kann nicht mehr zugewiesen werden."
   },
   "email": {
     "footer": "Sie erhalten diese E-Mail von {project}, weil Sie diesem Beitrag folgen.",
@@ -1860,7 +1866,10 @@
     "assignedSubject": "Ihnen zugewiesen: {title}",
     "assignedSummary": "Sie kümmern sich um „{title}“.",
     "assignedHeading": "Das liegt jetzt bei Ihnen",
-    "assignedBody": "{who} hat Ihnen {ref} zugewiesen."
+    "assignedBody": "{who} hat Ihnen {ref} zugewiesen.",
+    "assignedManySubject": "Ihnen zugewiesen: {n, plural, one {# Eintrag} other {# Einträge}}",
+    "assignedManyBody": "{who} hat Ihnen diese Einträge zugewiesen:",
+    "openMine": "Meine öffnen"
   },
   "errors": {
     "signIn": "Bitte melden Sie sich dafür an.",
@@ -2023,7 +2032,11 @@
       "noteNoMail": "Optional. Erscheint als Kommentar beim Eintrag.",
       "versionPh": "z. B. 2.15.1",
       "mailBug": "Geht an die meldende Person.",
-      "mailIdea": "Geht an den Autor und alle aus der Diskussion. Abstimmende erfahren es aus der veröffentlichten Neuigkeit."
+      "mailIdea": "Geht an den Autor und alle aus der Diskussion. Abstimmende erfahren es aus der veröffentlichten Neuigkeit.",
+      "mergeHere": "#{n} hierher zusammenführen",
+      "mergeHereTitle": "#{n} hierher zusammenführen?",
+      "mergeHereIdea": "Die Stimmen von #{n} wandern hierher, und #{n} wird als Duplikat dieser Idee geschlossen.",
+      "mergeHereBug": "#{n} wird als Duplikat dieser Meldung geschlossen. Die meldende Person erfährt von der Korrektur zusammen mit dieser."
     },
     "changelog": {
       "votes": "{count, plural, one {# Stimme} other {# Stimmen}}",

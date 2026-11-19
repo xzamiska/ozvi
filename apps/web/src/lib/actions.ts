@@ -1,6 +1,7 @@
 "use server";
 
 import { assignItem } from "./assign";
+import { notifyAssigned } from "./email/notify";
 import { ITEM_STATUSES, schema, withProject } from "@ozvi/db";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -113,20 +114,21 @@ export async function setStatus(slug: string, itemId: string, form: FormData) {
 }
 
 /** Team: who handles this item ("" = nobody). */
-export async function setAssignee(slug: string, itemId: string, assigneeId: string): Promise<FormState> {
+export async function setAssignee(slug: string, itemId: string, assigneeId: string): Promise<FormState & { unchanged?: boolean }> {
   const { project, user, locale, t } = await requireUser(slug);
+  let changed = false;
   try {
     await withProject(db, project.id, async (tx) => {
       const item = await tx.query.items.findFirst({ where: eq(items.id, itemId) });
       if (!item) throw new DomainError(t("itemMissing"));
-      await assignItem(tx, project, user, item, /^[0-9a-f-]{36}$/i.test(assigneeId) ? assigneeId : null);
+      changed = !!(await assignItem(tx, project, user, item, /^[0-9a-f-]{36}$/i.test(assigneeId) ? assigneeId : null));
     });
   } catch (e) {
     if (e instanceof DomainError) return { error: e.text(locale) };
     throw e;
   }
   revalidatePath(`/${slug}`, "layout");
-  return {};
+  return changed ? {} : { unchanged: true };
 }
 
 /**
@@ -139,10 +141,12 @@ export async function bulkUpdate(slug: string, form: FormData): Promise<{ change
   if (!isTeam) return { error: t("statusTeamOnly") };
   const ids = [...new Set(form.getAll("sel").map(String).filter((x) => /^[0-9a-f-]{36}$/i.test(x)))].slice(0, 100);
   const status = str(form, "status");
-  const assignee = str(form, "assignee");
+  // "none" or a user id; anything else (a forged value) is no change.
+  const assignee = /^(none|[0-9a-f-]{36})$/i.test(str(form, "assignee")) ? str(form, "assignee") : "";
   const notify = str(form, "notify") === "on";
   if (ids.length === 0 || (!status && !assignee)) return { changed: 0 };
   let changed = 0;
+  const given: (typeof items.$inferSelect)[] = [];
   try {
     await withProject(db, project.id, async (tx) => {
       for (const id of ids) {
@@ -154,11 +158,13 @@ export async function bulkUpdate(slug: string, form: FormData): Promise<{ change
           if (moved) { item = moved; did = true; }
         }
         if (assignee) {
-          const a = await assignItem(tx, project, user, item, assignee === "none" ? null : assignee);
-          if (a) did = true;
+          const a = await assignItem(tx, project, user, item, assignee === "none" ? null : assignee, { notify: false });
+          if (a) { did = true; given.push(a); }
         }
         if (did) changed++;
       }
+      // One e-mail to the colleague for the whole batch, not one per item.
+      if (assignee && assignee !== "none" && assignee !== user.id) await notifyAssigned(tx, project, given, assignee, user.name);
     });
   } catch (e) {
     if (e instanceof DomainError) return { error: e.text(locale) };

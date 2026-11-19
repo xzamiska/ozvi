@@ -1,6 +1,6 @@
 import { ITEM_STATUSES, schema, type Tx } from "@ozvi/db";
 import { and, desc, eq, gte, isNull, sql } from "drizzle-orm";
-import { notifyComment, notifyStatusChange } from "./email/notify";
+import { notifyComment, notifyDuplicateFixed, notifyStatusChange } from "./email/notify";
 import { emit } from "./events";
 import { enqueueTrackerSync } from "./trackers";
 import { proofSnapshot, type ProofSnapshot } from "./proof";
@@ -160,6 +160,11 @@ export async function mergeItems(tx: Tx, project: Project, actor: User, source: 
   const [updatedSource] = await tx.update(items)
     .set({ mergedIntoId: target.id, status: closed, subStatusId: null, voteCount: 0, updatedAt: new Date() })
     .where(and(eq(items.id, source.id))).returning();
+  // Items merged into the duplicate earlier follow it to the original (no chains: the fix e-mail and the
+  // "affected" count look one level down).
+  await tx.update(items).set({ mergedIntoId: target.id }).where(eq(items.mergedIntoId, source.id));
+  // Merged into a bug that is already fixed: the reporter hears it now, not "once it's fixed" (never).
+  if (source.kind === "bug" && (target.status === "fixed" || target.status === "verified")) await notifyDuplicateFixed(tx, project, target, [updatedSource!], actor.id);
   // Bugs are private per reporter: the duplicate's reporter must not learn the original's title.
   // The note is stored content, so it is written once, in the board's default language.
   const t = translator(boardLocales(project).fallback, "domain");

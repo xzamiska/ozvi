@@ -42,6 +42,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
   needSection(project, "bugs");
   const t = await getTranslations("board.bugs");
   const tb = await getTranslations("board");
+  const ti = await getTranslations("board.item");
 
   if (!user) {
     return <Gate project={project} locale={locale} returnTo={`/${slug}/bugs`} title={t("gateTitle")}
@@ -107,7 +108,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
                   <UrlSelect name="st" value={st ?? ""} label={t("exactStatus")}
                     options={[{ value: "", label: t("anyStatus") }, ...STAGES.all.statuses.map((s) => ({ value: s, label: `${stopLabel(locale, s, project)} (${counts[s] ?? 0})` }))]} />
                 )}
-                {isTeam && <UrlSelect name="who" value={who} label={t("who")} options={assigneeOptions(t, members, user.id)} />}
+                {isTeam && <UrlSelect name="who" value={who} label={t("who")} options={assigneeOptions(t, members, user.id, (w) => ti("former", { who: w }))} />}
                 {allTags.length > 0 && (
                   <UrlSelect name="tag" value={tag?.name ?? ""} label={tg("filter")}
                     options={[{ value: "", label: tg("all") }, ...allTags.map((x) => ({ value: x.name, label: x.public ? x.name : `${x.name} · ${tg("teamOnly")}` }))]} />

@@ -49,6 +49,7 @@ export default async function Ideas({ params, searchParams }: {
   needSection(project, "ideas");
   const t = await getTranslations("board.ideas");
   const tb = await getTranslations("board");
+  const ti = await getTranslations("board.item");
   // "mrr" (by customers' revenue) and the plan filter are team-only: they read customer traits.
   const sort = sp.sort === "new" ? "new" : sp.sort === "mrr" && isTeam ? "mrr" : "top";
   const plan = isTeam ? (sp.plan ?? "").trim().slice(0, 60) : "";
@@ -139,7 +140,7 @@ export default async function Ideas({ params, searchParams }: {
                 <UrlSelect name="tag" value={tag?.name ?? ""} label={tg("filter")}
                   options={[{ value: "", label: tg("all") }, ...allTags.map((x) => ({ value: x.name, label: x.public ? x.name : `${x.name} · ${tg("teamOnly")}` }))]} />
               )}
-              {isTeam && user && <UrlSelect name="who" value={who} label={t("who")} options={assigneeOptions(t, members, user.id)} />}
+              {isTeam && user && <UrlSelect name="who" value={who} label={t("who")} options={assigneeOptions(t, members, user.id, (w) => ti("former", { who: w }))} />}
               {isTeam && (plans.length > 0 || plan) && (
                 <UrlSelect name="plan" value={plan} label={t("planFilter")}
                   options={[{ value: "", label: t("allPlans") }, ...[...new Set([...plans, ...(plan ? [plan] : [])])].map((p) => ({ value: p, label: t("planOption", { plan: p }) }))]} />

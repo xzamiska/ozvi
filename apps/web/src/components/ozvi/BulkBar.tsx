@@ -13,7 +13,7 @@ import { stagesOf } from "@/lib/statuses";
  * appears at the bottom once something is ticked. Status (e-mails optional, off by default: bulk moves are
  * usually housekeeping) and/or assignee.
  */
-export function BulkBar({ slug, kind, team }: { slug: string; kind: Kind; team: { id: string; label: string }[] }) {
+export function BulkBar({ slug, kind, team }: { slug: string; kind: Kind; team: { id: string; label: string; former?: boolean }[] }) {
   const t = useTranslations("board.bulk");
   const tr = useTranslations("route");
   const [count, setCount] = useState(0);
@@ -51,7 +51,7 @@ export function BulkBar({ slug, kind, team }: { slug: string; kind: Kind; team: 
           <select name="assignee" aria-label={t("assignee")} className={select} defaultValue="">
             <option value="">{t("keep")}</option>
             <option value="none">{t("nobody")}</option>
-            {team.map((x) => <option key={x.id} value={x.id}>{x.label}</option>)}
+            {team.filter((x) => !x.former).map((x) => <option key={x.id} value={x.id}>{x.label}</option>)}
           </select>
         </label>
         <label className="flex items-center gap-2 text-[13.5px]"><input type="checkbox" name="notify" className="size-4 accent-[var(--oz-accent)]" />{t("notify")}</label>

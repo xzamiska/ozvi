@@ -44,7 +44,7 @@ export async function setEmails(slug: string, on: boolean) {
   revalidatePath(`/${slug}/me`);
 }
 
-const TEAM_MAIL = ["newBug", "newIdea", "comments", "digest"] as const;
+const TEAM_MAIL = ["newBug", "newIdea", "comments", "assigned", "digest"] as const;
 
 /** "My data" → Team e-mails (team and admins): which team e-mails this person wants. */
 export async function setTeamMail(slug: string, form: FormData) {

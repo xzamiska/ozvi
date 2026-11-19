@@ -122,7 +122,7 @@ const NOBODY = "none";
 
 /** Who handles the item: a team member, or nobody. "Assign to me" in one click for the common case. */
 export function AssigneeControl({ slug, itemId, assignee, me, team }: {
-  slug: string; itemId: string; assignee: string | null; me: string; team: { id: string; label: string }[];
+  slug: string; itemId: string; assignee: string | null; me: string; team: { id: string; label: string; former?: boolean }[];
 }) {
   const t = useTranslations("board.item");
   const [value, setValue] = useState(assignee ?? NOBODY);
@@ -133,6 +133,7 @@ export function AssigneeControl({ slug, itemId, assignee, me, team }: {
     start(async () => {
       const r = await setAssignee(slug, itemId, next === NOBODY ? "" : next);
       if (r.error) { setValue(prev); toast.error(r.error); return; }
+      if (r.unchanged) return;
       const who = team.find((x) => x.id === next)?.label;
       toast.success(who ? t("assigned", { who }) : t("unassigned"));
     });
@@ -143,7 +144,8 @@ export function AssigneeControl({ slug, itemId, assignee, me, team }: {
         <SelectTrigger aria-label={t("assignee")} className="h-9 w-full bg-surface"><SelectValue /></SelectTrigger>
         <SelectContent>
           <SelectItem value={NOBODY}>{t("nobody")}</SelectItem>
-          {team.map((x) => <SelectItem key={x.id} value={x.id}>{x.label}</SelectItem>)}
+          {/* Former team members only while this item is theirs: it shows who has it, and it can be handed on. */}
+          {team.filter((x) => !x.former || x.id === assignee).map((x) => <SelectItem key={x.id} value={x.id}>{x.former ? t("former", { who: x.label }) : x.label}</SelectItem>)}
         </SelectContent>
       </Select>
       {value !== me && (
@@ -192,17 +194,24 @@ export function GithubBox({ slug, itemId, links, enabled }: {
   );
 }
 
-export function MergeBox({ slug, itemId, suggestion, kind, candidates = [] }: {
-  slug: string; itemId: string; suggestion?: number; kind: Kind;
-  /** Similar items: each gets "Merge into #n" (the review found typing the number by hand clumsy). */
-  candidates?: { number: number; title: string; meta: string }[];
+export function MergeBox({ slug, itemId, number, suggestion, kind, candidates = [] }: {
+  slug: string; itemId: string; number: number; suggestion?: number; kind: Kind;
+  /**
+   * Similar items, each with the merge that makes sense: `into` = this one is the duplicate ("Merge into #n"),
+   * otherwise the other one is ("Merge #n here"). The original is the one with more votes, then the older one
+   * (the review found suggestions offering to merge a planned idea with votes into a new one).
+   */
+  candidates?: { id: string; number: number; title: string; meta: string; into: boolean }[];
 }) {
   const [state, action, pending] = useActionState((p: { error?: string }, f: FormData) => mergeInto(slug, itemId, p, f), {});
+  const [hereState, hereAction, herePending] = useActionState((p: { error?: string }, f: FormData) => mergeInto(slug, String(f.get("source")), p, f), {});
   const [target, setTarget] = useState("");
   const [open, setOpen] = useState(false);
+  const [here, setHere] = useState<{ id: string; number: number } | null>(null);
   const n = target.replace(/^#/, "");
   const tf = useTranslations("forms");
   const t = useTranslations("forms.team");
+  const error = state.error ?? hereState.error;
   return (
     <div className="grid gap-2">
       {candidates.length > 0 && (
@@ -213,8 +222,11 @@ export function MergeBox({ slug, itemId, suggestion, kind, candidates = [] }: {
                 <a href={`/${slug}/i/${c.number}`} className="font-medium hover:underline">#{c.number} {c.title}</a>
                 <span className="text-muted-foreground"> · {c.meta}</span>
               </span>
-              <Button type="button" variant="ghost" size="sm" className="h-7 shrink-0 px-2 text-[12.5px]"
-                onClick={() => { setTarget(`#${c.number}`); setOpen(true); }}>{t("mergeInto", { n: String(c.number) })}</Button>
+              {c.into
+                ? <Button type="button" variant="ghost" size="sm" className="h-7 shrink-0 px-2 text-[12.5px]"
+                    onClick={() => { setTarget(`#${c.number}`); setOpen(true); }}>{t("mergeInto", { n: String(c.number) })}</Button>
+                : <Button type="button" variant="ghost" size="sm" className="h-7 shrink-0 px-2 text-[12.5px]"
+                    onClick={() => setHere({ id: c.id, number: c.number })}>{t("mergeHere", { n: String(c.number) })}</Button>}
             </li>
           ))}
         </ul>
@@ -224,7 +236,7 @@ export function MergeBox({ slug, itemId, suggestion, kind, candidates = [] }: {
           aria-label={t("mergeLabel")} inputMode="numeric" autoComplete="off" data-1p-ignore data-lpignore="true" className="w-24" />
         <Button type="submit" variant="outline" size="sm" className="h-9" disabled={!/^#?\d+$/.test(target)}>{t("merge")}</Button>
       </form>
-      {state.error && <p className="text-[13px] font-medium text-destructive" role="alert">{state.error}</p>}
+      {error && <p className="text-[13px] font-medium text-destructive" role="alert">{error}</p>}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
@@ -238,6 +250,24 @@ export function MergeBox({ slug, itemId, suggestion, kind, candidates = [] }: {
             <DialogFooter>
               <DialogClose asChild><Button type="button" variant="outline">{tf("keep")}</Button></DialogClose>
               <Button type="submit" variant="destructive" disabled={pending}>{pending ? t("merging") : t("mergeInto", { n })}</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={!!here} onOpenChange={(o) => { if (!o) setHere(null); }}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("mergeHereTitle", { n: String(here?.number ?? "") })}</DialogTitle>
+            <DialogDescription>
+              {kind === "idea" ? t("mergeHereIdea", { n: String(here?.number ?? "") }) : t("mergeHereBug", { n: String(here?.number ?? "") })}
+            </DialogDescription>
+          </DialogHeader>
+          <form action={hereAction}>
+            <input type="hidden" name="source" value={here?.id ?? ""} />
+            <input type="hidden" name="target" value={String(number)} />
+            <DialogFooter>
+              <DialogClose asChild><Button type="button" variant="outline">{tf("keep")}</Button></DialogClose>
+              <Button type="submit" variant="destructive" disabled={herePending}>{herePending ? t("merging") : t("mergeHere", { n: String(here?.number ?? "") })}</Button>
             </DialogFooter>
           </form>
         </DialogContent>

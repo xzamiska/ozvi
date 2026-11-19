@@ -454,8 +454,11 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
                     </p>
                   )}
                   {team.similar.length === 0 && <p className="text-[13px] text-muted-foreground">{t("noSimilar")}</p>}
-                  <MergeBox slug={slug} itemId={item.id} suggestion={team.similar[0]?.number} kind={item.kind}
-                    candidates={team.similar.map((s) => ({ number: s.number, title: s.title, meta: `${stopLabel(locale, s.status, project)}${s.kind === "idea" ? ` · ${t("votesShort", { n: s.votes })}` : ""}` }))} />
+                  <MergeBox slug={slug} itemId={item.id} number={item.number} suggestion={team.similar[0]?.number} kind={item.kind}
+                    candidates={team.similar.map((s) => ({ id: s.id, number: s.number, title: s.title,
+                      meta: `${stopLabel(locale, s.status, project)}${s.kind === "idea" ? ` · ${t("votesShort", { n: s.votes })}` : ""}`,
+                      // The original keeps the votes: more votes wins, then the older item.
+                      into: s.votes > item.voteCount || (s.votes === item.voteCount && s.number < item.number) }))} />
                 </TeamBlock>
               )}
               {aiAvailable(plan) && live.length >= 3 && (

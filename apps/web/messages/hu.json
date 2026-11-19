@@ -914,7 +914,7 @@
       "report": "Hiba bejelentése",
       "titleTeam": "Hibák",
       "titleMine": "Hibajelentéseim",
-      "ledeTeam": "Minden, amit a felhasználók bejelentettek. Vidd végig a bejelentéseket az útvonalon – a bejelentő minden változásnál e-mailt kap.",
+      "ledeTeam": "Minden, amit a felhasználók bejelentettek. Vidd végig a bejelentéseket az útvonalon; állapotváltáskor eldöntöd, kap-e e-mailt a bejelentő.",
       "ledeMine": "A bejelentéseid, és hogy hol tartanak az útvonalon. Ha kijavítunk egy hibát, e-mailben értesítünk.",
       "status": "Állapot",
       "onlyYou": "Ezeket csak te és a csapat látjátok",
@@ -1097,7 +1097,8 @@
       "takeIt": "Elvállalom",
       "assigned": "Felelős: {who}",
       "unassigned": "Még senki sem foglalkozik vele",
-      "mergedHere": "Ide összevonva:"
+      "mergedHere": "Ide összevonva:",
+      "former": "{who} (már nincs a csapatban)"
     },
     "me": {
       "title": "Saját adatok",
@@ -1145,6 +1146,10 @@
         "comments": {
           "title": "Hozzászólások és belső jegyzetek",
           "text": "A tábla minden bejegyzéséhez."
+        },
+        "assigned": {
+          "title": "Hozzám rendelve",
+          "text": "Amikor valaki Önhöz rendel egy bejelentést vagy ötletet."
         },
         "digest": {
           "title": "Hétfői összefoglaló",
@@ -1728,7 +1733,8 @@
     "subTooMany": "Egy állomásnak legfeljebb {n} alállapota lehet.",
     "proofUrl": "A linknek https://-sel kezdődő teljes címnek kell lennie.",
     "assignTeamOnly": "Felelőst csak a csapat jelölhet ki.",
-    "assignNotTeam": "Felelős csak e tábla csapattagja lehet."
+    "assignNotTeam": "Felelős csak e tábla csapattagja lehet.",
+    "assignClosed": "Törölt vagy összevont bejegyzést már nem lehet kiosztani."
   },
   "email": {
     "footer": "Feladó: {project}. Azért kapod ezt az e-mailt, mert követed ezt a bejegyzést.",
@@ -1860,7 +1866,10 @@
     "assignedSubject": "Önhöz rendelve: {title}",
     "assignedSummary": "Ön foglalkozik ezzel: „{title}”.",
     "assignedHeading": "Ez most az Öné",
-    "assignedBody": "{who} Önhöz rendelte: {ref}."
+    "assignedBody": "{who} Önhöz rendelte: {ref}.",
+    "assignedManySubject": "Önhöz rendelve: {n, plural, other {# bejegyzés}}",
+    "assignedManyBody": "{who} ezeket a bejegyzéseket rendelte Önhöz:",
+    "openMine": "Saját megnyitása"
   },
   "errors": {
     "signIn": "Ehhez jelentkezz be.",
@@ -2023,7 +2032,11 @@
       "noteNoMail": "Nem kötelező. Megjegyzésként jelenik meg a bejegyzésnél.",
       "versionPh": "pl. 2.15.1",
       "mailBug": "A bejelentő kapja meg.",
-      "mailIdea": "A szerző és a hozzászólók kapják meg. A szavazók a közzétett újdonságból értesülnek."
+      "mailIdea": "A szerző és a hozzászólók kapják meg. A szavazók a közzétett újdonságból értesülnek.",
+      "mergeHere": "#{n} összevonása ide",
+      "mergeHereTitle": "Összevonja ide: #{n}?",
+      "mergeHereIdea": "A(z) #{n} szavazatai ide kerülnek, a(z) #{n} pedig ennek az ötletnek a duplikátumaként lezárul.",
+      "mergeHereBug": "A(z) #{n} ennek a bejelentésnek a duplikátumaként lezárul. A bejelentője ezzel együtt értesül a javításról."
     },
     "changelog": {
       "votes": "{count, plural, one {# szavazat} other {# szavazat}}",

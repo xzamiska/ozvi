@@ -8,6 +8,7 @@ process.env.OZVI_SECRET_KEY ??= "test-secret-key-0123456789abcdef-xyz";
 process.env.DATABASE_URL ??= "postgres://ozvi:ozvi@localhost:5446/ozvi";
 
 const { assignItem, assigneeFilter, assignableTeam } = await import("./assign");
+const { notifyAssigned } = await import("./email/notify");
 const { DomainError } = await import("./domain");
 
 const db = createDb();
@@ -74,6 +75,29 @@ describe.skipIf(!up)("assignee", () => {
     expect(await count("me", u.boris.id)).toBe(1);
     expect(await count("me", u.anna.id)).toBe(0);
     expect(await count("none", u.anna.id)).toBe(0);
+  });
+
+  it("deleted and merged items cannot be assigned; a demoted colleague stays listed as former while they hold items", async () => {
+    const del = { ...(await fresh()), deletedAt: new Date() };
+    await expect(withProject(db, project.id, (tx) => assignItem(tx, project, u.anna, del, u.anna.id))).rejects.toBeInstanceOf(DomainError);
+    const merged = { ...(await fresh()), mergedIntoId: bug.id };
+    await expect(withProject(db, project.id, (tx) => assignItem(tx, project, u.anna, merged, u.anna.id))).rejects.toBeInstanceOf(DomainError);
+    await withProject(db, project.id, async (tx) => assignItem(tx, project, u.anna, await fresh(), u.boris.id));
+    await withProject(db, project.id, (tx) => tx.update(schema.users).set({ role: "member" }).where(eq(schema.users.id, u.boris.id)));
+    const team = await withProject(db, project.id, (tx) => assignableTeam(tx));
+    expect(team.find((x) => x.id === u.boris.id)).toMatchObject({ former: true });
+    expect(assigneeFilter(u.boris.id, u.anna.id, team).who).toBe(u.boris.id);
+    await withProject(db, project.id, (tx) => tx.update(schema.users).set({ role: "team" }).where(eq(schema.users.id, u.boris.id)));
+  });
+
+  it("a batch is one e-mail; switching assignment e-mails off stops it", async () => {
+    await withProject(db, project.id, (tx) => tx.delete(schema.emails).where(eq(schema.emails.kind, "assigned")));
+    const two = [await fresh(), { ...(await fresh()), number: 7, title: "Druhá" }];
+    await withProject(db, project.id, (tx) => notifyAssigned(tx, project, two, u.boris.id, "Anna"));
+    expect((await mails("boris")).map((m) => m.subject)).toEqual(["Pridelené vám: 2 záznamy"]);
+    await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: { assigned: false } }).where(eq(schema.users.id, u.boris.id)));
+    await withProject(db, project.id, (tx) => notifyAssigned(tx, project, two, u.boris.id, "Anna"));
+    expect(await mails("boris")).toHaveLength(1);
   });
 
   it("a removed colleague's items become unassigned (the column is ON DELETE SET NULL)", async () => {

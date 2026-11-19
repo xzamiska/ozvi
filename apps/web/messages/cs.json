@@ -914,7 +914,7 @@
       "report": "Nahlásit chybu",
       "titleTeam": "Chyby",
       "titleMine": "Moje hlášení chyb",
-      "ledeTeam": "Vše, co uživatelé nahlásili. Posouvejte hlášení po cestě, autor dostane e-mail při každé změně.",
+      "ledeTeam": "Vše, co uživatelé nahlásili. Posouvejte hlášení po trase; při změně stavu si vyberete, zda autorovi pošlete e-mail.",
       "ledeMine": "Vaše hlášení a kde jsou na cestě. Až chybu opravíme, dáme vám vědět e-mailem.",
       "status": "Stav",
       "onlyYou": "Vidíte jen vy a tým",
@@ -1097,7 +1097,8 @@
       "takeIt": "Vezmu si to",
       "assigned": "Řeší: {who}",
       "unassigned": "Nikdo to zatím neřeší",
-      "mergedHere": "Sloučeno sem:"
+      "mergedHere": "Sloučeno sem:",
+      "former": "{who} (už není v týmu)"
     },
     "me": {
       "title": "Moje údaje",
@@ -1145,6 +1146,10 @@
         "comments": {
           "title": "Komentáře a interní poznámky",
           "text": "Ke všem záznamům na boardu."
+        },
+        "assigned": {
+          "title": "Přiděleno mně",
+          "text": "Když vám někdo přidělí hlášení nebo nápad."
         },
         "digest": {
           "title": "Pondělní souhrn",
@@ -1728,7 +1733,8 @@
     "subTooMany": "Pod jednou zastávkou může být nejvýš {n} podstavů.",
     "proofUrl": "Odkaz musí být celá adresa začínající https://.",
     "assignTeamOnly": "Řešitele může určit jen tým.",
-    "assignNotTeam": "Řešitelem může být jen člen týmu tohoto boardu."
+    "assignNotTeam": "Řešitelem může být jen člen týmu tohoto boardu.",
+    "assignClosed": "Smazaný nebo sloučený záznam už nelze přidělit."
   },
   "email": {
     "footer": "Tento e-mail vám poslal {project}, protože sledujete tento záznam.",
@@ -1860,7 +1866,10 @@
     "assignedSubject": "Přiděleno vám: {title}",
     "assignedSummary": "Řešíte „{title}“.",
     "assignedHeading": "Máte to na starosti",
-    "assignedBody": "{who} vám přidělil(a) {ref}."
+    "assignedBody": "{who} vám přidělil(a) {ref}.",
+    "assignedManySubject": "Přiděleno vám: {n, plural, one {# záznam} few {# záznamy} other {# záznamů}}",
+    "assignedManyBody": "{who} vám přidělil(a) tyto záznamy:",
+    "openMine": "Otevřít moje"
   },
   "errors": {
     "signIn": "K této akci se musíte přihlásit.",
@@ -2023,7 +2032,11 @@
       "noteNoMail": "Nepovinné. Zobrazí se u hlášení jako komentář.",
       "versionPh": "např. 2.15.1",
       "mailBug": "Dostane ho autor hlášení.",
-      "mailIdea": "Dostane ho autor a lidé z diskuze. Hlasující se to dozví ze zveřejněné novinky."
+      "mailIdea": "Dostane ho autor a lidé z diskuze. Hlasující se to dozví ze zveřejněné novinky.",
+      "mergeHere": "Sloučit #{n} sem",
+      "mergeHereTitle": "Sloučit #{n} sem?",
+      "mergeHereIdea": "Hlasy z #{n} se přesunou sem a #{n} se zavře jako duplicita tohoto nápadu.",
+      "mergeHereBug": "#{n} se zavře jako duplicita tohoto hlášení. Jeho autor se o opravě dozví spolu s tímto."
     },
     "changelog": {
       "votes": "{count, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}}",

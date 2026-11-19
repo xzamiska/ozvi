@@ -724,6 +724,25 @@ test.describe("public board", () => {
     await ann.ctx.close(); await ben.ctx.close(); await carl.ctx.close();
   });
 
+  test("merge suggestions point the right way: the older item with votes stays the original", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    const base = uniq("Export faktúr do Pohody");
+    const older = await createItem(ann.page, b.slug, "idea", base);
+    const newer = await createItem(ann.page, b.slug, "idea", `${base} prosím`);
+    await page.goto(`/${b.slug}/i/${newer}`);
+    const team = page.getByRole("region", { name: "Pre tím" });
+    await expect(team.getByRole("button", { name: `Zlúčiť do #${older}` })).toBeVisible();
+    await page.goto(`/${b.slug}/i/${older}`);
+    await team.getByRole("button", { name: `Zlúčiť #${newer} sem` }).click();
+    const dlg = page.getByRole("dialog");
+    await expect(dlg).toContainText(`Hlasy z #${newer} sa presunú sem`);
+    await dlg.getByRole("button", { name: `Zlúčiť #${newer} sem` }).click();
+    await expect(page.getByText("Zlúčené sem:")).toBeVisible();
+    expect((await itemRow(b.slug, newer))!.mergedIntoId).toBe((await itemRow(b.slug, older))!.id);
+    await ann.ctx.close();
+  });
+
   test("a duplicate bug's reporter hears about the fix of the original, about their own report only", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");

@@ -914,7 +914,7 @@
       "report": "Zgłoś błąd",
       "titleTeam": "Błędy",
       "titleMine": "Moje zgłoszenia błędów",
-      "ledeTeam": "Wszystko, co zgłosili użytkownicy. Przesuwaj zgłoszenia po ścieżce — zgłaszający dostaje e-mail przy każdej zmianie.",
+      "ledeTeam": "Wszystko, co zgłosili użytkownicy. Przesuwaj zgłoszenia po trasie; przy zmianie statusu wybierasz, czy autor dostanie e-mail.",
       "ledeMine": "Twoje zgłoszenia i etap, na którym są. Gdy naprawimy błąd, damy ci znać e-mailem.",
       "status": "Status",
       "onlyYou": "Widzisz je tylko ty i zespół",
@@ -1097,7 +1097,8 @@
       "takeIt": "Biorę to",
       "assigned": "Odpowiada: {who}",
       "unassigned": "Nikt się tym jeszcze nie zajmuje",
-      "mergedHere": "Scalone tutaj:"
+      "mergedHere": "Scalone tutaj:",
+      "former": "{who} (już nie w zespole)"
     },
     "me": {
       "title": "Moje dane",
@@ -1145,6 +1146,10 @@
         "comments": {
           "title": "Komentarze i notatki wewnętrzne",
           "text": "Do wszystkich wpisów na tablicy."
+        },
+        "assigned": {
+          "title": "Przydzielone mnie",
+          "text": "Gdy ktoś przydzieli Ci zgłoszenie lub pomysł."
         },
         "digest": {
           "title": "Poniedziałkowe podsumowanie",
@@ -1728,7 +1733,8 @@
     "subTooMany": "Etap może mieć maksymalnie {n} podstatusów.",
     "proofUrl": "Link musi być pełnym adresem zaczynającym się od https://.",
     "assignTeamOnly": "Osobę odpowiedzialną może wskazać tylko zespół.",
-    "assignNotTeam": "Odpowiedzialną osobą może być tylko członek zespołu tej tablicy."
+    "assignNotTeam": "Odpowiedzialną osobą może być tylko członek zespołu tej tablicy.",
+    "assignClosed": "Usuniętego ani scalonego wpisu nie można już przydzielić."
   },
   "email": {
     "footer": "Otrzymujesz tę wiadomość od {project}, ponieważ obserwujesz ten wpis.",
@@ -1860,7 +1866,10 @@
     "assignedSubject": "Przydzielone Tobie: {title}",
     "assignedSummary": "Zajmujesz się „{title}”.",
     "assignedHeading": "To teraz Twoje zadanie",
-    "assignedBody": "{who} przydzielił(a) Ci {ref}."
+    "assignedBody": "{who} przydzielił(a) Ci {ref}.",
+    "assignedManySubject": "Przydzielone Tobie: {n, plural, one {# wpis} few {# wpisy} other {# wpisów}}",
+    "assignedManyBody": "{who} przydzielił(a) Ci te wpisy:",
+    "openMine": "Otwórz moje"
   },
   "errors": {
     "signIn": "Zaloguj się, żeby to zrobić.",
@@ -2023,7 +2032,11 @@
       "noteNoMail": "Opcjonalne. Pojawi się przy zgłoszeniu jako komentarz.",
       "versionPh": "np. 2.15.1",
       "mailBug": "Otrzyma go autor zgłoszenia.",
-      "mailIdea": "Otrzyma go autor i osoby z dyskusji. Głosujący dowiedzą się z opublikowanej nowości."
+      "mailIdea": "Otrzyma go autor i osoby z dyskusji. Głosujący dowiedzą się z opublikowanej nowości.",
+      "mergeHere": "Scal #{n} tutaj",
+      "mergeHereTitle": "Scalić #{n} tutaj?",
+      "mergeHereIdea": "Głosy z #{n} przejdą tutaj, a #{n} zostanie zamknięty jako duplikat tego pomysłu.",
+      "mergeHereBug": "#{n} zostanie zamknięty jako duplikat tego zgłoszenia. Jego autor dowie się o poprawce razem z tym."
     },
     "changelog": {
       "votes": "{count, plural, one {# głos} few {# głosy} many {# głosów} other {# głosu}}",

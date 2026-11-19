@@ -1,5 +1,5 @@
 import { schema, type Tx } from "@ozvi/db";
-import { and, eq, inArray, isNull, type SQL } from "drizzle-orm";
+import { and, eq, inArray, isNotNull, isNull, or, type SQL } from "drizzle-orm";
 import { fail, isTeamRole, type Item } from "./domain";
 import { notifyAssigned } from "./email/notify";
 import type { Project, User } from "./project";
@@ -9,8 +9,10 @@ import type { Project, User } from "./project";
  * the assignee is a team member or admin of this project, or nobody. The assignee hears about it by e-mail,
  * unless they took it themselves. Assignment is internal: customers never see it, webhooks do not carry it.
  */
-export async function assignItem(tx: Tx, project: Project, actor: User, item: Item, assigneeId: string | null): Promise<Item | null> {
+export async function assignItem(tx: Tx, project: Project, actor: User, item: Item, assigneeId: string | null, opts: { notify?: boolean } = {}): Promise<Item | null> {
   if (!isTeamRole(actor.role)) throw fail((t) => t("assignTeamOnly"));
+  // Deleted and merged items are not work anyone can take any more.
+  if (item.deletedAt || item.mergedIntoId) throw fail((t) => t("assignClosed"));
   if ((item.assigneeId ?? null) === assigneeId) return null;
   if (assigneeId) {
     const [who] = await tx.select({ id: schema.users.id, role: schema.users.role }).from(schema.users)
@@ -18,15 +20,20 @@ export async function assignItem(tx: Tx, project: Project, actor: User, item: It
     if (!who) throw fail((t) => t("assignNotTeam"));
   }
   const [updated] = await tx.update(schema.items).set({ assigneeId, updatedAt: new Date() }).where(eq(schema.items.id, item.id)).returning();
-  if (assigneeId && assigneeId !== actor.id) await notifyAssigned(tx, project, updated!, assigneeId, actor.name);
+  if (opts.notify !== false && assigneeId && assigneeId !== actor.id) await notifyAssigned(tx, project, [updated!], assigneeId, actor.name);
   return updated!;
 }
 
-/** The team members an item can be given to, by name. */
+/**
+ * The team members an item can be given to, by name; plus anyone who still has items assigned but is no
+ * longer on the team (`former`), so their items stay findable and can be handed on.
+ */
 export async function assignableTeam(tx: Tx) {
-  const rows = await tx.select({ id: schema.users.id, name: schema.users.name, email: schema.users.email }).from(schema.users)
-    .where(inArray(schema.users.role, ["team", "admin"]));
-  return rows.map((r) => ({ id: r.id, label: r.name ?? r.email ?? "—" })).sort((a, b) => a.label.localeCompare(b.label));
+  const rows = await tx.select({ id: schema.users.id, name: schema.users.name, email: schema.users.email, role: schema.users.role }).from(schema.users)
+    .where(or(inArray(schema.users.role, ["team", "admin"]), inArray(schema.users.id,
+      tx.selectDistinct({ id: schema.items.assigneeId }).from(schema.items).where(isNotNull(schema.items.assigneeId)))));
+  return rows.map((r) => ({ id: r.id, label: r.name ?? r.email ?? "—", former: r.role === "member" }))
+    .sort((a, b) => Number(a.former) - Number(b.former) || a.label.localeCompare(b.label));
 }
 
 /**
@@ -41,7 +48,7 @@ export function assigneeFilter(param: string | undefined, me: string, team: { id
 }
 
 /** Options of that filter for a UrlSelect. */
-export const assigneeOptions = (t: (k: "whoAny" | "whoMe" | "whoNone") => string, team: { id: string; label: string }[], me: string) => [
+export const assigneeOptions = (t: (k: "whoAny" | "whoMe" | "whoNone") => string, team: { id: string; label: string; former?: boolean }[], me: string, former: (who: string) => string = (w) => w) => [
   { value: "", label: t("whoAny") }, { value: "me", label: t("whoMe") }, { value: "none", label: t("whoNone") },
-  ...team.filter((x) => x.id !== me).map((x) => ({ value: x.id, label: x.label })),
+  ...team.filter((x) => x.id !== me).map((x) => ({ value: x.id, label: x.former ? former(x.label) : x.label })),
 ];
