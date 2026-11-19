@@ -20,6 +20,7 @@ const T = {
     queuedText: "Tím príspevky od ľudí mimo tímu pred zverejnením schvaľuje. Zatiaľ ho vidíte len vy, po schválení ho uvidia všetci. Ak ho tím nezverejní, napíšeme vám prečo.",
     sent: "Nápad je na boarde. Ostatní zaň môžu hlasovať a keď sa stav zmení, príde vám e-mail.", view: "Pozrieť nápad", back: "Späť na nápady",
     fail: "Nepodarilo sa to. Skúste to znova.", who: "Nepodarilo sa overiť, kto ste. Prihláste sa v aplikácii a skúste to znova.", status: "Stav",
+    trOn: "Názvy sú preložené s pomocou AI", trOff: "Názvy v origináli", trOrig: "zobraziť originály", trShow: "zobraziť preklady",
   },
   cs: {
     search: "Hledat v nápadech", searchPh: "Např. export do CSV", none: "Nic jsme nenašli. Navrhněte to jako nový nápad.", empty: "Zatím tu nejsou žádné nápady.",
@@ -31,6 +32,7 @@ const T = {
     queuedText: "Tým příspěvky od lidí mimo tým před zveřejněním schvaluje. Zatím ho vidíte jen vy, po schválení ho uvidí všichni. Pokud ho tým nezveřejní, napíšeme vám proč.",
     sent: "Nápad je na boardu. Ostatní pro něj mohou hlasovat a když se změní stav, přijde vám e-mail.", view: "Zobrazit nápad", back: "Zpět na nápady",
     fail: "Nepodařilo se to. Zkuste to znovu.", who: "Nepodařilo se ověřit, kdo jste. Přihlaste se v aplikaci a zkuste to znovu.", status: "Stav",
+    trOn: "Názvy jsou přeložené pomocí AI", trOff: "Názvy v originále", trOrig: "zobrazit originály", trShow: "zobrazit překlady",
   },
   en: {
     search: "Search ideas", searchPh: "E.g. CSV export", none: "Nothing found. Suggest it as a new idea.", empty: "No ideas yet.",
@@ -42,11 +44,13 @@ const T = {
     queuedText: "The team approves posts from outside the team before publishing them. For now only you can see it; once approved, everyone can. If the team doesn't publish it, we'll e-mail you why.",
     sent: "Your idea is on the board. Others can vote for it, and you'll get an e-mail when its status changes.", view: "View idea", back: "Back to ideas",
     fail: "That didn't work. Please try again.", who: "We couldn't verify who you are. Sign in to the app and try again.", status: "Status",
+    trOn: "Titles translated with AI", trOff: "Titles in the original", trOrig: "show originals", trShow: "show translations",
   },
 };
 type Str = (typeof T)["sk"];
 
-interface Idea { id: string; number: number; title: string; votes: number; status: string; label: string; weight: number; pending: boolean }
+/** `tr`: the title translated with AI (boards in automatic translation mode), shown with a label and a switch to the originals. */
+interface Idea { id: string; number: number; title: string; votes: number; status: string; label: string; weight: number; pending: boolean; tr?: { title: string; model: string } }
 interface List { ideas: Idea[]; voteMode: "simple" | "importance"; budget: { total: number; left: number | null } | null; signedIn: boolean }
 
 const CSS = `
@@ -74,13 +78,16 @@ const CSS = `
 .oi-sim{margin-top:12px;padding:10px;border-radius:var(--oz-radius,8px);background:color-mix(in srgb,var(--oz-accent,#5A3FE6) 6%,var(--oz-surface,#fff))}
 .oi-sim h3{margin:0;font-size:13px;font-weight:700}.oi-sim p{margin:2px 0 8px;font-size:12px;opacity:.8}
 .oi-sim .oi-row{background:var(--oz-surface,#fff)}
+.oi-tr{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;opacity:.8;margin:0 0 8px}
 .oi-skel{height:66px;border-radius:var(--oz-radius,8px);background:color-mix(in srgb,var(--oz-ink,#111214) 6%,var(--oz-surface,#fff))}
 `;
 
 const up = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6" /></svg>;
 
-function Row({ idea, mode, t, busy, onVote, onOpen }: { idea: Idea; mode: List["voteMode"]; t: Str; busy: boolean; onVote: (i: Idea) => void; onOpen: (i: Idea) => void }) {
-  const label = `${idea.weight ? t.voted : t.vote}: ${idea.title}${mode === "importance" && idea.weight ? `. ${t.weight(idea.weight)}` : ""}`;
+function Row({ idea, mode, t, busy, orig, onVote, onOpen }: { idea: Idea; mode: List["voteMode"]; t: Str; busy: boolean; orig?: boolean; onVote: (i: Idea) => void; onOpen: (i: Idea) => void }) {
+  const tr = !orig && idea.tr;
+  const title = tr ? tr.title : idea.title;
+  const label = `${idea.weight ? t.voted : t.vote}: ${title}${mode === "importance" && idea.weight ? `. ${t.weight(idea.weight)}` : ""}`;
   return (
     <li class="oi-row">
       <button type="button" class="oi-vote" aria-pressed={idea.weight > 0} aria-label={label} aria-busy={busy} onClick={() => !busy && onVote(idea)}>
@@ -88,7 +95,7 @@ function Row({ idea, mode, t, busy, onVote, onOpen }: { idea: Idea; mode: List["
         {mode === "importance" && <span class="oi-pips" aria-hidden="true">{[1, 2, 3].map((n) => <i key={n} class={idea.weight >= n ? "on" : ""} />)}</span>}
       </button>
       <div class="oi-t">
-        <button type="button" onClick={() => onOpen(idea)}>{idea.title}</button>
+        <button type="button" onClick={() => onOpen(idea)} {...(tr ? { "data-ai-generated": "true", "data-ai-model": tr.model, title: idea.title } : {})}>{title}</button>
         <span class="oi-st" data-s={idea.status}><span class="sr">{t.status}: </span>{idea.pending ? t.queued : idea.label} · {t.votes(idea.votes)}</span>
       </div>
     </li>
@@ -109,6 +116,7 @@ function Ideas({ ctx }: { ctx: IdeasCtx }) {
   const first = useRef<HTMLInputElement>(null);
   const pre = api.__.state.prefill?.kind === "idea" ? api.__.state.prefill : null;
   const [title, setTitle] = useState(pre?.title ?? "");
+  const [orig, setOrig] = useState(false);
 
   /** Authorized when the host gives us a token, anonymous otherwise (public boards still list ideas). */
   async function get(path: string): Promise<List> {
@@ -181,8 +189,10 @@ function Ideas({ ctx }: { ctx: IdeasCtx }) {
 
   const open = (i: Idea) => ctx.openBoard(`/i/${i.number}`);
   const rows = (ideas: Idea[]) => (
-    <ul class="oi-list">{ideas.map((i) => <Row key={i.id} idea={i} mode={mode} t={t} busy={busy === i.id} onVote={vote} onOpen={open} />)}</ul>
+    <ul class="oi-list">{ideas.map((i) => <Row key={i.id} idea={i} mode={mode} t={t} busy={busy === i.id} orig={orig} onVote={vote} onOpen={open} />)}</ul>
   );
+  // AI Act art. 50: translated titles are labelled, the originals one click away.
+  const translated = list?.ideas.some((i) => i.tr);
   const error = err && <p class="err" role="alert">{err}</p>;
 
   if (done) {
@@ -227,6 +237,9 @@ function Ideas({ ctx }: { ctx: IdeasCtx }) {
         <input id="oi-q" ref={first} type="search" placeholder={t.searchPh} value={q} onInput={(e) => setQ(e.currentTarget.value)} autocomplete="off" />
       </div>
       {list?.budget && list.budget.left != null && <p class="oi-meta">{t.left(list.budget.left, list.budget.total)}</p>}
+      {translated && (
+        <p class="oi-tr" data-ai-generated="true">✨ {orig ? t.trOff : t.trOn} · <button class="oi-link" onClick={() => setOrig(!orig)}>{orig ? t.trShow : t.trOrig}</button></p>
+      )}
       {error}
       {!list && !err && <div aria-busy="true" class="oi-list">{[0, 1, 2].map((n) => <div key={n} class="oi-skel" />)}</div>}
       {list && (list.ideas.length ? rows(list.ideas) : <p class="muted" role="status">{searching ? t.none : t.empty}</p>)}

@@ -37,6 +37,11 @@ export interface Mail {
   preheader?: string;
   /** User text (Markdown subset), rendered as e-mail-safe HTML and as plain text. */
   quote?: string;
+  /**
+   * The quote is an AI translation (lib/email/translate-mail.ts): labelled as such with the model (AI Act art. 50),
+   * and the original follows it under its own heading.
+   */
+  quoteTranslated?: { original: string; model: string };
   /** Allow # headings in the quote (changelog entries). */
   quoteHeadings?: boolean;
   /** The board's origin + "/" + slug context: same-site links become absolute, attachment images become links. */
@@ -92,9 +97,12 @@ ${m.code.note ? `<div style="margin-top:8px;font-size:13px;color:${muted}">${esc
   const btn = m.cta
     ? `${m.ctaLead ? `<p style="margin:24px 0 10px;color:${muted};font-size:14px">${esc(m.ctaLead)}</p>` : ""}<p style="margin:${m.ctaLead ? "0" : "28px"} 0 4px"><a href="${esc(m.cta.href)}" style="display:inline-block;padding:12px 20px;border-radius:${r}px;background:${c.accent};color:${onAccent(c.accent)};text-decoration:none;font-weight:600;font-size:15px">${esc(m.cta.label)}</a></p>`
     : "";
-  const quote = m.quote
-    ? `<blockquote style="margin:20px 0;padding:12px 16px 4px;border-left:3px solid ${c.accent};background:${c.canvas};border-radius:0 ${r}px ${r}px 0">${mailMarkdown(m.quote, theme, { headings: m.quoteHeadings, base: m.quoteBase })}</blockquote>`
-    : "";
+  const block = (src: string, accent: string) => `<blockquote style="margin:20px 0;padding:12px 16px 4px;border-left:3px solid ${accent};background:${c.canvas};border-radius:0 ${r}px ${r}px 0">${mailMarkdown(src, theme, { headings: m.quoteHeadings, base: m.quoteBase })}</blockquote>`;
+  const tr = m.quote ? m.quoteTranslated : undefined;
+  const quote = !m.quote ? ""
+    : !tr ? block(m.quote, c.accent)
+    : `<p style="margin:20px 0 -12px;font-size:13px;color:${muted}" data-ai-generated="true">${esc(t("translatedLabel", { model: tr.model }))}</p>${block(m.quote, c.accent)}`
+      + `<p style="margin:0 0 -12px;font-size:13px;font-weight:600;color:${muted}">${esc(t("originalHeading"))}</p>${block(tr.original, c.border)}`;
   const links = m.links && m.links.items.length
     ? `<p style="margin:20px 0 6px;font-weight:600">${esc(m.links.heading)}</p><ul style="margin:0 0 10px;padding-left:20px">${m.links.items.map((l) =>
       `<li style="margin:0 0 4px"><a href="${esc(l.href)}" style="color:${c.ink};text-decoration:underline">${esc(l.label)}</a>${l.note ? ` <span style="color:${muted}">${esc(l.note)}</span>` : ""}</li>`).join("")}</ul>`
@@ -117,14 +125,14 @@ ${preheader ? `<div style="display:none;max-height:0;overflow:hidden;opacity:0;c
 ${m.paragraphs.map((p) => `<p style="margin:0 0 12px">${esc(p)}</p>`).join("")}${code}${quote}${links}${btn}${fine}
 </div>${foot}
 </div></div></body></html>`;
-  const text = [m.heading, "", ...m.paragraphs, m.code ? `\n    ${m.code.value}\n${m.code.note ? `\n${m.code.note}` : ""}` : "", m.quote ? `\n${quoteText(m)}` : "",
+  const text = [m.heading, "", ...m.paragraphs, m.code ? `\n    ${m.code.value}\n${m.code.note ? `\n${m.code.note}` : ""}` : "", m.quote ? `\n${m.quoteTranslated ? `${t("translatedLabel", { model: m.quoteTranslated.model })}\n` : ""}${quoteText(m, m.quote)}${m.quoteTranslated ? `\n\n${t("originalHeading")}\n${quoteText(m, m.quoteTranslated.original)}` : ""}` : "",
     m.links && m.links.items.length ? `\n${m.links.heading}\n${m.links.items.map((l) => `- ${l.label}${l.note ? ` ${l.note}` : ""}: ${l.href}`).join("\n")}` : "",
     m.cta ? `\n${m.ctaLead ? `${m.ctaLead}\n` : ""}${m.cta.label}: ${m.cta.href}` : "", m.fine?.length ? `\n${m.fine.join("\n")}` : "",
     unsubscribeHref ? `\n${t("unsubscribe")}: ${unsubscribeHref}` : ""].join("\n").replace(/\n{3,}/g, "\n\n").trim();
   return { subject: m.subject, summary: m.summary, html, text };
 }
 
-function quoteText(m: Mail) {
-  const plain = markdownToText(m.quote!, { headings: m.quoteHeadings, slug: m.quoteBase?.slug, origin: m.quoteBase?.origin, base: m.quoteBase?.origin });
+function quoteText(m: Mail, src: string) {
+  const plain = markdownToText(src, { headings: m.quoteHeadings, slug: m.quoteBase?.slug, origin: m.quoteBase?.origin, base: m.quoteBase?.origin });
   return plain.split("\n").map((l) => (l ? `> ${l}` : ">")).join("\n");
 }

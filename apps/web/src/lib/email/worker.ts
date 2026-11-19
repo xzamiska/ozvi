@@ -1,10 +1,11 @@
 import { PLAN_LIMITS, schema, withSystem, type Db, type PlanName } from "@ozvi/db";
-import { and, eq, gte, inArray, lte, sql } from "drizzle-orm";
+import { and, eq, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import nodemailer, { type Transporter } from "nodemailer";
 import { ecomailTransport } from "./ecomail";
 import { recipientLocale } from "../../i18n/board";
 import { translator } from "../../i18n/messages";
 import { renderMail } from "./render";
+import { TRANSLATE_WAIT_MS, translateMails } from "./translate-mail";
 import { projectOrigin, publicUrl } from "./url";
 import { unsubscribeUrl } from "./unsubscribe";
 import { parseTheme, presets } from "@ozvi/theme";
@@ -64,12 +65,17 @@ const inScope = (scope: WorkerScope) => (scope.projectIds ? [inArray(emails.proj
 
 export async function tick(db: Db, t: Transporter | null = getTransport(), scope: WorkerScope = {}): Promise<{ sent: number; deferred: number; failed: number; digests: number }> {
   const stats = { sent: 0, deferred: 0, failed: 0, digests: 0 };
+  // AI translations of quoted posts first, outside the sending transaction (a slow model never holds the queue).
+  await translateMails(db, { projectIds: scope.projectIds }).catch((e) => console.warn("[ozvi] mail translation", e));
+  const now = scope.now ?? new Date();
   await withSystem(db, async (tx) => {
     const batch = await tx.select({ e: emails, plan: workspaces.plan, projectName: projects.name, workspaceId: projects.workspaceId })
       .from(emails)
       .innerJoin(projects, eq(projects.id, emails.projectId))
       .innerJoin(workspaces, eq(workspaces.id, projects.workspaceId))
-      .where(and(eq(emails.status, "queued"), lte(emails.sendAfter, scope.now ?? new Date()), ...inScope(scope)))
+      // A mail still waiting for its translation goes out untranslated once it waited TRANSLATE_WAIT_MS.
+      .where(and(eq(emails.status, "queued"), lte(emails.sendAfter, now), ...inScope(scope),
+        or(isNull(emails.translate), lte(emails.createdAt, new Date(now.getTime() - TRANSLATE_WAIT_MS)))))
       .orderBy(emails.createdAt).limit(BATCH)
       .for("update", { skipLocked: true, of: emails });
     if (batch.length === 0) return;

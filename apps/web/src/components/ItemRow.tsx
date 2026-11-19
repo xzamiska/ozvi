@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl";
 import { ago } from "@/lib/format";
 import { markdownExcerpt } from "@/lib/markdown";
 import { VoteButton, type VoteMode } from "./VoteButton";
+import { TranslatedTitle } from "./ozvi/Translate";
 
 export interface Row {
   id: string; number: number; kind: "bug" | "idea"; title: string; body: string; status: string;
@@ -85,7 +86,8 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
         <h2 className="text-[16.5px] leading-snug font-semibold">
           {idea && <span className="mr-2 font-heading text-[15px] font-bold text-muted-foreground tabular-nums">#{row.number}</span>}
           <Link href={`/${slug}/i/${row.number}`} className="oz-stretch outline-none after:rounded-none focus-visible:underline focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-ring group-hover:underline group-hover:decoration-line-strong group-hover:underline-offset-4">
-            {row.title}
+            {/* Automatic translation of lists (TranslationScope with titles); otherwise just the title. */}
+            <TranslatedTitle id={row.id}>{row.title}</TranslatedTitle>
           </Link>
         </h2>
         {row.body && <p data-excerpt className="mt-0.5 line-clamp-1 text-[14.5px] text-muted-foreground">{markdownExcerpt(row.body)}</p>}

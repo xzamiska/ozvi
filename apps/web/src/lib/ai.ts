@@ -203,3 +203,14 @@ export async function pivotTitles(titles: string[]): Promise<string[]> {
   if (!Array.isArray(out.titles) || out.titles.length !== titles.length) throw new AiError("empty");
   return out.titles.map((x) => String(x).slice(0, 300));
 }
+
+/** Titles of posts in a list into `target` (automatic mode translates lists). Same order and count as the input. */
+export async function translateTitles(titles: string[], target: string): Promise<string[]> {
+  if (titles.length === 0) return [];
+  const language = LANGUAGE[target] ?? "English";
+  const out = await completeJson(TRANSLATE_SYSTEM,
+    `Translate each of these ${titles.length} post titles into ${language}. Return JSON {"titles": [...]} with exactly ${titles.length} strings in the same order; keep a title unchanged if it is already in ${language}.`,
+    { titles }, TITLES_SCHEMA, TitlesOut, 200 + titles.length * 100);
+  if (!Array.isArray(out.titles) || out.titles.length !== titles.length) throw new AiError("empty");
+  return out.titles.map((x) => String(x).slice(0, 300));
+}

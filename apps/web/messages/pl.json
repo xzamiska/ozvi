@@ -294,7 +294,7 @@
       "saved": "Języki zapisane.",
       "invalid": "Wybierz język z listy.",
       "translation": "Tłumaczenie wpisów",
-      "translationHint": "Pomysły, komentarze i aktualizacje napisane w innym języku AI tłumaczy na język czytelnika. Tłumaczenie jest zawsze oznaczone, a oryginał jest o jedno kliknięcie. Prywatne zgłoszenia błędów i notatki zespołu są tłumaczone tylko dla osób, które mogą je widzieć.",
+      "translationHint": "Pomysły, komentarze i aktualizacje napisane w innym języku AI tłumaczy na język czytelnika, także w powiadomieniach e-mail (z oryginałem pod tłumaczeniem). Tłumaczenie jest zawsze oznaczone, a oryginał jest o jedno kliknięcie. Prywatne zgłoszenia błędów i notatki zespołu są tłumaczone tylko dla osób, które mogą je widzieć.",
       "translationNoAi": "Tłumaczeń nie ma w twoim planie. Pro ma 500, a Studio 2 000 nowych tłumaczeń miesięcznie; przy własnym hostingu trzeba ustawić dostawcę AI.",
       "mode": {
         "off": "Wyłączone",
@@ -302,7 +302,7 @@
         "on_demand": "Na żądanie",
         "on_demandHint": "Przy wpisach w innym języku pojawia się przycisk „Przetłumacz”.",
         "auto": "Automatycznie",
-        "autoHint": "Wpisy w innym języku od razu wyświetlają się przetłumaczone, z linkiem do oryginału. Zużywa więcej tłumaczeń niż „Na żądanie”."
+        "autoHint": "Wpisy w innym języku od razu wyświetlają się przetłumaczone, z linkiem do oryginału, podobnie tytuły na listach pomysłów i błędów oraz w widżecie. Zużywa więcej tłumaczeń niż „Na żądanie”."
       },
       "allowance": "W tym miesiącu: {used} z {limit} nowych tłumaczeń dla całej przestrzeni. Tłumaczenie, które już raz powstało, nie liczy się ponownie."
     },
@@ -1878,7 +1878,9 @@
     "assignedBody": "{who} przydzielił(a) Ci {ref}.",
     "assignedManySubject": "Przydzielone Tobie: {n, plural, one {# wpis} few {# wpisy} other {# wpisów}}",
     "assignedManyBody": "{who} przydzielił(a) Ci te wpisy:",
-    "openMine": "Otwórz moje"
+    "openMine": "Otwórz moje",
+    "translatedLabel": "Przetłumaczone przez AI (model {model}), może zawierać nieścisłości.",
+    "originalHeading": "Tekst oryginalny"
   },
   "errors": {
     "signIn": "Zaloguj się, żeby to zrobić.",
@@ -3776,7 +3778,12 @@
       "rate": "Za dużo tłumaczeń w tej godzinie. Spróbuj później.",
       "cap": "Miesięczna liczba tłumaczeń AI została wyczerpana. Oryginał zostaje, nowe tłumaczenia wrócą od 1. dnia kolejnego miesiąca.",
       "tooLong": "Ten wpis jest za długi do przetłumaczenia."
-    }
+    },
+    "titlesWorking": "Tłumaczę tytuły…",
+    "titlesLabel": "Tytuły przetłumaczone przez AI",
+    "titlesOriginal": "Tytuły w oryginale",
+    "showOriginals": "pokaż oryginały",
+    "showTranslations": "pokaż tłumaczenia"
   },
   "subprocessors": {
     "meta": "Podmioty przetwarzające – Ozvi",

@@ -8,7 +8,7 @@ import { db } from "./db";
 import { projectOrigin } from "./email/url";
 import { renderMarkdown } from "./markdown";
 import { getCtx } from "./project";
-import { translateFor, type Subject, type TranslateError } from "./translate";
+import { translateFor, translateTitlesFor, type Subject, type TranslateError } from "./translate";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const SUBJECTS = new Set<Subject>(["item", "comment", "changelog"]);
@@ -43,6 +43,30 @@ export async function translatePostsAction(slug: string, wanted: { subject: stri
     };
   } catch (e) {
     if (e instanceof AiError) return { translations: [], errors: {}, error: message(e.code) };
+    throw e;
+  }
+}
+
+/**
+ * Titles in a list (boards in automatic mode): the same checks as posts, titles only, one model call for
+ * the misses (lib/translate.ts translateTitlesFor).
+ */
+export async function translateTitlesAction(slug: string, ids: string[]): Promise<TranslateResponse> {
+  const { project, user, isTeam, plan, locale } = await getCtx(slug);
+  const t = await getTranslations({ locale, namespace: "translate" });
+  const clean = (Array.isArray(ids) ? ids : []).filter((id): id is string => typeof id === "string" && UUID.test(id));
+  if (clean.length === 0) return { translations: [], errors: {} };
+  try {
+    const res = await translateTitlesFor(db, {
+      project, plan, target: locale, viewer: { userId: user?.id ?? null, isTeam },
+      rateKey: user?.id ?? clientIp(await headers()), ids: clean,
+    });
+    return {
+      translations: res.translations.map((x) => ({ id: x.id, title: x.title, model: x.model, html: "" })),
+      errors: Object.fromEntries(res.errors.map((e) => [e.id, t(`errors.${e.code}`)])),
+    };
+  } catch (e) {
+    if (e instanceof AiError) return { translations: [], errors: {}, error: t(`errors.${e.code}`) };
     throw e;
   }
 }

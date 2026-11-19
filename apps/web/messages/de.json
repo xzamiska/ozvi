@@ -294,7 +294,7 @@
       "saved": "Sprachen gespeichert.",
       "invalid": "Wählen Sie eine Sprache aus der Liste.",
       "translation": "Übersetzung von Beiträgen",
-      "translationHint": "KI übersetzt Ideen, Kommentare und Neuigkeiten, die in einer anderen Sprache verfasst wurden, in die Sprache der lesenden Person. Übersetzungen sind immer gekennzeichnet, und das Original ist nur einen Klick entfernt. Private Fehlermeldungen und Team-Notizen werden nur für Personen übersetzt, die sie sehen dürfen.",
+      "translationHint": "KI übersetzt Ideen, Kommentare und Neuigkeiten, die in einer anderen Sprache verfasst wurden, in die Sprache der lesenden Person, auch in E-Mail-Benachrichtigungen (mit dem Original unter der Übersetzung). Übersetzungen sind immer gekennzeichnet, und das Original ist nur einen Klick entfernt. Private Fehlermeldungen und Team-Notizen werden nur für Personen übersetzt, die sie sehen dürfen.",
       "translationNoAi": "Übersetzungen sind nicht in Ihrem Plan. Pro hat 500 und Studio 2.000 neue Übersetzungen pro Monat; bei eigenem Hosting muss ein KI-Anbieter eingerichtet sein.",
       "mode": {
         "off": "Aus",
@@ -302,7 +302,7 @@
         "on_demand": "Auf Anfrage",
         "on_demandHint": "Beiträge in einer anderen Sprache erhalten eine Schaltfläche „Übersetzen“.",
         "auto": "Automatisch",
-        "autoHint": "Beiträge in einer anderen Sprache erscheinen gleich übersetzt, mit Link zum Original. Verbraucht mehr Übersetzungen als „Auf Anfrage“."
+        "autoHint": "Beiträge in einer anderen Sprache erscheinen gleich übersetzt, mit Link zum Original, ebenso die Titel in den Listen der Ideen und Fehler und im Widget. Verbraucht mehr Übersetzungen als „Auf Anfrage“."
       },
       "allowance": "Diesen Monat: {used} von {limit} neuen Übersetzungen für den ganzen Arbeitsbereich. Eine einmal erstellte Übersetzung zählt nicht erneut."
     },
@@ -1878,7 +1878,9 @@
     "assignedBody": "{who} hat Ihnen {ref} zugewiesen.",
     "assignedManySubject": "Ihnen zugewiesen: {n, plural, one {# Eintrag} other {# Einträge}}",
     "assignedManyBody": "{who} hat Ihnen diese Einträge zugewiesen:",
-    "openMine": "Meine öffnen"
+    "openMine": "Meine öffnen",
+    "translatedLabel": "Mit KI übersetzt (Modell {model}), kann Ungenauigkeiten enthalten.",
+    "originalHeading": "Originaltext"
   },
   "errors": {
     "signIn": "Bitte melden Sie sich dafür an.",
@@ -3776,7 +3778,12 @@
       "rate": "Zu viele Übersetzungen in dieser Stunde. Versuchen Sie es später erneut.",
       "cap": "Die KI-Übersetzungen dieses Monats sind aufgebraucht. Das Original bleibt; neue Übersetzungen gibt es ab dem 1. des nächsten Monats.",
       "tooLong": "Dieser Beitrag ist zu lang für eine Übersetzung."
-    }
+    },
+    "titlesWorking": "Titel werden übersetzt …",
+    "titlesLabel": "Titel mit KI übersetzt",
+    "titlesOriginal": "Titel im Original",
+    "showOriginals": "Originale anzeigen",
+    "showTranslations": "Übersetzungen anzeigen"
   },
   "subprocessors": {
     "meta": "Unterauftragsverarbeiter – Ozvi",

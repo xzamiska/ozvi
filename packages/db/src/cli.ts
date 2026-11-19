@@ -10,6 +10,7 @@ import { eq } from "drizzle-orm";
 import { parseArgs } from "node:util";
 import { createDb, encryptSecret, newSecret, withSystem } from "./index";
 import { projects, workspaces } from "./schema";
+import { aiProviderSet } from "./ai-env";
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
@@ -37,6 +38,8 @@ try {
       const exists = await tx.select().from(projects).where(eq(projects.slug, slug));
       if (exists.length) throw new Error(`project "${slug}" already exists`);
       await tx.insert(projects).values({
+        // Self-hosted with an AI provider: post translation starts "on request" (as new Pro/Studio boards in the cloud).
+        translationMode: aiProviderSet(process.env) ? "on_demand" : "off",
         workspaceId: w!.id, slug, name, theme, ssoSecretEnc: encryptSecret(secret),
         allowedOrigins: values.origin ?? [], loginUrl: values["login-url"] ?? null,
       });

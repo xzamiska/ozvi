@@ -22,6 +22,7 @@ import { issueLogin, LoginError, normalizeEmail, verifyCode, verifyLink } from "
 import { publicUrl } from "./email/url";
 import { allow } from "./ratelimit";
 import { trackEvent } from "./analytics";
+import { newBoardTranslationMode } from "./translate";
 
 const server = async () => getTranslations("account.server");
 
@@ -149,6 +150,8 @@ export async function createProject(_: NewProjectState, form: FormData): Promise
     const [p] = await tx.insert(schema.projects).values({
       // No SSO secret yet: it is created (and shown once) when the owner turns SSO on in settings.
       workspaceId, slug, name, theme, ssoSecretEnc: null, emailLogin: true,
+      // Plans with AI translations start with "Translate" on request; Free (and no AI) stays off.
+      translationMode: newBoardTranslationMode((w!.plan ?? "self") as PlanName),
     }).returning();
     await tx.insert(schema.users).values({ projectId: p!.id, externalId: `email:${account.email}`, email: account.email, emailVerified: true, name: account.name ?? null, role: "admin" });
     return { slug };

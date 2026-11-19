@@ -260,6 +260,13 @@
       "when": 1795084146964,
       "tag": "0036_inbox_seen",
       "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1795114885998,
+      "tag": "0037_mail_translate",
+      "breakpoints": true
     }
   ]
 }

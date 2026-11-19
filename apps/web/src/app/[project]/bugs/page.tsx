@@ -24,6 +24,8 @@ import { Gate, signInText } from "../_gate";
 import { hasTag, listTags } from "@/lib/tags";
 import { tagFromParam } from "@/lib/tag-rules";
 import { decorateRows } from "@/lib/row-extras";
+import { listTranslationView } from "@/lib/translate-view";
+import { TitlesBar, TranslationScope } from "@/components/ozvi/Translate";
 import { boardTitle } from "@/lib/board-meta";
 import { needSection } from "@/lib/sections-server";
 
@@ -39,7 +41,7 @@ const STAGES = {
 export default async function Bugs({ params, searchParams }: { params: Promise<{ project: string }>; searchParams: Promise<{ s?: string; st?: string; q?: string; sort?: string; p?: string; tag?: string; who?: string }> }) {
   const { project: slug } = await params;
   const sp = await searchParams;
-  const { project, user, isTeam, locale } = await getCtx(slug);
+  const { project, user, isTeam, locale, plan } = await getCtx(slug);
   needSection(project, "bugs");
   const t = await getTranslations("board.bugs");
   const tb = await getTranslations("board");
@@ -58,7 +60,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
   const page = pageParam(sp.p);
   const { items } = schema;
   const mine = isTeam ? [] : [eq(items.authorId, user.id)];
-  const { rows, hasMore, counts, allTags, tag, members, who } = await withProject(db, project.id, async (tx) => {
+  const { rows, hasMore, counts, allTags, tag, members, who, translation } = await withProject(db, project.id, async (tx) => {
     // Tags: everybody filters by public ones; team-only tags exist (and filter) only for the team.
     const allTags = await listTags(tx, isTeam);
     const tag = tagFromParam(allTags, sp.tag, isTeam);
@@ -69,7 +71,9 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
     const page_ = takePage(await listItems(tx, [eq(items.kind, "bug"), inArray(items.status, st ? [st] : [...STAGES[stage!].statuses]), ...mine, ...search], sort, isTeam,
       { limit: fetchLimit(page), team: isTeam }), page);
     await decorateRows(tx, project, locale, page_.rows, isTeam);
-    return { ...page_, allTags, tag, members, who,
+    // Automatic translation: titles of reports in another language (only rows this viewer may read).
+    const translation = await listTranslationView(tx, { project, plan, locale }, page_.rows);
+    return { ...page_, allTags, tag, members, who, translation,
     // Counts follow the search, so the numbers on the segments match what a click shows.
     counts: Object.fromEntries((await tx.select({ status: items.status, n: sql<number>`count(*)::int` }).from(items)
       .where(and(eq(items.kind, "bug"), sql`${items.mergedIntoId} is null and ${items.deletedAt} is null`, ...mine, ...search)).groupBy(items.status)).map((r) => [r.status, r.n])) as Record<string, number>,
@@ -142,9 +146,12 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
               action={<Button asChild variant="outline"><Link href="?s=all">{t("showAll")}</Link></Button>}
             />
           ) : (
-            <>{isTeam && <ListTools count={rows.length} />}
-            <Panel as="ul" className="divide-y">{rows.map((r) => <ItemRow key={r.id} slug={slug} row={r} voted={false} login={false} locale={locale}
-              tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user.role === "admin" } : undefined} selectable={isTeam} />)}</Panel></>
+            <TranslationScope slug={slug} view={translation}>
+              {isTeam && <ListTools count={rows.length} />}
+              <TitlesBar className="mb-2" />
+              <Panel as="ul" className="divide-y">{rows.map((r) => <ItemRow key={r.id} slug={slug} row={r} voted={false} login={false} locale={locale}
+                tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user.role === "admin" } : undefined} selectable={isTeam} />)}</Panel>
+            </TranslationScope>
           )}
           {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="bug" team={members} me={user?.id} />}
           <LoadMore href={hasMore ? nextPageHref(keep, page) : null} shown={rows.length} total={shownTotal} />
