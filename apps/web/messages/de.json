@@ -1093,7 +1093,8 @@
       "nobody": "Niemand",
       "takeIt": "Selbst übernehmen",
       "assigned": "Zuständig: {who}",
-      "unassigned": "Noch niemand zuständig"
+      "unassigned": "Noch niemand zuständig",
+      "mergedHere": "Hierher zusammengeführt:"
     },
     "me": {
       "title": "Meine Daten",

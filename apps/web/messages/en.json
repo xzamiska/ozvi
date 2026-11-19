@@ -1093,7 +1093,8 @@
       "nobody": "Nobody",
       "takeIt": "Assign to me",
       "assigned": "Assigned to {who}",
-      "unassigned": "Nobody is on it yet"
+      "unassigned": "Nobody is on it yet",
+      "mergedHere": "Merged into this:"
     },
     "me": {
       "title": "My data",

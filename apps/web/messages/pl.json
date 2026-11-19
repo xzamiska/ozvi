@@ -1093,7 +1093,8 @@
       "nobody": "Nikt",
       "takeIt": "Biorę to",
       "assigned": "Odpowiada: {who}",
-      "unassigned": "Nikt się tym jeszcze nie zajmuje"
+      "unassigned": "Nikt się tym jeszcze nie zajmuje",
+      "mergedHere": "Scalone tutaj:"
     },
     "me": {
       "title": "Moje dane",

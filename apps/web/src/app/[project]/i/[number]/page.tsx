@@ -130,6 +130,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
       subs: subs.filter((s) => s.kind === item.kind).map((s) => ({ id: s.id, stage: s.stage, label: subName.get(s.id)! })),
       github: !!(await getGithub(tx).catch(() => null)),
       members: await assignableTeam(tx),
+      merged: await tx.select({ number: items.number }).from(items).where(eq(items.mergedIntoId, item.id)).orderBy(items.number),
       // Linear/Jira: usable once a team/project is picked.
       linear: !!(await getLinear(tx).catch(() => null))?.config.teamId,
       jira: !!(await getJira(tx).catch(() => null))?.config.projectKey,
@@ -445,17 +446,16 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
                   {embeddingsConfig() && team.similar.length > 0 && (
                     <p className="-mt-1 text-[12.5px] text-muted-foreground" data-ai-generated="true">{t("similarAi")}</p>
                   )}
-                  {team.similar.length > 0 ? (
-                    <ul className="grid gap-1.5">
-                      {team.similar.map((s) => (
-                        <li key={s.id} className="text-[13.5px]">
-                          <Link href={`/${slug}/i/${s.number}`} className="font-medium hover:underline">#{s.number} {s.title}</Link>
-                          <span className="text-muted-foreground"> · {stopLabel(locale, s.status, project)}{s.kind === "idea" ? ` · ${t("votesShort", { n: s.votes })}` : ""}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : <p className="text-[13px] text-muted-foreground">{t("noSimilar")}</p>}
-                  <MergeBox slug={slug} itemId={item.id} suggestion={team.similar[0]?.number} kind={item.kind} />
+                  {team.merged.length > 0 && (
+                    // The original lists what was merged into it (the review: merges left no trace on the original).
+                    <p className="text-[13px]">
+                      <span className="text-muted-foreground">{t("mergedHere")} </span>
+                      {team.merged.map((m, i) => <span key={m.number}>{i > 0 && ", "}<Link href={`/${slug}/i/${m.number}`} className="oz-link">#{m.number}</Link></span>)}
+                    </p>
+                  )}
+                  {team.similar.length === 0 && <p className="text-[13px] text-muted-foreground">{t("noSimilar")}</p>}
+                  <MergeBox slug={slug} itemId={item.id} suggestion={team.similar[0]?.number} kind={item.kind}
+                    candidates={team.similar.map((s) => ({ number: s.number, title: s.title, meta: `${stopLabel(locale, s.status, project)}${s.kind === "idea" ? ` · ${t("votesShort", { n: s.votes })}` : ""}` }))} />
                 </TeamBlock>
               )}
               {aiAvailable(plan) && live.length >= 3 && (

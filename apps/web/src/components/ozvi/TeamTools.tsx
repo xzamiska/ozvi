@@ -192,7 +192,11 @@ export function GithubBox({ slug, itemId, links, enabled }: {
   );
 }
 
-export function MergeBox({ slug, itemId, suggestion, kind }: { slug: string; itemId: string; suggestion?: number; kind: Kind }) {
+export function MergeBox({ slug, itemId, suggestion, kind, candidates = [] }: {
+  slug: string; itemId: string; suggestion?: number; kind: Kind;
+  /** Similar items: each gets "Merge into #n" (the review found typing the number by hand clumsy). */
+  candidates?: { number: number; title: string; meta: string }[];
+}) {
   const [state, action, pending] = useActionState((p: { error?: string }, f: FormData) => mergeInto(slug, itemId, p, f), {});
   const [target, setTarget] = useState("");
   const [open, setOpen] = useState(false);
@@ -201,6 +205,20 @@ export function MergeBox({ slug, itemId, suggestion, kind }: { slug: string; ite
   const t = useTranslations("forms.team");
   return (
     <div className="grid gap-2">
+      {candidates.length > 0 && (
+        <ul className="grid gap-1.5">
+          {candidates.map((c) => (
+            <li key={c.number} className="flex items-start justify-between gap-2 text-[13.5px]">
+              <span className="min-w-0">
+                <a href={`/${slug}/i/${c.number}`} className="font-medium hover:underline">#{c.number} {c.title}</a>
+                <span className="text-muted-foreground"> · {c.meta}</span>
+              </span>
+              <Button type="button" variant="ghost" size="sm" className="h-7 shrink-0 px-2 text-[12.5px]"
+                onClick={() => { setTarget(`#${c.number}`); setOpen(true); }}>{t("mergeInto", { n: String(c.number) })}</Button>
+            </li>
+          ))}
+        </ul>
+      )}
       <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); if (/^\d+$/.test(n)) setOpen(true); }}>
         <Input value={target} onChange={(e) => setTarget(e.target.value)} placeholder={suggestion ? `#${suggestion}` : "#12"}
           aria-label={t("mergeLabel")} inputMode="numeric" autoComplete="off" data-1p-ignore data-lpignore="true" className="w-24" />

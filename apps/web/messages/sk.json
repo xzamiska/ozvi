@@ -1093,7 +1093,8 @@
       "nobody": "Nikto",
       "takeIt": "Vezmem si to",
       "assigned": "Rieši: {who}",
-      "unassigned": "Nikto to zatiaľ nerieši"
+      "unassigned": "Nikto to zatiaľ nerieši",
+      "mergedHere": "Zlúčené sem:"
     },
     "me": {
       "title": "Moje údaje",

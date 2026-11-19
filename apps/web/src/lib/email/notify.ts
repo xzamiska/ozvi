@@ -1,7 +1,7 @@
 import "server-only";
 import { schema, type Tx } from "@ozvi/db";
 import { parseTheme, presets, type Theme } from "@ozvi/theme";
-import { and, eq, inArray, isNotNull, or } from "drizzle-orm";
+import { and, eq, inArray, isNotNull, isNull, or } from "drizzle-orm";
 import { recipientLocale } from "@/i18n/board";
 import type { Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
@@ -17,7 +17,7 @@ import { projectOrigin } from "./url";
  * so a rolled-back action never e-mails anybody. The worker sends them (worker.ts).
  */
 
-const { users, emails, votes, comments } = schema;
+const { users, emails, votes, comments, items } = schema;
 type Item = typeof schema.items.$inferSelect;
 
 
@@ -139,6 +139,16 @@ export async function notifyStatusChange(tx: Tx, project: Project, item: Item, a
     const reporter = item.authorId && item.authorId !== actorId ? [item.authorId] : [];
     await enqueue(tx, project, "bug_status", reporter, (t, l) => ({ ...statusMails.bugReporter(t, l, item, url, project, proof), ...said }));
     await enqueue(tx, project, "bug_status", recipients.filter((id) => id !== item.authorId), (t, l) => ({ ...statusMails.bugFollower(t, l, item, url, project), ...said }));
+    // Reporters of duplicates merged into this bug hear about the fix too (the merge dialog promises it), each
+    // about their own report: bugs are private, so the original's title and link never reach them.
+    if (item.status === "fixed") {
+      const dups = await tx.select().from(items).where(and(eq(items.mergedIntoId, item.id), isNotNull(items.authorId), isNull(items.deletedAt)));
+      for (const d of dups) {
+        if (!d.authorId || d.authorId === actorId || d.authorId === item.authorId) continue;
+        const own = { ...d, status: item.status, fixedInVersion: item.fixedInVersion };
+        await enqueue(tx, project, "bug_status", [d.authorId], (t, l) => statusMails.bugFollower(t, l, own, itemUrl(project, d), project));
+      }
+    }
     return;
   }
   await enqueue(tx, project, "idea_status", recipients, (t, l) => ({ ...statusMails.idea(t, l, item, url, project, proof), ...said }));

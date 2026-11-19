@@ -601,6 +601,9 @@ test.describe("public board", () => {
     await dlg.getByRole("button", { name: `Zlúčiť do #${n1}` }).click();
     await page.waitForURL(new RegExp(`/${b.slug}/i/${n1}$`));
     await expect(page.getByRole("button", { name: /2 hlasy/ })).toBeVisible();
+    // The original lists what was merged into it.
+    await expect(page.getByText("Zlúčené sem:")).toBeVisible();
+    await expect(page.getByRole("link", { name: `#${n2}`, exact: true })).toBeVisible();
     expect((await itemRow(b.slug, n1))!.voteCount).toBe(2);
 
     await carl.page.goto(`/${b.slug}/i/${n1}`);
@@ -613,6 +616,30 @@ test.describe("public board", () => {
     await expect(ben.page.getByRole("link", { name: dup })).toHaveCount(0);
     await expect(ben.page.getByRole("link", { name: orig })).toBeVisible();
     await ann.ctx.close(); await ben.ctx.close(); await carl.ctx.close();
+  });
+
+  test("a duplicate bug's reporter hears about the fix of the original, about their own report only", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    const ben = await boardUser(browser, b, "ben");
+    const tA = uniq("Faktúra sa neuloží"), tB = uniq("Neviem uložiť faktúru");
+    const nA = await createItem(ann.page, b.slug, "bug", tA);
+    const nB = await createItem(ben.page, b.slug, "bug", tB);
+    await page.goto(`/${b.slug}/i/${nB}`);
+    await page.getByLabel("Číslo pôvodného záznamu").fill(`#${nA}`);
+    await page.getByRole("button", { name: "Zlúčiť…" }).click();
+    await page.getByRole("dialog").getByRole("button", { name: `Zlúčiť do #${nA}` }).click();
+    await page.waitForURL(new RegExp(`/${b.slug}/i/${nA}$`));
+    await moveTo(page, b.slug, nA, "Opravené", "3.1.0");
+
+    const mail = await lastMail(ben.email, { subject: /^Opravené:/ });
+    expect(mail.Subject).toBe(`Opravené: #${nB} ${tB}`);
+    expect(mail.text).toContain("3.1.0");
+    // Bugs are private: nothing of Anna's report reaches Ben.
+    expect(`${mail.Subject} ${mail.text}`).not.toContain(tA);
+    expect(linkIn(mail.text, new RegExp(`/${b.slug}/i/${nB}`))).not.toBeNull();
+    expect(linkIn(mail.text, new RegExp(`/${b.slug}/i/${nA}\\b`))).toBeNull();
+    await ann.ctx.close(); await ben.ctx.close();
   });
 
   test("unsubscribe: the e-mail link (two steps) and the one-click header stop further e-mails", async ({ page, browser }) => {

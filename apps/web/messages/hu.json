@@ -1093,7 +1093,8 @@
       "nobody": "Senki",
       "takeIt": "Elvállalom",
       "assigned": "Felelős: {who}",
-      "unassigned": "Még senki sem foglalkozik vele"
+      "unassigned": "Még senki sem foglalkozik vele",
+      "mergedHere": "Ide összevonva:"
     },
     "me": {
       "title": "Saját adatok",
