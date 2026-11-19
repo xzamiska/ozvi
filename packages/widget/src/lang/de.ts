@@ -15,7 +15,7 @@ registerPack({
     sent: "Ihre Meldung ist eingegangen. Nur Sie und das Team sehen sie. Bei jedem Schritt erhalten Sie eine E-Mail, und nach der Korrektur bestätigen Sie mit einem Klick, ob es funktioniert.",
     view: "Meldung ansehen", files: "Einige Dateien wurden nicht hinzugefügt: max. 10 MB, nur Bilder, PDF oder Text.",
     queued: "Wartet auf Freigabe", queuedText: "Das Team gibt Beiträge von außerhalb des Teams vor der Veröffentlichung frei. Bis dahin sehen nur Sie ihn; nach der Freigabe alle. Veröffentlicht das Team ihn nicht, teilen wir Ihnen per E-Mail den Grund mit.",
-    fail: "Die Meldung konnte nicht gesendet werden.", who: "Wir konnten Sie nicht verifizieren. Laden Sie die Seite neu und versuchen Sie es erneut.",
+    fail: "Die Meldung konnte nicht gesendet werden.", who: "Wir konnten Sie nicht verifizieren. Melden Sie sich in der App an und versuchen Sie es erneut.",
     ideas: "Ideen", loading: "Wird geladen …", loadFail: "Laden fehlgeschlagen. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.", back: "Zurück",
     origin: "Diese Website darf keine Meldungen senden. Bitte informieren Sie den Administrator der App, damit er sie zu den erlaubten Adressen hinzufügt.",
   },
@@ -28,7 +28,7 @@ registerPack({
     send: "Idee vorschlagen", sending: "Wird gesendet …", tag: "Idee", queued: "Wartet auf Freigabe",
     queuedText: "Das Team gibt Beiträge von außerhalb des Teams vor der Veröffentlichung frei. Bis dahin sehen nur Sie ihn; nach der Freigabe alle. Veröffentlicht das Team ihn nicht, teilen wir Ihnen per E-Mail den Grund mit.",
     sent: "Ihre Idee ist auf dem Board. Andere können dafür abstimmen, und Sie erhalten eine E-Mail, wenn sich ihr Status ändert.", view: "Idee ansehen", back: "Zurück zu den Ideen",
-    fail: "Das hat nicht geklappt. Bitte versuchen Sie es erneut.", who: "Wir konnten Sie nicht verifizieren. Laden Sie die Seite neu und versuchen Sie es erneut.", status: "Status",
+    fail: "Das hat nicht geklappt. Bitte versuchen Sie es erneut.", who: "Wir konnten Sie nicht verifizieren. Melden Sie sich in der App an und versuchen Sie es erneut.", status: "Status",
   },
   annotate: {
     title: "Markieren Sie, was nicht funktioniert", hint: "Zum Zeichnen ziehen. Die Unschärfe wird vor dem Senden fest ins Bild eingerechnet.",

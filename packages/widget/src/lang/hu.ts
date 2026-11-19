@@ -15,7 +15,7 @@ registerPack({
     sent: "Megkaptuk a bejelentésed. Csak te és a csapat látjátok. Minden állomásnál e-mailt kapsz, a javítás után pedig egy kattintással jelezheted, hogy működik-e.",
     view: "Bejelentés megtekintése", files: "Néhány fájlt nem adtunk hozzá: legfeljebb 10 MB, csak kép, PDF vagy szöveg.",
     queued: "Jóváhagyásra vár", queuedText: "A csapat közzététel előtt jóváhagyja a csapaton kívüliek bejegyzéseit. Egyelőre csak te látod; jóváhagyás után mindenki. Ha a csapat nem teszi közzé, e-mailben megírjuk, miért.",
-    fail: "Nem sikerült elküldeni a bejelentést.", who: "Nem sikerült ellenőrizni, ki vagy. Töltsd újra az oldalt, és próbáld újra.",
+    fail: "Nem sikerült elküldeni a bejelentést.", who: "Nem sikerült ellenőrizni, ki vagy. Jelentkezz be az alkalmazásba, és próbáld újra.",
     ideas: "Ötletek", loading: "Betöltés…", loadFail: "Nem sikerült betölteni. Ellenőrizd a kapcsolatot, és próbáld újra.", back: "Vissza",
     origin: "Ez az oldal nem küldhet bejelentéseket. Szóljon az alkalmazás adminisztrátorának, hogy vegye fel az engedélyezett címek közé.",
   },
@@ -28,7 +28,7 @@ registerPack({
     send: "Ötlet beküldése", sending: "Küldés…", tag: "Ötlet", queued: "Jóváhagyásra vár",
     queuedText: "A csapat közzététel előtt jóváhagyja a csapaton kívüliek bejegyzéseit. Egyelőre csak te látod; jóváhagyás után mindenki. Ha a csapat nem teszi közzé, e-mailben megírjuk, miért.",
     sent: "Az ötleted felkerült a táblára. Mások szavazhatnak rá, és e-mailt kapsz, ha megváltozik az állapota.", view: "Ötlet megtekintése", back: "Vissza az ötletekhez",
-    fail: "Nem sikerült. Próbáld újra.", who: "Nem sikerült ellenőrizni, ki vagy. Töltsd újra az oldalt, és próbáld újra.", status: "Állapot",
+    fail: "Nem sikerült. Próbáld újra.", who: "Nem sikerült ellenőrizni, ki vagy. Jelentkezz be az alkalmazásba, és próbáld újra.", status: "Állapot",
   },
   annotate: {
     title: "Jelöld meg, mi nem működik", hint: "Rajzolj húzással. Az elmosás küldés előtt véglegesen beégül a képbe.",

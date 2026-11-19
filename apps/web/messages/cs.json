@@ -1108,7 +1108,7 @@
       "erased": "Vaše údaje jsou smazané a jste odhlášeni. Vaše nápady zůstaly na boardu bez vašeho jména.",
       "teamMail": "E-maily pro tým",
       "teamMailText": "Co vám chodí jako členovi týmu. O hlášeních a diskuzích, ve kterých jste se ozvali, vám napíšeme vždy.",
-      "teamMailAllOff": "E-maily máte vypnuté výše, dokud je nezapnete, nepřijde vám nic z tohoto seznamu.",
+      "teamMailAllOff": "E-maily máte výše vypnuté. Dokud je nezapnete, nepřijde vám nic, ani tyto.",
       "teamMailSave": "Uložit",
       "teamMailSaved": "Uloženo",
       "teamMailItems": {

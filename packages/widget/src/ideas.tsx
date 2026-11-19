@@ -19,7 +19,7 @@ const T = {
     send: "Navrhnúť nápad", sending: "Posielam…", tag: "Nápad", queued: "Čaká na schválenie",
     queuedText: "Tím príspevky od ľudí mimo tímu pred zverejnením schvaľuje. Zatiaľ ho vidíte len vy, po schválení ho uvidia všetci. Ak ho tím nezverejní, napíšeme vám prečo.",
     sent: "Nápad je na boarde. Ostatní zaň môžu hlasovať a keď sa stav zmení, príde vám e-mail.", view: "Pozrieť nápad", back: "Späť na nápady",
-    fail: "Nepodarilo sa to. Skúste to znova.", who: "Nepodarilo sa overiť, kto ste. Obnovte stránku a skúste to znova.", status: "Stav",
+    fail: "Nepodarilo sa to. Skúste to znova.", who: "Nepodarilo sa overiť, kto ste. Prihláste sa v aplikácii a skúste to znova.", status: "Stav",
   },
   cs: {
     search: "Hledat v nápadech", searchPh: "Např. export do CSV", none: "Nic jsme nenašli. Navrhněte to jako nový nápad.", empty: "Zatím tu nejsou žádné nápady.",
@@ -30,7 +30,7 @@ const T = {
     send: "Navrhnout nápad", sending: "Odesílám…", tag: "Nápad", queued: "Čeká na schválení",
     queuedText: "Tým příspěvky od lidí mimo tým před zveřejněním schvaluje. Zatím ho vidíte jen vy, po schválení ho uvidí všichni. Pokud ho tým nezveřejní, napíšeme vám proč.",
     sent: "Nápad je na boardu. Ostatní pro něj mohou hlasovat a když se změní stav, přijde vám e-mail.", view: "Zobrazit nápad", back: "Zpět na nápady",
-    fail: "Nepodařilo se to. Zkuste to znovu.", who: "Nepodařilo se ověřit, kdo jste. Obnovte stránku a zkuste to znovu.", status: "Stav",
+    fail: "Nepodařilo se to. Zkuste to znovu.", who: "Nepodařilo se ověřit, kdo jste. Přihlaste se v aplikaci a zkuste to znovu.", status: "Stav",
   },
   en: {
     search: "Search ideas", searchPh: "E.g. CSV export", none: "Nothing found. Suggest it as a new idea.", empty: "No ideas yet.",
@@ -41,7 +41,7 @@ const T = {
     send: "Suggest idea", sending: "Sending…", tag: "Idea", queued: "Awaiting approval",
     queuedText: "The team approves posts from outside the team before publishing them. For now only you can see it; once approved, everyone can. If the team doesn't publish it, we'll e-mail you why.",
     sent: "Your idea is on the board. Others can vote for it, and you'll get an e-mail when its status changes.", view: "View idea", back: "Back to ideas",
-    fail: "That didn't work. Please try again.", who: "We couldn't verify who you are. Reload the page and try again.", status: "Status",
+    fail: "That didn't work. Please try again.", who: "We couldn't verify who you are. Sign in to the app and try again.", status: "Status",
   },
 };
 type Str = (typeof T)["sk"];

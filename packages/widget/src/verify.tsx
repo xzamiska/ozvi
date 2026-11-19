@@ -8,34 +8,34 @@ import { getJson, shared } from "./shared";
  * app. What they wrote in the widget stays (the form is only hidden). Rendered with the widget's Preact.
  */
 
-const T: Record<string, { title: string; why: string; email: string; send: string; sent: (e: string) => string; code: string; verify: string; other: string; back: string; fail: string; wait: string }> = {
+const T: Record<string, { title: string; why: string; again: string; email: string; send: string; sent: (e: string) => string; code: string; verify: string; other: string; back: string; fail: string; wait: string }> = {
   sk: {
-    title: "Overte svoj e-mail", why: "Pošleme vám kód, aby sme vedeli, že ste to vy. Na tento e-mail vám dáme vedieť, keď sa niečo pohne.",
+    title: "Overte svoj e-mail", why: "Pošleme vám kód, aby sme vedeli, že ste to vy. Na tento e-mail vám dáme vedieť, keď sa vaše hlásenie alebo nápad pohne.", again: "Poslať nový kód",
     email: "E-mail", send: "Poslať kód", sent: (e) => `Poslali sme kód na ${e}. Platí 15 minút.`, code: "Kód z e-mailu",
     verify: "Overiť a pokračovať", other: "Použiť iný e-mail", back: "Späť", fail: "Nepodarilo sa to. Skúste to znova.", wait: "Chvíľku…",
   },
   cs: {
-    title: "Ověřte svůj e-mail", why: "Pošleme vám kód, abychom věděli, že jste to vy. Na tento e-mail vám dáme vědět, až se něco pohne.",
+    title: "Ověřte svůj e-mail", why: "Pošleme vám kód, abychom věděli, že jste to vy. Na tento e-mail vám dáme vědět, až se vaše hlášení nebo nápad pohne.", again: "Poslat nový kód",
     email: "E-mail", send: "Poslat kód", sent: (e) => `Poslali jsme kód na ${e}. Platí 15 minut.`, code: "Kód z e-mailu",
     verify: "Ověřit a pokračovat", other: "Použít jiný e-mail", back: "Zpět", fail: "Nepodařilo se to. Zkuste to znovu.", wait: "Chvilku…",
   },
   en: {
-    title: "Confirm your e-mail", why: "We'll send you a code to make sure it's you, and e-mail you when something changes.",
+    title: "Confirm your e-mail", why: "We'll send you a code to make sure it's you, and e-mail you when your report or idea moves on.", again: "Send a new code",
     email: "E-mail", send: "Send code", sent: (e) => `We sent a code to ${e}. It's valid for 15 minutes.`, code: "Code from the e-mail",
     verify: "Verify and continue", other: "Use a different e-mail", back: "Back", fail: "That didn't work. Please try again.", wait: "One moment…",
   },
   pl: {
-    title: "Potwierdź swój e-mail", why: "Wyślemy Ci kod, aby upewnić się, że to Ty, i damy znać na ten adres, gdy coś się zmieni.",
+    title: "Potwierdź swój e-mail", why: "Wyślemy Ci kod, aby upewnić się, że to Ty, i damy znać na ten adres, gdy Twoje zgłoszenie lub pomysł ruszy dalej.", again: "Wyślij nowy kod",
     email: "E-mail", send: "Wyślij kod", sent: (e) => `Wysłaliśmy kod na ${e}. Jest ważny 15 minut.`, code: "Kod z e-maila",
     verify: "Zweryfikuj i kontynuuj", other: "Użyj innego e-maila", back: "Wstecz", fail: "Nie udało się. Spróbuj ponownie.", wait: "Chwileczkę…",
   },
   hu: {
-    title: "Erősítse meg e-mail-címét", why: "Küldünk egy kódot, hogy tudjuk, Ön az, és erre a címre írunk, ha valami változik.",
+    title: "Erősítse meg e-mail-címét", why: "Küldünk egy kódot, hogy tudjuk, Ön az, és erre a címre írunk, ha a bejelentése vagy ötlete halad.", again: "Új kód küldése",
     email: "E-mail", send: "Kód küldése", sent: (e) => `Elküldtük a kódot ide: ${e}. 15 percig érvényes.`, code: "Kód az e-mailből",
     verify: "Ellenőrzés és folytatás", other: "Másik e-mail-cím", back: "Vissza", fail: "Nem sikerült. Próbálja újra.", wait: "Egy pillanat…",
   },
   de: {
-    title: "E-Mail-Adresse bestätigen", why: "Wir senden Ihnen einen Code, um sicherzugehen, dass Sie es sind, und benachrichtigen Sie an diese Adresse, wenn sich etwas tut.",
+    title: "E-Mail-Adresse bestätigen", why: "Wir senden Ihnen einen Code, um sicherzugehen, dass Sie es sind, und benachrichtigen Sie an diese Adresse, wenn es mit Ihrer Meldung oder Idee weitergeht.", again: "Neuen Code senden",
     email: "E-Mail", send: "Code senden", sent: (e) => `Wir haben einen Code an ${e} gesendet. Er ist 15 Minuten gültig.`, code: "Code aus der E-Mail",
     verify: "Bestätigen und weiter", other: "Andere E-Mail verwenden", back: "Zurück", fail: "Das hat nicht geklappt. Bitte versuchen Sie es erneut.", wait: "Einen Moment …",
   },
@@ -90,14 +90,22 @@ function Verify({ ctx }: { ctx: VerifyCtx }) {
         <>
           <p class="ov-why" role="status">{t.sent(email)}</p>
           <label for="ov-f">{t.code}</label>
-          <input id="ov-f" key="c" ref={field} required inputMode="numeric" autocomplete="one-time-code" pattern="[0-9 ]{6,7}" maxLength={7} />
+          {/* Six digits typed or pasted: send at once, as the console's sign-in does. */}
+          <input id="ov-f" key="c" ref={field} required inputMode="numeric" autocomplete="one-time-code" pattern="[0-9 ]{6,7}" maxLength={7}
+            onInput={(e) => { if (e.currentTarget.value.replace(/\D/g, "").length === 6) e.currentTarget.form?.requestSubmit(); }} />
         </>
       )}
       {err && <p class="err" role="alert">{err}</p>}
       <button class="btn" disabled={busy}>{busy ? t.wait : step === "email" ? t.send : t.verify}</button>
       <div class="ov-links">
         <button type="button" onClick={ctx.cancel}>{t.back}</button>
-        {step === "code" && <button type="button" onClick={() => { setStep("email"); setErr(""); }}>{t.other}</button>}
+        {step === "code" && (
+          <span>
+            <button type="button" disabled={busy} onClick={() => { setBusy(true); setErr(""); post({ email }).then(() => field.current?.focus(), (x: Error) => setErr(x.message || t.fail)).finally(() => setBusy(false)); }}>{t.again}</button>
+            {" · "}
+            <button type="button" onClick={() => { setStep("email"); setErr(""); }}>{t.other}</button>
+          </span>
+        )}
       </div>
     </form>
   );

@@ -432,11 +432,12 @@ test.describe("widget in the host app", () => {
     expect(codeMail.text).not.toMatch(/login\/link|prihlásenie/i);
     const code = codeIn(codeMail.text)!;
     // A wrong code: the person stays in the widget with an explanation.
+    // Six digits send at once (no button press needed).
     await panel(page).getByLabel("Kód z e-mailu").fill(code === "000000" ? "111111" : "000000");
-    await panel(page).getByRole("button", { name: "Overiť a pokračovať" }).click();
     await expect(panel(page).getByRole("alert")).toBeVisible();
+    // "Poslať nový kód" is there when a code went wrong or got lost.
+    await expect(panel(page).getByRole("button", { name: "Poslať nový kód" })).toBeVisible();
     await panel(page).getByLabel("Kód z e-mailu").fill(code);
-    await panel(page).getByRole("button", { name: "Overiť a pokračovať" }).click();
 
     // The report the person wrote before verifying goes out right after, screenshot included.
     await expect(panel(page).getByRole("heading", { name: "Ďakujeme" })).toBeVisible();

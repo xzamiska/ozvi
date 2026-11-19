@@ -90,7 +90,7 @@ const T = {
     sent: "Hlásenie sme dostali. Vidíte ho len vy a tím. Pri každej zastávke vám príde e-mail a po oprave nám jedným klikom potvrdíte, či to funguje.",
     view: "Pozrieť hlásenie", files: "Niektoré súbory sme nepridali: najviac 10 MB, obrázky, PDF alebo text.",
     queued: "Čaká na schválenie", queuedText: "Tím príspevky od ľudí mimo tímu pred zverejnením schvaľuje. Zatiaľ ho vidíte len vy, po schválení ho uvidia všetci. Ak ho tím nezverejní, napíšeme vám prečo.",
-    fail: "Hlásenie sa nepodarilo odoslať.", who: "Nepodarilo sa overiť, kto ste. Obnovte stránku a skúste to znova.",
+    fail: "Hlásenie sa nepodarilo odoslať.", who: "Nepodarilo sa overiť, kto ste. Prihláste sa v aplikácii a skúste to znova.",
     ideas: "Nápady", loading: "Načítavam…", loadFail: "Nepodarilo sa načítať. Skontrolujte pripojenie a skúste to znova.", back: "Späť",
     origin: "Táto stránka nemá povolené posielať spätnú väzbu. Dajte vedieť správcovi aplikácie, nech ju pridá medzi povolené adresy.",
   },
@@ -107,7 +107,7 @@ const T = {
     sent: "Hlášení jsme dostali. Vidíte ho jen vy a tým. Při každé zastávce vám přijde e-mail a po opravě nám jedním kliknutím potvrdíte, zda to funguje.",
     view: "Zobrazit hlášení", files: "Některé soubory jsme nepřidali: nejvýše 10 MB, obrázky, PDF nebo text.",
     queued: "Čeká na schválení", queuedText: "Tým příspěvky od lidí mimo tým před zveřejněním schvaluje. Zatím ho vidíte jen vy, po schválení ho uvidí všichni. Pokud ho tým nezveřejní, napíšeme vám proč.",
-    fail: "Hlášení se nepodařilo odeslat.", who: "Nepodařilo se ověřit, kdo jste. Obnovte stránku a zkuste to znovu.",
+    fail: "Hlášení se nepodařilo odeslat.", who: "Nepodařilo se ověřit, kdo jste. Přihlaste se v aplikaci a zkuste to znovu.",
     ideas: "Nápady", loading: "Načítám…", loadFail: "Nepodařilo se načíst. Zkontrolujte připojení a zkuste to znovu.", back: "Zpět",
     origin: "Tato stránka nemá povoleno posílat zpětnou vazbu. Dejte vědět správci aplikace, ať ji přidá mezi povolené adresy.",
   },
@@ -124,7 +124,7 @@ const T = {
     sent: "We've got your report. Only you and the team can see it. You'll get an e-mail at every stop, and after the fix you confirm with one click whether it works.",
     view: "View report", files: "Some files weren't added: max 10 MB, images, PDF or text only.",
     queued: "Awaiting approval", queuedText: "The team approves posts from outside the team before publishing them. For now only you can see it; once approved, everyone can. If the team doesn't publish it, we'll e-mail you why.",
-    fail: "The report couldn't be sent.", who: "We couldn't verify who you are. Reload the page and try again.",
+    fail: "The report couldn't be sent.", who: "We couldn't verify who you are. Sign in to the app and try again.",
     ideas: "Ideas", loading: "Loading…", loadFail: "Couldn't load. Check your connection and try again.", back: "Back",
     origin: "This site isn't allowed to send feedback. Let the app's administrator know so they add it to the allowed addresses.",
   },
@@ -435,11 +435,18 @@ function App({ el }: { el: HTMLElement & { _r?: () => void } }) {
       const image = shotP.current ? await shotP.current : shot;
       if (image) f.append("files", image, "screenshot.jpg");
       extra.forEach((x) => f.append("files", x, x.name));
-      const tok = await token();
-      const r = await fetch(`${host}/${project}/api/widget/items?lang=${lang}`, { method: "POST", body: f, headers: { authorization: `Bearer ${tok}` } });
-      const data = await r.json().catch(() => ({}));
-      // A widget token the server no longer accepts (signed out everywhere, expired): the next send asks again.
-      if (r.status === 401 && tok.startsWith("ozw.")) writeToken(ls(), wtKey, null);
+      const send = async () => {
+        const tok = await token();
+        const r = await fetch(`${host}/${project}/api/widget/items?lang=${lang}`, { method: "POST", body: f, headers: { authorization: `Bearer ${tok}` } });
+        return { tok, r, data: await r.json().catch(() => ({})) };
+      };
+      let { tok, r, data } = await send();
+      // A remembered verification the server no longer accepts (signed out everywhere, expired): forget it and,
+      // when the project allows it, verify the e-mail again right away instead of showing an error.
+      if (r.status === 401 && tok.startsWith("ozw.")) {
+        writeToken(ls(), wtKey, null);
+        if (config?.email) ({ tok, r, data } = await send());
+      }
       if (!r.ok) throw new Error(data.error || t.fail);
       setSent({ number: data.number, pending: data.pending });
       setView("sent");

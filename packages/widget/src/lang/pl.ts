@@ -19,7 +19,7 @@ registerPack({
     sent: "Mamy twoje zgłoszenie. Widzisz je tylko ty i zespół. Na każdym etapie dostaniesz e-mail, a po poprawce jednym kliknięciem potwierdzisz, czy działa.",
     view: "Zobacz zgłoszenie", files: "Niektórych plików nie dodano: maks. 10 MB, tylko obrazy, PDF lub tekst.",
     queued: "Czeka na zatwierdzenie", queuedText: "Zespół zatwierdza wpisy od osób spoza zespołu przed publikacją. Na razie widzisz go tylko ty; po zatwierdzeniu zobaczą go wszyscy. Jeśli zespół go nie opublikuje, napiszemy ci dlaczego.",
-    fail: "Nie udało się wysłać zgłoszenia.", who: "Nie udało się potwierdzić twojej tożsamości. Odśwież stronę i spróbuj ponownie.",
+    fail: "Nie udało się wysłać zgłoszenia.", who: "Nie udało się potwierdzić twojej tożsamości. Zaloguj się w aplikacji i spróbuj ponownie.",
     ideas: "Pomysły", loading: "Wczytywanie…", loadFail: "Nie udało się wczytać. Sprawdź połączenie i spróbuj ponownie.", back: "Wstecz",
     origin: "Ta strona nie może wysyłać zgłoszeń. Poinformuj administratora aplikacji, aby dodał ją do dozwolonych adresów.",
   },
@@ -34,7 +34,7 @@ registerPack({
     send: "Zaproponuj pomysł", sending: "Wysyłanie…", tag: "Pomysł", queued: "Czeka na zatwierdzenie",
     queuedText: "Zespół zatwierdza wpisy od osób spoza zespołu przed publikacją. Na razie widzisz go tylko ty; po zatwierdzeniu zobaczą go wszyscy. Jeśli zespół go nie opublikuje, napiszemy ci dlaczego.",
     sent: "Twój pomysł jest na tablicy. Inni mogą na niego głosować, a gdy zmieni się jego status, dostaniesz e-mail.", view: "Zobacz pomysł", back: "Wróć do pomysłów",
-    fail: "Nie udało się. Spróbuj ponownie.", who: "Nie udało się potwierdzić twojej tożsamości. Odśwież stronę i spróbuj ponownie.", status: "Status",
+    fail: "Nie udało się. Spróbuj ponownie.", who: "Nie udało się potwierdzić twojej tożsamości. Zaloguj się w aplikacji i spróbuj ponownie.", status: "Status",
   },
   annotate: {
     title: "Zaznacz, co nie działa", hint: "Przeciągnij, aby rysować. Rozmycie zostaje trwale naniesione na obraz przed wysłaniem.",
