@@ -7,6 +7,7 @@ import { Plus, Search } from "lucide-react";
 import Link from "next/link";
 import { ExportMenu } from "@/components/ExportMenu";
 import { ItemRow } from "@/components/ItemRow";
+import { ListTools } from "@/components/ozvi/ListTools";
 import { EmptyState, FilterBar, Page, PageHead, Panel, RailSection, Segments } from "@/components/ozvi/page";
 import { RouteLegend, StatusMark } from "@/components/ozvi/route";
 import { Button } from "@/components/ui/button";
@@ -160,10 +161,11 @@ export default async function Ideas({ params, searchParams }: {
                   action={<Button asChild variant="outline"><Link href={href({ f: "all" })}>{t("showAll")}</Link></Button>} />
               : <EmptyState title={t("emptyTitle")} text={user ? t("emptyUser") : t("emptyGuest")} />
           ) : (
+            <>{isTeam && <ListTools count={rows.length} />}
             <Panel as="ul" className="divide-y">
               {rows.map((r) => <ItemRow key={r.id} slug={slug} row={r} voted={voted.has(r.id)} weight={weights.get(r.id)} vote={vote} login={login} locale={locale}
                 tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user?.role === "admin" } : undefined} selectable={isTeam} />)}
-            </Panel>
+            </Panel></>
           )}
           {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="idea" team={members} me={user?.id} />}
           <LoadMore href={hasMore ? nextPageHref(keep, page) : null} shown={rows.length} total={total} />

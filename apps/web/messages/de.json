@@ -1232,7 +1232,9 @@
       "apply": "Anwenden",
       "applying": "Wird gespeichert …",
       "done": "{n, plural, one {# Eintrag geändert} other {# Einträge geändert}}",
-      "you": "{who} (Sie)"
+      "you": "{who} (Sie)",
+      "selectAll": "Alle auf dieser Seite auswählen ({n})",
+      "dense": "Kompakte Zeilen"
     },
     "select": "#{n} auswählen",
     "keys": {

@@ -404,6 +404,34 @@ test.describe("public board", () => {
     await expect(bar.getByRole("combobox", { name: "Rieši" })).toBeInViewport({ ratio: 1 });
   });
 
+  test("team lists: select all on the page, then none; dense rows hide excerpts and stay on after a reload", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    for (const x of ["Výber A", "Výber B", "Výber C"]) await createItem(ann.page, b.slug, "bug", uniq(x), "Popis, ktorý husté riadky skryjú.");
+    await ann.ctx.close();
+    await page.goto(`/${b.slug}/bugs?s=all`);
+    const all = page.getByRole("checkbox", { name: /^Vybrať všetky na stránke/ });
+    await all.check();
+    const bar = page.locator("form#bulk");
+    await expect(bar.getByRole("status")).toHaveText("3 vybrané");
+    await page.getByRole("checkbox", { name: /^Vybrať #/ }).first().uncheck();
+    await expect(bar.getByRole("status")).toHaveText("2 vybrané");
+    expect(await all.evaluate((x: HTMLInputElement) => x.indeterminate)).toBe(true);
+    await all.check();
+    await all.uncheck();
+    await expect(bar).toBeHidden();
+
+    const excerpt = page.getByText("Popis, ktorý husté riadky skryjú.").first();
+    await expect(excerpt).toBeVisible();
+    await page.getByRole("button", { name: "Husté riadky" }).click();
+    await expect(page.getByRole("button", { name: "Husté riadky" })).toHaveAttribute("aria-pressed", "true");
+    await expect(excerpt).toBeHidden();
+    await page.reload();
+    await expect(page.getByText("Popis, ktorý husté riadky skryjú.").first()).toBeHidden();
+    await page.getByRole("button", { name: "Husté riadky" }).click();
+    await expect(page.getByText("Popis, ktorý husté riadky skryjú.").first()).toBeVisible();
+  });
+
   test("bulk: the team ticks several bugs and moves them and assigns them at once; e-mails only when asked", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");

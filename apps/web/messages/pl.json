@@ -1232,7 +1232,9 @@
       "apply": "Zastosuj",
       "applying": "Zapisuję…",
       "done": "{n, plural, one {Zmieniono # wpis} few {Zmieniono # wpisy} other {Zmieniono # wpisów}}",
-      "you": "{who} (Ty)"
+      "you": "{who} (Ty)",
+      "selectAll": "Zaznacz wszystkie na stronie ({n})",
+      "dense": "Gęste wiersze"
     },
     "select": "Wybierz #{n}",
     "keys": {

@@ -1232,7 +1232,9 @@
       "apply": "Použít",
       "applying": "Ukládám…",
       "done": "{n, plural, one {Změněn # záznam} few {Změněny # záznamy} other {Změněno # záznamů}}",
-      "you": "{who} (vy)"
+      "you": "{who} (vy)",
+      "selectAll": "Vybrat vše na stránce ({n})",
+      "dense": "Husté řádky"
     },
     "select": "Vybrat #{n}",
     "keys": {

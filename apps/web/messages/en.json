@@ -1232,7 +1232,9 @@
       "apply": "Apply",
       "applying": "Saving…",
       "done": "{n, plural, one {Changed # item} other {Changed # items}}",
-      "you": "{who} (you)"
+      "you": "{who} (you)",
+      "selectAll": "Select all on this page ({n})",
+      "dense": "Dense rows"
     },
     "select": "Select #{n}",
     "keys": {

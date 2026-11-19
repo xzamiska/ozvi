@@ -1232,7 +1232,9 @@
       "apply": "Alkalmaz",
       "applying": "Mentés…",
       "done": "{n, plural, other {# bejegyzés módosítva}}",
-      "you": "{who} (Ön)"
+      "you": "{who} (Ön)",
+      "selectAll": "Az oldal összes kijelölése ({n})",
+      "dense": "Sűrű sorok"
     },
     "select": "#{n} kiválasztása",
     "keys": {

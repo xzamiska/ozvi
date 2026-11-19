@@ -88,7 +88,7 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
             {row.title}
           </Link>
         </h2>
-        {row.body && <p className="mt-0.5 line-clamp-1 text-[14.5px] text-muted-foreground">{markdownExcerpt(row.body)}</p>}
+        {row.body && <p data-excerpt className="mt-0.5 line-clamp-1 text-[14.5px] text-muted-foreground">{markdownExcerpt(row.body)}</p>}
         <div className="mt-1.5 flex min-w-0 items-center gap-x-3 overflow-hidden text-[13px] whitespace-nowrap text-muted-foreground">
           <StatusTag kind={row.kind} status={row.status} version={row.fixedInVersion} sub={row.subLabel} className="shrink md:hidden" />
           {!!row.news && <span className="inline-flex shrink-0 items-center gap-1 font-semibold text-brand-text"><Sparkle className="size-3.5" aria-hidden />{row.news}</span>}
@@ -124,7 +124,7 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
           )}
         </div>
         {((row.tags?.length ?? 0) > 0 || tagging) && (
-          <div className="mt-2 flex flex-wrap items-center gap-1">
+          <div data-tags className="mt-2 flex flex-wrap items-center gap-1">
             {row.tags?.map((tag) => <TagChip key={tag.id} tag={tag} href={tagHref?.(tag)} />)}
             {tagging && !row.pending && (
               <TagPicker key={(row.tags ?? []).map((x) => x.id).join()} slug={slug} itemId={row.id} all={tagging.all}
