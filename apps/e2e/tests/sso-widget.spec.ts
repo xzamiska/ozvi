@@ -426,7 +426,11 @@ test.describe("widget in the host app", () => {
     await panel(page).getByLabel("E-mail", { exact: true }).fill(addr);
     await panel(page).getByRole("button", { name: "Poslať kód" }).click();
     await expect(panel(page).getByText(`Poslali sme kód na ${addr}.`)).toBeVisible();
-    const code = codeIn((await lastMail(addr)).text)!;
+    const codeMail = await lastMail(addr);
+    // It speaks about confirming the e-mail in the app, not signing in, and carries no board link.
+    expect(codeMail.Subject).toMatch(/^\d{6} — overenie e-mailu pre /);
+    expect(codeMail.text).not.toMatch(/login\/link|prihlásenie/i);
+    const code = codeIn(codeMail.text)!;
     // A wrong code: the person stays in the widget with an explanation.
     await panel(page).getByLabel("Kód z e-mailu").fill(code === "000000" ? "111111" : "000000");
     await panel(page).getByRole("button", { name: "Overiť a pokračovať" }).click();

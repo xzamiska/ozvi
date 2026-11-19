@@ -70,7 +70,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ pro
       if (!allow("loginIp", ip)) return fail(429, translator(locale, "email")("errTooManyCodes"));
       await issueLogin({
         db, email, projectId: project.id, returnTo: `/${slug}/bugs`,
-        linkBase: `${projectOrigin(project)}/${slug}/login/link`, brand: { name: project.name, theme: project.theme }, locale,
+        linkBase: `${projectOrigin(project)}/${slug}/login/link`, brand: { name: project.name, theme: project.theme }, locale, widget: true,
       });
       return json({ ok: true });
     }

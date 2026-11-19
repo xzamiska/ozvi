@@ -62,6 +62,8 @@ export interface IssueInput {
   brand: { name: string; theme?: unknown };
   /** Language of the e-mail and errors; defaults to the request's (see ambientLocale). */
   locale?: Locale;
+  /** From the widget (ADR-0014): the mail speaks about confirming an e-mail in the app, not signing in, and has no link. */
+  widget?: boolean;
 }
 
 /** Creates a code + link and e-mails them. Silently limits to 5 per e-mail per 15 minutes. */
@@ -94,7 +96,17 @@ export async function issueLogin(i: IssueInput): Promise<{ sent: boolean }> {
   let theme: Theme;
   try { theme = i.brand.theme ? parseTheme(i.brand.theme) : ozviMailTheme(); } catch { theme = ozviMailTheme(); }
   const url = `${i.linkBase}${i.linkBase.includes("?") ? "&" : "?"}t=${link}`;
-  const mail = renderMail({
+  // The widget asks for the code inside the customer's app: no "sign in", no board link (the naive-user review
+  // read "prihlásenie do účtu" for a bug report and followed the link to the board instead of the app).
+  const mail = i.widget && !linkOnly ? renderMail({
+    subject: t("verifySubject", { code, brand: i.brand.name }),
+    summary: "",
+    preheader: t("verifyPreheader", { brand: i.brand.name }),
+    heading: t("verifyHeading"),
+    paragraphs: [t("verifyBody", { brand: i.brand.name })],
+    code: { value: code, note: t("loginValid") },
+    fine: [t("verifyIgnore", { email })],
+  }, theme, i.brand.name, null, locale) : renderMail({
     subject: linkOnly ? t("loginSubjectLink", { brand: i.brand.name }) : t("loginSubject", { code, brand: i.brand.name }),
     summary: "",
     preheader: t("loginPreheader", { brand: i.brand.name }),

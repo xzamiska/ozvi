@@ -1789,7 +1789,12 @@
     "loginPreheader": "Váš přihlašovací kód do {brand}. Platí 15 minut.",
     "loginSubjectLink": "Odkaz pro přihlášení do {brand}",
     "loginBodyLink": "Pro tuto adresu bylo dnes příliš mnoho nesprávných kódů, proto kód neposíláme. Přihlaste se odkazem níže.",
-    "errTooManyTries": "Příliš mnoho pokusů z této sítě. Zkuste to za hodinu nebo použijte odkaz z e-mailu."
+    "errTooManyTries": "Příliš mnoho pokusů z této sítě. Zkuste to za hodinu nebo použijte odkaz z e-mailu.",
+    "verifySubject": "{code} — ověření e-mailu pro {brand}",
+    "verifyPreheader": "Kód pro ověření vašeho e-mailu ve widgetu {brand}. Platí 15 minut.",
+    "verifyHeading": "Ověřte svůj e-mail",
+    "verifyBody": "Tento kód zadejte ve widgetu zpětné vazby v aplikaci {brand}. To, co jste napsali, se pak odešle.",
+    "verifyIgnore": "Kód jsme poslali na {email}. Pokud jste nic neposílali, nemusíte nic dělat."
   },
   "errors": {
     "signIn": "K této akci se musíte přihlásit.",

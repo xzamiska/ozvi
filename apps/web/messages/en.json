@@ -1789,7 +1789,12 @@
     "loginPreheader": "Your sign-in code for {brand}. Valid for 15 minutes.",
     "loginSubjectLink": "Your sign-in link for {brand}",
     "loginBodyLink": "There were too many wrong codes for this address today, so we're not sending a code. Sign in with the link below.",
-    "errTooManyTries": "Too many attempts from this network. Try again in an hour or use the link from the e-mail."
+    "errTooManyTries": "Too many attempts from this network. Try again in an hour or use the link from the e-mail.",
+    "verifySubject": "{code} — confirm your e-mail for {brand}",
+    "verifyPreheader": "Your code to confirm your e-mail in the {brand} widget. Valid for 15 minutes.",
+    "verifyHeading": "Confirm your e-mail",
+    "verifyBody": "Enter this code in the feedback widget in {brand}. What you wrote is sent right after.",
+    "verifyIgnore": "We sent this code to {email}. If you didn't send anything, you don't need to do anything."
   },
   "errors": {
     "signIn": "Please sign in to do this.",

@@ -1789,7 +1789,12 @@
     "loginPreheader": "Váš prihlasovací kód do {brand}. Platí 15 minút.",
     "loginSubjectLink": "Odkaz na prihlásenie do {brand}",
     "loginBodyLink": "Pre túto adresu bolo dnes priveľa nesprávnych kódov, preto kód neposielame. Prihláste sa odkazom nižšie.",
-    "errTooManyTries": "Priveľa pokusov z tejto siete. Skúste o hodinu alebo použite odkaz z e-mailu."
+    "errTooManyTries": "Priveľa pokusov z tejto siete. Skúste o hodinu alebo použite odkaz z e-mailu.",
+    "verifySubject": "{code} — overenie e-mailu pre {brand}",
+    "verifyPreheader": "Kód na overenie vášho e-mailu vo widgete {brand}. Platí 15 minút.",
+    "verifyHeading": "Overte svoj e-mail",
+    "verifyBody": "Tento kód zadajte vo widgete spätnej väzby v aplikácii {brand}. To, čo ste napísali, sa potom odošle.",
+    "verifyIgnore": "Kód sme poslali na {email}. Ak ste nič neposielali, nemusíte nič robiť."
   },
   "errors": {
     "signIn": "Na túto akciu sa treba prihlásiť.",

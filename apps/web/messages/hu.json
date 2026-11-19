@@ -1789,7 +1789,12 @@
     "loginPreheader": "Bejelentkezési kódod ({brand}). 15 percig érvényes.",
     "loginSubjectLink": "Bejelentkezési link: {brand}",
     "loginBodyLink": "Ma túl sok hibás kód érkezett ehhez a címhez, ezért nem küldünk kódot. Jelentkezz be az alábbi linkkel.",
-    "errTooManyTries": "Túl sok próbálkozás erről a hálózatról. Próbáld újra egy óra múlva, vagy használd az e-mailben kapott linket."
+    "errTooManyTries": "Túl sok próbálkozás erről a hálózatról. Próbáld újra egy óra múlva, vagy használd az e-mailben kapott linket.",
+    "verifySubject": "{code} — e-mail-cím megerősítése: {brand}",
+    "verifyPreheader": "Kód az e-mail-címe megerősítéséhez a {brand} widgetben. 15 percig érvényes.",
+    "verifyHeading": "Erősítse meg e-mail-címét",
+    "verifyBody": "Írja be ezt a kódot a {brand} alkalmazás visszajelzési widgetjébe. Amit írt, utána elküldjük.",
+    "verifyIgnore": "A kódot ide küldtük: {email}. Ha nem küldött semmit, nincs teendője."
   },
   "errors": {
     "signIn": "Ehhez jelentkezz be.",

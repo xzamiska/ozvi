@@ -1789,7 +1789,12 @@
     "loginPreheader": "Ihr Anmeldecode für {brand}. 15 Minuten gültig.",
     "loginSubjectLink": "Ihr Anmeldelink für {brand}",
     "loginBodyLink": "Für diese Adresse gab es heute zu viele falsche Codes, daher senden wir keinen Code. Melden Sie sich über den Link unten an.",
-    "errTooManyTries": "Zu viele Versuche aus diesem Netzwerk. Versuchen Sie es in einer Stunde erneut oder nutzen Sie den Link aus der E-Mail."
+    "errTooManyTries": "Zu viele Versuche aus diesem Netzwerk. Versuchen Sie es in einer Stunde erneut oder nutzen Sie den Link aus der E-Mail.",
+    "verifySubject": "{code} — E-Mail bestätigen für {brand}",
+    "verifyPreheader": "Ihr Code zur Bestätigung Ihrer E-Mail im Widget von {brand}. 15 Minuten gültig.",
+    "verifyHeading": "E-Mail-Adresse bestätigen",
+    "verifyBody": "Geben Sie diesen Code im Feedback-Widget in {brand} ein. Was Sie geschrieben haben, wird danach gesendet.",
+    "verifyIgnore": "Wir haben den Code an {email} gesendet. Wenn Sie nichts gesendet haben, müssen Sie nichts tun."
   },
   "errors": {
     "signIn": "Bitte melden Sie sich dafür an.",

@@ -1789,7 +1789,12 @@
     "loginPreheader": "Twój kod logowania do {brand}. Ważny 15 minut.",
     "loginSubjectLink": "Link do logowania w {brand}",
     "loginBodyLink": "Dla tego adresu było dziś zbyt wiele błędnych kodów, więc nie wysyłamy kodu. Zaloguj się poniższym linkiem.",
-    "errTooManyTries": "Zbyt wiele prób z tej sieci. Spróbuj za godzinę albo użyj linku z e-maila."
+    "errTooManyTries": "Zbyt wiele prób z tej sieci. Spróbuj za godzinę albo użyj linku z e-maila.",
+    "verifySubject": "{code} — potwierdzenie e-maila dla {brand}",
+    "verifyPreheader": "Kod do potwierdzenia e-maila w widżecie {brand}. Ważny 15 minut.",
+    "verifyHeading": "Potwierdź swój e-mail",
+    "verifyBody": "Wpisz ten kod w widżecie opinii w aplikacji {brand}. To, co napisałeś, zostanie wtedy wysłane.",
+    "verifyIgnore": "Wysłaliśmy kod na {email}. Jeśli niczego nie wysyłałeś, nie musisz nic robić."
   },
   "errors": {
     "signIn": "Zaloguj się, żeby to zrobić.",
