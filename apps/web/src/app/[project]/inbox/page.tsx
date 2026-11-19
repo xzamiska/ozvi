@@ -1,4 +1,5 @@
 import { schema, withProject } from "@ozvi/db";
+import { ListKeys } from "@/components/ozvi/ListKeys";
 import { inArray } from "drizzle-orm";
 import { getTranslations } from "next-intl/server";
 import { ItemRow } from "@/components/ItemRow";
@@ -54,6 +55,7 @@ export default async function Inbox({ params }: { params: Promise<{ project: str
 
   return (
     <Page>
+      {isTeam && <ListKeys />}
       <PageHead title={t("title")} count={rows.length} lede={user.inboxSeenAt ? t("ledeSince", { since: sinceLabel }) : t("ledeWeek")}
         actions={rows.length > 0 ? (
           <form action={markRead.bind(null, slug, renderedAt.toISOString())}><Button type="submit" variant="outline">{t("markRead")}</Button></form>

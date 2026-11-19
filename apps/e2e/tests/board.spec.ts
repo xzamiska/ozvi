@@ -423,6 +423,37 @@ test.describe("public board", () => {
     await ann.ctx.close();
   });
 
+  test("keyboard on team lists: j/k move, x selects, Enter opens, / searches, ? explains; never while typing", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    const [t1, t2] = [uniq("Klávesy A"), uniq("Klávesy B")];
+    await createItem(ann.page, b.slug, "bug", t1);
+    const n2 = await createItem(ann.page, b.slug, "bug", t2);
+    await page.goto(`/${b.slug}/bugs?s=all`);
+    await page.locator("body").click({ position: { x: 5, y: 300 } });
+    await page.keyboard.press("j");
+    await expect(page.getByRole("link", { name: t2 })).toBeFocused();
+    await page.keyboard.press("j");
+    await expect(page.getByRole("link", { name: t1 })).toBeFocused();
+    await page.keyboard.press("k");
+    await expect(page.getByRole("link", { name: t2 })).toBeFocused();
+    await page.keyboard.press("x");
+    await expect(page.getByRole("checkbox", { name: `Vybrať #${n2}` })).toBeChecked();
+    await expect(page.locator("form#bulk")).toBeVisible();
+    await page.keyboard.press("?");
+    await expect(page.getByRole("dialog", { name: "Klávesové skratky" })).toBeVisible();
+    await page.keyboard.press("Escape");
+    await page.keyboard.press("/");
+    await expect(page.getByPlaceholder(/Hľadať/)).toBeFocused();
+    // Typing "j" in the search field types it, nothing moves.
+    await page.keyboard.type("jk");
+    await expect(page.getByPlaceholder(/Hľadať/)).toHaveValue("jk");
+    await page.getByRole("link", { name: t2 }).focus();
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL(new RegExp(`/${b.slug}/i/${n2}$`));
+    await ann.ctx.close();
+  });
+
   test("changelog: a published entry ships the idea, e-mails voters, appears on /changelog and in the RSS feed", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");

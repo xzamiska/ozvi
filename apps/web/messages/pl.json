@@ -1225,7 +1225,17 @@
       "applying": "Zapisuję…",
       "done": "{n, plural, one {Zmieniono # wpis} few {Zmieniono # wpisy} other {Zmieniono # wpisów}}"
     },
-    "select": "Wybierz #{n}"
+    "select": "Wybierz #{n}",
+    "keys": {
+      "title": "Skróty klawiszowe",
+      "lede": "Działają na listach, gdy nie piszesz w polu.",
+      "next": "Następny wpis",
+      "prev": "Poprzedni wpis",
+      "open": "Otwórz wpis",
+      "select": "Zaznacz do zmiany zbiorczej",
+      "search": "Szukaj",
+      "help": "Ten przegląd"
+    }
   },
   "boardAuth": {
     "noProject": "Ten projekt nie istnieje.",

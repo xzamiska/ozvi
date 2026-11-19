@@ -68,7 +68,7 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
   const t = useTranslations("board");
   const idea = row.kind === "idea";
   return (
-    <li className={`group relative grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-4 px-4 py-4 transition-colors hover:bg-wash sm:px-5 md:grid-cols-[auto_minmax(0,1fr)_auto] ${selectable ? "pl-11 sm:pl-12" : ""}`}>
+    <li data-row className={`group relative grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-4 px-4 py-4 transition-colors hover:bg-wash sm:px-5 md:grid-cols-[auto_minmax(0,1fr)_auto] ${selectable ? "pl-11 sm:pl-12" : ""}`}>
       {selectable && (
         <input type="checkbox" name="sel" value={row.id} form="bulk" aria-label={t("select", { n: row.number })}
           className="absolute top-5 left-3.5 z-20 size-4 cursor-pointer accent-[var(--oz-accent)] sm:left-4" />

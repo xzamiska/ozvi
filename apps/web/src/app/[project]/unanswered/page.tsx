@@ -1,4 +1,5 @@
 import { schema, withProject } from "@ozvi/db";
+import { ListKeys } from "@/components/ozvi/ListKeys";
 import { eq, inArray } from "drizzle-orm";
 import { sectionOfKind, sectionOn } from "@/lib/sections";
 import Link from "next/link";
@@ -60,6 +61,7 @@ export default async function Unanswered({ params, searchParams }: {
 
   return (
     <Page>
+      {isTeam && <ListKeys />}
       <PageHead title={t("title")} count={total} lede={t("lede", { n: days })} />
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="min-w-0">

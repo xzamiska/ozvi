@@ -1225,7 +1225,17 @@
       "applying": "Saving…",
       "done": "{n, plural, one {Changed # item} other {Changed # items}}"
     },
-    "select": "Select #{n}"
+    "select": "Select #{n}",
+    "keys": {
+      "title": "Keyboard shortcuts",
+      "lede": "They work on lists while you are not typing in a field.",
+      "next": "Next item",
+      "prev": "Previous item",
+      "open": "Open the item",
+      "select": "Select for a bulk change",
+      "search": "Search",
+      "help": "This overview"
+    }
   },
   "boardAuth": {
     "noProject": "This project doesn’t exist.",

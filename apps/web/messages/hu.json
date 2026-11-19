@@ -1225,7 +1225,17 @@
       "applying": "Mentés…",
       "done": "{n, plural, other {# bejegyzés módosítva}}"
     },
-    "select": "#{n} kiválasztása"
+    "select": "#{n} kiválasztása",
+    "keys": {
+      "title": "Billentyűparancsok",
+      "lede": "A listákon működnek, amikor nem ír mezőbe.",
+      "next": "Következő bejegyzés",
+      "prev": "Előző bejegyzés",
+      "open": "Bejegyzés megnyitása",
+      "select": "Kijelölés tömeges módosításhoz",
+      "search": "Keresés",
+      "help": "Ez az áttekintés"
+    }
   },
   "boardAuth": {
     "noProject": "Ez a projekt nem létezik.",

@@ -10,6 +10,7 @@ breaking: false
 - Zlúčenie duplicít: pri podobných záznamoch je tlačidlo „Zlúčiť do #N“, pôvodný záznam ukazuje, čo doň bolo zlúčené. Keď opravíte pôvodné hlásenie chyby, e-mail o oprave dostanú aj autori zlúčených duplicít, každý o svojom hlásení.
 - Nový tab „Nové“ pre tím: čo sa stalo od vašej poslednej návštevy (nové hlásenia a nápady, komentáre, zmeny stavu od iných), s počtom v hlavičke a tlačidlom „Označiť ako prečítané“. Číslo komentárov v prehľade konzoly naň vedie.
 - Hromadné úpravy: v zozname chýb a nápadov zaškrtnite viac záznamov a naraz im zmeňte stav alebo riešiteľa. E-maily o zmene stavu sa pri hromadnej zmene posielajú, len keď ich zapnete.
+- Klávesové skratky v zoznamoch pre tím: j a k na pohyb, Enter otvorí, x vyberie na hromadnú zmenu, / hľadá, ? ukáže prehľad.
 - Každý člen tímu si v Moje údaje → E-maily pre tím vyberie, čo mu chodí: nové hlásenia, nové nápady, komentáre, pondelňajší súhrn. O hláseniach a diskusiách, v ktorých sa ozval, mu napíšeme vždy. Prepínač „Len pre tím“ pri komentári ostane zapnutý aj po odoslaní.
 - Na telefóne sa hlavička boardu pri posúvaní neprilepí a nezaberá miesto. Pod tlačidlom hlasovania vidí neprihlásený návštevník „Prihláste sa“. Náhľad screenshotu vo widgete zaberá najviac štvrtinu obrazovky.
 - Prvé kroky v nastaveniach začínajú adresou aplikácie a widgetom; prepojenie prihlásenia (SSO) je voliteľný posledný krok. V sekcii Prihlásenie je kód widgetu, ktorý nepotrebuje nič na vašom serveri. Na telefóne sa medzi sekciami nastavení prepínate výberom na spodku obrazovky.

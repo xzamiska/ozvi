@@ -1,4 +1,5 @@
 import { schema, withProject } from "@ozvi/db";
+import { ListKeys } from "@/components/ozvi/ListKeys";
 import { BulkBar } from "@/components/ozvi/BulkBar";
 import { assignableTeam, assigneeFilter, assigneeOptions } from "@/lib/assign";
 import { and, desc, eq, inArray, isNull } from "drizzle-orm";
@@ -96,6 +97,7 @@ export default async function Ideas({ params, searchParams }: {
 
   return (
     <Page>
+      {isTeam && <ListKeys />}
       <PageHead
         title={t("title")}
         lede={t("lede")}

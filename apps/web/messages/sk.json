@@ -1225,7 +1225,17 @@
       "applying": "Ukladám…",
       "done": "{n, plural, one {Zmenený # záznam} few {Zmenené # záznamy} other {Zmenených # záznamov}}"
     },
-    "select": "Vybrať #{n}"
+    "select": "Vybrať #{n}",
+    "keys": {
+      "title": "Klávesové skratky",
+      "lede": "Fungujú v zoznamoch, keď nepíšete do poľa.",
+      "next": "Ďalší záznam",
+      "prev": "Predchádzajúci záznam",
+      "open": "Otvoriť záznam",
+      "select": "Vybrať na hromadnú zmenu",
+      "search": "Hľadať",
+      "help": "Tento prehľad"
+    }
   },
   "boardAuth": {
     "noProject": "Projekt neexistuje.",

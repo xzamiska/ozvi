@@ -1225,7 +1225,17 @@
       "applying": "Wird gespeichert …",
       "done": "{n, plural, one {# Eintrag geändert} other {# Einträge geändert}}"
     },
-    "select": "#{n} auswählen"
+    "select": "#{n} auswählen",
+    "keys": {
+      "title": "Tastenkürzel",
+      "lede": "Sie funktionieren in Listen, solange Sie nicht in ein Feld tippen.",
+      "next": "Nächster Eintrag",
+      "prev": "Vorheriger Eintrag",
+      "open": "Eintrag öffnen",
+      "select": "Für Sammeländerung auswählen",
+      "search": "Suchen",
+      "help": "Diese Übersicht"
+    }
   },
   "boardAuth": {
     "noProject": "Dieses Projekt existiert nicht.",
