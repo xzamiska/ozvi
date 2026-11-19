@@ -1,7 +1,10 @@
 # Browser regression tests (apps/e2e, Playwright: Chromium, WebKit, iPhone WebKit) against a throwaway
-# Ozvi cloud instance. Runs before every release (called from release.yml), every night on main and by hand.
+# Ozvi cloud instance. Runs on every pull request into main (the release gate), before every release
+# (called from release.yml), every night on main and by hand.
 name: E2E
 on:
+  pull_request:
+    branches: [main]
   schedule:
     - cron: "30 2 * * *"
   workflow_dispatch:

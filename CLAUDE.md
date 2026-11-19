@@ -34,6 +34,14 @@ Source-available (FSL, ADR-0008) náhrada Fideru: **súkromný tok na bugy** (au
 - `pnpm test` / `pnpm typecheck` (DB testy majú vlastnú databázu `ozvi_test`, vytvorí a zmigruje ju `packages/db/test-db.ts`)
 - `pnpm db:generate` (po zmene `schema.ts`) → `pnpm db:migrate`
 
+## Vetvy a vydania
+
+- `main` = to, čo beží na live. Mení sa **len cez PR, ktorý schváli a zmergeuje vlastník** (GitHub ruleset: PR, CI `test` + `e2e`, žiadny priamy push ani force-push). Agent PR do `main` nikdy nemerguje.
+- `release/<YYYY-MM-DD>` = ďalšie vydanie (každé dva týždne, utorok). Staging sa nasadzuje z nej. Release notes ako `apps/web/releases/_draft-<verzia>.md` v nej.
+- `feat/<názov>` = väčšia práca z release vetvy; do nej cez PR až keď je hotová a otestovaná. Čo nestihne termín, ide do ďalšej release vetvy.
+- Hotfix: vetva z `main` → PR do `main` → potom cherry-pick do release vetvy.
+- Vydanie: PR `release/…` → `main`, vlastník zmerguje, potom tag `vX.Y.Z` a live deploy.
+
 ## Konvencie
 
 - Slovenčina v UI, angličtina v kóde/komentároch/commitoch a v dokumentácii (`docs/`, README); výnimky: `SELFHOST.sk.md`, `DPA.sk.md` (záväzný text) a slovníky prekladov
