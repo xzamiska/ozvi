@@ -3999,7 +3999,8 @@
         "oidc": "Chráni prihlásenie cez {issuer} pred podvrhnutím.",
         "locale": "Pamätá si jazyk, ktorý ste si vybrali.",
         "csv": "Pamätá si oddeľovač pre export do CSV.",
-        "widgetLogin": "Pamätá si, že ste svoj e-mail vo widgete overili, aby ste nemuseli zadávať kód pri každom hlásení."
+        "widgetLogin": "Pamätá si, že ste svoj e-mail vo widgete overili, aby ste nemuseli zadávať kód pri každom hlásení.",
+        "dense": "Pamätá si, či tím chce husté riadky v zoznamoch."
       },
       "untilCleared": "Kým nevymažete údaje prehliadača",
       "widgetNote": "Samotný widget žiadne cookies nenastavuje: prihlási vás krátkodobým tokenom z našej aplikácie.",

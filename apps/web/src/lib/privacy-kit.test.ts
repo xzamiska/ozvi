@@ -173,7 +173,7 @@ describe("privacy kit storage table", () => {
 
     // Every cookie write goes through a name we know; the console's ozvi_app is for Ozvi customers, not their users.
     const KNOWN_COOKIES = /sessionCookie\(|cookieName\(|flowCookieName\(|LOCALE_COOKIE|appCookie\(|APP_COOKIE/;
-    const KNOWN_STORAGE = new Set(["CSV_SEP_KEY"]);
+    const KNOWN_STORAGE = new Set(["CSV_SEP_KEY", "DENSE_KEY"]);
     for (const f of files(webSrc)) {
       const src = readFileSync(f, "utf8");
       for (const m of src.matchAll(/cookies(?:\(\)\))?\.set\(([^\n]*\n?[^\n]*)/g)) expect(m[1], `${f}: ${m[0]}`).toMatch(KNOWN_COOKIES);

@@ -3999,7 +3999,8 @@
         "oidc": "Schützt die Anmeldung über {issuer} vor Fälschung.",
         "locale": "Merkt sich die gewählte Sprache.",
         "csv": "Merkt sich das Trennzeichen für CSV-Exporte.",
-        "widgetLogin": "Merkt sich, dass Sie Ihre E-Mail-Adresse im Widget bestätigt haben, damit Sie nicht bei jeder Meldung einen Code brauchen."
+        "widgetLogin": "Merkt sich, dass Sie Ihre E-Mail-Adresse im Widget bestätigt haben, damit Sie nicht bei jeder Meldung einen Code brauchen.",
+        "dense": "Merkt sich, ob das Team kompakte Zeilen in Listen möchte."
       },
       "untilCleared": "Bis Sie die Browserdaten löschen",
       "widgetNote": "Das Widget selbst setzt keine Cookies: Es meldet Sie mit einem kurzlebigen Token aus unserer App an.",

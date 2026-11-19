@@ -3999,7 +3999,8 @@
         "oidc": "Protects sign-in through {issuer} against forgery.",
         "locale": "Remembers the language you chose.",
         "csv": "Remembers the separator for CSV exports.",
-        "widgetLogin": "Remembers that you verified your e-mail in the widget, so you don't need a code for every report."
+        "widgetLogin": "Remembers that you verified your e-mail in the widget, so you don't need a code for every report.",
+        "dense": "Remembers whether the team wants dense rows in lists."
       },
       "untilCleared": "Until you clear browser data",
       "widgetNote": "The widget itself sets no cookies: it signs you in with a short-lived token from our app.",

@@ -3,8 +3,10 @@
 import { Rows3, Rows4 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import { DENSE_KEY } from "@/lib/storage-keys";
 
-const DENSE_KEY = "ozvi:dense";
+
+const KEY = DENSE_KEY;
 const boxes = () => [...document.querySelectorAll<HTMLInputElement>('input[type=checkbox][form="bulk"]')];
 
 /**
@@ -24,7 +26,7 @@ export function ListTools({ count }: { count: number }) {
     };
     document.addEventListener("change", sync);
     sync();
-    try { setDense(localStorage.getItem(DENSE_KEY) === "1"); } catch { /* private mode */ }
+    try { setDense(localStorage.getItem(KEY) === "1"); } catch { /* private mode */ }
     return () => document.removeEventListener("change", sync);
   }, []);
   useEffect(() => { if (all.current) all.current.indeterminate = state === "some"; }, [state]);
@@ -39,7 +41,7 @@ export function ListTools({ count }: { count: number }) {
     document.dispatchEvent(new Event("change"));
   };
   const toggleDense = () => setDense((d) => {
-    try { localStorage.setItem(DENSE_KEY, d ? "0" : "1"); } catch { /* private mode */ }
+    try { localStorage.setItem(KEY, d ? "0" : "1"); } catch { /* private mode */ }
     return !d;
   });
 

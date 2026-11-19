@@ -3999,7 +3999,8 @@
         "oidc": "Védi a(z) {issuer} szolgáltatáson keresztüli bejelentkezést a hamisítás ellen.",
         "locale": "Megjegyzi a választott nyelvet.",
         "csv": "Megjegyzi a CSV-exporthoz használt elválasztót.",
-        "widgetLogin": "Megjegyzi, hogy a widgetben ellenőrizte az e-mail-címét, így nem kell minden bejelentésnél kódot megadnia."
+        "widgetLogin": "Megjegyzi, hogy a widgetben ellenőrizte az e-mail-címét, így nem kell minden bejelentésnél kódot megadnia.",
+        "dense": "Megjegyzi, hogy a csapat sűrű sorokat szeretne-e a listákban."
       },
       "untilCleared": "A böngészőadatok törléséig",
       "widgetNote": "Maga a widget nem állít be sütit: az alkalmazásunktól kapott rövid élettartamú tokennel jelentkezteti be.",

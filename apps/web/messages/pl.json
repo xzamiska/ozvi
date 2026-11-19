@@ -3999,7 +3999,8 @@
         "oidc": "Chroni logowanie przez {issuer} przed podrobieniem.",
         "locale": "Zapamiętuje wybrany przez Ciebie język.",
         "csv": "Zapamiętuje separator do eksportu CSV.",
-        "widgetLogin": "Zapamiętuje, że zweryfikowałeś swój e-mail w widżecie, aby nie trzeba było podawać kodu przy każdym zgłoszeniu."
+        "widgetLogin": "Zapamiętuje, że zweryfikowałeś swój e-mail w widżecie, aby nie trzeba było podawać kodu przy każdym zgłoszeniu.",
+        "dense": "Zapamiętuje, czy zespół chce gęste wiersze na listach."
       },
       "untilCleared": "Do wyczyszczenia danych przeglądarki",
       "widgetNote": "Sam widżet nie ustawia żadnych plików cookie: loguje Cię krótkotrwałym tokenem z naszej aplikacji.",

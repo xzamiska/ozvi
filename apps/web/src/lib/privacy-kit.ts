@@ -22,7 +22,7 @@ export interface StorageItem {
   name: string;
   where: "widget" | "board" | "boardTeam";
   type: "local" | "cookie" | "cookieHttpOnly";
-  purpose: "seen" | "widgetLogin" | "session" | "oidc" | "locale" | "csv";
+  purpose: "seen" | "widgetLogin" | "session" | "oidc" | "locale" | "csv" | "dense";
   /** Seconds; null = until the person clears browser data. */
   maxAge: number | null;
 }
