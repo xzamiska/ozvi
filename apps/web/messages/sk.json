@@ -1461,7 +1461,8 @@
         },
         "import": {
           "started": "Import spustený",
-          "undone": "Import vrátený späť"
+          "undone": "Import vrátený späť",
+          "cancelled": "Import zrušený"
         },
         "retention": {
           "run": "Automatické mazanie dát",
@@ -3652,7 +3653,8 @@
       "queued": "Čaká na spustenie…",
       "fetch": "{n, plural, one {Sťahujem z Canny: # záznam} few {Sťahujem z Canny: # záznamy} other {Sťahujem z Canny: # záznamov}}",
       "write": "Ukladám {done} z {total}",
-      "fetchFider": "{n, plural, one {Sťahujem z Fideru: # záznam} few {Sťahujem z Fideru: # záznamy} other {Sťahujem z Fideru: # záznamov}}"
+      "fetchFider": "{n, plural, one {Sťahujem z Fideru: # záznam} few {Sťahujem z Fideru: # záznamy} other {Sťahujem z Fideru: # záznamov}}",
+      "slow": "Čaká dlhšie než zvyčajne. Import môžete zrušiť a spustiť znova, nič sa nezdvojí."
     },
     "summary": "{items, plural, one {# príspevok} few {# príspevky} other {# príspevkov}}, {votes, plural, one {# hlas} few {# hlasy} other {# hlasov}}, {comments, plural, one {# komentár} few {# komentáre} other {# komentárov}}, {users, plural, one {# nový človek} few {# noví ľudia} other {# nových ľudí}}",
     "runErrors": {
@@ -3665,7 +3667,8 @@
       "fiderNetwork": "Fider nie je dostupný. Skúste to o chvíľu znova.",
       "fiderApi": "Fider vrátil chybu. Čo sa stihlo uložiť, môžete vrátiť späť alebo import spustiť znova.",
       "fiderBackup": "Zálohe sme neporozumeli.",
-      "fiderUrl": "Fider presmeroval na inú adresu."
+      "fiderUrl": "Fider presmeroval na inú adresu.",
+      "cancelled": "Zrušené. Spustite import znova, keď budete chcieť."
     },
     "undo": "Vrátiť späť",
     "undoTitle": "Vrátiť import späť?",
@@ -3696,7 +3699,8 @@
       "backupTooBig": "Záloha je väčšia ako 25 MB. Použite import cez API alebo príkaz na serveri.",
       "fiderEmpty": "Vo Fideri nie sú žiadne príspevky.",
       "fiderExpired": "Načítané údaje vypršali. Načítajte Fider znova."
-    }
+    },
+    "cancel": "Zrušiť"
   },
   "a11y": {
     "skip": "Preskočiť na obsah",

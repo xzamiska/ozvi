@@ -1461,7 +1461,8 @@
         },
         "import": {
           "started": "Rozpoczęto import",
-          "undone": "Cofnięto import"
+          "undone": "Cofnięto import",
+          "cancelled": "Import anulowany"
         },
         "retention": {
           "run": "Automatyczne usuwanie danych",
@@ -3652,7 +3653,8 @@
       "queued": "Czeka na uruchomienie…",
       "fetch": "{n, plural, one {Pobieranie z Canny: # rekord} few {Pobieranie z Canny: # rekordy} many {Pobieranie z Canny: # rekordów} other {Pobieranie z Canny: # rekordu}}",
       "write": "Zapisywanie {done} z {total}",
-      "fetchFider": "{n, plural, one {Pobieranie z Fidera: # rekord} few {Pobieranie z Fidera: # rekordy} many {Pobieranie z Fidera: # rekordów} other {Pobieranie z Fidera: # rekordu}}"
+      "fetchFider": "{n, plural, one {Pobieranie z Fidera: # rekord} few {Pobieranie z Fidera: # rekordy} many {Pobieranie z Fidera: # rekordów} other {Pobieranie z Fidera: # rekordu}}",
+      "slow": "Czeka dłużej niż zwykle. Możesz anulować import i uruchomić go ponownie; nic się nie zdubluje."
     },
     "summary": "{items, plural, one {# wpis} few {# wpisy} many {# wpisów} other {# wpisu}}, {votes, plural, one {# głos} few {# głosy} many {# głosów} other {# głosu}}, {comments, plural, one {# komentarz} few {# komentarze} many {# komentarzy} other {# komentarza}}, {users, plural, one {# nowa osoba} few {# nowe osoby} many {# nowych osób} other {# nowej osoby}}",
     "runErrors": {
@@ -3665,7 +3667,8 @@
       "fiderNetwork": "Fider jest nieosiągalny. Spróbuj ponownie za chwilę.",
       "fiderApi": "Fider zwrócił błąd. Możesz cofnąć to, co zostało zapisane, albo uruchomić import ponownie.",
       "fiderBackup": "Nie udało się odczytać kopii zapasowej.",
-      "fiderUrl": "Fider przekierował na inny adres."
+      "fiderUrl": "Fider przekierował na inny adres.",
+      "cancelled": "Anulowano. Uruchom import ponownie, kiedy zechcesz."
     },
     "undo": "Cofnij",
     "undoTitle": "Cofnąć ten import?",
@@ -3696,7 +3699,8 @@
       "backupTooBig": "Kopia zapasowa jest większa niż 25 MB. Użyj importu przez API albo polecenia na serwerze.",
       "fiderEmpty": "W Fiderze nie ma żadnych wpisów.",
       "fiderExpired": "Wczytane dane wygasły. Wczytaj Fidera ponownie."
-    }
+    },
+    "cancel": "Anuluj"
   },
   "a11y": {
     "skip": "Przejdź do treści",

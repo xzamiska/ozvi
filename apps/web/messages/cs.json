@@ -1461,7 +1461,8 @@
         },
         "import": {
           "started": "Import spuštěn",
-          "undone": "Import vrácen zpět"
+          "undone": "Import vrácen zpět",
+          "cancelled": "Import zrušen"
         },
         "retention": {
           "run": "Automatické mazání dat",
@@ -3652,7 +3653,8 @@
       "queued": "Čeká na spuštění…",
       "fetch": "{n, plural, one {Stahuji z Canny: # záznam} few {Stahuji z Canny: # záznamy} other {Stahuji z Canny: # záznamů}}",
       "write": "Ukládám {done} z {total}",
-      "fetchFider": "{n, plural, one {Stahuji z Fideru: # záznam} few {Stahuji z Fideru: # záznamy} other {Stahuji z Fideru: # záznamů}}"
+      "fetchFider": "{n, plural, one {Stahuji z Fideru: # záznam} few {Stahuji z Fideru: # záznamy} other {Stahuji z Fideru: # záznamů}}",
+      "slow": "Čeká déle než obvykle. Import můžete zrušit a spustit znovu, nic se nezdvojí."
     },
     "summary": "{items, plural, one {# příspěvek} few {# příspěvky} other {# příspěvků}}, {votes, plural, one {# hlas} few {# hlasy} other {# hlasů}}, {comments, plural, one {# komentář} few {# komentáře} other {# komentářů}}, {users, plural, one {# nový člověk} few {# noví lidé} other {# nových lidí}}",
     "runErrors": {
@@ -3665,7 +3667,8 @@
       "fiderNetwork": "Fider není dostupný. Zkuste to za chvíli znovu.",
       "fiderApi": "Fider vrátil chybu. Co se stihlo uložit, můžete vrátit zpět nebo import spustit znovu.",
       "fiderBackup": "Záloze jsme neporozuměli.",
-      "fiderUrl": "Fider přesměroval na jinou adresu."
+      "fiderUrl": "Fider přesměroval na jinou adresu.",
+      "cancelled": "Zrušeno. Spusťte import znovu, až budete chtít."
     },
     "undo": "Vrátit zpět",
     "undoTitle": "Vrátit import zpět?",
@@ -3696,7 +3699,8 @@
       "backupTooBig": "Záloha je větší než 25 MB. Použijte import přes API nebo příkaz na serveru.",
       "fiderEmpty": "Ve Fideru nejsou žádné příspěvky.",
       "fiderExpired": "Načtená data vypršela. Načtěte Fider znovu."
-    }
+    },
+    "cancel": "Zrušit"
   },
   "a11y": {
     "skip": "Přeskočit na obsah",

@@ -1461,7 +1461,8 @@
         },
         "import": {
           "started": "Import gestartet",
-          "undone": "Import rückgängig gemacht"
+          "undone": "Import rückgängig gemacht",
+          "cancelled": "Import abgebrochen"
         },
         "retention": {
           "run": "Automatische Datenlöschung",
@@ -3652,7 +3653,8 @@
       "queued": "Wartet auf den Start …",
       "fetch": "{n, plural, one {Download aus Canny: # Datensatz} other {Download aus Canny: # Datensätze}}",
       "write": "{done} von {total} gespeichert",
-      "fetchFider": "{n, plural, one {Download aus Fider: # Datensatz} other {Download aus Fider: # Datensätze}}"
+      "fetchFider": "{n, plural, one {Download aus Fider: # Datensatz} other {Download aus Fider: # Datensätze}}",
+      "slow": "Das dauert länger als üblich. Sie können den Import abbrechen und neu starten; nichts wird doppelt angelegt."
     },
     "summary": "{items, plural, one {# Beitrag} other {# Beiträge}}, {votes, plural, one {# Stimme} other {# Stimmen}}, {comments, plural, one {# Kommentar} other {# Kommentare}}, {users, plural, one {# neue Person} other {# neue Personen}}",
     "runErrors": {
@@ -3665,7 +3667,8 @@
       "fiderNetwork": "Fider ist nicht erreichbar. Versuchen Sie es gleich noch einmal.",
       "fiderApi": "Fider hat einen Fehler zurückgegeben. Sie können das Gespeicherte rückgängig machen oder den Import erneut starten.",
       "fiderBackup": "Wir konnten das Backup nicht lesen.",
-      "fiderUrl": "Fider hat auf eine andere Adresse umgeleitet."
+      "fiderUrl": "Fider hat auf eine andere Adresse umgeleitet.",
+      "cancelled": "Abgebrochen. Starten Sie den Import erneut, wann Sie möchten."
     },
     "undo": "Rückgängig machen",
     "undoTitle": "Diesen Import rückgängig machen?",
@@ -3696,7 +3699,8 @@
       "backupTooBig": "Das Backup ist größer als 25 MB. Nutzen Sie den Import über die API oder den Befehl auf dem Server.",
       "fiderEmpty": "In Fider gibt es keine Beiträge.",
       "fiderExpired": "Die geladenen Daten sind abgelaufen. Laden Sie Fider erneut."
-    }
+    },
+    "cancel": "Abbrechen"
   },
   "a11y": {
     "skip": "Zum Inhalt springen",

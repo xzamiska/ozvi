@@ -1461,7 +1461,8 @@
         },
         "import": {
           "started": "Importálás elindítva",
-          "undone": "Importálás visszavonva"
+          "undone": "Importálás visszavonva",
+          "cancelled": "Import megszakítva"
         },
         "retention": {
           "run": "Automatikus adattörlés",
@@ -3652,7 +3653,8 @@
       "queued": "Indításra vár…",
       "fetch": "{n, plural, one {Letöltés a Cannyből: # rekord} other {Letöltés a Cannyből: # rekord}}",
       "write": "Mentés: {done} / {total}",
-      "fetchFider": "{n, plural, one {Letöltés a Fiderből: # rekord} other {Letöltés a Fiderből: # rekord}}"
+      "fetchFider": "{n, plural, one {Letöltés a Fiderből: # rekord} other {Letöltés a Fiderből: # rekord}}",
+      "slow": "A szokásosnál tovább vár. Megszakíthatja az importot, és újraindíthatja; semmi sem duplikálódik."
     },
     "summary": "{items, plural, one {# bejegyzés} other {# bejegyzés}}, {votes, plural, one {# szavazat} other {# szavazat}}, {comments, plural, one {# hozzászólás} other {# hozzászólás}}, {users, plural, one {# új személy} other {# új személy}}",
     "runErrors": {
@@ -3665,7 +3667,8 @@
       "fiderNetwork": "A Fider nem érhető el. Próbáld újra egy kicsit később.",
       "fiderApi": "A Fider hibát adott vissza. Visszavonhatod, ami mentésre került, vagy újraindíthatod az importálást.",
       "fiderBackup": "Nem sikerült beolvasni a biztonsági mentést.",
-      "fiderUrl": "A Fider egy másik címre irányított át."
+      "fiderUrl": "A Fider egy másik címre irányított át.",
+      "cancelled": "Megszakítva. Indítsa újra az importot, amikor szeretné."
     },
     "undo": "Visszavonás",
     "undoTitle": "Visszavonod ezt az importálást?",
@@ -3696,7 +3699,8 @@
       "backupTooBig": "A biztonsági mentés nagyobb 25 MB-nál. Használd az API-n keresztüli importálást vagy a szerveren futtatható parancsot.",
       "fiderEmpty": "A Fiderben nincsenek bejegyzések.",
       "fiderExpired": "A betöltött adatok lejártak. Töltsd be újra a Fidert."
-    }
+    },
+    "cancel": "Megszakítás"
   },
   "a11y": {
     "skip": "Ugrás a tartalomra",
