@@ -16,4 +16,11 @@ describe("board sections", () => {
     expect(homeSection({ sections: ["changelog", "bugs"], homeSection: "ideas" })).toBe("changelog");
     expect(normalizeSections(["bugs", "nonsense"], "ideas")).toEqual({ sections: ["bugs"], homeSection: "bugs" });
   });
+  it("keeps the roadmap switch while ideas are off, so turning ideas back on brings the roadmap back", () => {
+    const off = normalizeSections(["roadmap", "bugs"], "bugs");
+    expect(off.sections).toEqual(["roadmap", "bugs"]);
+    expect(enabledSections(off)).toEqual(["bugs"]);
+    expect(enabledSections({ sections: [...off.sections, "ideas"] })).toEqual(["ideas", "roadmap", "bugs"]);
+    expect(normalizeSections(["roadmap"], null).sections).toEqual(["ideas", "roadmap", "changelog", "bugs"]); // nothing really on
+  });
 });

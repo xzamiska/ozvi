@@ -49,7 +49,7 @@ import { PrivacyKit } from "@/components/PrivacyKit";
 import { kitConfig } from "@/lib/privacy-kit-config";
 import { LEGAL } from "@/lib/legal";
 import { MESSAGES } from "@/i18n/messages";
-import { enabledSections, homeSection } from "@/lib/sections";
+import { homeSection, sectionSwitches } from "@/lib/sections";
 import { translationsInPlan, translationsUsed } from "@/lib/translate";
 
 export const generateMetadata = boardTitle("admin");
@@ -200,7 +200,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
           </SettingsSection>
 
           <SettingsSection id="sections" title={t("nav.sections")} text={t("sections.text")}>
-            <SectionsForm slug={slug} sections={enabledSections(project)} home={homeSection(project)} />
+            <SectionsForm slug={slug} sections={sectionSwitches(project)} home={homeSection(project)} />
           </SettingsSection>
 
           <SettingsSection id="voting" title={t("nav.voting")} text={t("voting.text")}>
