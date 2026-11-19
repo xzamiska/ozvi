@@ -719,6 +719,11 @@ test.describe("public board", () => {
     await expect(carl.page.getByRole("button", { name: /^Zrušiť hlas, 2 hlasy/ })).toBeVisible();
     await ben.page.goto(`/${b.slug}/i/${n2}`);
     await expect(ben.page.getByRole("note")).toContainText(`Toto je duplicita. Pokračuje v #${n1} ${orig}, hlasy sa presunuli tam.`);
+    // The author reads "Merged into #n", not "Declined", and no team-reply stop from an auto-comment.
+    await expect(ben.page.getByText("Zlúčené", { exact: true })).toBeVisible();
+    await expect(ben.page.getByRole("link", { name: `Zlúčené do #${n1}` }).first()).toBeVisible();
+    await expect(ben.page.getByText("Zamietnuté")).toHaveCount(0);
+    await expect(ben.page.getByText("Odpoveď tímu")).toHaveCount(0);
     await ben.page.getByRole("note").getByRole("link").click();
     await expect(ben.page).toHaveURL(new RegExp(`/${b.slug}/i/${n1}$`));
     await ben.page.goto(`/${b.slug}/ideas?f=all`);

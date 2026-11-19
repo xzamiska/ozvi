@@ -5,7 +5,6 @@ import { emit } from "./events";
 import { enqueueTrackerSync } from "./trackers";
 import { proofSnapshot, type ProofSnapshot } from "./proof";
 import type { Project, User } from "./project";
-import { boardLocales } from "@/i18n/board";
 import type { Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
 import { canSeePost, commentNeedsApproval, DUPLICATE_COMMENT_WINDOW_MS, isBlocked } from "./moderation-rules";
@@ -165,13 +164,8 @@ export async function mergeItems(tx: Tx, project: Project, actor: User, source: 
   await tx.update(items).set({ mergedIntoId: target.id }).where(eq(items.mergedIntoId, source.id));
   // Merged into a bug that is already fixed: the reporter hears it now, not "once it's fixed" (never).
   if (source.kind === "bug" && (target.status === "fixed" || target.status === "verified")) await notifyDuplicateFixed(tx, project, target, [updatedSource!], actor.id);
-  // Bugs are private per reporter: the duplicate's reporter must not learn the original's title.
-  // The note is stored content, so it is written once, in the board's default language.
-  const t = translator(boardLocales(project).fallback, "domain");
-  await tx.insert(comments).values({
-    projectId: project.id, itemId: source.id, authorId: actor.id,
-    body: source.kind === "idea" ? t("mergedIdea", { n: String(target.number), title: target.title }) : t("mergedBug"),
-  });
+  // No auto-comment: the item page shows "Merged into #n" (header note and route) in each reader's language,
+  // and a team-authored comment would read as a team reply on the route.
   await emit(tx, project, "item.merged", { item: updatedSource!, actorName: actor.name, mergedInto: { number: target.number, title: target.title } });
   return { source: updatedSource!, target: updatedTarget! };
 }

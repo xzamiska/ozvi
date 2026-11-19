@@ -859,7 +859,9 @@
       "next": "Dalej:",
       "proof": "Dowód poprawki",
       "proofPreview": "Wypróbuj poprawkę",
-      "proofRelease": "Wydanie {v}"
+      "proofRelease": "Wydanie {v}",
+      "merged": "Scalone z #{n}",
+      "mergedPrivate": "Rozwiązywane pod innym numerem"
     },
     "ideas": {
       "gateTitle": "Pomysły widzą tylko zalogowani użytkownicy",
@@ -1703,8 +1705,6 @@
     "mergeKinds": "Scalać można tylko dwa pomysły albo dwa błędy.",
     "alreadyMerged": "#{n} jest już scalony.",
     "targetMerged": "#{n} jest scalony z innym wpisem; scal z tamtym.",
-    "mergedIdea": "Scalono z #{n} „{title}”. Głosy zostały tam przeniesione.",
-    "mergedBug": "Tym zgłoszeniem zajmujemy się już pod innym numerem. Gdy błąd zostanie naprawiony, damy ci znać tutaj.",
     "blocked": "Obecnie nie możesz publikować, głosować ani komentować na tej tablicy.",
     "deleted": "Ten wpis został usunięty.",
     "mergePending": "Ten pomysł czeka na zatwierdzenie. Najpierw go zatwierdź albo odrzuć.",
@@ -3356,7 +3356,8 @@
     },
     "offRoute": "poza ścieżką",
     "stopOf": "etap {n} z {of}",
-    "now": "teraz"
+    "now": "teraz",
+    "merged": "Scalone"
   },
   "widget": {
     "noProject": "Ten projekt nie istnieje.",

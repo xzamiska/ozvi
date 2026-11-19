@@ -859,7 +859,9 @@
       "next": "Következő:",
       "proof": "A javítás bizonyítéka",
       "proofPreview": "Javítás kipróbálása",
-      "proofRelease": "Kiadás: {v}"
+      "proofRelease": "Kiadás: {v}",
+      "merged": "Összevonva ezzel: #{n}",
+      "mergedPrivate": "Másik szám alatt foglalkozunk vele"
     },
     "ideas": {
       "gateTitle": "Az ötletek csak bejelentkezett felhasználók számára láthatók",
@@ -1703,8 +1705,6 @@
     "mergeKinds": "Csak két ötletet vagy két hibát vonhatsz össze.",
     "alreadyMerged": "A(z) #{n} már össze van vonva.",
     "targetMerged": "A(z) #{n} már egy másik bejegyzésbe van összevonva; abba vond össze.",
-    "mergedIdea": "Összevonva ezzel: #{n} „{title}”. A szavazatok átkerültek oda.",
-    "mergedBug": "Ezt a bejelentést már egy másik szám alatt kezeljük. Itt szólunk, amint ki van javítva.",
     "blocked": "Ezen a táblán jelenleg nem tehetsz közzé bejegyzést, nem szavazhatsz és nem szólhatsz hozzá.",
     "deleted": "Ezt a bejegyzést törölték.",
     "mergePending": "Ez az ötlet jóváhagyásra vár. Előbb hagyd jóvá vagy utasítsd el.",
@@ -3356,7 +3356,8 @@
     },
     "offRoute": "az útvonalon kívül",
     "stopOf": "{n}. állomás / {of}",
-    "now": "most"
+    "now": "most",
+    "merged": "Összevonva"
   },
   "widget": {
     "noProject": "Ez a projekt nem létezik.",

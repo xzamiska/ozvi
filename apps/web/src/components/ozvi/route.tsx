@@ -60,11 +60,20 @@ export function StatusMark({ kind, status, className }: { kind: Kind; status: st
  * Mark + stop name (+ version for a fixed bug). `sub` is the item's custom sub-status inside the stage
  * ("Rozpracované · V testovaní"); `stacked` puts it on a second line (list rows' status column).
  */
-export function StatusTag({ kind, status, version, sub, stacked, className }: {
-  kind: Kind; status: string; version?: string | null; sub?: string | null; stacked?: boolean; className?: string;
+export function StatusTag({ kind, status, version, sub, stacked, merged, className }: {
+  kind: Kind; status: string; version?: string | null; sub?: string | null; stacked?: boolean;
+  /** A merged duplicate: "Merged", not the closed status the merge stored ("Declined" told the author the wrong thing). */
+  merged?: boolean; className?: string;
 }) {
   const tone = toneOf(kind, status);
   const t = useTranslations("route");
+  if (merged) {
+    return (
+      <span className={cn("inline-flex items-center gap-1.5 text-[13px] font-semibold whitespace-nowrap text-muted-foreground", className)}>
+        <MergedMark />{t("merged")}
+      </span>
+    );
+  }
   const label = (
     <span className={cn("inline-flex items-center gap-1.5 text-[13px] font-semibold whitespace-nowrap", sub && !stacked && "min-w-0", tone === "off" ? "text-muted-foreground" : "text-foreground", !stacked && className)}>
       <StatusMark kind={kind} status={status} />
@@ -79,6 +88,16 @@ export function StatusTag({ kind, status, version, sub, stacked, className }: {
       {label}
       <span className="truncate pl-[22px] text-[12.5px] font-medium text-muted-foreground" title={sub}>{sub}</span>
     </span>
+  );
+}
+
+/** Two paths joining into one: a duplicate that continues in another item. */
+export function MergedMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden className={cn("size-4 shrink-0 text-muted-foreground", className)} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="4" cy="3.5" r="1.75" /><circle cx="4" cy="12.5" r="1.75" /><circle cx="12" cy="8" r="1.75" />
+      <path d="M4 5.25v5.5M4 5.25c0 2.75 2 2.75 6.25 2.75" />
+    </svg>
   );
 }
 

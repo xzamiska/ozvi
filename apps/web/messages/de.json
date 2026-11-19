@@ -859,7 +859,9 @@
       "next": "Als Nächstes:",
       "proof": "Nachweis der Korrektur",
       "proofPreview": "Korrektur ausprobieren",
-      "proofRelease": "Release {v}"
+      "proofRelease": "Release {v}",
+      "merged": "Zusammengeführt mit #{n}",
+      "mergedPrivate": "Wird unter einer anderen Nummer bearbeitet"
     },
     "ideas": {
       "gateTitle": "Ideen sind nur für angemeldete Personen sichtbar",
@@ -1703,8 +1705,6 @@
     "mergeKinds": "Sie können nur zwei Ideen oder zwei Fehler zusammenführen.",
     "alreadyMerged": "#{n} ist bereits zusammengeführt.",
     "targetMerged": "#{n} wurde in einen anderen Beitrag zusammengeführt; führen Sie in diesen zusammen.",
-    "mergedIdea": "Zusammengeführt mit #{n} „{title}“. Die Stimmen wurden dorthin übertragen.",
-    "mergedBug": "Wir bearbeiten diese Meldung bereits unter einer anderen Nummer. Sobald der Fehler behoben ist, informieren wir Sie hier.",
     "blocked": "Sie können auf diesem Board derzeit keine Beiträge verfassen, nicht abstimmen und nicht kommentieren.",
     "deleted": "Dieser Beitrag wurde gelöscht.",
     "mergePending": "Diese Idee wartet auf Freigabe. Geben Sie sie zuerst frei oder lehnen Sie sie ab.",
@@ -3356,7 +3356,8 @@
     },
     "offRoute": "außerhalb des Ablaufs",
     "stopOf": "Schritt {n} von {of}",
-    "now": "jetzt"
+    "now": "jetzt",
+    "merged": "Zusammengeführt"
   },
   "widget": {
     "noProject": "Dieses Projekt existiert nicht.",

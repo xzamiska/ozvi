@@ -859,7 +859,9 @@
       "next": "Dále:",
       "proof": "Důkaz opravy",
       "proofPreview": "Vyzkoušet opravu",
-      "proofRelease": "Vydání {v}"
+      "proofRelease": "Vydání {v}",
+      "merged": "Sloučeno do #{n}",
+      "mergedPrivate": "Řeší se pod jiným číslem"
     },
     "ideas": {
       "gateTitle": "Nápady vidí jen přihlášení",
@@ -1703,8 +1705,6 @@
     "mergeKinds": "Sloučit lze jen dva nápady nebo dvě chyby.",
     "alreadyMerged": "#{n} je už sloučený.",
     "targetMerged": "#{n} je sloučený do jiného záznamu; slučte do něj.",
-    "mergedIdea": "Sloučeno do #{n} „{title}“. Hlasy se přesunuly tam.",
-    "mergedBug": "Toto hlášení už řešíme pod jiným číslem. Až ho opravíme, dáme vědět i tady.",
     "blocked": "Na tomto boardu teď nemůžete přidávat příspěvky, hlasovat ani komentovat.",
     "deleted": "Tento záznam byl smazán.",
     "mergePending": "Nápad čeká na schválení. Nejdřív ho schvalte nebo zamítněte.",
@@ -3356,7 +3356,8 @@
     },
     "offRoute": "mimo trasu",
     "stopOf": "zastávka {n} z {of}",
-    "now": "teď"
+    "now": "teď",
+    "merged": "Sloučeno"
   },
   "widget": {
     "noProject": "Projekt neexistuje.",
