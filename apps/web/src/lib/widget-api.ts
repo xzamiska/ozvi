@@ -1,7 +1,7 @@
 import "server-only";
 import { schema, withProject, type Tx } from "@ozvi/db";
 import { OzviTokenError } from "@ozvi/sdk";
-import { and, desc, eq, ilike, inArray, isNull, or } from "drizzle-orm";
+import { and, desc, eq, gt, inArray, isNull } from "drizzle-orm";
 import type { NextRequest } from "next/server";
 import { boardLocales } from "@/i18n/board";
 import { DEFAULT_LOCALE, isLocale, LOCALES, matchLocale, type Locale } from "@/i18n/locales";
@@ -13,6 +13,7 @@ import type { Project, User } from "./project";
 import { moderationWhere } from "./queries";
 import { userFromToken } from "./sso";
 import { readCors, searchWords, writeAllowed } from "./widget-rules";
+import { matchScore } from "./search-text";
 import { sectionOn, type Section } from "./sections";
 
 /** The widget sends ?lang= (its own language); otherwise Accept-Language, both within the board's languages. */
@@ -74,19 +75,19 @@ export async function widgetPreflight(req: NextRequest, slug: string): Promise<R
 const ACTIVE = ["open", "planned", "in_progress"] as const;
 
 /**
- * Ideas for the widget: the top active ideas, or (with `q`) ideas whose title matches any of the words, in any
- * status, the same rule as the board's similar-ideas search. Queued ideas only for their author; bugs never.
+ * Ideas for the widget: the top active ideas, or (with `q`) ideas whose title has words starting with the query's
+ * words (accents ignored, most matched words first), in any status, the same rule as the board's similar-ideas search. Queued ideas only for their author; bugs never.
  */
 export async function widgetIdeas(tx: Tx, opts: { q?: string | null; limit: number; viewerId?: string | null }) {
   const { items } = schema;
   const words = searchWords(opts.q);
   if (opts.q && words.length === 0) return [];
-  const esc = (w: string) => `%${w.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
+  const score = matchScore([items.title], words);
   return tx.select({ id: items.id, number: items.number, title: items.title, body: items.body, votes: items.voteCount, status: items.status, pending: items.pending })
     .from(items)
     .where(and(eq(items.kind, "idea"), isNull(items.mergedIntoId), moderationWhere({ viewerId: opts.viewerId }),
-      words.length ? or(...words.map((w) => ilike(items.title, esc(w)))) : inArray(items.status, [...ACTIVE])))
-    .orderBy(desc(items.voteCount), desc(items.createdAt), desc(items.number))
+      words.length ? gt(score, 0) : inArray(items.status, [...ACTIVE])))
+    .orderBy(...(words.length ? [desc(score)] : []), desc(items.voteCount), desc(items.createdAt), desc(items.number))
     .limit(opts.limit);
 }
 

@@ -3,10 +3,8 @@
  * No database or request objects here, so they are unit-tested directly (widget-api.test.ts).
  */
 
-/** Search words for "similar ideas": the same rule as the board's /<slug>/search (3+ letters, at most 6). */
-export function searchWords(q: string | null | undefined): string[] {
-  return (q ?? "").toLowerCase().split(/\s+/).filter((w) => w.length >= 3).slice(0, 6);
-}
+/** Search words for "similar ideas": the same rule as the board's /<slug>/search (lib/search-text.ts). */
+export { searchWords } from "./search-text";
 
 /** Integer query parameter within [1, max], `def` when missing or not a number. */
 export function clampLimit(raw: string | null | undefined, def: number, max: number): number {
