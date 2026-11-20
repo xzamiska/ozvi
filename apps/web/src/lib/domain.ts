@@ -1,6 +1,6 @@
 import { ITEM_STATUSES, schema, type Tx } from "@ozvi/db";
 import { and, desc, eq, gte, isNull, sql } from "drizzle-orm";
-import { notifyComment, notifyDuplicateFixed, notifyStatusChange } from "./email/notify";
+import { notifyComment, notifyDuplicateFixed, notifyMerged, notifyStatusChange } from "./email/notify";
 import { emit } from "./events";
 import { enqueueTrackerSync } from "./trackers";
 import { proofSnapshot, type ProofSnapshot } from "./proof";
@@ -115,6 +115,11 @@ export async function addCommentTo(
   if (item.deletedAt) throw fail((t) => t("deleted"));
   // A switched-off section takes no new comments either (board, API, MCP).
   if (!sectionOn(project, sectionOfKind(item.kind))) throw new DomainError((l) => translator(l, "errors")("sectionOff"));
+  // A merged idea's conversation goes on at the original (its people follow it there).
+  if (item.mergedIntoId && item.kind === "idea") {
+    const [into] = await tx.select({ number: items.number }).from(items).where(eq(items.id, item.mergedIntoId));
+    throw fail((t) => t("mergedClosed", { n: String(into?.number ?? "") }));
+  }
   if (!text) throw fail((t) => t("emptyComment"));
   if (text.length > 5000) throw fail((t) => t("longComment"));
   const isInternal = internal && isTeamRole(actor.role);
@@ -134,6 +139,27 @@ export async function addCommentTo(
   if (isInternal && !item.pending) await enqueueTrackerSync(tx, project, "comment", item, { comment: { body: text, authorId: actor.id, source, internal: true } });
   return c!;
 }
+
+/**
+ * Closing the loop: the reporter says whether the fix works. "Works" verifies the bug. "Still broken" reopens it
+ * (back to confirmed, linked issues must close again) with `comment` as the reporter's comment, so the team hears
+ * about it like about any customer comment (their comment e-mail settings and pace apply). Returns the new status.
+ */
+export async function reporterVerdict(tx: Tx, project: Project, reporter: User, item: Item, works: boolean, comment: string) {
+  if (item.kind !== "bug" || item.authorId !== reporter.id || item.status !== "fixed" || item.deletedAt) return null;
+  const to = works ? "verified" : "confirmed";
+  const [moved] = await tx.update(items).set({ status: to, subStatusId: null, updatedAt: new Date() }).where(eq(items.id, item.id)).returning();
+  await recordStatus(tx, project.id, item.id, item.status, to, item.fixedInVersion, reporter.id);
+  if (!works) {
+    await forgetIssueClosures(tx, item.id);
+    await addCommentTo(tx, project, reporter, moved!, comment, false);
+  }
+  return moved!;
+}
+
+/** A status step on the route that is the reporter reopening their fixed bug ("still broken"). */
+export const isReopenedByReporter = (e: { from: string | null; to: string; actorId: string | null }, item: Pick<Item, "kind" | "authorId">) =>
+  item.kind === "bug" && e.from === "fixed" && e.to === "confirmed" && !!e.actorId && e.actorId === item.authorId;
 
 /**
  * Duplicate → original. Votes move to the original (one per user, highest weight wins), the duplicate
@@ -164,6 +190,8 @@ export async function mergeItems(tx: Tx, project: Project, actor: User, source: 
   await tx.update(items).set({ mergedIntoId: target.id }).where(eq(items.mergedIntoId, source.id));
   // Merged into a bug that is already fixed: the reporter hears it now, not "once it's fixed" (never).
   if (source.kind === "bug" && (target.status === "fixed" || target.status === "verified")) await notifyDuplicateFixed(tx, project, target, [updatedSource!], actor.id);
+  // The duplicate's author and commenters now follow the original: one e-mail tells them where (ideas).
+  await notifyMerged(tx, project, updatedSource!, updatedTarget!, actor.id);
   // No auto-comment: the item page shows "Merged into #n" (header note and route) in each reader's language,
   // and a team-authored comment would read as a team reply on the route.
   await emit(tx, project, "item.merged", { item: updatedSource!, actorName: actor.name, mergedInto: { number: target.number, title: target.title } });

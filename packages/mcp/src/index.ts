@@ -551,7 +551,7 @@ export function createOzviMcpServer(b: Backend): McpServer {
   server.registerTool("publish_update", {
     title: "Publish a changelog update",
     description:
-      "Publish a changelog entry about shipped ideas: the ideas become 'shipped' and everyone who voted for them gets one e-mail with the text. Irreversible. " +
+      "Publish a changelog entry about shipped ideas: the ideas become 'shipped' and everyone who voted for, posted or commented on them gets one e-mail with the text. Irreversible. " +
       "Call once without `confirm` to get a preview (and who will be e-mailed), show the exact title and text to the user, and only after they agree call again with the code.",
     inputSchema: {
       title: z.string().min(3).max(200),
@@ -582,7 +582,7 @@ export function createOzviMcpServer(b: Backend): McpServer {
       title: "Publish a changelog draft",
       description:
         "Publish an existing draft (see list_updates with drafts=true, e.g. a draft made from a GitHub release) exactly as it is: its ideas become 'shipped' " +
-        "and everyone who voted for them gets one e-mail. Irreversible. Call once without `confirm` for a preview (title, text, AI label, recipients), " +
+        "and everyone who voted for, posted or commented on them gets one e-mail. Irreversible. Call once without `confirm` for a preview (title, text, AI label, recipients), " +
         "show it to the user, and only after they agree call again with the code. Publishing records the token's owner as the reviewer.",
       inputSchema: { id: z.string().uuid(), confirm: z.string().max(40).optional() },
       annotations: { readOnlyHint: false, destructiveHint: true, idempotentHint: false, openWorldHint: true },

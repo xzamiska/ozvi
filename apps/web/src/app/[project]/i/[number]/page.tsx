@@ -10,6 +10,7 @@ import { Gallery } from "@/components/Gallery";
 import { CaptureLinks, CaptureTimeline, TeamOnly } from "@/components/ozvi/BugCapture";
 import { NetworkLog } from "@/components/ozvi/NetworkLog";
 import { contextFor, timeline, type Capture } from "@/lib/bug-context";
+import { isReopenedByReporter } from "@/lib/domain";
 import { Journey, type JourneyEvent } from "@/components/ozvi/Journey";
 import { EmptyState, Page } from "@/components/ozvi/page";
 import { StatusTag } from "@/components/ozvi/route";
@@ -114,7 +115,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
     // A deleted original is not linked any more (the duplicate stays closed).
     const mergedInto = item.mergedIntoId
       ? (await tx.query.items.findFirst({ where: and(eq(items.id, item.mergedIntoId), isNull(items.deletedAt)) })) ?? null : null;
-    const history = await tx.select({ at: itemEvents.createdAt, to: itemEvents.toStatus, version: itemEvents.version, who: users.name, sub: itemEvents.subStatusId, proof: itemEvents.proof })
+    const history = await tx.select({ at: itemEvents.createdAt, from: itemEvents.fromStatus, to: itemEvents.toStatus, actorId: itemEvents.actorId, version: itemEvents.version, who: users.name, sub: itemEvents.subStatusId, proof: itemEvents.proof })
       .from(itemEvents).leftJoin(users, eq(users.id, itemEvents.actorId)).where(eq(itemEvents.itemId, item.id)).orderBy(asc(itemEvents.createdAt));
     const links = await tx.select().from(itemLinks).where(eq(itemLinks.itemId, item.id)).orderBy(asc(itemLinks.createdAt));
     const releases = await tx.select({ id: changelogEntries.id, title: changelogEntries.title, at: changelogEntries.publishedAt })
@@ -205,7 +206,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
   const events: JourneyEvent[] = [
     { type: "status", at: item.createdAt, status: ROUTE[item.kind][0]!, who: byline },
     ...history.map((h): JourneyEvent => ({ type: "status", at: h.at, status: h.to, version: h.version, who: h.who, sub: h.sub ? subName.get(h.sub) : null,
-      proof: visibleProof(readProof(h.proof), item.kind, isTeam) })),
+      proof: visibleProof(readProof(h.proof), item.kind, isTeam), reopened: isReopenedByReporter(h, item) })),
     // A merged duplicate ends in "Merged into #n" (not the closed status the merge stored); another
     // reporter's bug keeps the original's number private.
     ...(item.mergedIntoId ? [{ type: "merged", at: item.updatedAt,
@@ -230,7 +231,8 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
           <TranslationScope slug={slug} view={translation}>
           <ItemEditScope>
           <header className="flex gap-5">
-            {!bug && !item.pending && !deleted && (
+            {/* A merged idea's votes moved to the original: no vote box here (applyVote refuses it too). */}
+            {!bug && !item.pending && !deleted && !item.mergedIntoId && (
               <VoteButton slug={slug} itemId={item.id} count={item.voteCount} voted={voted} size="lg"
                 voters={vote.voters} weight={vote.weight} mode={voteModeOf(project)} left={vote.left}
                 login={user ? null : (loginHref(project, `/${slug}/i/${n}`) ?? false)} />
@@ -384,6 +386,9 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
               })}
             </ol>
             {deleted ? null
+              // A merged idea's discussion goes on at the original (addCommentTo refuses it too).
+              : item.mergedIntoId && !bug ? (mergedInto && <p role="note" className="rounded-xl border border-dashed bg-surface/60 px-4 py-3.5 text-[14.5px] text-muted-foreground">
+                  <Link className="oz-link" href={`/${slug}/i/${mergedInto.number}`}>{t("mergedGoThere", { n: mergedInto.number })}</Link></p>)
               : blocked ? <p role="note" className="flex items-start gap-2 rounded-xl border border-dashed bg-surface/60 px-4 py-3.5 text-[14.5px] text-muted-foreground"><Ban className="mt-0.5 size-4 shrink-0" aria-hidden />{m("blockedNotice")}</p>
               : user ? <CommentForm slug={slug} itemId={item.id} isTeam={isTeam} me={user.name ?? user.email} />
               : <SignInToComment project={project} locale={locale} returnTo={`/${slug}/i/${n}`} />}
@@ -412,8 +417,14 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
                 </TeamBlock>
               )}
               <TeamBlock title={t("status")}>
-                <RouteControl key={`${item.status}-${item.subStatusId ?? ""}-${item.fixedInVersion ?? ""}`} slug={slug} itemId={item.id} kind={item.kind}
-                  status={item.status} version={item.fixedInVersion} statuses={ITEM_STATUSES[item.kind]} subs={team.subs} sub={item.subStatusId} />
+                {/* A merged duplicate has no route of its own (the stored closed status is not what happened): it points at its original. */}
+                {item.mergedIntoId
+                  ? <p className="flex flex-wrap items-center gap-2 text-[13.5px]">
+                      <StatusTag kind={item.kind} status={item.status} merged />
+                      {mergedInto && <Link className="oz-link" href={`/${slug}/i/${mergedInto.number}`}>{b("journey.merged", { n: mergedInto.number })}</Link>}
+                    </p>
+                  : <RouteControl key={`${item.status}-${item.subStatusId ?? ""}-${item.fixedInVersion ?? ""}`} slug={slug} itemId={item.id} kind={item.kind}
+                      status={item.status} version={item.fixedInVersion} statuses={ITEM_STATUSES[item.kind]} subs={team.subs} sub={item.subStatusId} />}
               </TeamBlock>
               <TeamBlock title={t("tags")}>
                 {itemTagList.length > 0 && <TagList tags={itemTagList} />}
