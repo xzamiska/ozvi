@@ -91,7 +91,8 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
           </Link>
         </h2>
         {row.body && <p data-excerpt className="mt-0.5 line-clamp-1 text-[14.5px] text-muted-foreground">{markdownExcerpt(row.body)}</p>}
-        <div className="mt-1.5 flex min-w-0 items-center gap-x-3 overflow-hidden text-[13px] whitespace-nowrap text-muted-foreground">
+        {/* Wraps instead of cutting: on a phone the counts, MRR and assignee stay readable (each part stays on one line). */}
+        <div className="mt-1.5 flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-muted-foreground *:whitespace-nowrap">
           <StatusTag kind={row.kind} status={row.status} version={row.fixedInVersion} sub={row.subLabel} className="shrink md:hidden" />
           {!!row.news && <span className="inline-flex shrink-0 items-center gap-1 font-semibold text-brand-text"><Sparkle className="size-3.5" aria-hidden />{row.news}</span>}
           {row.waitingSince && (
