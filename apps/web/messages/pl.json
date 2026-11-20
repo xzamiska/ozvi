@@ -3777,7 +3777,8 @@
       "enforcementTitle": "Jeśli nasza odpowiedź cię nie satysfakcjonuje",
       "enforcement": "Możesz zwrócić się do organu nadzoru rynku w swoim kraju, który czuwa nad dostępnością produktów i usług (w Polsce na podstawie ustawy z dnia 26 kwietnia 2024 r. o zapewnianiu spełniania wymagań dostępności niektórych produktów i usług przez podmioty gospodarcze, na Słowacji na podstawie ustawy nr 351/2022 Z.z., w Czechach na podstawie ustawy nr 424/2023 Sb.).",
       "updated": "Tę deklarację przygotowaliśmy {date} i aktualizujemy ją przy każdej większej zmianie."
-    }
+    },
+    "close": "Zamknij"
   },
   "tags": {
     "title": "Tagi",

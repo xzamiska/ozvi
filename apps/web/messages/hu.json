@@ -3777,7 +3777,8 @@
       "enforcementTitle": "Ha nem vagy elégedett a válaszunkkal",
       "enforcement": "Fordulhatsz az országodban a termékek és szolgáltatások akadálymentességét felügyelő piacfelügyeleti hatósághoz (Szlovákiában a 351/2022. sz. törvény, Csehországban a 424/2023. sz. törvény alapján).",
       "updated": "Ezt a nyilatkozatot {date} napján készítettük, és minden jelentősebb változáskor frissítjük."
-    }
+    },
+    "close": "Bezárás"
   },
   "tags": {
     "title": "Címkék",

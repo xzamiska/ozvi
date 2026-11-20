@@ -3777,7 +3777,8 @@
       "enforcementTitle": "Ak nie ste spokojní s odpoveďou",
       "enforcement": "Môžete sa obrátiť na orgán dohľadu nad trhom vo svojej krajine, ktorý dohliada na prístupnosť výrobkov a služieb (na Slovensku podľa zákona č. 351/2022 Z. z., v Česku podľa zákona č. 424/2023 Sb.).",
       "updated": "Vyhlásenie sme pripravili {date} a aktualizujeme ho pri každej väčšej zmene."
-    }
+    },
+    "close": "Zavrieť"
   },
   "tags": {
     "title": "Štítky",

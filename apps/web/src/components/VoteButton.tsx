@@ -52,7 +52,10 @@ export function VoteButton({ slug, itemId, count, voters, voted, weight, login, 
   const tip = importance && people !== null ? t("weighted", { points: state.count, people }) : t("count", { count: state.count });
   const inner = (
     <>
-      <ChevronUp className={size === "lg" ? "size-5" : "size-4"} strokeWidth={2.5} />
+      {/* Voted shows a check instead of the arrow (a shape, not just the accent colour); importance has its ticks. */}
+      {isVoted && !importance
+        ? <Check aria-hidden data-voted className={size === "lg" ? "size-5" : "size-4"} strokeWidth={3} />
+        : <ChevronUp aria-hidden className={size === "lg" ? "size-5" : "size-4"} strokeWidth={2.5} />}
       <span data-num>{state.count}</span>
       {importance && isVoted && (
         // How important it is to me: 1–3 filled ticks (shape, not just colour).

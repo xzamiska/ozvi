@@ -3777,7 +3777,8 @@
       "enforcementTitle": "If you're not satisfied with our reply",
       "enforcement": "You can turn to the market surveillance authority in your country that oversees the accessibility of products and services (in Slovakia under Act No. 351/2022 Coll., in Czechia under Act No. 424/2023 Coll.).",
       "updated": "We prepared this statement on {date} and update it with every major change."
-    }
+    },
+    "close": "Close"
   },
   "tags": {
     "title": "Tags",

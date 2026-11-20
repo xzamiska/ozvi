@@ -83,6 +83,8 @@ const CSS = `
 `;
 
 const up = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6" /></svg>;
+// Voted (simple mode): a check instead of the arrow, so the state is a shape, not just the accent colour.
+const tick = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>;
 
 function Row({ idea, mode, t, busy, orig, onVote, onOpen }: { idea: Idea; mode: List["voteMode"]; t: Str; busy: boolean; orig?: boolean; onVote: (i: Idea) => void; onOpen: (i: Idea) => void }) {
   const tr = !orig && idea.tr;
@@ -91,7 +93,7 @@ function Row({ idea, mode, t, busy, orig, onVote, onOpen }: { idea: Idea; mode: 
   return (
     <li class="oi-row">
       <button type="button" class="oi-vote" aria-pressed={idea.weight > 0} aria-label={label} aria-busy={busy} onClick={() => !busy && onVote(idea)}>
-        {up}<span aria-hidden="true">{idea.votes}</span>
+        {mode !== "importance" && idea.weight > 0 ? tick : up}<span aria-hidden="true">{idea.votes}</span>
         {mode === "importance" && <span class="oi-pips" aria-hidden="true">{[1, 2, 3].map((n) => <i key={n} class={idea.weight >= n ? "on" : ""} />)}</span>}
       </button>
       <div class="oi-t">

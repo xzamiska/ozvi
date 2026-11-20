@@ -3777,7 +3777,8 @@
       "enforcementTitle": "Wenn Sie mit unserer Antwort nicht zufrieden sind",
       "enforcement": "Sie können sich an die Marktüberwachungsbehörde Ihres Landes wenden, die die Barrierefreiheit von Produkten und Dienstleistungen überwacht (in der Slowakei nach Gesetz Nr. 351/2022 Slg., in Tschechien nach Gesetz Nr. 424/2023 Slg.).",
       "updated": "Wir haben diese Erklärung am {date} erstellt und aktualisieren sie bei jeder größeren Änderung."
-    }
+    },
+    "close": "Schließen"
   },
   "tags": {
     "title": "Tags",
