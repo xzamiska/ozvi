@@ -14,7 +14,11 @@ import { useTranslations } from "next-intl";
 import { routeText } from "@/lib/route";
 import { cn } from "@/lib/utils";
 
-interface Candidate { id: string; number: number; kind: "bug" | "idea"; title: string; status: string; votes: number }
+interface Candidate {
+  id: string; number: number; kind: "bug" | "idea"; title: string; status: string; votes: number;
+  /** Who publishing would e-mail for this item (publishReach): the count shown is the union over the chosen ones. */
+  reach: string[];
+}
 
 export function ChangelogForm({ slug, id, initial, candidates, published, ai, notice }: {
   slug: string; id: string | null;
@@ -37,7 +41,7 @@ export function ChangelogForm({ slug, id, initial, candidates, published, ai, no
   const [drafting, startDraft] = useTransition();
   const [deleting, startDelete] = useTransition();
   const chosen = candidates.filter((c) => picked.has(c.id) && c.kind === "idea");
-  const votes = chosen.reduce((s, c) => s + c.votes, 0);
+  const recipients = new Set(chosen.flatMap((c) => c.reach)).size;
 
   const toggle = (cid: string, on: boolean) => setPicked((p) => { const n = new Set(p); if (on) n.add(cid); else n.delete(cid); return n; });
   const draft = () => startDraft(async () => {
@@ -124,13 +128,13 @@ export function ChangelogForm({ slug, id, initial, candidates, published, ai, no
             <p className="max-w-[68ch] text-[13.5px] text-muted-foreground">
               {chosen.length === 0
                 ? t("publishNoItems")
-                : <>{chosen.length === 1 ? t("publishOne") : t("publishMany", { n: chosen.length })} <span className="font-medium text-foreground">{t("total", { votes: votesLabel(votes) })}</span>.</>}
+                : <>{chosen.length === 1 ? t("publishOne") : t("publishMany", { n: chosen.length })} <span className="font-medium text-foreground">{t("recipients", { n: recipients })}</span></>}
             </p>
           )}
           <div className="flex flex-wrap items-center gap-3">
             {!published && (
               <Button type="submit" size="lg" name="intent" value="publish" disabled={pending} aria-busy={pending || undefined}>
-                {pending ? tf("saving") : votes > 0 ? t("publishNotify") : t("publish")}
+                {pending ? tf("saving") : recipients > 0 ? t("publishNotify") : t("publish")}
               </Button>
             )}
             <Button type="submit" size="lg" variant={published ? "default" : "outline"} name="intent" value="save" disabled={pending}>

@@ -10,6 +10,7 @@ process.env.DATABASE_URL ??= "postgres://ozvi:ozvi@localhost:5446/ozvi";
 const { addCommentTo, changeStatus, mergeItems } = await import("./domain");
 const { notifyChangelog, notifyNewBug, notifyNewIdea } = await import("./email/notify");
 const { applyVote } = await import("./votes");
+const { publishEntry, publishReach, saveEntry } = await import("./changelog");
 
 const db = createDb(process.env.DATABASE_URL);
 const up = await db.execute(sql`select 1`).then(() => true, () => false);
@@ -189,5 +190,23 @@ describe.skipIf(!up)("notifications follow the item", () => {
     const merged = (await withProject(db, project.id, (t) => t.query.items.findFirst({ where: eq(schema.items.id, dup.id) })))!;
     await expect(withProject(db, project.id, (t) => addCommentTo(t, project, u.author, merged, "Ešte ja", false))).rejects.toThrow("#21");
     expect(await withProject(db, project.id, (t) => applyVote(t, project, u.author.id, dup.id, 1))).toEqual({ ok: false, reason: "missing" });
+  });
+
+  it("the changelog form counts exactly the e-mails publishing sends (voters, authors, commenters; not opted out, not the publisher)", async () => {
+    const [x] = await withSystem(db, (t) => t.insert(schema.items).values(
+      { projectId: project.id, kind: "idea", number: 30, title: "Export do CSV", status: "in_progress", authorId: u.author.id }).returning()) as [Item];
+    await withSystem(db, (t) => t.insert(schema.votes).values([u.voter, u.team, u.stranger].map((v) => ({ projectId: project.id, itemId: x.id, userId: v.id }))));
+    await withProject(db, project.id, (t) => addCommentTo(t, project, u.talker, x, "Aj do Excelu?", false));
+    await withSystem(db, (t) => t.update(schema.users).set({ emailOptOut: true }).where(eq(schema.users.id, u.stranger.id)));
+    await sent("comment");
+    const reach = await withProject(db, project.id, (t) => publishReach(t, [x], u.team.id, null));
+    expect(reach.get(x.id)!.length).toBe(3);
+    const r = await withProject(db, project.id, async (t) => {
+      const e = await saveEntry(t, project, u.team, { title: "Export", body: "CSV je tu.", itemIds: [x.id] });
+      return publishEntry(t, project, u.team, e.id);
+    });
+    expect(r.emailed).toBe(3);
+    expect(await sent("changelog")).toEqual(["author", "talker", "voter"]);
+    await withSystem(db, (t) => t.update(schema.users).set({ emailOptOut: false }).where(eq(schema.users.id, u.stranger.id)));
   });
 });

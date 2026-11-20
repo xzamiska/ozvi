@@ -6,6 +6,7 @@ import { AiBadge } from "@/components/ozvi/AiBadge";
 import { Page, PageHead } from "@/components/ozvi/page";
 import { aiAvailable } from "@/lib/ai";
 import { linkCandidates } from "@/lib/changelog-queries";
+import { withReach } from "@/lib/changelog";
 import { db } from "@/lib/db";
 import { getCtx } from "@/lib/project";
 import { LOCALE_TAG } from "@/i18n/locales";
@@ -30,7 +31,7 @@ export default async function EditEntry({ params, searchParams }: { params: Prom
     if (!entry) return null;
     const linked = (await tx.select({ id: schema.changelogItems.itemId }).from(schema.changelogItems).where(eq(schema.changelogItems.entryId, id))).map((r) => r.id);
     const reviewer = entry.reviewedById ? (await tx.select({ name: schema.users.name }).from(schema.users).where(eq(schema.users.id, entry.reviewedById)))[0]?.name ?? null : null;
-    return { entry, linked, reviewer, candidates: await linkCandidates(tx, linked) };
+    return { entry, linked, reviewer, candidates: await withReach(tx, await linkCandidates(tx, linked), user!.id, id) };
   });
   if (!data) notFound();
   return (

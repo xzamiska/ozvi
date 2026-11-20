@@ -12,7 +12,7 @@ import { addCommentTo, canSee, changeStatus, DomainError, isTeamRole, itemByNumb
 import { projectOrigin } from "./email/url";
 import { createIssue, getGithub, linkIssue } from "./github";
 import { createItemFor, ValidationError } from "./items";
-import { publishEntry, saveEntry } from "./changelog";
+import { publishEntry, publishReach, saveEntry } from "./changelog";
 import { allow, RateLimitError } from "./ratelimit";
 import { embeddingsConfig, embedQuery, findSimilar } from "./similar";
 import { attachProof, listProofs, readProof } from "./proof";
@@ -557,11 +557,10 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
       const [d] = await mcpUpdates(tx, project, true, 1, id);
       if (!d) return null;
       const ids = await tx.select({ id: schema.changelogItems.itemId }).from(schema.changelogItems).where(eq(schema.changelogItems.entryId, id));
-      const ideaIds = (await tx.select({ id: items.id }).from(items).where(and(inArray(items.id, ids.length ? ids.map((r) => r.id) : [NONE]), eq(items.kind, "idea")))).map((r) => r.id);
-      const [r] = ideaIds.length ? await tx.select({ n: sql<number>`count(distinct ${users.id})::int` }).from(users)
-        .where(and(sql`${users.id} in (select ${schema.votes.userId} from ${schema.votes} where ${inArray(schema.votes.itemId, ideaIds)} union select ${items.authorId} from ${items} where ${inArray(items.id, ideaIds)})`,
-          sql`${users.email} is not null`, eq(users.emailOptOut, false), sql`${users.id} <> ${user.id}`)) : [{ n: 0 }];
-      return { ...d, recipients: r?.n ?? 0 };
+      const linked = await tx.select().from(items).where(inArray(items.id, ids.length ? ids.map((r) => r.id) : [NONE]));
+      // The e-mail's own rule (publishReach), as in previewUpdate.
+      const reach = await publishReach(tx, linked, user.id, id);
+      return { ...d, recipients: new Set([...reach.values()].flat()).size };
     }),
     publishDraft: (id) => changelogRun(async (tx) => {
       if (!customers) throw new ToolError("Drafts are for team tokens with the triage scope.");
@@ -574,12 +573,9 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
 
     previewUpdate: (input) => changelogRun(async (tx) => {
       const ideas = await ideasFor(tx, input.items);
-      const ids = ideas.map((i) => i.id);
-      // Same rule as the e-mail: voters and authors, with an address, not opted out, not you.
-      const [r] = ids.length ? await tx.select({ n: sql<number>`count(distinct ${users.id})::int` }).from(users)
-        .where(and(sql`${users.id} in (select ${schema.votes.userId} from ${schema.votes} where ${inArray(schema.votes.itemId, ids)} union select ${items.authorId} from ${items} where ${inArray(items.id, ids)})`,
-          sql`${users.email} is not null`, eq(users.emailOptOut, false), sql`${users.id} <> ${user.id}`)) : [{ n: 0 }];
-      return { ideas: await withAuthors(tx, ideas), recipients: r?.n ?? 0 };
+      // The e-mail's own rule (publishReach): voters, authors and commenters with an address, not opted out, not you.
+      const reach = await publishReach(tx, ideas, user.id, null);
+      return { ideas: await withAuthors(tx, ideas), recipients: new Set([...reach.values()].flat()).size };
     }),
 
     publishUpdate: (input) => changelogRun(async (tx) => {

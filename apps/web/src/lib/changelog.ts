@@ -2,7 +2,7 @@ import { schema, type Tx } from "@ozvi/db";
 import { and, eq, inArray, isNotNull, ne } from "drizzle-orm";
 import { changeStatus, DomainError, type Item } from "./domain";
 import { AI_MODEL } from "./ai";
-import { notifyChangelog } from "./email/notify";
+import { changelogReach, notifyChangelog } from "./email/notify";
 import { emitChangelog } from "./events";
 import { projectOrigin } from "./email/url";
 import type { Project, User } from "./project";
@@ -59,6 +59,34 @@ export async function entryItems(tx: Tx, entryId: string): Promise<Item[]> {
     .where(eq(changelogItems.entryId, entryId))).map((r) => r.item);
 }
 
+/** Linked items that publishing ships (and announces): live ideas, not declined. */
+const shippable = (i: Item) => i.kind === "idea" && !i.mergedIntoId && !i.pending && !i.deletedAt && i.status !== "declined";
+
+/** Voters hear about an idea once: ideas already announced in another published entry are skipped. */
+async function unannounced(tx: Tx, ideas: Item[], entryId: string | null): Promise<Item[]> {
+  if (ideas.length === 0) return [];
+  const announced = new Set((await tx.select({ id: changelogItems.itemId }).from(changelogItems)
+    .innerJoin(changelogEntries, eq(changelogEntries.id, changelogItems.entryId))
+    .where(and(inArray(changelogItems.itemId, ideas.map((i) => i.id)), ...(entryId ? [ne(changelogEntries.id, entryId)] : []), isNotNull(changelogEntries.publishedAt)))).map((r) => r.id));
+  return ideas.filter((i) => !announced.has(i.id));
+}
+
+/**
+ * Who publishing would e-mail, per linked item (empty for bugs, declined or already announced ideas): the same
+ * people and rules as publishEntry, so the number shown before publishing is the one that goes out.
+ */
+export async function publishReach(tx: Tx, list: Item[], actorId: string | null, entryId: string | null): Promise<Map<string, string[]>> {
+  const reach = await changelogReach(tx, await unannounced(tx, list.filter(shippable), entryId), actorId);
+  return new Map(list.map((i) => [i.id, reach.get(i.id) ?? []]));
+}
+
+/** The changelog form's candidates with who publishing would e-mail for each (`reach`). */
+export async function withReach<C extends { id: string }>(tx: Tx, candidates: C[], actorId: string | null, entryId: string | null): Promise<(C & { reach: string[] })[]> {
+  const list = candidates.length ? await tx.select().from(items).where(inArray(items.id, candidates.map((c) => c.id))) : [];
+  const reach = await publishReach(tx, list, actorId, entryId);
+  return candidates.map((c) => ({ ...c, reach: reach.get(c.id) ?? [] }));
+}
+
 /**
  * Publishing: linked ideas become "shipped" (quietly — the changelog e-mail replaces the status
  * e-mail) and every voter gets one e-mail with the entry. Publishing twice does nothing.
@@ -72,15 +100,11 @@ export async function publishEntry(tx: Tx, project: Project, actor: User | null,
   const [published] = await tx.update(changelogEntries).set({ publishedAt: now, updatedAt: now, aiPending: false, reviewedById: actor?.id ?? null, reviewedAt: actor ? now : null })
     .where(and(eq(changelogEntries.id, entryId))).returning();
   const linked = await entryItems(tx, entryId);
-  const ideas = linked.filter((i) => i.kind === "idea" && !i.mergedIntoId && !i.pending && !i.deletedAt && i.status !== "declined");
+  const ideas = linked.filter(shippable);
   for (const idea of ideas) {
     if (idea.status !== "shipped") await changeStatus(tx, project, actor, idea, "shipped", undefined, { notify: false });
   }
-  // Voters hear about an idea once: skip ideas already announced in an earlier published entry.
-  const announced = ideas.length ? new Set((await tx.select({ id: changelogItems.itemId }).from(changelogItems)
-    .innerJoin(changelogEntries, eq(changelogEntries.id, changelogItems.entryId))
-    .where(and(inArray(changelogItems.itemId, ideas.map((i) => i.id)), ne(changelogEntries.id, entryId), isNotNull(changelogEntries.publishedAt)))).map((r) => r.id)) : new Set<string>();
-  const fresh = ideas.filter((i) => !announced.has(i.id));
+  const fresh = await unannounced(tx, ideas, entryId);
   const url = changelogEntryUrl(`${projectOrigin(project)}/${project.slug}`, entryId);
   const emailed = await notifyChangelog(tx, project, { title: published!.title, body: published!.body, url }, fresh, actor?.id ?? null);
   await emitChangelog(tx, project, {
