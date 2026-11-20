@@ -1244,7 +1244,7 @@
       "nobody": "Nikt",
       "notify": "Wyślij e-maile o zmianie statusu",
       "clear": "Wyczyść wybór",
-      "apply": "Zastosuj",
+      "apply": "Zmień wybrane",
       "applying": "Zapisuję…",
       "done": "{n, plural, one {Zmieniono # wpis} few {Zmieniono # wpisy} other {Zmieniono # wpisów}}",
       "you": "{who} (Ty)",

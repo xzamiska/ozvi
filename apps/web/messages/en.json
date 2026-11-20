@@ -1244,7 +1244,7 @@
       "nobody": "Nobody",
       "notify": "Send status e-mails",
       "clear": "Clear selection",
-      "apply": "Apply",
+      "apply": "Change selected",
       "applying": "Saving…",
       "done": "{n, plural, one {Changed # item} other {Changed # items}}",
       "you": "{who} (you)",

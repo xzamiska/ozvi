@@ -1244,7 +1244,7 @@
       "nobody": "Senki",
       "notify": "E-mailek küldése az állapotváltozásról",
       "clear": "Kijelölés törlése",
-      "apply": "Alkalmaz",
+      "apply": "Kijelöltek módosítása",
       "applying": "Mentés…",
       "done": "{n, plural, other {# bejegyzés módosítva}}",
       "you": "{who} (Ön)",

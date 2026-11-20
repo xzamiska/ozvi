@@ -1244,7 +1244,7 @@
       "nobody": "Nikdo",
       "notify": "Poslat e-maily o změně stavu",
       "clear": "Zrušit výběr",
-      "apply": "Použít",
+      "apply": "Změnit vybrané",
       "applying": "Ukládám…",
       "done": "{n, plural, one {Změněn # záznam} few {Změněny # záznamy} other {Změněno # záznamů}}",
       "you": "{who} (vy)",

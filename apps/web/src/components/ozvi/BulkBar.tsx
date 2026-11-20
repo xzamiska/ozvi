@@ -28,6 +28,8 @@ export function BulkBar({ slug, kind, team, me }: { slug: string; kind: Kind; te
   const clear = () => {
     document.querySelectorAll<HTMLInputElement>('input[type=checkbox][form="bulk"]').forEach((b) => { b.checked = false; });
     setCount(0);
+    // Setting `checked` fires no event: tell the "select all" box (ListTools) the rows are clear now.
+    document.dispatchEvent(new Event("change"));
   };
   const submit = (form: FormData) => start(async () => {
     const r = await bulkUpdate(slug, form);
