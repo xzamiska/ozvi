@@ -36,7 +36,8 @@
       "noProjects": ", brak projektów",
       "exportHint": "Eksport każdego projektu pobierzesz w jego ustawieniach (Dane projektu).",
       "nothingRemoved": "Wszystkie twoje przestrzenie robocze mają innych członków, więc żaden projekt nie zostanie usunięty.",
-      "leave": "Opuścisz {list}; wszyscy pozostali zostają."
+      "leave": "Opuścisz {list}; wszyscy pozostali zostają.",
+      "noWorkspaces": "Nie należysz do żadnej przestrzeni roboczej, więc usuniemy tylko Twoje konto i dane logowania."
     },
     "forms": {
       "role": "Rola",
@@ -141,8 +142,8 @@
       "noSmtpCode": "E-mail nie jest skonfigurowany (SMTP). Kod znajdziesz w logu serwera.",
       "noAccess": "Ten adres e-mail nie ma dostępu. Na własnym serwerze dodaj go do OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "Logowanie e-mailem nie jest włączone w tym projekcie.",
-      "tooManyProjects": "Za dużo nowych projektów w ciągu godziny. Spróbuj później.",
-      "tooManyFree": "Z tej sieci utworzono dziś zbyt wiele bezpłatnych przestrzeni. Spróbuj jutro, dodaj projekt do istniejącej przestrzeni lub przejdź na Pro.",
+      "tooManyProjects": "W ciągu ostatniej godziny utworzono zbyt wiele projektów. Kolejny utworzysz za {minutes} min.",
+      "tooManyFree": "Z jednej sieci można dziennie utworzyć tylko kilka bezpłatnych przestrzeni, a dzisiejszy limit dla tej sieci jest wyczerpany. Spróbuj ponownie za {hours} godz. albo napisz do nas na support@ozvi.io, a pomożemy.",
       "nameLength": "Nazwa musi mieć od 2 do 60 znaków.",
       "slugInvalid": "Adres może zawierać małe litery, cyfry i łączniki (2–41 znaków) i nie może być słowem zastrzeżonym.",
       "pickLook": "Wybierz wygląd.",
@@ -169,7 +170,9 @@
       "signupClosed": "Rejestracja nie jest jeszcze otwarta. Napisz na support@ozvi.io, a damy znać, gdy wystartujemy.",
       "alreadySubscribed": "Ta przestrzeń ma już subskrypcję. Zmień plan w niej, bez drugiej płatności.",
       "freeExistsOther": "Ta skrzynka pocztowa ma już bezpłatną przestrzeń roboczą na innym koncie (ten sam adres z +tagiem lub kropkami). Zaloguj się na to konto i dodaj projekt tam albo poproś właściciela o zaproszenie.",
-      "nameChars": "Imię nie może zawierać znaków < i >. Usuń je i zapisz ponownie."
+      "nameChars": "Imię nie może zawierać znaków < i >. Usuń je i zapisz ponownie.",
+      "tooManyFreeHasWorkspace": "Z jednej sieci można dziennie utworzyć tylko kilka bezpłatnych przestrzeni, a dzisiejszy limit dla tej sieci jest wyczerpany. Nową przestrzeń utworzysz za {hours} godz., ale projekt możesz od razu dodać do przestrzeni, w której już jesteś.",
+      "addToWorkspace": "Dodaj projekt do przestrzeni {workspace}"
     },
     "workspace": {
       "not_owner": "Może to zrobić tylko właściciel przestrzeni roboczej.",
@@ -180,7 +183,7 @@
       "last_owner": "Przestrzeń robocza musi mieć co najmniej jednego właściciela. Najpierw nadaj tę rolę komuś innemu.",
       "no_account": "To konto już nie istnieje.",
       "email_taken": "Dla adresu {email} istnieje już inne konto Ozvi. Usuń je albo użyj innego adresu.",
-      "subscription": "{ws} ma aktywną subskrypcję. Anuluj ją w sekcji Plan i wykorzystanie (Zarządzaj subskrypcją), a potem usuń konto.",
+      "subscription": "{ws} ma aktywną subskrypcję. Anuluj ją w sekcji Plan i wykorzystanie (przycisk Anuluj subskrypcję), a potem usuń konto.",
       "sole_owner": "Jesteś jedynym właścicielem {ws}. W sekcji Zespół nadaj rolę właściciela komuś innemu albo usuń pozostałych członków."
     },
     "billing": {
@@ -723,7 +726,7 @@
       "text": "Akapity do polityki prywatności i rejestru czynności przetwarzania, przygotowane na podstawie ustawień tego projektu. Uzupełnij fragmenty w nawiasach kwadratowych.",
       "legalTitle": "To nie jest porada prawna",
       "legal": "To szkic oparty na konfiguracji projektu. Przed publikacją skonsultuj go z prawnikiem.",
-      "cloud": "Ozvi cloud: dla danych Twoich użytkowników jesteś administratorem, a Ozvi podmiotem przetwarzającym. Potrzebujesz też umowy powierzenia (DPA); poproś o nią pod adresem {email}.",
+      "cloud": "Ozvi cloud: dla danych Twoich użytkowników jesteś administratorem, a Ozvi podmiotem przetwarzającym. Umowa powierzenia (DPA) jest częścią regulaminu i obowiązuje od rejestracji; jej treść znajdziesz na ozvi.io/dpa. Podpisaną wersję wyślemy na prośbę ({email}).",
       "self": "Własna instalacja: administratorem jesteś Ty i nie potrzebujesz umowy powierzenia z autorami Ozvi. Umowy zawierasz bezpośrednio z dostawcami wymienionymi w tekście (hosting, e-mail, AI, integracje).",
       "subprocessors": "Lista podwykonawców",
       "language": "Język tekstu",
@@ -1617,7 +1620,7 @@
       "paidTitle": "Dziękujemy za płatność",
       "paid": "Plan zmieni się, gdy tylko bramka płatności potwierdzi płatność, zwykle w ciągu minuty.",
       "pastDueTitle": "Ostatnia płatność nie powiodła się",
-      "pastDue": "Zaktualizuj kartę w zarządzaniu subskrypcją, w przeciwnym razie przestrzeń robocza przejdzie na plan Free.",
+      "pastDue": "Zaktualizuj kartę przyciskiem Faktury i karta, w przeciwnym razie przestrzeń robocza przejdzie na plan Free.",
       "usageTitle": "Wykorzystanie w tym miesiącu",
       "emails": "E-maile",
       "attachments": "Załączniki",
@@ -2739,17 +2742,17 @@
       },
       "devItems": [
         {
-          "href": "#developers",
+          "href": "/docs/widget",
           "title": "Widżet",
           "text": "Jeden skrypt, shadow DOM, do 20 kB"
         },
         {
-          "href": "#developers",
+          "href": "/docs/widget#sign-in",
           "title": "Logowanie",
           "text": "Podpisany token, OIDC albo kod wysłany e-mailem"
         },
         {
-          "href": "#developers",
+          "href": "/docs/mcp",
           "title": "Serwer MCP",
           "text": "Claude Code, Cursor, VS Code"
         },
@@ -3519,6 +3522,7 @@
     "home": "Strona główna Ozvi",
     "widget": "Widżet",
     "api": "REST API",
+    "mcp": "Serwer MCP",
     "webhooks": "Webhooki",
     "automation": "Automatyzacja",
     "toc": "Na tej stronie",

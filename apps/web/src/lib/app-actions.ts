@@ -20,7 +20,7 @@ import { requestLocale } from "@/i18n/server";
 import { db } from "./db";
 import { issueLogin, LoginError, normalizeEmail, verifyCode, verifyLink } from "./email-login";
 import { publicUrl } from "./email/url";
-import { allow } from "./ratelimit";
+import { allow, release, take } from "./ratelimit";
 import { trackEvent } from "./analytics";
 import { newBoardTranslationMode } from "./translate";
 
@@ -92,7 +92,10 @@ export async function signOutApp() {
 
 /* ---------- Projects ---------- */
 
-export interface NewProjectState { error?: string; created?: string }
+export interface NewProjectState { error?: string; created?: string; link?: { href: string; label: string } }
+
+const inHours = (seconds: number) => Math.max(1, Math.ceil(seconds / 3600));
+const inMinutes = (seconds: number) => Math.max(1, Math.ceil(seconds / 60));
 
 export async function createProject(_: NewProjectState, form: FormData): Promise<NewProjectState> {
   const account = await getAccount();
@@ -100,7 +103,28 @@ export async function createProject(_: NewProjectState, form: FormData): Promise
   const locale = await requestLocale();
   const t = await getTranslations({ locale, namespace: "account.server" });
   const c = await getTranslations({ locale, namespace: "console" });
-  if (!allow("signup", account.id)) return { error: t("tooManyProjects") };
+  // Only projects that get created count: a taken slug, a typo or a plan limit must not use up the hourly attempts.
+  const now = Date.now();
+  const slot = take("signup", account.id, now);
+  if (!slot.ok) return { error: t("tooManyProjects", { minutes: inMinutes(slot.resetSeconds) }) };
+  let ipSlot: string | null = null;
+  let done = false;
+  try {
+    const out = await createProjectFor(account, form, t, c, now, (ip) => { ipSlot = ip; });
+    done = !!out.created;
+    return out;
+  } finally {
+    if (!done) {
+      release("signup", account.id, now);
+      if (ipSlot) release("freeWorkspaceIp", ipSlot, now);
+    }
+  }
+}
+
+type Tr = Awaited<ReturnType<typeof getTranslations>>;
+
+async function createProjectFor(account: NonNullable<Awaited<ReturnType<typeof getAccount>>>, form: FormData, t: Tr, c: Tr, now: number,
+  tookIp: (ip: string) => void): Promise<NewProjectState> {
   const ip = clientIp(await headers()) ?? "unknown";
   const name = String(form.get("name") ?? "").trim();
   const slug = String(form.get("slug") ?? "").trim().toLowerCase();
@@ -136,7 +160,17 @@ export async function createProject(_: NewProjectState, form: FormData): Promise
         if (free.some((f) => f.accountId === account.id)) return { error: t("freeExists") };
         if (free.length) return { error: t("freeExistsOther") };
         // Many accounts from one place (scripts, throwaway addresses): a few new free workspaces a day per IP.
-        if (!allow("freeWorkspaceIp", ip)) return { error: t("tooManyFree") };
+        const perIp = take("freeWorkspaceIp", ip, now);
+        if (!perIp.ok) {
+          const hours = inHours(perIp.resetSeconds);
+          // Someone already in a workspace (invited, or a paid one) can add the project there right away.
+          const [mine] = await tx.select({ id: schema.workspaces.id, name: schema.workspaces.name }).from(schema.workspaceMembers)
+            .innerJoin(schema.workspaces, eq(schema.workspaces.id, schema.workspaceMembers.workspaceId))
+            .where(eq(schema.workspaceMembers.accountId, account.id)).orderBy(schema.workspaces.createdAt).limit(1);
+          if (mine) return { error: t("tooManyFreeHasWorkspace", { hours }), link: { href: `/app/new?w=${mine.id}`, label: t("addToWorkspace", { workspace: mine.name }) } };
+          return { error: t("tooManyFree", { hours }) };
+        }
+        tookIp(ip);
       }
       const [w] = await tx.insert(schema.workspaces).values({ slug: newWorkspaceSlug(), name, plan: cloud ? "free" : "self" }).returning();
       await tx.insert(schema.workspaceMembers).values({ workspaceId: w!.id, accountId: account.id, role: "owner" });

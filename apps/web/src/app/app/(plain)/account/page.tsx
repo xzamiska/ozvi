@@ -10,7 +10,7 @@ import { requestLocale } from "@/i18n/server";
 import { getAccount } from "@/lib/account";
 import { signOutEverywhereAction } from "@/lib/account-actions";
 import { cn } from "@/lib/utils";
-import { deletionPlan } from "@/lib/workspace";
+import { deletionPlan, deletionSummary } from "@/lib/workspace";
 
 export const dynamic = "force-dynamic";
 export async function generateMetadata() {
@@ -105,7 +105,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
                       </ul>
                       <p className="text-[13px] text-muted-foreground">{t("exportHint")}</p>
                     </>
-                  ) : <p>{t("nothingRemoved")}</p>}
+                  ) : <p>{t(deletionSummary(plan) === "shared" ? "nothingRemoved" : "noWorkspaces")}</p>}
                   {plan.leave.length > 0 && <p>{t("leave", { list: plan.leave.map((w) => w.name).join(", ") })}</p>}
                 </div>
                 <div className="border-t pt-6"><DeleteAccountForm email={account.email} blocked={false} /></div>

@@ -113,20 +113,30 @@ const EVENTS = [
   ["item.merged", "item_merged"], ["item.linked", "item_linked"], ["changelog.published", "changelog_published"], ["item.tags_changed", "item_tags_changed"],
 ] as const;
 
+interface WebhookDraft { url: string; format: string; events: string[]; includeBugs: boolean }
+
 export function WebhookForm({ slug }: { slug: string }) {
   const t = useTranslations("integrations.webhook");
   const [key, setKey] = useState(0);
+  // What was sent: a rejected URL keeps everything filled in (React resets a form after its action).
+  const [draft, setDraft] = useState<WebhookDraft | null>(null);
   const [state, action, pending] = useActionState(async (p: ActState, f: FormData) => {
     const r = await addWebhook(slug, p, f);
-    if (!r.error && !r.secret) setKey((k) => k + 1);
+    if (r.error) setDraft({ url: String(f.get("url") ?? ""), format: String(f.get("format") ?? "slack"), events: f.getAll("events").map(String), includeBugs: f.get("includeBugs") === "on" });
+    else setDraft(null);
+    if (r.error || !r.secret) setKey((k) => k + 1);
     return r;
   }, {});
+  // Every error of addWebhook is about the URL (format, HTTPS, private address): show it there.
+  const urlError = state.error;
   return (
     <form key={key} action={action} className={panel}>
       <Field id="wh-url" label={t("url")}>
-        <Input id="wh-url" name="url" type="url" required placeholder="https://hooks.slack.com/services/…" spellCheck={false} {...noFill} />
+        <Input id="wh-url" name="url" type="url" required placeholder="https://hooks.slack.com/services/…" spellCheck={false} {...noFill}
+          defaultValue={draft?.url} autoFocus={!!urlError} aria-invalid={urlError ? true : undefined} aria-describedby={urlError ? "wh-url-error" : undefined} />
+        {urlError && <p id="wh-url-error" role="alert" className="text-[13.5px] font-medium text-destructive">{urlError}</p>}
       </Field>
-      <Choices legend={t("format")} name="format" defaultValue="slack" options={[
+      <Choices legend={t("format")} name="format" defaultValue={draft?.format ?? "slack"} options={[
         { value: "slack", title: t("chat.title"), text: t("chat.text") },
         { value: "teams", title: t("teams.title"), text: t("teams.text") },
         { value: "discord", title: t("discord.title"), text: t("discord.text") },
@@ -136,13 +146,13 @@ export function WebhookForm({ slug }: { slug: string }) {
         <legend className="mb-1 text-[14px] font-semibold">{t("eventsLegend")}</legend>
         <p className={cn(hint, "mb-1")}>{t("eventsHint")}</p>
         <div className="grid gap-2.5 sm:grid-cols-2">
-          {EVENTS.map(([v, k]) => <CheckRow key={v} id={`ev-${v}`} name="events" value={v}>{t(`events.${k}`)}</CheckRow>)}
+          {EVENTS.map(([v, k]) => <CheckRow key={v} id={`ev-${v}`} name="events" value={v} defaultChecked={draft?.events.includes(v)}>{t(`events.${k}`)}</CheckRow>)}
         </div>
       </fieldset>
-      <CheckRow id="wh-bugs" name="includeBugs">
+      <CheckRow id="wh-bugs" name="includeBugs" defaultChecked={draft?.includeBugs}>
         {t("bugs")} <span className="text-muted-foreground">{t("bugsNote")}</span>
       </CheckRow>
-      <Feedback state={state} />
+      {!urlError && <Feedback state={state} />}
       <div><Submit pending={pending} pendingLabel={t("adding")}>{t("add")}</Submit></div>
     </form>
   );

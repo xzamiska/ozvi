@@ -36,7 +36,8 @@
       "noProjects": ", no projects",
       "exportHint": "You can download an export of each project in its settings (Project data).",
       "nothingRemoved": "All your workspaces have other members, so no projects will be deleted.",
-      "leave": "You’ll leave {list}; everyone else stays."
+      "leave": "You’ll leave {list}; everyone else stays.",
+      "noWorkspaces": "You’re not in any workspace, so we’ll only delete your account and sign-in details."
     },
     "forms": {
       "role": "Role",
@@ -141,8 +142,8 @@
       "noSmtpCode": "E-mail isn’t configured (SMTP). The code is in the server log.",
       "noAccess": "This e-mail doesn’t have access. On a self-hosted server, add it to OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "E-mail sign-in isn’t enabled for this project.",
-      "tooManyProjects": "Too many new projects in an hour. Try again later.",
-      "tooManyFree": "Too many free workspaces were created from this network today. Try again tomorrow, add the project to an existing workspace or upgrade to Pro.",
+      "tooManyProjects": "You created too many projects in the last hour. You can create the next one in {minutes} min.",
+      "tooManyFree": "Only a few free workspaces can be created from one network per day, and today's limit for this network is used up. Try again in {hours} h, or write to support@ozvi.io and we'll help.",
       "nameLength": "The name must be 2 to 60 characters.",
       "slugInvalid": "The address may use lowercase letters, digits and hyphens (2–41 characters) and can’t be a reserved word.",
       "pickLook": "Pick a look.",
@@ -169,7 +170,9 @@
       "signupClosed": "Sign-up isn’t open yet. Write to support@ozvi.io and we’ll let you know when we launch.",
       "alreadySubscribed": "This workspace already has a subscription. Change the plan on it, without paying twice.",
       "freeExistsOther": "This mailbox already has a free workspace under another account (the same address with a +tag or dots). Sign in with that account and add the project there, or have its owner invite you.",
-      "nameChars": "The name cannot contain < or >. Remove them and save again."
+      "nameChars": "The name cannot contain < or >. Remove them and save again.",
+      "tooManyFreeHasWorkspace": "Only a few free workspaces can be created from one network per day, and today's limit for this network is used up. You can create a new workspace in {hours} h, but you can add the project to a workspace you're already in right now.",
+      "addToWorkspace": "Add the project to {workspace}"
     },
     "workspace": {
       "not_owner": "Only a workspace owner can do this.",
@@ -180,7 +183,7 @@
       "last_owner": "A workspace needs at least one owner. Make someone else an owner first.",
       "no_account": "This account no longer exists.",
       "email_taken": "There’s already another Ozvi account for {email}. Delete it or use a different address.",
-      "subscription": "{ws} has an active subscription. Cancel it under Plan & usage (Manage subscription), then delete your account.",
+      "subscription": "{ws} has an active subscription. Cancel it under Plan & usage (Cancel subscription button), then delete your account.",
       "sole_owner": "You’re the only owner of {ws}. Under Team, make someone else an owner or remove the other members."
     },
     "billing": {
@@ -723,7 +726,7 @@
       "text": "Paragraphs for your privacy policy and records of processing, put together from this project’s settings. Fill in the parts in square brackets.",
       "legalTitle": "This is not legal advice",
       "legal": "It is a draft based on how the project is set up. Have a lawyer review it before you publish it.",
-      "cloud": "Ozvi cloud: for your users’ data you are the controller and Ozvi is your processor. You also need a data processing agreement (DPA); request it at {email}.",
+      "cloud": "Ozvi cloud: for your users’ data you are the controller and Ozvi is your processor. The data processing agreement (DPA) is part of the terms of service and applies from sign-up; the text is at ozvi.io/dpa. If you need a signed copy, ask at {email}.",
       "self": "Self-hosted: you are the controller and need no data processing agreement with the authors of Ozvi. You sign agreements directly with the providers named in the text (hosting, e-mail, AI, integrations).",
       "subprocessors": "List of sub-processors",
       "language": "Language of the text",
@@ -1617,7 +1620,7 @@
       "paidTitle": "Thanks for your payment",
       "paid": "The plan switches as soon as the payment gateway confirms the payment, usually within a minute.",
       "pastDueTitle": "The last payment failed",
-      "pastDue": "Update your card in subscription management, or the workspace will switch to Free.",
+      "pastDue": "Update your card with the Invoices and card button, or the workspace will switch to Free.",
       "usageTitle": "Usage this month",
       "emails": "E-mails",
       "attachments": "Attachments",
@@ -2739,17 +2742,17 @@
       },
       "devItems": [
         {
-          "href": "#developers",
+          "href": "/docs/widget",
           "title": "Widget",
           "text": "One script, shadow DOM, under 20 kB"
         },
         {
-          "href": "#developers",
+          "href": "/docs/widget#sign-in",
           "title": "Sign-in",
           "text": "Signed token, OIDC or e-mail code"
         },
         {
-          "href": "#developers",
+          "href": "/docs/mcp",
           "title": "MCP server",
           "text": "Claude Code, Cursor, VS Code"
         },
@@ -3519,6 +3522,7 @@
     "home": "Ozvi home",
     "widget": "Widget",
     "api": "REST API",
+    "mcp": "MCP server",
     "webhooks": "Webhooks",
     "automation": "Automation",
     "toc": "On this page",

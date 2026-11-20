@@ -178,3 +178,11 @@ describe("sign out everywhere", () => {
     expect(after.find((u) => u.id === asApp!.id)?.v).toBe(asApp!.sessionVersion);
   });
 });
+
+describe("deletionSummary", () => {
+  it("tells apart no workspaces from shared ones", () => {
+    expect(ws.deletionSummary({ remove: [], leave: [] })).toBe("empty");
+    expect(ws.deletionSummary({ remove: [], leave: [{ id: "w", name: "Acme" }] })).toBe("shared");
+    expect(ws.deletionSummary({ remove: [{ id: "w", name: "Mine", projects: [] }], leave: [] })).toBe("remove");
+  });
+});

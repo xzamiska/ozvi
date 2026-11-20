@@ -36,7 +36,8 @@
       "noProjects": ", nincs projekt",
       "exportHint": "Minden projekt exportját letöltheted a projekt beállításaiban (Projektadatok).",
       "nothingRemoved": "Minden munkaterületednek vannak más tagjai is, így egyetlen projekt sem törlődik.",
-      "leave": "Kilépsz innen: {list}; mindenki más marad."
+      "leave": "Kilépsz innen: {list}; mindenki más marad.",
+      "noWorkspaces": "Egyetlen munkaterületnek sem vagy tagja, ezért csak a fiókodat és a bejelentkezési adataidat töröljük."
     },
     "forms": {
       "role": "Szerepkör",
@@ -141,8 +142,8 @@
       "noSmtpCode": "Az e-mail-küldés nincs beállítva (SMTP). A kód a szerver naplójában található.",
       "noAccess": "Ennek az e-mail-címnek nincs hozzáférése. Saját üzemeltetésű szerveren add hozzá az OZVI_ADMIN_EMAILS listához.",
       "emailLoginOff": "Az e-mailes bejelentkezés nincs bekapcsolva ennél a projektnél.",
-      "tooManyProjects": "Túl sok új projekt egy órán belül. Próbáld újra később.",
-      "tooManyFree": "Erről a hálózatról ma túl sok ingyenes munkaterület jött létre. Próbálja újra holnap, adja a projektet egy meglévő munkaterülethez, vagy váltson Pro csomagra.",
+      "tooManyProjects": "Az elmúlt órában túl sok projektet hozott létre. A következőt {minutes} perc múlva hozhatja létre.",
+      "tooManyFree": "Egy hálózatról naponta csak néhány ingyenes munkaterület hozható létre, és erről a hálózatról a mai keret elfogyott. Próbálja újra {hours} óra múlva, vagy írjon nekünk a support@ozvi.io címre, és segítünk.",
       "nameLength": "A név 2–60 karakter hosszú lehet.",
       "slugInvalid": "A cím kisbetűket, számjegyeket és kötőjeleket tartalmazhat (2–41 karakter), és nem lehet foglalt szó.",
       "pickLook": "Válassz megjelenést.",
@@ -169,7 +170,9 @@
       "signupClosed": "A regisztráció még nem nyílt meg. Írjon a support@ozvi.io címre, és szólunk, amikor elindulunk.",
       "alreadySubscribed": "Ennek a munkaterületnek már van előfizetése. A csomagot abban váltsd, dupla fizetés nélkül.",
       "freeExistsOther": "Ehhez a postafiókhoz már tartozik ingyenes munkaterület egy másik fiókban (ugyanaz a cím +címkével vagy pontokkal). Jelentkezz be azzal a fiókkal, és ott add hozzá a projektet, vagy kérd meg a tulajdonosát, hogy hívjon meg.",
-      "nameChars": "A név nem tartalmazhatja a < és > karaktereket. Töröld őket, és mentsd újra."
+      "nameChars": "A név nem tartalmazhatja a < és > karaktereket. Töröld őket, és mentsd újra.",
+      "tooManyFreeHasWorkspace": "Egy hálózatról naponta csak néhány ingyenes munkaterület hozható létre, és erről a hálózatról a mai keret elfogyott. Új munkaterületet {hours} óra múlva hozhat létre, a projektet viszont már most hozzáadhatja egy munkaterülethez, amelynek tagja.",
+      "addToWorkspace": "Projekt hozzáadása ehhez: {workspace}"
     },
     "workspace": {
       "not_owner": "Ezt csak a munkaterület tulajdonosa teheti meg.",
@@ -180,7 +183,7 @@
       "last_owner": "Egy munkaterületnek legalább egy tulajdonosra van szüksége. Előbb tegyél meg valaki mást tulajdonossá.",
       "no_account": "Ez a fiók már nem létezik.",
       "email_taken": "Ehhez a címhez már tartozik egy másik Ozvi-fiók: {email}. Töröld azt, vagy használj másik címet.",
-      "subscription": "Ennek a munkaterületnek aktív előfizetése van: {ws}. Mondd le a Csomag és használat oldalon (Előfizetés kezelése), majd töröld a fiókodat.",
+      "subscription": "Ennek a munkaterületnek aktív előfizetése van: {ws}. Mondd le a Csomag és használat oldalon (Előfizetés lemondása gomb), majd töröld a fiókodat.",
       "sole_owner": "Te vagy az egyetlen tulajdonosa ennek a munkaterületnek: {ws}. A Csapat oldalon tegyél meg valaki mást tulajdonossá, vagy távolítsd el a többi tagot."
     },
     "billing": {
@@ -723,7 +726,7 @@
       "text": "Bekezdések az adatvédelmi tájékoztatóhoz és az adatkezelési nyilvántartáshoz, a projekt beállításai alapján összeállítva. A szögletes zárójeles részeket töltse ki.",
       "legalTitle": "Ez nem jogi tanácsadás",
       "legal": "Tervezet a projekt beállításai alapján. Közzététel előtt ellenőriztesse jogásszal.",
-      "cloud": "Ozvi cloud: a felhasználói adatai tekintetében Ön az adatkezelő, az Ozvi az adatfeldolgozó. Adatfeldolgozási szerződésre (DPA) is szüksége van; kérje itt: {email}.",
+      "cloud": "Ozvi cloud: a felhasználói adatai tekintetében Ön az adatkezelő, az Ozvi az adatfeldolgozó. Az adatfeldolgozási szerződés (DPA) az általános szerződési feltételek része, és a regisztrációtól érvényes; a szövege az ozvi.io/dpa oldalon olvasható. Aláírt példányt kérésre küldünk ({email}).",
       "self": "Saját telepítés: Ön az adatkezelő, és nincs szüksége adatfeldolgozási szerződésre az Ozvi szerzőivel. A szerződéseket közvetlenül a szövegben említett szolgáltatókkal köti (tárhely, e-mail, MI, integrációk).",
       "subprocessors": "Alvállalkozók listája",
       "language": "A szöveg nyelve",
@@ -1617,7 +1620,7 @@
       "paidTitle": "Köszönjük a fizetést",
       "paid": "A csomag azonnal átvált, amint a fizetési szolgáltató visszaigazolja a fizetést, általában egy percen belül.",
       "pastDueTitle": "Az utolsó fizetés sikertelen volt",
-      "pastDue": "Frissítsd a kártyádat az előfizetés kezelésében, különben a munkaterület az ingyenes csomagra vált.",
+      "pastDue": "Frissítsd a kártyádat a Számlák és kártya gombbal, különben a munkaterület az ingyenes csomagra vált.",
       "usageTitle": "Használat ebben a hónapban",
       "emails": "E-mailek",
       "attachments": "Mellékletek",
@@ -2739,17 +2742,17 @@
       },
       "devItems": [
         {
-          "href": "#developers",
+          "href": "/docs/widget",
           "title": "Widget",
           "text": "Egy szkript, shadow DOM, 20 kB alatt"
         },
         {
-          "href": "#developers",
+          "href": "/docs/widget#sign-in",
           "title": "Bejelentkezés",
           "text": "Aláírt token, OIDC vagy e-mailes kód"
         },
         {
-          "href": "#developers",
+          "href": "/docs/mcp",
           "title": "MCP-szerver",
           "text": "Claude Code, Cursor, VS Code"
         },
@@ -3519,6 +3522,7 @@
     "home": "Az Ozvi kezdőlapja",
     "widget": "Widget",
     "api": "REST API",
+    "mcp": "MCP-szerver",
     "webhooks": "Webhookok",
     "automation": "Automatizálás",
     "toc": "Ezen az oldalon",

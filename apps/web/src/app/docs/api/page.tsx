@@ -8,6 +8,7 @@ import { PROBLEMS, type ProblemCode } from "@/lib/api/problem";
 import { ROUTES } from "@/lib/api/routes";
 import { publicUrl } from "@/lib/email/url";
 import { LIMITS } from "@/lib/ratelimit";
+import { ownBoardSlug } from "@/lib/slug";
 
 // PUBLIC_URL is read at request time (one image for self-host and cloud).
 export const dynamic = "force-dynamic";
@@ -17,6 +18,8 @@ const TAGS = ["Items", "Comments", "Votes", "Board", "Changelog", "People", "Int
 
 export default function ApiDocs() {
   const host = publicUrl();
+  // "acme" is an example: its spec would 404. Ozvi's own board (if this server has one) is a real one to link.
+  const own = ownBoardSlug();
   const base = `${host}/acme/api/v1`;
   const spec = openApiSpec(base) as { paths: Record<string, Record<string, any>>; components: { schemas: Record<string, any> } };
   const perMin = Math.round(LIMITS.api.max / (LIMITS.api.windowMs / 60_000));
@@ -38,7 +41,8 @@ export default function ApiDocs() {
   return (
     <DocsShell page="api" title="REST API" toc={toc} lede={<>
       Read and change one board over HTTP: ideas, bug reports, comments, votes, the changelog and your customers. The API follows the same rules as the board and
-      the <a href="#auth" className="oz-link">MCP server</a>, from the same token. Machine-readable: <a href={`${host}/acme/api/v1/openapi.json`} className="oz-link">openapi.json</a> (OpenAPI 3.1, every board serves its own).
+      the <a href="/docs/mcp" className="oz-link">MCP server</a>, from the same token. Machine-readable: every board serves its own OpenAPI 3.1 document at <code>/&lt;board&gt;/api/v1/openapi.json</code>
+      {own ? <> (for example <a href={`${host}/${own}/api/v1/openapi.json`} className="oz-link">Ozvi&apos;s own board</a>)</> : null}.
     </>}>
       <h2 id="start">Quick start</h2>
       <p>Every board has its API at <code>/&lt;board&gt;/api/v1</code> on the board&apos;s address, including its own domain. In these examples the board is <code>acme</code>:</p>

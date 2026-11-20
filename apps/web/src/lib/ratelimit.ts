@@ -66,6 +66,14 @@ export function take(kind: keyof typeof LIMITS, key: string, now = Date.now()): 
   return { ok: true, limit: max, remaining: max - list.length, resetSeconds: reset(list) };
 }
 
+/** Gives back a slot taken at `at` (an attempt that did not go through should not count against the limit). */
+export function release(kind: keyof typeof LIMITS, key: string, at: number): void {
+  const k = `${kind}:${key}`;
+  const list = hits.get(k);
+  const i = list?.lastIndexOf(at) ?? -1;
+  if (i >= 0) list!.splice(i, 1);
+}
+
 export class RateLimitError extends Error {
   constructor(locale: Locale = "sk") { super(translator(locale, "errors")("rateLimit")); }
 }

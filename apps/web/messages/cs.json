@@ -36,7 +36,8 @@
       "noProjects": ", bez projektů",
       "exportHint": "Export každého projektu stáhnete v jeho nastavení (Data projektu).",
       "nothingRemoved": "Ve všech vašich prostorech jsou i další členové, takže se žádné projekty nesmažou.",
-      "leave": "Z prostorů {list} odejdete, ostatní v nich pokračují."
+      "leave": "Z prostorů {list} odejdete, ostatní v nich pokračují.",
+      "noWorkspaces": "Nejste v žádném prostoru, smažeme tedy jen váš účet a údaje pro přihlášení."
     },
     "forms": {
       "role": "Role",
@@ -141,8 +142,8 @@
       "noSmtpCode": "E-maily nejsou nastavené (SMTP). Kód je v logu serveru.",
       "noAccess": "Tento e-mail nemá přístup. Na vlastním serveru ho přidejte do OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "Přihlášení e-mailem není pro tento projekt zapnuté.",
-      "tooManyProjects": "Příliš mnoho nových projektů za hodinu. Zkuste to později.",
-      "tooManyFree": "Z této sítě dnes vzniklo příliš mnoho bezplatných prostorů. Zkuste to zítra, přidejte projekt do existujícího prostoru nebo přejděte na Pro.",
+      "tooManyProjects": "Za poslední hodinu jste založili příliš mnoho projektů. Další založíte za {minutes} min.",
+      "tooManyFree": "Z jedné sítě lze za den založit jen několik bezplatných prostorů a z této sítě je dnešní limit vyčerpán. Zkuste to znovu za {hours} h, nebo nám napište na support@ozvi.io a pomůžeme vám.",
       "nameLength": "Název musí mít 2 až 60 znaků.",
       "slugInvalid": "Adresa smí obsahovat malá písmena, číslice a pomlčky (2–41 znaků) a nesmí být vyhrazená.",
       "pickLook": "Vyberte vzhled.",
@@ -169,7 +170,9 @@
       "signupClosed": "Registrace ještě není otevřená. Napište nám na support@ozvi.io a ozveme se, až spustíme.",
       "alreadySubscribed": "Prostor už má předplatné. Plán změníte přímo v něm, bez další platby navíc.",
       "freeExistsOther": "Pro tuto e-mailovou schránku už existuje bezplatný prostor pod jiným účtem (stejná adresa s +značkou nebo s tečkami). Přihlaste se tím účtem a projekt přidejte tam, nebo vás jeho vlastník pozve do prostoru.",
-      "nameChars": "Jméno nesmí obsahovat znaky < a >. Odstraňte je a uložte znovu."
+      "nameChars": "Jméno nesmí obsahovat znaky < a >. Odstraňte je a uložte znovu.",
+      "tooManyFreeHasWorkspace": "Z jedné sítě lze za den založit jen několik bezplatných prostorů a z této sítě je dnešní limit vyčerpán. Nový prostor založíte za {hours} h, projekt ale můžete hned přidat do prostoru, ve kterém už jste.",
+      "addToWorkspace": "Přidat projekt do prostoru {workspace}"
     },
     "workspace": {
       "not_owner": "Tohle může udělat jen vlastník prostoru.",
@@ -180,7 +183,7 @@
       "last_owner": "Prostor musí mít alespoň jednoho vlastníka. Nejdřív udělejte vlastníkem někoho jiného.",
       "no_account": "Účet už neexistuje.",
       "email_taken": "Na {email} už je jiný účet v Ozvi. Zrušte ho, nebo použijte jinou adresu.",
-      "subscription": "Prostor {ws} má aktivní předplatné. Zrušte ho v Plánu a využití (Spravovat předplatné) a potom zrušte účet.",
+      "subscription": "Prostor {ws} má aktivní předplatné. Zrušte ho v Plánu a využití (tlačítko Zrušit předplatné) a potom zrušte účet.",
       "sole_owner": "V prostoru {ws} jste jediný vlastník. V části Tým udělejte vlastníkem někoho jiného, nebo ostatní členy odeberte."
     },
     "billing": {
@@ -723,7 +726,7 @@
       "text": "Odstavce do zásad ochrany soukromí a záznamů o zpracování, sestavené podle nastavení tohoto projektu. Údaje v hranatých závorkách doplňte.",
       "legalTitle": "Toto není právní rada",
       "legal": "Jde o návrh podle toho, jak je projekt nastavený. Před zveřejněním ho zkontrolujte s právníkem.",
-      "cloud": "Ozvi cloud: pro údaje vašich uživatelů jste správce a Ozvi váš zpracovatel. Potřebujete také smlouvu o zpracování (DPA), vyžádáte si ji na {email}.",
+      "cloud": "Ozvi cloud: pro údaje vašich uživatelů jste správce a Ozvi váš zpracovatel. Smlouva o zpracování (DPA) je součástí obchodních podmínek a platí od registrace, její znění je na ozvi.io/dpa. Podepsanou verzi vám pošleme na vyžádání ({email}).",
       "self": "Vlastní instalace: správcem jste vy a s autory Ozvi smlouvu o zpracování nepotřebujete. Smlouvy uzavíráte přímo s poskytovateli uvedenými v textu (hosting, e-maily, AI, integrace).",
       "subprocessors": "Seznam subdodavatelů",
       "language": "Jazyk textu",
@@ -1617,7 +1620,7 @@
       "paidTitle": "Děkujeme za platbu",
       "paid": "Plán se přepne, jakmile platbu potvrdí platební brána, obvykle do minuty.",
       "pastDueTitle": "Poslední platba selhala",
-      "pastDue": "Aktualizujte kartu ve správě předplatného, jinak se prostor přepne na Free.",
+      "pastDue": "Aktualizujte kartu přes tlačítko Faktury a karta, jinak se prostor přepne na Free.",
       "usageTitle": "Využití tento měsíc",
       "emails": "E-maily",
       "attachments": "Přílohy",
@@ -2739,17 +2742,17 @@
       },
       "devItems": [
         {
-          "href": "#developers",
+          "href": "/docs/widget",
           "title": "Widget",
           "text": "Jeden skript, shadow DOM, do 20 kB"
         },
         {
-          "href": "#developers",
+          "href": "/docs/widget#sign-in",
           "title": "Přihlášení",
           "text": "Podepsaný token, OIDC nebo kód do e-mailu"
         },
         {
-          "href": "#developers",
+          "href": "/docs/mcp",
           "title": "MCP server",
           "text": "Claude Code, Cursor, VS Code"
         },
@@ -3519,6 +3522,7 @@
     "home": "Ozvi – úvod",
     "widget": "Widget",
     "api": "REST API",
+    "mcp": "MCP server",
     "webhooks": "Webhooky",
     "automation": "Automatizace",
     "toc": "Na této stránce",

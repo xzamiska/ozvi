@@ -36,7 +36,8 @@
       "noProjects": ", keine Projekte",
       "exportHint": "Einen Export jedes Projekts können Sie in dessen Einstellungen herunterladen (Projektdaten).",
       "nothingRemoved": "Alle Ihre Workspaces haben weitere Mitglieder, daher werden keine Projekte gelöscht.",
-      "leave": "Sie verlassen {list}; alle anderen bleiben."
+      "leave": "Sie verlassen {list}; alle anderen bleiben.",
+      "noWorkspaces": "Sie gehören keinem Workspace an, daher löschen wir nur Ihr Konto und Ihre Anmeldedaten."
     },
     "forms": {
       "role": "Rolle",
@@ -141,8 +142,8 @@
       "noSmtpCode": "E-Mail ist nicht konfiguriert (SMTP). Der Code steht im Serverlog.",
       "noAccess": "Diese E-Mail-Adresse hat keinen Zugang. Auf einem selbst gehosteten Server fügen Sie sie zu OZVI_ADMIN_EMAILS hinzu.",
       "emailLoginOff": "Die Anmeldung per E-Mail ist für dieses Projekt nicht aktiviert.",
-      "tooManyProjects": "Zu viele neue Projekte innerhalb einer Stunde. Versuchen Sie es später erneut.",
-      "tooManyFree": "Aus diesem Netzwerk wurden heute zu viele kostenlose Bereiche angelegt. Versuchen Sie es morgen, fügen Sie das Projekt einem bestehenden Bereich hinzu oder wechseln Sie zu Pro.",
+      "tooManyProjects": "Sie haben in der letzten Stunde zu viele Projekte angelegt. Das nächste können Sie in {minutes} Min. anlegen.",
+      "tooManyFree": "Aus einem Netzwerk lassen sich pro Tag nur wenige kostenlose Bereiche anlegen, und das heutige Limit für dieses Netzwerk ist erreicht. Versuchen Sie es in {hours} Std. erneut oder schreiben Sie uns an support@ozvi.io, wir helfen Ihnen.",
       "nameLength": "Der Name muss 2 bis 60 Zeichen lang sein.",
       "slugInvalid": "Die Adresse darf Kleinbuchstaben, Ziffern und Bindestriche enthalten (2–41 Zeichen) und kein reserviertes Wort sein.",
       "pickLook": "Wählen Sie ein Aussehen.",
@@ -169,7 +170,9 @@
       "signupClosed": "Die Registrierung ist noch nicht geöffnet. Schreiben Sie an support@ozvi.io, wir melden uns zum Start.",
       "alreadySubscribed": "Dieser Arbeitsbereich hat bereits ein Abo. Wechseln Sie den Plan darin, ohne doppelt zu zahlen.",
       "freeExistsOther": "Für dieses Postfach gibt es bereits einen kostenlosen Workspace unter einem anderen Konto (dieselbe Adresse mit +Tag oder Punkten). Melden Sie sich mit diesem Konto an und fügen Sie das Projekt dort hinzu, oder lassen Sie sich vom Inhaber einladen.",
-      "nameChars": "Der Name darf die Zeichen < und > nicht enthalten. Entfernen Sie sie und speichern Sie erneut."
+      "nameChars": "Der Name darf die Zeichen < und > nicht enthalten. Entfernen Sie sie und speichern Sie erneut.",
+      "tooManyFreeHasWorkspace": "Aus einem Netzwerk lassen sich pro Tag nur wenige kostenlose Bereiche anlegen, und das heutige Limit für dieses Netzwerk ist erreicht. Einen neuen Bereich können Sie in {hours} Std. anlegen, das Projekt aber sofort einem Bereich hinzufügen, dem Sie bereits angehören.",
+      "addToWorkspace": "Projekt zu {workspace} hinzufügen"
     },
     "workspace": {
       "not_owner": "Das kann nur ein Inhaber des Workspace.",
@@ -180,7 +183,7 @@
       "last_owner": "Ein Workspace braucht mindestens einen Inhaber. Machen Sie zuerst eine andere Person zum Inhaber.",
       "no_account": "Dieses Konto existiert nicht mehr.",
       "email_taken": "Für {email} gibt es bereits ein anderes Ozvi-Konto. Löschen Sie es oder verwenden Sie eine andere Adresse.",
-      "subscription": "{ws} hat ein aktives Abonnement. Kündigen Sie es unter „Tarif & Nutzung“ (Abonnement verwalten) und löschen Sie danach Ihr Konto.",
+      "subscription": "{ws} hat ein aktives Abonnement. Kündigen Sie es unter „Tarif & Nutzung“ (Schaltfläche „Abo kündigen“) und löschen Sie danach Ihr Konto.",
       "sole_owner": "Sie sind der einzige Inhaber von {ws}. Machen Sie unter „Team“ eine andere Person zum Inhaber oder entfernen Sie die übrigen Mitglieder."
     },
     "billing": {
@@ -723,7 +726,7 @@
       "text": "Absätze für Ihre Datenschutzerklärung und Ihr Verarbeitungsverzeichnis, zusammengestellt aus den Einstellungen dieses Projekts. Ergänzen Sie die Angaben in eckigen Klammern.",
       "legalTitle": "Dies ist keine Rechtsberatung",
       "legal": "Es ist ein Entwurf auf Grundlage der Projekteinstellungen. Lassen Sie ihn vor der Veröffentlichung juristisch prüfen.",
-      "cloud": "Ozvi Cloud: Für die Daten Ihrer Nutzer sind Sie Verantwortlicher und Ozvi Ihr Auftragsverarbeiter. Sie brauchen auch einen Auftragsverarbeitungsvertrag (AVV/DPA); fordern Sie ihn unter {email} an.",
+      "cloud": "Ozvi Cloud: Für die Daten Ihrer Nutzer sind Sie Verantwortlicher und Ozvi Ihr Auftragsverarbeiter. Der Auftragsverarbeitungsvertrag (AVV/DPA) ist Teil der Nutzungsbedingungen und gilt ab der Registrierung; den Text finden Sie unter ozvi.io/dpa. Ein unterschriebenes Exemplar schicken wir Ihnen auf Anfrage ({email}).",
       "self": "Selbst gehostet: Sie sind Verantwortlicher und brauchen keinen Auftragsverarbeitungsvertrag mit den Autoren von Ozvi. Verträge schließen Sie direkt mit den im Text genannten Anbietern (Hosting, E-Mail, KI, Integrationen).",
       "subprocessors": "Liste der Unterauftragsverarbeiter",
       "language": "Sprache des Textes",
@@ -1617,7 +1620,7 @@
       "paidTitle": "Vielen Dank für Ihre Zahlung",
       "paid": "Der Tarif wechselt, sobald der Zahlungsdienst die Zahlung bestätigt, in der Regel innerhalb einer Minute.",
       "pastDueTitle": "Die letzte Zahlung ist fehlgeschlagen",
-      "pastDue": "Aktualisieren Sie Ihre Karte in der Abonnementverwaltung, sonst wechselt der Workspace zu Free.",
+      "pastDue": "Aktualisieren Sie Ihre Karte über die Schaltfläche „Rechnungen und Karte“, sonst wechselt der Workspace zu Free.",
       "usageTitle": "Nutzung in diesem Monat",
       "emails": "E-Mails",
       "attachments": "Anhänge",
@@ -2739,17 +2742,17 @@
       },
       "devItems": [
         {
-          "href": "#developers",
+          "href": "/docs/widget",
           "title": "Widget",
           "text": "Ein Skript, Shadow DOM, unter 20 kB"
         },
         {
-          "href": "#developers",
+          "href": "/docs/widget#sign-in",
           "title": "Anmeldung",
           "text": "Signiertes Token, OIDC oder E-Mail-Code"
         },
         {
-          "href": "#developers",
+          "href": "/docs/mcp",
           "title": "MCP-Server",
           "text": "Claude Code, Cursor, VS Code"
         },
@@ -3519,6 +3522,7 @@
     "home": "Ozvi – Startseite",
     "widget": "Widget",
     "api": "REST-API",
+    "mcp": "MCP-Server",
     "webhooks": "Webhooks",
     "automation": "Automatisierung",
     "toc": "Auf dieser Seite",
