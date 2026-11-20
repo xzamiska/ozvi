@@ -1422,7 +1422,8 @@
           "sso_secret": "New SSO key",
           "oidc": "OIDC sign-in configured",
           "domain": "Custom domain changed",
-          "domain_verified": "Custom domain verified"
+          "domain_verified": "Custom domain verified",
+          "deleted": "Project deleted"
         },
         "token": {
           "created": "New API token",
@@ -1496,8 +1497,16 @@
         "triage": {
           "merged": "Duplicates merged",
           "bulk": "Bulk change"
+        },
+        "changelog": {
+          "published": "Update published",
+          "draft_deleted": "Update draft deleted"
+        },
+        "data": {
+          "exported": "Data exported to CSV"
         }
-      }
+      },
+      "rows": "{n, plural, one {# row} other {# rows}}"
     },
     "delivery": {
       "title": "Delivery",

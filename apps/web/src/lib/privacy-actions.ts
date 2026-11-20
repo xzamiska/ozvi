@@ -5,6 +5,7 @@ import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { logActivity, who } from "./activity";
 import { db } from "./db";
 import { getCtx } from "./project";
 import { isPace } from "./email/pace";
@@ -34,6 +35,8 @@ export async function deleteWholeProject(slug: string, _: PrivacyState, form: Fo
   if (!(await boardUserIsOwner(project, user))) return { error: t("deleteOwnerOnly") };
   if (String(form.get("confirm") ?? "").trim() !== project.slug) return { error: t("deleteConfirm", { slug: project.slug }) };
   await deleteProject(project);
+  // Without projectId: the project's own rows (and their activity) are gone, this one stays with the workspace.
+  await logActivity({ workspaceId: project.workspaceId, actor: who(user), action: "project.deleted", detail: `${project.name} (/${project.slug})` });
   redirect(process.env.OZVI_MODE === "cloud" ? "/app" : "/");
 }
 

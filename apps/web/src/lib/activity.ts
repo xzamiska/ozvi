@@ -42,6 +42,12 @@ export function activityDetail(action: string, detail: string | null, locale: Lo
       r.contacts && t("activity.retention.contacts", { n: r.contacts }),
     ].filter(Boolean).join(" · ");
   }
+  if (action === "data.exported" && detail) {
+    // "ideas #12 (40)": the export menu's label and the row count in the reader's language; "JSON" as it is.
+    const m = /^(ideas|bugs|comments|voters)(?:_(?:idea|bug))?( #\d+)? \((\d+)\)$/.exec(detail);
+    if (!m) return detail;
+    return `${translator(locale, "export")(`menu.${m[1] as "ideas"}`)}${m[2] ?? ""} · ${translator(locale, "console")("activity.rows", { n: Number(m[3]) })}`;
+  }
   if (!detail || (action !== "member.invited" && action !== "member.role")) return detail;
   const m = /^(.*(?:\(|→ ))([^()]+?)(\)?)$/u.exec(detail);
   const code = m && ROLE_CODE.get(m[2]!);

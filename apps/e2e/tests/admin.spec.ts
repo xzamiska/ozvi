@@ -5,7 +5,7 @@ import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import { createServer as createNetServer, type AddressInfo } from "node:net";
 import { withProject } from "@ozvi/db";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { anonymous, api, backdate, createItem, openAdmin, ownerAdmin, section, seedToken, setPlan, SSO_SECRET, ssoPerson, ssoVisit } from "../lib/admin";
 import { db, enableSso, projectBySlug, schema, ssoUrl } from "../lib/db";
 import { email, uniq } from "../lib/env";
@@ -797,6 +797,11 @@ test.describe("board settings: import, data, deletion", () => {
     expect(dump).toContain("Nápad na export");
     // Not for anyone else.
     expect((await request.get(`/${slug}/admin/export`)).status()).toBe(403);
+    // Both downloads carry customers' data: the console Activity says who took what.
+    const project = (await projectBySlug(slug))!;
+    const exported = await db.select({ detail: schema.activity.detail }).from(schema.activity)
+      .where(and(eq(schema.activity.projectId, project.id), eq(schema.activity.action, "data.exported")));
+    expect(exported.map((r) => r.detail).sort()).toEqual(["JSON", "ideas (1)"]);
 
     const ret = page.locator("#retention");
     await ret.getByRole("combobox", { name: "Záznam z hlásenia chyby" }).click();
@@ -839,6 +844,10 @@ test.describe("board settings: import, data, deletion", () => {
     await confirm.click();
     await page.waitForURL(/\/app(\/|$)/);
     expect((await request.get(`/${slug}/ideas`)).status()).toBe(404);
-    expect(await projectBySlug(slug)).toBeUndefined();
+    const gone = await projectBySlug(slug);
+    expect(gone).toBeUndefined();
+    // The workspace keeps a line about it (the project's own rows went with it).
+    const deleted = await db.select({ detail: schema.activity.detail }).from(schema.activity).where(eq(schema.activity.action, "project.deleted"));
+    expect(deleted.map((r) => r.detail)).toContainEqual(expect.stringContaining(`(/${slug})`));
   });
 });

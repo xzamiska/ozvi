@@ -63,10 +63,10 @@ export async function entryItems(tx: Tx, entryId: string): Promise<Item[]> {
  * Publishing: linked ideas become "shipped" (quietly — the changelog e-mail replaces the status
  * e-mail) and every voter gets one e-mail with the entry. Publishing twice does nothing.
  */
-export async function publishEntry(tx: Tx, project: Project, actor: User | null, entryId: string, locale: Locale = "sk"): Promise<{ entry: Entry; emailed: number }> {
+export async function publishEntry(tx: Tx, project: Project, actor: User | null, entryId: string, locale: Locale = "sk"): Promise<{ entry: Entry; emailed: number; fresh: boolean }> {
   const [entry] = await tx.select().from(changelogEntries).where(eq(changelogEntries.id, entryId)).for("update");
   if (!entry) throw new DomainError(translator(locale, "errors")("entryMissing"));
-  if (entry.publishedAt) return { entry, emailed: 0 };
+  if (entry.publishedAt) return { entry, emailed: 0, fresh: false };
   // Publishing is the human approval: the publisher is recorded as the reviewer (shown next to an AI label).
   const now = new Date();
   const [published] = await tx.update(changelogEntries).set({ publishedAt: now, updatedAt: now, aiPending: false, reviewedById: actor?.id ?? null, reviewedAt: actor ? now : null })
@@ -89,5 +89,5 @@ export async function publishEntry(tx: Tx, project: Project, actor: User | null,
     ideas: ideas.map((i) => ({ number: i.number, title: i.title, url: `${projectOrigin(project)}/${project.slug}/i/${i.number}` })),
     ai: aiLabel(published!, actor?.name ?? null),
   });
-  return { entry: published!, emailed };
+  return { entry: published!, emailed, fresh: true };
 }

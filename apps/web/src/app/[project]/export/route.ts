@@ -1,6 +1,7 @@
 import { withProject } from "@ozvi/db";
 import type { NextRequest } from "next/server";
 import { translator } from "@/i18n/messages";
+import { logActivity, who } from "@/lib/activity";
 import { csvHeaders, parseDelimiter, toCsv } from "@/lib/csv";
 import { db } from "@/lib/db";
 import { projectOrigin } from "@/lib/email/url";
@@ -32,5 +33,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ proj
         : exportItems(tx, f, locale, d, (n) => `${origin}/${slug}/i/${n}`, project));
   const fileKey = (what === "comments" || what === "voters" ? `${what}_${kind}` : what) as "ideas" | "bugs" | "comments_idea" | "comments_bug" | "voters_idea" | "voters_bug";
   const name = `${slug}-${t(`file.${fileKey}`)}${f.number ? `-${f.number}` : ""}-${new Date().toISOString().slice(0, 10)}.csv`;
+  // Exports carry customers' e-mails: the lead sees who took which list in the console Activity.
+  await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "data.exported", detail: `${fileKey}${f.number ? ` #${f.number}` : ""} (${sheet.rows.length})` });
   return new Response(toCsv(sheet.header, sheet.rows, d), { headers: csvHeaders(name) });
 }

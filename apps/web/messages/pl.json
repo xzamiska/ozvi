@@ -1422,7 +1422,8 @@
           "sso_secret": "Nowy klucz SSO",
           "oidc": "Skonfigurowano logowanie przez OIDC",
           "domain": "Zmieniono własną domenę",
-          "domain_verified": "Zweryfikowano własną domenę"
+          "domain_verified": "Zweryfikowano własną domenę",
+          "deleted": "Usunięty projekt"
         },
         "token": {
           "created": "Nowy token API",
@@ -1496,8 +1497,16 @@
         "triage": {
           "merged": "Scalone duplikaty",
           "bulk": "Zmiana zbiorcza"
+        },
+        "changelog": {
+          "published": "Opublikowana aktualizacja",
+          "draft_deleted": "Usunięty szkic aktualizacji"
+        },
+        "data": {
+          "exported": "Eksport danych do CSV"
         }
-      }
+      },
+      "rows": "{n, plural, one {# wiersz} few {# wiersze} other {# wierszy}}"
     },
     "delivery": {
       "title": "Dostarczanie",

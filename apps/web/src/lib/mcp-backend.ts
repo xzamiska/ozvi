@@ -70,6 +70,11 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
     : new ToolError(`Časť ${s} je v tomto projekte vypnutá (nastavenia → Časti boardu).`);
   /** Changelog tools only while the changelog section is on. */
   const changelogRun = <T>(fn: (tx: Tx) => Promise<T>) => (sectionOn(project, "changelog") ? run(fn) : Promise.reject(sectionOff("changelog")));
+  // Like publishing on the board: recorded in the console Activity, then only the url and count go back to the agent.
+  const logPublished = async (r: { url: string; emailed: number; fresh?: boolean; title?: string }) => {
+    if (r.fresh) await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "changelog.published", detail: `${(r.title ?? "").slice(0, 160)} (${r.emailed}, MCP)` });
+    return { url: r.url, emailed: r.emailed };
+  };
 
   type AuthorRow = (TrustSubject & { name: string | null }) | null;
   const authorCols = { name: users.name, role: users.role, externalId: users.externalId, traits: users.traits };
@@ -561,8 +566,8 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
     publishDraft: (id) => changelogRun(async (tx) => {
       if (!customers) throw new ToolError("Drafts are for team tokens with the triage scope.");
       const r = await publishEntry(tx, project, user, id);
-      return { url: changelogEntryUrl(base, r.entry.id), emailed: r.emailed };
-    }),
+      return { url: changelogEntryUrl(base, r.entry.id), emailed: r.emailed, fresh: r.fresh, title: r.entry.title };
+    }).then(logPublished),
 
     linkIssue: (n, issue) => run(async (tx) => linkIssue(tx, project, user, await mustGet(tx, n), issue)),
     createIssue: (n) => run(async (tx) => createIssue(tx, project, user, await mustGet(tx, n))),
@@ -585,8 +590,8 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
       const ideas = await ideasFor(tx, input.items);
       const entry = await saveEntry(tx, project, user, { title: input.title, body: input.body, itemIds: ideas.map((i) => i.id) });
       const r = await publishEntry(tx, project, user, entry.id);
-      return { url: changelogEntryUrl(base, entry.id), emailed: r.emailed };
-    }),
+      return { url: changelogEntryUrl(base, entry.id), emailed: r.emailed, fresh: r.fresh, title: entry.title };
+    }).then(logPublished),
 
     merge: async (s, t) => {
       const out = await run(async (tx) => {

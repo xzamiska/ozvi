@@ -1422,7 +1422,8 @@
           "sso_secret": "Nový klíč SSO",
           "oidc": "Nastaveno přihlášení přes OIDC",
           "domain": "Změněna vlastní doména",
-          "domain_verified": "Ověřena vlastní doména"
+          "domain_verified": "Ověřena vlastní doména",
+          "deleted": "Smazaný projekt"
         },
         "token": {
           "created": "Nový API token",
@@ -1496,8 +1497,16 @@
         "triage": {
           "merged": "Sloučené duplicity",
           "bulk": "Hromadná změna"
+        },
+        "changelog": {
+          "published": "Zveřejněná novinka",
+          "draft_deleted": "Smazaný koncept novinky"
+        },
+        "data": {
+          "exported": "Export dat do CSV"
         }
-      }
+      },
+      "rows": "{n, plural, one {# řádek} few {# řádky} other {# řádků}}"
     },
     "delivery": {
       "title": "Doručování",

@@ -1422,7 +1422,8 @@
           "sso_secret": "Új SSO-kulcs",
           "oidc": "OIDC-bejelentkezés beállítva",
           "domain": "Saját domain módosítva",
-          "domain_verified": "Saját domain ellenőrizve"
+          "domain_verified": "Saját domain ellenőrizve",
+          "deleted": "Törölt projekt"
         },
         "token": {
           "created": "Új API-token",
@@ -1496,8 +1497,16 @@
         "triage": {
           "merged": "Duplikátumok összevonva",
           "bulk": "Csoportos módosítás"
+        },
+        "changelog": {
+          "published": "Közzétett újdonság",
+          "draft_deleted": "Törölt újdonságvázlat"
+        },
+        "data": {
+          "exported": "Adatexport CSV-be"
         }
-      }
+      },
+      "rows": "{n, plural, one {# sor} other {# sor}}"
     },
     "delivery": {
       "title": "Kézbesítés",
