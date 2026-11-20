@@ -2719,17 +2719,17 @@
       },
       "devItems": [
         {
-          "href": "#developers",
+          "href": "/docs/widget",
           "title": "Widget",
           "text": "Egy szkript, shadow DOM, 20 kB alatt"
         },
         {
-          "href": "#developers",
+          "href": "/docs/widget#sign-in",
           "title": "Bejelentkezés",
           "text": "Aláírt token, OIDC vagy e-mailes kód"
         },
         {
-          "href": "#developers",
+          "href": "/docs/mcp",
           "title": "MCP-szerver",
           "text": "Claude Code, Cursor, VS Code"
         },
@@ -3499,6 +3499,7 @@
     "home": "Az Ozvi kezdőlapja",
     "widget": "Widget",
     "api": "REST API",
+    "mcp": "MCP-szerver",
     "webhooks": "Webhookok",
     "automation": "Automatizálás",
     "toc": "Ezen az oldalon",

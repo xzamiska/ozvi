@@ -2719,17 +2719,17 @@
       },
       "devItems": [
         {
-          "href": "#developers",
+          "href": "/docs/widget",
           "title": "Widget",
           "text": "Jeden skript, shadow DOM, do 20 kB"
         },
         {
-          "href": "#developers",
+          "href": "/docs/widget#sign-in",
           "title": "Přihlášení",
           "text": "Podepsaný token, OIDC nebo kód do e-mailu"
         },
         {
-          "href": "#developers",
+          "href": "/docs/mcp",
           "title": "MCP server",
           "text": "Claude Code, Cursor, VS Code"
         },
@@ -3499,6 +3499,7 @@
     "home": "Ozvi – úvod",
     "widget": "Widget",
     "api": "REST API",
+    "mcp": "MCP server",
     "webhooks": "Webhooky",
     "automation": "Automatizace",
     "toc": "Na této stránce",

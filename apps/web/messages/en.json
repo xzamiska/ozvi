@@ -2719,17 +2719,17 @@
       },
       "devItems": [
         {
-          "href": "#developers",
+          "href": "/docs/widget",
           "title": "Widget",
           "text": "One script, shadow DOM, under 20 kB"
         },
         {
-          "href": "#developers",
+          "href": "/docs/widget#sign-in",
           "title": "Sign-in",
           "text": "Signed token, OIDC or e-mail code"
         },
         {
-          "href": "#developers",
+          "href": "/docs/mcp",
           "title": "MCP server",
           "text": "Claude Code, Cursor, VS Code"
         },
@@ -3499,6 +3499,7 @@
     "home": "Ozvi home",
     "widget": "Widget",
     "api": "REST API",
+    "mcp": "MCP server",
     "webhooks": "Webhooks",
     "automation": "Automation",
     "toc": "On this page",
