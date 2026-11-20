@@ -1,6 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
+import Link from "next/link";
 import { useActionState, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -89,7 +90,12 @@ export function NewProjectForm({ workspaces, swatches, base, initial, newWorkspa
         </div>
       </fieldset>
 
-      {state.error && <p className="text-[14px] font-medium text-destructive" role="alert">{state.error}</p>}
+      {state.error && (
+        <div className="grid gap-1.5" role="alert">
+          <p className="text-[14px] font-medium text-destructive">{state.error}</p>
+          {state.link && <Link href={state.link.href} className="text-[14px] font-medium text-brand-text hover:underline">{state.link.label}</Link>}
+        </div>
+      )}
       <div className="flex flex-wrap items-center gap-3 border-t pt-6">
         <Button type="submit" size="lg" disabled={pending || !!state.created} aria-busy={pending || undefined}>
           {pending || state.created ? t("creating") : t("create")}

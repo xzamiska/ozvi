@@ -141,8 +141,8 @@
       "noSmtpCode": "E-maily nejsou nastavené (SMTP). Kód je v logu serveru.",
       "noAccess": "Tento e-mail nemá přístup. Na vlastním serveru ho přidejte do OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "Přihlášení e-mailem není pro tento projekt zapnuté.",
-      "tooManyProjects": "Příliš mnoho nových projektů za hodinu. Zkuste to později.",
-      "tooManyFree": "Z této sítě dnes vzniklo příliš mnoho bezplatných prostorů. Zkuste to zítra, přidejte projekt do existujícího prostoru nebo přejděte na Pro.",
+      "tooManyProjects": "Za poslední hodinu jste založili příliš mnoho projektů. Další založíte za {minutes} min.",
+      "tooManyFree": "Z jedné sítě lze za den založit jen několik bezplatných prostorů a z této sítě je dnešní limit vyčerpán. Zkuste to znovu za {hours} h, nebo nám napište na support@ozvi.io a pomůžeme vám.",
       "nameLength": "Název musí mít 2 až 60 znaků.",
       "slugInvalid": "Adresa smí obsahovat malá písmena, číslice a pomlčky (2–41 znaků) a nesmí být vyhrazená.",
       "pickLook": "Vyberte vzhled.",
@@ -169,7 +169,9 @@
       "signupClosed": "Registrace ještě není otevřená. Napište nám na support@ozvi.io a ozveme se, až spustíme.",
       "alreadySubscribed": "Prostor už má předplatné. Plán změníte přímo v něm, bez další platby navíc.",
       "freeExistsOther": "Pro tuto e-mailovou schránku už existuje bezplatný prostor pod jiným účtem (stejná adresa s +značkou nebo s tečkami). Přihlaste se tím účtem a projekt přidejte tam, nebo vás jeho vlastník pozve do prostoru.",
-      "nameChars": "Jméno nesmí obsahovat znaky < a >. Odstraňte je a uložte znovu."
+      "nameChars": "Jméno nesmí obsahovat znaky < a >. Odstraňte je a uložte znovu.",
+      "tooManyFreeHasWorkspace": "Z jedné sítě lze za den založit jen několik bezplatných prostorů a z této sítě je dnešní limit vyčerpán. Nový prostor založíte za {hours} h, projekt ale můžete hned přidat do prostoru, ve kterém už jste.",
+      "addToWorkspace": "Přidat projekt do prostoru {workspace}"
     },
     "workspace": {
       "not_owner": "Tohle může udělat jen vlastník prostoru.",

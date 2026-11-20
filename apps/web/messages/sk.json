@@ -141,8 +141,8 @@
       "noSmtpCode": "E-maily nie sú nastavené (SMTP). Kód je v logu servera.",
       "noAccess": "Tento e-mail nemá prístup. Na vlastnom serveri ho pridajte do OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "Prihlásenie e-mailom nie je pre tento projekt zapnuté.",
-      "tooManyProjects": "Priveľa nových projektov za hodinu. Skúste neskôr.",
-      "tooManyFree": "Z tejto siete dnes vzniklo priveľa bezplatných priestorov. Skúste to zajtra, pridajte projekt do existujúceho priestoru alebo prejdite na Pro.",
+      "tooManyProjects": "Za poslednú hodinu ste založili priveľa projektov. Ďalší založíte o {minutes} min.",
+      "tooManyFree": "Z jednej siete sa dá za deň založiť len niekoľko bezplatných priestorov a z tejto siete je dnešný limit vyčerpaný. Skúste to znova o {hours} h, alebo nám napíšte na support@ozvi.io a pomôžeme vám.",
       "nameLength": "Názov musí mať 2 až 60 znakov.",
       "slugInvalid": "Adresa smie mať malé písmená, číslice a pomlčky (2–41 znakov) a nesmie byť vyhradená.",
       "pickLook": "Vyberte vzhľad.",
@@ -169,7 +169,9 @@
       "signupClosed": "Registrácia ešte nie je otvorená. Napíšte nám na support@ozvi.io a ozveme sa, keď spustíme.",
       "alreadySubscribed": "Priestor už má predplatné. Plán zmeníte priamo v ňom, bez ďalšej platby navyše.",
       "freeExistsOther": "Pre túto e-mailovú schránku už existuje bezplatný priestor pod iným účtom (rovnaká adresa s +značkou alebo s bodkami). Prihláste sa tým účtom a projekt pridajte tam, alebo vás jeho vlastník pozve do priestoru.",
-      "nameChars": "Meno nesmie obsahovať znaky < a >. Odstráňte ich a uložte znova."
+      "nameChars": "Meno nesmie obsahovať znaky < a >. Odstráňte ich a uložte znova.",
+      "tooManyFreeHasWorkspace": "Z jednej siete sa dá za deň založiť len niekoľko bezplatných priestorov a z tejto siete je dnešný limit vyčerpaný. Nový priestor založíte o {hours} h, projekt však môžete hneď pridať do priestoru, v ktorom už ste.",
+      "addToWorkspace": "Pridať projekt do priestoru {workspace}"
     },
     "workspace": {
       "not_owner": "Toto môže urobiť len vlastník priestoru.",

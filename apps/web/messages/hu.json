@@ -141,8 +141,8 @@
       "noSmtpCode": "Az e-mail-küldés nincs beállítva (SMTP). A kód a szerver naplójában található.",
       "noAccess": "Ennek az e-mail-címnek nincs hozzáférése. Saját üzemeltetésű szerveren add hozzá az OZVI_ADMIN_EMAILS listához.",
       "emailLoginOff": "Az e-mailes bejelentkezés nincs bekapcsolva ennél a projektnél.",
-      "tooManyProjects": "Túl sok új projekt egy órán belül. Próbáld újra később.",
-      "tooManyFree": "Erről a hálózatról ma túl sok ingyenes munkaterület jött létre. Próbálja újra holnap, adja a projektet egy meglévő munkaterülethez, vagy váltson Pro csomagra.",
+      "tooManyProjects": "Az elmúlt órában túl sok projektet hozott létre. A következőt {minutes} perc múlva hozhatja létre.",
+      "tooManyFree": "Egy hálózatról naponta csak néhány ingyenes munkaterület hozható létre, és erről a hálózatról a mai keret elfogyott. Próbálja újra {hours} óra múlva, vagy írjon nekünk a support@ozvi.io címre, és segítünk.",
       "nameLength": "A név 2–60 karakter hosszú lehet.",
       "slugInvalid": "A cím kisbetűket, számjegyeket és kötőjeleket tartalmazhat (2–41 karakter), és nem lehet foglalt szó.",
       "pickLook": "Válassz megjelenést.",
@@ -169,7 +169,9 @@
       "signupClosed": "A regisztráció még nem nyílt meg. Írjon a support@ozvi.io címre, és szólunk, amikor elindulunk.",
       "alreadySubscribed": "Ennek a munkaterületnek már van előfizetése. A csomagot abban váltsd, dupla fizetés nélkül.",
       "freeExistsOther": "Ehhez a postafiókhoz már tartozik ingyenes munkaterület egy másik fiókban (ugyanaz a cím +címkével vagy pontokkal). Jelentkezz be azzal a fiókkal, és ott add hozzá a projektet, vagy kérd meg a tulajdonosát, hogy hívjon meg.",
-      "nameChars": "A név nem tartalmazhatja a < és > karaktereket. Töröld őket, és mentsd újra."
+      "nameChars": "A név nem tartalmazhatja a < és > karaktereket. Töröld őket, és mentsd újra.",
+      "tooManyFreeHasWorkspace": "Egy hálózatról naponta csak néhány ingyenes munkaterület hozható létre, és erről a hálózatról a mai keret elfogyott. Új munkaterületet {hours} óra múlva hozhat létre, a projektet viszont már most hozzáadhatja egy munkaterülethez, amelynek tagja.",
+      "addToWorkspace": "Projekt hozzáadása ehhez: {workspace}"
     },
     "workspace": {
       "not_owner": "Ezt csak a munkaterület tulajdonosa teheti meg.",

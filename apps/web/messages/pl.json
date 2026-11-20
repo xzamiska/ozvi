@@ -141,8 +141,8 @@
       "noSmtpCode": "E-mail nie jest skonfigurowany (SMTP). Kod znajdziesz w logu serwera.",
       "noAccess": "Ten adres e-mail nie ma dostępu. Na własnym serwerze dodaj go do OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "Logowanie e-mailem nie jest włączone w tym projekcie.",
-      "tooManyProjects": "Za dużo nowych projektów w ciągu godziny. Spróbuj później.",
-      "tooManyFree": "Z tej sieci utworzono dziś zbyt wiele bezpłatnych przestrzeni. Spróbuj jutro, dodaj projekt do istniejącej przestrzeni lub przejdź na Pro.",
+      "tooManyProjects": "W ciągu ostatniej godziny utworzono zbyt wiele projektów. Kolejny utworzysz za {minutes} min.",
+      "tooManyFree": "Z jednej sieci można dziennie utworzyć tylko kilka bezpłatnych przestrzeni, a dzisiejszy limit dla tej sieci jest wyczerpany. Spróbuj ponownie za {hours} godz. albo napisz do nas na support@ozvi.io, a pomożemy.",
       "nameLength": "Nazwa musi mieć od 2 do 60 znaków.",
       "slugInvalid": "Adres może zawierać małe litery, cyfry i łączniki (2–41 znaków) i nie może być słowem zastrzeżonym.",
       "pickLook": "Wybierz wygląd.",
@@ -169,7 +169,9 @@
       "signupClosed": "Rejestracja nie jest jeszcze otwarta. Napisz na support@ozvi.io, a damy znać, gdy wystartujemy.",
       "alreadySubscribed": "Ta przestrzeń ma już subskrypcję. Zmień plan w niej, bez drugiej płatności.",
       "freeExistsOther": "Ta skrzynka pocztowa ma już bezpłatną przestrzeń roboczą na innym koncie (ten sam adres z +tagiem lub kropkami). Zaloguj się na to konto i dodaj projekt tam albo poproś właściciela o zaproszenie.",
-      "nameChars": "Imię nie może zawierać znaków < i >. Usuń je i zapisz ponownie."
+      "nameChars": "Imię nie może zawierać znaków < i >. Usuń je i zapisz ponownie.",
+      "tooManyFreeHasWorkspace": "Z jednej sieci można dziennie utworzyć tylko kilka bezpłatnych przestrzeni, a dzisiejszy limit dla tej sieci jest wyczerpany. Nową przestrzeń utworzysz za {hours} godz., ale projekt możesz od razu dodać do przestrzeni, w której już jesteś.",
+      "addToWorkspace": "Dodaj projekt do przestrzeni {workspace}"
     },
     "workspace": {
       "not_owner": "Może to zrobić tylko właściciel przestrzeni roboczej.",

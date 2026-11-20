@@ -141,8 +141,8 @@
       "noSmtpCode": "E-mail isn’t configured (SMTP). The code is in the server log.",
       "noAccess": "This e-mail doesn’t have access. On a self-hosted server, add it to OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "E-mail sign-in isn’t enabled for this project.",
-      "tooManyProjects": "Too many new projects in an hour. Try again later.",
-      "tooManyFree": "Too many free workspaces were created from this network today. Try again tomorrow, add the project to an existing workspace or upgrade to Pro.",
+      "tooManyProjects": "You created too many projects in the last hour. You can create the next one in {minutes} min.",
+      "tooManyFree": "Only a few free workspaces can be created from one network per day, and today's limit for this network is used up. Try again in {hours} h, or write to support@ozvi.io and we'll help.",
       "nameLength": "The name must be 2 to 60 characters.",
       "slugInvalid": "The address may use lowercase letters, digits and hyphens (2–41 characters) and can’t be a reserved word.",
       "pickLook": "Pick a look.",
@@ -169,7 +169,9 @@
       "signupClosed": "Sign-up isn’t open yet. Write to support@ozvi.io and we’ll let you know when we launch.",
       "alreadySubscribed": "This workspace already has a subscription. Change the plan on it, without paying twice.",
       "freeExistsOther": "This mailbox already has a free workspace under another account (the same address with a +tag or dots). Sign in with that account and add the project there, or have its owner invite you.",
-      "nameChars": "The name cannot contain < or >. Remove them and save again."
+      "nameChars": "The name cannot contain < or >. Remove them and save again.",
+      "tooManyFreeHasWorkspace": "Only a few free workspaces can be created from one network per day, and today's limit for this network is used up. You can create a new workspace in {hours} h, but you can add the project to a workspace you're already in right now.",
+      "addToWorkspace": "Add the project to {workspace}"
     },
     "workspace": {
       "not_owner": "Only a workspace owner can do this.",

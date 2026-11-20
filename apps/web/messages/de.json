@@ -141,8 +141,8 @@
       "noSmtpCode": "E-Mail ist nicht konfiguriert (SMTP). Der Code steht im Serverlog.",
       "noAccess": "Diese E-Mail-Adresse hat keinen Zugang. Auf einem selbst gehosteten Server fügen Sie sie zu OZVI_ADMIN_EMAILS hinzu.",
       "emailLoginOff": "Die Anmeldung per E-Mail ist für dieses Projekt nicht aktiviert.",
-      "tooManyProjects": "Zu viele neue Projekte innerhalb einer Stunde. Versuchen Sie es später erneut.",
-      "tooManyFree": "Aus diesem Netzwerk wurden heute zu viele kostenlose Bereiche angelegt. Versuchen Sie es morgen, fügen Sie das Projekt einem bestehenden Bereich hinzu oder wechseln Sie zu Pro.",
+      "tooManyProjects": "Sie haben in der letzten Stunde zu viele Projekte angelegt. Das nächste können Sie in {minutes} Min. anlegen.",
+      "tooManyFree": "Aus einem Netzwerk lassen sich pro Tag nur wenige kostenlose Bereiche anlegen, und das heutige Limit für dieses Netzwerk ist erreicht. Versuchen Sie es in {hours} Std. erneut oder schreiben Sie uns an support@ozvi.io, wir helfen Ihnen.",
       "nameLength": "Der Name muss 2 bis 60 Zeichen lang sein.",
       "slugInvalid": "Die Adresse darf Kleinbuchstaben, Ziffern und Bindestriche enthalten (2–41 Zeichen) und kein reserviertes Wort sein.",
       "pickLook": "Wählen Sie ein Aussehen.",
@@ -169,7 +169,9 @@
       "signupClosed": "Die Registrierung ist noch nicht geöffnet. Schreiben Sie an support@ozvi.io, wir melden uns zum Start.",
       "alreadySubscribed": "Dieser Arbeitsbereich hat bereits ein Abo. Wechseln Sie den Plan darin, ohne doppelt zu zahlen.",
       "freeExistsOther": "Für dieses Postfach gibt es bereits einen kostenlosen Workspace unter einem anderen Konto (dieselbe Adresse mit +Tag oder Punkten). Melden Sie sich mit diesem Konto an und fügen Sie das Projekt dort hinzu, oder lassen Sie sich vom Inhaber einladen.",
-      "nameChars": "Der Name darf die Zeichen < und > nicht enthalten. Entfernen Sie sie und speichern Sie erneut."
+      "nameChars": "Der Name darf die Zeichen < und > nicht enthalten. Entfernen Sie sie und speichern Sie erneut.",
+      "tooManyFreeHasWorkspace": "Aus einem Netzwerk lassen sich pro Tag nur wenige kostenlose Bereiche anlegen, und das heutige Limit für dieses Netzwerk ist erreicht. Einen neuen Bereich können Sie in {hours} Std. anlegen, das Projekt aber sofort einem Bereich hinzufügen, dem Sie bereits angehören.",
+      "addToWorkspace": "Projekt zu {workspace} hinzufügen"
     },
     "workspace": {
       "not_owner": "Das kann nur ein Inhaber des Workspace.",
