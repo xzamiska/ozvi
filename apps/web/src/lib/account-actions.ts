@@ -14,6 +14,7 @@ import { db } from "./db";
 import { logActivity, who } from "./activity";
 import { consumeEmailChange, EMAIL, issueEmailChange, LoginError, normalizeEmail } from "./email-login";
 import { publicUrl } from "./email/url";
+import { LANDING_PATH } from "./seo";
 import { allow } from "./ratelimit";
 import {
   acceptInvite, applyEmailChange, deleteAccount, deleteWorkspace, invite, removeMember, requireOwner, revokeInvite, setRole, signOutEverywhere,
@@ -212,5 +213,6 @@ export async function deleteAccountAction(_: FormState, form: FormData): Promise
     throw e;
   }
   (await cookies()).set({ name: APP_COOKIE, value: "", path: "/app", maxAge: 0 });
-  redirect("/?deleted=1");
+  // Straight to the landing in the console's language: "/" would render Slovak first and hop to /en.
+  redirect(`${LANDING_PATH[locale]}?deleted=1`);
 }

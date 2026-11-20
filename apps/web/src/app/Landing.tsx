@@ -3,7 +3,8 @@ import { withLang } from "@/i18n/locale-route";
 import { fontsHref, parseTheme, presets, toCss } from "@ozvi/theme";
 import { Accessibility, ArrowRightLeft, Check, ChevronDown, EyeOff, Languages, MessageSquare, Minus, Palette, Star } from "lucide-react";
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, getTranslations } from "next-intl/server";
 import { DevTabs, type DevTab } from "@/components/landing/DevTabs";
 import { Reveal } from "@/components/landing/Reveal";
 import { MiniBoard } from "@/components/landing/SampleBoard";
@@ -18,6 +19,7 @@ import { OzviLogo, OzviMark } from "@/components/ozvi/Logo";
 import { StatusMark } from "@/components/ozvi/route";
 import { LOCALE_TAG, type Locale } from "@/i18n/locales";
 import { cn } from "@/lib/utils";
+import { LANDING_CLIENT_NAMESPACES } from "@/lib/landing-messages";
 import { LEGAL } from "@/lib/legal";
 import { githubStars } from "@/lib/github-stars";
 import { DEMO_PATH, GITHUB_REPO } from "@/lib/seo";
@@ -203,8 +205,13 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
   const sentryHref = locale === "sk" || locale === "en" ? COMPARE_PATH.sentry[locale] : null;
   const fonts = [...new Set([site, host].map((th) => fontsHref(th, { skipBundled: true })).filter(Boolean))] as string[];
 
+  // Client parts (header menus, the sample board, the widget story) speak the landing's language. The root layout's
+  // provider follows the request and is kept across client navigations: after a redirect from the console
+  // (account deleted) it still held Slovak while /en rendered its own text in English.
+  const all = await getMessages({ locale });
+  const messages = Object.fromEntries(LANDING_CLIENT_NAMESPACES.map((n) => [n, all[n]]));
   return (
-    <>
+    <NextIntlClientProvider locale={locale} messages={messages}>
       {fonts.map((f) => <link key={f} rel="stylesheet" href={f} />)}
       <style>{toCss(site) + toCss(term, ".look-term") + toCss(host, ".look-host") + toCss(site, ".look-ozvi")}</style>
 
@@ -576,6 +583,6 @@ export async function Landing({ locale, signedIn = false }: { locale: Locale; si
           </div>
         </footer>
       </div>
-    </>
+    </NextIntlClientProvider>
   );
 }
