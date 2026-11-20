@@ -1503,10 +1503,21 @@
           "draft_deleted": "Update draft deleted"
         },
         "data": {
-          "exported": "Data exported to CSV"
+          "exported": "Data exported"
         }
       },
-      "rows": "{n, plural, one {# row} other {# rows}}"
+      "rows": "{n, plural, one {# row} other {# rows}}",
+      "planManual": "granted by hand",
+      "planStatus": {
+        "active": "active",
+        "past_due": "payment failed",
+        "scheduled_cancel": "cancelled at period end",
+        "canceled": "cancelled",
+        "expired": "ended",
+        "trialing": "trial",
+        "paused": "paused",
+        "unpaid": "unpaid"
+      }
     },
     "delivery": {
       "title": "Delivery",

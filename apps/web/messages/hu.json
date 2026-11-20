@@ -1503,10 +1503,21 @@
           "draft_deleted": "Törölt újdonságvázlat"
         },
         "data": {
-          "exported": "Adatexport CSV-be"
+          "exported": "Adatexport"
         }
       },
-      "rows": "{n, plural, one {# sor} other {# sor}}"
+      "rows": "{n, plural, one {# sor} other {# sor}}",
+      "planManual": "kézzel kiosztva",
+      "planStatus": {
+        "active": "aktív",
+        "past_due": "sikertelen fizetés",
+        "scheduled_cancel": "lemondva az időszak végére",
+        "canceled": "lemondva",
+        "expired": "lejárt",
+        "trialing": "próbaidőszak",
+        "paused": "szüneteltetve",
+        "unpaid": "kifizetetlen"
+      }
     },
     "delivery": {
       "title": "Kézbesítés",

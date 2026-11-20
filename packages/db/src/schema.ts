@@ -561,12 +561,12 @@ export const workspaceInvites = pgTable("workspace_invites", {
  * Who changed what in a workspace (console and board settings): invites, roles, plan, projects,
  * domains, tokens, webhooks, integrations. Workspace-scoped like workspace_members (no RLS);
  * read only through the console after a membership check. `actor` is a display label, kept
- * even after the person leaves.
+ * even after the person leaves; rows outlive their project (project_id set null), it is an audit trail.
  */
 export const activity = pgTable("activity", {
   id: id(),
   workspaceId: uuid("workspace_id").notNull().references(() => workspaces.id, { onDelete: "cascade" }),
-  projectId: uuid("project_id").references(() => projects.id, { onDelete: "cascade" }),
+  projectId: uuid("project_id").references(() => projects.id, { onDelete: "set null" }),
   actor: text("actor"),
   action: text("action").notNull(),
   detail: text("detail"),

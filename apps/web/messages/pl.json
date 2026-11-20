@@ -1503,10 +1503,21 @@
           "draft_deleted": "Usunięty szkic aktualizacji"
         },
         "data": {
-          "exported": "Eksport danych do CSV"
+          "exported": "Eksport danych"
         }
       },
-      "rows": "{n, plural, one {# wiersz} few {# wiersze} other {# wierszy}}"
+      "rows": "{n, plural, one {# wiersz} few {# wiersze} other {# wierszy}}",
+      "planManual": "przyznany ręcznie",
+      "planStatus": {
+        "active": "aktywny",
+        "past_due": "płatność nieudana",
+        "scheduled_cancel": "anulowany na koniec okresu",
+        "canceled": "anulowany",
+        "expired": "zakończony",
+        "trialing": "okres próbny",
+        "paused": "wstrzymany",
+        "unpaid": "nieopłacony"
+      }
     },
     "delivery": {
       "title": "Dostarczanie",

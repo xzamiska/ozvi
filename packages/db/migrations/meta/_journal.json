@@ -267,6 +267,13 @@
       "when": 1795114885998,
       "tag": "0037_mail_translate",
       "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1795202551596,
+      "tag": "0038_activity_outlives_project",
+      "breakpoints": true
     }
   ]
 }

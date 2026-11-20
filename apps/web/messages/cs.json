@@ -1503,10 +1503,21 @@
           "draft_deleted": "Smazaný koncept novinky"
         },
         "data": {
-          "exported": "Export dat do CSV"
+          "exported": "Export dat"
         }
       },
-      "rows": "{n, plural, one {# řádek} few {# řádky} other {# řádků}}"
+      "rows": "{n, plural, one {# řádek} few {# řádky} other {# řádků}}",
+      "planManual": "přidělený ručně",
+      "planStatus": {
+        "active": "aktivní",
+        "past_due": "platba selhala",
+        "scheduled_cancel": "zrušeno ke konci období",
+        "canceled": "zrušeno",
+        "expired": "skončeno",
+        "trialing": "zkušební období",
+        "paused": "pozastaveno",
+        "unpaid": "nezaplaceno"
+      }
     },
     "delivery": {
       "title": "Doručování",

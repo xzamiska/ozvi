@@ -31,6 +31,13 @@ describe.skipIf(!up)("console activity records what reaches customers", () => {
     await withSystem(db, (tx) => tx.delete(schema.workspaces).where(eq(schema.workspaces.slug, slug)));
   });
 
+  it("the Activity of a deleted project stays with the workspace", async () => {
+    const [p2] = await withSystem(db, (tx) => tx.insert(schema.projects).values({ workspaceId: project.workspaceId, slug: `${slug}-2`, name: "Druhý", theme: presets.ozvi }).returning());
+    await db.insert(schema.activity).values({ workspaceId: project.workspaceId, projectId: p2!.id, actor: "Tím", action: "data.exported", detail: "JSON" });
+    await withSystem(db, (tx) => tx.delete(schema.projects).where(eq(schema.projects.id, p2!.id)));
+    expect(await logged("data.exported")).toEqual([{ actor: "Tím", detail: "JSON" }]);
+  });
+
   it("publishing tells whether it was the first time", async () => {
     const r = await withProject(db, project.id, async (tx) => {
       const e = await saveEntry(tx, project, tm, { title: "Verzia 2.0", body: "Novinky.", itemIds: [] });
@@ -53,5 +60,10 @@ describe("export lines in the Activity read in the reader's language", async () 
     expect(activityDetail("data.exported", "ideas (1)", "sk")).toBe("Nápady (CSV) · 1 riadok");
     expect(activityDetail("data.exported", "comments_bug #12 (3)", "en")).toBe("Comments (CSV) #12 · 3 rows");
     expect(activityDetail("data.exported", "JSON", "de")).toBe("JSON");
+  });
+  it("plan changes read as plan names and a state in words, not codes", () => {
+    expect(activityDetail("plan.changed", "pro → studio (active)", "sk")).toBe("Pro → Studio · aktívne");
+    expect(activityDetail("plan.changed", "studio → studio (past_due)", "sk")).toBe("Studio · platba zlyhala");
+    expect(activityDetail("plan.changed", "manual → free (expired)", "en")).toBe("granted by hand → Free · ended");
   });
 });

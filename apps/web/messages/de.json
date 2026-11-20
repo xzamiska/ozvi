@@ -1503,10 +1503,21 @@
           "draft_deleted": "Entwurf einer Neuigkeit gelöscht"
         },
         "data": {
-          "exported": "Datenexport als CSV"
+          "exported": "Datenexport"
         }
       },
-      "rows": "{n, plural, one {# Zeile} other {# Zeilen}}"
+      "rows": "{n, plural, one {# Zeile} other {# Zeilen}}",
+      "planManual": "manuell vergeben",
+      "planStatus": {
+        "active": "aktiv",
+        "past_due": "Zahlung fehlgeschlagen",
+        "scheduled_cancel": "zum Periodenende gekündigt",
+        "canceled": "gekündigt",
+        "expired": "abgelaufen",
+        "trialing": "Testphase",
+        "paused": "pausiert",
+        "unpaid": "unbezahlt"
+      }
     },
     "delivery": {
       "title": "Zustellung",

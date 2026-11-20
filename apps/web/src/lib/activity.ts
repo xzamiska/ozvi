@@ -42,6 +42,15 @@ export function activityDetail(action: string, detail: string | null, locale: Lo
       r.contacts && t("activity.retention.contacts", { n: r.contacts }),
     ].filter(Boolean).join(" · ");
   }
+  if (action === "plan.changed" && detail) {
+    // Stored as codes ("pro → studio (active)", "manual → free (expired)"); shown as plan names and a state in words.
+    const m = /^(\w+) → (\w+) \((\w+)\)$/.exec(detail);
+    if (!m) return detail;
+    const t = translator(locale, "console");
+    const plan = (p: string) => (t.has(`planName.${p as "pro"}`) ? t(`planName.${p as "pro"}`) : p === "manual" ? t("activity.planManual") : p);
+    const state = t.has(`activity.planStatus.${m[3] as "active"}`) ? t(`activity.planStatus.${m[3] as "active"}`) : m[3]!;
+    return `${m[1] === m[2] ? plan(m[2]!) : `${plan(m[1]!)} → ${plan(m[2]!)}`} · ${state}`;
+  }
   if (action === "data.exported" && detail) {
     // "ideas #12 (40)": the export menu's label and the row count in the reader's language; "JSON" as it is.
     const m = /^(ideas|bugs|comments|voters)(?:_(?:idea|bug))?( #\d+)? \((\d+)\)$/.exec(detail);

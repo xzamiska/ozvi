@@ -223,7 +223,7 @@ const devApi: SubscriptionApi = {
 
 /** Runs one subscription change against Creem and applies the returned state at once (the webhook confirms it). */
 async function onSubscription(workspaceId: string, call: (api: SubscriptionApi, cfg: CreemConfig, subscriptionId: string, ws: Workspace) => Promise<Sub | null>, done: string): Promise<BillingResult> {
-  await owner(workspaceId);
+  const account = await owner(workspaceId);
   const ws = await db.query.workspaces.findFirst({ where: eq(schema.workspaces.id, workspaceId) });
   const dev = devBilling();
   const cfg = dev ? DEV_CREEM : creemConfig();
@@ -234,7 +234,7 @@ async function onSubscription(workspaceId: string, call: (api: SubscriptionApi, 
     if (e instanceof BillingError) return { error: e.text(await requestLocale()) };
     throw e;
   }
-  if (sub) await applyCreemEvent(cfg, { id: `console:${sub.id}:${Date.now()}`, eventType: "subscription.update", object: { ...sub, metadata: { ...(sub.metadata ?? {}), workspace_id: workspaceId } } });
+  if (sub) await applyCreemEvent(cfg, { id: `console:${sub.id}:${Date.now()}`, eventType: "subscription.update", object: { ...sub, metadata: { ...(sub.metadata ?? {}), workspace_id: workspaceId } } }, who(account) ?? undefined);
   revalidatePath(`/app/w/${workspaceId}/plan`);
   redirect(`/app/w/${workspaceId}/plan?done=${done}`);
 }
