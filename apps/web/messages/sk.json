@@ -36,7 +36,8 @@
       "noProjects": ", bez projektov",
       "exportHint": "Export každého projektu stiahnete v jeho nastaveniach (Dáta projektu).",
       "nothingRemoved": "Vo všetkých vašich priestoroch sú aj ďalší členovia, takže sa žiadne projekty nezmažú.",
-      "leave": "Z priestorov {list} odídete, ostatní v nich pokračujú."
+      "leave": "Z priestorov {list} odídete, ostatní v nich pokračujú.",
+      "noWorkspaces": "Nie ste v žiadnom priestore, zmažeme teda len váš účet a údaje na prihlásenie."
     },
     "forms": {
       "role": "Rola",
@@ -182,7 +183,7 @@
       "last_owner": "Priestor musí mať aspoň jedného vlastníka. Najprv urobte vlastníkom niekoho iného.",
       "no_account": "Účet už neexistuje.",
       "email_taken": "Na {email} už je iný účet v Ozvi. Zrušte ho alebo použite inú adresu.",
-      "subscription": "Priestor {ws} má aktívne predplatné. Zrušte ho v Pláne a využití (Spravovať predplatné) a potom zrušte účet.",
+      "subscription": "Priestor {ws} má aktívne predplatné. Zrušte ho v Pláne a využití (tlačidlo Zrušiť predplatné) a potom zrušte účet.",
       "sole_owner": "V priestore {ws} ste jediný vlastník. V časti Tím urobte vlastníkom niekoho iného alebo ostatných členov odoberte."
     },
     "billing": {
@@ -725,7 +726,7 @@
       "text": "Odseky do zásad ochrany súkromia a záznamov o spracúvaní, poskladané podľa nastavení tohto projektu. Údaje v hranatých zátvorkách doplňte.",
       "legalTitle": "Toto nie je právna rada",
       "legal": "Ide o návrh podľa toho, ako je projekt nastavený. Pred zverejnením ho skontrolujte s právnikom.",
-      "cloud": "Ozvi cloud: pre údaje vašich používateľov ste prevádzkovateľ a Ozvi váš sprostredkovateľ. Potrebujete aj zmluvu o spracúvaní (DPA), vyžiadate si ju na {email}.",
+      "cloud": "Ozvi cloud: pre údaje vašich používateľov ste prevádzkovateľ a Ozvi váš sprostredkovateľ. Zmluva o spracúvaní (DPA) je súčasťou obchodných podmienok a platí od registrácie, jej znenie je na ozvi.io/dpa. Podpísanú verziu vám pošleme na požiadanie ({email}).",
       "self": "Vlastná inštalácia: prevádzkovateľom ste vy a s autormi Ozvi zmluvu o spracúvaní nepotrebujete. Zmluvy uzatvárate priamo s poskytovateľmi uvedenými v texte (hosting, e-maily, AI, integrácie).",
       "subprocessors": "Zoznam subdodávateľov",
       "language": "Jazyk textu",
@@ -1610,7 +1611,7 @@
       "paidTitle": "Ďakujeme za platbu",
       "paid": "Plán sa prepne hneď, ako platbu potvrdí platobná brána, zvyčajne do minúty.",
       "pastDueTitle": "Posledná platba zlyhala",
-      "pastDue": "Aktualizujte kartu v správe predplatného, inak sa priestor prepne na Free.",
+      "pastDue": "Aktualizujte kartu cez tlačidlo Faktúry a karta, inak sa priestor prepne na Free.",
       "usageTitle": "Využitie tento mesiac",
       "emails": "E-maily",
       "attachments": "Prílohy",

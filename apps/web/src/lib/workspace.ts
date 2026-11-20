@@ -240,6 +240,11 @@ export async function deletionPlan(accountId: string, locale: Locale = DEFAULT_L
   return plan;
 }
 
+/** Which note the account page shows above "Delete account": what goes, that nothing goes (shared workspaces), or no workspaces at all. */
+export function deletionSummary(plan: Pick<DeletionPlan, "remove" | "leave">): "remove" | "shared" | "empty" {
+  return plan.remove.length ? "remove" : plan.leave.length ? "shared" : "empty";
+}
+
 /**
  * Deletes a workspace the account owns: every project with its files, members, invites and activity go
  * with it (cascades). Not while a paid Creem subscription runs (cancel it first, it would keep billing);

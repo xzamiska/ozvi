@@ -36,7 +36,8 @@
       "noProjects": ", no projects",
       "exportHint": "You can download an export of each project in its settings (Project data).",
       "nothingRemoved": "All your workspaces have other members, so no projects will be deleted.",
-      "leave": "You’ll leave {list}; everyone else stays."
+      "leave": "You’ll leave {list}; everyone else stays.",
+      "noWorkspaces": "You’re not in any workspace, so we’ll only delete your account and sign-in details."
     },
     "forms": {
       "role": "Role",
@@ -182,7 +183,7 @@
       "last_owner": "A workspace needs at least one owner. Make someone else an owner first.",
       "no_account": "This account no longer exists.",
       "email_taken": "There’s already another Ozvi account for {email}. Delete it or use a different address.",
-      "subscription": "{ws} has an active subscription. Cancel it under Plan & usage (Manage subscription), then delete your account.",
+      "subscription": "{ws} has an active subscription. Cancel it under Plan & usage (Cancel subscription button), then delete your account.",
       "sole_owner": "You’re the only owner of {ws}. Under Team, make someone else an owner or remove the other members."
     },
     "billing": {
@@ -725,7 +726,7 @@
       "text": "Paragraphs for your privacy policy and records of processing, put together from this project’s settings. Fill in the parts in square brackets.",
       "legalTitle": "This is not legal advice",
       "legal": "It is a draft based on how the project is set up. Have a lawyer review it before you publish it.",
-      "cloud": "Ozvi cloud: for your users’ data you are the controller and Ozvi is your processor. You also need a data processing agreement (DPA); request it at {email}.",
+      "cloud": "Ozvi cloud: for your users’ data you are the controller and Ozvi is your processor. The data processing agreement (DPA) is part of the terms of service and applies from sign-up; the text is at ozvi.io/dpa. If you need a signed copy, ask at {email}.",
       "self": "Self-hosted: you are the controller and need no data processing agreement with the authors of Ozvi. You sign agreements directly with the providers named in the text (hosting, e-mail, AI, integrations).",
       "subprocessors": "List of sub-processors",
       "language": "Language of the text",
@@ -1610,7 +1611,7 @@
       "paidTitle": "Thanks for your payment",
       "paid": "The plan switches as soon as the payment gateway confirms the payment, usually within a minute.",
       "pastDueTitle": "The last payment failed",
-      "pastDue": "Update your card in subscription management, or the workspace will switch to Free.",
+      "pastDue": "Update your card with the Invoices and card button, or the workspace will switch to Free.",
       "usageTitle": "Usage this month",
       "emails": "E-mails",
       "attachments": "Attachments",

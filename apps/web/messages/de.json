@@ -36,7 +36,8 @@
       "noProjects": ", keine Projekte",
       "exportHint": "Einen Export jedes Projekts können Sie in dessen Einstellungen herunterladen (Projektdaten).",
       "nothingRemoved": "Alle Ihre Workspaces haben weitere Mitglieder, daher werden keine Projekte gelöscht.",
-      "leave": "Sie verlassen {list}; alle anderen bleiben."
+      "leave": "Sie verlassen {list}; alle anderen bleiben.",
+      "noWorkspaces": "Sie gehören keinem Workspace an, daher löschen wir nur Ihr Konto und Ihre Anmeldedaten."
     },
     "forms": {
       "role": "Rolle",
@@ -182,7 +183,7 @@
       "last_owner": "Ein Workspace braucht mindestens einen Inhaber. Machen Sie zuerst eine andere Person zum Inhaber.",
       "no_account": "Dieses Konto existiert nicht mehr.",
       "email_taken": "Für {email} gibt es bereits ein anderes Ozvi-Konto. Löschen Sie es oder verwenden Sie eine andere Adresse.",
-      "subscription": "{ws} hat ein aktives Abonnement. Kündigen Sie es unter „Tarif & Nutzung“ (Abonnement verwalten) und löschen Sie danach Ihr Konto.",
+      "subscription": "{ws} hat ein aktives Abonnement. Kündigen Sie es unter „Tarif & Nutzung“ (Schaltfläche „Abo kündigen“) und löschen Sie danach Ihr Konto.",
       "sole_owner": "Sie sind der einzige Inhaber von {ws}. Machen Sie unter „Team“ eine andere Person zum Inhaber oder entfernen Sie die übrigen Mitglieder."
     },
     "billing": {
@@ -725,7 +726,7 @@
       "text": "Absätze für Ihre Datenschutzerklärung und Ihr Verarbeitungsverzeichnis, zusammengestellt aus den Einstellungen dieses Projekts. Ergänzen Sie die Angaben in eckigen Klammern.",
       "legalTitle": "Dies ist keine Rechtsberatung",
       "legal": "Es ist ein Entwurf auf Grundlage der Projekteinstellungen. Lassen Sie ihn vor der Veröffentlichung juristisch prüfen.",
-      "cloud": "Ozvi Cloud: Für die Daten Ihrer Nutzer sind Sie Verantwortlicher und Ozvi Ihr Auftragsverarbeiter. Sie brauchen auch einen Auftragsverarbeitungsvertrag (AVV/DPA); fordern Sie ihn unter {email} an.",
+      "cloud": "Ozvi Cloud: Für die Daten Ihrer Nutzer sind Sie Verantwortlicher und Ozvi Ihr Auftragsverarbeiter. Der Auftragsverarbeitungsvertrag (AVV/DPA) ist Teil der Nutzungsbedingungen und gilt ab der Registrierung; den Text finden Sie unter ozvi.io/dpa. Ein unterschriebenes Exemplar schicken wir Ihnen auf Anfrage ({email}).",
       "self": "Selbst gehostet: Sie sind Verantwortlicher und brauchen keinen Auftragsverarbeitungsvertrag mit den Autoren von Ozvi. Verträge schließen Sie direkt mit den im Text genannten Anbietern (Hosting, E-Mail, KI, Integrationen).",
       "subprocessors": "Liste der Unterauftragsverarbeiter",
       "language": "Sprache des Textes",
@@ -1610,7 +1611,7 @@
       "paidTitle": "Vielen Dank für Ihre Zahlung",
       "paid": "Der Tarif wechselt, sobald der Zahlungsdienst die Zahlung bestätigt, in der Regel innerhalb einer Minute.",
       "pastDueTitle": "Die letzte Zahlung ist fehlgeschlagen",
-      "pastDue": "Aktualisieren Sie Ihre Karte in der Abonnementverwaltung, sonst wechselt der Workspace zu Free.",
+      "pastDue": "Aktualisieren Sie Ihre Karte über die Schaltfläche „Rechnungen und Karte“, sonst wechselt der Workspace zu Free.",
       "usageTitle": "Nutzung in diesem Monat",
       "emails": "E-Mails",
       "attachments": "Anhänge",

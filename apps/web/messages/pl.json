@@ -36,7 +36,8 @@
       "noProjects": ", brak projektów",
       "exportHint": "Eksport każdego projektu pobierzesz w jego ustawieniach (Dane projektu).",
       "nothingRemoved": "Wszystkie twoje przestrzenie robocze mają innych członków, więc żaden projekt nie zostanie usunięty.",
-      "leave": "Opuścisz {list}; wszyscy pozostali zostają."
+      "leave": "Opuścisz {list}; wszyscy pozostali zostają.",
+      "noWorkspaces": "Nie należysz do żadnej przestrzeni roboczej, więc usuniemy tylko Twoje konto i dane logowania."
     },
     "forms": {
       "role": "Rola",
@@ -182,7 +183,7 @@
       "last_owner": "Przestrzeń robocza musi mieć co najmniej jednego właściciela. Najpierw nadaj tę rolę komuś innemu.",
       "no_account": "To konto już nie istnieje.",
       "email_taken": "Dla adresu {email} istnieje już inne konto Ozvi. Usuń je albo użyj innego adresu.",
-      "subscription": "{ws} ma aktywną subskrypcję. Anuluj ją w sekcji Plan i wykorzystanie (Zarządzaj subskrypcją), a potem usuń konto.",
+      "subscription": "{ws} ma aktywną subskrypcję. Anuluj ją w sekcji Plan i wykorzystanie (przycisk Anuluj subskrypcję), a potem usuń konto.",
       "sole_owner": "Jesteś jedynym właścicielem {ws}. W sekcji Zespół nadaj rolę właściciela komuś innemu albo usuń pozostałych członków."
     },
     "billing": {
@@ -725,7 +726,7 @@
       "text": "Akapity do polityki prywatności i rejestru czynności przetwarzania, przygotowane na podstawie ustawień tego projektu. Uzupełnij fragmenty w nawiasach kwadratowych.",
       "legalTitle": "To nie jest porada prawna",
       "legal": "To szkic oparty na konfiguracji projektu. Przed publikacją skonsultuj go z prawnikiem.",
-      "cloud": "Ozvi cloud: dla danych Twoich użytkowników jesteś administratorem, a Ozvi podmiotem przetwarzającym. Potrzebujesz też umowy powierzenia (DPA); poproś o nią pod adresem {email}.",
+      "cloud": "Ozvi cloud: dla danych Twoich użytkowników jesteś administratorem, a Ozvi podmiotem przetwarzającym. Umowa powierzenia (DPA) jest częścią regulaminu i obowiązuje od rejestracji; jej treść znajdziesz na ozvi.io/dpa. Podpisaną wersję wyślemy na prośbę ({email}).",
       "self": "Własna instalacja: administratorem jesteś Ty i nie potrzebujesz umowy powierzenia z autorami Ozvi. Umowy zawierasz bezpośrednio z dostawcami wymienionymi w tekście (hosting, e-mail, AI, integracje).",
       "subprocessors": "Lista podwykonawców",
       "language": "Język tekstu",
@@ -1610,7 +1611,7 @@
       "paidTitle": "Dziękujemy za płatność",
       "paid": "Plan zmieni się, gdy tylko bramka płatności potwierdzi płatność, zwykle w ciągu minuty.",
       "pastDueTitle": "Ostatnia płatność nie powiodła się",
-      "pastDue": "Zaktualizuj kartę w zarządzaniu subskrypcją, w przeciwnym razie przestrzeń robocza przejdzie na plan Free.",
+      "pastDue": "Zaktualizuj kartę przyciskiem Faktury i karta, w przeciwnym razie przestrzeń robocza przejdzie na plan Free.",
       "usageTitle": "Wykorzystanie w tym miesiącu",
       "emails": "E-maile",
       "attachments": "Załączniki",
