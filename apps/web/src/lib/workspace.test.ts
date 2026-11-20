@@ -163,3 +163,18 @@ describe("deleteWorkspace", () => {
     await db.delete(schema.accounts).where(inArray(schema.accounts.id, [boss!.id, guest!.id]));
   });
 });
+
+describe("sign out everywhere", () => {
+  it("ends the console sessions and the boards reached as this account, not app users with the same address", async () => {
+    const [asSelf, asApp] = await withSystem(db, (tx) => tx.insert(schema.users).values([
+      { projectId, externalId: `email:${mail("owner")}`, email: mail("owner"), role: "admin" },
+      { projectId, externalId: "host-42", email: mail("owner"), role: "member" },
+    ]).returning());
+    const before = (await db.query.accounts.findFirst({ where: eq(schema.accounts.id, owner.id) }))!.sessionVersion;
+    await ws.signOutEverywhere(owner.id);
+    expect((await db.query.accounts.findFirst({ where: eq(schema.accounts.id, owner.id) }))!.sessionVersion).toBe(before + 1);
+    const after = await withSystem(db, (tx) => tx.select({ id: schema.users.id, v: schema.users.sessionVersion }).from(schema.users).where(inArray(schema.users.id, [asSelf!.id, asApp!.id])));
+    expect(after.find((u) => u.id === asSelf!.id)?.v).toBe(asSelf!.sessionVersion + 1);
+    expect(after.find((u) => u.id === asApp!.id)?.v).toBe(asApp!.sessionVersion);
+  });
+});

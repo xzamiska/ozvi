@@ -1,6 +1,6 @@
 import "server-only";
 import { createHmac, randomBytes } from "node:crypto";
-import { schema, withProject, type Db, type Tx } from "@ozvi/db";
+import { schema, withProject, withSystem, type Db, type Tx } from "@ozvi/db";
 import { and, asc, eq, gt, inArray, isNull, or, sql } from "drizzle-orm";
 import type { Account } from "./account";
 import { logActivity, who as label } from "./activity";
@@ -317,9 +317,16 @@ export async function applyEmailChange(accountId: string, email: string, locale:
   return updated!;
 }
 
-/** Ends every /app session of this account (the cookie carries the version). */
+/**
+ * Ends every session of this account: /app (the cookie carries the version) and every board it reached as itself,
+ * i.e. the board users signed in with this e-mail (externalId email:…, as the console hand-off creates them).
+ * Board cookies live 7 days on their own; "na všetkých zariadeniach" has to include a board's settings.
+ */
 export async function signOutEverywhere(accountId: string) {
-  await db.update(accounts).set({ sessionVersion: sql`${accounts.sessionVersion} + 1` }).where(eq(accounts.id, accountId));
+  const [a] = await db.update(accounts).set({ sessionVersion: sql`${accounts.sessionVersion} + 1` }).where(eq(accounts.id, accountId)).returning({ email: accounts.email });
+  if (!a?.email) return;
+  await withSystem(db, (tx) => tx.update(schema.users).set({ sessionVersion: sql`${schema.users.sessionVersion} + 1` })
+    .where(eq(schema.users.externalId, `email:${a.email.toLowerCase()}`)));
 }
 
 /**
