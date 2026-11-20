@@ -50,7 +50,8 @@ const T = {
 type Str = (typeof T)["sk"];
 
 /** `tr`: the title translated with AI (boards in automatic translation mode), shown with a label and a switch to the originals. */
-interface Idea { id: string; number: number; title: string; votes: number; status: string; label: string; weight: number; pending: boolean; tr?: { title: string; model: string } }
+/** `votesLabel`: the count in words from the server, "2 body od 1 človeka" in importance mode (as on the board). */
+interface Idea { id: string; number: number; title: string; votes: number; votesLabel?: string; status: string; label: string; weight: number; pending: boolean; tr?: { title: string; model: string } }
 interface List { ideas: Idea[]; voteMode: "simple" | "importance"; budget: { total: number; left: number | null } | null; signedIn: boolean }
 
 const CSS = `
@@ -98,7 +99,7 @@ function Row({ idea, mode, t, busy, orig, onVote, onOpen }: { idea: Idea; mode: 
       </button>
       <div class="oi-t">
         <button type="button" onClick={() => onOpen(idea)} {...(tr ? { "data-ai-generated": "true", "data-ai-model": tr.model, title: idea.title } : {})}>{title}</button>
-        <span class="oi-st" data-s={idea.status}><span class="sr">{t.status}: </span>{idea.pending ? t.queued : idea.label} · {t.votes(idea.votes)}</span>
+        <span class="oi-st" data-s={idea.status}><span class="sr">{t.status}: </span>{idea.pending ? t.queued : idea.label} · {idea.votesLabel ?? t.votes(idea.votes)}</span>
       </div>
     </li>
   );
@@ -155,10 +156,10 @@ function Ideas({ ctx }: { ctx: IdeasCtx }) {
     setBusy(idea.id); setErr("");
     try {
       const tok = await ctx.token().catch((e: Error) => { throw new Error(e.message === "cancel" ? "" : t.who); });
-      const r = await getJson<{ weight: number; votes: number; left: number | null }>(`${base}/vote?lang=${ctx.lang}`, {
+      const r = await getJson<{ weight: number; votes: number; votesLabel?: string; left: number | null }>(`${base}/vote?lang=${ctx.lang}`, {
         method: "POST", headers: { authorization: `Bearer ${tok}`, "content-type": "application/json" }, body: JSON.stringify({ id: idea.id, weight: want }),
       });
-      patch(idea.id, (i) => ({ ...i, weight: r.weight, votes: r.votes }));
+      patch(idea.id, (i) => ({ ...i, weight: r.weight, votes: r.votes, votesLabel: r.votesLabel }));
       setList((l) => l && l.budget ? { ...l, budget: { ...l.budget, left: r.left } } : l);
     } catch (e) {
       if (!(e as Error).message && (e as { status?: number }).status === undefined) return; // back from the e-mail verification

@@ -14,6 +14,7 @@ import { moderationWhere } from "./queries";
 import { userFromToken } from "./sso";
 import { readCors, searchWords, writeAllowed } from "./widget-rules";
 import { matchScore } from "./search-text";
+import { votersSql } from "./votes";
 import { sectionOn, type Section } from "./sections";
 
 /** The widget sends ?lang= (its own language); otherwise Accept-Language, both within the board's languages. */
@@ -83,7 +84,7 @@ export async function widgetIdeas(tx: Tx, opts: { q?: string | null; limit: numb
   const words = searchWords(opts.q);
   if (opts.q && words.length === 0) return [];
   const score = matchScore([items.title], words);
-  return tx.select({ id: items.id, number: items.number, title: items.title, body: items.body, votes: items.voteCount, status: items.status, pending: items.pending })
+  return tx.select({ id: items.id, number: items.number, title: items.title, body: items.body, votes: items.voteCount, voters: votersSql, status: items.status, pending: items.pending })
     .from(items)
     .where(and(eq(items.kind, "idea"), isNull(items.mergedIntoId), moderationWhere({ viewerId: opts.viewerId }),
       words.length ? gt(score, 0) : inArray(items.status, [...ACTIVE])))

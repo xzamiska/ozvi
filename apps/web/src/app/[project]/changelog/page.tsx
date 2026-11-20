@@ -17,6 +17,7 @@ import { fetchLimit, nextPageHref, pageParam, takePage } from "@/lib/paging";
 const ENTRIES_PAGE = 20;
 import { db } from "@/lib/db";
 import { getCtx } from "@/lib/project";
+import { voteModeOf, votesLabel } from "@/lib/votes";
 import { LOCALE_TAG } from "@/i18n/locales";
 import { getTranslations } from "next-intl/server";
 import { Gate, signInText } from "../_gate";
@@ -35,7 +36,6 @@ export default async function Changelog({ params, searchParams }: { params: Prom
   const { project, user, isTeam, locale, plan } = await getCtx(slug);
   needSection(project, "changelog");
   const t = await getTranslations("board.changelog");
-  const tb = await getTranslations("board");
   if (!project.ideasPublic && !user) {
     return <Gate project={project} locale={locale} returnTo={`/${slug}/changelog`} title={t("gateTitle")}
       text={await signInText(project, locale, t("gateText"))} />;
@@ -108,7 +108,7 @@ export default async function Changelog({ params, searchParams }: { params: Prom
                       <li key={i.number} className="flex items-center gap-2.5 text-[14px]">
                         <StatusMark kind="idea" status="shipped" />
                         <Link href={`/${slug}/i/${i.number}`} className="font-medium hover:underline">{i.title}</Link>
-                        <span className="text-muted-foreground" data-num>#{i.number} · {tb("votes", { n: i.votes })}</span>
+                        <span className="text-muted-foreground" data-num>#{i.number} · {votesLabel(locale, voteModeOf(project), i.votes, i.voters)}</span>
                       </li>
                     ))}
                   </ul>

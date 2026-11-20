@@ -5,7 +5,7 @@ import { clientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { stopLabel } from "@/lib/route-text";
 import { cachedTitles, foreignPosts, translateTitlesFor, translationEnabled, translationModeOf } from "@/lib/translate";
-import { budgetLeft, myVoteWeights, voteModeOf } from "@/lib/votes";
+import { budgetLeft, myVoteWeights, voteModeOf, votesLabel } from "@/lib/votes";
 import { clampLimit } from "@/lib/widget-rules";
 import { readProject, widgetIdeas, widgetPreflight, widgetRead } from "@/lib/widget-api";
 
@@ -49,12 +49,13 @@ export async function GET(req: NextRequest, { params }: P) {
       rateKey: user?.id ?? clientIp(req.headers), ids: missing,
     }).catch((e) => console.warn("[ozvi] widget titles", e instanceof Error ? e.message : e)));
   }
+  const mode = voteModeOf(project);
   return r.json({
-    ideas: data.ideas.map(({ body: _b, ...i }) => {
+    ideas: data.ideas.map(({ body: _b, voters, ...i }) => {
       const tr = data.tr.get(i.id);
-      return { ...i, label: stopLabel(locale, i.status, project), weight: data.mine.get(i.id) ?? 0, ...(tr ? { tr: { title: tr.title, model: tr.model } } : {}) };
+      return { ...i, votesLabel: votesLabel(locale, mode, i.votes, voters), label: stopLabel(locale, i.status, project), weight: data.mine.get(i.id) ?? 0, ...(tr ? { tr: { title: tr.title, model: tr.model } } : {}) };
     }),
-    voteMode: voteModeOf(project),
+    voteMode: mode,
     budget: project.voteBudget != null ? { total: project.voteBudget, left: data.left } : null,
     signedIn: !!user,
   });
