@@ -204,9 +204,11 @@ export async function notifyComment(
     : [...(await followers(tx, item)), ...listening]).filter((id) => id !== c.authorId);
   const internal = c.audience === "internal";
   const queued = c.audience === "queued";
+  // Nameless author: the same label the board shows ("Team member" / "User"), never "Someone".
+  const role = c.authorName ? null : (await tx.select({ role: users.role }).from(users).where(eq(users.id, c.authorId)))[0]?.role;
   const href = `${itemUrl(project, item)}${c.commentId ? `#c-${c.commentId}` : ""}`;
   await enqueue(tx, project, internal ? "comment_internal" : queued ? "comment_queued" : "comment", recipients, (t) => {
-    const who = c.authorName ?? t("someone");
+    const who = c.authorName ?? (role === "team" || role === "admin" ? t("teamMember") : t("user"));
     const where = item.kind === "bug" ? t("onBug", { n: String(item.number) }) : t("onIdea");
     return {
       subject: `${internal ? t("internalNote") : queued ? t("commentQueued") : t("newComment")}: ${item.title}`,
@@ -251,8 +253,8 @@ export async function notifyAssigned(tx: Tx, project: Project, list: Item[], ass
     summary: one ? t("assignedSummary", { title: one.title }) : t("assignedManySubject", { n: list.length }),
     heading: t("assignedHeading"),
     paragraphs: one
-      ? [t("assignedBody", { who: byName ?? t("someone"), ref: t("ref", { n: String(one.number), title: one.title }) })]
-      : [t("assignedManyBody", { who: byName ?? t("someone"), n: list.length }), ...list.slice(0, 20).map((i) => `• ${t("ref", { n: String(i.number), title: i.title })}`)],
+      ? [t("assignedBody", { who: byName ?? t("teamMember"), ref: t("ref", { n: String(one.number), title: one.title }) })]
+      : [t("assignedManyBody", { who: byName ?? t("teamMember"), n: list.length }), ...list.slice(0, 20).map((i) => `• ${t("ref", { n: String(i.number), title: i.title })}`)],
     cta: one ? { label: one.kind === "bug" ? t("openReport") : t("openIdea"), href: itemUrl(project, one) }
       : { label: t("openMine"), href: `${projectOrigin(project)}/${project.slug}/${list[0]!.kind === "bug" ? "bugs" : "ideas"}?s=all&who=me` },
   }));

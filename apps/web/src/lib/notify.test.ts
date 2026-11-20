@@ -74,6 +74,25 @@ describe.skipIf(!up)("notifications follow the item", () => {
     expect(await sent("comment")).toEqual(["team", "team2"]);
   });
 
+  it("a nameless author is named like on the board: team member or user, never \"someone\"", async () => {
+    const [anonTeam, anonMember] = await withSystem(db, (tx) => tx.insert(schema.users).values([
+      { projectId: project.id, externalId: "anon-team", name: null, email: "anon-team@x.sk", role: "team" as const },
+      { projectId: project.id, externalId: "anon-member", name: null, email: "anon-member@x.sk", role: "member" as const },
+    ]).returning()) as [User, User];
+    const text = async () => withProject(db, project.id, async (tx) => {
+      const rows = await tx.select({ to: schema.emails.to, text: schema.emails.text }).from(schema.emails).where(eq(schema.emails.projectId, project.id));
+      await tx.delete(schema.emails).where(eq(schema.emails.projectId, project.id));
+      return rows;
+    });
+    await withProject(db, project.id, (tx) => addCommentTo(tx, project, anonTeam, bug, "Pozreli sme sa na to.", false));
+    const toAuthor = (await text()).find((r) => r.to === "author@x.sk")!;
+    expect(toAuthor.text).toContain("Člen tímu pri hlásení #2");
+    expect(toAuthor.text).not.toContain("Niekto");
+    await withProject(db, project.id, (tx) => addCommentTo(tx, project, anonMember, idea, "Aj mne by to pomohlo.", false));
+    expect((await text()).find((r) => r.to === "team@x.sk")!.text).toContain("Používateľ pri nápade");
+    await withSystem(db, (tx) => tx.delete(schema.users).where(inArray(schema.users.id, [anonTeam.id, anonMember.id])));
+  });
+
   it("internal notes go to the team only", async () => {
     await withProject(db, project.id, (tx) => addCommentTo(tx, project, u.team, bug, "Asi font", true));
     expect(await sent("comment_internal")).toEqual(["team2"]);
