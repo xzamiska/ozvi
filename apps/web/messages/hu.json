@@ -1214,7 +1214,7 @@
       "ideas": "Ötletek",
       "bugs": "Hibák",
       "emptyTitle": "Senki sem vár",
-      "emptyText": "{n, plural, one {A csapat minden bejelentésre # napon belül válaszolt.} other {A csapat minden bejelentésre # napon belül válaszolt.}}",
+      "emptyText": "{n, plural, one {Egy bejelentés sem vár # napnál régebben a csapat válaszára.} other {Egy bejelentés sem vár # napnál régebben a csapat válaszára.}}",
       "ruleTitle": "Mikor kerül ide egy bejelentés",
       "rule": "{n, plural, one {Ha a szerző vagy egy másik felhasználó ír, és a csapat # napon belül nem válaszol nyilvánosan, és nem módosítja az állapotot.} other {Ha a szerző vagy egy másik felhasználó ír, és a csapat # napon belül nem válaszol nyilvánosan, és nem módosítja az állapotot.}}",
       "ruleClears": "A belső megjegyzések nem számítanak. Az elkészült, javított és elutasított bejelentések soha nem jelennek meg itt.",

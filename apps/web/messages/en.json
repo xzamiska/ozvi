@@ -1214,7 +1214,7 @@
       "ideas": "Ideas",
       "bugs": "Bugs",
       "emptyTitle": "Nobody is waiting",
-      "emptyText": "{n, plural, one {The team answered every report within # day.} other {The team answered every report within # days.}}",
+      "emptyText": "{n, plural, one {No report has waited longer than # day for the team's answer.} other {No report has waited longer than # days for the team's answer.}}",
       "ruleTitle": "When a report shows up",
       "rule": "{n, plural, one {When the author or another user writes and the team doesn't reply publicly or change the status within # day.} other {When the author or another user writes and the team doesn't reply publicly or change the status within # days.}}",
       "ruleClears": "Internal notes don't count. Shipped, fixed and declined reports never appear here.",

@@ -1214,7 +1214,7 @@
       "ideas": "Ideen",
       "bugs": "Fehler",
       "emptyTitle": "Niemand wartet",
-      "emptyText": "{n, plural, one {Das Team hat jede Meldung innerhalb von # Tag beantwortet.} other {Das Team hat jede Meldung innerhalb von # Tagen beantwortet.}}",
+      "emptyText": "{n, plural, one {Keine Meldung wartet länger als # Tag auf eine Antwort des Teams.} other {Keine Meldung wartet länger als # Tage auf eine Antwort des Teams.}}",
       "ruleTitle": "Wann eine Meldung hier erscheint",
       "rule": "{n, plural, one {Wenn die verfassende Person oder jemand anderes schreibt und das Team nicht innerhalb von # Tag öffentlich antwortet oder den Status ändert.} other {Wenn die verfassende Person oder jemand anderes schreibt und das Team nicht innerhalb von # Tagen öffentlich antwortet oder den Status ändert.}}",
       "ruleClears": "Interne Notizen zählen nicht. Umgesetzte, behobene und abgelehnte Meldungen erscheinen hier nie.",

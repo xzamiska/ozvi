@@ -1214,7 +1214,7 @@
       "ideas": "Nápady",
       "bugs": "Chyby",
       "emptyTitle": "Nikdo nečeká",
-      "emptyText": "{n, plural, one {Na každé hlášení tým odpověděl do # dne.} other {Na každé hlášení tým odpověděl do # dní.}}",
+      "emptyText": "{n, plural, one {Žádné hlášení nečeká na odpověď týmu déle než # den.} few {Žádné hlášení nečeká na odpověď týmu déle než # dny.} many {Žádné hlášení nečeká na odpověď týmu déle než # dne.} other {Žádné hlášení nečeká na odpověď týmu déle než # dní.}}",
       "ruleTitle": "Kdy se hlášení objeví",
       "rule": "{n, plural, one {Když autor nebo jiný uživatel napíše a tým do # dne neodpoví veřejně ani nezmění stav.} other {Když autor nebo jiný uživatel napíše a tým do # dní neodpoví veřejně ani nezmění stav.}}",
       "ruleClears": "Interní poznámky se nepočítají. Vydaná, opravená a zamítnutá hlášení tu nejsou.",
