@@ -96,6 +96,8 @@ export default async function Ideas({ params, searchParams }: {
   });
   const m = await getTranslations("moderation");
   const tg = await getTranslations("tags");
+  const whoOptions = isTeam && user ? assigneeOptions(t, members, user.id, (w) => ti("former", { who: w })) : [];
+  const whoLabel = whoOptions.find((o) => o.value === who)?.label ?? "";
   const keep = { sort, f: fParam, ...(q ? { q } : {}), ...(plan ? { plan } : {}), ...(tag ? { tag: tag.name } : {}), ...(who ? { who } : {}) };
   const href = (o: Record<string, string>) => `?${new URLSearchParams({ ...keep, ...o })}`;
   const vote = { mode: voteModeOf(project), left };
@@ -129,6 +131,7 @@ export default async function Ideas({ params, searchParams }: {
               <input type="hidden" name="sort" value={sort} />
               {plan && <input type="hidden" name="plan" value={plan} />}
               {tag && <input type="hidden" name="tag" value={tag.name} />}
+              {who && <input type="hidden" name="who" value={who} />}
             </form>
             <FilterBar>
               <Segments label={t("status")} items={[
@@ -145,7 +148,7 @@ export default async function Ideas({ params, searchParams }: {
                 <UrlSelect name="tag" value={tag?.name ?? ""} label={tg("filter")}
                   options={[{ value: "", label: tg("all") }, ...allTags.map((x) => ({ value: x.name, label: x.public ? x.name : `${x.name} · ${tg("teamOnly")}` }))]} />
               )}
-              {isTeam && user && <UrlSelect name="who" value={who} label={t("who")} options={assigneeOptions(t, members, user.id, (w) => ti("former", { who: w }))} />}
+              {isTeam && user && <UrlSelect name="who" value={who} label={t("who")} prefix={t("who")} options={whoOptions} />}
               {isTeam && (plans.length > 0 || plan) && (
                 <UrlSelect name="plan" value={plan} label={t("planFilter")}
                   options={[{ value: "", label: t("allPlans") }, ...[...new Set([...plans, ...(plan ? [plan] : [])])].map((p) => ({ value: p, label: t("planOption", { plan: p }) }))]} />
@@ -156,6 +159,8 @@ export default async function Ideas({ params, searchParams }: {
           {left !== null && <VoteBudget left={left} budget={project.voteBudget!} mode={vote.mode} />}
           {rows.length === 0 ? (
             queue && !q && !plan ? <EmptyState title={m("queueEmpty")} text={m("queueEmptyText")} /> :
+            who && !q ? <EmptyState title={t("noneForWho", { who: whoLabel })} text={t("noneForWhoText")}
+              action={<Button asChild variant="outline"><Link href={`?${new URLSearchParams(Object.entries(keep).filter(([k]) => k !== "who"))}`}>{t("whoClear")}</Link></Button>} /> :
             tag && !q ? <EmptyState title={tg("noneForTag", { tag: tag.name })} text={tg("noneForTagText")}
               action={<Button asChild variant="outline"><Link href={`?${new URLSearchParams(Object.entries(keep).filter(([k]) => k !== "tag"))}`}>{tg("all")}</Link></Button>} /> :
             plan && !q ? <EmptyState title={t("noneForPlan", { plan })} text={t("noneForPlanText")}

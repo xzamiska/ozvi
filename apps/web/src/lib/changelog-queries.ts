@@ -1,6 +1,7 @@
 import "server-only";
 import { schema, type Tx } from "@ozvi/db";
 import { and, desc, eq, inArray, isNotNull, isNull, or, sql } from "drizzle-orm";
+import { votersSql } from "./votes";
 
 const { changelogEntries, changelogItems, items } = schema;
 
@@ -13,7 +14,7 @@ export async function listEntries(tx: Tx, includeDrafts: boolean, limit = 30) {
     .map((r) => ({ ...r.e, reviewerName: r.reviewer }));
   const ids = entries.map((e) => e.id);
   const links = ids.length
-    ? await tx.select({ entryId: changelogItems.entryId, number: items.number, title: items.title, kind: items.kind, votes: items.voteCount })
+    ? await tx.select({ entryId: changelogItems.entryId, number: items.number, title: items.title, kind: items.kind, votes: items.voteCount, voters: votersSql })
       .from(changelogItems).innerJoin(items, eq(items.id, changelogItems.itemId))
       // Bugs are private: a public changelog lists only ideas.
       .where(and(inArray(changelogItems.entryId, ids), eq(items.kind, "idea"), eq(items.pending, false), isNull(items.deletedAt)))

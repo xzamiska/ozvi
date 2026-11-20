@@ -903,7 +903,10 @@
       "who": "Zuständig",
       "whoAny": "Alle",
       "whoMe": "Ich",
-      "whoNone": "Niemand"
+      "whoNone": "Niemand",
+      "noneForWho": "Nichts für „Zuständig: {who}“",
+      "noneForWhoText": "Der Filter „Zuständig“ ist aktiv, deshalb sehen Sie nur einen Teil der Liste. Heben Sie ihn auf oder wählen Sie jemand anderen.",
+      "whoClear": "Filter „Zuständig“ aufheben"
     },
     "bugs": {
       "gateTitle": "Fehlermeldungen sind nur für die meldende Person und das Team sichtbar",
@@ -944,7 +947,10 @@
       "who": "Zuständig",
       "whoAny": "Alle",
       "whoMe": "Ich",
-      "whoNone": "Niemand"
+      "whoNone": "Niemand",
+      "noneForWho": "Nichts für „Zuständig: {who}“",
+      "noneForWhoText": "Der Filter „Zuständig“ ist aktiv, deshalb sehen Sie nur einen Teil der Liste. Heben Sie ihn auf oder wählen Sie jemand anderen.",
+      "whoClear": "Filter „Zuständig“ aufheben"
     },
     "roadmap": {
       "gateTitle": "Die Roadmap ist nur für angemeldete Personen sichtbar",
@@ -1214,7 +1220,7 @@
       "ideas": "Ideen",
       "bugs": "Fehler",
       "emptyTitle": "Niemand wartet",
-      "emptyText": "{n, plural, one {Das Team hat jede Meldung innerhalb von # Tag beantwortet.} other {Das Team hat jede Meldung innerhalb von # Tagen beantwortet.}}",
+      "emptyText": "{n, plural, one {Keine Meldung wartet länger als # Tag auf eine Antwort des Teams.} other {Keine Meldung wartet länger als # Tage auf eine Antwort des Teams.}}",
       "ruleTitle": "Wann eine Meldung hier erscheint",
       "rule": "{n, plural, one {Wenn die verfassende Person oder jemand anderes schreibt und das Team nicht innerhalb von # Tag öffentlich antwortet oder den Status ändert.} other {Wenn die verfassende Person oder jemand anderes schreibt und das Team nicht innerhalb von # Tagen öffentlich antwortet oder den Status ändert.}}",
       "ruleClears": "Interne Notizen zählen nicht. Umgesetzte, behobene und abgelehnte Meldungen erscheinen hier nie.",
@@ -1244,7 +1250,7 @@
       "nobody": "Niemand",
       "notify": "Status-E-Mails senden",
       "clear": "Auswahl aufheben",
-      "apply": "Anwenden",
+      "apply": "Auswahl ändern",
       "applying": "Wird gespeichert …",
       "done": "{n, plural, one {# Eintrag geändert} other {# Einträge geändert}}",
       "you": "{who} (Sie)",
@@ -3777,7 +3783,8 @@
       "enforcementTitle": "Wenn Sie mit unserer Antwort nicht zufrieden sind",
       "enforcement": "Sie können sich an die Marktüberwachungsbehörde Ihres Landes wenden, die die Barrierefreiheit von Produkten und Dienstleistungen überwacht (in der Slowakei nach Gesetz Nr. 351/2022 Slg., in Tschechien nach Gesetz Nr. 424/2023 Slg.).",
       "updated": "Wir haben diese Erklärung am {date} erstellt und aktualisieren sie bei jeder größeren Änderung."
-    }
+    },
+    "close": "Schließen"
   },
   "tags": {
     "title": "Tags",

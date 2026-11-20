@@ -903,7 +903,10 @@
       "who": "Assignee",
       "whoAny": "Anyone",
       "whoMe": "Me",
-      "whoNone": "Nobody"
+      "whoNone": "Nobody",
+      "noneForWho": "Nothing for “Assignee: {who}”",
+      "noneForWhoText": "The assignee filter is on, so you see only part of the list. Clear it or pick someone else.",
+      "whoClear": "Clear assignee filter"
     },
     "bugs": {
       "gateTitle": "Bug reports are visible to the reporter and the team only",
@@ -944,7 +947,10 @@
       "who": "Assignee",
       "whoAny": "Anyone",
       "whoMe": "Me",
-      "whoNone": "Nobody"
+      "whoNone": "Nobody",
+      "noneForWho": "Nothing for “Assignee: {who}”",
+      "noneForWhoText": "The assignee filter is on, so you see only part of the list. Clear it or pick someone else.",
+      "whoClear": "Clear assignee filter"
     },
     "roadmap": {
       "gateTitle": "The roadmap is visible to signed-in users only",
@@ -1214,7 +1220,7 @@
       "ideas": "Ideas",
       "bugs": "Bugs",
       "emptyTitle": "Nobody is waiting",
-      "emptyText": "{n, plural, one {The team answered every report within # day.} other {The team answered every report within # days.}}",
+      "emptyText": "{n, plural, one {No report has waited longer than # day for the team's answer.} other {No report has waited longer than # days for the team's answer.}}",
       "ruleTitle": "When a report shows up",
       "rule": "{n, plural, one {When the author or another user writes and the team doesn't reply publicly or change the status within # day.} other {When the author or another user writes and the team doesn't reply publicly or change the status within # days.}}",
       "ruleClears": "Internal notes don't count. Shipped, fixed and declined reports never appear here.",
@@ -1244,7 +1250,7 @@
       "nobody": "Nobody",
       "notify": "Send status e-mails",
       "clear": "Clear selection",
-      "apply": "Apply",
+      "apply": "Change selected",
       "applying": "Saving…",
       "done": "{n, plural, one {Changed # item} other {Changed # items}}",
       "you": "{who} (you)",
@@ -3777,7 +3783,8 @@
       "enforcementTitle": "If you're not satisfied with our reply",
       "enforcement": "You can turn to the market surveillance authority in your country that oversees the accessibility of products and services (in Slovakia under Act No. 351/2022 Coll., in Czechia under Act No. 424/2023 Coll.).",
       "updated": "We prepared this statement on {date} and update it with every major change."
-    }
+    },
+    "close": "Close"
   },
   "tags": {
     "title": "Tags",

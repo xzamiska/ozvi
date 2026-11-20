@@ -903,7 +903,10 @@
       "who": "Felelős",
       "whoAny": "Bárki",
       "whoMe": "Én",
-      "whoNone": "Senki"
+      "whoNone": "Senki",
+      "noneForWho": "Nincs találat: „Felelős: {who}”",
+      "noneForWhoText": "A felelős szerinti szűrő be van kapcsolva, ezért csak a lista egy részét látod. Kapcsold ki, vagy válassz mást.",
+      "whoClear": "Felelős szűrő törlése"
     },
     "bugs": {
       "gateTitle": "A hibajelentéseket csak a bejelentő és a csapat látja",
@@ -944,7 +947,10 @@
       "who": "Felelős",
       "whoAny": "Bárki",
       "whoMe": "Én",
-      "whoNone": "Senki"
+      "whoNone": "Senki",
+      "noneForWho": "Nincs találat: „Felelős: {who}”",
+      "noneForWhoText": "A felelős szerinti szűrő be van kapcsolva, ezért csak a lista egy részét látod. Kapcsold ki, vagy válassz mást.",
+      "whoClear": "Felelős szűrő törlése"
     },
     "roadmap": {
       "gateTitle": "Az ütemterv csak bejelentkezett felhasználók számára látható",
@@ -1214,7 +1220,7 @@
       "ideas": "Ötletek",
       "bugs": "Hibák",
       "emptyTitle": "Senki sem vár",
-      "emptyText": "{n, plural, one {A csapat minden bejelentésre # napon belül válaszolt.} other {A csapat minden bejelentésre # napon belül válaszolt.}}",
+      "emptyText": "{n, plural, one {Egy bejelentés sem vár # napnál régebben a csapat válaszára.} other {Egy bejelentés sem vár # napnál régebben a csapat válaszára.}}",
       "ruleTitle": "Mikor kerül ide egy bejelentés",
       "rule": "{n, plural, one {Ha a szerző vagy egy másik felhasználó ír, és a csapat # napon belül nem válaszol nyilvánosan, és nem módosítja az állapotot.} other {Ha a szerző vagy egy másik felhasználó ír, és a csapat # napon belül nem válaszol nyilvánosan, és nem módosítja az állapotot.}}",
       "ruleClears": "A belső megjegyzések nem számítanak. Az elkészült, javított és elutasított bejelentések soha nem jelennek meg itt.",
@@ -1244,7 +1250,7 @@
       "nobody": "Senki",
       "notify": "E-mailek küldése az állapotváltozásról",
       "clear": "Kijelölés törlése",
-      "apply": "Alkalmaz",
+      "apply": "Kijelöltek módosítása",
       "applying": "Mentés…",
       "done": "{n, plural, other {# bejegyzés módosítva}}",
       "you": "{who} (Ön)",
@@ -3777,7 +3783,8 @@
       "enforcementTitle": "Ha nem vagy elégedett a válaszunkkal",
       "enforcement": "Fordulhatsz az országodban a termékek és szolgáltatások akadálymentességét felügyelő piacfelügyeleti hatósághoz (Szlovákiában a 351/2022. sz. törvény, Csehországban a 424/2023. sz. törvény alapján).",
       "updated": "Ezt a nyilatkozatot {date} napján készítettük, és minden jelentősebb változáskor frissítjük."
-    }
+    },
+    "close": "Bezárás"
   },
   "tags": {
     "title": "Címkék",

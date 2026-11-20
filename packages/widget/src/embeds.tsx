@@ -94,7 +94,7 @@ type Lang = string;
 type Str = (typeof T)["en"];
 /** Inline sk/cs/en; pl/hu/de from the language pack widget.js loaded before the embed (lang-pack.ts). */
 const strings = (l: Lang): Str => (T as Record<string, Str>)[l] ?? (packFor(l)?.embeds as Str | undefined) ?? T.en;
-interface Lane { status: string; label: string; total: number; rows: { number: number; title: string; votes: number; sub: string | null; tags: { name: string }[]; url: string }[] }
+interface Lane { status: string; label: string; total: number; rows: { number: number; title: string; votes: number; votesLabel?: string; sub: string | null; tags: { name: string }[]; url: string }[] }
 interface Entry { id: string; title: string; html: string; publishedAt: string; url: string; ai: boolean; aiNote: string | null; items: { number: number; title: string; url: string }[] }
 
 /** Shared plumbing: language, theme, data (with the person's token when the page gives one). */
@@ -158,7 +158,7 @@ function Roadmap({ el }: { el: HTMLElement }) {
                   {l.rows.map((c) => (
                     <li class="card" key={c.number}>
                       <a href={c.url} target="_blank" rel="noopener">{c.title}</a>
-                      <div class="meta"><span>{t.votes(c.votes)}</span>{c.sub && <span>{c.sub}</span>}{c.tags.map((g) => <span class="chip" key={g.name}>{g.name}</span>)}</div>
+                      <div class="meta"><span>{c.votesLabel ?? t.votes(c.votes)}</span>{c.sub && <span>{c.sub}</span>}{c.tags.map((g) => <span class="chip" key={g.name}>{g.name}</span>)}</div>
                     </li>
                   ))}
                 </ol>

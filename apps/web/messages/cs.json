@@ -903,7 +903,10 @@
       "who": "Řeší",
       "whoAny": "Kdokoli",
       "whoMe": "Já",
-      "whoNone": "Nikdo"
+      "whoNone": "Nikdo",
+      "noneForWho": "Nic pro „Řeší: {who}“",
+      "noneForWhoText": "Je zapnutý filtr Řeší, proto vidíte jen část seznamu. Zrušte ho nebo vyberte někoho jiného.",
+      "whoClear": "Zrušit filtr Řeší"
     },
     "bugs": {
       "gateTitle": "Hlášení chyb vidí jen autor a tým",
@@ -944,7 +947,10 @@
       "who": "Řeší",
       "whoAny": "Kdokoli",
       "whoMe": "Já",
-      "whoNone": "Nikdo"
+      "whoNone": "Nikdo",
+      "noneForWho": "Nic pro „Řeší: {who}“",
+      "noneForWhoText": "Je zapnutý filtr Řeší, proto vidíte jen část seznamu. Zrušte ho nebo vyberte někoho jiného.",
+      "whoClear": "Zrušit filtr Řeší"
     },
     "roadmap": {
       "gateTitle": "Roadmapu vidí jen přihlášení",
@@ -1214,7 +1220,7 @@
       "ideas": "Nápady",
       "bugs": "Chyby",
       "emptyTitle": "Nikdo nečeká",
-      "emptyText": "{n, plural, one {Na každé hlášení tým odpověděl do # dne.} other {Na každé hlášení tým odpověděl do # dní.}}",
+      "emptyText": "{n, plural, one {Žádné hlášení nečeká na odpověď týmu déle než # den.} few {Žádné hlášení nečeká na odpověď týmu déle než # dny.} many {Žádné hlášení nečeká na odpověď týmu déle než # dne.} other {Žádné hlášení nečeká na odpověď týmu déle než # dní.}}",
       "ruleTitle": "Kdy se hlášení objeví",
       "rule": "{n, plural, one {Když autor nebo jiný uživatel napíše a tým do # dne neodpoví veřejně ani nezmění stav.} other {Když autor nebo jiný uživatel napíše a tým do # dní neodpoví veřejně ani nezmění stav.}}",
       "ruleClears": "Interní poznámky se nepočítají. Vydaná, opravená a zamítnutá hlášení tu nejsou.",
@@ -1244,7 +1250,7 @@
       "nobody": "Nikdo",
       "notify": "Poslat e-maily o změně stavu",
       "clear": "Zrušit výběr",
-      "apply": "Použít",
+      "apply": "Změnit vybrané",
       "applying": "Ukládám…",
       "done": "{n, plural, one {Změněn # záznam} few {Změněny # záznamy} other {Změněno # záznamů}}",
       "you": "{who} (vy)",
@@ -3777,7 +3783,8 @@
       "enforcementTitle": "Pokud nejste spokojeni s odpovědí",
       "enforcement": "Můžete se obrátit na orgán dozoru nad trhem ve své zemi, který dohlíží na přístupnost výrobků a služeb (v Česku podle zákona č. 424/2023 Sb., na Slovensku podle zákona č. 351/2022 Z. z.).",
       "updated": "Prohlášení jsme připravili {date} a aktualizujeme ho při každé větší změně."
-    }
+    },
+    "close": "Zavřít"
   },
   "tags": {
     "title": "Štítky",

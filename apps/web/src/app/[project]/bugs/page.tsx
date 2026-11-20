@@ -81,6 +81,8 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
   const count = (k: keyof typeof STAGES) => STAGES[k].statuses.reduce((a, s) => a + (counts[s] ?? 0), 0);
   const keep = { ...(st ? { st } : { s: stage! }), ...(q ? { q } : {}), ...(sort !== "new" ? { sort } : {}), ...(tag ? { tag: tag.name } : {}), ...(who ? { who } : {}) };
   const tg = await getTranslations("tags");
+  const whoOptions = isTeam ? assigneeOptions(t, members, user.id, (w) => ti("former", { who: w })) : [];
+  const whoLabel = whoOptions.find((o) => o.value === who)?.label ?? "";
   const href = (o: Record<string, string>) => `?${new URLSearchParams({ ...keep, ...o })}`;
   const shownTotal = st ? (counts[st] ?? 0) : count(stage!);
   const total = count("all");
@@ -96,7 +98,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
       />
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="min-w-0">
-          {(total > 0 || q || tag) && (
+          {(total > 0 || q || tag || who) && (
             <div className="mb-3 grid gap-2">
               <form className="relative min-w-0" role="search">
                 <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -113,7 +115,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
                   <UrlSelect name="st" value={st ?? ""} label={t("exactStatus")}
                     options={[{ value: "", label: t("anyStatus") }, ...STAGES.all.statuses.map((s) => ({ value: s, label: `${stopLabel(locale, s, project)} (${counts[s] ?? 0})` }))]} />
                 )}
-                {isTeam && <UrlSelect name="who" value={who} label={t("who")} options={assigneeOptions(t, members, user.id, (w) => ti("former", { who: w }))} />}
+                {isTeam && <UrlSelect name="who" value={who} label={t("who")} prefix={t("who")} options={whoOptions} />}
                 {allTags.length > 0 && (
                   <UrlSelect name="tag" value={tag?.name ?? ""} label={tg("filter")}
                     options={[{ value: "", label: tg("all") }, ...allTags.map((x) => ({ value: x.name, label: x.public ? x.name : `${x.name} · ${tg("teamOnly")}` }))]} />
@@ -128,11 +130,14 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
               </div>
             </div>
           )}
-          {total === 0 && !q && !tag ? (
+          {total === 0 && !q && !tag && !who ? (
             <EmptyState
               title={isTeam ? t("emptyTeamTitle") : t("emptyMineTitle")}
               text={isTeam ? t("emptyTeamText") : t("emptyMineText")}
             />
+          ) : rows.length === 0 && who && !q ? (
+            <EmptyState title={t("noneForWho", { who: whoLabel })} text={t("noneForWhoText")}
+              action={<Button asChild variant="outline"><Link href={`?${new URLSearchParams(Object.entries(keep).filter(([k]) => k !== "who"))}`}>{t("whoClear")}</Link></Button>} />
           ) : rows.length === 0 && tag && !q ? (
             <EmptyState title={tg("noneForTag", { tag: tag.name })} text={tg("noneForTagText")}
               action={<Button asChild variant="outline"><Link href={`?${new URLSearchParams(Object.entries(keep).filter(([k]) => k !== "tag"))}`}>{tg("all")}</Link></Button>} />

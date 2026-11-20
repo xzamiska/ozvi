@@ -9,6 +9,7 @@ import { UrlSelect } from "@/components/ozvi/UrlSelect";
 import { roadmapLanes, ROADMAP_LANES } from "@/lib/roadmap";
 import { db } from "@/lib/db";
 import { getCtx } from "@/lib/project";
+import { voteModeOf, votesLabel } from "@/lib/votes";
 import { Gate, signInText } from "../_gate";
 import { LOCALE_TAG } from "@/i18n/locales";
 import { getTranslations } from "next-intl/server";
@@ -36,7 +37,6 @@ export default async function Roadmap({ params, searchParams }: {
   const { project, user, isTeam, locale } = await getCtx(slug);
   needSection(project, "roadmap");
   const t = await getTranslations("board.roadmap");
-  const tb = await getTranslations("board");
   if (!project.ideasPublic && !user) {
     return <Gate project={project} locale={locale} returnTo={`/${slug}/roadmap`} title={t("gateTitle")}
       text={await signInText(project, locale, t("gateText"))} />;
@@ -78,7 +78,7 @@ export default async function Roadmap({ params, searchParams }: {
                   <li key={it.number} className="group relative grid grid-cols-[1fr_auto] items-start gap-x-3 rounded-xl border bg-surface px-4 py-3 transition-colors hover:border-line-strong">
                     <Link href={`/${slug}/i/${it.number}`} className="oz-stretch text-[14.5px] leading-snug font-semibold group-hover:underline"><span className="mr-1.5 font-heading font-bold text-muted-foreground tabular-nums">#{it.number}</span>{it.title}</Link>
                     <span className="pt-px text-[13px] font-medium whitespace-nowrap text-muted-foreground" data-num>
-                      {c.status === "shipped" ? fmt.format(it.updatedAt) : tb("votes", { n: it.votes })}
+                      {c.status === "shipped" ? fmt.format(it.updatedAt) : votesLabel(locale, voteModeOf(project), it.votes, it.voters)}
                     </span>
                     {/* Sub-status after the lane's stop ("Rozpracované · V testovaní"), then the tags this viewer may see. */}
                     {(it.subLabel || it.tags.length > 0) && (

@@ -903,7 +903,10 @@
       "who": "Odpowiada",
       "whoAny": "Ktokolwiek",
       "whoMe": "Ja",
-      "whoNone": "Nikt"
+      "whoNone": "Nikt",
+      "noneForWho": "Nic dla „Odpowiada: {who}”",
+      "noneForWhoText": "Filtr „Odpowiada” jest włączony, więc widzisz tylko część listy. Wyczyść go albo wybierz kogoś innego.",
+      "whoClear": "Wyczyść filtr „Odpowiada”"
     },
     "bugs": {
       "gateTitle": "Zgłoszenia błędów widzi tylko zgłaszający i zespół",
@@ -944,7 +947,10 @@
       "who": "Odpowiada",
       "whoAny": "Ktokolwiek",
       "whoMe": "Ja",
-      "whoNone": "Nikt"
+      "whoNone": "Nikt",
+      "noneForWho": "Nic dla „Odpowiada: {who}”",
+      "noneForWhoText": "Filtr „Odpowiada” jest włączony, więc widzisz tylko część listy. Wyczyść go albo wybierz kogoś innego.",
+      "whoClear": "Wyczyść filtr „Odpowiada”"
     },
     "roadmap": {
       "gateTitle": "Roadmapę widzą tylko zalogowani użytkownicy",
@@ -1214,7 +1220,7 @@
       "ideas": "Pomysły",
       "bugs": "Błędy",
       "emptyTitle": "Nikt nie czeka",
-      "emptyText": "{n, plural, one {Zespół odpowiedział na każde zgłoszenie w ciągu # dnia.} few {Zespół odpowiedział na każde zgłoszenie w ciągu # dni.} many {Zespół odpowiedział na każde zgłoszenie w ciągu # dni.} other {Zespół odpowiedział na każde zgłoszenie w ciągu # dnia.}}",
+      "emptyText": "{n, plural, one {Żadne zgłoszenie nie czeka na odpowiedź zespołu dłużej niż # dzień.} few {Żadne zgłoszenie nie czeka na odpowiedź zespołu dłużej niż # dni.} many {Żadne zgłoszenie nie czeka na odpowiedź zespołu dłużej niż # dni.} other {Żadne zgłoszenie nie czeka na odpowiedź zespołu dłużej niż # dnia.}}",
       "ruleTitle": "Kiedy zgłoszenie się tu pojawia",
       "rule": "{n, plural, one {Gdy autor lub inny użytkownik coś napisze, a zespół w ciągu # dnia nie odpowie publicznie ani nie zmieni statusu.} few {Gdy autor lub inny użytkownik coś napisze, a zespół w ciągu # dni nie odpowie publicznie ani nie zmieni statusu.} many {Gdy autor lub inny użytkownik coś napisze, a zespół w ciągu # dni nie odpowie publicznie ani nie zmieni statusu.} other {Gdy autor lub inny użytkownik coś napisze, a zespół w ciągu # dnia nie odpowie publicznie ani nie zmieni statusu.}}",
       "ruleClears": "Notatki wewnętrzne się nie liczą. Wdrożone, naprawione i odrzucone zgłoszenia nigdy się tu nie pojawiają.",
@@ -1244,7 +1250,7 @@
       "nobody": "Nikt",
       "notify": "Wyślij e-maile o zmianie statusu",
       "clear": "Wyczyść wybór",
-      "apply": "Zastosuj",
+      "apply": "Zmień wybrane",
       "applying": "Zapisuję…",
       "done": "{n, plural, one {Zmieniono # wpis} few {Zmieniono # wpisy} other {Zmieniono # wpisów}}",
       "you": "{who} (Ty)",
@@ -3777,7 +3783,8 @@
       "enforcementTitle": "Jeśli nasza odpowiedź cię nie satysfakcjonuje",
       "enforcement": "Możesz zwrócić się do organu nadzoru rynku w swoim kraju, który czuwa nad dostępnością produktów i usług (w Polsce na podstawie ustawy z dnia 26 kwietnia 2024 r. o zapewnianiu spełniania wymagań dostępności niektórych produktów i usług przez podmioty gospodarcze, na Słowacji na podstawie ustawy nr 351/2022 Z.z., w Czechach na podstawie ustawy nr 424/2023 Sb.).",
       "updated": "Tę deklarację przygotowaliśmy {date} i aktualizujemy ją przy każdej większej zmianie."
-    }
+    },
+    "close": "Zamknij"
   },
   "tags": {
     "title": "Tagi",

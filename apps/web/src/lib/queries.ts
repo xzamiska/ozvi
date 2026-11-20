@@ -1,8 +1,9 @@
 import "server-only";
 import { schema, type Tx } from "@ozvi/db";
-import { and, asc, desc, eq, ilike, inArray, isNull, or, sql, type SQL } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, isNull, or, sql, type SQL } from "drizzle-orm";
 import { itemMrrSql } from "./traits";
 import { waitingSinceSql } from "./unanswered";
+import { containsFolded } from "./search-text";
 import type { Row } from "@/components/ItemRow";
 
 const { items, comments, votes, users } = schema;
@@ -71,12 +72,11 @@ export async function countItems(tx: Tx, where: SQL[], opts: { viewerId?: string
   return r?.n ?? 0;
 }
 
-/** Title/body text, or a number ("12", "#12") for an exact match too. */
+/** Title/body text (accents and case ignored), or a number ("12", "#12") for an exact match too. */
 export function textMatch(q: string): SQL[] {
   if (!q) return [];
-  const like = `%${q.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
   const n = /^#?(\d{1,9})$/.exec(q)?.[1];
-  return [or(ilike(items.title, like), ilike(items.body, like), ...(n ? [eq(items.number, Number(n))] : []))!];
+  return [or(containsFolded(items.title, q), containsFolded(items.body, q), ...(n ? [eq(items.number, Number(n))] : []))!];
 }
 
 export async function myVotes(tx: Tx, userId: string | undefined, itemIds: string[]): Promise<Set<string>> {
