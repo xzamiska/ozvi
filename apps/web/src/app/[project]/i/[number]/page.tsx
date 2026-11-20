@@ -230,7 +230,8 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
           <TranslationScope slug={slug} view={translation}>
           <ItemEditScope>
           <header className="flex gap-5">
-            {!bug && !item.pending && !deleted && (
+            {/* A merged idea's votes moved to the original: no vote box here (applyVote refuses it too). */}
+            {!bug && !item.pending && !deleted && !item.mergedIntoId && (
               <VoteButton slug={slug} itemId={item.id} count={item.voteCount} voted={voted} size="lg"
                 voters={vote.voters} weight={vote.weight} mode={voteModeOf(project)} left={vote.left}
                 login={user ? null : (loginHref(project, `/${slug}/i/${n}`) ?? false)} />
@@ -384,6 +385,9 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
               })}
             </ol>
             {deleted ? null
+              // A merged idea's discussion goes on at the original (addCommentTo refuses it too).
+              : item.mergedIntoId && !bug ? (mergedInto && <p role="note" className="rounded-xl border border-dashed bg-surface/60 px-4 py-3.5 text-[14.5px] text-muted-foreground">
+                  <Link className="oz-link" href={`/${slug}/i/${mergedInto.number}`}>{t("mergedGoThere", { n: mergedInto.number })}</Link></p>)
               : blocked ? <p role="note" className="flex items-start gap-2 rounded-xl border border-dashed bg-surface/60 px-4 py-3.5 text-[14.5px] text-muted-foreground"><Ban className="mt-0.5 size-4 shrink-0" aria-hidden />{m("blockedNotice")}</p>
               : user ? <CommentForm slug={slug} itemId={item.id} isTeam={isTeam} me={user.name ?? user.email} />
               : <SignInToComment project={project} locale={locale} returnTo={`/${slug}/i/${n}`} />}
@@ -412,8 +416,14 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
                 </TeamBlock>
               )}
               <TeamBlock title={t("status")}>
-                <RouteControl key={`${item.status}-${item.subStatusId ?? ""}-${item.fixedInVersion ?? ""}`} slug={slug} itemId={item.id} kind={item.kind}
-                  status={item.status} version={item.fixedInVersion} statuses={ITEM_STATUSES[item.kind]} subs={team.subs} sub={item.subStatusId} />
+                {/* A merged duplicate has no route of its own (the stored closed status is not what happened): it points at its original. */}
+                {item.mergedIntoId
+                  ? <p className="flex flex-wrap items-center gap-2 text-[13.5px]">
+                      <StatusTag kind={item.kind} status={item.status} merged />
+                      {mergedInto && <Link className="oz-link" href={`/${slug}/i/${mergedInto.number}`}>{b("journey.merged", { n: mergedInto.number })}</Link>}
+                    </p>
+                  : <RouteControl key={`${item.status}-${item.subStatusId ?? ""}-${item.fixedInVersion ?? ""}`} slug={slug} itemId={item.id} kind={item.kind}
+                      status={item.status} version={item.fixedInVersion} statuses={ITEM_STATUSES[item.kind]} subs={team.subs} sub={item.subStatusId} />}
               </TeamBlock>
               <TeamBlock title={t("tags")}>
                 {itemTagList.length > 0 && <TagList tags={itemTagList} />}

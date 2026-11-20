@@ -43,8 +43,8 @@ export async function applyVote(tx: Tx, project: { id: string; voteMode: string;
   userId: string, itemId: string, requested: number): Promise<VoteResult> {
   if (project.sections && !sectionOn(project, "ideas")) return { ok: false, reason: "missing" };
   const item = await tx.query.items.findFirst({ where: and(eq(items.id, itemId), eq(items.kind, "idea")) });
-  // Deleted and queued (moderation) ideas take no votes.
-  if (!item || item.deletedAt || item.pending) return { ok: false, reason: "missing" };
+  // Deleted, queued (moderation) and merged ideas take no votes (a merged one's votes moved to the original).
+  if (!item || item.deletedAt || item.pending || item.mergedIntoId) return { ok: false, reason: "missing" };
   const w = normalizeWeight(voteModeOf(project), requested);
   if (w === 0) {
     await tx.delete(votes).where(and(eq(votes.itemId, itemId), eq(votes.userId, userId)));

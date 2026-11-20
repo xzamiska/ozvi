@@ -1,6 +1,6 @@
 import { ITEM_STATUSES, schema, type Tx } from "@ozvi/db";
 import { and, desc, eq, gte, isNull, sql } from "drizzle-orm";
-import { notifyComment, notifyDuplicateFixed, notifyStatusChange } from "./email/notify";
+import { notifyComment, notifyDuplicateFixed, notifyMerged, notifyStatusChange } from "./email/notify";
 import { emit } from "./events";
 import { enqueueTrackerSync } from "./trackers";
 import { proofSnapshot, type ProofSnapshot } from "./proof";
@@ -115,6 +115,11 @@ export async function addCommentTo(
   if (item.deletedAt) throw fail((t) => t("deleted"));
   // A switched-off section takes no new comments either (board, API, MCP).
   if (!sectionOn(project, sectionOfKind(item.kind))) throw new DomainError((l) => translator(l, "errors")("sectionOff"));
+  // A merged idea's conversation goes on at the original (its people follow it there).
+  if (item.mergedIntoId && item.kind === "idea") {
+    const [into] = await tx.select({ number: items.number }).from(items).where(eq(items.id, item.mergedIntoId));
+    throw fail((t) => t("mergedClosed", { n: String(into?.number ?? "") }));
+  }
   if (!text) throw fail((t) => t("emptyComment"));
   if (text.length > 5000) throw fail((t) => t("longComment"));
   const isInternal = internal && isTeamRole(actor.role);
@@ -164,6 +169,8 @@ export async function mergeItems(tx: Tx, project: Project, actor: User, source: 
   await tx.update(items).set({ mergedIntoId: target.id }).where(eq(items.mergedIntoId, source.id));
   // Merged into a bug that is already fixed: the reporter hears it now, not "once it's fixed" (never).
   if (source.kind === "bug" && (target.status === "fixed" || target.status === "verified")) await notifyDuplicateFixed(tx, project, target, [updatedSource!], actor.id);
+  // The duplicate's author and commenters now follow the original: one e-mail tells them where (ideas).
+  await notifyMerged(tx, project, updatedSource!, updatedTarget!, actor.id);
   // No auto-comment: the item page shows "Merged into #n" (header note and route) in each reader's language,
   // and a team-authored comment would read as a team reply on the route.
   await emit(tx, project, "item.merged", { item: updatedSource!, actorName: actor.name, mergedInto: { number: target.number, title: target.title } });
