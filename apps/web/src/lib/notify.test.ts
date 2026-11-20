@@ -1,6 +1,6 @@
 import { createDb, schema, withProject, withSystem } from "@ozvi/db";
 import { presets } from "@ozvi/theme";
-import { and, eq, sql } from "drizzle-orm";
+import { and, eq, inArray, sql } from "drizzle-orm";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 process.env.OZVI_SESSION_SECRET ??= "test-session-secret-0123456789abcdef";
@@ -93,6 +93,25 @@ describe.skipIf(!up)("notifications follow the item", () => {
     await withProject(db, project.id, (tx) => addCommentTo(tx, project, u.stranger, idea, "Pridávam sa.", false));
     expect(await sent("comment")).toEqual(["author", "talker", "team"]);
     await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: {} }).where(eq(schema.users.id, u.team2.id)));
+  });
+
+  it("a team member who wants summaries: team mail waits for the summary, customers' mail does not", async () => {
+    await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: { pace: "hourly" } }).where(eq(schema.users.id, u.team2.id)));
+    // Even a customer asking for it (stale data) never gets their mail held.
+    await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: { pace: "daily" } }).where(eq(schema.users.id, u.author.id)));
+    const before = Date.now();
+    await withProject(db, project.id, (tx) => notifyNewBug(tx, project, bug));
+    await withProject(db, project.id, (tx) => addCommentTo(tx, project, u.stranger, idea, "Ešte jedna vec.", false));
+    const rows = await withProject(db, project.id, (tx) => tx.select({ to: schema.emails.to, kind: schema.emails.kind, status: schema.emails.status, at: schema.emails.sendAfter })
+      .from(schema.emails).where(eq(schema.emails.projectId, project.id)));
+    const of = (who: string, kind: string) => rows.find((r) => r.to === `${who}@x.sk` && r.kind === kind)!;
+    expect(of("team2", "new_bug").status).toBe("deferred");
+    expect(of("team2", "new_bug").at.getTime() - before).toBeGreaterThanOrEqual(3600_000 - 1000);
+    expect(of("team2", "comment").status).toBe("deferred");
+    expect(of("team", "new_bug").status).toBe("queued");
+    expect(of("author", "comment").status).toBe("queued");
+    await sent("new_bug");
+    await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: {} }).where(inArray(schema.users.id, [u.team2.id, u.author.id])));
   });
 
   it("merging: earlier duplicates follow to the original; a merge into a fixed bug tells the reporter at once", async () => {

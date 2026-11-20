@@ -372,7 +372,7 @@
       "mailOffC": " sowie",
       "plan": "Tarif",
       "sent": "Gesendete E-Mails",
-      "deferred": "Wartet auf tägliche Zusammenfassung",
+      "deferred": "Wartet auf Zusammenfassung",
       "attachments": "Anhänge",
       "unlimited": "unbegrenzt"
     },
@@ -1140,11 +1140,11 @@
       "teamMailItems": {
         "newBug": {
           "title": "Neue Fehlermeldung",
-          "text": "Sobald jemand eine sendet."
+          "text": "Wenn jemand eine sendet."
         },
         "newIdea": {
           "title": "Neue Idee",
-          "text": "Sobald jemand eine vorschlägt."
+          "text": "Wenn jemand eine vorschlägt."
         },
         "comments": {
           "title": "Kommentare und interne Notizen",
@@ -1157,6 +1157,21 @@
         "digest": {
           "title": "Montagsübersicht",
           "text": "Einmal pro Woche: Zahlen, was auf Antwort wartet und was veröffentlicht, aber nicht angekündigt wurde."
+        }
+      },
+      "teamMailPace": "Wie wir sie senden",
+      "teamMailPaces": {
+        "instant": {
+          "title": "Sofort",
+          "text": "Jede E-Mail einzeln, sobald etwas passiert."
+        },
+        "hourly": {
+          "title": "Stündliche Zusammenfassung",
+          "text": "Eine E-Mail eine Stunde nach dem ersten Ereignis, mit allem, was seitdem passiert ist."
+        },
+        "daily": {
+          "title": "Tägliche Zusammenfassung am Morgen",
+          "text": "Eine E-Mail um 8:00 mit allem seit der letzten Zusammenfassung."
         }
       }
     },
@@ -1520,7 +1535,7 @@
         "idea_status": "Status der Idee",
         "changelog": "Neuigkeiten-Eintrag",
         "team_digest": "Wöchentliche Zusammenfassung",
-        "digest": "Tägliche Zusammenfassung",
+        "digest": "Zusammenfassung",
         "login": "Anmeldung",
         "invite": "Einladung"
       },
@@ -1800,6 +1815,8 @@
     "openReports": "Meldungen öffnen",
     "digestSubject": "{project}: {n, plural, one {# Neuigkeit} other {# Neuigkeiten}} zu Ihrem Feedback",
     "digestHeading": "Was sich geändert hat",
+    "teamSummarySubject": "{project}: {n, plural, one {# Neuigkeit} other {# Neuigkeiten}} für das Team",
+    "teamSummaryHeading": "Neu auf dem Board",
     "openFeedback": "Feedback öffnen",
     "loginSubject": "{code} – Anmeldung bei {brand}",
     "loginHeading": "Anmeldung bei {brand}",

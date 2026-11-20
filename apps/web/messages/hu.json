@@ -372,7 +372,7 @@
       "mailOffC": ", valamint",
       "plan": "Csomag",
       "sent": "Elküldött e-mailek",
-      "deferred": "Napi összesítőre vár",
+      "deferred": "Összesítőre vár",
       "attachments": "Mellékletek",
       "unlimited": "korlátlan"
     },
@@ -1140,11 +1140,11 @@
       "teamMailItems": {
         "newBug": {
           "title": "Új hibabejelentés",
-          "text": "Amint valaki elküldi."
+          "text": "Amikor valaki elküldi."
         },
         "newIdea": {
           "title": "Új ötlet",
-          "text": "Amint valaki javasolja."
+          "text": "Amikor valaki javasolja."
         },
         "comments": {
           "title": "Hozzászólások és belső jegyzetek",
@@ -1157,6 +1157,21 @@
         "digest": {
           "title": "Hétfői összefoglaló",
           "text": "Hetente egyszer: számok, mi vár válaszra, és mi jelent meg bejelentés nélkül."
+        }
+      },
+      "teamMailPace": "Hogyan küldjük őket",
+      "teamMailPaces": {
+        "instant": {
+          "title": "Azonnal",
+          "text": "Minden e-mail külön, amint történik valami."
+        },
+        "hourly": {
+          "title": "Óránkénti összesítő",
+          "text": "Egy órával az első esemény után egy e-mail mindennel, ami közben történt."
+        },
+        "daily": {
+          "title": "Napi összesítő reggel",
+          "text": "Egy e-mail 8:00-kor mindennel az előző összesítő óta."
         }
       }
     },
@@ -1520,7 +1535,7 @@
         "idea_status": "Ötlet állapota",
         "changelog": "Újdonság-bejegyzés",
         "team_digest": "Heti összesítő",
-        "digest": "Napi összesítő",
+        "digest": "Összesítő",
         "login": "Bejelentkezés",
         "invite": "Meghívás"
       },
@@ -1800,6 +1815,8 @@
     "openReports": "Bejelentések megnyitása",
     "digestSubject": "{project}: {n, plural, one {# frissítés} other {# frissítés}} a visszajelzéseidről",
     "digestHeading": "Mi változott",
+    "teamSummarySubject": "{project}: {n, plural, one {# újdonság} other {# újdonság}} a csapatnak",
+    "teamSummaryHeading": "Mi újság a boardon",
     "openFeedback": "Visszajelzések megnyitása",
     "loginSubject": "{code} – bejelentkezési kód ({brand})",
     "loginHeading": "Bejelentkezés: {brand}",

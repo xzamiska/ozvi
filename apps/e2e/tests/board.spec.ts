@@ -312,6 +312,27 @@ test.describe("public board", () => {
     await ann.ctx.close();
   });
 
+  test("team e-mails as a summary: a team member picks the daily summary; a new bug then waits for it instead of arriving now", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    await page.goto(`/${b.slug}/me#emaily-timu`);
+    await expect(page.getByRole("radio", { name: /Hneď/ })).toBeChecked();
+    await page.getByRole("radio", { name: /Súhrn raz denne ráno/ }).click();
+    await page.getByRole("button", { name: "Uložiť" }).click();
+    await expect(page.getByText("Uložené")).toBeVisible();
+    await page.reload();
+    await expect(page.getByRole("radio", { name: /Súhrn raz denne ráno/ })).toBeChecked();
+    await expect(page.getByRole("checkbox", { name: /Nové hlásenie chyby/ })).toBeChecked();
+
+    const ann = await boardUser(browser, b, "anna");
+    const before = await mailCount(b.owner);
+    await createItem(ann.page, b.slug, "bug", uniq("Chyba do súhrnu"));
+    await page.waitForTimeout(1500);
+    expect(await mailCount(b.owner)).toBe(before);
+    await page.goto(`/${b.slug}/admin#limits`);
+    await expect(page.locator("dl > div").filter({ hasText: "Čaká na súhrn" }).locator("dd")).toHaveText("1");
+    await ann.ctx.close();
+  });
+
   test("assignee: the team gives a bug to a colleague, who gets an e-mail and finds it under “Rieši: Ja”; customers never see it", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const boris = await boardUser(browser, b, "boris", { role: "team" });

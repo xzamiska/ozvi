@@ -23,6 +23,7 @@ import { UpdateNotice } from "@/components/ozvi/UpdateNotice";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
+import { sentCount } from "@/lib/email/quota";
 import { projectOrigin, publicUrl } from "@/lib/email/url";
 import { getCtx } from "@/lib/project";
 import { LOCALE_TAG } from "@/i18n/locales";
@@ -67,7 +68,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
   const plan = (w?.plan ?? "self") as PlanName;
   const monthStart = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), 1));
   const usage = await withProject(db, project.id, async (tx) => {
-    const [e] = await tx.select({ n: sql<number>`count(*)::int` }).from(schema.emails)
+    const [e] = await tx.select({ n: sentCount }).from(schema.emails)
       .where(and(inArray(schema.emails.status, ["sent", "digested"]), gte(schema.emails.sentAt, monthStart)));
     const [d] = await tx.select({ n: sql<number>`count(*)::int` }).from(schema.emails).where(eq(schema.emails.status, "deferred"));
     const [a] = await tx.select({ b: sql<number>`coalesce(sum(${schema.attachments.bytes}), 0)::bigint` }).from(schema.attachments);

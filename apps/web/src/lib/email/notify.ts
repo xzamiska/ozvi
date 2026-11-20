@@ -11,6 +11,7 @@ import type { Project } from "../project";
 import { stopLabel, type LabelSource } from "../route-text";
 import type { ProofSnapshot } from "../proof";
 import { renderMail, type Mail } from "./render";
+import { isPace, summaryAt, SUMMARY_KINDS } from "./pace";
 import { unsubscribeUrl } from "./unsubscribe";
 import { projectOrigin } from "./url";
 
@@ -43,17 +44,22 @@ export interface QuotedPost { subject: "comment"; id: string; text: string }
 async function enqueue(tx: Tx, project: Project, kind: string, recipientIds: string[], build: Build, post?: QuotedPost) {
   const ids = [...new Set(recipientIds)];
   if (ids.length === 0) return 0;
-  const rows = await tx.select({ id: users.id, email: users.email, locale: users.locale }).from(users)
+  const rows = await tx.select({ id: users.id, email: users.email, locale: users.locale, role: users.role, teamMail: users.teamMail }).from(users)
     .where(and(inArray(users.id, ids), isNotNull(users.email), eq(users.emailOptOut, false)));
   const theme = themeOf(project);
   if (rows.length === 0) return 0;
   const lang = post && translationModeOf(project) !== "off" ? detectLanguage(post.text) : null;
+  const now = new Date();
   await tx.insert(emails).values(rows.map((r) => {
     const unsub = unsubscribeUrl(projectOrigin(project), project.slug, r.id);
     const locale = recipientLocale(project, r.locale);
     const mail = build(translator(locale, "email"), locale);
     const translate = post && needsTranslation(lang, locale) && mail.quote ? { subject: post.subject, id: post.id, target: locale, mail: mail as unknown as Record<string, unknown> } : null;
-    return { projectId: project.id, userId: r.id, to: r.email!, kind, ...renderMail(mail, theme, project.name, unsub, locale), translate };
+    // A team member who wants summaries: the mail waits (deferred) and goes out in their next summary.
+    const pace = r.role === "team" || r.role === "admin" ? r.teamMail?.pace : undefined;
+    const at = SUMMARY_KINDS.has(kind) && isPace(pace) ? summaryAt(pace, now) : null;
+    const held = at ? { status: "deferred" as const, sendAfter: at, translate: null } : { translate };
+    return { projectId: project.id, userId: r.id, to: r.email!, kind, ...renderMail(mail, theme, project.name, unsub, locale), ...held };
   }));
   return rows.length;
 }

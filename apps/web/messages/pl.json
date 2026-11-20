@@ -372,7 +372,7 @@
       "mailOffC": ", a do tego",
       "plan": "Plan",
       "sent": "Wysłane e-maile",
-      "deferred": "Czeka na dzienne podsumowanie",
+      "deferred": "Czeka na podsumowanie",
       "attachments": "Załączniki",
       "unlimited": "bez limitu"
     },
@@ -1140,11 +1140,11 @@
       "teamMailItems": {
         "newBug": {
           "title": "Nowe zgłoszenie błędu",
-          "text": "Od razu, gdy ktoś je wyśle."
+          "text": "Gdy ktoś je wyśle."
         },
         "newIdea": {
           "title": "Nowy pomysł",
-          "text": "Od razu, gdy ktoś go zaproponuje."
+          "text": "Gdy ktoś go zaproponuje."
         },
         "comments": {
           "title": "Komentarze i notatki wewnętrzne",
@@ -1157,6 +1157,21 @@
         "digest": {
           "title": "Poniedziałkowe podsumowanie",
           "text": "Raz w tygodniu: liczby, co czeka na odpowiedź i co wydano, ale nie ogłoszono."
+        }
+      },
+      "teamMailPace": "Jak je wysyłać",
+      "teamMailPaces": {
+        "instant": {
+          "title": "Od razu",
+          "text": "Każdy e-mail osobno, gdy tylko coś się wydarzy."
+        },
+        "hourly": {
+          "title": "Podsumowanie co godzinę",
+          "text": "Godzinę po pierwszym zdarzeniu jeden e-mail ze wszystkim, co się w tym czasie wydarzyło."
+        },
+        "daily": {
+          "title": "Podsumowanie raz dziennie rano",
+          "text": "Jeden e-mail o 8:00 ze wszystkim od poprzedniego podsumowania."
         }
       }
     },
@@ -1520,7 +1535,7 @@
         "idea_status": "Status pomysłu",
         "changelog": "Wpis w Nowościach",
         "team_digest": "Podsumowanie tygodniowe",
-        "digest": "Podsumowanie dzienne",
+        "digest": "Podsumowanie",
         "login": "Logowanie",
         "invite": "Zaproszenie"
       },
@@ -1800,6 +1815,8 @@
     "openReports": "Otwórz zgłoszenia",
     "digestSubject": "{project}: {n, plural, one {# zmiana} few {# zmiany} many {# zmian} other {# zmiany}} w twoich opiniach",
     "digestHeading": "Co się zmieniło",
+    "teamSummarySubject": "{project}: {n, plural, one {# nowość} few {# nowości} many {# nowości} other {# nowości}} dla zespołu",
+    "teamSummaryHeading": "Co nowego na tablicy",
     "openFeedback": "Otwórz opinie",
     "loginSubject": "{code} — logowanie do {brand}",
     "loginHeading": "Logowanie do {brand}",

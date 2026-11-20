@@ -372,7 +372,7 @@
       "mailOffC": ", plus",
       "plan": "Plan",
       "sent": "E-mails sent",
-      "deferred": "Waiting for daily digest",
+      "deferred": "Waiting for a summary",
       "attachments": "Attachments",
       "unlimited": "unlimited"
     },
@@ -1140,11 +1140,11 @@
       "teamMailItems": {
         "newBug": {
           "title": "New bug report",
-          "text": "As soon as someone sends one."
+          "text": "When someone sends one."
         },
         "newIdea": {
           "title": "New idea",
-          "text": "As soon as someone suggests one."
+          "text": "When someone suggests one."
         },
         "comments": {
           "title": "Comments and internal notes",
@@ -1157,6 +1157,21 @@
         "digest": {
           "title": "Monday digest",
           "text": "Once a week: the numbers, what waits for a reply and what shipped but wasn't announced."
+        }
+      },
+      "teamMailPace": "How to send them",
+      "teamMailPaces": {
+        "instant": {
+          "title": "Right away",
+          "text": "Each e-mail on its own, as soon as something happens."
+        },
+        "hourly": {
+          "title": "Hourly summary",
+          "text": "One e-mail an hour after the first event, with everything that happened since."
+        },
+        "daily": {
+          "title": "Daily summary in the morning",
+          "text": "One e-mail at 8:00 with everything since the last summary."
         }
       }
     },
@@ -1520,7 +1535,7 @@
         "idea_status": "Idea status",
         "changelog": "Changelog entry",
         "team_digest": "Weekly digest",
-        "digest": "Daily digest",
+        "digest": "Summary",
         "login": "Sign-in",
         "invite": "Invitation"
       },
@@ -1800,6 +1815,8 @@
     "openReports": "Open reports",
     "digestSubject": "{project}: {n, plural, one {# update} other {# updates}} on your feedback",
     "digestHeading": "What changed",
+    "teamSummarySubject": "{project}: {n, plural, one {# update} other {# updates}} for the team",
+    "teamSummaryHeading": "What's new on the board",
     "openFeedback": "Open feedback",
     "loginSubject": "{code} — sign in to {brand}",
     "loginHeading": "Sign in to {brand}",

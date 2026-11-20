@@ -372,7 +372,7 @@
       "mailOffC": ", a k tomu",
       "plan": "Plán",
       "sent": "Odoslané e-maily",
-      "deferred": "Čaká na denný súhrn",
+      "deferred": "Čaká na súhrn",
       "attachments": "Prílohy",
       "unlimited": "bez limitu"
     },
@@ -1140,11 +1140,11 @@
       "teamMailItems": {
         "newBug": {
           "title": "Nové hlásenie chyby",
-          "text": "Hneď, ako ho niekto pošle."
+          "text": "Keď ho niekto pošle."
         },
         "newIdea": {
           "title": "Nový nápad",
-          "text": "Hneď, ako ho niekto navrhne."
+          "text": "Keď ho niekto navrhne."
         },
         "comments": {
           "title": "Komentáre a interné poznámky",
@@ -1157,6 +1157,21 @@
         "digest": {
           "title": "Pondelňajší súhrn",
           "text": "Raz týždenne: čísla, čo čaká na odpoveď a čo je vydané, ale neoznámené."
+        }
+      },
+      "teamMailPace": "Ako vám ich posielať",
+      "teamMailPaces": {
+        "instant": {
+          "title": "Hneď",
+          "text": "Každý e-mail zvlášť, len čo sa niečo stane."
+        },
+        "hourly": {
+          "title": "Súhrn raz za hodinu",
+          "text": "Hodinu po prvej udalosti príde jeden e-mail so všetkým, čo sa medzitým stalo."
+        },
+        "daily": {
+          "title": "Súhrn raz denne ráno",
+          "text": "Jeden e-mail o 8:00 so všetkým od včerajšieho súhrnu."
         }
       }
     },
@@ -1520,7 +1535,7 @@
         "idea_status": "Stav nápadu",
         "changelog": "Novinka",
         "team_digest": "Týždenný súhrn",
-        "digest": "Denný súhrn",
+        "digest": "Súhrn",
         "login": "Prihlásenie",
         "invite": "Pozvánka"
       },
@@ -1800,6 +1815,8 @@
     "openReports": "Otvoriť hlásenia",
     "digestSubject": "{project}: {n, plural, one {# novinka} few {# novinky} other {# noviniek}} k vašej spätnej väzbe",
     "digestHeading": "Čo sa zmenilo",
+    "teamSummarySubject": "{project}: {n, plural, one {# novinka} few {# novinky} other {# noviniek}} pre tím",
+    "teamSummaryHeading": "Čo je nové na boarde",
     "openFeedback": "Otvoriť spätnú väzbu",
     "loginSubject": "{code} — prihlásenie do {brand}",
     "loginHeading": "Prihlásenie do {brand}",

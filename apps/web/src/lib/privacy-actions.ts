@@ -1,12 +1,13 @@
 "use server";
 
 import { schema, withProject } from "@ozvi/db";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { db } from "./db";
 import { getCtx } from "./project";
+import { isPace } from "./email/pace";
 import { deleteProject, eraseMe } from "./privacy";
 import { cookieName } from "./session";
 import { getTranslations } from "next-intl/server";
@@ -51,7 +52,13 @@ export async function setTeamMail(slug: string, form: FormData) {
   const { project, user } = await getCtx(slug);
   if (!user) redirect(`/${slug}`);
   if (user.role !== "team" && user.role !== "admin") return;
-  const prefs = Object.fromEntries(TEAM_MAIL.map((k) => [k, form.get(k) === "on"]));
-  await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: prefs }).where(eq(schema.users.id, user.id)));
+  const pace = form.get("pace");
+  const prefs = { ...Object.fromEntries(TEAM_MAIL.map((k) => [k, form.get(k) === "on"])), ...(isPace(pace) && pace !== "instant" && { pace }) };
+  await withProject(db, project.id, async (tx) => {
+    await tx.update(schema.users).set({ teamMail: prefs }).where(eq(schema.users.id, user.id));
+    // Back to "right away": what already waits for a summary goes out in one now, not at the old time.
+    if (!prefs.pace) await tx.update(schema.emails).set({ sendAfter: new Date() })
+      .where(and(eq(schema.emails.userId, user.id), eq(schema.emails.status, "deferred")));
+  });
   revalidatePath(`/${slug}/me`);
 }

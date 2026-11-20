@@ -4,6 +4,7 @@ import { and, desc, eq, gte, inArray, max, ne, sql } from "drizzle-orm";
 import { workspacesOf } from "./account";
 import { db } from "./db";
 import { translationsUsed } from "./translate";
+import { sentCount } from "./email/quota";
 
 /**
  * Read models for the console (/app/w/[id]/…). Every function takes a workspace the caller already
@@ -77,7 +78,7 @@ export async function usageOf(ws: ConsoleWorkspace): Promise<Usage> {
   let storage = 0;
   for (const p of ws.projects) {
     const r = await withProject(db, p.id, async (tx) => {
-      const [e] = await tx.select({ n: sql<number>`count(*)::int` }).from(schema.emails)
+      const [e] = await tx.select({ n: sentCount }).from(schema.emails)
         .where(and(inArray(schema.emails.status, ["sent", "digested"]), gte(schema.emails.sentAt, monthStart())));
       const [a] = await tx.select({ b: sql<number>`coalesce(sum(${schema.attachments.bytes}), 0)::bigint` }).from(schema.attachments);
       return { e: e?.n ?? 0, a: Number(a?.b ?? 0) };

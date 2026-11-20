@@ -4,6 +4,7 @@ import nodemailer, { type Transporter } from "nodemailer";
 import { ecomailTransport } from "./ecomail";
 import { recipientLocale } from "../../i18n/board";
 import { translator } from "../../i18n/messages";
+import { sentCount } from "./quota";
 import { renderMail } from "./render";
 import { TRANSLATE_WAIT_MS } from "./translate-mail";
 import { projectOrigin, publicUrl } from "./url";
@@ -81,7 +82,7 @@ export async function tick(db: Db, t: Transporter | null = getTransport(), scope
     const projectIds = [...new Set(batch.map((b) => b.e.projectId))];
     // Plan limits are per workspace (all its projects together), not per project.
     const used = new Map<string, number>();
-    for (const r of await tx.select({ w: projects.workspaceId, n: sql<number>`count(*)::int` }).from(emails)
+    for (const r of await tx.select({ w: projects.workspaceId, n: sentCount }).from(emails)
       .innerJoin(projects, eq(projects.id, emails.projectId))
       .where(and(inArray(emails.status, ["sent", "digested"]), gte(emails.sentAt, monthStart()),
         inArray(projects.workspaceId, tx.select({ w: projects.workspaceId }).from(projects).where(inArray(projects.id, projectIds)))))
@@ -94,7 +95,7 @@ export async function tick(db: Db, t: Transporter | null = getTransport(), scope
       const n = used.get(workspaceId) ?? 0;
       if (n >= limit) {
         // Over quota: never block, batch into a daily digest instead (ADR-0006).
-        await tx.update(emails).set({ status: "deferred" }).where(eq(emails.id, e.id));
+        await tx.update(emails).set({ status: "deferred", sendAfter: new Date(now.getTime() + DIGEST_AFTER_HOURS * 3600_000) }).where(eq(emails.id, e.id));
         stats.deferred++;
         continue;
       }
@@ -119,17 +120,20 @@ export async function tick(db: Db, t: Transporter | null = getTransport(), scope
       }
     }
   });
-  stats.digests = await digests(db, t, DIGEST_AFTER_HOURS, scope);
+  stats.digests = await digests(db, t, scope);
   return stats;
 }
 
-/** One e-mail per user summarising deferred notifications, once the oldest is a day old. */
-export async function digests(db: Db, t: Transporter | null, olderThanHours = DIGEST_AFTER_HOURS, scope: WorkerScope = {}): Promise<number> {
+/**
+ * One e-mail per user summarising their deferred notifications, once the earliest is due (`send_after`):
+ * a day after the first one over the plan's quota, or at the time of the summary a team member chose (pace.ts).
+ */
+export async function digests(db: Db, t: Transporter | null, scope: WorkerScope = {}): Promise<number> {
   if (!t) return 0;
-  // `scope.now` like tick(): tests (and a caller that already knows the time) decide what "older than" means.
-  const cutoff = new Date((scope.now ?? new Date()).getTime() - olderThanHours * 3600_000);
+  // `scope.now` like tick(): tests (and a caller that already knows the time) decide what "due" means.
+  const now = scope.now ?? new Date();
   const due = await withSystem(db, (tx) => tx.select({ projectId: emails.projectId, userId: emails.userId }).from(emails)
-    .where(and(eq(emails.status, "deferred"), lte(emails.createdAt, cutoff), ...inScope(scope)))
+    .where(and(eq(emails.status, "deferred"), lte(emails.sendAfter, now), ...inScope(scope)))
     .groupBy(emails.projectId, emails.userId).limit(50));
   let count = 0;
   // One transaction per recipient: a failing address must never roll back (and re-send) everyone else's digest.
@@ -152,17 +156,19 @@ export async function digests(db: Db, t: Transporter | null, olderThanHours = DI
       const unsub = unsubscribeUrl(projectOrigin(p), p.slug, u.id);
       const locale = recipientLocale(p, u.locale);
       const msg = translator(locale, "email");
+      const team = u.role === "team" || u.role === "admin";
+      const sentAt = new Date();
       const mail = renderMail({
-        subject: msg("digestSubject", { project: p.name, n: rows.length }),
+        subject: msg(team ? "teamSummarySubject" : "digestSubject", { project: p.name, n: rows.length }),
         summary: "",
-        heading: msg("digestHeading"),
+        heading: msg(team ? "teamSummaryHeading" : "digestHeading"),
         paragraphs: rows.map((r) => `• ${r.summary}`),
         cta: { label: msg("openFeedback"), href: `${projectOrigin(p)}/${p.slug}` },
       }, theme, p.name, unsub, locale);
       try {
         await t.sendMail({ from: from(p.name), to: u.email, subject: mail.subject, html: mail.html, text: mail.text,
           headers: { "X-Ozvi-Kind": "digest", ...listUnsub(unsub) } });
-        await tx.update(emails).set({ status: "digested", sentAt: new Date() }).where(inArray(emails.id, ids));
+        await tx.update(emails).set({ status: "digested", sentAt }).where(inArray(emails.id, ids));
         count++;
       } catch (err) {
         await tx.update(emails).set({ status: "failed", lastError: String(err).slice(0, 500) }).where(inArray(emails.id, ids));
