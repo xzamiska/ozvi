@@ -10,6 +10,7 @@ import { Gallery } from "@/components/Gallery";
 import { CaptureLinks, CaptureTimeline, TeamOnly } from "@/components/ozvi/BugCapture";
 import { NetworkLog } from "@/components/ozvi/NetworkLog";
 import { contextFor, timeline, type Capture } from "@/lib/bug-context";
+import { isReopenedByReporter } from "@/lib/domain";
 import { Journey, type JourneyEvent } from "@/components/ozvi/Journey";
 import { EmptyState, Page } from "@/components/ozvi/page";
 import { StatusTag } from "@/components/ozvi/route";
@@ -114,7 +115,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
     // A deleted original is not linked any more (the duplicate stays closed).
     const mergedInto = item.mergedIntoId
       ? (await tx.query.items.findFirst({ where: and(eq(items.id, item.mergedIntoId), isNull(items.deletedAt)) })) ?? null : null;
-    const history = await tx.select({ at: itemEvents.createdAt, to: itemEvents.toStatus, version: itemEvents.version, who: users.name, sub: itemEvents.subStatusId, proof: itemEvents.proof })
+    const history = await tx.select({ at: itemEvents.createdAt, from: itemEvents.fromStatus, to: itemEvents.toStatus, actorId: itemEvents.actorId, version: itemEvents.version, who: users.name, sub: itemEvents.subStatusId, proof: itemEvents.proof })
       .from(itemEvents).leftJoin(users, eq(users.id, itemEvents.actorId)).where(eq(itemEvents.itemId, item.id)).orderBy(asc(itemEvents.createdAt));
     const links = await tx.select().from(itemLinks).where(eq(itemLinks.itemId, item.id)).orderBy(asc(itemLinks.createdAt));
     const releases = await tx.select({ id: changelogEntries.id, title: changelogEntries.title, at: changelogEntries.publishedAt })
@@ -205,7 +206,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
   const events: JourneyEvent[] = [
     { type: "status", at: item.createdAt, status: ROUTE[item.kind][0]!, who: byline },
     ...history.map((h): JourneyEvent => ({ type: "status", at: h.at, status: h.to, version: h.version, who: h.who, sub: h.sub ? subName.get(h.sub) : null,
-      proof: visibleProof(readProof(h.proof), item.kind, isTeam) })),
+      proof: visibleProof(readProof(h.proof), item.kind, isTeam), reopened: isReopenedByReporter(h, item) })),
     // A merged duplicate ends in "Merged into #n" (not the closed status the merge stored); another
     // reporter's bug keeps the original's number private.
     ...(item.mergedIntoId ? [{ type: "merged", at: item.updatedAt,

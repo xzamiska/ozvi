@@ -861,7 +861,8 @@
       "proofPreview": "Vyskúšať opravu",
       "proofRelease": "Vydanie {v}",
       "merged": "Zlúčené do #{n}",
-      "mergedPrivate": "Rieši sa pod iným číslom"
+      "mergedPrivate": "Rieši sa pod iným číslom",
+      "reopened": "Znova otvorené: stále nefunguje"
     },
     "ideas": {
       "gateTitle": "Nápady vidia len prihlásení",
@@ -2045,7 +2046,13 @@
       "title": "Opravili sme to.",
       "text": "Funguje vám to už? Jedným klikom hlásenie uzavriete alebo vrátite tímu.",
       "works": "Áno, funguje",
-      "broken": "Stále nefunguje"
+      "broken": "Stále nefunguje",
+      "whatLabel": "Čo presne stále nefunguje? (nepovinné)",
+      "whatPlaceholder": "Napríklad: po kliknutí na Uložiť sa stále nič nestane.",
+      "sendBack": "Vrátiť tímu",
+      "cancel": "Späť",
+      "reopened": "Hlásenie sme vrátili tímu. Keď ho opravíme, dáme vám vedieť.",
+      "verified": "Ďakujeme, hlásenie je uzavreté."
     },
     "gallery": {
       "label": "Prílohy",

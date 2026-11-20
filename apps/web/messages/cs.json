@@ -861,7 +861,8 @@
       "proofPreview": "Vyzkoušet opravu",
       "proofRelease": "Vydání {v}",
       "merged": "Sloučeno do #{n}",
-      "mergedPrivate": "Řeší se pod jiným číslem"
+      "mergedPrivate": "Řeší se pod jiným číslem",
+      "reopened": "Znovu otevřeno: pořád nefunguje"
     },
     "ideas": {
       "gateTitle": "Nápady vidí jen přihlášení",
@@ -2045,7 +2046,13 @@
       "title": "Opravili jsme to.",
       "text": "Už vám to funguje? Jedním kliknutím hlášení uzavřete, nebo ho vrátíte týmu.",
       "works": "Ano, funguje",
-      "broken": "Pořád nefunguje"
+      "broken": "Pořád nefunguje",
+      "whatLabel": "Co přesně pořád nefunguje? (nepovinné)",
+      "whatPlaceholder": "Například: po kliknutí na Uložit se pořád nic nestane.",
+      "sendBack": "Vrátit týmu",
+      "cancel": "Zpět",
+      "reopened": "Hlášení jsme vrátili týmu. Až ho opravíme, dáme vám vědět.",
+      "verified": "Děkujeme, hlášení je uzavřené."
     },
     "gallery": {
       "label": "Přílohy",

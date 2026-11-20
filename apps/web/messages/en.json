@@ -861,7 +861,8 @@
       "proofPreview": "Try the fix",
       "proofRelease": "Release {v}",
       "merged": "Merged into #{n}",
-      "mergedPrivate": "Handled under another number"
+      "mergedPrivate": "Handled under another number",
+      "reopened": "Reopened: still broken"
     },
     "ideas": {
       "gateTitle": "Ideas are visible to signed-in users only",
@@ -2045,7 +2046,13 @@
       "title": "We fixed this.",
       "text": "Is it working for you now? One click closes the report or sends it back to the team.",
       "works": "Yes, it works",
-      "broken": "Still broken"
+      "broken": "Still broken",
+      "whatLabel": "What exactly still doesn't work? (optional)",
+      "whatPlaceholder": "For example: clicking Save still does nothing.",
+      "sendBack": "Send back to the team",
+      "cancel": "Back",
+      "reopened": "We sent the report back to the team. We'll let you know once it's fixed.",
+      "verified": "Thank you, the report is closed."
     },
     "gallery": {
       "label": "Attachments",

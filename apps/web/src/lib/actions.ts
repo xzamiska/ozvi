@@ -14,14 +14,14 @@ import { db } from "./db";
 import { AttachmentError } from "./attachments";
 import { createItemFor, ValidationError } from "./items";
 import { allow, RateLimitError } from "./ratelimit";
-import { addCommentTo, assertCanParticipate, canSee, changeStatus, DomainError, forgetIssueClosures, itemByNumber, mergeItems, recordStatus } from "./domain";
+import { addCommentTo, assertCanParticipate, canSee, changeStatus, DomainError, itemByNumber, mergeItems, reporterVerdict } from "./domain";
 import { getCtx } from "./project";
 import { rememberLocale } from "./user-locale";
 import { applyVote } from "./votes";
 import { getTranslations } from "next-intl/server";
 import { HONEYPOT, isBlocked } from "./moderation-rules";
 
-const { items, comments } = schema;
+const { items } = schema;
 
 async function requireUser(slug: string) {
   const ctx = await getCtx(slug);
@@ -212,19 +212,24 @@ export async function mergeInto(slug: string, itemId: string, _prev: FormState, 
   redirect(`/${slug}/i/${n}`);
 }
 
-/** Closing the loop: the reporter confirms a fix works, or reopens it with a note. */
-export async function confirmFix(slug: string, itemId: string, works: boolean) {
-  const { project, user, t } = await requireUser(slug);
-  await withProject(db, project.id, async (tx) => {
-    const item = await tx.query.items.findFirst({ where: and(eq(items.id, itemId), eq(items.kind, "bug")) });
-    if (!item || item.authorId !== user.id || item.status !== "fixed") throw new Error(t("cannotConfirm"));
-    await tx.update(items).set({ status: works ? "verified" : "confirmed", subStatusId: null, updatedAt: new Date() }).where(eq(items.id, itemId));
-    await recordStatus(tx, project.id, itemId, item.status, works ? "verified" : "confirmed", item.fixedInVersion, user.id);
-    if (!works) {
-      await forgetIssueClosures(tx, itemId);
-      await tx.insert(comments).values({ projectId: project.id, itemId, authorId: user.id,
-        body: (item.fixedInVersion ? t("stillBrokenIn", { v: item.fixedInVersion }) : t("stillBroken")) });
-    }
-  });
+/**
+ * Closing the loop: the reporter confirms a fix works, or reopens it, optionally saying what still doesn't work
+ * (`note`, kept with the "still broken" line as their comment, which the team hears about).
+ */
+export async function confirmFix(slug: string, itemId: string, works: boolean, note = ""): Promise<{ error?: string }> {
+  const { project, user, locale, t } = await requireUser(slug);
+  try {
+    await withProject(db, project.id, async (tx) => {
+      const item = await tx.query.items.findFirst({ where: and(eq(items.id, itemId), eq(items.kind, "bug")) });
+      if (!item) throw new DomainError(t("cannotConfirm"));
+      const line = item.fixedInVersion ? t("stillBrokenIn", { v: item.fixedInVersion }) : t("stillBroken");
+      const said = note.trim().slice(0, 4000);
+      if (!(await reporterVerdict(tx, project, user, item, works, said ? `${line}\n\n${said}` : line))) throw new DomainError(t("cannotConfirm"));
+    });
+  } catch (e) {
+    if (e instanceof DomainError) return { error: e.text(locale) };
+    throw e;
+  }
   revalidatePath(`/${slug}`, "layout");
+  return {};
 }

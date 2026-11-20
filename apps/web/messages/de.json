@@ -861,7 +861,8 @@
       "proofPreview": "Korrektur ausprobieren",
       "proofRelease": "Release {v}",
       "merged": "Zusammengeführt mit #{n}",
-      "mergedPrivate": "Wird unter einer anderen Nummer bearbeitet"
+      "mergedPrivate": "Wird unter einer anderen Nummer bearbeitet",
+      "reopened": "Wieder geöffnet: geht immer noch nicht"
     },
     "ideas": {
       "gateTitle": "Ideen sind nur für angemeldete Personen sichtbar",
@@ -2045,7 +2046,13 @@
       "title": "Wir haben das behoben.",
       "text": "Funktioniert es jetzt bei Ihnen? Ein Klick schließt die Meldung oder schickt sie zurück an das Team.",
       "works": "Ja, es funktioniert",
-      "broken": "Geht immer noch nicht"
+      "broken": "Geht immer noch nicht",
+      "whatLabel": "Was genau geht immer noch nicht? (optional)",
+      "whatPlaceholder": "Zum Beispiel: Ein Klick auf Speichern bewirkt immer noch nichts.",
+      "sendBack": "An das Team zurückschicken",
+      "cancel": "Zurück",
+      "reopened": "Wir haben die Meldung an das Team zurückgeschickt. Wir melden uns, sobald es behoben ist.",
+      "verified": "Danke, die Meldung ist abgeschlossen."
     },
     "gallery": {
       "label": "Anhänge",

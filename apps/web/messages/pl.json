@@ -861,7 +861,8 @@
       "proofPreview": "Wypróbuj poprawkę",
       "proofRelease": "Wydanie {v}",
       "merged": "Scalone z #{n}",
-      "mergedPrivate": "Rozwiązywane pod innym numerem"
+      "mergedPrivate": "Rozwiązywane pod innym numerem",
+      "reopened": "Ponownie otwarte: nadal nie działa"
     },
     "ideas": {
       "gateTitle": "Pomysły widzą tylko zalogowani użytkownicy",
@@ -2045,7 +2046,13 @@
       "title": "Naprawiliśmy to.",
       "text": "Czy teraz działa? Jedno kliknięcie zamknie zgłoszenie albo odeśle je do zespołu.",
       "works": "Tak, działa",
-      "broken": "Nadal nie działa"
+      "broken": "Nadal nie działa",
+      "whatLabel": "Co dokładnie nadal nie działa? (opcjonalnie)",
+      "whatPlaceholder": "Na przykład: po kliknięciu Zapisz nadal nic się nie dzieje.",
+      "sendBack": "Odeślij do zespołu",
+      "cancel": "Wróć",
+      "reopened": "Odesłaliśmy zgłoszenie do zespołu. Damy znać, gdy będzie naprawione.",
+      "verified": "Dziękujemy, zgłoszenie jest zamknięte."
     },
     "gallery": {
       "label": "Załączniki",

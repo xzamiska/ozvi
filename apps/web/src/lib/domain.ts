@@ -141,6 +141,27 @@ export async function addCommentTo(
 }
 
 /**
+ * Closing the loop: the reporter says whether the fix works. "Works" verifies the bug. "Still broken" reopens it
+ * (back to confirmed, linked issues must close again) with `comment` as the reporter's comment, so the team hears
+ * about it like about any customer comment (their comment e-mail settings and pace apply). Returns the new status.
+ */
+export async function reporterVerdict(tx: Tx, project: Project, reporter: User, item: Item, works: boolean, comment: string) {
+  if (item.kind !== "bug" || item.authorId !== reporter.id || item.status !== "fixed" || item.deletedAt) return null;
+  const to = works ? "verified" : "confirmed";
+  const [moved] = await tx.update(items).set({ status: to, subStatusId: null, updatedAt: new Date() }).where(eq(items.id, item.id)).returning();
+  await recordStatus(tx, project.id, item.id, item.status, to, item.fixedInVersion, reporter.id);
+  if (!works) {
+    await forgetIssueClosures(tx, item.id);
+    await addCommentTo(tx, project, reporter, moved!, comment, false);
+  }
+  return moved!;
+}
+
+/** A status step on the route that is the reporter reopening their fixed bug ("still broken"). */
+export const isReopenedByReporter = (e: { from: string | null; to: string; actorId: string | null }, item: Pick<Item, "kind" | "authorId">) =>
+  item.kind === "bug" && e.from === "fixed" && e.to === "confirmed" && !!e.actorId && e.actorId === item.authorId;
+
+/**
  * Duplicate → original. Votes move to the original (one per user, highest weight wins), the duplicate
  * disappears from lists and points at the original. Both must be the same kind.
  */

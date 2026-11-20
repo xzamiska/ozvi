@@ -861,7 +861,8 @@
       "proofPreview": "Javítás kipróbálása",
       "proofRelease": "Kiadás: {v}",
       "merged": "Összevonva ezzel: #{n}",
-      "mergedPrivate": "Másik szám alatt foglalkozunk vele"
+      "mergedPrivate": "Másik szám alatt foglalkozunk vele",
+      "reopened": "Újranyitva: még mindig hibás"
     },
     "ideas": {
       "gateTitle": "Az ötletek csak bejelentkezett felhasználók számára láthatók",
@@ -2045,7 +2046,13 @@
       "title": "Ezt kijavítottuk.",
       "text": "Most már működik nálad? Egy kattintással lezárod a bejelentést, vagy visszaküldöd a csapatnak.",
       "works": "Igen, működik",
-      "broken": "Még mindig hibás"
+      "broken": "Még mindig hibás",
+      "whatLabel": "Pontosan mi nem működik még mindig? (nem kötelező)",
+      "whatPlaceholder": "Például: a Mentés gombra kattintva még mindig nem történik semmi.",
+      "sendBack": "Visszaküldés a csapatnak",
+      "cancel": "Vissza",
+      "reopened": "A bejelentést visszaküldtük a csapatnak. Szólunk, ha kijavítottuk.",
+      "verified": "Köszönjük, a bejelentést lezártuk."
     },
     "gallery": {
       "label": "Mellékletek",

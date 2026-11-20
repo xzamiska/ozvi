@@ -7,7 +7,7 @@ process.env.OZVI_SESSION_SECRET ??= "test-session-secret-0123456789abcdef";
 process.env.OZVI_SECRET_KEY ??= "test-secret-key-0123456789abcdef-xyz";
 process.env.DATABASE_URL ??= "postgres://ozvi:ozvi@localhost:5446/ozvi";
 
-const { addCommentTo, changeStatus, mergeItems } = await import("./domain");
+const { addCommentTo, changeStatus, isReopenedByReporter, mergeItems, reporterVerdict } = await import("./domain");
 const { notifyChangelog, notifyNewBug, notifyNewIdea } = await import("./email/notify");
 const { applyVote } = await import("./votes");
 const { publishEntry, publishReach, saveEntry } = await import("./changelog");
@@ -190,6 +190,24 @@ describe.skipIf(!up)("notifications follow the item", () => {
     const merged = (await withProject(db, project.id, (t) => t.query.items.findFirst({ where: eq(schema.items.id, dup.id) })))!;
     await expect(withProject(db, project.id, (t) => addCommentTo(t, project, u.author, merged, "Ešte ja", false))).rejects.toThrow("#21");
     expect(await withProject(db, project.id, (t) => applyVote(t, project, u.author.id, dup.id, 1))).toEqual({ ok: false, reason: "missing" });
+  });
+
+  it("\"still broken\" reopens the bug as the reporter's comment: the team hears about it, the route says reopened", async () => {
+    const [b] = await withSystem(db, (t) => t.insert(schema.items).values(
+      { projectId: project.id, kind: "bug", number: 40, title: "Uloženie padá", status: "fixed", fixedInVersion: "2.0", authorId: u.author.id }).returning()) as [Item];
+    // Only the reporter of a fixed bug may answer.
+    expect(await withProject(db, project.id, (t) => reporterVerdict(t, project, u.stranger, b, false, "x"))).toBeNull();
+    const moved = await withProject(db, project.id, (t) => reporterVerdict(t, project, u.author, b, false, "Vo verzii 2.0 to stále nefunguje.\n\nStále padá pri uložení."));
+    expect(moved!.status).toBe("confirmed");
+    const mails = await withProject(db, project.id, (t) => t.select({ to: schema.emails.to, text: schema.emails.text }).from(schema.emails)
+      .where(and(eq(schema.emails.projectId, project.id), eq(schema.emails.kind, "comment"))));
+    expect(mails.map((m) => m.to.split("@")[0]).sort()).toEqual(["team", "team2"]);
+    expect(mails[0]!.text).toContain("Stále padá pri uložení.");
+    await sent("comment");
+    const [ev] = await withProject(db, project.id, (t) => t.select({ from: schema.itemEvents.fromStatus, to: schema.itemEvents.toStatus, actorId: schema.itemEvents.actorId })
+      .from(schema.itemEvents).where(eq(schema.itemEvents.itemId, b.id)));
+    expect(isReopenedByReporter(ev!, b)).toBe(true);
+    expect(isReopenedByReporter({ ...ev!, actorId: u.team.id }, b)).toBe(false);
   });
 
   it("the changelog form counts exactly the e-mails publishing sends (voters, authors, commenters; not opted out, not the publisher)", async () => {

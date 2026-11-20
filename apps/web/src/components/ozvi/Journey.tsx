@@ -16,7 +16,9 @@ const TRACKER: Record<string, string> = { github: "GitHub", linear: "Linear", ji
  */
 
 export type JourneyEvent =
-  | { type: "status"; at: Date; status: string; version?: string | null; who?: string | null; sub?: string | null; proof?: ProofSnapshot | null }
+  | { type: "status"; at: Date; status: string; version?: string | null; who?: string | null; sub?: string | null; proof?: ProofSnapshot | null;
+      /** The reporter sent their fixed bug back ("still broken"): reads as reopened, not as the team confirming it. */
+      reopened?: boolean }
   /** A public team comment; the route links to it rather than quoting it (the thread shows it in full). */
   | { type: "reply"; at: Date; who: string | null; commentId: string }
   | { type: "link"; at: Date; provider: string; ref: string; url: string; state: string }
@@ -54,7 +56,7 @@ export function Journey({ kind, status, events, className, locale = "sk" }: {
           <div className="min-w-0 pt-px">
             <div className="flex flex-wrap items-baseline gap-x-2">
               <span className="min-w-0 text-[14px] font-semibold [overflow-wrap:anywhere]">
-                {e.type === "status" ? <>{routeText(tr, "label", e.status)}{e.version && (e.status === "fixed" || e.status === "verified") ? <span data-num>{t("inVersion", { v: e.version })}</span> : null}{e.sub ? <span className="font-medium text-muted-foreground"> · {e.sub}</span> : null}</>
+                {e.type === "status" ? <>{e.reopened ? t("reopened") : routeText(tr, "label", e.status)}{e.version && (e.status === "fixed" || e.status === "verified") ? <span data-num>{t("inVersion", { v: e.version })}</span> : null}{e.sub ? <span className="font-medium text-muted-foreground"> · {e.sub}</span> : null}</>
                   : e.type === "reply" ? <a href={`#c-${e.commentId}`} className="hover:underline">{t("teamReply")}</a>
                   : e.type === "merged" ? (e.into ? <Link href={e.into.href} className="hover:underline">{t("merged", { n: e.into.number })}</Link> : t("mergedPrivate"))
                   : e.type === "link" ? <a href={e.url} target="_blank" rel="noreferrer" className="hover:underline">{TRACKER[e.provider] ?? e.provider} {e.ref}</a>
