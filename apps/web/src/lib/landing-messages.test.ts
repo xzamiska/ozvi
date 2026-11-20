@@ -11,8 +11,10 @@ describe("landing client messages", () => {
   // The landing gives its client parts their own provider in the page's language; a namespace missing
   // from the list would show raw keys there.
   it("cover every namespace the landing's client components read", () => {
-    const files = [...readdirSync(join(SRC, "components/landing")).map((f) => `components/landing/${f}`), "components/ozvi/route.tsx"];
-    const used = new Set(files.flatMap((f) => [...read(f).matchAll(/useTranslations\("([a-zA-Z]+)/g)].map((m) => m[1]!)));
+    // Shared UI the landing renders (sheets and dialogs: the close button's label).
+    const files = [...readdirSync(join(SRC, "components/landing")).map((f) => `components/landing/${f}`), "components/ozvi/route.tsx",
+      "components/ui/dialog.tsx", "components/ui/sheet.tsx"];
+    const used = new Set(files.flatMap((f) => [...read(f).matchAll(/useTranslations\("([a-zA-Z0-9]+)/g)].map((m) => m[1]!)));
     expect(used.size).toBeGreaterThan(0);
     for (const n of used) expect(LANDING_CLIENT_NAMESPACES as readonly string[]).toContain(n);
   });
