@@ -903,7 +903,10 @@
       "who": "Odpowiada",
       "whoAny": "Ktokolwiek",
       "whoMe": "Ja",
-      "whoNone": "Nikt"
+      "whoNone": "Nikt",
+      "noneForWho": "Nic dla „Odpowiada: {who}”",
+      "noneForWhoText": "Filtr „Odpowiada” jest włączony, więc widzisz tylko część listy. Wyczyść go albo wybierz kogoś innego.",
+      "whoClear": "Wyczyść filtr „Odpowiada”"
     },
     "bugs": {
       "gateTitle": "Zgłoszenia błędów widzi tylko zgłaszający i zespół",
@@ -944,7 +947,10 @@
       "who": "Odpowiada",
       "whoAny": "Ktokolwiek",
       "whoMe": "Ja",
-      "whoNone": "Nikt"
+      "whoNone": "Nikt",
+      "noneForWho": "Nic dla „Odpowiada: {who}”",
+      "noneForWhoText": "Filtr „Odpowiada” jest włączony, więc widzisz tylko część listy. Wyczyść go albo wybierz kogoś innego.",
+      "whoClear": "Wyczyść filtr „Odpowiada”"
     },
     "roadmap": {
       "gateTitle": "Roadmapę widzą tylko zalogowani użytkownicy",

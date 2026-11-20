@@ -903,7 +903,10 @@
       "who": "Felelős",
       "whoAny": "Bárki",
       "whoMe": "Én",
-      "whoNone": "Senki"
+      "whoNone": "Senki",
+      "noneForWho": "Nincs találat: „Felelős: {who}”",
+      "noneForWhoText": "A felelős szerinti szűrő be van kapcsolva, ezért csak a lista egy részét látod. Kapcsold ki, vagy válassz mást.",
+      "whoClear": "Felelős szűrő törlése"
     },
     "bugs": {
       "gateTitle": "A hibajelentéseket csak a bejelentő és a csapat látja",
@@ -944,7 +947,10 @@
       "who": "Felelős",
       "whoAny": "Bárki",
       "whoMe": "Én",
-      "whoNone": "Senki"
+      "whoNone": "Senki",
+      "noneForWho": "Nincs találat: „Felelős: {who}”",
+      "noneForWhoText": "A felelős szerinti szűrő be van kapcsolva, ezért csak a lista egy részét látod. Kapcsold ki, vagy válassz mást.",
+      "whoClear": "Felelős szűrő törlése"
     },
     "roadmap": {
       "gateTitle": "Az ütemterv csak bejelentkezett felhasználók számára látható",

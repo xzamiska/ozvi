@@ -903,7 +903,10 @@
       "who": "Zuständig",
       "whoAny": "Alle",
       "whoMe": "Ich",
-      "whoNone": "Niemand"
+      "whoNone": "Niemand",
+      "noneForWho": "Nichts für „Zuständig: {who}“",
+      "noneForWhoText": "Der Filter „Zuständig“ ist aktiv, deshalb sehen Sie nur einen Teil der Liste. Heben Sie ihn auf oder wählen Sie jemand anderen.",
+      "whoClear": "Filter „Zuständig“ aufheben"
     },
     "bugs": {
       "gateTitle": "Fehlermeldungen sind nur für die meldende Person und das Team sichtbar",
@@ -944,7 +947,10 @@
       "who": "Zuständig",
       "whoAny": "Alle",
       "whoMe": "Ich",
-      "whoNone": "Niemand"
+      "whoNone": "Niemand",
+      "noneForWho": "Nichts für „Zuständig: {who}“",
+      "noneForWhoText": "Der Filter „Zuständig“ ist aktiv, deshalb sehen Sie nur einen Teil der Liste. Heben Sie ihn auf oder wählen Sie jemand anderen.",
+      "whoClear": "Filter „Zuständig“ aufheben"
     },
     "roadmap": {
       "gateTitle": "Die Roadmap ist nur für angemeldete Personen sichtbar",

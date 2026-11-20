@@ -9,8 +9,10 @@ import { cn } from "@/lib/utils";
  * A filter that lives in the URL, as a compact select (for lists too long for Segments).
  * Changing it keeps every other parameter and resets paging. `""` is the "all" option.
  */
-export function UrlSelect({ name, value, label, options, className, resetKeys = ["p"] }: {
+export function UrlSelect({ name, value, label, options, className, resetKeys = ["p"], prefix }: {
   name: string; value: string; label: string; options: { value: string; label: string }[]; className?: string;
+  /** Visible name before the value ("Rieši: Ja") when the options alone don't say what is filtered. */
+  prefix?: string;
   /** Paging parameters to drop on change (pages that page several lists at once, like the roadmap lanes). */
   resetKeys?: string[];
 }) {
@@ -28,6 +30,7 @@ export function UrlSelect({ name, value, label, options, className, resetKeys = 
     }}>
       <SelectTrigger aria-label={label} data-pending={pending || undefined}
         className={cn("max-w-[220px] bg-surface text-[13.5px] font-medium data-pending:opacity-70", className)}>
+        {prefix && <span className="shrink-0 text-muted-foreground">{prefix}:</span>}
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

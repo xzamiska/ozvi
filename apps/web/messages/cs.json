@@ -903,7 +903,10 @@
       "who": "Řeší",
       "whoAny": "Kdokoli",
       "whoMe": "Já",
-      "whoNone": "Nikdo"
+      "whoNone": "Nikdo",
+      "noneForWho": "Nic pro „Řeší: {who}“",
+      "noneForWhoText": "Je zapnutý filtr Řeší, proto vidíte jen část seznamu. Zrušte ho nebo vyberte někoho jiného.",
+      "whoClear": "Zrušit filtr Řeší"
     },
     "bugs": {
       "gateTitle": "Hlášení chyb vidí jen autor a tým",
@@ -944,7 +947,10 @@
       "who": "Řeší",
       "whoAny": "Kdokoli",
       "whoMe": "Já",
-      "whoNone": "Nikdo"
+      "whoNone": "Nikdo",
+      "noneForWho": "Nic pro „Řeší: {who}“",
+      "noneForWhoText": "Je zapnutý filtr Řeší, proto vidíte jen část seznamu. Zrušte ho nebo vyberte někoho jiného.",
+      "whoClear": "Zrušit filtr Řeší"
     },
     "roadmap": {
       "gateTitle": "Roadmapu vidí jen přihlášení",

@@ -903,7 +903,10 @@
       "who": "Rieši",
       "whoAny": "Ktokoľvek",
       "whoMe": "Ja",
-      "whoNone": "Nikto"
+      "whoNone": "Nikto",
+      "noneForWho": "Nič pre „Rieši: {who}“",
+      "noneForWhoText": "Je zapnutý filter Rieši, preto vidíte len časť zoznamu. Zrušte ho alebo vyberte niekoho iného.",
+      "whoClear": "Zrušiť filter Rieši"
     },
     "bugs": {
       "gateTitle": "Hlásenia chýb vidí len autor a tím",
@@ -944,7 +947,10 @@
       "who": "Rieši",
       "whoAny": "Ktokoľvek",
       "whoMe": "Ja",
-      "whoNone": "Nikto"
+      "whoNone": "Nikto",
+      "noneForWho": "Nič pre „Rieši: {who}“",
+      "noneForWhoText": "Je zapnutý filter Rieši, preto vidíte len časť zoznamu. Zrušte ho alebo vyberte niekoho iného.",
+      "whoClear": "Zrušiť filter Rieši"
     },
     "roadmap": {
       "gateTitle": "Roadmapu vidia len prihlásení",

@@ -903,7 +903,10 @@
       "who": "Assignee",
       "whoAny": "Anyone",
       "whoMe": "Me",
-      "whoNone": "Nobody"
+      "whoNone": "Nobody",
+      "noneForWho": "Nothing for “Assignee: {who}”",
+      "noneForWhoText": "The assignee filter is on, so you see only part of the list. Clear it or pick someone else.",
+      "whoClear": "Clear assignee filter"
     },
     "bugs": {
       "gateTitle": "Bug reports are visible to the reporter and the team only",
@@ -944,7 +947,10 @@
       "who": "Assignee",
       "whoAny": "Anyone",
       "whoMe": "Me",
-      "whoNone": "Nobody"
+      "whoNone": "Nobody",
+      "noneForWho": "Nothing for “Assignee: {who}”",
+      "noneForWhoText": "The assignee filter is on, so you see only part of the list. Clear it or pick someone else.",
+      "whoClear": "Clear assignee filter"
     },
     "roadmap": {
       "gateTitle": "The roadmap is visible to signed-in users only",
