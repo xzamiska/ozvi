@@ -1195,6 +1195,7 @@
       "affectsPeople": "Érintett: {n, plural, one {# személy} other {# személy}}",
       "andPeople": " és {n, plural, one {# cég nélküli személy} other {# cég nélküli személy}}",
       "mrrTotal": "Összesen {mrr} MRR",
+      "authorsCounted": "a beküldőt és az összevont duplikátumok beküldőit is beleszámoljuk, akkor is, ha nem szavaztak",
       "anonymous": "Felhasználó",
       "plan": "{plan} csomag",
       "author": "szerző",

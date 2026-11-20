@@ -1195,6 +1195,7 @@
       "affectsPeople": "Týká se {n, plural, one {# člověka} few {# lidí} many {# člověka} other {# lidí}}",
       "andPeople": " a {n, plural, one {# člověk bez firmy} few {# lidé bez firmy} many {# člověka bez firmy} other {# lidí bez firmy}}",
       "mrrTotal": "celkem {mrr} MRR",
+      "authorsCounted": "počítáme i autora a autory sloučených duplicit, i když nehlasovali",
       "anonymous": "Uživatel",
       "plan": "tarif {plan}",
       "author": "autor",

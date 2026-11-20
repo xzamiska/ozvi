@@ -1195,6 +1195,7 @@
       "affectsPeople": "Betrifft {n, plural, one {# Person} other {# Personen}}",
       "andPeople": " und {n, plural, one {# Person ohne Unternehmen} other {# Personen ohne Unternehmen}}",
       "mrrTotal": "{mrr} MRR insgesamt",
+      "authorsCounted": "inklusive Autor und Autoren zusammengeführter Duplikate, auch ohne Stimme",
       "anonymous": "Nutzer",
       "plan": "Tarif {plan}",
       "author": "Verfasser",

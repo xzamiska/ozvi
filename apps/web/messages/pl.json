@@ -1195,6 +1195,7 @@
       "affectsPeople": "Dotyczy {n, plural, one {# osoby} few {# osób} many {# osób} other {# osoby}}",
       "andPeople": " i {n, plural, one {# osoba bez firmy} few {# osoby bez firmy} many {# osób bez firmy} other {# osoby bez firmy}}",
       "mrrTotal": "Łącznie {mrr} MRR",
+      "authorsCounted": "liczymy też autora i autorów połączonych duplikatów, nawet jeśli nie głosowali",
       "anonymous": "Użytkownik",
       "plan": "Plan {plan}",
       "author": "autor",

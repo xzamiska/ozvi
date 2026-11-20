@@ -1195,6 +1195,7 @@
       "affectsPeople": "Affects {n, plural, one {# person} other {# people}}",
       "andPeople": " and {n, plural, one {# person without a company} other {# people without a company}}",
       "mrrTotal": "{mrr} MRR in total",
+      "authorsCounted": "includes the author and authors of merged duplicates, even if they didn't vote",
       "anonymous": "User",
       "plan": "{plan} plan",
       "author": "author",

@@ -109,7 +109,8 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
             </span>
           )}
           {/* Team-only columns: present on the row only when the server added them for a team viewer. */}
-          {!!row.affected && row.affected > 1 && (
+          {/* Bugs only: on ideas the vote box already says how many want it ("affects N people" reads as a bug). */}
+          {!idea && !!row.affected && row.affected > 1 && (
             <span className="inline-flex shrink-0 items-center gap-1" title={t("affected", { n: row.affected })} aria-label={t("affected", { n: row.affected })}>
               <Users className="size-3.5" />{row.affected}
             </span>
