@@ -25,6 +25,8 @@ export const LIMITS = {
   translate: { max: 60, windowMs: 60 * 60_000 },
   /** English pivots of typed idea titles (cross-language "similar ideas"), per viewer. */
   pivot: { max: 40, windowMs: 60 * 60_000 },
+  /** Embeddings of typed idea titles (similar ideas while writing, the question on submit), per viewer. */
+  similar: { max: 120, windowMs: 60 * 60_000 },
   /** Sign-in codes per IP an hour (OZVI_LOGIN_PER_IP, default 20; checking codes allows twice as many). */
   loginIp: { max: LOGIN_PER_IP, windowMs: 60 * 60_000 },
   loginVerifyIp: { max: 2 * LOGIN_PER_IP, windowMs: 60 * 60_000 },

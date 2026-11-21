@@ -1112,7 +1112,11 @@
       "unassigned": "Nobody is on it yet",
       "mergedHere": "Merged into this:",
       "former": "{who} (no longer on the team)",
-      "you": "{who} (you)"
+      "you": "{who} (you)",
+      "attached": "Your vote and description are on this idea. We’ll let you know when it moves.",
+      "attachedQueued": "Your description is waiting for the team’s approval, then it appears on this idea.",
+      "seenStrong": "The author saw #{n} and marked this as different",
+      "seenShown": "While writing, the author saw:"
     },
     "me": {
       "title": "My data",
@@ -1508,7 +1512,8 @@
         },
         "triage": {
           "merged": "Duplicates merged",
-          "bulk": "Bulk change"
+          "bulk": "Bulk change",
+          "unmerged": "Duplicates split"
         },
         "changelog": {
           "published": "Update published",
@@ -1791,7 +1796,8 @@
     "proofUrl": "The link must be a full address starting with https://.",
     "assignTeamOnly": "Only the team can assign items.",
     "assignNotTeam": "Only a team member of this board can be assigned.",
-    "assignClosed": "A deleted or merged item can no longer be assigned."
+    "assignClosed": "A deleted or merged item can no longer be assigned.",
+    "notMerged": "#{n} is not merged."
   },
   "email": {
     "footer": "You’re getting this from {project} because you follow this item.",
@@ -1993,7 +1999,7 @@
       "placeholderBug": "E.g. The VAT number disappears after saving a client",
       "placeholderIdea": "E.g. Export to CSV",
       "similarLabel": "Similar ideas",
-      "similar": "Something similar already exists. If it’s the same, just vote for it.",
+      "similar": "Something similar already exists. If it’s the one, add your vote — you can add your text as a comment.",
       "bodyBug": "What did you do and what did you expect?",
       "bodyIdea": "Why do you need it?",
       "bodyPlaceholderBug": "1. Opened a client\n2. Filled in the VAT number and clicked Save\n3. After reopening, the field is empty",
@@ -2011,7 +2017,24 @@
       "language": "Language",
       "sending": "Sending…",
       "submitBug": "Report bug",
-      "submitIdea": "Suggest idea"
+      "submitIdea": "Suggest idea",
+      "view": "View",
+      "newWindow": "opens in a new window",
+      "voted": "Your vote is on #{n}.",
+      "addAsComment": "Add my text as a comment on #{n}",
+      "addingComment": "Adding…",
+      "commentAdded": "Your text is on #{n} as a comment. We’ll let you know when it moves.",
+      "commentQueued": "Your text on #{n} is waiting for the team’s approval.",
+      "openIdea": "Open #{n}",
+      "writeFirst": "Write what would help you first.",
+      "strongTitle": "Is it #{n}?",
+      "strongText": "This idea already exists. Adding your vote and description there shows the team that more people want it.",
+      "strongAttach": "Add my vote and description to #{n}",
+      "attaching": "Adding…",
+      "strongNew": "It’s something else, create a new idea",
+      "strongReason": "How is it different?",
+      "guestSubmit": "Sign in to suggest",
+      "guestNote": "We keep your draft in this window. After signing in you come back here and send it."
     },
     "files": {
       "unsupported": "We don’t support “{name}”. Attach an image, PDF or text log.",
@@ -2114,7 +2137,14 @@
       "mergeHere": "Merge #{n} here",
       "mergeHereTitle": "Merge #{n} here?",
       "mergeHereIdea": "The votes of #{n} move here and #{n} closes as a duplicate of this idea.",
-      "mergeHereBug": "#{n} closes as a duplicate of this report. Its reporter hears about the fix together with this one."
+      "mergeHereBug": "#{n} closes as a duplicate of this report. Its reporter hears about the fix together with this one.",
+      "unmerge": "Split",
+      "unmergeHint": "Merged by mistake? Split it from #{into}.",
+      "unmergeTitle": "Split #{n} from #{into}?",
+      "unmergeIdea": "#{n} becomes a separate idea again, Suggested. Votes that moved to #{into} with the merge stay on #{into}.",
+      "unmergeBug": "#{n} becomes a separate report again, Received.",
+      "unmerging": "Splitting…",
+      "unmergeConfirm": "Split #{n}"
     },
     "changelog": {
       "votes": "{count, plural, one {# vote} other {# votes}}",
@@ -4060,7 +4090,8 @@
       "type": {
         "local": "localStorage",
         "cookie": "Cookie",
-        "cookieHttpOnly": "Cookie (HttpOnly)"
+        "cookieHttpOnly": "Cookie (HttpOnly)",
+        "session": "sessionStorage"
       },
       "purpose": {
         "seen": "Remembers the newest update you have seen, for the “What’s new” badge. Never leaves your browser.",
@@ -4069,11 +4100,13 @@
         "locale": "Remembers the language you chose.",
         "csv": "Remembers the separator for CSV exports.",
         "widgetLogin": "Remembers that you verified your e-mail in the widget, so you don't need a code for every report.",
-        "dense": "Remembers whether the team wants dense rows in lists."
+        "dense": "Remembers whether the team wants dense rows in lists.",
+        "draft": "Keeps an idea or report you are writing until you send it, so it isn't lost when you open a similar idea or sign in."
       },
       "untilCleared": "Until you clear browser data",
       "widgetNote": "The widget itself sets no cookies: it signs you in with a short-lived token from our app.",
-      "widgetNoteEmail": "The widget itself sets no cookies. When you verify your e-mail in it, it remembers that in your browser (the entry above)."
+      "widgetNoteEmail": "The widget itself sets no cookies. When you verify your e-mail in it, it remembers that in your browser (the entry above).",
+      "untilTabClosed": "Until you close the window or tab"
     },
     "units": {
       "years": "{n, plural, one {# year} other {# years}}",

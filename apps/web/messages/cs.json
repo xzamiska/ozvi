@@ -1112,7 +1112,11 @@
       "unassigned": "Nikdo to zatím neřeší",
       "mergedHere": "Sloučeno sem:",
       "former": "{who} (už není v týmu)",
-      "you": "{who} (vy)"
+      "you": "{who} (vy)",
+      "attached": "Váš hlas a popis jsou u tohoto nápadu. Dáme vám vědět, až se s ním něco pohne.",
+      "attachedQueued": "Váš popis čeká na schválení týmem, pak se objeví u tohoto nápadu.",
+      "seenStrong": "Autor viděl #{n} a označil to za jiné",
+      "seenShown": "Při psaní autor viděl:"
     },
     "me": {
       "title": "Moje údaje",
@@ -1508,7 +1512,8 @@
         },
         "triage": {
           "merged": "Sloučené duplicity",
-          "bulk": "Hromadná změna"
+          "bulk": "Hromadná změna",
+          "unmerged": "Oddělené duplicity"
         },
         "changelog": {
           "published": "Zveřejněná novinka",
@@ -1791,7 +1796,8 @@
     "proofUrl": "Odkaz musí být celá adresa začínající https://.",
     "assignTeamOnly": "Řešitele může určit jen tým.",
     "assignNotTeam": "Řešitelem může být jen člen týmu tohoto boardu.",
-    "assignClosed": "Smazaný nebo sloučený záznam už nelze přidělit."
+    "assignClosed": "Smazaný nebo sloučený záznam už nelze přidělit.",
+    "notMerged": "#{n} není sloučený."
   },
   "email": {
     "footer": "Tento e-mail vám poslal {project}, protože sledujete tento záznam.",
@@ -1993,7 +1999,7 @@
       "placeholderBug": "Např. Po uložení klienta zmizí DIČ",
       "placeholderIdea": "Např. Export do CSV",
       "similarLabel": "Podobné nápady",
-      "similar": "Něco podobného už existuje. Pokud je to ono, stačí zahlasovat.",
+      "similar": "Podobné už existuje. Pokud je to ono, přidejte hlas — svůj text můžete přidat jako komentář.",
       "bodyBug": "Co jste dělali a co jste čekali?",
       "bodyIdea": "Proč to potřebujete?",
       "bodyPlaceholderBug": "1. Otevřel jsem klienta\n2. Vyplnil DIČ a dal Uložit\n3. Po znovuotevření je pole prázdné",
@@ -2011,7 +2017,24 @@
       "language": "Jazyk",
       "sending": "Odesílám…",
       "submitBug": "Nahlásit chybu",
-      "submitIdea": "Navrhnout nápad"
+      "submitIdea": "Navrhnout nápad",
+      "view": "Zobrazit",
+      "newWindow": "otevře se v novém okně",
+      "voted": "Váš hlas je u #{n}.",
+      "addAsComment": "Přidat můj text jako komentář k #{n}",
+      "addingComment": "Přidávám…",
+      "commentAdded": "Váš text je u #{n} jako komentář. Dáme vám vědět, až se s ním něco pohne.",
+      "commentQueued": "Váš text u #{n} čeká na schválení týmem.",
+      "openIdea": "Otevřít #{n}",
+      "writeFirst": "Nejdřív napište, co by vám pomohlo.",
+      "strongTitle": "Není to #{n}?",
+      "strongText": "Takový nápad už existuje. Když k němu přidáte hlas a svůj popis, tým uvidí, že to chce víc lidí.",
+      "strongAttach": "Přidat hlas a můj popis k #{n}",
+      "attaching": "Přidávám…",
+      "strongNew": "Je to něco jiného, vytvořit nový nápad",
+      "strongReason": "V čem je to jiné?",
+      "guestSubmit": "Přihlásit se a navrhnout",
+      "guestNote": "Návrh si pamatujeme v tomto okně. Po přihlášení se sem vrátíte a odešlete ho."
     },
     "files": {
       "unsupported": "„{name}“ nepodporujeme. Přiložte obrázek, PDF nebo textový log.",
@@ -2114,7 +2137,14 @@
       "mergeHere": "Sloučit #{n} sem",
       "mergeHereTitle": "Sloučit #{n} sem?",
       "mergeHereIdea": "Hlasy z #{n} se přesunou sem a #{n} se zavře jako duplicita tohoto nápadu.",
-      "mergeHereBug": "#{n} se zavře jako duplicita tohoto hlášení. Jeho autor se o opravě dozví spolu s tímto."
+      "mergeHereBug": "#{n} se zavře jako duplicita tohoto hlášení. Jeho autor se o opravě dozví spolu s tímto.",
+      "unmerge": "Oddělit",
+      "unmergeHint": "Sloučeno omylem? Oddělte ho od #{into}.",
+      "unmergeTitle": "Oddělit #{n} od #{into}?",
+      "unmergeIdea": "#{n} bude znovu samostatný nápad ve stavu Navrženo. Hlasy, které se při sloučení přesunuly do #{into}, zůstanou u #{into}.",
+      "unmergeBug": "#{n} bude znovu samostatné hlášení ve stavu Přijato.",
+      "unmerging": "Odděluji…",
+      "unmergeConfirm": "Oddělit #{n}"
     },
     "changelog": {
       "votes": "{count, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}}",
@@ -4060,7 +4090,8 @@
       "type": {
         "local": "localStorage",
         "cookie": "Cookie",
-        "cookieHttpOnly": "Cookie (HttpOnly)"
+        "cookieHttpOnly": "Cookie (HttpOnly)",
+        "session": "sessionStorage"
       },
       "purpose": {
         "seen": "Pamatuje si nejnovější novinku, kterou jste viděli, kvůli odznaku „Co je nového“. Nikdy neopustí váš prohlížeč.",
@@ -4069,11 +4100,13 @@
         "locale": "Pamatuje si jazyk, který jste si vybrali.",
         "csv": "Pamatuje si oddělovač pro export do CSV.",
         "widgetLogin": "Pamatuje si, že jste svůj e-mail ve widgetu ověřili, abyste nemuseli zadávat kód u každého hlášení.",
-        "dense": "Pamatuje si, zda tým chce husté řádky v seznamech."
+        "dense": "Pamatuje si, zda tým chce husté řádky v seznamech.",
+        "draft": "Pamatuje si rozepsaný nápad nebo hlášení, dokud ho neodešlete, aby se neztratil při otevření podobného nápadu nebo přihlášení."
       },
       "untilCleared": "Dokud nevymažete data prohlížeče",
       "widgetNote": "Samotný widget žádné cookies nenastavuje: přihlásí vás krátkodobým tokenem z naší aplikace.",
-      "widgetNoteEmail": "Samotný widget žádné cookies nenastavuje. Když v něm ověříte svůj e-mail, zapamatuje si to v prohlížeči (položka výše)."
+      "widgetNoteEmail": "Samotný widget žádné cookies nenastavuje. Když v něm ověříte svůj e-mail, zapamatuje si to v prohlížeči (položka výše).",
+      "untilTabClosed": "Dokud nezavřete okno nebo kartu"
     },
     "units": {
       "years": "{n, plural, one {# rok} few {# roky} many {# roku} other {# let}}",

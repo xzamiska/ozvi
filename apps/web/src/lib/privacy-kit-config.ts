@@ -1,7 +1,7 @@
 import { cookieName, MAX_AGE as SESSION_MAX_AGE } from "./session-core";
 import { flowCookieName } from "./oidc";
 import { aiProviderName } from "./ai-provider";
-import { CSV_SEP_KEY, DENSE_KEY, LOCALE_MAX_AGE, OIDC_FLOW_MAX_AGE, WIDGET_SEEN_PREFIX, WIDGET_TOKEN_PREFIX } from "./storage-keys";
+import { CSV_SEP_KEY, DENSE_KEY, DRAFT_PREFIX, LOCALE_MAX_AGE, OIDC_FLOW_MAX_AGE, WIDGET_SEEN_PREFIX, WIDGET_TOKEN_PREFIX } from "./storage-keys";
 import { WIDGET_TOKEN_TTL } from "./widget-token";
 import { LOCALE_COOKIE } from "@/i18n/locales";
 import type { AiRecipient, KitConfig, StorageItem } from "./privacy-kit";
@@ -49,6 +49,7 @@ export function browserStorage(slug: string, origin: string, oidc: boolean, emai
     { name: cookieName(slug), where: "board", type: "cookieHttpOnly", purpose: "session", maxAge: SESSION_MAX_AGE },
     ...(oidc ? [{ name: flowCookieName(slug), where: "board", type: "cookieHttpOnly", purpose: "oidc", maxAge: OIDC_FLOW_MAX_AGE } as const] : []),
     { name: LOCALE_COOKIE, where: "board", type: "cookie", purpose: "locale", maxAge: LOCALE_MAX_AGE },
+    { name: `${DRAFT_PREFIX}${slug}:idea, ${DRAFT_PREFIX}${slug}:bug`, where: "board", type: "session", purpose: "draft", maxAge: null },
     { name: CSV_SEP_KEY, where: "boardTeam", type: "local", purpose: "csv", maxAge: null },
     { name: DENSE_KEY, where: "boardTeam", type: "local", purpose: "dense", maxAge: null },
   ];

@@ -1,6 +1,6 @@
 import { ITEM_STATUSES, schema, withProject } from "@ozvi/db";
 import { and, asc, eq, isNotNull, isNull, or, sql } from "drizzle-orm";
-import { Ban, Hourglass, Lock, MessagesSquare, Trash2 } from "lucide-react";
+import { Ban, Check, Hourglass, Lock, MessagesSquare, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Avatar } from "@/components/Avatar";
@@ -15,7 +15,8 @@ import { Journey, type JourneyEvent } from "@/components/ozvi/Journey";
 import { EmptyState, Page } from "@/components/ozvi/page";
 import { StatusTag } from "@/components/ozvi/route";
 import { VotersExport } from "@/components/ExportMenu";
-import { AiSummaryBox, AssigneeControl, GithubBox, MergeBox, RouteControl } from "@/components/ozvi/TeamTools";
+import { AiSummaryBox, AssigneeControl, GithubBox, MergeBox, RouteControl, UnmergeBox } from "@/components/ozvi/TeamTools";
+import { similarSeenOf, type SimilarSeen } from "@/lib/duplicates";
 import { assignableTeam } from "@/lib/assign";
 import { ProofBox } from "@/components/ozvi/ProofBox";
 import { listProofs, readProof, visibleProof } from "@/lib/proof";
@@ -65,8 +66,9 @@ export async function generateMetadata({ params }: { params: Promise<{ number: s
   return { title: `#${(await params).number.replace(/\D/g, "")}` };
 }
 
-export default async function ItemPage({ params }: { params: Promise<{ project: string; number: string }> }) {
+export default async function ItemPage({ params, searchParams }: { params: Promise<{ project: string; number: string }>; searchParams: Promise<{ attached?: string }> }) {
   const { project: slug, number } = await params;
+  const { attached } = await searchParams;
   const n = Number(number);
   if (!Number.isInteger(n) || n < 1) notFound();
   const { project, user, isTeam, plan, locale } = await getCtx(slug);
@@ -191,6 +193,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
     name ?? (isTeam && email ? email : id && id === user?.id ? b("you") : null);
   const byline = system ? b("fromCustomers") : shown(item.authorId, authorName, authorEmail);
   const ctx = (item.context ?? {}) as Record<string, string>;
+  const seen = isTeam ? similarSeenOf(item) : null;
   const ctxEntries = Object.entries(ctx).filter(([k]) => k in CONTEXT_LABEL && typeof ctx[k] === "string");
   // The widget's capture (steps, network log, session links): team only, never rendered for the reporter.
   const capture: Capture = (bug && contextFor(item.context as Record<string, unknown> | null, isTeam) as Capture | null) || {};
@@ -268,6 +271,12 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
           </header>
 
           <div className="mt-8 grid gap-6">
+            {/* Back from a new idea's form: the author's vote and draft went here instead (attachToIdea). */}
+            {attached && !bug && user && (
+              <p role="status" className="flex items-start gap-2 rounded-lg border border-st-done/40 bg-st-done/8 px-4 py-3 text-[14.5px] font-medium">
+                <Check aria-hidden className="mt-0.5 size-4 shrink-0" />{t(attached === "queued" ? "attachedQueued" : "attached")}
+              </p>
+            )}
             {deleted && (
               <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3 text-[14.5px]">
                 <p className="flex min-w-0 items-start gap-2">
@@ -430,6 +439,11 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
                   : <RouteControl key={`${item.status}-${item.subStatusId ?? ""}-${item.fixedInVersion ?? ""}`} slug={slug} itemId={item.id} kind={item.kind}
                       status={item.status} version={item.fixedInVersion} statuses={ITEM_STATUSES[item.kind]} subs={team.subs} sub={item.subStatusId} />}
               </TeamBlock>
+              {item.mergedIntoId && mergedInto && (
+                <TeamBlock title={t("duplicates")}>
+                  <UnmergeBox slug={slug} itemId={item.id} number={item.number} into={mergedInto.number} kind={item.kind} />
+                </TeamBlock>
+              )}
               <TeamBlock title={t("tags")}>
                 {itemTagList.length > 0 && <TagList tags={itemTagList} />}
                 <TagPicker key={itemTagList.map((x) => x.id).join()} slug={slug} itemId={item.id} all={team.allTags} selected={itemTagList.map((x) => x.id)} admin={user?.role === "admin"} />
@@ -475,6 +489,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
                       {team.merged.map((m, i) => <span key={m.number}>{i > 0 && ", "}<Link href={`/${slug}/i/${m.number}`} className="oz-link">#{m.number}</Link></span>)}
                     </p>
                   )}
+                  {seen && <SimilarSeenNote slug={slug} seen={seen} strongLabel={(n) => t("seenStrong", { n })} shownLabel={t("seenShown")} />}
                   {team.similar.length === 0 && <p className="text-[13px] text-muted-foreground">{t("noSimilar")}</p>}
                   <MergeBox slug={slug} itemId={item.id} number={item.number} suggestion={team.similar[0]?.number} kind={item.kind}
                     candidates={team.similar.map((s) => ({ id: s.id, number: s.number, title: s.title,
@@ -501,6 +516,28 @@ function Edited({ at, label, tag }: { at: Date; label: string; tag: string }) {
 
 function BlockedTag({ label }: { label: string }) {
   return <span className="inline-flex items-center gap-1 rounded-sm bg-destructive/10 px-1.5 py-px text-[11.5px] font-semibold text-destructive"><Ban className="size-3" aria-hidden />{label}</span>;
+}
+
+/** Team: what the author of a new idea was shown while writing, and why they found it different (context.similarSeen). */
+function SimilarSeenNote({ slug, seen, strongLabel, shownLabel }: { slug: string; seen: SimilarSeen; strongLabel: (n: number) => string; shownLabel: string }) {
+  const n = seen.strong;
+  const others = seen.shown.filter((x) => x.number !== n);
+  return (
+    <div className="grid gap-1 rounded-md bg-muted px-3 py-2 text-[13px]">
+      {n !== undefined && (
+        <p>
+          <Link className="oz-link" href={`/${slug}/i/${n}`}>{strongLabel(n)}</Link>
+          {seen.reason ? <>: <q className="italic">{seen.reason}</q></> : "."}
+        </p>
+      )}
+      {others.length > 0 && (
+        <p className="text-muted-foreground">
+          {shownLabel}{" "}
+          {others.map((x, i) => <span key={x.number}>{i > 0 && ", "}<Link href={`/${slug}/i/${x.number}`} className="oz-link">#{x.number}</Link></span>)}
+        </p>
+      )}
+    </div>
+  );
 }
 
 function TeamBlock({ title, children }: { title: string; children: React.ReactNode }) {

@@ -169,6 +169,7 @@ describe("privacy kit storage table", () => {
     expect(names).toContain(flowCookieName("billiwo"));
     expect(names).toContain(LOCALE_COOKIE);
     expect(names).toContain(CSV_SEP_KEY);
+    expect(table.find((s) => s.purpose === "draft")).toMatchObject({ name: "ozvi:draft:billiwo:idea, ozvi:draft:billiwo:bug", type: "session" });
     expect(table.find((s) => s.name === cookieName("billiwo"))!.maxAge).toBe(MAX_AGE);
 
     // Every cookie write goes through a name we know; the console's ozvi_app is for Ozvi customers, not their users.
@@ -177,7 +178,11 @@ describe("privacy kit storage table", () => {
     for (const f of files(webSrc)) {
       const src = readFileSync(f, "utf8");
       for (const m of src.matchAll(/cookies(?:\(\)\))?\.set\(([^\n]*\n?[^\n]*)/g)) expect(m[1], `${f}: ${m[0]}`).toMatch(KNOWN_COOKIES);
-      expect(src, f).not.toMatch(/sessionStorage|document\.cookie|indexedDB/);
+      expect(src, f).not.toMatch(/indexedDB/);
+      // document.cookie: only the console's own "last workspace" cookie (Ozvi customers, not their users; path /app).
+      if (/document\.cookie/.test(src)) expect(src, `${f} writes a cookie in the browser`).toMatch(/document\.cookie = `\$\{LAST_WORKSPACE_COOKIE\}=.*path=\/app/);
+      // sessionStorage: only the draft of a new post, under its listed key.
+      if (/sessionStorage/.test(src)) expect(src, `${f} uses sessionStorage outside the listed draft key`).toMatch(/DRAFT_PREFIX/);
       if (/localStorage\.setItem/.test(src)) {
         const key = /const KEY = (\w+);/.exec(src)?.[1];
         expect(key && KNOWN_STORAGE.has(key), `${f} writes localStorage with an unlisted key`).toBe(true);

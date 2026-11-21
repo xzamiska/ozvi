@@ -1,29 +1,25 @@
 import { sql, type SQL, type SQLWrapper } from "drizzle-orm";
 
 /**
- * Accent-insensitive search without a database extension: both the column and the query are lowercased and
- * folded to plain letters (Slovak, Czech, Polish, Hungarian, German and other Latin letters), so "tmavy rezim"
- * finds "Tmavý režim" and "faktur" finds "faktúr". The same map runs in SQL (translate) and in JS (fold).
+ * Accent-insensitive search: both the column and the query are lowercased and folded to plain letters
+ * (Slovak, Czech, Polish, Hungarian, German and other Latin letters), so "tmavy rezim" finds "Tmavý režim"
+ * and "faktur" finds "faktúr". In SQL this is `ozvi_fold()` (unaccent, migration 0007), the same folding the
+ * duplicate finder uses (lib/similar.ts); `fold` does the same in JS for the typed query.
  */
 const LETTERS: [string, string][] = [
   ["a", "áäàâãåą"], ["c", "ćčç"], ["d", "ďđ"], ["e", "éěëèêę"], ["i", "íìîï"], ["l", "ĺľł"], ["n", "ńňñ"],
   ["o", "óôöőòõø"], ["r", "ŕř"], ["s", "śš"], ["t", "ť"], ["u", "úůüűùû"], ["y", "ýÿ"], ["z", "źżž"],
 ];
-const lowerFrom = LETTERS.map(([, a]) => a).join("");
-const lowerTo = LETTERS.map(([p, a]) => p.repeat([...a].length)).join("");
-// Upper case too, in case the database's lower() doesn't know these letters (C collation).
-const FROM = lowerFrom + lowerFrom.toUpperCase();
-const TO = lowerTo + lowerTo;
-const MAP = new Map([...FROM].map((c, i) => [c, TO[i]!]));
+const MAP = new Map(LETTERS.flatMap(([p, a]) => [...a].map((c) => [c, p] as const)));
 
 /** Lowercase, plain letters ("Faktúr" → "faktur", "Straße" → "strasse"). */
 export function fold(s: string): string {
   return [...s.toLowerCase()].map((c) => MAP.get(c) ?? c).join("").replace(/ß/g, "ss");
 }
 
-/** The same folding of a column in SQL. */
+/** The same folding of a column in SQL (null folds to ""). */
 export function foldSql(col: SQLWrapper): SQL<string> {
-  return sql<string>`replace(translate(lower(${col}), ${FROM}, ${TO}), 'ß', 'ss')`;
+  return sql<string>`ozvi_fold(${col})`;
 }
 
 /** Substring match, accents ignored (board search). */

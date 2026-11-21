@@ -1112,7 +1112,11 @@
       "unassigned": "Nikt się tym jeszcze nie zajmuje",
       "mergedHere": "Scalone tutaj:",
       "former": "{who} (już nie w zespole)",
-      "you": "{who} (Ty)"
+      "you": "{who} (Ty)",
+      "attached": "Twój głos i opis są przy tym pomyśle. Damy znać, gdy coś się zmieni.",
+      "attachedQueued": "Twój opis czeka na zatwierdzenie przez zespół, potem pojawi się przy tym pomyśle.",
+      "seenStrong": "Autor widział #{n} i uznał to za coś innego",
+      "seenShown": "Podczas pisania autor widział:"
     },
     "me": {
       "title": "Moje dane",
@@ -1508,7 +1512,8 @@
         },
         "triage": {
           "merged": "Scalone duplikaty",
-          "bulk": "Zmiana zbiorcza"
+          "bulk": "Zmiana zbiorcza",
+          "unmerged": "Rozdzielone duplikaty"
         },
         "changelog": {
           "published": "Opublikowana aktualizacja",
@@ -1791,7 +1796,8 @@
     "proofUrl": "Link musi być pełnym adresem zaczynającym się od https://.",
     "assignTeamOnly": "Osobę odpowiedzialną może wskazać tylko zespół.",
     "assignNotTeam": "Odpowiedzialną osobą może być tylko członek zespołu tej tablicy.",
-    "assignClosed": "Usuniętego ani scalonego wpisu nie można już przydzielić."
+    "assignClosed": "Usuniętego ani scalonego wpisu nie można już przydzielić.",
+    "notMerged": "#{n} nie jest scalony."
   },
   "email": {
     "footer": "Otrzymujesz tę wiadomość od {project}, ponieważ obserwujesz ten wpis.",
@@ -1993,7 +1999,7 @@
       "placeholderBug": "Np. NIP znika po zapisaniu klienta",
       "placeholderIdea": "Np. Eksport do CSV",
       "similarLabel": "Podobne pomysły",
-      "similar": "Coś podobnego już istnieje. Jeśli to to samo, po prostu na to zagłosuj.",
+      "similar": "Coś podobnego już istnieje. Jeśli to to, dodaj głos — swój tekst możesz dodać jako komentarz.",
       "bodyBug": "Co robisz i co powinno się stać?",
       "bodyIdea": "Do czego ci to potrzebne?",
       "bodyPlaceholderBug": "1. Otwieram klienta\n2. Wpisuję NIP i klikam Zapisz\n3. Po ponownym otwarciu pole jest puste",
@@ -2011,7 +2017,24 @@
       "language": "Język",
       "sending": "Wysyłanie…",
       "submitBug": "Zgłoś błąd",
-      "submitIdea": "Zaproponuj pomysł"
+      "submitIdea": "Zaproponuj pomysł",
+      "view": "Zobacz",
+      "newWindow": "otworzy się w nowym oknie",
+      "voted": "Twój głos jest przy #{n}.",
+      "addAsComment": "Dodaj mój tekst jako komentarz do #{n}",
+      "addingComment": "Dodaję…",
+      "commentAdded": "Twój tekst jest przy #{n} jako komentarz. Damy znać, gdy coś się zmieni.",
+      "commentQueued": "Twój tekst przy #{n} czeka na zatwierdzenie przez zespół.",
+      "openIdea": "Otwórz #{n}",
+      "writeFirst": "Najpierw napisz, co by ci pomogło.",
+      "strongTitle": "Czy to nie #{n}?",
+      "strongText": "Taki pomysł już jest. Gdy dodasz do niego głos i swój opis, zespół zobaczy, że chce tego więcej osób.",
+      "strongAttach": "Dodaj głos i mój opis do #{n}",
+      "attaching": "Dodaję…",
+      "strongNew": "To coś innego, utwórz nowy pomysł",
+      "strongReason": "Czym to się różni?",
+      "guestSubmit": "Zaloguj się i zaproponuj",
+      "guestNote": "Zapamiętamy szkic w tym oknie. Po zalogowaniu wrócisz tutaj i go wyślesz."
     },
     "files": {
       "unsupported": "Nie obsługujemy pliku „{name}”. Dołącz obraz, PDF albo log tekstowy.",
@@ -2114,7 +2137,14 @@
       "mergeHere": "Scal #{n} tutaj",
       "mergeHereTitle": "Scalić #{n} tutaj?",
       "mergeHereIdea": "Głosy z #{n} przejdą tutaj, a #{n} zostanie zamknięty jako duplikat tego pomysłu.",
-      "mergeHereBug": "#{n} zostanie zamknięty jako duplikat tego zgłoszenia. Jego autor dowie się o poprawce razem z tym."
+      "mergeHereBug": "#{n} zostanie zamknięty jako duplikat tego zgłoszenia. Jego autor dowie się o poprawce razem z tym.",
+      "unmerge": "Rozdziel",
+      "unmergeHint": "Scalone przez pomyłkę? Rozdziel od #{into}.",
+      "unmergeTitle": "Rozdzielić #{n} i #{into}?",
+      "unmergeIdea": "#{n} znów będzie osobnym pomysłem w stanie Zaproponowane. Głosy przeniesione przy scaleniu do #{into} zostaną przy #{into}.",
+      "unmergeBug": "#{n} znów będzie osobnym zgłoszeniem w stanie Przyjęte.",
+      "unmerging": "Rozdzielam…",
+      "unmergeConfirm": "Rozdziel #{n}"
     },
     "changelog": {
       "votes": "{count, plural, one {# głos} few {# głosy} many {# głosów} other {# głosu}}",
@@ -4060,7 +4090,8 @@
       "type": {
         "local": "localStorage",
         "cookie": "Plik cookie",
-        "cookieHttpOnly": "Plik cookie (HttpOnly)"
+        "cookieHttpOnly": "Plik cookie (HttpOnly)",
+        "session": "sessionStorage"
       },
       "purpose": {
         "seen": "Zapamiętuje najnowszą nowość, którą widziałeś, na potrzeby plakietki „Co nowego”. Nigdy nie opuszcza Twojej przeglądarki.",
@@ -4069,11 +4100,13 @@
         "locale": "Zapamiętuje wybrany przez Ciebie język.",
         "csv": "Zapamiętuje separator do eksportu CSV.",
         "widgetLogin": "Zapamiętuje, że zweryfikowałeś swój e-mail w widżecie, aby nie trzeba było podawać kodu przy każdym zgłoszeniu.",
-        "dense": "Zapamiętuje, czy zespół chce gęste wiersze na listach."
+        "dense": "Zapamiętuje, czy zespół chce gęste wiersze na listach.",
+        "draft": "Zapamiętuje pisany pomysł lub zgłoszenie, dopóki go nie wyślesz, żeby nie zginął po otwarciu podobnego pomysłu lub zalogowaniu."
       },
       "untilCleared": "Do wyczyszczenia danych przeglądarki",
       "widgetNote": "Sam widżet nie ustawia żadnych plików cookie: loguje Cię krótkotrwałym tokenem z naszej aplikacji.",
-      "widgetNoteEmail": "Sam widżet nie ustawia żadnych plików cookie. Gdy zweryfikujesz w nim swój e-mail, zapamięta to w przeglądarce (pozycja powyżej)."
+      "widgetNoteEmail": "Sam widżet nie ustawia żadnych plików cookie. Gdy zweryfikujesz w nim swój e-mail, zapamięta to w przeglądarce (pozycja powyżej).",
+      "untilTabClosed": "Do zamknięcia okna lub karty"
     },
     "units": {
       "years": "{n, plural, one {# rok} few {# lata} many {# lat} other {# roku}}",

@@ -8,6 +8,10 @@ import { getTranslations } from "next-intl/server";
 import { Gate, signInText } from "../_gate";
 import { boardTitle } from "@/lib/board-meta";
 import { needSection } from "@/lib/sections-server";
+import { loginHref } from "@/lib/project";
+import { budgetLeft, voteModeOf } from "@/lib/votes";
+import { withProject } from "@ozvi/db";
+import { db } from "@/lib/db";
 
 export const generateMetadata = async ({ params, searchParams }: { params: Promise<{ project: string }>; searchParams: Promise<{ kind?: string }> }) =>
   boardTitle("board.newItem", (await searchParams).kind === "bug" ? "titleBug" : "titleIdea")({ params });
@@ -26,8 +30,12 @@ export default async function NewItem({ params, searchParams }: {
   needSection(project, kind === "bug" ? "bugs" : "ideas");
   const bug = kind === "bug";
 
-  if (!user) {
-    return <Gate project={project} locale={locale} returnTo={`/${slug}/new?kind=${kind}`} title={bug ? t("gateBug") : t("gateIdea")}
+  const returnTo = `/${slug}/new?kind=${kind}`;
+  // A guest on a public board may write an idea and see similar ones (vote there after signing in); posting
+  // needs a sign-in that comes back to this form, where the draft waits (kept in the tab, NewItemForm).
+  const guestLogin = !user && !bug && project.ideasPublic ? loginHref(project, returnTo) : null;
+  if (!user && !guestLogin) {
+    return <Gate project={project} locale={locale} returnTo={returnTo} title={bug ? t("gateBug") : t("gateIdea")}
       text={await signInText(project, locale, t("gateText"))} />;
   }
   return (
@@ -38,11 +46,12 @@ export default async function NewItem({ params, searchParams }: {
         lede={bug ? t("ledeBug") : t("ledeIdea")}
       />
       <div className="grid gap-10 lg:grid-cols-[minmax(0,640px)_1fr] lg:gap-16">
-        {isBlocked(user) ? (
+        {user && isBlocked(user) ? (
           <p role="note" className="flex items-start gap-2 self-start rounded-xl border border-dashed bg-surface/60 px-4 py-3.5 text-[14.5px] text-muted-foreground">
             <Ban className="mt-0.5 size-4 shrink-0" aria-hidden />{(await getTranslations("moderation"))("blockedNotice")}
           </p>
-        ) : <NewItemForm slug={slug} kind={kind} prefill={{ url: sp.url?.slice(0, 500), appVersion: sp.v?.slice(0, 50) }} />}
+        ) : <NewItemForm slug={slug} kind={kind} prefill={{ url: sp.url?.slice(0, 500), appVersion: sp.v?.slice(0, 50) }} login={guestLogin}
+              vote={{ mode: voteModeOf(project), left: user && !bug ? await withProject(db, project.id, (tx) => budgetLeft(tx, project, user.id)) : null }} />}
         <aside className="grid content-start gap-6 lg:pt-1">
           <RailSection title={tb("route")}>
             <RouteLegend kind={kind} />
