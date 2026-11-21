@@ -51,7 +51,7 @@ test.describe("console sign-in and first project", () => {
     await page.getByLabel("Názov aplikácie").fill("Rezervované");
     await page.getByLabel("Adresa boardu").fill("admin");
     await page.getByRole("button", { name: "Založiť projekt" }).click();
-    await expect(page.getByText(/adresu|adresa/i).and(page.getByRole("alert"))).toBeVisible();
+    await expect(page.getByRole("alert").filter({ hasText: /adresu|adresa/i })).toBeVisible();
     await expect(page).toHaveURL(/\/app\/new/);
   });
 });
