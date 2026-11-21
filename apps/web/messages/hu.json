@@ -1936,7 +1936,12 @@
     "assignedManyBody": "{who} ezeket a bejegyzéseket rendelte Önhöz:",
     "openMine": "Saját megnyitása",
     "translatedLabel": "AI-jal fordítva ({model} modell), pontatlanságokat tartalmazhat.",
-    "originalHeading": "Eredeti szöveg"
+    "originalHeading": "Eredeti szöveg",
+    "bugMergedSubject": "Együtt foglalkozunk vele: #{n} {title}",
+    "bugMergedSummary": "A(z) „{title}” bejelentésével a mások által jelzett ugyanazon problémával együtt foglalkozunk.",
+    "bugMergedHeading": "Másokkal együtt foglalkozunk vele",
+    "bugMergedBody": "Mások is jelezték ugyanezt a problémát, ezért a(z) „{title}” bejelentésével az övékkel együtt foglalkozunk. Önnek nincs további teendője.",
+    "bugMergedNext": "Amint kijavítottuk, értesítjük, és megkérdezzük, működik-e."
   },
   "errors": {
     "signIn": "Ehhez jelentkezz be.",

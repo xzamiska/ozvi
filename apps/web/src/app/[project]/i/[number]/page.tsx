@@ -387,8 +387,12 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
             </ol>
             {deleted ? null
               // A merged idea's discussion goes on at the original (addCommentTo refuses it too).
-              : item.mergedIntoId && !bug ? (mergedInto && <p role="note" className="rounded-xl border border-dashed bg-surface/60 px-4 py-3.5 text-[14.5px] text-muted-foreground">
-                  <Link className="oz-link" href={`/${slug}/i/${mergedInto.number}`}>{t("mergedGoThere", { n: mergedInto.number })}</Link></p>)
+              : item.mergedIntoId && !bug ? (<>
+                  {mergedInto && <p role="note" className="rounded-xl border border-dashed bg-surface/60 px-4 py-3.5 text-[14.5px] text-muted-foreground">
+                    <Link className="oz-link" href={`/${slug}/i/${mergedInto.number}`}>{t("mergedGoThere", { n: mergedInto.number })}</Link></p>}
+                  {/* The team can still leave itself a note here (why it was merged, what to watch). */}
+                  {isTeam && user && <CommentForm slug={slug} itemId={item.id} isTeam me={user.name ?? user.email} internalOnly />}
+                </>)
               : blocked ? <p role="note" className="flex items-start gap-2 rounded-xl border border-dashed bg-surface/60 px-4 py-3.5 text-[14.5px] text-muted-foreground"><Ban className="mt-0.5 size-4 shrink-0" aria-hidden />{m("blockedNotice")}</p>
               : user ? <CommentForm slug={slug} itemId={item.id} isTeam={isTeam} me={user.name ?? user.email} />
               : <SignInToComment project={project} locale={locale} returnTo={`/${slug}/i/${n}`} />}

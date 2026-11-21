@@ -115,8 +115,8 @@ export async function addCommentTo(
   if (item.deletedAt) throw fail((t) => t("deleted"));
   // A switched-off section takes no new comments either (board, API, MCP).
   if (!sectionOn(project, sectionOfKind(item.kind))) throw new DomainError((l) => translator(l, "errors")("sectionOff"));
-  // A merged idea's conversation goes on at the original (its people follow it there).
-  if (item.mergedIntoId && item.kind === "idea") {
+  // A merged idea's conversation goes on at the original (its people follow it there); the team may still note.
+  if (item.mergedIntoId && item.kind === "idea" && !(internal && isTeamRole(actor.role))) {
     const [into] = await tx.select({ number: items.number }).from(items).where(eq(items.id, item.mergedIntoId));
     throw fail((t) => t("mergedClosed", { n: String(into?.number ?? "") }));
   }

@@ -1936,7 +1936,12 @@
     "assignedManyBody": "{who} hat Ihnen diese Einträge zugewiesen:",
     "openMine": "Meine öffnen",
     "translatedLabel": "Mit KI übersetzt (Modell {model}), kann Ungenauigkeiten enthalten.",
-    "originalHeading": "Originaltext"
+    "originalHeading": "Originaltext",
+    "bugMergedSubject": "Wir bearbeiten es gemeinsam: #{n} {title}",
+    "bugMergedSummary": "Ihre Meldung „{title}“ bearbeiten wir zusammen mit demselben Problem, das andere gemeldet haben.",
+    "bugMergedHeading": "Gemeinsam mit anderen in Bearbeitung",
+    "bugMergedBody": "Andere haben dasselbe Problem gemeldet, daher bearbeiten wir Ihre Meldung „{title}“ zusammen mit ihren. Sie müssen nichts weiter tun.",
+    "bugMergedNext": "Sobald es behoben ist, sagen wir Ihnen Bescheid und fragen, ob es bei Ihnen funktioniert."
   },
   "errors": {
     "signIn": "Bitte melden Sie sich dafür an.",

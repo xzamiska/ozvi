@@ -1936,7 +1936,12 @@
     "assignedManyBody": "{who} assigned these items to you:",
     "openMine": "Open mine",
     "translatedLabel": "Translated with AI (model {model}); it may contain inaccuracies.",
-    "originalHeading": "Original text"
+    "originalHeading": "Original text",
+    "bugMergedSubject": "We are handling it together: #{n} {title}",
+    "bugMergedSummary": "Your report “{title}” is being handled together with the same problem reported by others.",
+    "bugMergedHeading": "Handled together with others",
+    "bugMergedBody": "Others reported the same problem, so we are handling your report “{title}” together with theirs. You don’t need to do anything else.",
+    "bugMergedNext": "Once it’s fixed, we’ll let you know and ask whether it works for you."
   },
   "errors": {
     "signIn": "Please sign in to do this.",

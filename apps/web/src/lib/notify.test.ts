@@ -142,6 +142,11 @@ describe.skipIf(!up)("notifications follow the item", () => {
       { projectId: project.id, kind: "bug", number: 12, title: "Chyba O", status: "fixed", fixedInVersion: "2.0", authorId: u.author.id },
     ]).returning()) as [Item, Item, Item];
     await withProject(db, project.id, (t) => mergeItems(t, project, u.team, x, y));
+    // X's reporter hears at once that it's handled together — about their own report, never the other one (private).
+    const joined = await withProject(db, project.id, (t) => t.select({ to: schema.emails.to, subject: schema.emails.subject, text: schema.emails.text }).from(schema.emails).where(eq(schema.emails.kind, "bug_status")));
+    expect(joined.map((m) => [m.to.split("@")[0], m.subject])).toEqual([["stranger", "Riešime to spolu: #10 Chyba X"]]);
+    expect(joined[0]!.text).not.toContain("Chyba Y");
+    expect(joined[0]!.text).not.toContain("#11");
     await sent("bug_status");
     await withProject(db, project.id, async (t) => mergeItems(t, project, u.team, (await t.query.items.findFirst({ where: eq(schema.items.id, y.id) }))!, o));
     const rows = await withProject(db, project.id, (t) => t.select({ n: schema.items.number, m: schema.items.mergedIntoId }).from(schema.items).where(sql`${schema.items.number} in (10, 11)`));
@@ -189,6 +194,11 @@ describe.skipIf(!up)("notifications follow the item", () => {
     // The duplicate takes no more votes or comments: they belong to the original.
     const merged = (await withProject(db, project.id, (t) => t.query.items.findFirst({ where: eq(schema.items.id, dup.id) })))!;
     await expect(withProject(db, project.id, (t) => addCommentTo(t, project, u.author, merged, "Ešte ja", false))).rejects.toThrow("#21");
+    // The team may still leave itself a note there (internal only).
+    await expect(withProject(db, project.id, (t) => addCommentTo(t, project, u.team, merged, "Zlúčené kvôli rovnakému zadaniu.", false))).rejects.toThrow("#21");
+    const note = await withProject(db, project.id, (t) => addCommentTo(t, project, u.team, merged, "Zlúčené kvôli rovnakému zadaniu.", true));
+    expect(note.internal).toBe(true);
+    await sent("comment_internal");
     expect(await withProject(db, project.id, (t) => applyVote(t, project, u.author.id, dup.id, 1))).toEqual({ ok: false, reason: "missing" });
   });
 

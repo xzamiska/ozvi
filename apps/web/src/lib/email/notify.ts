@@ -207,12 +207,27 @@ export const mergedMail = (t: EmailT, source: Pick<Item, "title">, target: Pick<
   cta: { label: t("viewIdea"), href: url },
 });
 
+/** A bug report joined the same problem reported by others: about the reporter's own report, nothing of the other. */
+export const bugMergedMail = (t: EmailT, source: Pick<Item, "title" | "number">, url: string): Mail => ({
+  subject: t("bugMergedSubject", { n: String(source.number), title: source.title }),
+  summary: t("bugMergedSummary", { title: source.title }),
+  heading: t("bugMergedHeading"),
+  paragraphs: [t("bugMergedBody", { title: source.title }), t("bugMergedNext")],
+  cta: { label: t("openReport"), href: url },
+});
+
 /**
  * An idea was merged into another: its author and commenters get one e-mail pointing at the original, which they
  * follow from now on (participants). Bugs keep their own path: the reporter hears when the original is fixed.
  */
 export async function notifyMerged(tx: Tx, project: Project, source: Item, target: Item, actorId: string) {
-  if (source.kind !== "idea" || source.deletedAt) return 0;
+  if (source.deletedAt) return 0;
+  if (source.kind === "bug") {
+    // Bug reports are private: the reporter hears about their own report only (never the other report's number
+    // or title). A merge into an already fixed bug sends "Opravené" instead (notifyDuplicateFixed).
+    if (!source.authorId || source.authorId === actorId || target.status === "fixed" || target.status === "verified") return 0;
+    return enqueue(tx, project, "bug_status", [source.authorId], (t) => bugMergedMail(t, source, itemUrl(project, source)));
+  }
   const recipients = (await followers(tx, source)).filter((id) => id !== actorId);
   return enqueue(tx, project, "idea_status", recipients, (t) => mergedMail(t, source, target, itemUrl(project, target)));
 }

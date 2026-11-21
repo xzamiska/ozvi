@@ -1936,7 +1936,12 @@
     "assignedManyBody": "{who} vám pridelil(a) tieto záznamy:",
     "openMine": "Otvoriť moje",
     "translatedLabel": "Preložené s pomocou AI (model {model}), môže obsahovať nepresnosti.",
-    "originalHeading": "Pôvodný text"
+    "originalHeading": "Pôvodný text",
+    "bugMergedSubject": "Riešime to spolu: #{n} {title}",
+    "bugMergedSummary": "Vaše hlásenie „{title}“ riešime spolu s rovnakým problémom od iných.",
+    "bugMergedHeading": "Riešime to spolu s ďalšími",
+    "bugMergedBody": "Rovnaký problém nahlásili aj iní, preto vaše hlásenie „{title}“ riešime spolu s nimi. Nič ďalšie robiť nemusíte.",
+    "bugMergedNext": "Keď to opravíme, dáme vám vedieť a opýtame sa, či vám to funguje."
   },
   "errors": {
     "signIn": "Na túto akciu sa treba prihlásiť.",

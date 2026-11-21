@@ -1936,7 +1936,12 @@
     "assignedManyBody": "{who} przydzielił(a) Ci te wpisy:",
     "openMine": "Otwórz moje",
     "translatedLabel": "Przetłumaczone przez AI (model {model}), może zawierać nieścisłości.",
-    "originalHeading": "Tekst oryginalny"
+    "originalHeading": "Tekst oryginalny",
+    "bugMergedSubject": "Zajmujemy się tym razem: #{n} {title}",
+    "bugMergedSummary": "Twoje zgłoszenie „{title}” obsługujemy razem z tym samym problemem zgłoszonym przez innych.",
+    "bugMergedHeading": "Zajmujemy się tym razem z innymi",
+    "bugMergedBody": "Inni zgłosili ten sam problem, dlatego Twoje zgłoszenie „{title}” obsługujemy razem z nimi. Nie musisz nic więcej robić.",
+    "bugMergedNext": "Gdy to naprawimy, damy Ci znać i zapytamy, czy działa."
   },
   "errors": {
     "signIn": "Zaloguj się, żeby to zrobić.",

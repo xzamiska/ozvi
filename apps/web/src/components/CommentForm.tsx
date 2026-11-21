@@ -14,12 +14,14 @@ import { Honeypot } from "./Honeypot";
 const isApple = () => /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
 const noop = () => () => {};
 
-export function CommentForm({ slug, itemId, isTeam, me }: { slug: string; itemId: string; isTeam: boolean; me: string | null }) {
+/** `internalOnly`: only team notes are possible here (a merged idea: its public discussion goes on at the original). */
+export function CommentForm({ slug, itemId, isTeam, me, internalOnly = false }: { slug: string; itemId: string; isTeam: boolean; me: string | null; internalOnly?: boolean }) {
   const ref = useRef<HTMLFormElement>(null);
   const t = useTranslations("forms.comment");
   // "Team only" is the team's choice for the conversation, not for one comment: it stays on after sending
   // (resetting it to public after every note let the next internal note go out to the customer).
-  const [internal, setInternal] = useState(false);
+  const [internalChoice, setInternal] = useState(false);
+  const internal = internalOnly || internalChoice;
   const mod = useSyncExternalStore(noop, () => (isApple() ? "⌘" : "Ctrl"), () => "Ctrl");
   const [state, action, pending] = useActionState(async (prev: FormState, form: FormData) => {
     const r = await addComment(slug, itemId, prev, form);
@@ -38,13 +40,14 @@ export function CommentForm({ slug, itemId, isTeam, me }: { slug: string; itemId
           onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) ref.current?.requestSubmit(); }} />
         {state.error && <p className="px-2 text-[13px] font-medium text-destructive" role="alert">{state.error}</p>}
         <div className="flex flex-wrap items-center gap-3 border-t px-1 pt-2">
-          {isTeam && (
+          {isTeam && !internalOnly && (
             <label className="inline-flex cursor-pointer items-center gap-2 text-[13px] font-medium text-muted-foreground">
               {/* Not tied to the form (form="" points nowhere): both React and Radix reset form controls after sending, and
                   this choice must survive that. The value goes through the hidden input. */}
               <Switch form="oz-no-form" checked={internal} onCheckedChange={setInternal} /> <Lock className="size-3.5" />{t("teamOnly")}
             </label>
           )}
+          {internalOnly && <span className="inline-flex items-center gap-2 text-[13px] font-medium text-muted-foreground"><Lock className="size-3.5" />{t("teamOnly")}</span>}
           <span className="ml-auto hidden text-xs text-muted-foreground sm:inline"><kbd>{mod}</kbd> + <kbd>Enter</kbd></span>
           <Button type="submit" size="sm" disabled={pending} aria-busy={pending || undefined} className="max-sm:ml-auto">{pending ? t("adding") : t("add")}</Button>
         </div>
