@@ -12,6 +12,8 @@ import { useEffect } from "react";
  *  - the first invalid field of a submit gets focus;
  *  - the message updates while typing and disappears once the field is valid.
  * A field can carry its own message for a pattern or a too-short value: `data-error="…"`.
+ * The id `<control id>-error` is FormGuard's: it removes that element when the form resets (also after a React form
+ * action). A server error rendered by React next to a field needs another id (e.g. `wh-url-refused`).
  */
 type Control = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 const isControl = (n: EventTarget | null): n is Control =>

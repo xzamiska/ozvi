@@ -20,6 +20,8 @@ export default defineConfig({
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
     { name: "webkit", use: { ...devices["Desktop Safari"] } },
     { name: "mobile-webkit", use: { ...devices["iPhone 15"] }, grep: /@mobile/ },
+    // iPad (Safari, touch, 834 px): screens tagged @tablet.
+    { name: "ipad", use: { ...devices["iPad Pro 11"] }, grep: /@tablet/ },
   ],
   webServer: {
     command: "../../scripts/e2e-server.sh",

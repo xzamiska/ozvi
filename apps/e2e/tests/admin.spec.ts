@@ -585,8 +585,13 @@ test.describe("board settings: integrations", () => {
         if (format) await hooks.getByRole("radio", { name: new RegExp(format) }).click();
         await hooks.getByRole("button", { name: "Pridať webhook" }).click();
       };
+      // A refused address keeps what was filled in (it used to clear the URL and the ticked events).
+      await hooks.getByRole("checkbox", { name: "Zmena stavu" }).check();
       await add(`http://127.0.0.1:${port}/hook`);
       await expect(hooks.getByRole("alert")).toHaveText("Adresa musí začínať https://.");
+      await expect(hooks.getByLabel("Adresa webhooku")).toHaveValue(`http://127.0.0.1:${port}/hook`);
+      await expect(hooks.getByRole("checkbox", { name: "Zmena stavu" })).toBeChecked();
+      await hooks.getByRole("checkbox", { name: "Zmena stavu" }).uncheck();
       await add(`https://127.0.0.1:${port}/hook`);
       await expect(hooks.getByRole("alert")).toHaveText("Adresa nemôže smerovať do internej siete.");
       await add(`https://localhost:${port}/hook`);
