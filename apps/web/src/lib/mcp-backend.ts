@@ -1,7 +1,7 @@
 import { contextFor } from "./bug-context";
 import { logActivity, who } from "./activity";
 import { createHash } from "node:crypto";
-import { PLAN_LIMITS, schema, withProject, type PlanName, type Tx } from "@ozvi/db";
+import { schema, withProject, type PlanName, type Tx } from "@ozvi/db";
 import { strictestLockdown, ToolError, type Backend, type McpCustomer, type McpDemand, type McpItem, type McpItemDetail, type SearchInput, type Summary } from "@ozvi/mcp";
 import { LOCALE_TAG, isLocale } from "@/i18n/locales";
 import { demandFor, itemDemand } from "./customers";
@@ -14,7 +14,7 @@ import { createIssue, getGithub, linkIssue } from "./github";
 import { createItemFor, ValidationError } from "./items";
 import { publishEntry, publishReach, saveEntry } from "./changelog";
 import { allow, RateLimitError } from "./ratelimit";
-import { embeddingsConfig, embedQuery, findSimilar } from "./similar";
+import { embeddingsConfig, embeddingsFor, embedQuery, findSimilar } from "./similar";
 import { attachProof, listProofs, readProof } from "./proof";
 import { mcpUpdates } from "./release-mcp";
 import type { TokenAuth } from "./tokens";
@@ -153,7 +153,8 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
 
   const gh = await withProject(db, project.id, (tx) => getGithub(tx)).catch(() => null);
   const [ws] = await db.select({ plan: schema.workspaces.plan }).from(schema.workspaces).where(eq(schema.workspaces.id, project.workspaceId));
-  const aiAllowed = PLAN_LIMITS[(ws?.plan ?? "self") as PlanName].ai;
+  // Similarity by meaning: an embeddings API on plans with AI, the local model on every plan.
+  const aiAllowed = embeddingsFor((ws?.plan ?? "self") as PlanName);
 
   /* ---------- REST API extras (lib/api): same visibility, scope and provenance rules as the tools above ---------- */
   const apiLoc: Locale = apiLocale ?? fallbackLocale;
@@ -501,7 +502,7 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
         number: r.number, kind: r.kind, title: r.title, body: "", status: r.status, votes: r.votes, fixedInVersion: null,
         url: `${base}/i/${r.number}`, createdAt: "", author: itemAuthorOf({ authorId: r.authorId, context: r.system ? { insight: true } : null }, r.authorId ? who.get(r.authorId) : null), source: sourceOf(r.source), score: r.score,
         // Machine suggestions (embeddings model) are labelled; plain text similarity is not AI.
-        ai: suggestModel ? { generated: true as const, model: suggestModel, reviewedBy: null } : null,
+        ai: suggestModel && r.method !== "trigram" ? { generated: true as const, model: suggestModel, reviewedBy: null } : null,
       }));
       });
     },

@@ -8,6 +8,7 @@ process.env.OZVI_SECRET_KEY ??= "test-secret-key-0123456789abcdef-xyz";
 process.env.DATABASE_URL ??= "postgres://ozvi:ozvi@localhost:5446/ozvi";
 // Text similarity only (the same fallback every board without an embeddings endpoint uses).
 delete process.env.OZVI_EMBEDDINGS_MODEL;
+delete process.env.OZVI_EMBEDDINGS;
 
 const { attachDraft, cleanSimilarSeen, countDuplicate, draftComment, duplicateStats, similarIdeas, similarSeenOf, splitItem, strongMatch } = await import("./duplicates");
 const { SIMILAR_SHOW, SIMILAR_STRONG } = await import("./similar");
@@ -37,7 +38,7 @@ describe("similar seen (form fields)", () => {
     expect(draftComment("Export do CSV", "Pre účtovníčku.")).toBe("Export do CSV\n\nPre účtovníčku.");
   });
   it("thresholds: the question on submit needs more than the list while writing", () => {
-    for (const m of ["trigram", "embeddings"] as const) expect(SIMILAR_STRONG[m]).toBeGreaterThan(SIMILAR_SHOW[m]);
+    for (const m of ["trigram", "embeddings", "local"] as const) expect(SIMILAR_STRONG[m]).toBeGreaterThan(SIMILAR_SHOW[m]);
   });
 });
 

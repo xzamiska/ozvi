@@ -2000,6 +2000,7 @@
       "placeholderIdea": "Np. Eksport do CSV",
       "similarLabel": "Podobne pomysły",
       "similar": "Coś podobnego już istnieje. Jeśli to to, dodaj głos — swój tekst możesz dodać jako komentarz.",
+      "similarAi": "Wybrał je model AI na podstawie znaczenia tekstu.",
       "bodyBug": "Co robisz i co powinno się stać?",
       "bodyIdea": "Do czego ci to potrzebne?",
       "bodyPlaceholderBug": "1. Otwieram klienta\n2. Wpisuję NIP i klikam Zapisz\n3. Po ponownym otwarciu pole jest puste",

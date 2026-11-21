@@ -3,7 +3,7 @@ import type { AddressInfo } from "node:net";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 import { _resetJsonModes, aiConfig, aiProviderName, completeJson, completeText, extractJson, ProviderError, type AiConfig } from "./ai-provider";
-import { embeddingsConfig } from "./similar";
+import { embeddingsConfig, embeddingsFor } from "./similar";
 
 describe("aiConfig", () => {
   it("is off with nothing set, or with OZVI_AI_PROVIDER=off", () => {
@@ -46,10 +46,18 @@ describe("aiConfig", () => {
   });
   it("embeddings reuse the OpenAI-compatible base when OZVI_EMBEDDINGS_URL is unset", () => {
     expect(embeddingsConfig({ OZVI_AI_PROVIDER: "openai", OZVI_AI_MODEL: "m", OZVI_AI_BASE_URL: "http://ollama:11434/v1", OZVI_EMBEDDINGS_MODEL: "nomic-embed-text" }))
-      .toEqual({ url: "http://ollama:11434/v1", model: "nomic-embed-text", key: undefined });
+      .toEqual({ provider: "api", url: "http://ollama:11434/v1", model: "nomic-embed-text", key: undefined });
     expect(embeddingsConfig({ OZVI_EMBEDDINGS_URL: "http://e/v1", OZVI_EMBEDDINGS_MODEL: "e", OZVI_AI_PROVIDER: "openai", OZVI_AI_MODEL: "m" })).toMatchObject({ url: "http://e/v1" });
     expect(embeddingsConfig({ ANTHROPIC_API_KEY: "k", OZVI_EMBEDDINGS_MODEL: "e" })).toBeNull();
     expect(embeddingsConfig({ OZVI_AI_PROVIDER: "openai", OZVI_AI_MODEL: "m" })).toBeNull();
+  });
+  it("the local model: its own model id, on every plan; an embeddings API only on plans with AI", () => {
+    const local = embeddingsConfig({ OZVI_EMBEDDINGS: "local", OZVI_EMBEDDINGS_URL: "http://e/v1", OZVI_EMBEDDINGS_MODEL: "e" });
+    expect(local).toEqual({ provider: "local", model: "local:multilingual-e5-small" });
+    const api = embeddingsConfig({ OZVI_EMBEDDINGS_URL: "http://e/v1", OZVI_EMBEDDINGS_MODEL: "e" });
+    expect((["self", "free", "pro", "studio"] as const).map((p) => embeddingsFor(p, local))).toEqual([true, true, true, true]);
+    expect((["self", "free", "pro", "studio"] as const).map((p) => embeddingsFor(p, api))).toEqual([true, false, false, true]);
+    expect(embeddingsFor("self", null)).toBe(false);
   });
 });
 

@@ -46,7 +46,7 @@ import { budgetLeft, myVoteWeights, voteModeOf } from "@/lib/votes";
 import { ROUTE } from "@/lib/route";
 import { isSystemItem } from "@/lib/provenance";
 import { stopLabel } from "@/lib/route-text";
-import { embeddingsConfig, findSimilar } from "@/lib/similar";
+import { findSimilar } from "@/lib/similar";
 import { cn } from "@/lib/utils";
 import { Markdown } from "@/components/Markdown";
 import { projectOrigin } from "@/lib/email/url";
@@ -479,7 +479,7 @@ export default async function ItemPage({ params, searchParams }: { params: Promi
               )}
               {!item.mergedIntoId && !item.pending && (
                 <TeamBlock title={t("duplicates")}>
-                  {embeddingsConfig() && team.similar.length > 0 && (
+                  {team.similar.some((s) => s.method !== "trigram") && (
                     <p className="-mt-1 text-[12.5px] text-muted-foreground" data-ai-generated="true">{t("similarAi")}</p>
                   )}
                   {team.merged.length > 0 && (

@@ -2000,6 +2000,7 @@
       "placeholderIdea": "Např. Export do CSV",
       "similarLabel": "Podobné nápady",
       "similar": "Podobné už existuje. Pokud je to ono, přidejte hlas — svůj text můžete přidat jako komentář.",
+      "similarAi": "Vybral je model AI podle významu textu.",
       "bodyBug": "Co jste dělali a co jste čekali?",
       "bodyIdea": "Proč to potřebujete?",
       "bodyPlaceholderBug": "1. Otevřel jsem klienta\n2. Vyplnil DIČ a dal Uložit\n3. Po znovuotevření je pole prázdné",

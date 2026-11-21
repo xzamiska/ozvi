@@ -1,4 +1,4 @@
-import { PLAN_LIMITS, schema, type PlanName, type Tx } from "@ozvi/db";
+import { schema, type PlanName, type Tx } from "@ozvi/db";
 import { eq, sql } from "drizzle-orm";
 import { translator } from "@/i18n/messages";
 import { addCommentTo, DomainError, fail, recordStatus, type Item } from "./domain";
@@ -7,7 +7,7 @@ import { emit } from "./events";
 import type { Project, User } from "./project";
 import { sameTitle } from "./moderation-rules";
 import { allow } from "./ratelimit";
-import { atLeast, embedQuery, findSimilar, SIMILAR_SHOW, SIMILAR_STRONG, type SimilarMethod } from "./similar";
+import { atLeast, embeddingsFor, embedQuery, findSimilar, SIMILAR_SHOW, SIMILAR_STRONG, type SimilarMethod } from "./similar";
 import { pivotQuery } from "./translate";
 import { applyVote, myVoteWeights } from "./votes";
 
@@ -29,8 +29,9 @@ export interface Suggestion {
 /** What findSimilar needs from outside the transaction: the English pivot of the text and its embedding. */
 export async function similarInputs(project: Project, plan: PlanName, rateKey: string, text: string) {
   const pivot = await pivotQuery(text, { project, plan, rateKey });
-  // Embedding calls cost money: only plans with AI (and self-host), and a per-viewer cap while typing.
-  const queryVector = PLAN_LIMITS[plan].ai && allow("similar", `${project.id}:${rateKey}`) ? await embedQuery(text) : null;
+  // Embedding API calls cost money: only plans with AI (and self-host); the local model runs on every plan.
+  // A per-viewer cap while typing either way.
+  const queryVector = embeddingsFor(plan) && allow("similar", `${project.id}:${rateKey}`) ? await embedQuery(text) : null;
   return { pivot, queryVector };
 }
 

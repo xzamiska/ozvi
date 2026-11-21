@@ -16,10 +16,16 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm --filter @ozvi/web build
 # Self-contained migrator (drizzle + postgres bundled) so the runtime image needs no dev deps.
+# The CLI leaves the local embedding model's libraries out (duplicates:eval --method local loads them at run time
+# from the standalone node_modules; the two links below make them resolvable from /app/ozvi.mjs).
 RUN pnpm --filter @ozvi/widget exec esbuild ../db/src/migrate.ts --bundle --platform=node --format=esm \
       --outfile=/app/migrate.mjs --banner:js="import{createRequire}from'module';const require=createRequire(import.meta.url);" \
  && pnpm --filter @ozvi/widget exec esbuild ../db/src/cli.ts --bundle --platform=node --format=esm \
-      --outfile=/app/ozvi.mjs --banner:js="import{createRequire}from'module';const require=createRequire(import.meta.url);"
+      --external:@huggingface/transformers --external:onnxruntime-web \
+      --outfile=/app/ozvi.mjs --banner:js="import{createRequire}from'module';const require=createRequire(import.meta.url);" \
+ && cd apps/web/.next/standalone/node_modules && mkdir -p @huggingface \
+ && ln -s .pnpm/onnxruntime-web@*/node_modules/onnxruntime-web onnxruntime-web \
+ && cd @huggingface && ln -s ../.pnpm/@huggingface+transformers@*/node_modules/@huggingface/transformers transformers
 
 FROM node:22.23.5-alpine AS runtime
 WORKDIR /app
