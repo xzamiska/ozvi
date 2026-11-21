@@ -114,7 +114,8 @@ export default async function Ideas({ params, searchParams }: {
               {isTeam && <ExportMenu slug={slug} kind="idea" query={keep} />}
               <Button asChild size="lg"><Link href={`/${slug}/new?kind=idea`}><Plus />{t("suggest")}</Link></Button>
             </>
-          : login ? <Button asChild size="lg" variant="outline"><a href={login}>{t("signInToSuggest")}</a></Button> : null}
+          // Signing in to suggest comes back to the form (it was the list), where similar ideas show while writing.
+          : login ? <Button asChild size="lg" variant="outline"><a href={loginHref(project, `/${slug}/new?kind=idea`) ?? login}>{t("signInToSuggest")}</a></Button> : null}
       />
       {/* After "Moje údaje" → erase (lib/privacy-actions.ts): the person is signed out and lands here. */}
       {sp.erased === "1" && !user && (

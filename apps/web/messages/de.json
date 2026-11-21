@@ -1112,7 +1112,11 @@
       "unassigned": "Noch niemand zuständig",
       "mergedHere": "Hierher zusammengeführt:",
       "former": "{who} (nicht mehr im Team)",
-      "you": "{who} (Sie)"
+      "you": "{who} (Sie)",
+      "attached": "Ihre Stimme und Beschreibung sind bei dieser Idee. Wir melden uns, wenn sich etwas tut.",
+      "attachedQueued": "Ihre Beschreibung wartet auf die Freigabe durch das Team und erscheint dann bei dieser Idee.",
+      "seenStrong": "Der Autor hat #{n} gesehen und als etwas anderes markiert",
+      "seenShown": "Beim Schreiben hat der Autor gesehen:"
     },
     "me": {
       "title": "Meine Daten",
@@ -1508,7 +1512,8 @@
         },
         "triage": {
           "merged": "Duplikate zusammengeführt",
-          "bulk": "Sammeländerung"
+          "bulk": "Sammeländerung",
+          "unmerged": "Duplikate getrennt"
         },
         "changelog": {
           "published": "Neuigkeit veröffentlicht",
@@ -1791,7 +1796,8 @@
     "proofUrl": "Der Link muss eine vollständige Adresse sein, die mit https:// beginnt.",
     "assignTeamOnly": "Nur das Team kann Einträge zuweisen.",
     "assignNotTeam": "Zugewiesen werden kann nur ein Teammitglied dieses Boards.",
-    "assignClosed": "Ein gelöschter oder zusammengeführter Eintrag kann nicht mehr zugewiesen werden."
+    "assignClosed": "Ein gelöschter oder zusammengeführter Eintrag kann nicht mehr zugewiesen werden.",
+    "notMerged": "#{n} ist nicht zusammengeführt."
   },
   "email": {
     "footer": "Sie erhalten diese E-Mail von {project}, weil Sie diesem Beitrag folgen.",
@@ -1993,7 +1999,7 @@
       "placeholderBug": "Z. B. Die USt-IdNr. verschwindet nach dem Speichern eines Kunden",
       "placeholderIdea": "z. B. Export als CSV",
       "similarLabel": "Ähnliche Ideen",
-      "similar": "Etwas Ähnliches gibt es bereits. Wenn es dasselbe ist, stimmen Sie einfach dafür ab.",
+      "similar": "Etwas Ähnliches gibt es schon. Wenn es das ist, stimmen Sie dafür — Ihren Text können Sie als Kommentar hinzufügen.",
       "bodyBug": "Was haben Sie getan und was haben Sie erwartet?",
       "bodyIdea": "Wofür brauchen Sie das?",
       "bodyPlaceholderBug": "1. Kunden geöffnet\n2. USt-IdNr. eingetragen und auf Speichern geklickt\n3. Nach erneutem Öffnen ist das Feld leer",
@@ -2011,7 +2017,24 @@
       "language": "Sprache",
       "sending": "Wird gesendet …",
       "submitBug": "Fehler melden",
-      "submitIdea": "Idee vorschlagen"
+      "submitIdea": "Idee vorschlagen",
+      "view": "Ansehen",
+      "newWindow": "öffnet sich in einem neuen Fenster",
+      "voted": "Ihre Stimme ist bei #{n}.",
+      "addAsComment": "Meinen Text als Kommentar zu #{n} hinzufügen",
+      "addingComment": "Wird hinzugefügt…",
+      "commentAdded": "Ihr Text steht als Kommentar bei #{n}. Wir melden uns, wenn sich dort etwas tut.",
+      "commentQueued": "Ihr Text bei #{n} wartet auf die Freigabe durch das Team.",
+      "openIdea": "#{n} öffnen",
+      "writeFirst": "Schreiben Sie zuerst, was Ihnen helfen würde.",
+      "strongTitle": "Ist es #{n}?",
+      "strongText": "Diese Idee gibt es schon. Wenn Sie dort abstimmen und Ihre Beschreibung ergänzen, sieht das Team, dass mehr Leute sie wollen.",
+      "strongAttach": "Stimme und Beschreibung zu #{n} hinzufügen",
+      "attaching": "Wird hinzugefügt…",
+      "strongNew": "Das ist etwas anderes, neue Idee anlegen",
+      "strongReason": "Was ist anders?",
+      "guestSubmit": "Anmelden und vorschlagen",
+      "guestNote": "Wir behalten Ihren Entwurf in diesem Fenster. Nach der Anmeldung kommen Sie hierher zurück und senden ihn ab."
     },
     "files": {
       "unsupported": "„{name}“ wird nicht unterstützt. Hängen Sie ein Bild, ein PDF oder ein Text-Log an.",
@@ -2114,7 +2137,14 @@
       "mergeHere": "#{n} hierher zusammenführen",
       "mergeHereTitle": "#{n} hierher zusammenführen?",
       "mergeHereIdea": "Die Stimmen von #{n} wandern hierher, und #{n} wird als Duplikat dieser Idee geschlossen.",
-      "mergeHereBug": "#{n} wird als Duplikat dieser Meldung geschlossen. Die meldende Person erfährt von der Korrektur zusammen mit dieser."
+      "mergeHereBug": "#{n} wird als Duplikat dieser Meldung geschlossen. Die meldende Person erfährt von der Korrektur zusammen mit dieser.",
+      "unmerge": "Trennen",
+      "unmergeHint": "Versehentlich zusammengeführt? Trennen Sie es von #{into}.",
+      "unmergeTitle": "#{n} von #{into} trennen?",
+      "unmergeIdea": "#{n} wird wieder eine eigene Idee im Status Vorgeschlagen. Stimmen, die beim Zusammenführen zu #{into} gewandert sind, bleiben bei #{into}.",
+      "unmergeBug": "#{n} wird wieder eine eigene Meldung im Status Eingegangen.",
+      "unmerging": "Wird getrennt…",
+      "unmergeConfirm": "#{n} trennen"
     },
     "changelog": {
       "votes": "{count, plural, one {# Stimme} other {# Stimmen}}",
@@ -4060,7 +4090,8 @@
       "type": {
         "local": "localStorage",
         "cookie": "Cookie",
-        "cookieHttpOnly": "Cookie (HttpOnly)"
+        "cookieHttpOnly": "Cookie (HttpOnly)",
+        "session": "sessionStorage"
       },
       "purpose": {
         "seen": "Merkt sich die neueste Neuigkeit, die Sie gesehen haben, für das Abzeichen „Neu“. Verlässt nie Ihren Browser.",
@@ -4069,11 +4100,13 @@
         "locale": "Merkt sich die gewählte Sprache.",
         "csv": "Merkt sich das Trennzeichen für CSV-Exporte.",
         "widgetLogin": "Merkt sich, dass Sie Ihre E-Mail-Adresse im Widget bestätigt haben, damit Sie nicht bei jeder Meldung einen Code brauchen.",
-        "dense": "Merkt sich, ob das Team kompakte Zeilen in Listen möchte."
+        "dense": "Merkt sich, ob das Team kompakte Zeilen in Listen möchte.",
+        "draft": "Behält eine Idee oder Meldung, die Sie gerade schreiben, bis Sie sie absenden, damit sie beim Öffnen einer ähnlichen Idee oder bei der Anmeldung nicht verloren geht."
       },
       "untilCleared": "Bis Sie die Browserdaten löschen",
       "widgetNote": "Das Widget selbst setzt keine Cookies: Es meldet Sie mit einem kurzlebigen Token aus unserer App an.",
-      "widgetNoteEmail": "Das Widget selbst setzt keine Cookies. Wenn Sie darin Ihre E-Mail-Adresse bestätigen, merkt es sich das im Browser (Eintrag oben)."
+      "widgetNoteEmail": "Das Widget selbst setzt keine Cookies. Wenn Sie darin Ihre E-Mail-Adresse bestätigen, merkt es sich das im Browser (Eintrag oben).",
+      "untilTabClosed": "Bis Sie das Fenster oder den Tab schließen"
     },
     "units": {
       "years": "{n, plural, one {# Jahr} other {# Jahre}}",

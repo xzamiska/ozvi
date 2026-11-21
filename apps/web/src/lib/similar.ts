@@ -99,12 +99,29 @@ export async function embedQuery(text: string): Promise<string | null> {
   }
 }
 
+/** How a similarity score was computed; each method has its own scale, so its own thresholds. */
+export type SimilarMethod = "embeddings" | "trigram";
+
+/**
+ * Thresholds per method (ADR-0015). SHOW: lowest score listed to the author while writing (recall).
+ * STRONG: lowest score for which the form asks once on submit "is it this one?" (precision).
+ * Starting values only: phase 2 calibrates them on real merged pairs.
+ */
+export const SIMILAR_SHOW: Record<SimilarMethod, number> = { trigram: 0.3, embeddings: 0.6 };
+export const SIMILAR_STRONG: Record<SimilarMethod, number> = { trigram: 0.7, embeddings: 0.85 };
+
+/** Rows at or above their own method's threshold (SIMILAR_SHOW or SIMILAR_STRONG). */
+export const atLeast = <R extends Pick<SimilarRow, "score" | "method">>(rows: R[], thresholds: Record<SimilarMethod, number>) =>
+  rows.filter((r) => r.score >= thresholds[r.method]);
+
 export interface SimilarRow {
   id: string; number: number; kind: "bug" | "idea"; title: string; status: string; votes: number; score: number;
   /** Provenance (for MCP lockdown and author.trust). */
   authorId: string | null; source: string;
   /** Filed by Ozvi from customer feedback (context.insight), no person as author. */
   system: boolean;
+  /** Which method produced `score` (compare it with that method's threshold). */
+  method: SimilarMethod;
 }
 
 /**
@@ -133,7 +150,7 @@ export async function findSimilar(
         from ${items} join item_embeddings e on e.item_id = ${items.id} and e.model = ${cfg.model}
         where ${where}
         order by e.embedding <=> ${target}::vector limit ${opts.limit}`)) as unknown as SimilarRow[];
-      if (rows.length) return rows.filter((r) => r.score >= 0.5);
+      if (rows.length) return rows.filter((r) => r.score >= 0.5).map((r) => ({ ...r, method: "embeddings" as const }));
     }
   }
 
@@ -141,7 +158,7 @@ export async function findSimilar(
   const pv = opts.pivot?.slice(0, 500) || null;
   // Across languages: compare with the English title pivots of other ideas (content_translations, "en:title"),
   // and the English pivot of the query with both. Pivots exist only on boards with post translation.
-  return (await tx.execute(sql`
+  const rows = (await tx.execute(sql`
     select * from (
       select ${cols}, round(greatest(word_similarity(ozvi_fold(${q}), ozvi_fold(${items.title})),
                                      0.7 * word_similarity(ozvi_fold(${q}), ozvi_fold(left(${items.body}, 1000))),
@@ -153,7 +170,8 @@ export async function findSimilar(
         and t.source_hash = encode(sha256(convert_to(${items.title}, 'UTF8')), 'hex')
       where ${where}
     ) s where score >= ${opts.minScore ?? 0.3}
-    order by score desc, votes desc limit ${opts.limit}`)) as unknown as SimilarRow[];
+    order by score desc, votes desc limit ${opts.limit}`)) as unknown as Omit<SimilarRow, "method">[];
+  return rows.map((r) => ({ ...r, method: "trigram" as const }));
 }
 
 /**

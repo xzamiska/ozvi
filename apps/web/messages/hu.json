@@ -1112,7 +1112,11 @@
       "unassigned": "Még senki sem foglalkozik vele",
       "mergedHere": "Ide összevonva:",
       "former": "{who} (már nincs a csapatban)",
-      "you": "{who} (Ön)"
+      "you": "{who} (Ön)",
+      "attached": "A szavazata és a leírása ennél az ötletnél van. Szólunk, ha változik valami.",
+      "attachedQueued": "A leírása a csapat jóváhagyására vár, utána megjelenik ennél az ötletnél.",
+      "seenStrong": "A szerző látta a #{n} ötletet, és mást jelölt meg",
+      "seenShown": "Írás közben a szerző látta:"
     },
     "me": {
       "title": "Saját adatok",
@@ -1508,7 +1512,8 @@
         },
         "triage": {
           "merged": "Duplikátumok összevonva",
-          "bulk": "Csoportos módosítás"
+          "bulk": "Csoportos módosítás",
+          "unmerged": "Szétválasztott duplikátumok"
         },
         "changelog": {
           "published": "Közzétett újdonság",
@@ -1791,7 +1796,8 @@
     "proofUrl": "A linknek https://-sel kezdődő teljes címnek kell lennie.",
     "assignTeamOnly": "Felelőst csak a csapat jelölhet ki.",
     "assignNotTeam": "Felelős csak e tábla csapattagja lehet.",
-    "assignClosed": "Törölt vagy összevont bejegyzést már nem lehet kiosztani."
+    "assignClosed": "Törölt vagy összevont bejegyzést már nem lehet kiosztani.",
+    "notMerged": "A #{n} nincs összevonva."
   },
   "email": {
     "footer": "Feladó: {project}. Azért kapod ezt az e-mailt, mert követed ezt a bejegyzést.",
@@ -1993,7 +1999,7 @@
       "placeholderBug": "Pl. Az ügyfél mentése után eltűnik az adószám",
       "placeholderIdea": "Pl. Exportálás CSV-be",
       "similarLabel": "Hasonló ötletek",
-      "similar": "Már létezik valami hasonló. Ha ugyanaz, egyszerűen szavazz rá.",
+      "similar": "Már van hasonló. Ha ez az, szavazzon rá — a szövegét hozzászólásként is hozzáadhatja.",
       "bodyBug": "Mit csináltál, és mire számítottál?",
       "bodyIdea": "Miért van rá szükséged?",
       "bodyPlaceholderBug": "1. Megnyitottam egy ügyfelet\n2. Kitöltöttem az adószámot, és a Mentésre kattintottam\n3. Újbóli megnyitás után a mező üres",
@@ -2011,7 +2017,24 @@
       "language": "Nyelv",
       "sending": "Küldés…",
       "submitBug": "Hiba bejelentése",
-      "submitIdea": "Ötlet beküldése"
+      "submitIdea": "Ötlet beküldése",
+      "view": "Megnyitás",
+      "newWindow": "új ablakban nyílik meg",
+      "voted": "A szavazata a #{n} ötletnél van.",
+      "addAsComment": "A szövegem hozzáadása hozzászólásként a #{n} ötlethez",
+      "addingComment": "Hozzáadás…",
+      "commentAdded": "A szövege hozzászólásként a #{n} ötletnél van. Szólunk, ha változik valami.",
+      "commentQueued": "A szövege a #{n} ötletnél a csapat jóváhagyására vár.",
+      "openIdea": "#{n} megnyitása",
+      "writeFirst": "Előbb írja le, mi segítene.",
+      "strongTitle": "Nem a #{n} az?",
+      "strongText": "Ilyen ötlet már van. Ha arra szavaz és oda írja a leírását, a csapat látja, hogy többen szeretnék.",
+      "strongAttach": "Szavazat és leírás hozzáadása a #{n} ötlethez",
+      "attaching": "Hozzáadás…",
+      "strongNew": "Ez más, új ötlet létrehozása",
+      "strongReason": "Miben más?",
+      "guestSubmit": "Bejelentkezés és javaslat",
+      "guestNote": "A piszkozatot ebben az ablakban megőrizzük. Bejelentkezés után ide tér vissza és elküldi."
     },
     "files": {
       "unsupported": "Ezt a fájlt nem támogatjuk: „{name}”. Csatolj képet, PDF-et vagy szöveges naplót.",
@@ -2114,7 +2137,14 @@
       "mergeHere": "#{n} összevonása ide",
       "mergeHereTitle": "Összevonja ide: #{n}?",
       "mergeHereIdea": "A(z) #{n} szavazatai ide kerülnek, a(z) #{n} pedig ennek az ötletnek a duplikátumaként lezárul.",
-      "mergeHereBug": "A(z) #{n} ennek a bejelentésnek a duplikátumaként lezárul. A bejelentője ezzel együtt értesül a javításról."
+      "mergeHereBug": "A(z) #{n} ennek a bejelentésnek a duplikátumaként lezárul. A bejelentője ezzel együtt értesül a javításról.",
+      "unmerge": "Szétválasztás",
+      "unmergeHint": "Tévedésből lett összevonva? Válassza le a #{into} elemről.",
+      "unmergeTitle": "Leválasztja a #{n} elemet a #{into} elemről?",
+      "unmergeIdea": "A #{n} újra önálló ötlet lesz Javasolt állapotban. Az összevonáskor a #{into} ötlethez került szavazatok ott maradnak.",
+      "unmergeBug": "A #{n} újra önálló bejelentés lesz Beérkezett állapotban.",
+      "unmerging": "Szétválasztás…",
+      "unmergeConfirm": "#{n} szétválasztása"
     },
     "changelog": {
       "votes": "{count, plural, one {# szavazat} other {# szavazat}}",
@@ -4060,7 +4090,8 @@
       "type": {
         "local": "localStorage",
         "cookie": "Süti",
-        "cookieHttpOnly": "Süti (HttpOnly)"
+        "cookieHttpOnly": "Süti (HttpOnly)",
+        "session": "sessionStorage"
       },
       "purpose": {
         "seen": "Megjegyzi a legutóbb látott újdonságot az „Újdonságok” jelvényhez. Soha nem hagyja el a böngészőjét.",
@@ -4069,11 +4100,13 @@
         "locale": "Megjegyzi a választott nyelvet.",
         "csv": "Megjegyzi a CSV-exporthoz használt elválasztót.",
         "widgetLogin": "Megjegyzi, hogy a widgetben ellenőrizte az e-mail-címét, így nem kell minden bejelentésnél kódot megadnia.",
-        "dense": "Megjegyzi, hogy a csapat sűrű sorokat szeretne-e a listákban."
+        "dense": "Megjegyzi, hogy a csapat sűrű sorokat szeretne-e a listákban.",
+        "draft": "Megőrzi a megkezdett ötletet vagy bejelentést, amíg el nem küldi, hogy ne vesszen el, ha megnyit egy hasonló ötletet vagy bejelentkezik."
       },
       "untilCleared": "A böngészőadatok törléséig",
       "widgetNote": "Maga a widget nem állít be sütit: az alkalmazásunktól kapott rövid élettartamú tokennel jelentkezteti be.",
-      "widgetNoteEmail": "Maga a widget nem állít be sütit. Ha ellenőrzi benne az e-mail-címét, ezt a böngészőben megjegyzi (a fenti tétel)."
+      "widgetNoteEmail": "Maga a widget nem állít be sütit. Ha ellenőrzi benne az e-mail-címét, ezt a böngészőben megjegyzi (a fenti tétel).",
+      "untilTabClosed": "Amíg be nem zárja az ablakot vagy a lapot"
     },
     "units": {
       "years": "{n, plural, other {# év}}",

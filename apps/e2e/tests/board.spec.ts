@@ -1031,7 +1031,8 @@ test.describe("public board", () => {
     const mail = await lastMail(who, { subject: /prihlásenie do/ });
     expect(mail.Subject).toContain(b.name);
     await g.getByLabel("Kód z e-mailu").fill(codeIn(mail.text)!);
-    await g.waitForURL(new RegExp(`/${b.slug}/ideas$`));
+    // Back on the form the visitor came to sign in for, not the list.
+    await g.waitForURL(new RegExp(`/${b.slug}/new\\?kind=idea$`));
     await expect(g.getByRole("button", { name: "Účet" })).toBeVisible();
     const n = await createItem(g, b.slug, "idea", uniq("Nápad cez e-mail"));
     expect(n).toBeGreaterThan(0);

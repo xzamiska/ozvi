@@ -14,6 +14,7 @@ import type { Locale } from "@/i18n/locales";
 import { cleanCapture, type Capture } from "./bug-context";
 import { maskText, maskUrl } from "@ozvi/sdk/mask";
 import type { ItemSource } from "./provenance";
+import type { SimilarSeen } from "./duplicates";
 
 export class ValidationError extends Error {}
 
@@ -38,6 +39,8 @@ export interface NewItem {
   kind: "bug" | "idea"; title: string; body: string; context: unknown; files: File[];
   /** Provenance shown to agents (MCP, webhooks, GitHub); default "board". */
   source?: ItemSource;
+  /** Ideas: the similar ideas its author was shown and why it is different (lib/duplicates.ts, context.similarSeen). */
+  similarSeen?: SimilarSeen | null;
 }
 
 /**
@@ -67,7 +70,7 @@ export async function createItem(project: Project, user: User, input: NewItem, l
   if (dup) return { number: dup.number, pending: (dup.pending as PendingReason | null) ?? null };
   if (!allow("item", user.id) || !allow("itemBurst", user.id)) throw new RateLimitError(locale);
   const pending = pendingReason({ kind: input.kind, title, body }, user, project);
-  const context = input.kind === "bug" ? cleanContext(input.context) : null;
+  const context = input.kind === "bug" ? cleanContext(input.context) : input.similarSeen ? { similarSeen: input.similarSeen } : null;
 
   const files = await prepareAttachments(db, project, input.files, locale);
   const written: string[] = [];
