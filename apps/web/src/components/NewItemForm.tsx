@@ -96,7 +96,10 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
   const path = (() => { try { return ctx.url ? new URL(ctx.url, location.origin).pathname : ""; } catch { return ctx.url ?? ""; } })();
   const summary = [path, ctx.appVersion && `v${ctx.appVersion}`, ctx.browser && browserLabel(ctx.browser)]
     .filter(Boolean).join(" · ");
-  const clearDraft = () => { setTitle(""); setBody(""); writeDraft(key, null); setSimilar([]); };
+  // After the text went to an existing idea as a comment: the suggestions (and their card) go away with the draft,
+  // so the confirmation lives here, above the emptied form.
+  const [commented, setCommented] = useState<{ n: number; queued: boolean } | null>(null);
+  const clearDraft = (n: number, queued: boolean) => { setTitle(""); setBody(""); writeDraft(key, null); setSimilar([]); setCommented({ n, queued }); };
 
   return (
     // Every submit (create or attach) clears the stored draft; it is written again if the server answers without leaving.
@@ -110,6 +113,14 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
         {/* Asked once: the only way to create from the question is "it's something else". */}
         {asked && <><input type="hidden" name="confirmedNew" value="1" /><input type="hidden" name="strong" value={asked.number} /></>}
       </>}
+
+      {commented && (
+        <p role="status" className="flex items-start gap-2 rounded-xl border border-brand-line bg-brand-soft/60 p-4 text-[14.5px]">
+          <Check aria-hidden className="mt-0.5 size-4 shrink-0" />
+          <span>{t(commented.queued ? "commentQueued" : "commentAdded", { n: commented.n })}{" "}
+            <a className="oz-link" href={`/${slug}/i/${commented.n}`}>{t("openIdea", { n: commented.n })}</a></span>
+        </p>
+      )}
 
       <div className="grid gap-2">
         <div className="flex items-baseline justify-between gap-3">
@@ -129,7 +140,7 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
               <SimilarCard key={s.number} slug={slug} s={s} vote={vote} guest={guest} login={login}
                 draft={{ title, body }} voted={voted[s.number] ?? s.weight > 0}
                 onVoted={(w) => { see(s.number); setVoted((v) => ({ ...v, [s.number]: w > 0 })); }}
-                onOpen={() => see(s.number)} onCommented={clearDraft} />
+                onOpen={() => see(s.number)} onCommented={(queued) => clearDraft(s.number, queued)} />
             ))}
           </ul>
         </section>
@@ -220,7 +231,7 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
 function SimilarCard({ slug, s, vote, guest, login, draft, voted, onVoted, onOpen, onCommented }: {
   slug: string; s: Similar; vote: { mode: VoteMode; left: number | null }; guest: boolean; login: string | null;
   draft: { title: string; body: string }; voted: boolean;
-  onVoted: (weight: number) => void; onOpen: () => void; onCommented: () => void;
+  onVoted: (weight: number) => void; onOpen: () => void; onCommented: (queued: boolean) => void;
 }) {
   const t = useTranslations("forms.newItem");
   const [sending, start] = useTransition();
@@ -238,7 +249,7 @@ function SimilarCard({ slug, s, vote, guest, login, draft, voted, onVoted, onOpe
       const r = await addComment(slug, s.id, {}, f);
       if (r.error) { setError(r.error); return; }
       setDone(r.queued ? "queued" : "added");
-      onCommented();
+      onCommented(!!r.queued);
     });
   }
 
