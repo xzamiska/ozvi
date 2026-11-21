@@ -28,6 +28,18 @@ const config: NextConfig = {
     ] }];
   },
   transpilePackages: ["@ozvi/theme", "@ozvi/db", "@ozvi/sdk", "@ozvi/mcp"],
+  // Local embedding model (OZVI_EMBEDDINGS=local, packages/db local-embeddings.ts): @huggingface/transformers is
+  // external by default; onnxruntime-web is imported by us and must stay a real package next to its .wasm files.
+  serverExternalPackages: ["onnxruntime-web"],
+  outputFileTracingIncludes: {
+    "/*": [
+      "../../node_modules/.pnpm/onnxruntime-web@*/node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.{mjs,wasm}",
+      "../../node_modules/.pnpm/onnxruntime-web@*/node_modules/onnxruntime-web/dist/ort.node.min.mjs",
+    ],
+  },
+  // transformers' Node build requires onnxruntime-node (native, glibc-only, ~290 MB); Ozvi redirects it to the
+  // WebAssembly runtime, so it never ships in the image.
+  outputFileTracingExcludes: { "/*": ["../../node_modules/.pnpm/onnxruntime-node@*/**"] },
 };
 
 export default withNextIntl(config);

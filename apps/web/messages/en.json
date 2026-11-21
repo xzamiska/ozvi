@@ -2000,6 +2000,7 @@
       "placeholderIdea": "E.g. Export to CSV",
       "similarLabel": "Similar ideas",
       "similar": "Something similar already exists. If it’s the one, add your vote — you can add your text as a comment.",
+      "similarAi": "An AI model picked these by meaning.",
       "bodyBug": "What did you do and what did you expect?",
       "bodyIdea": "Why do you need it?",
       "bodyPlaceholderBug": "1. Opened a client\n2. Filled in the VAT number and clicked Save\n3. After reopening, the field is empty",

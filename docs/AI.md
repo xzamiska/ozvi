@@ -11,7 +11,7 @@ The transparency obligations under Article 50 of Regulation (EU) 2024/1689 (AI A
 | Update draft (the “Draft text with AI” button, or automatically from a GitHub release) | the team; everyone once published | publishing the update = approval; the publisher is saved as the reviewer | “written with AI · reviewed by Name” on the update (board, RSS); in a draft “AI draft · waiting for review” | `ai` in the `changelog.published` webhook, MCP `list_updates`, the project export |
 | Discussion summary | team only, not saved | not published anywhere | “Written by AI · check it against the discussion” | — (never leaves Ozvi) |
 | Weekly digest for the team | team only (e-mail) | exception: internal team e-mail | the sentence “This summary was written by AI…”, links removed | — |
-| Similar items (duplicates) via embeddings | team only | a person decides on merging (with confirmation) | “An AI model picked these by meaning…” | `ai` on MCP `find_duplicates` results |
+| Similar items (duplicates) via embeddings (an API or the local model) | the team; the author of a new idea (suggestions while writing) | a person decides on merging (with confirmation); the author decides whether to add their vote | “An AI model picked these by meaning…” in the team's panel and under the suggestions while writing (`data-ai-generated`) | `ai` on MCP `find_duplicates` results (only when the match came from embeddings) |
 | Translation of posts on the board (ideas, comments, updates; setting Languages → Post translation: Off / On request / Automatic) | a reader who is allowed to see the original | exception: machine translation of someone else's text, not the team's text; the original is always one click away | “Translated with AI · show original” on every translated post, model in the description | `data-ai-generated="true"` and `data-ai-model` in the HTML; in the cache `content_translations.model` |
 | Translation of titles in lists (ideas, bugs, the widget's ideas; Automatic mode only) | a reader who is allowed to see the post | as above | “Titles translated with AI · show originals” above the list, a ✨ mark on every translated title | `data-ai-generated="true"` and `data-ai-model`; in the cache `content_translations.model` |
 | Translation of a quoted reply in notification e-mails (comments, the team's words with a status change; On request and Automatic) | the recipient, who is allowed to read the post | as above | “Translated with AI (model …)” above the translation, the original under “Original text” | `data-ai-generated="true"` in the HTML part |
@@ -54,8 +54,27 @@ Ozvi is not tied to a single provider (`apps/web/src/lib/ai-provider.ts`). Only 
 - **OpenAI-compatible path:** `POST {base}/chat/completions`, 90 s timeout. Translations want JSON: first `response_format: json_schema`; if the server does not know it (400/422), then `json_object`; finally plain text. The response is always validated (zod); in plain text, JSON in a ```` ``` ```` block is also accepted. `<think>` blocks from local models are discarded.
 - **Errors:** 401/403 = wrong key, 429/503 = overloaded, anything else = failure with the code, invalid response = empty response (never a crash). A refusal (`refusal`, `content_filter`) = refused.
 - **Labelling:** the `model` field in `ai` (webhooks, MCP, export, the “written with AI” badge, `data-ai-model`) is the actual id of the configured model, e.g. `claude-opus-5-5`, `gpt-4o-mini`, `mistral-small-latest`; translations carry the id of the fast model.
-- **Embeddings** (duplicates) have their own `OZVI_EMBEDDINGS_URL` + `OZVI_EMBEDDINGS_MODEL` (+ `_KEY`). With `OZVI_AI_PROVIDER=openai`, `OZVI_EMBEDDINGS_MODEL` is enough: the AI provider's address and key are used.
+- **Embeddings** (duplicates) have their own `OZVI_EMBEDDINGS_URL` + `OZVI_EMBEDDINGS_MODEL` (+ `_KEY`). With `OZVI_AI_PROVIDER=openai`, `OZVI_EMBEDDINGS_MODEL` is enough: the AI provider's address and key are used. Or the local model, below.
 - **Data protection:** the model provider is a sub-processor of the instance operator (local model = none). The public `/subprocessors` page describes the cloud (Anthropic).
+
+## Local embeddings (similarity by meaning)
+
+`OZVI_EMBEDDINGS=local` runs a small multilingual embedding model inside Ozvi instead of calling an API (ADR-0015): `Xenova/multilingual-e5-small`, quantized (q8), 384 dimensions, on the WebAssembly build of ONNX Runtime through `@huggingface/transformers` (`packages/db/src/local-embeddings.ts`). It is a model that turns text into numbers for comparison; it writes nothing.
+
+- **Privacy:** it runs on the server; no text leaves it and there is no sub-processor. The only outgoing request is the one-time model download from `huggingface.co` (a pinned revision), which carries no user data.
+- **Plans:** it costs nothing per call, so it runs on every plan (cloud Free and Pro included) and every self-hosted server; an embeddings API stays limited to plans with `ai` (`embeddingPlans` in `lib/similar.ts`, `similarInputs` in `lib/duplicates.ts`, MCP).
+- **Labelling:** the same as any embeddings: the team's panel says “An AI model picked these by meaning…” when a match came from embeddings, MCP results carry `ai` with the model `local:multilingual-e5-small`. Trigram matches are not AI and carry no label.
+- **Where it runs:** typed text (a new idea's title, MCP text) is embedded as a query (`query: …`), stored items by the worker as passages (`passage: …`, title + the start of the body, at most 1,000 characters). A request never waits for the model: until it is loaded, text matching answers. Vectors are stored per model (`item_embeddings.model = local:multilingual-e5-small`), so switching between an API and the local model re-embeds items and never compares vectors of different models or dimensions.
+- **Scores:** e5 cosines sit high (unrelated short texts ≈ 0.8), so the local model has its own thresholds (`SIMILAR_SHOW.local`, `SIMILAR_STRONG.local`). Measure them on real merged pairs with `node ozvi.mjs duplicates:eval`.
+
+| Variable | Meaning |
+|---|---|
+| `OZVI_EMBEDDINGS=local` | use the local model (takes precedence over `OZVI_EMBEDDINGS_URL`/`_MODEL`) |
+| `OZVI_MODELS_DIR` | model cache; default `models` next to the uploads folder (`/data/models` in Docker) |
+| `OZVI_MODELS_PREFETCH=1` | download and load at boot instead of on first use |
+| `OZVI_EMBEDDINGS_THREADS` | WebAssembly threads (default 1) |
+
+Cost on a server (Apple M1 Max, Node 22, 1 thread): load from disk ≈ 0.9 s (first download + load ≈ 3.6 s on a fast line), ≈ 16 ms per title, ≈ 440 ms for a 1,000-character text (2 threads ≈ 230 ms, 4 ≈ 125 ms), **≈ 1.1 GB more RSS** (tokenizer ≈ 280 MB, model in WebAssembly memory ≈ 700 MB). Image size: ≈ +25 MB (the library and one `.wasm` file; the model is downloaded at run time).
 
 ## Post translation
 

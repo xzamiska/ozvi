@@ -8,8 +8,9 @@ process.env.OZVI_SECRET_KEY ??= "test-secret-key-0123456789abcdef-xyz";
 process.env.DATABASE_URL ??= "postgres://ozvi:ozvi@localhost:5446/ozvi";
 // Text similarity only (the same fallback every board without an embeddings endpoint uses).
 delete process.env.OZVI_EMBEDDINGS_MODEL;
+delete process.env.OZVI_EMBEDDINGS;
 
-const { attachDraft, cleanSimilarSeen, draftComment, duplicateStats, markAttached, similarIdeas, similarSeenOf, splitItem, strongMatch } = await import("./duplicates");
+const { attachDraft, cleanSimilarSeen, countDuplicate, draftComment, duplicateStats, similarIdeas, similarSeenOf, splitItem, strongMatch } = await import("./duplicates");
 const { SIMILAR_SHOW, SIMILAR_STRONG } = await import("./similar");
 const { mergeItems } = await import("./domain");
 const { createItemFor } = await import("./items");
@@ -37,7 +38,7 @@ describe("similar seen (form fields)", () => {
     expect(draftComment("Export do CSV", "Pre účtovníčku.")).toBe("Export do CSV\n\nPre účtovníčku.");
   });
   it("thresholds: the question on submit needs more than the list while writing", () => {
-    for (const m of ["trigram", "embeddings"] as const) expect(SIMILAR_STRONG[m]).toBeGreaterThan(SIMILAR_SHOW[m]);
+    for (const m of ["trigram", "embeddings", "local"] as const) expect(SIMILAR_STRONG[m]).toBeGreaterThan(SIMILAR_SHOW[m]);
   });
 });
 
@@ -112,7 +113,8 @@ describe.skipIf(!up)("duplicates before they happen", () => {
     expect(item!.voteCount).toBe(1);
     expect(votes.map((v) => [v.userId, v.weight])).toEqual([[ann.id, 1]]);
     expect(comments.map((c) => [c.authorId, c.body, c.internal])).toEqual([[ann.id, "Tmavý režim v noci\n\nOči bolia.", false]]);
-    expect((item!.context as { attached: string[] }).attached).toHaveLength(1);
+    // Counted in duplicate_stats, nothing kept on the idea.
+    expect(item!.context).toBeNull();
     // Voted already: the vote stays as it was, the text still goes there.
     const again = await withProject(db, project.id, (tx) => attachDraft(tx, project, ben, exportCsv, "Aj ja, pre Pohodu."));
     expect(again.voted).toBe(false);
@@ -165,24 +167,26 @@ describe.skipIf(!up)("duplicates before they happen", () => {
     expect((await withProject(db, project.id, async (tx) => splitItem(tx, project, team, (await tx.query.items.findFirst({ where: eq(schema.items.number, 32) }))!))).item.status).toBe("new");
   });
 
-  it("stats: aggregate counts since a date, no person in them", async () => {
-    const since = new Date(Date.now() - 60 * 60_000);
-    await db.insert(schema.activity).values([
-      { workspaceId: project.workspaceId, projectId: project.id, actor: "team", action: "triage.unmerged", detail: "#30 ← #1" },
-      { workspaceId: project.workspaceId, projectId: project.id, actor: "team", action: "triage.merged", detail: "#30 → #1" },
-    ]);
-    // An attach a day ago does not count for the last hour.
-    await withSystem(db, (tx) => tx.update(schema.items).set({ context: { attached: [new Date(Date.now() - 86_400_000).toISOString()] } }).where(eq(schema.items.number, 20)));
-    const s = await withProject(db, project.id, (tx) => duplicateStats(tx, since));
-    // Attached: #2 (ann), #1 (ben), #21 (ben, comment only); #20 attached within the hour was replaced above by an old one.
-    expect(s).toEqual({ attached: 3, createdAnyway: 1, saidDifferent: 1, mergedLater: 0, split: 1 });
+  it("stats: daily counters per board, no person and no item in them", async () => {
+    const today = new Date();
+    // So far: 4 attaches (#2, #1, #20, #21), 1 idea created anyway after the question, 2 splits (#30, #32).
+    expect(await withProject(db, project.id, (tx) => duplicateStats(tx, today))).toEqual({ attached: 4, createdAnyway: 1, saidDifferent: 1, mergedLater: 0, split: 2 });
+    // The idea created anyway, merged by the team after all: merged later. A merge of an idea without it is not.
     const xml = await byNumber(6 + 1);
     expect(xml.title).toBe("Export faktúr do XML");
-    await withProject(db, project.id, async (tx) => {
-      await markAttached(tx, xml.id);
-      await tx.update(schema.items).set({ mergedIntoId: exportCsv.id }).where(eq(schema.items.id, xml.id));
-    });
-    expect(await withProject(db, project.id, (tx) => duplicateStats(tx, since))).toEqual({ attached: 4, createdAnyway: 1, saidDifferent: 1, mergedLater: 1, split: 1 });
-    expect((await withProject(db, project.id, (tx) => duplicateStats(tx, new Date(Date.now() + 60_000)))).attached).toBe(0);
+    await withProject(db, project.id, async (tx) => mergeItems(tx, project, team, xml, (await tx.query.items.findFirst({ where: eq(schema.items.number, 1) }))!));
+    await withProject(db, project.id, (tx) => countDuplicate(tx, project.id, "attached"));
+    expect(await withProject(db, project.id, (tx) => duplicateStats(tx, today))).toEqual({ attached: 5, createdAnyway: 1, saidDifferent: 1, mergedLater: 1, split: 2 });
+    // Days: yesterday counts from yesterday on, not for today.
+    await withSystem(db, (tx) => tx.insert(schema.duplicateStats).values({ projectId: project.id, day: new Date(Date.now() - 86_400_000).toISOString().slice(0, 10), kind: "attached", n: 3 }));
+    expect((await withProject(db, project.id, (tx) => duplicateStats(tx, new Date(Date.now() - 2 * 86_400_000)))).attached).toBe(8);
+    expect((await withProject(db, project.id, (tx) => duplicateStats(tx, today))).attached).toBe(5);
+    expect((await withProject(db, project.id, (tx) => duplicateStats(tx, new Date(Date.now() + 86_400_000)))).attached).toBe(0);
+    // One row per board, day and event: numbers only.
+    const rows = await withProject(db, project.id, (tx) => tx.select().from(schema.duplicateStats));
+    expect(Object.keys(rows[0]!).sort()).toEqual(["day", "kind", "n", "projectId"]);
+    // Another board sees none of it (RLS).
+    const other = await withSystem(db, async (tx) => (await tx.insert(schema.projects).values({ workspaceId: project.workspaceId, slug: `${slug}-b`, name: "B", theme: presets.ozvi }).returning())[0]!);
+    expect(await withProject(db, other.id, (tx) => duplicateStats(tx, new Date(0)))).toEqual({ attached: 0, createdAnyway: 0, saidDifferent: 0, mergedLater: 0, split: 0 });
   });
 });

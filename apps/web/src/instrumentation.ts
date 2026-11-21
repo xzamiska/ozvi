@@ -5,6 +5,13 @@ export async function register() {
     void import("./lib/fonts-store").then(({ prefetchFonts }) => prefetchFonts()).then(({ ok, failed }) =>
       console.log(`[ozvi] fonts prefetched: ${ok} families${failed.length ? `, unavailable: ${failed.join(", ")}` : ""}`));
   }
+  // Optional: download and load the local embedding model at boot instead of on first use (OZVI_EMBEDDINGS=local).
+  if (process.env.OZVI_MODELS_PREFETCH === "1" && process.env.OZVI_EMBEDDINGS?.trim().toLowerCase() === "local") {
+    void import("@ozvi/db/local-embeddings").then(async ({ loadLocalModel, localModelLoadMs, modelsDir }) => {
+      await loadLocalModel();
+      console.log(`[ozvi] local embedding model ready in ${localModelLoadMs()} ms (${modelsDir()})`);
+    }).catch((e) => console.warn("[ozvi] local embedding model unavailable", e instanceof Error ? e.message : e));
+  }
   if (process.env.OZVI_WORKER === "off") return;
   const { db } = await import("./lib/db");
   const { startWorker } = await import("./lib/email/worker");

@@ -20,7 +20,7 @@ import { rememberLocale } from "./user-locale";
 import { applyVote } from "./votes";
 import { getTranslations } from "next-intl/server";
 import { HONEYPOT, isBlocked } from "./moderation-rules";
-import { attachDraft, cleanSimilarSeen, draftComment, markAttached, similarInputs, splitItem, strongMatch } from "./duplicates";
+import { attachDraft, cleanSimilarSeen, countDuplicate, draftComment, similarInputs, splitItem, strongMatch } from "./duplicates";
 import { sectionOn } from "./sections";
 
 const { items } = schema;
@@ -109,7 +109,7 @@ export async function addComment(slug: string, itemId: string, _prev: FormState,
       if (!item || !canSee(item, user)) throw new DomainError(t("itemMissing"));
       queued = (await addCommentTo(tx, project, user, item, str(form, "body"), form.get("internal") === "on")).pending;
       // A new idea's draft turned into a comment on a similar idea: counted (no person kept, duplicateStats).
-      if (str(form, "via") === "similar" && item.kind === "idea") await markAttached(tx, item.id);
+      if (str(form, "via") === "similar" && item.kind === "idea") await countDuplicate(tx, project.id, "attached");
     });
   } catch (e) {
     if (e instanceof DomainError) return { error: e.text(locale) };

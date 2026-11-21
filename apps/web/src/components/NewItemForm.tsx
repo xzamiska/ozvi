@@ -17,7 +17,7 @@ import { VoteButton, type VoteMode } from "./VoteButton";
 import { DRAFT_PREFIX } from "@/lib/storage-keys";
 
 /** /[project]/search: findSimilar at the SHOW threshold, with the viewer's own vote. */
-interface Similar { id: string; number: number; title: string; votes: number; status: string; score: number; weight: number }
+interface Similar { id: string; number: number; title: string; votes: number; status: string; score: number; weight: number; method: string }
 
 /** Listed in the privacy kit (lib/storage-keys.ts): the tab keeps the draft until it is sent or closed. */
 const draftKey = (slug: string, kind: string) => `${DRAFT_PREFIX}${slug}:${kind}`;
@@ -147,6 +147,8 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
       {similar.length > 0 && (
         <section aria-live="polite" aria-label={t("similarLabel")} className="grid gap-3 rounded-xl border border-brand-line bg-brand-soft/60 p-4">
           <p className="text-[14px] font-semibold">{t("similar")}</p>
+          {/* Picked by an embeddings model (an API or the local one): labelled (docs/AI.md); trigram matches are not AI. */}
+          {similar.some((s) => s.method !== "trigram") && <p className="-mt-2 text-[12.5px] text-muted-foreground" data-ai-generated="true">{t("similarAi")}</p>}
           <ul className="grid gap-2">
             {similar.map((s) => (
               <SimilarCard key={s.number} slug={slug} s={s} vote={vote} guest={guest} login={login}

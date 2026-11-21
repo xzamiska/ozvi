@@ -15,6 +15,7 @@ import { cleanCapture, type Capture } from "./bug-context";
 import { maskText, maskUrl } from "@ozvi/sdk/mask";
 import type { ItemSource } from "./provenance";
 import type { SimilarSeen } from "./duplicates";
+import { countDuplicate } from "./duplicate-stats";
 
 export class ValidationError extends Error {}
 
@@ -83,6 +84,11 @@ export async function createItem(project: Project, user: User, input: NewItem, l
         status: input.kind === "bug" ? "new" : "open", pending: !!pending, pendingReason: pending, source: input.source ?? "board",
       }).returning();
       await storeAttachments(tx, project.id, item!.id, files, written);
+      // Created although similar ideas were shown (ADR-0015 counters; the item keeps what was shown for the team).
+      if (input.kind === "idea" && input.similarSeen) {
+        await countDuplicate(tx, project.id, "created_anyway");
+        if (input.similarSeen.strong) await countDuplicate(tx, project.id, "said_different");
+      }
       if (input.kind === "bug") await notifyNewBug(tx, project, item!);
       else await notifyNewIdea(tx, project, item!);
       await emit(tx, project, "item.created", { item: item!, actorName: user.name });

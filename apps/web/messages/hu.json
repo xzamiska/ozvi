@@ -2000,6 +2000,7 @@
       "placeholderIdea": "Pl. Exportálás CSV-be",
       "similarLabel": "Hasonló ötletek",
       "similar": "Már van hasonló. Ha ez az, szavazzon rá — a szövegét hozzászólásként is hozzáadhatja.",
+      "similarAi": "Ezeket egy MI-modell választotta ki a szöveg jelentése alapján.",
       "bodyBug": "Mit csináltál, és mire számítottál?",
       "bodyIdea": "Miért van rá szükséged?",
       "bodyPlaceholderBug": "1. Megnyitottam egy ügyfelet\n2. Kitöltöttem az adószámot, és a Mentésre kattintottam\n3. Újbóli megnyitás után a mező üres",

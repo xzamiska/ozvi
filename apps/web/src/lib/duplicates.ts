@@ -1,12 +1,13 @@
-import { PLAN_LIMITS, schema, type PlanName, type Tx } from "@ozvi/db";
+import { schema, type PlanName, type Tx } from "@ozvi/db";
 import { eq, sql } from "drizzle-orm";
 import { translator } from "@/i18n/messages";
 import { addCommentTo, DomainError, fail, recordStatus, type Item } from "./domain";
+import { countDuplicate } from "./duplicate-stats";
 import { emit } from "./events";
 import type { Project, User } from "./project";
 import { sameTitle } from "./moderation-rules";
 import { allow } from "./ratelimit";
-import { atLeast, embedQuery, findSimilar, SIMILAR_SHOW, SIMILAR_STRONG, type SimilarMethod } from "./similar";
+import { atLeast, embeddingsFor, embedQuery, findSimilar, SIMILAR_SHOW, SIMILAR_STRONG, type SimilarMethod } from "./similar";
 import { pivotQuery } from "./translate";
 import { applyVote, myVoteWeights } from "./votes";
 
@@ -15,6 +16,8 @@ import { applyVote, myVoteWeights } from "./votes";
  * team (findSimilar), can vote and comment there instead, is asked once on submit about a strong match, and
  * the team sees what the author was shown when they created a new idea anyway. Counts are aggregate only.
  */
+
+export { countDuplicate, duplicateStats, type DuplicateEvent, type DuplicateStats } from "./duplicate-stats";
 
 const { items } = schema;
 
@@ -26,8 +29,9 @@ export interface Suggestion {
 /** What findSimilar needs from outside the transaction: the English pivot of the text and its embedding. */
 export async function similarInputs(project: Project, plan: PlanName, rateKey: string, text: string) {
   const pivot = await pivotQuery(text, { project, plan, rateKey });
-  // Embedding calls cost money: only plans with AI (and self-host), and a per-viewer cap while typing.
-  const queryVector = PLAN_LIMITS[plan].ai && allow("similar", `${project.id}:${rateKey}`) ? await embedQuery(text) : null;
+  // Embedding API calls cost money: only plans with AI (and self-host); the local model runs on every plan.
+  // A per-viewer cap while typing either way.
+  const queryVector = embeddingsFor(plan) && allow("similar", `${project.id}:${rateKey}`) ? await embedQuery(text) : null;
   return { pivot, queryVector };
 }
 
@@ -96,18 +100,6 @@ export function similarSeenOf(item: Pick<Item, "kind" | "context">): SimilarSeen
 export const draftComment = (title: string, body: string) => [title.trim(), body.trim()].filter(Boolean).join("\n\n");
 
 /**
- * Counts an attach on the idea (context.attached: timestamps only, no person), for duplicateStats.
- * Kept to the last 500, which is plenty for a rate.
- */
-export async function markAttached(tx: Tx, itemId: string) {
-  await tx.update(items).set({
-    context: sql`jsonb_set(coalesce(${items.context}, '{}'::jsonb), '{attached}',
-      (select coalesce(jsonb_agg(x), '[]'::jsonb) from (select x from jsonb_array_elements(coalesce(${items.context}->'attached', '[]'::jsonb)
-        || jsonb_build_array(to_char(now() at time zone 'utc', 'YYYY-MM-DD"T"HH24:MI:SS"Z"'))) with ordinality as a(x, i) order by i desc limit 500) l))`,
-  }).where(eq(items.id, itemId));
-}
-
-/**
  * "Pridať hlas a môj popis k #N": the author's vote (if not yet; importance boards: level 1 within the budget,
  * without budget left only the comment) and their draft as their comment, through the normal paths (approval
  * queue, rate limits are the caller's). Returns whether the vote was added and whether the comment waits.
@@ -117,7 +109,7 @@ export async function attachDraft(tx: Tx, project: Project, user: User, item: It
   const had = (await myVoteWeights(tx, user.id, [item.id])).get(item.id) ?? 0;
   const voted = had > 0 ? false : (await applyVote(tx, project, user.id, item.id, 1)).ok;
   const comment = await addCommentTo(tx, project, user, item, text, false);
-  await markAttached(tx, item.id);
+  await countDuplicate(tx, project.id, "attached");
   return { voted, queued: comment.pending };
 }
 
@@ -134,33 +126,6 @@ export async function splitItem(tx: Tx, project: Project, actor: User, item: Ite
     .where(eq(items.id, item.id)).returning();
   await recordStatus(tx, project.id, item.id, item.status, status, null, actor.id);
   await emit(tx, project, "item.status_changed", { item: moved!, actorName: actor.name, previousStatus: item.status });
+  await countDuplicate(tx, project.id, "split");
   return { item: moved!, from: into?.number ?? null };
-}
-
-export interface DuplicateStats {
-  /** Drafts turned into a vote and comment on an existing idea. */
-  attached: number;
-  /** Ideas created although similar ones were shown. */
-  createdAnyway: number;
-  /** …of which the author was asked about a strong match and said it was different. */
-  saidDifferent: number;
-  /** …of which the team merged later anyway. */
-  mergedLater: number;
-  /** Merges the team undid (Oddeliť). */
-  split: number;
-}
-
-/** Aggregate counts since `since` on the board of the current transaction (withProject). No person in them. */
-export async function duplicateStats(tx: Tx, since: Date): Promise<DuplicateStats> {
-  const iso = since.toISOString();
-  const [r] = (await tx.execute(sql`
-    select
-      (select count(*)::int from ${items} i, jsonb_array_elements_text(case when jsonb_typeof(i.context->'attached') = 'array' then i.context->'attached' else '[]'::jsonb end) a(at)
-        where i.kind = 'idea' and a.at::timestamptz >= ${iso}::timestamptz) as attached,
-      (select count(*)::int from ${items} i where i.kind = 'idea' and i.context ? 'similarSeen' and i.created_at >= ${iso}::timestamptz) as "createdAnyway",
-      (select count(*)::int from ${items} i where i.kind = 'idea' and i.context->'similarSeen' ? 'strong' and i.created_at >= ${iso}::timestamptz) as "saidDifferent",
-      (select count(*)::int from ${items} i where i.kind = 'idea' and i.context ? 'similarSeen' and i.merged_into_id is not null and i.created_at >= ${iso}::timestamptz) as "mergedLater",
-      (select count(*)::int from ${schema.activity} a where a.project_id = nullif(current_setting('ozvi.project_id', true), '')::uuid
-        and a.action = 'triage.unmerged' and a.created_at >= ${iso}::timestamptz) as split`)) as unknown as DuplicateStats[];
-  return r!;
 }
