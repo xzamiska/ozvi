@@ -34,6 +34,7 @@ describe.skipIf(!up)("accent-insensitive search in the database", async () => {
         { projectId, number: 2, kind: "idea", status: "open", title: "Export faktúr do CSV", body: "", voteCount: 2 },
         { projectId, number: 3, kind: "idea", status: "open", title: "Platba vopred kartou", body: "", voteCount: 50 },
         { projectId, number: 4, kind: "idea", status: "open", title: "Export kontaktov", body: "", voteCount: 30 },
+        { projectId, number: 5, kind: "idea", status: "open", title: "Encyclopædia Œuvre", body: "", voteCount: 0 },
       ]);
     });
   });
@@ -46,6 +47,12 @@ describe.skipIf(!up)("accent-insensitive search in the database", async () => {
     expect(await titles("tmavy rezim")).toEqual(["Tmavý režim"]);
     expect(await titles("faktur")).toEqual(["Export faktúr do CSV"]);
     expect(await titles("FAKTÚR")).toEqual(["Export faktúr do CSV"]);
+  });
+
+  it("board search folds in SQL with ozvi_fold, the duplicate finder's folding (letters beyond the JS map too)", async () => {
+    const titles = (q: string) => withProject(db, projectId, (tx) => listItems(tx, textMatch(q), "top", false)).then((r) => r.map((i) => i.title));
+    expect(await titles("encyclopaedia")).toEqual(["Encyclopædia Œuvre"]);
+    expect(await titles("oeuvre")).toEqual(["Encyclopædia Œuvre"]);
   });
 
   it("similar ideas: accents ignored, word starts only, more matched words before more votes", async () => {
