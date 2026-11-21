@@ -284,6 +284,15 @@ test.describe("console overview and plan limits", () => {
     await expect(page.getByText(`e2e.localhost:3410/${slug}`).first()).toBeVisible();
     const p = await db.query.projects.findFirst({ where: eq(schema.projects.slug, slug) });
     expect(p?.workspaceId).not.toBe(ws);
+
+    // Back to the console (logo, "Konzola" on the site, a board's "Moje projekty"): the workspace open last time,
+    // not always the first one.
+    await page.goto(`/app/w/${ws}`);
+    await page.goto("/app");
+    await expect(page).toHaveURL(new RegExp(`/app/w/${ws}`));
+    await page.goto(`/app/w/${p!.workspaceId}`);
+    await page.goto("/app");
+    await expect(page).toHaveURL(new RegExp(`/app/w/${p!.workspaceId}`));
   });
 });
 

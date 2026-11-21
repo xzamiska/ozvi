@@ -5,6 +5,7 @@ import { schema, withProject } from "@ozvi/db";
 import { and, eq, gte, inArray, sql } from "drizzle-orm";
 import { notFound, redirect } from "next/navigation";
 import { ConsoleShell } from "@/components/ozvi/ConsoleNav";
+import { RememberWorkspace } from "@/components/ozvi/RememberWorkspace";
 import { getAccount } from "@/lib/account";
 import { consoleWorkspace } from "@/lib/console";
 import { db } from "@/lib/db";
@@ -40,6 +41,7 @@ export default async function ConsoleLayout({ children, params }: { children: Re
   return (
     <ConsoleShell ws={{ id: ws.id, name: ws.name, plan: ws.plan }} all={ws.all} projects={ws.projects.map((p) => ({ slug: p.slug, name: p.name, icon: p.faviconKey ? `/${p.slug}/favicon?v=${encodeURIComponent(p.faviconKey.slice(-12))}` : null }))}
       account={{ name: account.name, email: account.email }} cloud={cloud} attention={{ delivery: failures, plan: ws.planStatus === "past_due" }}>
+      <RememberWorkspace id={ws.id} />
       <main id="main" tabIndex={-1} className="mx-auto w-full max-w-[1120px] px-4 pt-6 pb-20 md:px-10 md:pt-10">{children}</main>
       {own && <>
         {/* Ozvi's own feedback widget: the console is a host app like any other (lib/own-feedback.ts). */}
