@@ -43,7 +43,16 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
   const strong = state.strong;
   // Asked once per draft: after the question, every submit says "it's something else" (also after an error).
   const [asked, setAsked] = useState<{ number: number } | null>(null);
-  useEffect(() => { if (state.strong) setAsked(state.strong); }, [state]);
+  useEffect(() => {
+    if (!state.strong) return;
+    setAsked(state.strong);
+    requestAnimationFrame(() => {
+      const el = strongRef.current;
+      if (!el) return;
+      el.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      el.focus({ preventScroll: true });
+    });
+  }, [state]);
   const [attachState, attach, attaching] = useActionState((p: FormState, f: FormData) => strong ? attachToIdea(slug, strong.number, p, f) : Promise.resolve(p), {});
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -51,6 +60,9 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
   const [similar, setSimilar] = useState<Similar[]>([]);
   // What the author was shown (number → best score), and which suggestions they voted on or opened.
   const shown = useRef(new Map<number, number>());
+  // The question replaces the submit row, often below the fold (a tablet, a long description): bring it into view
+  // and focus it, so it is seen and read out instead of looking like nothing happened.
+  const strongRef = useRef<HTMLElement>(null);
   const [seen, setSeen] = useState<number[]>([]);
   const [voted, setVoted] = useState<Record<number, boolean>>({});
   const [ctx, setCtx] = useState<Record<string, string>>({});
@@ -180,7 +192,7 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
 
       {strong && !bug ? (
         // One question, in place of the submit row: the strong match, or a new idea with an optional reason.
-        <section aria-labelledby="strong-h" role="group" className="grid gap-4 rounded-xl border border-brand-line bg-brand-soft/60 p-5">
+        <section ref={strongRef} tabIndex={-1} aria-labelledby="strong-h" role="group" className="grid gap-4 rounded-xl border border-brand-line bg-brand-soft/60 p-5 outline-none">
           <div className="grid gap-1.5">
             <h2 id="strong-h" className="font-heading text-[16px] font-bold">{t("strongTitle", { n: strong.number })}</h2>
             <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[14.5px]">

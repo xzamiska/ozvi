@@ -74,6 +74,22 @@ export function FileDrop({ name = "files", label, hint }: { name?: string; label
 
   useEffect(() => () => items.forEach((i) => i.url && URL.revokeObjectURL(i.url)), [items]);
 
+  // React resets the form after its action; when the server answers without leaving (a question about a duplicate,
+  // a validation error), the files listed here must still be in the input for the next submit.
+  const latest = useRef(items);
+  latest.current = items;
+  useEffect(() => {
+    const form = input.current?.form;
+    if (!form) return;
+    const restore = () => setTimeout(() => {
+      const dt = new DataTransfer();
+      latest.current.forEach((i) => dt.items.add(i.file));
+      if (input.current) input.current.files = dt.files;
+    }, 0);
+    form.addEventListener("reset", restore);
+    return () => form.removeEventListener("reset", restore);
+  }, []);
+
   const remove = (key: string) => {
     const gone = items.find((i) => i.key === key);
     if (gone?.url) URL.revokeObjectURL(gone.url);

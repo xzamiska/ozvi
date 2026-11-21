@@ -4,6 +4,10 @@ import { eq } from "drizzle-orm";
 import { act, boardUser, createItem, itemRow, ownerBoard, projectRow } from "../lib/board";
 import { db, schema } from "../lib/db";
 import { uniq } from "../lib/env";
+import { attachmentsOf } from "../lib/widget";
+
+/** 1×1 transparent PNG. */
+const PNG = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", "base64");
 
 /** ADR-0015 phase 1: similar ideas while writing, attaching to an existing idea, splitting a merge. @tablet runs these on iPad too. */
 test.describe("duplicates before they happen @tablet", () => {
@@ -59,6 +63,9 @@ test.describe("duplicates before they happen @tablet", () => {
     await ben.page.getByLabel(/Prečo to potrebujete/).fill("Účtovníčka to chce každý mesiac.");
     await ben.page.getByRole("button", { name: "Navrhnúť nápad" }).click();
     await expect(ben.page.getByText(`Nie je to #${n}?`)).toBeVisible();
+    // Below the fold on a tablet: the question is brought into view and focused, not left unnoticed.
+    await expect(ben.page.getByText(`Nie je to #${n}?`)).toBeInViewport();
+    await expect(ben.page.getByRole("group", { name: `Nie je to #${n}?` })).toBeFocused();
     await ben.page.getByRole("button", { name: `Pridať hlas a môj popis k #${n}` }).click();
     await ben.page.waitForURL(new RegExp(`/${b.slug}/i/${n}`));
     await expect(ben.page.getByText("Váš hlas a popis sú pri tomto nápade.")).toBeVisible();
@@ -69,13 +76,17 @@ test.describe("duplicates before they happen @tablet", () => {
     const cyril = await boardUser(browser, b, "cyril");
     await cyril.page.goto(`/${b.slug}/new?kind=idea`);
     await cyril.page.getByLabel("Čo by vám pomohlo?").fill(`Export faktúr do Pohody ${tag} cez API`);
+    // A sketch attached before the question must still be there after it.
+    await cyril.page.getByLabel(/Obrázok alebo náčrt/).setInputFiles({ name: "nacrt.png", mimeType: "image/png", buffer: PNG });
     await cyril.page.getByRole("button", { name: "Navrhnúť nápad" }).click();
     await expect(cyril.page.getByText(`Nie je to #${n}?`)).toBeVisible();
+    await expect(cyril.page.getByRole("list", { name: /Priložené|priložené/ })).toContainText("nacrt.png");
     await cyril.page.getByLabel("V čom je to iné?").fill("Chcem automatický prenos, nie súbor.");
     await cyril.page.getByRole("button", { name: "Je to niečo iné, vytvoriť nový nápad" }).click();
     await cyril.page.waitForURL(new RegExp(`/${b.slug}/i/\\d+$`));
     const m = Number(cyril.page.url().match(/\/i\/(\d+)$/)![1]);
     expect(m).not.toBe(n);
+    expect((await attachmentsOf((await projectRow(b.slug)).id, (await itemRow(b.slug, m))!.id)).map((f) => f.mime)).toEqual(["image/png"]);
 
     await page.goto(`/${b.slug}/i/${m}`);
     await expect(page.getByText(`Autor videl #${n} a označil to za iné`)).toBeVisible();
