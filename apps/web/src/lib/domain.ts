@@ -1,6 +1,7 @@
 import { ITEM_STATUSES, schema, type Tx } from "@ozvi/db";
 import { and, desc, eq, gte, isNull, sql } from "drizzle-orm";
 import { notifyComment, notifyDuplicateFixed, notifyMerged, notifyStatusChange } from "./email/notify";
+import { countDuplicate } from "./duplicate-stats";
 import { emit } from "./events";
 import { enqueueTrackerSync } from "./trackers";
 import { proofSnapshot, type ProofSnapshot } from "./proof";
@@ -194,6 +195,8 @@ export async function mergeItems(tx: Tx, project: Project, actor: User, source: 
   await notifyMerged(tx, project, updatedSource!, updatedTarget!, actor.id);
   // No auto-comment: the item page shows "Merged into #n" (header note and route) in each reader's language,
   // and a team-authored comment would read as a team reply on the route.
+  // An idea its author created although similar ones were shown, merged after all (ADR-0015 counters).
+  if (source.kind === "idea" && source.context && typeof source.context === "object" && "similarSeen" in source.context) await countDuplicate(tx, project.id, "merged_later");
   await emit(tx, project, "item.merged", { item: updatedSource!, actorName: actor.name, mergedInto: { number: target.number, title: target.title } });
   return { source: updatedSource!, target: updatedTarget! };
 }
