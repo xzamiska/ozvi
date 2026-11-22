@@ -5,7 +5,7 @@ Versions are semver: `1.4.2` = a fix, `1.5.0` = new features, `2.0.0` = a change
 ## Steps
 
 1. `main` is green (CI workflow) and both cloud and staging are running without problems.
-2. Have `packages/widget` or `packages/sdk` changed since the last release (`git log vPREVIOUS..HEAD -- packages/widget packages/sdk`)? Bump their `version` in `package.json` (semver: fix / new feature / breaking change). The `npm packages` workflow publishes to npm only a version that is not there yet; without a bump, npm users stay on the old version (the widget from the script on ozvi.io updates itself). The workflow only **stages** the version (`npm stage publish`); it is published only after approval with 2FA on npmjs.com or `npm stage list` → `npm stage approve <id>`.
+2. Have `packages/widget` or `packages/sdk` changed since the last release (`git log vPREVIOUS..HEAD -- packages/widget packages/sdk`)? Set their `version` in `package.json` to the release version (`1.5.0`): the packages follow Ozvi's version, so `@ozvi/widget@1.5.0` is the widget of server 1.5.0. A package that has not changed keeps its version and is not published again, so its versions have gaps. The `npm packages` workflow publishes to npm only a version that is not there yet; without the bump, npm users stay on the old version (the widget from the script on ozvi.io updates itself). The workflow only **stages** the version (`npm stage publish`); it is published only after approval with 2FA on npmjs.com or `npm stage list` → `npm stage approve <id>`.
 3. Write the notes in `apps/web/releases/X.Y.Z.md`; the format is in [releases/README](../apps/web/releases/README.md). For a breaking change set `breaking: true`.
 4. Commit the notes to `main` and tag:
    ```sh

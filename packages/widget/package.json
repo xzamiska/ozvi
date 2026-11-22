@@ -1,6 +1,6 @@
 {
   "name": "@ozvi/widget",
-  "version": "1.2.0",
+  "version": "1.2.21",
   "license": "MIT",
   "description": "Ozvi feedback widget for your app: bug reports with masked screenshots, ideas and voting, roadmap and changelog embeds. Plain ESM, React and Vue. MIT.",
   "type": "module",
