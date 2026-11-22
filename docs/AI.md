@@ -73,6 +73,10 @@ Ozvi is not tied to a single provider (`apps/web/src/lib/ai-provider.ts`). Only 
 | `OZVI_MODELS_DIR` | model cache; default `models` next to the uploads folder (`/data/models` in Docker) |
 | `OZVI_MODELS_PREFETCH=1` | download and load at boot instead of on first use |
 | `OZVI_EMBEDDINGS_THREADS` | WebAssembly threads (default 1) |
+| `OZVI_EMBEDDINGS_IDLE_MINUTES` | end the model's process after this many idle minutes (default 0 = keep it) |
+| `OZVI_EMBEDDINGS_PROCESS` | `separate` (default in the server) or `inline` (in the server's own process) |
+
+**Its own process.** In the web server the model runs in a child process (`local-embeddings-child.ts`, bundled as `/app/ozvi-embeddings.mjs`) started on first use and spoken to over IPC: inference never blocks the event loop, and ending the process is the only way to give the memory back (WebAssembly memory never shrinks; disposing the model inside a living process frees ≈ 240 MB of 1.1 GB). Measured: server 81 MB, model process 1,076 MB; after the idle timeout the process is gone, and the next use starts it again (≈ 1.2 s, the same vectors). If it fails to load, it is retried after a minute and text matching answers meanwhile. The CLI and tests run the model inline.
 
 Cost on a server (Apple M1 Max, Node 22, 1 thread): load from disk ≈ 0.9 s (first download + load ≈ 3.6 s on a fast line), ≈ 16 ms per title, ≈ 440 ms for a 1,000-character text (2 threads ≈ 230 ms, 4 ≈ 125 ms), **≈ 1.1 GB more RSS** (tokenizer ≈ 280 MB, model in WebAssembly memory ≈ 700 MB). Image size: ≈ +25 MB (the library and one `.wasm` file; the model is downloaded at run time).
 

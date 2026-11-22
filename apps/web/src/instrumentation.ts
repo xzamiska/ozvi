@@ -1,5 +1,7 @@
 export async function register() {
   if (process.env.NEXT_RUNTIME !== "nodejs") return;
+  // The local embedding model gets its own process in the server (packages/db local-embeddings.ts).
+  process.env.OZVI_EMBEDDINGS_PROCESS ||= "separate";
   // Optional: download the font catalogue to OZVI_FONTS_DIR in the background (then OZVI_FONTS_REMOTE=0 can run offline).
   if (process.env.OZVI_FONTS_PREFETCH === "1") {
     void import("./lib/fonts-store").then(({ prefetchFonts }) => prefetchFonts()).then(({ ok, failed }) =>
