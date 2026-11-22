@@ -42,13 +42,23 @@ services:
       OZVI_AI_BASE_URL: ${OZVI_AI_BASE_URL:-}
       OZVI_AI_MODEL: ${OZVI_AI_MODEL:-}
       OZVI_AI_MODEL_FAST: ${OZVI_AI_MODEL_FAST:-}
+      OZVI_AI_REASONING_EFFORT: ${OZVI_AI_REASONING_EFFORT:-}
       # Deprecated (= OZVI_AI_PROVIDER=anthropic + OZVI_AI_API_KEY); kept so older .env files keep working.
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       OZVI_EMBEDDINGS_URL: ${OZVI_EMBEDDINGS_URL:-}
       OZVI_EMBEDDINGS_MODEL: ${OZVI_EMBEDDINGS_MODEL:-}
       OZVI_EMBEDDINGS_KEY: ${OZVI_EMBEDDINGS_KEY:-}
+      # Local model instead of an API (docs/SELFHOST.md → AI duplicates); needs ~1 GB more RAM while loaded.
+      OZVI_EMBEDDINGS: ${OZVI_EMBEDDINGS:-}
+      OZVI_MODELS_DIR: ${OZVI_MODELS_DIR:-}
+      OZVI_MODELS_PREFETCH: ${OZVI_MODELS_PREFETCH:-}
+      OZVI_EMBEDDINGS_THREADS: ${OZVI_EMBEDDINGS_THREADS:-}
+      OZVI_EMBEDDINGS_IDLE_MINUTES: ${OZVI_EMBEDDINGS_IDLE_MINUTES:-}
+      OZVI_EMBEDDINGS_PROCESS: ${OZVI_EMBEDDINGS_PROCESS:-}
       OZVI_FONTS_PREFETCH: ${OZVI_FONTS_PREFETCH:-}
       OZVI_FONTS_REMOTE: ${OZVI_FONTS_REMOTE:-}
+      OZVI_FONTS_DIR: ${OZVI_FONTS_DIR:-}
+      OZVI_HEARTBEAT_URL: ${OZVI_HEARTBEAT_URL:-}
       # Anonymous statistics, off unless you set 1 (docs/SELFHOST.md → Anonymous statistics).
       OZVI_TELEMETRY: ${OZVI_TELEMETRY:-}
       # Optional: server errors to your own GlitchTip or Sentry (a DSN); empty = nowhere.
