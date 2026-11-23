@@ -119,7 +119,8 @@ export function SectionsForm({ slug, sections, home }: { slug: string; sections:
               </div>
               <Switch id={`sec-${s}`} checked={effective.includes(s)} disabled={blocked} onCheckedChange={(v) => toggle(s, v)}
                 aria-describedby={`sec-${s}-hint`} className="mt-0.5" />
-              {effective.includes(s) && <input type="hidden" name="sections" value={s} />}
+              {/* The switch as set (a roadmap kept on while ideas are off returns with them). */}
+              {on.includes(s) && <input type="hidden" name="sections" value={s} />}
             </div>
           );
         })}

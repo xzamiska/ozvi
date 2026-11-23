@@ -8,6 +8,7 @@ import { warnIfNoProxy } from "@/lib/client-ip";
 import { localeRedirect } from "@/i18n/locale-route";
 import { LOCALE_COOKIE } from "@/i18n/locales";
 import { LOCALE_MAX_AGE } from "@/lib/storage-keys";
+import { LAST_WORKSPACE_COOKIE, LAST_WORKSPACE_MAX_AGE, workspaceInPath } from "@/lib/last-workspace";
 
 /**
  * Host routing. The primary host (PUBLIC_URL) serves everything. A project's custom domain or
@@ -53,7 +54,14 @@ async function route(req: NextRequest) {
       if (lr.locale) res.cookies.set(LOCALE_COOKIE, lr.locale, { path: "/", maxAge: LOCALE_MAX_AGE, sameSite: "lax" });
       return res;
     }
-    return next(req);
+    const res = next(req);
+    // /app returns to the workspace open last (lib/last-workspace.ts). Set here, with the page itself, so even
+    // leaving at once (or a navigation inside the console) is remembered.
+    const ws = workspaceInPath(req.nextUrl.pathname);
+    if (ws && req.cookies.get(LAST_WORKSPACE_COOKIE)?.value !== ws) {
+      res.cookies.set(LAST_WORKSPACE_COOKIE, ws, { path: "/app", maxAge: LAST_WORKSPACE_MAX_AGE, sameSite: "lax", httpOnly: true });
+    }
+    return res;
   }
 
   const slug = await slugForHost(host);

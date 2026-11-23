@@ -1,6 +1,7 @@
 import { contextFor } from "./bug-context";
+import { logActivity, who } from "./activity";
 import { createHash } from "node:crypto";
-import { PLAN_LIMITS, schema, withProject, type PlanName, type Tx } from "@ozvi/db";
+import { schema, withProject, type PlanName, type Tx } from "@ozvi/db";
 import { strictestLockdown, ToolError, type Backend, type McpCustomer, type McpDemand, type McpItem, type McpItemDetail, type SearchInput, type Summary } from "@ozvi/mcp";
 import { LOCALE_TAG, isLocale } from "@/i18n/locales";
 import { demandFor, itemDemand } from "./customers";
@@ -11,9 +12,9 @@ import { addCommentTo, canSee, changeStatus, DomainError, isTeamRole, itemByNumb
 import { projectOrigin } from "./email/url";
 import { createIssue, getGithub, linkIssue } from "./github";
 import { createItemFor, ValidationError } from "./items";
-import { publishEntry, saveEntry } from "./changelog";
+import { publishEntry, publishReach, saveEntry } from "./changelog";
 import { allow, RateLimitError } from "./ratelimit";
-import { embeddingsConfig, embedQuery, findSimilar } from "./similar";
+import { embeddingsConfig, embeddingsFor, embedQuery, findSimilar } from "./similar";
 import { attachProof, listProofs, readProof } from "./proof";
 import { mcpUpdates } from "./release-mcp";
 import type { TokenAuth } from "./tokens";
@@ -69,6 +70,11 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
     : new ToolError(`Časť ${s} je v tomto projekte vypnutá (nastavenia → Časti boardu).`);
   /** Changelog tools only while the changelog section is on. */
   const changelogRun = <T>(fn: (tx: Tx) => Promise<T>) => (sectionOn(project, "changelog") ? run(fn) : Promise.reject(sectionOff("changelog")));
+  // Like publishing on the board: recorded in the console Activity, then only the url and count go back to the agent.
+  const logPublished = async (r: { url: string; emailed: number; fresh?: boolean; title?: string }) => {
+    if (r.fresh) await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "changelog.published", detail: `${(r.title ?? "").slice(0, 160)} (${r.emailed}, MCP)` });
+    return { url: r.url, emailed: r.emailed };
+  };
 
   type AuthorRow = (TrustSubject & { name: string | null }) | null;
   const authorCols = { name: users.name, role: users.role, externalId: users.externalId, traits: users.traits };
@@ -147,7 +153,8 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
 
   const gh = await withProject(db, project.id, (tx) => getGithub(tx)).catch(() => null);
   const [ws] = await db.select({ plan: schema.workspaces.plan }).from(schema.workspaces).where(eq(schema.workspaces.id, project.workspaceId));
-  const aiAllowed = PLAN_LIMITS[(ws?.plan ?? "self") as PlanName].ai;
+  // Similarity by meaning: an embeddings API on plans with AI, the local model on every plan.
+  const aiAllowed = embeddingsFor((ws?.plan ?? "self") as PlanName);
 
   /* ---------- REST API extras (lib/api): same visibility, scope and provenance rules as the tools above ---------- */
   const apiLoc: Locale = apiLocale ?? fallbackLocale;
@@ -495,7 +502,7 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
         number: r.number, kind: r.kind, title: r.title, body: "", status: r.status, votes: r.votes, fixedInVersion: null,
         url: `${base}/i/${r.number}`, createdAt: "", author: itemAuthorOf({ authorId: r.authorId, context: r.system ? { insight: true } : null }, r.authorId ? who.get(r.authorId) : null), source: sourceOf(r.source), score: r.score,
         // Machine suggestions (embeddings model) are labelled; plain text similarity is not AI.
-        ai: suggestModel ? { generated: true as const, model: suggestModel, reviewedBy: null } : null,
+        ai: suggestModel && r.method !== "trigram" ? { generated: true as const, model: suggestModel, reviewedBy: null } : null,
       }));
       });
     },
@@ -551,29 +558,25 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
       const [d] = await mcpUpdates(tx, project, true, 1, id);
       if (!d) return null;
       const ids = await tx.select({ id: schema.changelogItems.itemId }).from(schema.changelogItems).where(eq(schema.changelogItems.entryId, id));
-      const ideaIds = (await tx.select({ id: items.id }).from(items).where(and(inArray(items.id, ids.length ? ids.map((r) => r.id) : [NONE]), eq(items.kind, "idea")))).map((r) => r.id);
-      const [r] = ideaIds.length ? await tx.select({ n: sql<number>`count(distinct ${users.id})::int` }).from(users)
-        .where(and(sql`${users.id} in (select ${schema.votes.userId} from ${schema.votes} where ${inArray(schema.votes.itemId, ideaIds)} union select ${items.authorId} from ${items} where ${inArray(items.id, ideaIds)})`,
-          sql`${users.email} is not null`, eq(users.emailOptOut, false), sql`${users.id} <> ${user.id}`)) : [{ n: 0 }];
-      return { ...d, recipients: r?.n ?? 0 };
+      const linked = await tx.select().from(items).where(inArray(items.id, ids.length ? ids.map((r) => r.id) : [NONE]));
+      // The e-mail's own rule (publishReach), as in previewUpdate.
+      const reach = await publishReach(tx, linked, user.id, id);
+      return { ...d, recipients: new Set([...reach.values()].flat()).size };
     }),
     publishDraft: (id) => changelogRun(async (tx) => {
       if (!customers) throw new ToolError("Drafts are for team tokens with the triage scope.");
       const r = await publishEntry(tx, project, user, id);
-      return { url: changelogEntryUrl(base, r.entry.id), emailed: r.emailed };
-    }),
+      return { url: changelogEntryUrl(base, r.entry.id), emailed: r.emailed, fresh: r.fresh, title: r.entry.title };
+    }).then(logPublished),
 
     linkIssue: (n, issue) => run(async (tx) => linkIssue(tx, project, user, await mustGet(tx, n), issue)),
     createIssue: (n) => run(async (tx) => createIssue(tx, project, user, await mustGet(tx, n))),
 
     previewUpdate: (input) => changelogRun(async (tx) => {
       const ideas = await ideasFor(tx, input.items);
-      const ids = ideas.map((i) => i.id);
-      // Same rule as the e-mail: voters and authors, with an address, not opted out, not you.
-      const [r] = ids.length ? await tx.select({ n: sql<number>`count(distinct ${users.id})::int` }).from(users)
-        .where(and(sql`${users.id} in (select ${schema.votes.userId} from ${schema.votes} where ${inArray(schema.votes.itemId, ids)} union select ${items.authorId} from ${items} where ${inArray(items.id, ids)})`,
-          sql`${users.email} is not null`, eq(users.emailOptOut, false), sql`${users.id} <> ${user.id}`)) : [{ n: 0 }];
-      return { ideas: await withAuthors(tx, ideas), recipients: r?.n ?? 0 };
+      // The e-mail's own rule (publishReach): voters, authors and commenters with an address, not opted out, not you.
+      const reach = await publishReach(tx, ideas, user.id, null);
+      return { ideas: await withAuthors(tx, ideas), recipients: new Set([...reach.values()].flat()).size };
     }),
 
     publishUpdate: (input) => changelogRun(async (tx) => {
@@ -584,13 +587,18 @@ export async function mcpBackend(auth: TokenAuth, channel: Extract<ItemSource, "
       const ideas = await ideasFor(tx, input.items);
       const entry = await saveEntry(tx, project, user, { title: input.title, body: input.body, itemIds: ideas.map((i) => i.id) });
       const r = await publishEntry(tx, project, user, entry.id);
-      return { url: changelogEntryUrl(base, entry.id), emailed: r.emailed };
-    }),
+      return { url: changelogEntryUrl(base, entry.id), emailed: r.emailed, fresh: r.fresh, title: entry.title };
+    }).then(logPublished),
 
-    merge: (s, t) => run(async (tx) => {
-      const r = await mergeItems(tx, project, user, await mustGet(tx, s), await mustGet(tx, t));
-      const [source, target] = await withAuthors(tx, [r.source, r.target]);
-      return { source: source!, target: target! };
-    }),
+    merge: async (s, t) => {
+      const out = await run(async (tx) => {
+        const r = await mergeItems(tx, project, user, await mustGet(tx, s), await mustGet(tx, t));
+        const [source, target] = await withAuthors(tx, [r.source, r.target]);
+        return { source: source!, target: target! };
+      });
+      // Like a merge on the board: the lead sees it in the console Activity (here done by an agent's token).
+      await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "triage.merged", detail: `#${out.source.number} → #${out.target.number} (MCP)` });
+      return out;
+    },
   };
 }

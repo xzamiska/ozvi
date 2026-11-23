@@ -6,6 +6,7 @@ import { ozviMailTheme, renderMail } from "./email/render";
 import { publicUrl } from "./email/url";
 import { sendNow } from "./email/worker";
 import { translationsUsed } from "./translate";
+import { sentCount } from "./email/quota";
 
 /**
  * Tells a cloud workspace's owners when a monthly allowance is nearly used up (80 %) and when it is
@@ -33,7 +34,7 @@ async function emailsUsed(db: Db, boards: string[], now: number): Promise<number
   let n = 0;
   for (const id of boards) {
     n += await withProject(db, id, async (tx) => {
-      const [e] = await tx.select({ n: sql<number>`count(*)::int` }).from(schema.emails)
+      const [e] = await tx.select({ n: sentCount }).from(schema.emails)
         .where(and(inArray(schema.emails.status, ["sent", "digested"]), gte(schema.emails.sentAt, monthStart(now))));
       return e?.n ?? 0;
     });

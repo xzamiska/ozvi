@@ -63,7 +63,11 @@ export async function createItem(page: Page, slug: string, kind: "idea" | "bug",
   await page.getByLabel(kind === "bug" ? "Čo nefunguje?" : "Čo by vám pomohlo?").fill(title);
   if (body) await page.getByLabel(kind === "bug" ? /Čo ste robili/ : /Prečo to potrebujete/).fill(body);
   await page.getByRole("button", { name: kind === "bug" ? "Nahlásiť chybu" : "Navrhnúť nápad" }).click();
-  await page.waitForURL(new RegExp(`/${slug}/i/\\d+$`));
+  // A title close to an existing idea gets one question (ADR-0015); these helpers always mean a new one.
+  const different = page.getByRole("button", { name: "Je to niečo iné, vytvoriť nový nápad" });
+  const landed = new RegExp(`/${slug}/i/\\d+$`);
+  if (kind === "idea" && await Promise.race([page.waitForURL(landed).then(() => false, () => false), different.waitFor().then(() => true, () => false)])) await different.click();
+  await page.waitForURL(landed);
   await expect(page.getByRole("heading", { level: 1, name: title })).toBeVisible();
   return Number(page.url().match(/\/i\/(\d+)$/)![1]);
 }

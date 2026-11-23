@@ -5,6 +5,7 @@ import { and, asc, eq, inArray, isNull } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { AiError, aiAvailable, aiErrorText, draftChangelog, summarizeThread } from "./ai";
+import { logActivity, who } from "./activity";
 import { publishEntry, saveEntry } from "./changelog";
 import { db } from "./db";
 import { DomainError, isTeamRole } from "./domain";
@@ -35,16 +36,20 @@ export async function saveChangelog(slug: string, id: string | null, _: Changelo
   const publish = form.get("intent") === "publish";
   let entryId: string;
   let emailed = 0;
+  let fresh = false;
+  let title = "";
   try {
-    ({ entryId, emailed } = await withProject(db, project.id, async (tx) => {
+    ({ entryId, emailed, fresh, title } = await withProject(db, project.id, async (tx) => {
       const e = await saveEntry(tx, project, user, fields(form), id ?? undefined, locale);
-      const r = publish ? await publishEntry(tx, project, user, e.id, locale) : { emailed: 0 };
-      return { entryId: e.id, emailed: r.emailed };
+      const r = publish ? await publishEntry(tx, project, user, e.id, locale) : { emailed: 0, fresh: false };
+      return { entryId: e.id, emailed: r.emailed, fresh: r.fresh, title: e.title };
     }));
   } catch (e) {
     if (e instanceof DomainError) return { error: e.text(locale) };
     throw e;
   }
+  // Publishing e-mails every voter: the lead sees who sent it and to how many in the console Activity.
+  if (fresh) await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "changelog.published", detail: `${title.slice(0, 160)} (${emailed})` });
   revalidatePath(`/${slug}`, "layout");
   if (publish) redirect(`/${slug}/changelog?published=${emailed}#${entryAnchor(entryId)}`);
   if (!id) redirect(`/${slug}/changelog/${entryId}/edit?saved=1`);
@@ -52,10 +57,11 @@ export async function saveChangelog(slug: string, id: string | null, _: Changelo
 }
 
 export async function deleteDraft(slug: string, id: string) {
-  const { project } = await requireTeam(slug);
+  const { project, user } = await requireTeam(slug);
   if (!UUID.test(id)) return;
-  await withProject(db, project.id, (tx) => tx.delete(schema.changelogEntries)
-    .where(and(eq(schema.changelogEntries.id, id), isNull(schema.changelogEntries.publishedAt))));
+  const [gone] = await withProject(db, project.id, (tx) => tx.delete(schema.changelogEntries)
+    .where(and(eq(schema.changelogEntries.id, id), isNull(schema.changelogEntries.publishedAt))).returning({ title: schema.changelogEntries.title }));
+  if (gone) await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "changelog.draft_deleted", detail: gone.title.slice(0, 160) });
   revalidatePath(`/${slug}/changelog`);
   redirect(`/${slug}/changelog`);
 }

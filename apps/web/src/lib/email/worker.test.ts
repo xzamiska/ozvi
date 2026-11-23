@@ -4,6 +4,7 @@ import { and, eq, inArray, sql } from "drizzle-orm";
 import nodemailer from "nodemailer";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { renderMail } from "./render";
+import { sentCount } from "./quota";
 import { digests, tick } from "./worker";
 
 process.env.OZVI_SESSION_SECRET ??= "test-session-secret-0123456789abcdef";
@@ -94,11 +95,35 @@ describe.skipIf(!up)("email worker", () => {
     expect(r.deferred).toBe(2);
     expect(sent).toEqual([]);
 
-    const n = await digests(db, transport, 0, scope());
+    // The digest waits a day after the first mail over the quota.
+    expect(await digests(db, transport, scope())).toBe(0);
+    const n = await digests(db, transport, { projectIds: [projectId], now: new Date(Date.now() + 27 * 3600_000) }); // the run deferred at +2 h
     expect(n).toBe(1);
     expect(sent).toHaveLength(1);
     expect(sent[0]!.subject).toMatch(/^Mail: 2 novinky/);
     expect((await statusOf(["nad limit 1", "nad limit 2"])).every((r) => r.s === "digested")).toBe(true);
+    // Against the quota the digest is one e-mail, not two.
+    const [c] = await withSystem(db, (tx) => tx.select({ n: sentCount }).from(schema.emails)
+      .where(and(eq(schema.emails.projectId, projectId), inArray(schema.emails.status, ["sent", "digested"]))));
+    expect(c!.n).toBe(1000 + 2 + 1);
+    await withSystem(db, (tx) => tx.delete(schema.emails).where(and(eq(schema.emails.projectId, projectId), eq(schema.emails.subject, "old"))));
+  });
+
+  it("a team member's summary goes out at its time, titled for the team", async () => {
+    const due = new Date(Date.now() + 30 * 60_000);
+    await withSystem(db, async (tx) => {
+      await tx.update(schema.users).set({ role: "team" }).where(eq(schema.users.id, userId));
+      await tx.insert(schema.emails).values([
+        { ...mail("nové hlásenie"), status: "deferred" as const, sendAfter: due },
+        { ...mail("nový komentár"), status: "deferred" as const, sendAfter: new Date(due.getTime() + 600_000) },
+      ]);
+    });
+    sent.length = 0;
+    expect(await digests(db, transport, { projectIds: [projectId], now: new Date() })).toBe(0); // not yet
+    expect(await digests(db, transport, scope())).toBe(1);
+    expect(sent).toHaveLength(1);
+    expect(sent[0]!.subject).toMatch(/^Mail: 2 novinky pre tím/);
+    await withSystem(db, (tx) => tx.update(schema.users).set({ role: "member" }).where(eq(schema.users.id, userId)));
   });
 
   it("isolates a failing recipient: others are not re-sent, the bad one is marked failed", async () => {
@@ -107,8 +132,8 @@ describe.skipIf(!up)("email worker", () => {
       { ...mail("pre dobrú adresu"), status: "deferred" as const },
     ]));
     sent.length = 0;
-    expect(await digests(db, transport, 0, scope())).toBe(1);
-    expect(await digests(db, transport, 0, scope())).toBe(0); // nothing left: no repeated digest
+    expect(await digests(db, transport, scope())).toBe(1);
+    expect(await digests(db, transport, scope())).toBe(0); // nothing left: no repeated digest
     expect(sent).toHaveLength(1);
     expect((await statusOf(["pre zlú adresu"]))[0]!.s).toBe("failed");
   });

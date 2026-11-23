@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
@@ -19,6 +20,26 @@ export function BoardNav({ slug, className, unanswered = null, inbox = null, sec
   const path = usePathname();
   const kind = useSearchParams().get("kind");
   const t = useTranslations("board.nav");
+  // Phones: the row scrolls sideways. The current tab is scrolled into view, and a fade on the cut edge
+  // says there is more (the team's "New" and "Unanswered" sat off-screen at 390 px with no hint).
+  const nav = useRef<HTMLElement>(null);
+  const [edges, setEdges] = useState({ left: false, right: false });
+  useEffect(() => {
+    const el = nav.current;
+    if (!el) return;
+    const update = () => setEdges({ left: el.scrollLeft > 2, right: el.scrollLeft + el.clientWidth < el.scrollWidth - 2 });
+    const current = el.querySelector<HTMLElement>('[aria-current="page"]');
+    if (current && (current.offsetLeft < el.scrollLeft || current.offsetLeft + current.offsetWidth > el.scrollLeft + el.clientWidth)) {
+      el.scrollLeft = current.offsetLeft - (el.clientWidth - current.offsetWidth) / 2;
+    }
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => { el.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+  }, [path]);
+  const fade = edges.left && edges.right ? "[mask-image:linear-gradient(to_right,transparent,#000_28px,#000_calc(100%-28px),transparent)]"
+    : edges.right ? "[mask-image:linear-gradient(to_right,#000_calc(100%-28px),transparent)]"
+    : edges.left ? "[mask-image:linear-gradient(to_right,transparent,#000_28px)]" : "";
   // The new-report form belongs to the section it files into.
   const onNew = path === `/${slug}/new`;
   const items = [
@@ -52,7 +73,7 @@ export function BoardNav({ slug, className, unanswered = null, inbox = null, sec
     }] : []),
   ];
   return (
-    <nav aria-label="Board" className={cn("-mb-px flex items-stretch gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden", className)}>
+    <nav ref={nav} aria-label="Board" data-more={edges.right || undefined} className={cn("-mb-px flex items-stretch gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden", fade, className)}>
       {items.map((it) => {
         const active = it.match.some((m) => path === m || path.startsWith(`${m}/`))
           || (onNew && (kind === "bug" ? it.href === `/${slug}/bugs` : it.newKind));

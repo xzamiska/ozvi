@@ -23,6 +23,7 @@ import { UpdateNotice } from "@/components/ozvi/UpdateNotice";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
+import { sentCount } from "@/lib/email/quota";
 import { projectOrigin, publicUrl } from "@/lib/email/url";
 import { getCtx } from "@/lib/project";
 import { LOCALE_TAG } from "@/i18n/locales";
@@ -49,7 +50,7 @@ import { PrivacyKit } from "@/components/PrivacyKit";
 import { kitConfig } from "@/lib/privacy-kit-config";
 import { LEGAL } from "@/lib/legal";
 import { MESSAGES } from "@/i18n/messages";
-import { enabledSections, homeSection } from "@/lib/sections";
+import { homeSection, sectionSwitches } from "@/lib/sections";
 import { translationsInPlan, translationsUsed } from "@/lib/translate";
 
 export const generateMetadata = boardTitle("admin");
@@ -67,7 +68,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
   const plan = (w?.plan ?? "self") as PlanName;
   const monthStart = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), 1));
   const usage = await withProject(db, project.id, async (tx) => {
-    const [e] = await tx.select({ n: sql<number>`count(*)::int` }).from(schema.emails)
+    const [e] = await tx.select({ n: sentCount }).from(schema.emails)
       .where(and(inArray(schema.emails.status, ["sent", "digested"]), gte(schema.emails.sentAt, monthStart)));
     const [d] = await tx.select({ n: sql<number>`count(*)::int` }).from(schema.emails).where(eq(schema.emails.status, "deferred"));
     const [a] = await tx.select({ b: sql<number>`coalesce(sum(${schema.attachments.bytes}), 0)::bigint` }).from(schema.attachments);
@@ -200,7 +201,7 @@ export default async function Admin({ params, searchParams }: { params: Promise<
           </SettingsSection>
 
           <SettingsSection id="sections" title={t("nav.sections")} text={t("sections.text")}>
-            <SectionsForm slug={slug} sections={enabledSections(project)} home={homeSection(project)} />
+            <SectionsForm slug={slug} sections={sectionSwitches(project)} home={homeSection(project)} />
           </SettingsSection>
 
           <SettingsSection id="voting" title={t("nav.voting")} text={t("voting.text")}>

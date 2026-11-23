@@ -5,10 +5,13 @@ import { and, eq, inArray, isNotNull, isNull, or } from "drizzle-orm";
 import { recipientLocale } from "@/i18n/board";
 import type { Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
+import { detectLanguage } from "../lang-detect";
+import { needsTranslation, translationModeOf } from "../translate";
 import type { Project } from "../project";
 import { stopLabel, type LabelSource } from "../route-text";
 import type { ProofSnapshot } from "../proof";
 import { renderMail, type Mail } from "./render";
+import { isPace, summaryAt, SUMMARY_KINDS } from "./pace";
 import { unsubscribeUrl } from "./unsubscribe";
 import { projectOrigin } from "./url";
 
@@ -31,17 +34,32 @@ export type EmailT = ReturnType<typeof translator<"email">>;
 /** Builds one mail in the recipient's language (`t` = that language's translator). */
 type Build = (t: EmailT, locale: Locale) => Mail;
 
-async function enqueue(tx: Tx, project: Project, kind: string, recipientIds: string[], build: Build) {
+/**
+ * The post a mail quotes (a comment), for AI translation into each recipient's language: when the board has
+ * translation on and the post is in another language than the mail, the row carries `translate` and the
+ * worker translates it before sending (lib/email/translate-mail.ts). Nothing here calls a model.
+ */
+export interface QuotedPost { subject: "comment"; id: string; text: string }
+
+async function enqueue(tx: Tx, project: Project, kind: string, recipientIds: string[], build: Build, post?: QuotedPost) {
   const ids = [...new Set(recipientIds)];
   if (ids.length === 0) return 0;
-  const rows = await tx.select({ id: users.id, email: users.email, locale: users.locale }).from(users)
+  const rows = await tx.select({ id: users.id, email: users.email, locale: users.locale, role: users.role, teamMail: users.teamMail }).from(users)
     .where(and(inArray(users.id, ids), isNotNull(users.email), eq(users.emailOptOut, false)));
   const theme = themeOf(project);
   if (rows.length === 0) return 0;
+  const lang = post && translationModeOf(project) !== "off" ? detectLanguage(post.text) : null;
+  const now = new Date();
   await tx.insert(emails).values(rows.map((r) => {
     const unsub = unsubscribeUrl(projectOrigin(project), project.slug, r.id);
     const locale = recipientLocale(project, r.locale);
-    return { projectId: project.id, userId: r.id, to: r.email!, kind, ...renderMail(build(translator(locale, "email"), locale), theme, project.name, unsub, locale) };
+    const mail = build(translator(locale, "email"), locale);
+    const translate = post && needsTranslation(lang, locale) && mail.quote ? { subject: post.subject, id: post.id, target: locale, mail: mail as unknown as Record<string, unknown> } : null;
+    // A team member who wants summaries: the mail waits (deferred) and goes out in their next summary.
+    const pace = r.role === "team" || r.role === "admin" ? r.teamMail?.pace : undefined;
+    const at = SUMMARY_KINDS.has(kind) && isPace(pace) ? summaryAt(pace, now) : null;
+    const held = at ? { status: "deferred" as const, sendAfter: at, translate: null } : { translate };
+    return { projectId: project.id, userId: r.id, to: r.email!, kind, ...renderMail(mail, theme, project.name, unsub, locale), ...held };
   }));
   return rows.length;
 }
@@ -61,17 +79,32 @@ async function teamIds(tx: Tx, want?: TeamMail) {
 }
 
 /**
- * Everybody following an item: its author and everyone who commented publicly. Voting alone does
- * not subscribe (voters hear about it once, from the changelog). Bugs are private, but only the
- * reporter and the team can comment on them, so the list never reaches anyone else.
+ * Authors and public commenters of the given items, per item. An idea also counts the people of duplicates merged
+ * into it (under the original): merging must not drop them out of the loop. Bugs never do (private: another
+ * reporter's bug is not theirs to follow; they hear about the fix of their own report, notifyDuplicateFixed).
+ */
+async function participants(tx: Tx, list: Item[]): Promise<{ itemId: string; userId: string }[]> {
+  if (list.length === 0) return [];
+  const ideaIds = list.filter((i) => i.kind === "idea").map((i) => i.id);
+  const dups = ideaIds.length ? await tx.select({ id: items.id, into: items.mergedIntoId, authorId: items.authorId }).from(items)
+    .where(and(inArray(items.mergedIntoId, ideaIds), isNull(items.deletedAt))) : [];
+  const owner = new Map<string, string>([...list.map((i) => [i.id, i.id] as const), ...dups.map((d) => [d.id, d.into!] as const)]);
+  const out: { itemId: string; userId: string }[] = [];
+  for (const i of list) if (i.authorId) out.push({ itemId: i.id, userId: i.authorId });
+  for (const d of dups) if (d.authorId) out.push({ itemId: d.into!, userId: d.authorId });
+  const talkers = await tx.selectDistinct({ id: comments.authorId, itemId: comments.itemId }).from(comments)
+    .where(and(inArray(comments.itemId, [...owner.keys()]), eq(comments.internal, false), eq(comments.pending, false)));
+  for (const t of talkers) if (t.id) out.push({ itemId: owner.get(t.itemId)!, userId: t.id });
+  return out;
+}
+
+/**
+ * Everybody following an item: its author and everyone who commented publicly (for an idea, also on duplicates
+ * merged into it). Voting alone does not subscribe (voters hear about it once, from the changelog). Bugs are
+ * private, but only the reporter and the team can comment on them, so the list never reaches anyone else.
  */
 async function followers(tx: Tx, item: Item) {
-  const ids = new Set<string>();
-  if (item.authorId) ids.add(item.authorId);
-  const talkers = await tx.selectDistinct({ id: comments.authorId }).from(comments)
-    .where(and(eq(comments.itemId, item.id), eq(comments.internal, false), eq(comments.pending, false)));
-  for (const t of talkers) if (t.id) ids.add(t.id);
-  return [...ids];
+  return [...new Set((await participants(tx, [item])).map((p) => p.userId))];
 }
 
 /** Proof of the fix as a link list for the mail (PRs with titles, the release, a preview to try). */
@@ -128,17 +161,18 @@ export const statusMails = {
   },
 };
 
-/** `note`: the team's own words with the move (also posted as a comment), quoted in the mail. */
-export async function notifyStatusChange(tx: Tx, project: Project, item: Item, actorId: string, proof: ProofSnapshot | null = null, note: string | null = null) {
+/** `note`: the team's own words with the move (also posted as a comment, `noteId`), quoted in the mail. */
+export async function notifyStatusChange(tx: Tx, project: Project, item: Item, actorId: string, proof: ProofSnapshot | null = null, note: string | null = null, noteId: string | null = null) {
   if (item.deletedAt) return;
   const recipients = (await followers(tx, item)).filter((id) => id !== actorId);
   const url = itemUrl(project, item);
   const said = note ? { quote: note.slice(0, 1000), quoteBase: quoteBase(project) } : {};
+  const post: QuotedPost | undefined = note && noteId ? { subject: "comment", id: noteId, text: note } : undefined;
   if (item.kind === "bug") {
     // The reporter gets the "does it work for you?" mail; other followers (team) a plain update.
     const reporter = item.authorId && item.authorId !== actorId ? [item.authorId] : [];
-    await enqueue(tx, project, "bug_status", reporter, (t, l) => ({ ...statusMails.bugReporter(t, l, item, url, project, proof), ...said }));
-    await enqueue(tx, project, "bug_status", recipients.filter((id) => id !== item.authorId), (t, l) => ({ ...statusMails.bugFollower(t, l, item, url, project), ...said }));
+    await enqueue(tx, project, "bug_status", reporter, (t, l) => ({ ...statusMails.bugReporter(t, l, item, url, project, proof), ...said }), post);
+    await enqueue(tx, project, "bug_status", recipients.filter((id) => id !== item.authorId), (t, l) => ({ ...statusMails.bugFollower(t, l, item, url, project), ...said }), post);
     // Reporters of duplicates merged into this bug hear about the fix too (the merge dialog promises it), each
     // about their own report: bugs are private, so the original's title and link never reach them.
     if (item.status === "fixed") {
@@ -147,7 +181,7 @@ export async function notifyStatusChange(tx: Tx, project: Project, item: Item, a
     }
     return;
   }
-  await enqueue(tx, project, "idea_status", recipients, (t, l) => ({ ...statusMails.idea(t, l, item, url, project, proof), ...said }));
+  await enqueue(tx, project, "idea_status", recipients, (t, l) => ({ ...statusMails.idea(t, l, item, url, project, proof), ...said }), post);
 }
 
 const quoteBase = (p: Project) => ({ origin: projectOrigin(p), slug: p.slug });
@@ -162,6 +196,40 @@ export async function notifyDuplicateFixed(tx: Tx, project: Project, original: I
     const own = { ...d, status: "fixed" as const, fixedInVersion: original.fixedInVersion };
     await enqueue(tx, project, "bug_status", [d.authorId], (t, l) => statusMails.bugFollower(t, l, own, itemUrl(project, d), project));
   }
+}
+
+/** "We're tracking this under #n": the duplicate's people now follow the original. */
+export const mergedMail = (t: EmailT, source: Pick<Item, "title">, target: Pick<Item, "title" | "number">, url: string): Mail => ({
+  subject: t("mergedSubject", { n: String(target.number), title: source.title }),
+  summary: t("mergedSummary", { n: String(target.number), title: source.title }),
+  heading: t("mergedHeading", { n: String(target.number) }),
+  paragraphs: [t("mergedBody", { title: source.title, n: String(target.number), target: target.title }), t("mergedNext")],
+  cta: { label: t("viewIdea"), href: url },
+});
+
+/** A bug report joined the same problem reported by others: about the reporter's own report, nothing of the other. */
+export const bugMergedMail = (t: EmailT, source: Pick<Item, "title" | "number">, url: string): Mail => ({
+  subject: t("bugMergedSubject", { n: String(source.number), title: source.title }),
+  summary: t("bugMergedSummary", { title: source.title }),
+  heading: t("bugMergedHeading"),
+  paragraphs: [t("bugMergedBody", { title: source.title }), t("bugMergedNext")],
+  cta: { label: t("openReport"), href: url },
+});
+
+/**
+ * An idea was merged into another: its author and commenters get one e-mail pointing at the original, which they
+ * follow from now on (participants). Bugs keep their own path: the reporter hears when the original is fixed.
+ */
+export async function notifyMerged(tx: Tx, project: Project, source: Item, target: Item, actorId: string) {
+  if (source.deletedAt) return 0;
+  if (source.kind === "bug") {
+    // Bug reports are private: the reporter hears about their own report only (never the other report's number
+    // or title). A merge into an already fixed bug sends "Opravené" instead (notifyDuplicateFixed).
+    if (!source.authorId || source.authorId === actorId || target.status === "fixed" || target.status === "verified") return 0;
+    return enqueue(tx, project, "bug_status", [source.authorId], (t) => bugMergedMail(t, source, itemUrl(project, source)));
+  }
+  const recipients = (await followers(tx, source)).filter((id) => id !== actorId);
+  return enqueue(tx, project, "idea_status", recipients, (t) => mergedMail(t, source, target, itemUrl(project, target)));
 }
 
 /**
@@ -185,9 +253,11 @@ export async function notifyComment(
     : [...(await followers(tx, item)), ...listening]).filter((id) => id !== c.authorId);
   const internal = c.audience === "internal";
   const queued = c.audience === "queued";
+  // Nameless author: the same label the board shows ("Team member" / "User"), never "Someone".
+  const role = c.authorName ? null : (await tx.select({ role: users.role }).from(users).where(eq(users.id, c.authorId)))[0]?.role;
   const href = `${itemUrl(project, item)}${c.commentId ? `#c-${c.commentId}` : ""}`;
   await enqueue(tx, project, internal ? "comment_internal" : queued ? "comment_queued" : "comment", recipients, (t) => {
-    const who = c.authorName ?? t("someone");
+    const who = c.authorName ?? (role === "team" || role === "admin" ? t("teamMember") : t("user"));
     const where = item.kind === "bug" ? t("onBug", { n: String(item.number) }) : t("onIdea");
     return {
       subject: `${internal ? t("internalNote") : queued ? t("commentQueued") : t("newComment")}: ${item.title}`,
@@ -198,7 +268,7 @@ export async function notifyComment(
       quoteBase: quoteBase(project),
       cta: { label: queued ? t("reviewComment") : t("reply"), href },
     };
-  });
+  }, c.commentId && !queued ? { subject: "comment", id: c.commentId, text: c.body } : undefined);
 }
 
 /**
@@ -232,8 +302,8 @@ export async function notifyAssigned(tx: Tx, project: Project, list: Item[], ass
     summary: one ? t("assignedSummary", { title: one.title }) : t("assignedManySubject", { n: list.length }),
     heading: t("assignedHeading"),
     paragraphs: one
-      ? [t("assignedBody", { who: byName ?? t("someone"), ref: t("ref", { n: String(one.number), title: one.title }) })]
-      : [t("assignedManyBody", { who: byName ?? t("someone"), n: list.length }), ...list.slice(0, 20).map((i) => `• ${t("ref", { n: String(i.number), title: i.title })}`)],
+      ? [t("assignedBody", { who: byName ?? t("teamMember"), ref: t("ref", { n: String(one.number), title: one.title }) })]
+      : [t("assignedManyBody", { who: byName ?? t("teamMember"), n: list.length }), ...list.slice(0, 20).map((i) => `• ${t("ref", { n: String(i.number), title: i.title })}`)],
     cta: one ? { label: one.kind === "bug" ? t("openReport") : t("openIdea"), href: itemUrl(project, one) }
       : { label: t("openMine"), href: `${projectOrigin(project)}/${project.slug}/${list[0]!.kind === "bug" ? "bugs" : "ideas"}?s=all&who=me` },
   }));
@@ -266,7 +336,6 @@ export async function notifyNewBug(tx: Tx, project: Project, item: Item) {
   }));
 }
 
-/** One e-mail per person who wrote, voted for or commented on any idea in a published changelog entry. */
 /**
  * The changelog mail for one person: the entry and the ideas of theirs it ships. `reason` sets the footer:
  * "voted" when they only voted (voting does not subscribe), "follow" when they wrote or discussed one.
@@ -284,28 +353,48 @@ export const changelogMail = (t: EmailT, entry: { title: string; body: string; u
   reason,
 });
 
+/**
+ * Who hears about each idea of a changelog entry: its voters, plus its authors and commenters (also of duplicates
+ * merged into it), who follow it. The publisher never does.
+ */
+async function changelogAudience(tx: Tx, ideas: Item[], actorId: string | null) {
+  const ids = ideas.map((i) => i.id);
+  const voterRows = ids.length ? await tx.select({ userId: votes.userId, itemId: votes.itemId }).from(votes).where(inArray(votes.itemId, ids)) : [];
+  const people = await participants(tx, ideas);
+  return [...voterRows.map((v) => ({ ...v, follows: false })), ...people.map((p) => ({ ...p, follows: true }))].filter((r) => r.userId !== actorId);
+}
+
+/**
+ * The people a changelog e-mail would reach, per idea (only those with an address who did not opt out): the
+ * changelog form and the MCP preview count these, so the number shown before publishing is the one that goes out.
+ */
+export async function changelogReach(tx: Tx, ideas: Item[], actorId: string | null): Promise<Map<string, string[]>> {
+  const rows = await changelogAudience(tx, ideas, actorId);
+  const userIds = [...new Set(rows.map((r) => r.userId))];
+  const mailable = new Set(userIds.length ? (await tx.select({ id: users.id }).from(users)
+    .where(and(inArray(users.id, userIds), isNotNull(users.email), eq(users.emailOptOut, false)))).map((u) => u.id) : []);
+  const out = new Map<string, string[]>(ideas.map((i) => [i.id, []]));
+  for (const r of rows) {
+    const list = out.get(r.itemId)!;
+    if (mailable.has(r.userId) && !list.includes(r.userId)) list.push(r.userId);
+  }
+  return out;
+}
+
 export async function notifyChangelog(
   tx: Tx, project: Project, entry: { title: string; body: string; url: string }, ideas: Item[], actorId: string | null,
 ) {
   if (ideas.length === 0) return 0;
-  const ids = ideas.map((i) => i.id);
-  const voterRows = await tx.select({ id: votes.userId, itemId: votes.itemId }).from(votes).where(inArray(votes.itemId, ids));
   const mine = new Map<string, Item[]>();
   // Authors and commenters follow their ideas; everyone else here only voted.
   const following = new Set<string>();
-  const add = (userId: string, itemId: string, follows = false) => {
-    if (userId === actorId) return;
-    const it = ideas.find((i) => i.id === itemId)!;
-    const list = mine.get(userId) ?? [];
+  for (const r of await changelogAudience(tx, ideas, actorId)) {
+    const it = ideas.find((i) => i.id === r.itemId)!;
+    const list = mine.get(r.userId) ?? [];
     if (!list.includes(it)) list.push(it);
-    mine.set(userId, list);
-    if (follows) following.add(userId);
-  };
-  for (const v of voterRows) add(v.id, v.itemId);
-  const talkers = await tx.selectDistinct({ id: comments.authorId, itemId: comments.itemId }).from(comments)
-    .where(and(inArray(comments.itemId, ids), eq(comments.internal, false), eq(comments.pending, false)));
-  for (const t of talkers) if (t.id) add(t.id, t.itemId, true);
-  for (const i of ideas) if (i.authorId) add(i.authorId, i.id, true);
+    mine.set(r.userId, list);
+    if (r.follows) following.add(r.userId);
+  }
   let n = 0;
   for (const [userId, theirs] of mine) {
     n += await enqueue(tx, project, "changelog", [userId], (t) => ({

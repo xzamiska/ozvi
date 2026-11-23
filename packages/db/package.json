@@ -6,7 +6,9 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./schema": "./src/schema.ts"
+    "./schema": "./src/schema.ts",
+    "./similarity": "./src/similarity.ts",
+    "./local-embeddings": "./src/local-embeddings.ts"
   },
   "scripts": {
     "typecheck": "tsc -p .",
@@ -18,9 +20,11 @@
     "cli": "tsx src/cli.ts"
   },
   "dependencies": {
+    "@huggingface/transformers": "4.3.2",
     "@opentelemetry/api": "1.10.0",
     "@ozvi/theme": "workspace:*",
     "drizzle-orm": "^0.45.4",
+    "onnxruntime-web": "1.31.0-dev.20260914-8d85527a0",
     "postgres": "^3.4.9"
   },
   "devDependencies": {

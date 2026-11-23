@@ -1,5 +1,7 @@
 import { schema, type Tx } from "@ozvi/db";
 import { and, eq, inArray, isNull, ne, sql } from "drizzle-orm";
+import type { Locale } from "@/i18n/locales";
+import { translator } from "@/i18n/messages";
 import { sectionOn } from "./sections";
 
 const { items, votes } = schema;
@@ -43,8 +45,8 @@ export async function applyVote(tx: Tx, project: { id: string; voteMode: string;
   userId: string, itemId: string, requested: number): Promise<VoteResult> {
   if (project.sections && !sectionOn(project, "ideas")) return { ok: false, reason: "missing" };
   const item = await tx.query.items.findFirst({ where: and(eq(items.id, itemId), eq(items.kind, "idea")) });
-  // Deleted and queued (moderation) ideas take no votes.
-  if (!item || item.deletedAt || item.pending) return { ok: false, reason: "missing" };
+  // Deleted, queued (moderation) and merged ideas take no votes (a merged one's votes moved to the original).
+  if (!item || item.deletedAt || item.pending || item.mergedIntoId) return { ok: false, reason: "missing" };
   const w = normalizeWeight(voteModeOf(project), requested);
   if (w === 0) {
     await tx.delete(votes).where(and(eq(votes.itemId, itemId), eq(votes.userId, userId)));
@@ -71,4 +73,17 @@ export async function myVoteWeights(tx: Tx, userId: string | undefined, itemIds:
   const rows = await tx.select({ id: votes.itemId, w: votes.weight }).from(votes)
     .where(and(eq(votes.userId, userId), inArray(votes.itemId, itemIds)));
   return new Map(rows.map((r) => [r.id, r.w]));
+}
+
+/** People who voted for the item in the outer query (the vote count is a sum of points in importance mode). */
+export const votersSql = sql<number>`(select count(*)::int from ${votes} where ${votes.itemId} = ${items.id})`;
+
+/**
+ * The vote count in words, as on the board's vote button: "3 hlasy" in simple mode, "2 body od 1 človeka" in
+ * importance mode (points are not votes there). Roadmap, changelog and the widget's views use it.
+ */
+export function votesLabel(locale: Locale, mode: VoteMode, points: number, people: number): string {
+  return mode === "importance"
+    ? translator(locale, "forms")("vote.weighted", { points, people })
+    : translator(locale, "board")("votes", { n: points });
 }

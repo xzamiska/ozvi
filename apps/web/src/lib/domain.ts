@@ -1,11 +1,11 @@
 import { ITEM_STATUSES, schema, type Tx } from "@ozvi/db";
 import { and, desc, eq, gte, isNull, sql } from "drizzle-orm";
-import { notifyComment, notifyDuplicateFixed, notifyStatusChange } from "./email/notify";
+import { notifyComment, notifyDuplicateFixed, notifyMerged, notifyStatusChange } from "./email/notify";
+import { countDuplicate } from "./duplicate-stats";
 import { emit } from "./events";
 import { enqueueTrackerSync } from "./trackers";
 import { proofSnapshot, type ProofSnapshot } from "./proof";
 import type { Project, User } from "./project";
-import { boardLocales } from "@/i18n/board";
 import type { Locale } from "@/i18n/locales";
 import { translator } from "@/i18n/messages";
 import { canSeePost, commentNeedsApproval, DUPLICATE_COMMENT_WINDOW_MS, isBlocked } from "./moderation-rules";
@@ -55,7 +55,7 @@ export function assertCanParticipate(user: Pick<User, "role" | "blockedAt">) {
 
 export async function changeStatus(
   tx: Tx, project: Project, actor: User | null, item: Item, status: string, fixedInVersion?: string | null,
-  opts: { notify?: boolean; subStatusId?: string | null; release?: { tag: string; url: string | null } | null; note?: string | null } = {},
+  opts: { notify?: boolean; subStatusId?: string | null; release?: { tag: string; url: string | null } | null; note?: string | null; noteId?: string | null } = {},
 ): Promise<Item | null> {
   const allowed = ITEM_STATUSES[item.kind] as readonly string[];
   if (!allowed.includes(status)) throw fail((t) => t("badStatus", { status, allowed: allowed.join(", ") }));
@@ -81,7 +81,7 @@ export async function changeStatus(
     await recordStatus(tx, project.id, item.id, item.status, status, version, actor?.id ?? null, sub, proof);
   }
   if (item.status !== status) {
-    if (opts.notify !== false) await notifyStatusChange(tx, project, updated!, actor?.id ?? "", proof, opts.note ?? null);
+    if (opts.notify !== false) await notifyStatusChange(tx, project, updated!, actor?.id ?? "", proof, opts.note ?? null, opts.noteId ?? null);
     await emit(tx, project, "item.status_changed", { item: updated!, actorName: actor?.name, previousStatus: item.status, ...(proof ? { proof } : {}) });
   }
   return updated!;
@@ -116,6 +116,11 @@ export async function addCommentTo(
   if (item.deletedAt) throw fail((t) => t("deleted"));
   // A switched-off section takes no new comments either (board, API, MCP).
   if (!sectionOn(project, sectionOfKind(item.kind))) throw new DomainError((l) => translator(l, "errors")("sectionOff"));
+  // A merged idea's conversation goes on at the original (its people follow it there); the team may still note.
+  if (item.mergedIntoId && item.kind === "idea" && !(internal && isTeamRole(actor.role))) {
+    const [into] = await tx.select({ number: items.number }).from(items).where(eq(items.id, item.mergedIntoId));
+    throw fail((t) => t("mergedClosed", { n: String(into?.number ?? "") }));
+  }
   if (!text) throw fail((t) => t("emptyComment"));
   if (text.length > 5000) throw fail((t) => t("longComment"));
   const isInternal = internal && isTeamRole(actor.role);
@@ -135,6 +140,27 @@ export async function addCommentTo(
   if (isInternal && !item.pending) await enqueueTrackerSync(tx, project, "comment", item, { comment: { body: text, authorId: actor.id, source, internal: true } });
   return c!;
 }
+
+/**
+ * Closing the loop: the reporter says whether the fix works. "Works" verifies the bug. "Still broken" reopens it
+ * (back to confirmed, linked issues must close again) with `comment` as the reporter's comment, so the team hears
+ * about it like about any customer comment (their comment e-mail settings and pace apply). Returns the new status.
+ */
+export async function reporterVerdict(tx: Tx, project: Project, reporter: User, item: Item, works: boolean, comment: string) {
+  if (item.kind !== "bug" || item.authorId !== reporter.id || item.status !== "fixed" || item.deletedAt) return null;
+  const to = works ? "verified" : "confirmed";
+  const [moved] = await tx.update(items).set({ status: to, subStatusId: null, updatedAt: new Date() }).where(eq(items.id, item.id)).returning();
+  await recordStatus(tx, project.id, item.id, item.status, to, item.fixedInVersion, reporter.id);
+  if (!works) {
+    await forgetIssueClosures(tx, item.id);
+    await addCommentTo(tx, project, reporter, moved!, comment, false);
+  }
+  return moved!;
+}
+
+/** A status step on the route that is the reporter reopening their fixed bug ("still broken"). */
+export const isReopenedByReporter = (e: { from: string | null; to: string; actorId: string | null }, item: Pick<Item, "kind" | "authorId">) =>
+  item.kind === "bug" && e.from === "fixed" && e.to === "confirmed" && !!e.actorId && e.actorId === item.authorId;
 
 /**
  * Duplicate → original. Votes move to the original (one per user, highest weight wins), the duplicate
@@ -165,13 +191,12 @@ export async function mergeItems(tx: Tx, project: Project, actor: User, source: 
   await tx.update(items).set({ mergedIntoId: target.id }).where(eq(items.mergedIntoId, source.id));
   // Merged into a bug that is already fixed: the reporter hears it now, not "once it's fixed" (never).
   if (source.kind === "bug" && (target.status === "fixed" || target.status === "verified")) await notifyDuplicateFixed(tx, project, target, [updatedSource!], actor.id);
-  // Bugs are private per reporter: the duplicate's reporter must not learn the original's title.
-  // The note is stored content, so it is written once, in the board's default language.
-  const t = translator(boardLocales(project).fallback, "domain");
-  await tx.insert(comments).values({
-    projectId: project.id, itemId: source.id, authorId: actor.id,
-    body: source.kind === "idea" ? t("mergedIdea", { n: String(target.number), title: target.title }) : t("mergedBug"),
-  });
+  // The duplicate's author and commenters now follow the original: one e-mail tells them where (ideas).
+  await notifyMerged(tx, project, updatedSource!, updatedTarget!, actor.id);
+  // No auto-comment: the item page shows "Merged into #n" (header note and route) in each reader's language,
+  // and a team-authored comment would read as a team reply on the route.
+  // An idea its author created although similar ones were shown, merged after all (ADR-0015 counters).
+  if (source.kind === "idea" && source.context && typeof source.context === "object" && "similarSeen" in source.context) await countDuplicate(tx, project.id, "merged_later");
   await emit(tx, project, "item.merged", { item: updatedSource!, actorName: actor.name, mergedInto: { number: target.number, title: target.title } });
   return { source: updatedSource!, target: updatedTarget! };
 }

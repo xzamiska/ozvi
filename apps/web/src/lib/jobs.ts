@@ -3,6 +3,7 @@ import { and, eq, lt } from "drizzle-orm";
 import { pruneLogins } from "./email-login";
 import { teamDigests } from "./digest";
 import { importTick } from "./import/engine";
+import { translateMails } from "./email/translate-mail";
 import { retentionTick } from "./retention";
 import { embedPending } from "./similar";
 import { pivotPending } from "./translate";
@@ -34,6 +35,9 @@ export function startJobs(db: Db) {
   };
   const stops = [
     every(5_000, "webhooks", () => webhookTick(db)),
+    // AI translation of quoted posts in queued e-mails, apart from the sender: a slow model never delays
+    // sign-in codes. A mail waits for its translation at most TRANSLATE_WAIT_MS, then goes out as it is.
+    every(5_000, "mail translation", () => translateMails(db)),
     // Linear/Jira: Ozvi status moves and mirrored comments; Jira polling for sites without an admin webhook.
     every(5_000, "trackers", () => trackerTick(db)),
     every(60_000, "jira poll", () => jiraPollTick(db)),

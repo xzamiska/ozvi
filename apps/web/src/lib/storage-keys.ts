@@ -10,6 +10,10 @@ export const WIDGET_SEEN_PREFIX = "ozvi:seen:";
 export const WIDGET_TOKEN_PREFIX = "ozvi:wt:";
 /** Board, team only: the remembered CSV separator (components/ExportMenu.tsx). */
 export const CSV_SEP_KEY = "ozvi.csvSep";
+/** Board, team only: "Dense rows" on team lists (components/ozvi/ListTools.tsx). */
+export const DENSE_KEY = "ozvi:dense";
+/** Board: the draft of a new idea or bug (title, body) while writing, in sessionStorage, per board and kind (components/NewItemForm.tsx). */
+export const DRAFT_PREFIX = "ozvi:draft:";
 /** OIDC sign-in flow cookie lifetime in seconds (app/[project]/oidc/start). */
 export const OIDC_FLOW_MAX_AGE = 600;
 /** Explicit language choice (NEXT_LOCALE) lifetime in seconds. */

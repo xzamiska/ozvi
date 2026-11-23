@@ -36,7 +36,8 @@
       "noProjects": ", no projects",
       "exportHint": "You can download an export of each project in its settings (Project data).",
       "nothingRemoved": "All your workspaces have other members, so no projects will be deleted.",
-      "leave": "You’ll leave {list}; everyone else stays."
+      "leave": "You’ll leave {list}; everyone else stays.",
+      "noWorkspaces": "You’re not in any workspace, so we’ll only delete your account and sign-in details."
     },
     "forms": {
       "role": "Role",
@@ -141,8 +142,8 @@
       "noSmtpCode": "E-mail isn’t configured (SMTP). The code is in the server log.",
       "noAccess": "This e-mail doesn’t have access. On a self-hosted server, add it to OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "E-mail sign-in isn’t enabled for this project.",
-      "tooManyProjects": "Too many new projects in an hour. Try again later.",
-      "tooManyFree": "Too many free workspaces were created from this network today. Try again tomorrow, add the project to an existing workspace or upgrade to Pro.",
+      "tooManyProjects": "You created too many projects in the last hour. You can create the next one in {minutes} min.",
+      "tooManyFree": "Only a few free workspaces can be created from one network per day, and today's limit for this network is used up. Try again in {hours} h, or write to support@ozvi.io and we'll help.",
       "nameLength": "The name must be 2 to 60 characters.",
       "slugInvalid": "The address may use lowercase letters, digits and hyphens (2–41 characters) and can’t be a reserved word.",
       "pickLook": "Pick a look.",
@@ -169,7 +170,9 @@
       "signupClosed": "Sign-up isn’t open yet. Write to support@ozvi.io and we’ll let you know when we launch.",
       "alreadySubscribed": "This workspace already has a subscription. Change the plan on it, without paying twice.",
       "freeExistsOther": "This mailbox already has a free workspace under another account (the same address with a +tag or dots). Sign in with that account and add the project there, or have its owner invite you.",
-      "nameChars": "The name cannot contain < or >. Remove them and save again."
+      "nameChars": "The name cannot contain < or >. Remove them and save again.",
+      "tooManyFreeHasWorkspace": "Only a few free workspaces can be created from one network per day, and today's limit for this network is used up. You can create a new workspace in {hours} h, but you can add the project to a workspace you're already in right now.",
+      "addToWorkspace": "Add the project to {workspace}"
     },
     "workspace": {
       "not_owner": "Only a workspace owner can do this.",
@@ -180,7 +183,7 @@
       "last_owner": "A workspace needs at least one owner. Make someone else an owner first.",
       "no_account": "This account no longer exists.",
       "email_taken": "There’s already another Ozvi account for {email}. Delete it or use a different address.",
-      "subscription": "{ws} has an active subscription. Cancel it under Plan & usage (Manage subscription), then delete your account.",
+      "subscription": "{ws} has an active subscription. Cancel it under Plan & usage (Cancel subscription button), then delete your account.",
       "sole_owner": "You’re the only owner of {ws}. Under Team, make someone else an owner or remove the other members."
     },
     "billing": {
@@ -294,7 +297,7 @@
       "saved": "Languages saved.",
       "invalid": "Pick a language from the list.",
       "translation": "Post translation",
-      "translationHint": "AI translates ideas, comments and updates written in another language into the reader’s language. Translations are always labelled and the original is one click away. Private bug reports and team notes are only translated for people allowed to see them.",
+      "translationHint": "AI translates ideas, comments and updates written in another language into the reader’s language, in e-mail notifications too (with the original below the translation). Translations are always labelled and the original is one click away. Private bug reports and team notes are only translated for people allowed to see them.",
       "translationNoAi": "Translations aren't in your plan. Pro has 500 and Studio 2,000 new translations a month; self-hosted instances need an AI provider set up.",
       "mode": {
         "off": "Off",
@@ -302,7 +305,7 @@
         "on_demand": "On request",
         "on_demandHint": "Posts in another language get a “Translate” button.",
         "auto": "Automatic",
-        "autoHint": "Posts in another language are shown translated straight away, with a link to the original. Uses more translations than “On request”."
+        "autoHint": "Posts in another language are shown translated straight away, with a link to the original, and so are titles in the idea and bug lists and in the widget. Uses more translations than “On request”."
       },
       "allowance": "This month: {used} of {limit} new translations for the whole workspace. A translation made once isn't counted again."
     },
@@ -372,7 +375,7 @@
       "mailOffC": ", plus",
       "plan": "Plan",
       "sent": "E-mails sent",
-      "deferred": "Waiting for daily digest",
+      "deferred": "Waiting for a summary",
       "attachments": "Attachments",
       "unlimited": "unlimited"
     },
@@ -723,7 +726,7 @@
       "text": "Paragraphs for your privacy policy and records of processing, put together from this project’s settings. Fill in the parts in square brackets.",
       "legalTitle": "This is not legal advice",
       "legal": "It is a draft based on how the project is set up. Have a lawyer review it before you publish it.",
-      "cloud": "Ozvi cloud: for your users’ data you are the controller and Ozvi is your processor. You also need a data processing agreement (DPA); request it at {email}.",
+      "cloud": "Ozvi cloud: for your users’ data you are the controller and Ozvi is your processor. The data processing agreement (DPA) is part of the terms of service and applies from sign-up; the text is at ozvi.io/dpa. If you need a signed copy, ask at {email}.",
       "self": "Self-hosted: you are the controller and need no data processing agreement with the authors of Ozvi. You sign agreements directly with the providers named in the text (hosting, e-mail, AI, integrations).",
       "subprocessors": "List of sub-processors",
       "language": "Language of the text",
@@ -859,7 +862,10 @@
       "next": "Next:",
       "proof": "Proof of fix",
       "proofPreview": "Try the fix",
-      "proofRelease": "Release {v}"
+      "proofRelease": "Release {v}",
+      "merged": "Merged into #{n}",
+      "mergedPrivate": "Handled under another number",
+      "reopened": "Reopened: still broken"
     },
     "ideas": {
       "gateTitle": "Ideas are visible to signed-in users only",
@@ -901,7 +907,10 @@
       "who": "Assignee",
       "whoAny": "Anyone",
       "whoMe": "Me",
-      "whoNone": "Nobody"
+      "whoNone": "Nobody",
+      "noneForWho": "Nothing for “Assignee: {who}”",
+      "noneForWhoText": "The assignee filter is on, so you see only part of the list. Clear it or pick someone else.",
+      "whoClear": "Clear assignee filter"
     },
     "bugs": {
       "gateTitle": "Bug reports are visible to the reporter and the team only",
@@ -942,7 +951,10 @@
       "who": "Assignee",
       "whoAny": "Anyone",
       "whoMe": "Me",
-      "whoNone": "Nobody"
+      "whoNone": "Nobody",
+      "noneForWho": "Nothing for “Assignee: {who}”",
+      "noneForWhoText": "The assignee filter is on, so you see only part of the list. Clear it or pick someone else.",
+      "whoClear": "Clear assignee filter"
     },
     "roadmap": {
       "gateTitle": "The roadmap is visible to signed-in users only",
@@ -963,7 +975,7 @@
       "lede": "What’s new in {app}. When we ship an idea you voted for, you’ll get an e-mail.",
       "write": "Write an update",
       "published": "Published.",
-      "notified": "{n, plural, one { # person who voted for these ideas will get an e-mail.} other { # people who voted for these ideas will get an e-mail.}}",
+      "notified": "{n, plural, one { Sending # e-mail: to voters, authors and commenters.} other { Sending # e-mails: to voters, authors and commenters.}}",
       "emptyTitle": "No updates yet",
       "emptyTeam": "When you ship an idea, write a few lines about it. Everyone who voted gets an e-mail.",
       "emptyGuest": "When the team ships something, you’ll find it here.",
@@ -974,7 +986,7 @@
       "teamOnlyNoRole": "Your account doesn’t have a team role. This board’s admin can give you one.",
       "teamOnlySignIn": "If you’re on the team, sign in.",
       "newTitle": "New update",
-      "newLede": "Write what you shipped. People who voted for the selected ideas will hear about it by e-mail once it’s published.",
+      "newLede": "Write what you shipped. Everyone who voted for, posted or commented on the selected ideas will hear about it by e-mail once it’s published.",
       "editTitle": "Edit update",
       "draftTitle": "Draft update",
       "editLede": "Published {date}. Edits show up in the list of updates; no e-mail goes out again.",
@@ -1069,6 +1081,7 @@
       "mergedPrivate": "We’re already handling this report under another number. We’ll let you know once it’s fixed.",
       "mergedInto": "This is a duplicate. It continues in",
       "votesMoved": "; the votes moved there",
+      "mergedGoThere": "Voting and the discussion continue on #{n}.",
       "noBody": "No description.",
       "technical": "Technical details",
       "show": "Show",
@@ -1098,7 +1111,12 @@
       "assigned": "Assigned to {who}",
       "unassigned": "Nobody is on it yet",
       "mergedHere": "Merged into this:",
-      "former": "{who} (no longer on the team)"
+      "former": "{who} (no longer on the team)",
+      "you": "{who} (you)",
+      "attached": "Your vote and description are on this idea. We’ll let you know when it moves.",
+      "attachedQueued": "Your description is waiting for the team’s approval, then it appears on this idea.",
+      "seenStrong": "The author saw #{n} and marked this as different",
+      "seenShown": "While writing, the author saw:"
     },
     "me": {
       "title": "My data",
@@ -1137,11 +1155,11 @@
       "teamMailItems": {
         "newBug": {
           "title": "New bug report",
-          "text": "As soon as someone sends one."
+          "text": "When someone sends one."
         },
         "newIdea": {
           "title": "New idea",
-          "text": "As soon as someone suggests one."
+          "text": "When someone suggests one."
         },
         "comments": {
           "title": "Comments and internal notes",
@@ -1154,6 +1172,21 @@
         "digest": {
           "title": "Monday digest",
           "text": "Once a week: the numbers, what waits for a reply and what shipped but wasn't announced."
+        }
+      },
+      "teamMailPace": "How to send them",
+      "teamMailPaces": {
+        "instant": {
+          "title": "Right away",
+          "text": "Each e-mail on its own, as soon as something happens."
+        },
+        "hourly": {
+          "title": "Hourly summary",
+          "text": "One e-mail an hour after the first event, with everything that happened since."
+        },
+        "daily": {
+          "title": "Daily summary in the morning",
+          "text": "One e-mail at 8:00 with everything since the last summary."
         }
       }
     },
@@ -1175,6 +1208,7 @@
       "affectsPeople": "Affects {n, plural, one {# person} other {# people}}",
       "andPeople": " and {n, plural, one {# person without a company} other {# people without a company}}",
       "mrrTotal": "{mrr} MRR in total",
+      "authorsCounted": "includes the author and authors of merged duplicates, even if they didn't vote",
       "anonymous": "User",
       "plan": "{plan} plan",
       "author": "author",
@@ -1196,7 +1230,7 @@
       "ideas": "Ideas",
       "bugs": "Bugs",
       "emptyTitle": "Nobody is waiting",
-      "emptyText": "{n, plural, one {The team answered every report within # day.} other {The team answered every report within # days.}}",
+      "emptyText": "{n, plural, one {No report has waited longer than # day for the team's answer.} other {No report has waited longer than # days for the team's answer.}}",
       "ruleTitle": "When a report shows up",
       "rule": "{n, plural, one {When the author or another user writes and the team doesn't reply publicly or change the status within # day.} other {When the author or another user writes and the team doesn't reply publicly or change the status within # days.}}",
       "ruleClears": "Internal notes don't count. Shipped, fixed and declined reports never appear here.",
@@ -1226,9 +1260,12 @@
       "nobody": "Nobody",
       "notify": "Send status e-mails",
       "clear": "Clear selection",
-      "apply": "Apply",
+      "apply": "Change selected",
       "applying": "Saving…",
-      "done": "{n, plural, one {Changed # item} other {Changed # items}}"
+      "done": "{n, plural, one {Changed # item} other {Changed # items}}",
+      "you": "{who} (you)",
+      "selectAll": "Select all on this page ({n})",
+      "dense": "Dense rows"
     },
     "select": "Select #{n}",
     "keys": {
@@ -1381,7 +1418,7 @@
     },
     "activity": {
       "title": "Activity",
-      "lede": "Changes to the workspace and project settings: team, plan, domains, tokens, webhooks and sign-in.",
+      "lede": "Changes to the workspace and project settings (team, plan, domains, tokens, webhooks, sign-in) and the team's bigger moves: merges, bulk changes and deletions.",
       "emptyTitle": "No activity yet",
       "emptyText": "Entries appear once you invite someone or change project settings.",
       "older": "Older entries",
@@ -1401,7 +1438,8 @@
           "sso_secret": "New SSO key",
           "oidc": "OIDC sign-in configured",
           "domain": "Custom domain changed",
-          "domain_verified": "Custom domain verified"
+          "domain_verified": "Custom domain verified",
+          "deleted": "Project deleted"
         },
         "token": {
           "created": "New API token",
@@ -1455,7 +1493,8 @@
         },
         "import": {
           "started": "Import started",
-          "undone": "Import undone"
+          "undone": "Import undone",
+          "cancelled": "Import cancelled"
         },
         "retention": {
           "run": "Automatic data deletion",
@@ -1470,7 +1509,31 @@
         },
         "account": {
           "renamed": "Account name changed"
+        },
+        "triage": {
+          "merged": "Duplicates merged",
+          "bulk": "Bulk change",
+          "unmerged": "Duplicates split"
+        },
+        "changelog": {
+          "published": "Update published",
+          "draft_deleted": "Update draft deleted"
+        },
+        "data": {
+          "exported": "Data exported"
         }
+      },
+      "rows": "{n, plural, one {# row} other {# rows}}",
+      "planManual": "granted by hand",
+      "planStatus": {
+        "active": "active",
+        "past_due": "payment failed",
+        "scheduled_cancel": "cancelled at period end",
+        "canceled": "cancelled",
+        "expired": "ended",
+        "trialing": "trial",
+        "paused": "paused",
+        "unpaid": "unpaid"
       }
     },
     "delivery": {
@@ -1509,7 +1572,7 @@
         "idea_status": "Idea status",
         "changelog": "Changelog entry",
         "team_digest": "Weekly digest",
-        "digest": "Daily digest",
+        "digest": "Summary",
         "login": "Sign-in",
         "invite": "Invitation"
       },
@@ -1562,7 +1625,7 @@
       "paidTitle": "Thanks for your payment",
       "paid": "The plan switches as soon as the payment gateway confirms the payment, usually within a minute.",
       "pastDueTitle": "The last payment failed",
-      "pastDue": "Update your card in subscription management, or the workspace will switch to Free.",
+      "pastDue": "Update your card with the Invoices and card button, or the workspace will switch to Free.",
       "usageTitle": "Usage this month",
       "emails": "E-mails",
       "attachments": "Attachments",
@@ -1702,9 +1765,8 @@
     "mergeSelf": "You can’t merge an entry into itself.",
     "mergeKinds": "You can only merge two ideas or two bugs.",
     "alreadyMerged": "#{n} is already merged.",
+    "mergedClosed": "This idea was merged into #{n}. Vote and comment there.",
     "targetMerged": "#{n} is merged into another entry; merge into that one.",
-    "mergedIdea": "Merged into #{n} “{title}”. The votes moved there.",
-    "mergedBug": "We’re already handling this report under another number. We’ll let you know here once it’s fixed.",
     "blocked": "You can't post, vote or comment on this board at the moment.",
     "deleted": "This item has been deleted.",
     "mergePending": "This idea is awaiting approval. Approve or reject it first.",
@@ -1734,7 +1796,8 @@
     "proofUrl": "The link must be a full address starting with https://.",
     "assignTeamOnly": "Only the team can assign items.",
     "assignNotTeam": "Only a team member of this board can be assigned.",
-    "assignClosed": "A deleted or merged item can no longer be assigned."
+    "assignClosed": "A deleted or merged item can no longer be assigned.",
+    "notMerged": "#{n} is not merged."
   },
   "email": {
     "footer": "You’re getting this from {project} because you follow this item.",
@@ -1759,7 +1822,8 @@
     "ideaHeading": "An idea you follow is now: {label}",
     "ideaWhy": "You’re getting this because you posted or commented on the idea.",
     "viewIdea": "View idea",
-    "someone": "Someone",
+    "teamMember": "Team member",
+    "user": "User",
     "internalNote": "Internal note",
     "newComment": "New comment",
     "newInternalNote": "New internal note",
@@ -1791,6 +1855,8 @@
     "openReports": "Open reports",
     "digestSubject": "{project}: {n, plural, one {# update} other {# updates}} on your feedback",
     "digestHeading": "What changed",
+    "teamSummarySubject": "{project}: {n, plural, one {# update} other {# updates}} for the team",
+    "teamSummaryHeading": "What's new on the board",
     "openFeedback": "Open feedback",
     "loginSubject": "{code} — sign in to {brand}",
     "loginHeading": "Sign in to {brand}",
@@ -1821,6 +1887,11 @@
     "rejectedBody": "The team reviewed your idea “{title}” and decided not to publish it. If you have a question, write to the team.",
     "rejectedBodyReason": "The team reviewed your idea “{title}” and decided not to publish it. They added a message:",
     "rejectedCta": "Open the idea",
+    "mergedSubject": "We're tracking this under #{n}: {title}",
+    "mergedSummary": "We merged the idea “{title}” with the same idea, #{n}.",
+    "mergedHeading": "We're tracking this under #{n}",
+    "mergedBody": "The idea “{title}” is already on the board as #{n} “{target}”, so we merged them. The votes moved there.",
+    "mergedNext": "We'll let you know when anything changes there.",
     "teamDigestUnanswered": "{n, plural, one {Unanswered: # report has waited for the team more than {days} days.} other {Unanswered: # reports have waited for the team more than {days} days.}}",
     "teamDigestWaiting": "{n, plural, one {# day} other {# days}}",
     "openUnanswered": "Open Unanswered",
@@ -1869,7 +1940,14 @@
     "assignedBody": "{who} assigned {ref} to you.",
     "assignedManySubject": "Assigned to you: {n, plural, one {# item} other {# items}}",
     "assignedManyBody": "{who} assigned these items to you:",
-    "openMine": "Open mine"
+    "openMine": "Open mine",
+    "translatedLabel": "Translated with AI (model {model}); it may contain inaccuracies.",
+    "originalHeading": "Original text",
+    "bugMergedSubject": "We are handling it together: #{n} {title}",
+    "bugMergedSummary": "Your report “{title}” is being handled together with the same problem reported by others.",
+    "bugMergedHeading": "Handled together with others",
+    "bugMergedBody": "Others reported the same problem, so we are handling your report “{title}” together with theirs. You don’t need to do anything else.",
+    "bugMergedNext": "Once it’s fixed, we’ll let you know and ask whether it works for you."
   },
   "errors": {
     "signIn": "Please sign in to do this.",
@@ -1921,7 +1999,8 @@
       "placeholderBug": "E.g. The VAT number disappears after saving a client",
       "placeholderIdea": "E.g. Export to CSV",
       "similarLabel": "Similar ideas",
-      "similar": "Something similar already exists. If it’s the same, just vote for it.",
+      "similar": "Something similar already exists. If it’s the one, add your vote — you can add your text as a comment.",
+      "similarAi": "An AI model picked these by meaning.",
       "bodyBug": "What did you do and what did you expect?",
       "bodyIdea": "Why do you need it?",
       "bodyPlaceholderBug": "1. Opened a client\n2. Filled in the VAT number and clicked Save\n3. After reopening, the field is empty",
@@ -1939,7 +2018,24 @@
       "language": "Language",
       "sending": "Sending…",
       "submitBug": "Report bug",
-      "submitIdea": "Suggest idea"
+      "submitIdea": "Suggest idea",
+      "view": "View",
+      "newWindow": "opens in a new window",
+      "voted": "Your vote is on #{n}.",
+      "addAsComment": "Add my text as a comment on #{n}",
+      "addingComment": "Adding…",
+      "commentAdded": "Your text is on #{n} as a comment. We’ll let you know when it moves.",
+      "commentQueued": "Your text on #{n} is waiting for the team’s approval.",
+      "openIdea": "Open #{n}",
+      "writeFirst": "Write what would help you first.",
+      "strongTitle": "Is it #{n}?",
+      "strongText": "This idea already exists. Adding your vote and description there shows the team that more people want it.",
+      "strongAttach": "Add my vote and description to #{n}",
+      "attaching": "Adding…",
+      "strongNew": "It’s something else, create a new idea",
+      "strongReason": "How is it different?",
+      "guestSubmit": "Sign in to suggest",
+      "guestNote": "We keep your draft in this window. After signing in you come back here and send it."
     },
     "files": {
       "unsupported": "We don’t support “{name}”. Attach an image, PDF or text log.",
@@ -1989,7 +2085,13 @@
       "title": "We fixed this.",
       "text": "Is it working for you now? One click closes the report or sends it back to the team.",
       "works": "Yes, it works",
-      "broken": "Still broken"
+      "broken": "Still broken",
+      "whatLabel": "What exactly still doesn't work? (optional)",
+      "whatPlaceholder": "For example: clicking Save still does nothing.",
+      "sendBack": "Send back to the team",
+      "cancel": "Back",
+      "reopened": "We sent the report back to the team. We'll let you know once it's fixed.",
+      "verified": "Thank you, the report is closed."
     },
     "gallery": {
       "label": "Attachments",
@@ -2036,7 +2138,14 @@
       "mergeHere": "Merge #{n} here",
       "mergeHereTitle": "Merge #{n} here?",
       "mergeHereIdea": "The votes of #{n} move here and #{n} closes as a duplicate of this idea.",
-      "mergeHereBug": "#{n} closes as a duplicate of this report. Its reporter hears about the fix together with this one."
+      "mergeHereBug": "#{n} closes as a duplicate of this report. Its reporter hears about the fix together with this one.",
+      "unmerge": "Split",
+      "unmergeHint": "Merged by mistake? Split it from #{into}.",
+      "unmergeTitle": "Split #{n} from #{into}?",
+      "unmergeIdea": "#{n} becomes a separate idea again, Suggested. Votes that moved to #{into} with the merge stay on #{into}.",
+      "unmergeBug": "#{n} becomes a separate report again, Received.",
+      "unmerging": "Splitting…",
+      "unmergeConfirm": "Split #{n}"
     },
     "changelog": {
       "votes": "{count, plural, one {# vote} other {# votes}}",
@@ -2053,10 +2162,10 @@
       "body": "Text",
       "bodyHint": "What’s new and why it helps. Write for the people who asked for it.",
       "publishNoItems": "Publishing adds the update to the changelog. With no ideas selected, nobody gets an e-mail.",
-      "publishOne": "Publishing marks the selected idea as shipped, and everyone who voted for it gets one e-mail with this text",
-      "publishMany": "Publishing marks {n} selected ideas as shipped, and everyone who voted for them gets one e-mail with this text",
-      "total": "({votes} in total)",
-      "publishNotify": "Publish and notify voters",
+      "publishOne": "Publishing marks the selected idea as shipped.",
+      "publishMany": "Publishing marks {n} selected ideas as shipped.",
+      "recipients": "{n, plural, =0 {Nobody gets an e-mail.} one {We'll send # e-mail: to voters, authors and commenters.} other {We'll send # e-mails: to voters, authors and commenters.}}",
+      "publishNotify": "Publish and send e-mails",
       "publish": "Publish update",
       "saveChanges": "Save changes",
       "saveDraft": "Save draft",
@@ -2669,17 +2778,17 @@
       },
       "devItems": [
         {
-          "href": "#developers",
+          "href": "/docs/widget",
           "title": "Widget",
           "text": "One script, shadow DOM, under 20 kB"
         },
         {
-          "href": "#developers",
+          "href": "/docs/widget#sign-in",
           "title": "Sign-in",
           "text": "Signed token, OIDC or e-mail code"
         },
         {
-          "href": "#developers",
+          "href": "/docs/mcp",
           "title": "MCP server",
           "text": "Claude Code, Cursor, VS Code"
         },
@@ -3356,7 +3465,8 @@
     },
     "offRoute": "off the route",
     "stopOf": "stop {n} of {of}",
-    "now": "now"
+    "now": "now",
+    "merged": "Merged"
   },
   "widget": {
     "noProject": "This project doesn’t exist.",
@@ -3448,6 +3558,7 @@
     "home": "Ozvi home",
     "widget": "Widget",
     "api": "REST API",
+    "mcp": "MCP server",
     "webhooks": "Webhooks",
     "automation": "Automation",
     "toc": "On this page",
@@ -3647,7 +3758,8 @@
       "queued": "Waiting to start…",
       "fetch": "{n, plural, one {Downloading from Canny: # record} other {Downloading from Canny: # records}}",
       "write": "Saving {done} of {total}",
-      "fetchFider": "{n, plural, one {Downloading from Fider: # record} other {Downloading from Fider: # records}}"
+      "fetchFider": "{n, plural, one {Downloading from Fider: # record} other {Downloading from Fider: # records}}",
+      "slow": "This is taking longer than usual. You can cancel the import and start it again; nothing is duplicated."
     },
     "summary": "{items, plural, one {# post} other {# posts}}, {votes, plural, one {# vote} other {# votes}}, {comments, plural, one {# comment} other {# comments}}, {users, plural, one {# new person} other {# new people}}",
     "runErrors": {
@@ -3660,7 +3772,8 @@
       "fiderNetwork": "Fider isn't reachable. Try again in a moment.",
       "fiderApi": "Fider returned an error. You can undo what was saved or start the import again.",
       "fiderBackup": "We couldn't read the backup.",
-      "fiderUrl": "Fider redirected to another address."
+      "fiderUrl": "Fider redirected to another address.",
+      "cancelled": "Cancelled. Start the import again whenever you like."
     },
     "undo": "Undo",
     "undoTitle": "Undo this import?",
@@ -3691,7 +3804,8 @@
       "backupTooBig": "The backup is larger than 25 MB. Use the API import or the command on the server.",
       "fiderEmpty": "There are no posts in Fider.",
       "fiderExpired": "The loaded data has expired. Load Fider again."
-    }
+    },
+    "cancel": "Cancel"
   },
   "a11y": {
     "skip": "Skip to content",
@@ -3725,7 +3839,8 @@
       "enforcementTitle": "If you're not satisfied with our reply",
       "enforcement": "You can turn to the market surveillance authority in your country that oversees the accessibility of products and services (in Slovakia under Act No. 351/2022 Coll., in Czechia under Act No. 424/2023 Coll.).",
       "updated": "We prepared this statement on {date} and update it with every major change."
-    }
+    },
+    "close": "Close"
   },
   "tags": {
     "title": "Tags",
@@ -3763,7 +3878,12 @@
       "rate": "Too many translations this hour. Try again later.",
       "cap": "This month's AI translations are used up. The original stays; new translations come back on the 1st of next month.",
       "tooLong": "This post is too long to translate."
-    }
+    },
+    "titlesWorking": "Translating titles…",
+    "titlesLabel": "Titles translated with AI",
+    "titlesOriginal": "Titles in the original",
+    "showOriginals": "show originals",
+    "showTranslations": "show translations"
   },
   "subprocessors": {
     "meta": "Sub-processors – Ozvi",
@@ -3971,7 +4091,8 @@
       "type": {
         "local": "localStorage",
         "cookie": "Cookie",
-        "cookieHttpOnly": "Cookie (HttpOnly)"
+        "cookieHttpOnly": "Cookie (HttpOnly)",
+        "session": "sessionStorage"
       },
       "purpose": {
         "seen": "Remembers the newest update you have seen, for the “What’s new” badge. Never leaves your browser.",
@@ -3979,11 +4100,14 @@
         "oidc": "Protects sign-in through {issuer} against forgery.",
         "locale": "Remembers the language you chose.",
         "csv": "Remembers the separator for CSV exports.",
-        "widgetLogin": "Remembers that you verified your e-mail in the widget, so you don't need a code for every report."
+        "widgetLogin": "Remembers that you verified your e-mail in the widget, so you don't need a code for every report.",
+        "dense": "Remembers whether the team wants dense rows in lists.",
+        "draft": "Keeps an idea or report you are writing until you send it, so it isn't lost when you open a similar idea or sign in."
       },
       "untilCleared": "Until you clear browser data",
       "widgetNote": "The widget itself sets no cookies: it signs you in with a short-lived token from our app.",
-      "widgetNoteEmail": "The widget itself sets no cookies. When you verify your e-mail in it, it remembers that in your browser (the entry above)."
+      "widgetNoteEmail": "The widget itself sets no cookies. When you verify your e-mail in it, it remembers that in your browser (the entry above).",
+      "untilTabClosed": "Until you close the window or tab"
     },
     "units": {
       "years": "{n, plural, one {# year} other {# years}}",

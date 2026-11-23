@@ -1,4 +1,5 @@
 import { expect, test, type Browser, type Page } from "@playwright/test";
+import { userByEmail } from "../lib/board";
 import { consoleLogin, createProject, workspaceId } from "../lib/console";
 import { email, uniq } from "../lib/env";
 import { codeIn, lastMail, linkIn } from "../lib/mail";
@@ -283,6 +284,15 @@ test.describe("console overview and plan limits", () => {
     await expect(page.getByText(`e2e.localhost:3410/${slug}`).first()).toBeVisible();
     const p = await db.query.projects.findFirst({ where: eq(schema.projects.slug, slug) });
     expect(p?.workspaceId).not.toBe(ws);
+
+    // Back to the console (logo, "Konzola" on the site, a board's "Moje projekty"): the workspace open last time,
+    // not always the first one.
+    await page.goto(`/app/w/${ws}`);
+    await page.goto("/app");
+    await expect(page).toHaveURL(new RegExp(`/app/w/${ws}`));
+    await page.goto(`/app/w/${p!.workspaceId}`);
+    await page.goto("/app");
+    await expect(page).toHaveURL(new RegExp(`/app/w/${p!.workspaceId}`));
   });
 });
 
@@ -345,7 +355,10 @@ test.describe("workspace settings", () => {
 
 test.describe("account", () => {
   test("rename the account", async ({ page }) => {
-    const { ws, who } = await freeWorkspace(page);
+    const { ws, who, slug } = await freeWorkspace(page);
+    // On the board already (a team account without a name) before the rename.
+    await page.goto(`/app/open/${slug}`);
+    await page.waitForURL(new RegExp(`/${slug}(/|$)`));
     await page.goto(`/app/w/${ws}`);
     await expect(page.getByText("Doplňte svoje meno.")).toBeVisible();
     await page.goto("/app/account");
@@ -358,6 +371,8 @@ test.describe("account", () => {
     await page.getByRole("button", { name: "Uložiť meno" }).click();
     await expect(page.getByText("Meno je uložené.")).toBeVisible();
     expect((await accountByEmail(who))?.name).toBe("Jana Testová");
+    // The board shows it too, without opening the board from the console again.
+    expect((await userByEmail(slug, who))?.name).toBe("Jana Testová");
     await page.goto(`/app/w/${ws}`);
     await expect(page.getByText("Doplňte svoje meno.")).toHaveCount(0);
     // The rename is in the activity of the account's workspaces.

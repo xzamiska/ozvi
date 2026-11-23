@@ -3,6 +3,8 @@ import { devices, expect, test } from "@playwright/test";
 import { act, addComment, addCommentOn, boardUser, createItem, itemRow, moveTo, ownerBoard, ownIp, projectRow, setProject, userByEmail } from "../lib/board";
 import { E2E, email, uniq } from "../lib/env";
 import { codeIn, lastMail, linkIn, mailCount } from "../lib/mail";
+import { db, schema } from "../lib/db";
+import { and, eq } from "drizzle-orm";
 
 test.describe("public board", () => {
   test("ideas: create, list, search, sort and filter, vote and unvote, comment, detail page", async ({ page, browser }) => {
@@ -310,6 +312,27 @@ test.describe("public board", () => {
     await ann.ctx.close();
   });
 
+  test("team e-mails as a summary: a team member picks the daily summary; a new bug then waits for it instead of arriving now", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    await page.goto(`/${b.slug}/me#emaily-timu`);
+    await expect(page.getByRole("radio", { name: /Hneď/ })).toBeChecked();
+    await page.getByRole("radio", { name: /Súhrn raz denne ráno/ }).click();
+    await page.getByRole("button", { name: "Uložiť" }).click();
+    await expect(page.getByText("Uložené")).toBeVisible();
+    await page.reload();
+    await expect(page.getByRole("radio", { name: /Súhrn raz denne ráno/ })).toBeChecked();
+    await expect(page.getByRole("checkbox", { name: /Nové hlásenie chyby/ })).toBeChecked();
+
+    const ann = await boardUser(browser, b, "anna");
+    const before = await mailCount(b.owner);
+    await createItem(ann.page, b.slug, "bug", uniq("Chyba do súhrnu"));
+    await page.waitForTimeout(1500);
+    expect(await mailCount(b.owner)).toBe(before);
+    await page.goto(`/${b.slug}/admin#limits`);
+    await expect(page.locator("dl > div").filter({ hasText: "Čaká na súhrn" }).locator("dd")).toHaveText("1");
+    await ann.ctx.close();
+  });
+
   test("assignee: the team gives a bug to a colleague, who gets an e-mail and finds it under “Rieši: Ja”; customers never see it", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const boris = await boardUser(browser, b, "boris", { role: "team" });
@@ -382,6 +405,56 @@ test.describe("public board", () => {
     await ann.ctx.close();
   });
 
+  test("@mobile the team on a phone: the tab row shows there is more and keeps the current tab in view; the bulk bar stays compact", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    const n1 = await createItem(ann.page, b.slug, "bug", uniq("Mobil A"));
+    await createItem(ann.page, b.slug, "bug", uniq("Mobil B"));
+    await ann.ctx.close();
+    await page.setViewportSize({ width: 390, height: 844 }); // also on the desktop projects
+    await page.goto(`/${b.slug}/ideas`);
+    const nav = page.getByRole("navigation", { name: "Board" });
+    await expect(nav).toHaveAttribute("data-more", "true");
+    await page.goto(`/${b.slug}/unanswered`);
+    await expect(nav.getByRole("link", { name: /Bez odpovede/ })).toBeInViewport({ ratio: 1 });
+    await page.goto(`/${b.slug}/bugs?s=all`);
+    await page.getByRole("checkbox", { name: `Vybrať #${n1}` }).check();
+    const bar = page.locator("form#bulk");
+    await expect(bar).toBeVisible();
+    const box = (await bar.boundingBox())!;
+    expect(box.height).toBeLessThan(page.viewportSize()!.height * 0.25); // it took about a third before
+    await expect(bar.getByRole("button", { name: "Zmeniť vybrané" })).toBeInViewport({ ratio: 1 });
+    await expect(bar.getByRole("combobox", { name: "Rieši" })).toBeInViewport({ ratio: 1 });
+  });
+
+  test("team lists: select all on the page, then none; dense rows hide excerpts and stay on after a reload", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    for (const x of ["Výber A", "Výber B", "Výber C"]) await createItem(ann.page, b.slug, "bug", uniq(x), "Popis, ktorý husté riadky skryjú.");
+    await ann.ctx.close();
+    await page.goto(`/${b.slug}/bugs?s=all`);
+    const all = page.getByRole("checkbox", { name: /^Vybrať všetky na stránke/ });
+    await all.check();
+    const bar = page.locator("form#bulk");
+    await expect(bar.getByRole("status")).toHaveText("3 vybrané");
+    await page.getByRole("checkbox", { name: /^Vybrať #/ }).first().uncheck();
+    await expect(bar.getByRole("status")).toHaveText("2 vybrané");
+    expect(await all.evaluate((x: HTMLInputElement) => x.indeterminate)).toBe(true);
+    await all.check();
+    await all.uncheck();
+    await expect(bar).toBeHidden();
+
+    const excerpt = page.getByText("Popis, ktorý husté riadky skryjú.").first();
+    await expect(excerpt).toBeVisible();
+    await page.getByRole("button", { name: "Husté riadky" }).click();
+    await expect(page.getByRole("button", { name: "Husté riadky" })).toHaveAttribute("aria-pressed", "true");
+    await expect(excerpt).toBeHidden();
+    await page.reload();
+    await expect(page.getByText("Popis, ktorý husté riadky skryjú.").first()).toBeHidden();
+    await page.getByRole("button", { name: "Husté riadky" }).click();
+    await expect(page.getByText("Popis, ktorý husté riadky skryjú.").first()).toBeVisible();
+  });
+
   test("bulk: the team ticks several bugs and moves them and assigns them at once; e-mails only when asked", async ({ page, browser }) => {
     const b = await ownerBoard(page);
     const ann = await boardUser(browser, b, "anna");
@@ -398,14 +471,22 @@ test.describe("public board", () => {
     await expect(bar.getByRole("status")).toHaveText("2 vybrané");
     await bar.getByRole("combobox", { name: "Stav" }).selectOption("confirmed");
     await bar.getByRole("combobox", { name: "Rieši" }).selectOption({ index: 2 });
-    await bar.getByRole("button", { name: "Použiť" }).click();
+    await bar.getByRole("button", { name: "Zmeniť vybrané" }).click();
     await expect(page.getByText("Zmenené 2 záznamy")).toBeVisible();
     await expect(bar).toBeHidden();
+    // The header box follows the cleared rows (it used to stay ticked).
+    await expect(page.getByRole("checkbox", { name: /^Vybrať všetky/ })).not.toBeChecked();
 
     expect((await itemRow(b.slug, n1))!.status).toBe("confirmed");
     expect((await itemRow(b.slug, n2))!.status).toBe("confirmed");
     expect((await itemRow(b.slug, n3))!.status).toBe("new");
     expect((await itemRow(b.slug, n1))!.assigneeId).not.toBeNull();
+    // The lead can audit it: one Activity row for the whole batch.
+    const p = await projectRow(b.slug);
+    const log = await db.select().from(schema.activity).where(and(eq(schema.activity.projectId, p.id), eq(schema.activity.action, "triage.bulk")));
+    expect(log).toHaveLength(1);
+    expect(log[0]!.detail).toMatch(/→ Potvrdené · Rieši: /);
+    expect(log[0]!.detail!.split(" ").filter((w) => w.startsWith("#")).sort()).toEqual([`#${n1}`, `#${n2}`].sort());
     // "Send status e-mails" was left off: the reporter got nothing.
     await page.waitForTimeout(1500);
     expect(await mailCount(ann.email)).toBe(before);
@@ -415,7 +496,7 @@ test.describe("public board", () => {
     await page.getByRole("checkbox", { name: `Vybrať #${n3}` }).check();
     await bar.getByRole("combobox", { name: "Stav" }).selectOption("in_progress");
     await bar.getByLabel("Poslať e-maily o zmene stavu").check();
-    await bar.getByRole("button", { name: "Použiť" }).click();
+    await bar.getByRole("button", { name: "Zmeniť vybrané" }).click();
     await lastMail(ann.email, { subject: new RegExp(`^Rozpracované: ${t3}`) });
     // Customers get no checkboxes.
     await ann.page.goto(`/${b.slug}/bugs`);
@@ -470,7 +551,7 @@ test.describe("public board", () => {
     await expect(page.getByRole("checkbox", { name: new RegExp(idea) })).toBeChecked();
     await page.getByLabel("Nadpis").fill(entry);
     await page.getByLabel("Text", { exact: true }).fill("Faktúry si teraz stiahnete aj ako **PDF**.");
-    await page.getByRole("button", { name: "Zverejniť a upozorniť hlasujúcich" }).click();
+    await page.getByRole("button", { name: "Zverejniť a poslať e-maily" }).click();
     await page.waitForURL(new RegExp(`/${b.slug}/changelog\\?published=`));
     await expect(page.getByText("Zverejnené.")).toBeVisible();
     await expect(page.getByRole("heading", { level: 2, name: entry })).toBeVisible();
@@ -564,10 +645,13 @@ test.describe("public board", () => {
     await ann.page.goto(linkIn(fixed.text, new RegExp(`/${b.slug}/i/${n}`))!);
     const confirm = ann.page.getByRole("region", { name: "Overenie opravy" });
     await expect(confirm).toContainText("Opravili sme to vo verzii 2.1.0.");
-    await act(ann.page, () => confirm.getByRole("button", { name: "Stále nefunguje" }).click());
+    await confirm.getByRole("button", { name: "Stále nefunguje" }).click();
+    await confirm.getByLabel("Čo presne stále nefunguje? (nepovinné)").fill("Export stále padá.");
+    await act(ann.page, () => confirm.getByRole("button", { name: "Vrátiť tímu" }).click());
     await ann.page.reload();
     await expect(ann.page.getByRole("region", { name: "Overenie opravy" })).toHaveCount(0);
     await expect(ann.page.getByText("Vo verzii 2.1.0 to stále nefunguje.")).toBeVisible();
+    await expect(ann.page.getByText("Export stále padá.")).toBeVisible();
     expect((await itemRow(b.slug, n))!.status).toBe("confirmed");
     // Ben still cannot see the thread.
     expect(await (await ben.page.request.get(`/${b.slug}/i/${n}`)).text()).not.toContain("Vo verzii 2.1.0 to");
@@ -711,6 +795,8 @@ test.describe("public board", () => {
     await expect(page.getByText("Zlúčené sem:")).toBeVisible();
     await expect(page.getByRole("link", { name: `#${n2}`, exact: true })).toBeVisible();
     expect((await itemRow(b.slug, n1))!.voteCount).toBe(2);
+    const merges = await db.select().from(schema.activity).where(and(eq(schema.activity.projectId, (await projectRow(b.slug)).id), eq(schema.activity.action, "triage.merged")));
+    expect(merges.map((r) => r.detail)).toEqual([`#${n2} → #${n1}`]);
 
     // The duplicate is nobody's work any more: no assignee control there.
     await page.goto(`/${b.slug}/i/${n2}`);
@@ -718,8 +804,15 @@ test.describe("public board", () => {
     await carl.page.goto(`/${b.slug}/i/${n1}`);
     await expect(carl.page.getByRole("button", { name: /^Zrušiť hlas, 2 hlasy/ })).toBeVisible();
     await ben.page.goto(`/${b.slug}/i/${n2}`);
-    await expect(ben.page.getByRole("note")).toContainText(`Toto je duplicita. Pokračuje v #${n1} ${orig}, hlasy sa presunuli tam.`);
-    await ben.page.getByRole("note").getByRole("link").click();
+    await expect(ben.page.getByRole("note").first()).toContainText(`Toto je duplicita. Pokračuje v #${n1} ${orig}, hlasy sa presunuli tam.`);
+    // The author reads "Merged into #n", not "Declined", and no team-reply stop from an auto-comment.
+    await expect(ben.page.getByText("Zlúčené", { exact: true })).toBeVisible();
+    await expect(ben.page.getByRole("link", { name: `Zlúčené do #${n1}` }).first()).toBeVisible();
+    await expect(ben.page.getByText("Zamietnuté")).toHaveCount(0);
+    await expect(ben.page.getByText("Odpoveď tímu")).toHaveCount(0);
+    // The vote box is gone; voting and the discussion continue at the original.
+    await expect(ben.page.getByRole("note").nth(1)).toContainText(`Hlasovanie a diskusia pokračujú pri #${n1}.`);
+    await ben.page.getByRole("note").first().getByRole("link").click();
     await expect(ben.page).toHaveURL(new RegExp(`/${b.slug}/i/${n1}$`));
     await ben.page.goto(`/${b.slug}/ideas?f=all`);
     await expect(ben.page.getByRole("link", { name: dup })).toHaveCount(0);
@@ -938,7 +1031,8 @@ test.describe("public board", () => {
     const mail = await lastMail(who, { subject: /prihlásenie do/ });
     expect(mail.Subject).toContain(b.name);
     await g.getByLabel("Kód z e-mailu").fill(codeIn(mail.text)!);
-    await g.waitForURL(new RegExp(`/${b.slug}/ideas$`));
+    // Back on the form the visitor came to sign in for, not the list.
+    await g.waitForURL(new RegExp(`/${b.slug}/new\\?kind=idea$`));
     await expect(g.getByRole("button", { name: "Účet" })).toBeVisible();
     const n = await createItem(g, b.slug, "idea", uniq("Nápad cez e-mail"));
     expect(n).toBeGreaterThan(0);

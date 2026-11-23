@@ -16,7 +16,7 @@ const WEIGHTS = [1, 2, 3] as const;
  * With a vote budget the picker (or, in simple mode, a refused click) says how many votes are left.
  * The count is the weighted sum; the plain number of people is in the label and tooltip.
  */
-export function VoteButton({ slug, itemId, count, voters, voted, weight, login, size = "md", mode = "simple", left = null }: {
+export function VoteButton({ slug, itemId, count, voters, voted, weight, login, size = "md", mode = "simple", left = null, onVoted }: {
   slug: string; itemId: string; count: number; voted: boolean;
   /** Plain number of people who voted (count is the weighted sum). */
   voters?: number;
@@ -28,6 +28,8 @@ export function VoteButton({ slug, itemId, count, voters, voted, weight, login, 
   mode?: VoteMode;
   /** Remaining vote points for the viewer; null = no budget. */
   left?: number | null;
+  /** After the server took the vote (weight 0 = removed). */
+  onVoted?: (weight: number) => void;
 }) {
   const mine = weight ?? (voted ? 1 : 0);
   const [state, setState] = useOptimistic({ count, weight: mine, voters: voters ?? null });
@@ -52,7 +54,10 @@ export function VoteButton({ slug, itemId, count, voters, voted, weight, login, 
   const tip = importance && people !== null ? t("weighted", { points: state.count, people }) : t("count", { count: state.count });
   const inner = (
     <>
-      <ChevronUp className={size === "lg" ? "size-5" : "size-4"} strokeWidth={2.5} />
+      {/* Voted shows a check instead of the arrow (a shape, not just the accent colour); importance has its ticks. */}
+      {isVoted && !importance
+        ? <Check aria-hidden data-voted className={size === "lg" ? "size-5" : "size-4"} strokeWidth={3} />
+        : <ChevronUp aria-hidden className={size === "lg" ? "size-5" : "size-4"} strokeWidth={2.5} />}
       <span data-num>{state.count}</span>
       {importance && isVoted && (
         // How important it is to me: 1–3 filled ticks (shape, not just colour).
@@ -87,7 +92,7 @@ export function VoteButton({ slug, itemId, count, voters, voted, weight, login, 
       setState({ count: Math.max(0, state.count - prev + w), weight: w,
         voters: state.voters === null ? null : state.voters + (prev === 0 && w > 0 ? 1 : prev > 0 && w === 0 ? -1 : 0) });
       const r = await castVote(slug, itemId, w);
-      if (r.error) { setError(r.error); setOpen(true); } else if (importance) setOpen(false);
+      if (r.error) { setError(r.error); setOpen(true); } else { if (importance) setOpen(false); onVoted?.(w); }
     });
   }
 

@@ -1,14 +1,16 @@
 import { createDb, schema, withProject, withSystem } from "@ozvi/db";
 import { presets } from "@ozvi/theme";
-import { and, eq, sql } from "drizzle-orm";
+import { and, eq, inArray, sql } from "drizzle-orm";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 process.env.OZVI_SESSION_SECRET ??= "test-session-secret-0123456789abcdef";
 process.env.OZVI_SECRET_KEY ??= "test-secret-key-0123456789abcdef-xyz";
 process.env.DATABASE_URL ??= "postgres://ozvi:ozvi@localhost:5446/ozvi";
 
-const { addCommentTo, changeStatus, mergeItems } = await import("./domain");
-const { notifyNewBug, notifyNewIdea } = await import("./email/notify");
+const { addCommentTo, changeStatus, isReopenedByReporter, mergeItems, reporterVerdict } = await import("./domain");
+const { notifyChangelog, notifyNewBug, notifyNewIdea } = await import("./email/notify");
+const { applyVote } = await import("./votes");
+const { publishEntry, publishReach, saveEntry } = await import("./changelog");
 
 const db = createDb(process.env.DATABASE_URL);
 const up = await db.execute(sql`select 1`).then(() => true, () => false);
@@ -74,6 +76,25 @@ describe.skipIf(!up)("notifications follow the item", () => {
     expect(await sent("comment")).toEqual(["team", "team2"]);
   });
 
+  it("a nameless author is named like on the board: team member or user, never \"someone\"", async () => {
+    const [anonTeam, anonMember] = await withSystem(db, (tx) => tx.insert(schema.users).values([
+      { projectId: project.id, externalId: "anon-team", name: null, email: "anon-team@x.sk", role: "team" as const },
+      { projectId: project.id, externalId: "anon-member", name: null, email: "anon-member@x.sk", role: "member" as const },
+    ]).returning()) as [User, User];
+    const text = async () => withProject(db, project.id, async (tx) => {
+      const rows = await tx.select({ to: schema.emails.to, text: schema.emails.text }).from(schema.emails).where(eq(schema.emails.projectId, project.id));
+      await tx.delete(schema.emails).where(eq(schema.emails.projectId, project.id));
+      return rows;
+    });
+    await withProject(db, project.id, (tx) => addCommentTo(tx, project, anonTeam, bug, "Pozreli sme sa na to.", false));
+    const toAuthor = (await text()).find((r) => r.to === "author@x.sk")!;
+    expect(toAuthor.text).toContain("Člen tímu pri hlásení #2");
+    expect(toAuthor.text).not.toContain("Niekto");
+    await withProject(db, project.id, (tx) => addCommentTo(tx, project, anonMember, idea, "Aj mne by to pomohlo.", false));
+    expect((await text()).find((r) => r.to === "team@x.sk")!.text).toContain("Používateľ pri nápade");
+    await withSystem(db, (tx) => tx.delete(schema.users).where(inArray(schema.users.id, [anonTeam.id, anonMember.id])));
+  });
+
   it("internal notes go to the team only", async () => {
     await withProject(db, project.id, (tx) => addCommentTo(tx, project, u.team, bug, "Asi font", true));
     expect(await sent("comment_internal")).toEqual(["team2"]);
@@ -95,6 +116,25 @@ describe.skipIf(!up)("notifications follow the item", () => {
     await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: {} }).where(eq(schema.users.id, u.team2.id)));
   });
 
+  it("a team member who wants summaries: team mail waits for the summary, customers' mail does not", async () => {
+    await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: { pace: "hourly" } }).where(eq(schema.users.id, u.team2.id)));
+    // Even a customer asking for it (stale data) never gets their mail held.
+    await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: { pace: "daily" } }).where(eq(schema.users.id, u.author.id)));
+    const before = Date.now();
+    await withProject(db, project.id, (tx) => notifyNewBug(tx, project, bug));
+    await withProject(db, project.id, (tx) => addCommentTo(tx, project, u.stranger, idea, "Ešte jedna vec.", false));
+    const rows = await withProject(db, project.id, (tx) => tx.select({ to: schema.emails.to, kind: schema.emails.kind, status: schema.emails.status, at: schema.emails.sendAfter })
+      .from(schema.emails).where(eq(schema.emails.projectId, project.id)));
+    const of = (who: string, kind: string) => rows.find((r) => r.to === `${who}@x.sk` && r.kind === kind)!;
+    expect(of("team2", "new_bug").status).toBe("deferred");
+    expect(of("team2", "new_bug").at.getTime() - before).toBeGreaterThanOrEqual(3600_000 - 1000);
+    expect(of("team2", "comment").status).toBe("deferred");
+    expect(of("team", "new_bug").status).toBe("queued");
+    expect(of("author", "comment").status).toBe("queued");
+    await sent("new_bug");
+    await withProject(db, project.id, (tx) => tx.update(schema.users).set({ teamMail: {} }).where(inArray(schema.users.id, [u.team2.id, u.author.id])));
+  });
+
   it("merging: earlier duplicates follow to the original; a merge into a fixed bug tells the reporter at once", async () => {
     const [x, y, o] = await withSystem(db, (t) => t.insert(schema.items).values([
       { projectId: project.id, kind: "bug", number: 10, title: "Chyba X", status: "new", authorId: u.stranger.id },
@@ -102,10 +142,18 @@ describe.skipIf(!up)("notifications follow the item", () => {
       { projectId: project.id, kind: "bug", number: 12, title: "Chyba O", status: "fixed", fixedInVersion: "2.0", authorId: u.author.id },
     ]).returning()) as [Item, Item, Item];
     await withProject(db, project.id, (t) => mergeItems(t, project, u.team, x, y));
+    // X's reporter hears at once that it's handled together — about their own report, never the other one (private).
+    const joined = await withProject(db, project.id, (t) => t.select({ to: schema.emails.to, subject: schema.emails.subject, text: schema.emails.text }).from(schema.emails).where(eq(schema.emails.kind, "bug_status")));
+    expect(joined.map((m) => [m.to.split("@")[0], m.subject])).toEqual([["stranger", "Riešime to spolu: #10 Chyba X"]]);
+    expect(joined[0]!.text).not.toContain("Chyba Y");
+    expect(joined[0]!.text).not.toContain("#11");
     await sent("bug_status");
     await withProject(db, project.id, async (t) => mergeItems(t, project, u.team, (await t.query.items.findFirst({ where: eq(schema.items.id, y.id) }))!, o));
     const rows = await withProject(db, project.id, (t) => t.select({ n: schema.items.number, m: schema.items.mergedIntoId }).from(schema.items).where(sql`${schema.items.number} in (10, 11)`));
     expect(rows.every((r) => r.m === o.id)).toBe(true);
+    // No stored auto-comment (it was in one language and read as a team reply); the page says "Merged into".
+    const notes = await withProject(db, project.id, (t) => t.select({ id: schema.comments.id }).from(schema.comments).where(sql`${schema.comments.itemId} in (${x.id}, ${y.id})`));
+    expect(notes).toEqual([]);
     // Y's reporter hears about O's fix right away, about their own report.
     const mails = await withProject(db, project.id, (t) => t.select({ to: schema.emails.to, subject: schema.emails.subject }).from(schema.emails).where(eq(schema.emails.kind, "bug_status")));
     expect(mails.map((m) => [m.to.split("@")[0], m.subject])).toEqual([["talker", "Opravené: #11 Chyba Y"]]);
@@ -122,5 +170,71 @@ describe.skipIf(!up)("notifications follow the item", () => {
     const moved = await withProject(db, project.id, (tx) => tx.query.items.findFirst({ where: eq(schema.items.id, bug.id) }));
     await withProject(db, project.id, (tx) => changeStatus(tx, project, u.team2, moved!, "confirmed", null, { notify: false }));
     expect(await sent("bug_status")).toEqual([]);
+  });
+
+  it("a merged idea's author and commenters hear once where it went, then follow the original", async () => {
+    const [dup, orig] = await withSystem(db, (t) => t.insert(schema.items).values([
+      { projectId: project.id, kind: "idea", number: 20, title: "Tmavý režim", status: "open", authorId: u.stranger.id },
+      { projectId: project.id, kind: "idea", number: 21, title: "Dark mode", status: "open", authorId: u.voter.id },
+    ]).returning()) as [Item, Item];
+    await withProject(db, project.id, (t) => addCommentTo(t, project, u.talker, dup, "Áno, prosím!", false));
+    await sent("comment");
+    await withProject(db, project.id, (t) => mergeItems(t, project, u.team, dup, orig));
+    const mails = await withProject(db, project.id, (t) => t.select({ to: schema.emails.to, subject: schema.emails.subject }).from(schema.emails)
+      .where(and(eq(schema.emails.projectId, project.id), eq(schema.emails.kind, "idea_status"))));
+    expect(mails.map((m) => m.to.split("@")[0]).sort()).toEqual(["stranger", "talker"]);
+    expect(mails[0]!.subject).toBe("Sledujeme to pod #21: Tmavý režim");
+    await sent("idea_status");
+    // The original's status changes and its changelog reach them too.
+    const fresh = (await withProject(db, project.id, (t) => t.query.items.findFirst({ where: eq(schema.items.id, orig.id) })))!;
+    await withProject(db, project.id, (t) => changeStatus(t, project, u.team, fresh, "planned"));
+    expect(await sent("idea_status")).toEqual(["stranger", "talker", "voter"]);
+    await withProject(db, project.id, (t) => notifyChangelog(t, project, { title: "Novinka", body: "", url: "https://x" }, [fresh], u.team.id));
+    expect(await sent("changelog")).toEqual(["stranger", "talker", "voter"]);
+    // The duplicate takes no more votes or comments: they belong to the original.
+    const merged = (await withProject(db, project.id, (t) => t.query.items.findFirst({ where: eq(schema.items.id, dup.id) })))!;
+    await expect(withProject(db, project.id, (t) => addCommentTo(t, project, u.author, merged, "Ešte ja", false))).rejects.toThrow("#21");
+    // The team may still leave itself a note there (internal only).
+    await expect(withProject(db, project.id, (t) => addCommentTo(t, project, u.team, merged, "Zlúčené kvôli rovnakému zadaniu.", false))).rejects.toThrow("#21");
+    const note = await withProject(db, project.id, (t) => addCommentTo(t, project, u.team, merged, "Zlúčené kvôli rovnakému zadaniu.", true));
+    expect(note.internal).toBe(true);
+    await sent("comment_internal");
+    expect(await withProject(db, project.id, (t) => applyVote(t, project, u.author.id, dup.id, 1))).toEqual({ ok: false, reason: "missing" });
+  });
+
+  it("\"still broken\" reopens the bug as the reporter's comment: the team hears about it, the route says reopened", async () => {
+    const [b] = await withSystem(db, (t) => t.insert(schema.items).values(
+      { projectId: project.id, kind: "bug", number: 40, title: "Uloženie padá", status: "fixed", fixedInVersion: "2.0", authorId: u.author.id }).returning()) as [Item];
+    // Only the reporter of a fixed bug may answer.
+    expect(await withProject(db, project.id, (t) => reporterVerdict(t, project, u.stranger, b, false, "x"))).toBeNull();
+    const moved = await withProject(db, project.id, (t) => reporterVerdict(t, project, u.author, b, false, "Vo verzii 2.0 to stále nefunguje.\n\nStále padá pri uložení."));
+    expect(moved!.status).toBe("confirmed");
+    const mails = await withProject(db, project.id, (t) => t.select({ to: schema.emails.to, text: schema.emails.text }).from(schema.emails)
+      .where(and(eq(schema.emails.projectId, project.id), eq(schema.emails.kind, "comment"))));
+    expect(mails.map((m) => m.to.split("@")[0]).sort()).toEqual(["team", "team2"]);
+    expect(mails[0]!.text).toContain("Stále padá pri uložení.");
+    await sent("comment");
+    const [ev] = await withProject(db, project.id, (t) => t.select({ from: schema.itemEvents.fromStatus, to: schema.itemEvents.toStatus, actorId: schema.itemEvents.actorId })
+      .from(schema.itemEvents).where(eq(schema.itemEvents.itemId, b.id)));
+    expect(isReopenedByReporter(ev!, b)).toBe(true);
+    expect(isReopenedByReporter({ ...ev!, actorId: u.team.id }, b)).toBe(false);
+  });
+
+  it("the changelog form counts exactly the e-mails publishing sends (voters, authors, commenters; not opted out, not the publisher)", async () => {
+    const [x] = await withSystem(db, (t) => t.insert(schema.items).values(
+      { projectId: project.id, kind: "idea", number: 30, title: "Export do CSV", status: "in_progress", authorId: u.author.id }).returning()) as [Item];
+    await withSystem(db, (t) => t.insert(schema.votes).values([u.voter, u.team, u.stranger].map((v) => ({ projectId: project.id, itemId: x.id, userId: v.id }))));
+    await withProject(db, project.id, (t) => addCommentTo(t, project, u.talker, x, "Aj do Excelu?", false));
+    await withSystem(db, (t) => t.update(schema.users).set({ emailOptOut: true }).where(eq(schema.users.id, u.stranger.id)));
+    await sent("comment");
+    const reach = await withProject(db, project.id, (t) => publishReach(t, [x], u.team.id, null));
+    expect(reach.get(x.id)!.length).toBe(3);
+    const r = await withProject(db, project.id, async (t) => {
+      const e = await saveEntry(t, project, u.team, { title: "Export", body: "CSV je tu.", itemIds: [x.id] });
+      return publishEntry(t, project, u.team, e.id);
+    });
+    expect(r.emailed).toBe(3);
+    expect(await sent("changelog")).toEqual(["author", "talker", "voter"]);
+    await withSystem(db, (t) => t.update(schema.users).set({ emailOptOut: false }).where(eq(schema.users.id, u.stranger.id)));
   });
 });

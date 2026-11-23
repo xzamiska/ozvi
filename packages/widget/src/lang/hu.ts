@@ -20,6 +20,7 @@ registerPack({
     origin: "Ez az oldal nem küldhet bejelentéseket. Szóljon az alkalmazás adminisztrátorának, hogy vegye fel az engedélyezett címek közé.",
   },
   ideas: {
+    trOn: "A címek AI-jal fordítva", trOff: "Címek eredetiben", trOrig: "eredetiek mutatása", trShow: "fordítások mutatása",
     search: "Ötletek keresése", searchPh: "Pl. CSV-export", none: "Nincs találat. Küldd be új ötletként.", empty: "Még nincsenek ötletek.",
     suggest: "Új ötlet beküldése", all: "Az összes ötlet a táblán", vote: "Szavazok", voted: "Szavaztál", votes: (n: number) => `${n} szavazat`,
     weight: (w: number) => `Fontosság: ${w}/3`, left: (l: number, t: number) => `Maradt: ${l}/${t} pont`,

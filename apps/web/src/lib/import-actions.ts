@@ -183,6 +183,18 @@ export async function cannyStart(slug: string, _: CannyState, form: FormData): P
 export interface UndoState { error?: string; ok?: string; report?: UndoReport }
 
 /** Deletes everything one finished (or failed) run created. */
+/** Cancels a run that is still waiting in the queue (one already running finishes or fails on its own). */
+export async function cancelQueuedRun(slug: string, runId: string): Promise<{ error?: string }> {
+  const { project, user, t } = await requireAdmin(slug);
+  const { importRuns } = schema;
+  const [run] = await withProject(db, project.id, (tx) => tx.update(importRuns).set({ status: "failed", error: "cancelled", finishedAt: new Date() })
+    .where(and(eq(importRuns.id, runId), eq(importRuns.status, "queued"))).returning({ label: importRuns.label }));
+  if (!run) return { error: t("errors.cannotUndo") };
+  await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "import.cancelled", detail: run.label });
+  revalidatePath(`/${slug}`, "layout");
+  return {};
+}
+
 export async function undoRun(slug: string, runId: string, _: UndoState, _form: FormData): Promise<UndoState> {
   try {
     const { project, user, t } = await requireAdmin(slug);

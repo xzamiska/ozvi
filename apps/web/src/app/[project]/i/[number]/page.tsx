@@ -1,6 +1,6 @@
 import { ITEM_STATUSES, schema, withProject } from "@ozvi/db";
 import { and, asc, eq, isNotNull, isNull, or, sql } from "drizzle-orm";
-import { Ban, Hourglass, Lock, MessagesSquare, Trash2 } from "lucide-react";
+import { Ban, Check, Hourglass, Lock, MessagesSquare, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Avatar } from "@/components/Avatar";
@@ -10,11 +10,13 @@ import { Gallery } from "@/components/Gallery";
 import { CaptureLinks, CaptureTimeline, TeamOnly } from "@/components/ozvi/BugCapture";
 import { NetworkLog } from "@/components/ozvi/NetworkLog";
 import { contextFor, timeline, type Capture } from "@/lib/bug-context";
+import { isReopenedByReporter } from "@/lib/domain";
 import { Journey, type JourneyEvent } from "@/components/ozvi/Journey";
 import { EmptyState, Page } from "@/components/ozvi/page";
 import { StatusTag } from "@/components/ozvi/route";
 import { VotersExport } from "@/components/ExportMenu";
-import { AiSummaryBox, AssigneeControl, GithubBox, MergeBox, RouteControl } from "@/components/ozvi/TeamTools";
+import { AiSummaryBox, AssigneeControl, GithubBox, MergeBox, RouteControl, UnmergeBox } from "@/components/ozvi/TeamTools";
+import { similarSeenOf, type SimilarSeen } from "@/lib/duplicates";
 import { assignableTeam } from "@/lib/assign";
 import { ProofBox } from "@/components/ozvi/ProofBox";
 import { listProofs, readProof, visibleProof } from "@/lib/proof";
@@ -44,7 +46,7 @@ import { budgetLeft, myVoteWeights, voteModeOf } from "@/lib/votes";
 import { ROUTE } from "@/lib/route";
 import { isSystemItem } from "@/lib/provenance";
 import { stopLabel } from "@/lib/route-text";
-import { embeddingsConfig, findSimilar } from "@/lib/similar";
+import { findSimilar } from "@/lib/similar";
 import { cn } from "@/lib/utils";
 import { Markdown } from "@/components/Markdown";
 import { projectOrigin } from "@/lib/email/url";
@@ -64,8 +66,9 @@ export async function generateMetadata({ params }: { params: Promise<{ number: s
   return { title: `#${(await params).number.replace(/\D/g, "")}` };
 }
 
-export default async function ItemPage({ params }: { params: Promise<{ project: string; number: string }> }) {
+export default async function ItemPage({ params, searchParams }: { params: Promise<{ project: string; number: string }>; searchParams: Promise<{ attached?: string }> }) {
   const { project: slug, number } = await params;
+  const { attached } = await searchParams;
   const n = Number(number);
   if (!Number.isInteger(n) || n < 1) notFound();
   const { project, user, isTeam, plan, locale } = await getCtx(slug);
@@ -114,7 +117,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
     // A deleted original is not linked any more (the duplicate stays closed).
     const mergedInto = item.mergedIntoId
       ? (await tx.query.items.findFirst({ where: and(eq(items.id, item.mergedIntoId), isNull(items.deletedAt)) })) ?? null : null;
-    const history = await tx.select({ at: itemEvents.createdAt, to: itemEvents.toStatus, version: itemEvents.version, who: users.name, sub: itemEvents.subStatusId, proof: itemEvents.proof })
+    const history = await tx.select({ at: itemEvents.createdAt, from: itemEvents.fromStatus, to: itemEvents.toStatus, actorId: itemEvents.actorId, version: itemEvents.version, who: users.name, sub: itemEvents.subStatusId, proof: itemEvents.proof })
       .from(itemEvents).leftJoin(users, eq(users.id, itemEvents.actorId)).where(eq(itemEvents.itemId, item.id)).orderBy(asc(itemEvents.createdAt));
     const links = await tx.select().from(itemLinks).where(eq(itemLinks.itemId, item.id)).orderBy(asc(itemLinks.createdAt));
     const releases = await tx.select({ id: changelogEntries.id, title: changelogEntries.title, at: changelogEntries.publishedAt })
@@ -190,6 +193,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
     name ?? (isTeam && email ? email : id && id === user?.id ? b("you") : null);
   const byline = system ? b("fromCustomers") : shown(item.authorId, authorName, authorEmail);
   const ctx = (item.context ?? {}) as Record<string, string>;
+  const seen = isTeam ? similarSeenOf(item) : null;
   const ctxEntries = Object.entries(ctx).filter(([k]) => k in CONTEXT_LABEL && typeof ctx[k] === "string");
   // The widget's capture (steps, network log, session links): team only, never rendered for the reporter.
   const capture: Capture = (bug && contextFor(item.context as Record<string, unknown> | null, isTeam) as Capture | null) || {};
@@ -205,9 +209,13 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
   const events: JourneyEvent[] = [
     { type: "status", at: item.createdAt, status: ROUTE[item.kind][0]!, who: byline },
     ...history.map((h): JourneyEvent => ({ type: "status", at: h.at, status: h.to, version: h.version, who: h.who, sub: h.sub ? subName.get(h.sub) : null,
-      proof: visibleProof(readProof(h.proof), item.kind, isTeam) })),
+      proof: visibleProof(readProof(h.proof), item.kind, isTeam), reopened: isReopenedByReporter(h, item) })),
+    // A merged duplicate ends in "Merged into #n" (not the closed status the merge stored); another
+    // reporter's bug keeps the original's number private.
+    ...(item.mergedIntoId ? [{ type: "merged", at: item.updatedAt,
+      into: mergedInto && !(bug && !isTeam && mergedInto.authorId !== user?.id) ? { number: mergedInto.number, href: `/${slug}/i/${mergedInto.number}` } : null } as JourneyEvent]
     // Imported or older items may lack history: the current stop still belongs on the route.
-    ...(item.status !== ROUTE[item.kind][0] && history.at(-1)?.to !== item.status
+    : item.status !== ROUTE[item.kind][0] && history.at(-1)?.to !== item.status
       ? [{ type: "status", at: item.updatedAt, status: item.status, version: item.fixedInVersion } as JourneyEvent] : []),
     ...live.filter((c) => !c.internal && (c.role === "team" || c.role === "admin"))
       .map((c): JourneyEvent => ({ type: "reply", at: c.createdAt, who: c.name, commentId: c.id })),
@@ -226,7 +234,8 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
           <TranslationScope slug={slug} view={translation}>
           <ItemEditScope>
           <header className="flex gap-5">
-            {!bug && !item.pending && !deleted && (
+            {/* A merged idea's votes moved to the original: no vote box here (applyVote refuses it too). */}
+            {!bug && !item.pending && !deleted && !item.mergedIntoId && (
               <VoteButton slug={slug} itemId={item.id} count={item.voteCount} voted={voted} size="lg"
                 voters={vote.voters} weight={vote.weight} mode={voteModeOf(project)} left={vote.left}
                 login={user ? null : (loginHref(project, `/${slug}/i/${n}`) ?? false)} />
@@ -234,7 +243,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
             <div className="min-w-0 flex-1">
               <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-muted-foreground">
                 <span className="font-semibold text-foreground">{bug ? t("bug") : t("idea")} <span data-num>#{item.number}</span></span>
-                <StatusTag kind={item.kind} status={item.status} version={item.fixedInVersion} sub={item.subStatusId ? subName.get(item.subStatusId) : null} />
+                <StatusTag kind={item.kind} status={item.status} version={item.fixedInVersion} sub={item.subStatusId ? subName.get(item.subStatusId) : null} merged={!!item.mergedIntoId} />
                 {bug && <span className="inline-flex items-center gap-1"><Lock className="size-3.5" />{t("privateTag")}</span>}
                 {!deleted && (
                   <span className="-my-1.5 ml-auto">
@@ -262,6 +271,12 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
           </header>
 
           <div className="mt-8 grid gap-6">
+            {/* Back from a new idea's form: the author's vote and draft went here instead (attachToIdea). */}
+            {attached && !bug && user && (
+              <p role="status" className="flex items-start gap-2 rounded-lg border border-st-done/40 bg-st-done/8 px-4 py-3 text-[14.5px] font-medium">
+                <Check aria-hidden className="mt-0.5 size-4 shrink-0" />{t(attached === "queued" ? "attachedQueued" : "attached")}
+              </p>
+            )}
             {deleted && (
               <div role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-3 text-[14.5px]">
                 <p className="flex min-w-0 items-start gap-2">
@@ -380,6 +395,13 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
               })}
             </ol>
             {deleted ? null
+              // A merged idea's discussion goes on at the original (addCommentTo refuses it too).
+              : item.mergedIntoId && !bug ? (<>
+                  {mergedInto && <p role="note" className="rounded-xl border border-dashed bg-surface/60 px-4 py-3.5 text-[14.5px] text-muted-foreground">
+                    <Link className="oz-link" href={`/${slug}/i/${mergedInto.number}`}>{t("mergedGoThere", { n: mergedInto.number })}</Link></p>}
+                  {/* The team can still leave itself a note here (why it was merged, what to watch). */}
+                  {isTeam && user && <CommentForm slug={slug} itemId={item.id} isTeam me={user.name ?? user.email} internalOnly />}
+                </>)
               : blocked ? <p role="note" className="flex items-start gap-2 rounded-xl border border-dashed bg-surface/60 px-4 py-3.5 text-[14.5px] text-muted-foreground"><Ban className="mt-0.5 size-4 shrink-0" aria-hidden />{m("blockedNotice")}</p>
               : user ? <CommentForm slug={slug} itemId={item.id} isTeam={isTeam} me={user.name ?? user.email} />
               : <SignInToComment project={project} locale={locale} returnTo={`/${slug}/i/${n}`} />}
@@ -408,9 +430,20 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
                 </TeamBlock>
               )}
               <TeamBlock title={t("status")}>
-                <RouteControl key={`${item.status}-${item.subStatusId ?? ""}-${item.fixedInVersion ?? ""}`} slug={slug} itemId={item.id} kind={item.kind}
-                  status={item.status} version={item.fixedInVersion} statuses={ITEM_STATUSES[item.kind]} subs={team.subs} sub={item.subStatusId} />
+                {/* A merged duplicate has no route of its own (the stored closed status is not what happened): it points at its original. */}
+                {item.mergedIntoId
+                  ? <p className="flex flex-wrap items-center gap-2 text-[13.5px]">
+                      <StatusTag kind={item.kind} status={item.status} merged />
+                      {mergedInto && <Link className="oz-link" href={`/${slug}/i/${mergedInto.number}`}>{b("journey.merged", { n: mergedInto.number })}</Link>}
+                    </p>
+                  : <RouteControl key={`${item.status}-${item.subStatusId ?? ""}-${item.fixedInVersion ?? ""}`} slug={slug} itemId={item.id} kind={item.kind}
+                      status={item.status} version={item.fixedInVersion} statuses={ITEM_STATUSES[item.kind]} subs={team.subs} sub={item.subStatusId} />}
               </TeamBlock>
+              {item.mergedIntoId && mergedInto && (
+                <TeamBlock title={t("duplicates")}>
+                  <UnmergeBox slug={slug} itemId={item.id} number={item.number} into={mergedInto.number} kind={item.kind} />
+                </TeamBlock>
+              )}
               <TeamBlock title={t("tags")}>
                 {itemTagList.length > 0 && <TagList tags={itemTagList} />}
                 <TagPicker key={itemTagList.map((x) => x.id).join()} slug={slug} itemId={item.id} all={team.allTags} selected={itemTagList.map((x) => x.id)} admin={user?.role === "admin"} />
@@ -446,7 +479,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
               )}
               {!item.mergedIntoId && !item.pending && (
                 <TeamBlock title={t("duplicates")}>
-                  {embeddingsConfig() && team.similar.length > 0 && (
+                  {team.similar.some((s) => s.method !== "trigram") && (
                     <p className="-mt-1 text-[12.5px] text-muted-foreground" data-ai-generated="true">{t("similarAi")}</p>
                   )}
                   {team.merged.length > 0 && (
@@ -456,6 +489,7 @@ export default async function ItemPage({ params }: { params: Promise<{ project: 
                       {team.merged.map((m, i) => <span key={m.number}>{i > 0 && ", "}<Link href={`/${slug}/i/${m.number}`} className="oz-link">#{m.number}</Link></span>)}
                     </p>
                   )}
+                  {seen && <SimilarSeenNote slug={slug} seen={seen} strongLabel={(n) => t("seenStrong", { n })} shownLabel={t("seenShown")} />}
                   {team.similar.length === 0 && <p className="text-[13px] text-muted-foreground">{t("noSimilar")}</p>}
                   <MergeBox slug={slug} itemId={item.id} number={item.number} suggestion={team.similar[0]?.number} kind={item.kind}
                     candidates={team.similar.map((s) => ({ id: s.id, number: s.number, title: s.title,
@@ -482,6 +516,28 @@ function Edited({ at, label, tag }: { at: Date; label: string; tag: string }) {
 
 function BlockedTag({ label }: { label: string }) {
   return <span className="inline-flex items-center gap-1 rounded-sm bg-destructive/10 px-1.5 py-px text-[11.5px] font-semibold text-destructive"><Ban className="size-3" aria-hidden />{label}</span>;
+}
+
+/** Team: what the author of a new idea was shown while writing, and why they found it different (context.similarSeen). */
+function SimilarSeenNote({ slug, seen, strongLabel, shownLabel }: { slug: string; seen: SimilarSeen; strongLabel: (n: number) => string; shownLabel: string }) {
+  const n = seen.strong;
+  const others = seen.shown.filter((x) => x.number !== n);
+  return (
+    <div className="grid gap-1 rounded-md bg-muted px-3 py-2 text-[13px]">
+      {n !== undefined && (
+        <p>
+          <Link className="oz-link" href={`/${slug}/i/${n}`}>{strongLabel(n)}</Link>
+          {seen.reason ? <>: <q className="italic">{seen.reason}</q></> : "."}
+        </p>
+      )}
+      {others.length > 0 && (
+        <p className="text-muted-foreground">
+          {shownLabel}{" "}
+          {others.map((x, i) => <span key={x.number}>{i > 0 && ", "}<Link href={`/${slug}/i/${x.number}`} className="oz-link">#{x.number}</Link></span>)}
+        </p>
+      )}
+    </div>
+  );
 }
 
 function TeamBlock({ title, children }: { title: string; children: React.ReactNode }) {

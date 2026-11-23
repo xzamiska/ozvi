@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl";
 import { ago } from "@/lib/format";
 import { markdownExcerpt } from "@/lib/markdown";
 import { VoteButton, type VoteMode } from "./VoteButton";
+import { TranslatedTitle } from "./ozvi/Translate";
 
 export interface Row {
   id: string; number: number; kind: "bug" | "idea"; title: string; body: string; status: string;
@@ -85,11 +86,13 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
         <h2 className="text-[16.5px] leading-snug font-semibold">
           {idea && <span className="mr-2 font-heading text-[15px] font-bold text-muted-foreground tabular-nums">#{row.number}</span>}
           <Link href={`/${slug}/i/${row.number}`} className="oz-stretch outline-none after:rounded-none focus-visible:underline focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-ring group-hover:underline group-hover:decoration-line-strong group-hover:underline-offset-4">
-            {row.title}
+            {/* Automatic translation of lists (TranslationScope with titles); otherwise just the title. */}
+            <TranslatedTitle id={row.id}>{row.title}</TranslatedTitle>
           </Link>
         </h2>
-        {row.body && <p className="mt-0.5 line-clamp-1 text-[14.5px] text-muted-foreground">{markdownExcerpt(row.body)}</p>}
-        <div className="mt-1.5 flex min-w-0 items-center gap-x-3 overflow-hidden text-[13px] whitespace-nowrap text-muted-foreground">
+        {row.body && <p data-excerpt className="mt-0.5 line-clamp-1 text-[14.5px] text-muted-foreground">{markdownExcerpt(row.body)}</p>}
+        {/* Wraps instead of cutting: on a phone the counts, MRR and assignee stay readable (each part stays on one line). */}
+        <div className="mt-1.5 flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-muted-foreground *:whitespace-nowrap">
           <StatusTag kind={row.kind} status={row.status} version={row.fixedInVersion} sub={row.subLabel} className="shrink md:hidden" />
           {!!row.news && <span className="inline-flex shrink-0 items-center gap-1 font-semibold text-brand-text"><Sparkle className="size-3.5" aria-hidden />{row.news}</span>}
           {row.waitingSince && (
@@ -107,7 +110,8 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
             </span>
           )}
           {/* Team-only columns: present on the row only when the server added them for a team viewer. */}
-          {!!row.affected && row.affected > 1 && (
+          {/* Bugs only: on ideas the vote box already says how many want it ("affects N people" reads as a bug). */}
+          {!idea && !!row.affected && row.affected > 1 && (
             <span className="inline-flex shrink-0 items-center gap-1" title={t("affected", { n: row.affected })} aria-label={t("affected", { n: row.affected })}>
               <Users className="size-3.5" />{row.affected}
             </span>
@@ -124,7 +128,7 @@ export function ItemRow({ slug, row, voted, weight, vote, login, locale = "sk", 
           )}
         </div>
         {((row.tags?.length ?? 0) > 0 || tagging) && (
-          <div className="mt-2 flex flex-wrap items-center gap-1">
+          <div data-tags className="mt-2 flex flex-wrap items-center gap-1">
             {row.tags?.map((tag) => <TagChip key={tag.id} tag={tag} href={tagHref?.(tag)} />)}
             {tagging && !row.pending && (
               <TagPicker key={(row.tags ?? []).map((x) => x.id).join()} slug={slug} itemId={row.id} all={tagging.all}

@@ -240,3 +240,8 @@
 }
 @keyframes oz-shot { from { box-shadow: inset 0 0 0 999px color-mix(in oklab, var(--oz-canvas) 85%, transparent); } to { box-shadow: inset 0 0 0 999px transparent; } }
 @keyframes oz-land { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+/* Team lists, "Dense rows" (ListTools): title and meta only. Unlayered, so it wins over the rows' utilities. */
+html[data-dense] [data-row] { padding-top: .5rem; padding-bottom: .5rem; }
+html[data-dense] [data-row] > input[type="checkbox"] { top: .875rem; }
+html[data-dense] [data-excerpt], html[data-dense] [data-tags] { display: none; }

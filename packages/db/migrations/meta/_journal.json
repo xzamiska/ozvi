@@ -260,6 +260,27 @@
       "when": 1795084146964,
       "tag": "0036_inbox_seen",
       "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1795114885998,
+      "tag": "0037_mail_translate",
+      "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1795202551596,
+      "tag": "0038_activity_outlives_project",
+      "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "7",
+      "when": 1795293008740,
+      "tag": "0039_duplicate_stats",
+      "breakpoints": true
     }
   ]
 }

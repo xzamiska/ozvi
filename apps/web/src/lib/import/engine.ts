@@ -444,11 +444,13 @@ export async function importTick(db: Db): Promise<void> {
   }
   if (active.size) return;
   active.add("claim");
-  const [run] = await withSystem(db, (tx) => tx.execute<{ id: string; project_id: string }>(sql`
-    update ${importRuns} set status = 'running' where id = (
-      select id from ${importRuns} where status = 'queued' order by created_at limit 1 for update skip locked
-    ) returning id, project_id`));
+  // The claim is inside the try: a dropped database connection here (ECONNRESET) used to leave "claim" set
+  // for good, and every later import waited "Queued" until the server restarted.
   try {
+    const [run] = await withSystem(db, (tx) => tx.execute<{ id: string; project_id: string }>(sql`
+      update ${importRuns} set status = 'running' where id = (
+        select id from ${importRuns} where status = 'queued' order by created_at limit 1 for update skip locked
+      ) returning id, project_id`));
     if (run) await runOne(db, run.id, run.project_id);
   } finally { active.delete("claim"); }
 }

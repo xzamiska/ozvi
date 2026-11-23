@@ -1,7 +1,7 @@
 "use client";
 
 import { Plug, Send } from "lucide-react";
-import { useActionState, useState, useTransition } from "react";
+import { useActionState, useEffect, useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -22,13 +22,15 @@ function Feedback({ state, children }: { state: ActState; children?: React.React
   return <Result error={state.error} ok={state.ok} />;
 }
 
-function Choices({ legend, name, defaultValue, options }: {
-  legend: React.ReactNode; name: string; defaultValue: string; options: { value: string; title: string; text: React.ReactNode }[];
+function Choices({ legend, name, defaultValue, value, onValueChange, options }: {
+  legend: React.ReactNode; name: string; defaultValue?: string; value?: string; onValueChange?: (v: string) => void; options: { value: string; title: string; text: React.ReactNode }[];
 }) {
   return (
     <fieldset className="grid gap-2.5">
       <legend className="mb-2.5 text-[14px] font-semibold">{legend}</legend>
-      <RadioGroup name={name} defaultValue={defaultValue} className="gap-2.5">
+      {/* Controlled: the value goes through a hidden input, so a form reset after the action can't change it. */}
+      {onValueChange && <input type="hidden" name={name} value={value} />}
+      <RadioGroup name={onValueChange ? undefined : name} defaultValue={defaultValue} value={value} onValueChange={onValueChange} className="gap-2.5">
         {options.map((o) => (
           <div key={o.value} className="grid grid-cols-[16px_1fr] items-start gap-2.5">
             <RadioGroupItem id={`${name}-${o.value}`} value={o.value} className="mt-0.5" />
@@ -40,10 +42,17 @@ function Choices({ legend, name, defaultValue, options }: {
   );
 }
 
-function CheckRow({ id, name, value, defaultChecked, children }: { id: string; name: string; value?: string; defaultChecked?: boolean; children: React.ReactNode }) {
+function CheckRow({ id, name, value, defaultChecked, checked, onCheckedChange, children }: {
+  id: string; name: string; value?: string; defaultChecked?: boolean; checked?: boolean; onCheckedChange?: (on: boolean) => void; children: React.ReactNode;
+}) {
   return (
     <div className="grid grid-cols-[16px_1fr] items-start gap-2.5">
-      <Checkbox id={id} name={name} value={value} defaultChecked={defaultChecked} className="mt-0.5" />
+      {onCheckedChange ? <>
+        {/* Controlled; the value goes through the hidden input. Radix still unticks the box when the form resets after
+            a React action, so the form ignores changes during a reset (WebhookForm). */}
+        <Checkbox id={id} form="oz-no-form" checked={checked} onCheckedChange={(c) => onCheckedChange(c === true)} className="mt-0.5" />
+        {checked && <input type="hidden" name={name} value={value ?? "on"} />}
+      </> : <Checkbox id={id} name={name} value={value} defaultChecked={defaultChecked} className="mt-0.5" />}
       <Label htmlFor={id} className="block cursor-pointer text-[14px] leading-snug font-normal">{children}</Label>
     </div>
   );
@@ -115,18 +124,40 @@ const EVENTS = [
 
 export function WebhookForm({ slug }: { slug: string }) {
   const t = useTranslations("integrations.webhook");
-  const [key, setKey] = useState(0);
+  // Controlled fields: React resets a form after its action, which cleared the URL and the ticked events when the
+  // URL was rejected. Controlled values survive that; a success clears them on purpose.
+  const [url, setUrl] = useState("");
+  const [format, setFormat] = useState("slack");
+  const [events, setEvents] = useState<string[]>([]);
+  const [bugs, setBugs] = useState(false);
   const [state, action, pending] = useActionState(async (p: ActState, f: FormData) => {
     const r = await addWebhook(slug, p, f);
-    if (!r.error && !r.secret) setKey((k) => k + 1);
+    if (!r.error) { setUrl(""); setFormat("slack"); setEvents([]); setBugs(false); }
     return r;
   }, {});
+  // Radix boxes and radios answer a form reset (React resets the form after every action) by going back to their
+  // initial state through onCheckedChange; those calls must not undo what the person ticked.
+  const formRef = useRef<HTMLFormElement>(null);
+  const resetting = useRef(false);
+  useEffect(() => {
+    const f = formRef.current;
+    if (!f) return;
+    const mark = () => { resetting.current = true; setTimeout(() => { resetting.current = false; }, 0); };
+    f.addEventListener("reset", mark, { capture: true });
+    return () => f.removeEventListener("reset", mark, { capture: true });
+  }, []);
+  const unlessReset = <T,>(fn: (v: T) => void) => (v: T) => { if (!resetting.current) fn(v); };
   return (
-    <form key={key} action={action} className={panel}>
+    <form ref={formRef} action={action} className={panel}>
       <Field id="wh-url" label={t("url")}>
-        <Input id="wh-url" name="url" type="url" required placeholder="https://hooks.slack.com/services/…" spellCheck={false} {...noFill} />
+        <Input id="wh-url" name="url" type="url" required placeholder="https://hooks.slack.com/services/…" spellCheck={false} {...noFill}
+          value={url} onChange={(e) => setUrl(e.target.value)}
+          aria-describedby={state.error ? "wh-url-refused" : undefined} />
+        {/* Every refusal of addWebhook is about the URL (format, https, private address, credentials). Not "<id>-error":
+            that id belongs to FormGuard, which removes its box when the form resets after the action. */}
+        {state.error && <p id="wh-url-refused" role="alert" className="text-[13.5px] font-medium text-destructive">{state.error}</p>}
       </Field>
-      <Choices legend={t("format")} name="format" defaultValue="slack" options={[
+      <Choices legend={t("format")} name="format" value={format} onValueChange={unlessReset(setFormat)} options={[
         { value: "slack", title: t("chat.title"), text: t("chat.text") },
         { value: "teams", title: t("teams.title"), text: t("teams.text") },
         { value: "discord", title: t("discord.title"), text: t("discord.text") },
@@ -136,13 +167,14 @@ export function WebhookForm({ slug }: { slug: string }) {
         <legend className="mb-1 text-[14px] font-semibold">{t("eventsLegend")}</legend>
         <p className={cn(hint, "mb-1")}>{t("eventsHint")}</p>
         <div className="grid gap-2.5 sm:grid-cols-2">
-          {EVENTS.map(([v, k]) => <CheckRow key={v} id={`ev-${v}`} name="events" value={v}>{t(`events.${k}`)}</CheckRow>)}
+          {EVENTS.map(([v, k]) => <CheckRow key={v} id={`ev-${v}`} name="events" value={v} checked={events.includes(v)}
+            onCheckedChange={unlessReset((on: boolean) => setEvents((e) => (on ? [...e, v] : e.filter((x) => x !== v))))}>{t(`events.${k}`)}</CheckRow>)}
         </div>
       </fieldset>
-      <CheckRow id="wh-bugs" name="includeBugs">
+      <CheckRow id="wh-bugs" name="includeBugs" checked={bugs} onCheckedChange={unlessReset(setBugs)}>
         {t("bugs")} <span className="text-muted-foreground">{t("bugsNote")}</span>
       </CheckRow>
-      <Feedback state={state} />
+      {!state.error && <Feedback state={state} />}
       <div><Submit pending={pending} pendingLabel={t("adding")}>{t("add")}</Submit></div>
     </form>
   );

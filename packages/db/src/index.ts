@@ -4,7 +4,7 @@ import postgres from "postgres";
 import * as schema from "./schema";
 
 export { schema };
-export { ITEM_STATUSES } from "./schema";
+export { DUPLICATE_EVENTS, ITEM_STATUSES } from "./schema";
 export * from "./crypto";
 export * from "./plans";
 

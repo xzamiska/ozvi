@@ -3,7 +3,7 @@
 import { Languages, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useTransition } from "react";
-import { translatePostsAction, type ShownTranslation } from "@/lib/translate-actions";
+import { translatePostsAction, translateTitlesAction, type ShownTranslation } from "@/lib/translate-actions";
 import { cn } from "@/lib/utils";
 
 /**
@@ -18,6 +18,8 @@ export interface ForeignPost { subject: Subject; id: string }
 
 interface State {
   mode: "on_demand" | "auto";
+  /** A list: only titles are translated (automatic mode), with one switch for the whole list. */
+  titles: boolean;
   foreign: Set<string>;
   done: Record<string, ShownTranslation>;
   showing: Record<string, boolean>;
@@ -25,18 +27,20 @@ interface State {
   errors: Record<string, string>;
   request: (ids: string[], quiet?: boolean) => void;
   toggle: (id: string) => void;
+  /** Lists: show every original, or every translation again. */
+  toggleAll: () => void;
 }
 const Ctx = createContext<State | null>(null);
 
 /** Wraps a page region whose posts may be translated; with `view` null (translation off) it renders just the children. */
 export function TranslationScope({ slug, view, children }: {
-  slug: string; view: { mode: "on_demand" | "auto"; foreign: ForeignPost[]; initial: ShownTranslation[] } | null; children: React.ReactNode;
+  slug: string; view: { mode: "on_demand" | "auto"; foreign: ForeignPost[]; initial: ShownTranslation[]; titles?: boolean } | null; children: React.ReactNode;
 }) {
   return view ? <Scope slug={slug} {...view}>{children}</Scope> : <>{children}</>;
 }
 
-function Scope({ slug, mode, foreign, initial, children }: {
-  slug: string; mode: "on_demand" | "auto"; foreign: ForeignPost[]; initial: ShownTranslation[]; children: React.ReactNode;
+function Scope({ slug, mode, foreign, initial, titles = false, children }: {
+  slug: string; mode: "on_demand" | "auto"; foreign: ForeignPost[]; initial: ShownTranslation[]; titles?: boolean; children: React.ReactNode;
 }) {
   const subjects = useMemo(() => new Map(foreign.map((f) => [f.id, f.subject])), [foreign]);
   const [done, setDone] = useState<Record<string, ShownTranslation>>(() => Object.fromEntries(initial.map((x) => [x.id, x])));
@@ -56,7 +60,8 @@ function Scope({ slug, mode, foreign, initial, children }: {
     setErrors((e) => Object.fromEntries(Object.entries(e).filter(([k]) => !todo.includes(k))));
     start(async () => {
       try {
-        const res = await translatePostsAction(slug, todo.map((id) => ({ subject: subjects.get(id)!, id })));
+        const res = titles ? await translateTitlesAction(slug, todo)
+          : await translatePostsAction(slug, todo.map((id) => ({ subject: subjects.get(id)!, id })));
         setDone((d) => ({ ...d, ...Object.fromEntries(res.translations.map((x) => [x.id, x])) }));
         setShowing((s) => ({ ...s, ...Object.fromEntries(res.translations.map((x) => [x.id, true])) }));
         const failed = todo.filter((id) => !res.translations.some((x) => x.id === id));
@@ -68,7 +73,7 @@ function Scope({ slug, mode, foreign, initial, children }: {
         setBusy((b) => new Set([...b].filter((id) => !todo.includes(id))));
       }
     });
-  }, [slug, subjects]);
+  }, [slug, subjects, titles]);
 
   const toggle = useCallback((id: string) => {
     if (done[id]) setShowing((s) => ({ ...s, [id]: !s[id] }));
@@ -82,8 +87,13 @@ function Scope({ slug, mode, foreign, initial, children }: {
     if (missing.length) request(missing, true);
   }, [mode, foreign, initial, request]);
 
-  const value = useMemo<State>(() => ({ mode, foreign: new Set(subjects.keys()), done, showing, busy, errors, request, toggle }),
-    [mode, subjects, done, showing, busy, errors, request, toggle]);
+  const toggleAll = useCallback(() => {
+    const on = !Object.keys(done).some((id) => showing[id]);
+    setShowing(Object.fromEntries(Object.keys(done).map((id) => [id, on])));
+  }, [done, showing]);
+
+  const value = useMemo<State>(() => ({ mode, titles, foreign: new Set(subjects.keys()), done, showing, busy, errors, request, toggle, toggleAll }),
+    [mode, titles, subjects, done, showing, busy, errors, request, toggle, toggleAll]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 
@@ -96,7 +106,48 @@ function useShown(id: string) {
 /** The title of a post: translated when the reader chose (or the board shows) the translation. */
 export function TranslatedTitle({ id, children }: { id: string; children: React.ReactNode }) {
   const t = useShown(id);
-  return t?.title ? <span data-ai-generated="true">{t.title}</span> : <>{children}</>;
+  const list = useContext(Ctx)?.titles;
+  const tt = useTranslations("translate");
+  if (!t?.title) return <>{children}</>;
+  // In a list every translated title carries its own mark (AI Act art. 50); the bar above the list explains it.
+  return (
+    <span data-ai-generated="true" data-ai-model={t.model}>
+      {t.title}
+      {list && <Sparkles aria-hidden className="ml-1 inline size-3 align-baseline text-muted-foreground" />}
+      {list && <span className="sr-only"> ({tt("label")})</span>}
+    </span>
+  );
+}
+
+/**
+ * Above a list in automatic mode: "Titles translated with AI · show originals" once any title is translated
+ * (one switch for the list; each post's own page still offers its original).
+ */
+export function TitlesBar({ className }: { className?: string }) {
+  const s = useContext(Ctx);
+  const t = useTranslations("translate");
+  if (!s?.titles) return null;
+  const ids = Object.keys(s.done);
+  const busy = s.busy.size > 0;
+  if (ids.length === 0 && !busy) return null;
+  const showing = ids.some((id) => s.showing[id]);
+  const link = "inline-flex min-h-6 items-center rounded-sm font-medium text-foreground underline decoration-line-strong underline-offset-[3px] hover:decoration-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
+  const model = ids.length ? s.done[ids[0]!]!.model : "";
+  return (
+    <p className={cn("flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] text-muted-foreground", className)} aria-live="polite">
+      {ids.length === 0 ? (
+        <><Languages aria-hidden className="size-3.5 shrink-0" />{t("titlesWorking")}</>
+      ) : (
+        <>
+          <span className="inline-flex items-center gap-1.5" title={model ? t("model", { model }) : undefined} data-ai-generated="true" data-ai-model={model || undefined}>
+            <Sparkles aria-hidden className="size-3.5 shrink-0" />{showing ? t("titlesLabel") : t("titlesOriginal")}
+          </span>
+          <span aria-hidden>·</span>
+          <button type="button" className={link} onClick={s.toggleAll}>{showing ? t("showOriginals") : t("showTranslations")}</button>
+        </>
+      )}
+    </p>
+  );
 }
 
 /** The body of a post: the original (server-rendered Markdown) or the translation, rendered the same way. */

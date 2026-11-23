@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
-import { mergeInto, setAssignee, setStatus } from "@/lib/actions";
+import { mergeInto, setAssignee, setStatus, unmergeItem } from "@/lib/actions";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { aiSummarizeItem } from "@/lib/changelog-actions";
 import { githubLink, githubUnlink, type ActState } from "@/lib/integration-actions";
@@ -145,7 +145,7 @@ export function AssigneeControl({ slug, itemId, assignee, me, team }: {
         <SelectContent>
           <SelectItem value={NOBODY}>{t("nobody")}</SelectItem>
           {/* Former team members only while this item is theirs: it shows who has it, and it can be handed on. */}
-          {team.filter((x) => !x.former || x.id === assignee).map((x) => <SelectItem key={x.id} value={x.id}>{x.former ? t("former", { who: x.label }) : x.label}</SelectItem>)}
+          {team.filter((x) => !x.former || x.id === assignee).map((x) => <SelectItem key={x.id} value={x.id}>{x.former ? t("former", { who: x.label }) : x.id === me ? t("you", { who: x.label }) : x.label}</SelectItem>)}
         </SelectContent>
       </Select>
       {value !== me && (
@@ -270,6 +270,39 @@ export function MergeBox({ slug, itemId, number, suggestion, kind, candidates = 
               <Button type="submit" variant="destructive" disabled={herePending}>{herePending ? t("merging") : t("mergeHere", { n: String(here?.number ?? "") })}</Button>
             </DialogFooter>
           </form>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+/** Team, on a merged item: undo the merge ("Oddeliť"); the confirm names both items and says the votes stay. */
+export function UnmergeBox({ slug, itemId, number, into, kind }: { slug: string; itemId: string; number: number; into: number; kind: Kind }) {
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [pending, start] = useTransition();
+  const tf = useTranslations("forms");
+  const t = useTranslations("forms.team");
+  const n = String(number), i = String(into);
+  return (
+    <div className="grid gap-1.5">
+      <p className="text-[13px] text-muted-foreground">{t("unmergeHint", { into: i })}</p>
+      <div><Button type="button" variant="outline" size="sm" onClick={() => setOpen(true)}>{t("unmerge")}</Button></div>
+      {error && <p className="text-[13px] font-medium text-destructive" role="alert">{error}</p>}
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("unmergeTitle", { n, into: i })}</DialogTitle>
+            <DialogDescription>{kind === "idea" ? t("unmergeIdea", { n, into: i }) : t("unmergeBug", { n, into: i })}</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild><Button type="button" variant="outline">{tf("keep")}</Button></DialogClose>
+            <Button type="button" disabled={pending} aria-busy={pending || undefined} onClick={() => start(async () => {
+              setError(null);
+              const r = await unmergeItem(slug, itemId);
+              if (r?.error) { setError(r.error); setOpen(false); }
+            })}>{pending ? t("unmerging") : t("unmergeConfirm", { n })}</Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

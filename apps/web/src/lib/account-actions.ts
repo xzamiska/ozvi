@@ -9,10 +9,12 @@ import { redirect } from "next/navigation";
 import { APP_COOKIE, appCookie, getAccount } from "./account";
 import { requestLocale } from "@/i18n/server";
 import { getTranslations } from "next-intl/server";
+import { syncBoardNames } from "./board-names";
 import { db } from "./db";
 import { logActivity, who } from "./activity";
 import { consumeEmailChange, EMAIL, issueEmailChange, LoginError, normalizeEmail } from "./email-login";
 import { publicUrl } from "./email/url";
+import { LANDING_PATH } from "./seo";
 import { allow } from "./ratelimit";
 import {
   acceptInvite, applyEmailChange, deleteAccount, deleteWorkspace, invite, removeMember, requireOwner, revokeInvite, setRole, signOutEverywhere,
@@ -139,6 +141,8 @@ export async function renameAction(_: FormState, form: FormData): Promise<FormSt
   const detail = `${account.name || account.email} → ${name || account.email}`;
   const memberships = await db.select({ id: schema.workspaceMembers.workspaceId }).from(schema.workspaceMembers).where(eq(schema.workspaceMembers.accountId, account.id));
   for (const w of memberships) await logActivity({ workspaceId: w.id, actor: who(account), action: "account.renamed", detail });
+  // And on the boards, where the team picks and reads each other by name.
+  await syncBoardNames(db, { id: account.id, email: account.email, name: name || null });
   revalidatePath("/app", "layout");
   return { info: t("nameSaved") };
 }
@@ -209,5 +213,6 @@ export async function deleteAccountAction(_: FormState, form: FormData): Promise
     throw e;
   }
   (await cookies()).set({ name: APP_COOKIE, value: "", path: "/app", maxAge: 0 });
-  redirect("/?deleted=1");
+  // Straight to the landing in the console's language: "/" would render Slovak first and hop to /en.
+  redirect(`${LANDING_PATH[locale]}?deleted=1`);
 }

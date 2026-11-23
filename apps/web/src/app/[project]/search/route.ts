@@ -1,37 +1,24 @@
-import { schema, withProject } from "@ozvi/db";
-import { and, desc, eq, ilike, isNull, or, sql } from "drizzle-orm";
+import { withProject } from "@ozvi/db";
 import type { NextRequest } from "next/server";
 import { clientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
+import { similarIdeas, similarInputs } from "@/lib/duplicates";
 import { getCtx } from "@/lib/project";
-import { PIVOT, pivotQuery } from "@/lib/translate";
 import { sectionOn } from "@/lib/sections";
 
-const words = (q: string) => q.toLowerCase().split(/\s+/).filter((w) => w.length >= 3).slice(0, 6);
-const esc = (w: string) => `%${w.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
-
 /**
- * Similar ideas while typing a new one (dedupe before it happens). Bugs are never searchable here.
- * Across languages too: on boards with post translation, existing ideas have English title pivots
- * (lib/translate.ts pivotPending) and a typed title in another language gets one, so "Eksport do CSV"
- * finds "Export do CSV" and "CSV export".
+ * Similar ideas while typing a new one (dedupe before it happens, ADR-0015). The same matcher as the team's
+ * "Podobné" panel and MCP (lib/similar.ts findSimilar: embeddings when configured, otherwise trigrams on
+ * accent-folded text, plus English pivots across languages), with the SHOW threshold of the method that
+ * scored. Bugs are never searchable here; merged, deleted and queued ideas never show.
  */
 export async function GET(req: NextRequest, { params }: { params: Promise<{ project: string }> }) {
   const { project: slug } = await params;
   const { project, user, plan } = await getCtx(slug);
   if ((!project.ideasPublic && !user) || !sectionOn(project, "ideas")) return Response.json([]);
-  const q = req.nextUrl.searchParams.get("q") ?? "";
-  const typed = words(q);
-  if (typed.length === 0) return Response.json([]);
-  const pivot = await pivotQuery(q, { project, plan, rateKey: user?.id ?? clientIp(req.headers) });
-  const all = [...new Set([...typed, ...(pivot ? words(pivot) : [])])].slice(0, 12);
-  const { items, contentTranslations: ct } = schema;
-  const rows = await withProject(db, project.id, (tx) =>
-    tx.select({ number: items.number, title: items.title, votes: items.voteCount, status: items.status })
-      .from(items)
-      .leftJoin(ct, and(eq(ct.subjectId, items.id), eq(ct.targetLocale, PIVOT), sql`${ct.sourceHash} = encode(sha256(convert_to(${items.title}, 'UTF8')), 'hex')`))
-      .where(and(eq(items.kind, "idea"), isNull(items.mergedIntoId), isNull(items.deletedAt), eq(items.pending, false),
-        or(...all.flatMap((w) => [ilike(items.title, esc(w)), ilike(ct.title, esc(w))]))))
-      .orderBy(desc(items.voteCount)).limit(5));
-  return Response.json(rows);
+  const q = (req.nextUrl.searchParams.get("q") ?? "").trim().slice(0, 200);
+  if (q.length < 4) return Response.json([]);
+  const inputs = await similarInputs(project, plan, user?.id ?? clientIp(req.headers), q);
+  const rows = await withProject(db, project.id, (tx) => similarIdeas(tx, { text: q, ...inputs, userId: user?.id, limit: 3 }));
+  return Response.json(rows.map((r) => ({ ...r, voted: r.weight > 0 })));
 }

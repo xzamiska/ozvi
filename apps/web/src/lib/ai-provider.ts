@@ -10,6 +10,8 @@ import type { z } from "zod";
  *   OZVI_AI_BASE_URL   default https://api.anthropic.com / https://api.openai.com/v1
  *   OZVI_AI_MODEL      required for openai; default claude-opus-5-5 for anthropic
  *   OZVI_AI_MODEL_FAST optional cheaper model for translations and title pivots (default OZVI_AI_MODEL)
+ *   OZVI_AI_REASONING_EFFORT  openai only: sent as `reasoning_effort` (e.g. none for DeepSeek/Qwen reasoning
+ *                      models, so they answer instead of thinking); dropped once if the server rejects it
  *
  * Legacy: ANTHROPIC_API_KEY alone still means provider=anthropic (with a one-time hint).
  */
@@ -23,6 +25,8 @@ export interface AiConfig {
   baseUrl?: string;
   model: string;
   modelFast: string;
+  /** OpenAI-compatible only: `reasoning_effort` sent with every request (OZVI_AI_REASONING_EFFORT). */
+  reasoningEffort?: string;
 }
 
 /** Same set as AiError codes in ai.ts (kept here so the adapters do not import the i18n layer). */
@@ -84,7 +88,8 @@ export function aiConfig(env: Record<string, string | undefined> = process.env):
     warnOnce("openai:model", "OZVI_AI_PROVIDER=openai needs OZVI_AI_MODEL (e.g. gpt-4o-mini, mistral-small-latest, llama3.1) — AI is off.");
     return null;
   }
-  return { provider, apiKey: key, baseUrl: baseUrl ?? DEFAULT_OPENAI_BASE, model, modelFast: fast ?? model };
+  const effort = clean(env.OZVI_AI_REASONING_EFFORT)?.toLowerCase();
+  return { provider, apiKey: key, baseUrl: baseUrl ?? DEFAULT_OPENAI_BASE, model, modelFast: fast ?? model, ...(effort && { reasoningEffort: effort }) };
 }
 
 /** Human/admin-facing provider name (privacy texts, settings hints). */
@@ -186,7 +191,9 @@ export interface AdapterDeps { fetch?: typeof fetch; timeoutMs?: number }
 type JsonMode = "schema" | "object" | "none";
 /** Per base+model: the strongest JSON mode the server accepted (remembered so we pay a 400 once). */
 const jsonModes = new Map<string, JsonMode>();
-export const _resetJsonModes = () => jsonModes.clear();
+/** Per base+model: the server rejected `reasoning_effort` (sent once, then left out). */
+const noEffort = new Set<string>();
+export const _resetJsonModes = () => { jsonModes.clear(); noEffort.clear(); };
 
 interface ChatResponse {
   choices?: { message?: { content?: string | null; refusal?: string | null }; finish_reason?: string | null }[];
@@ -199,7 +206,9 @@ async function openaiCall(cfg: AiConfig, req: CompletionRequest, schema: Record<
   let mode: JsonMode = schema ? jsonModes.get(modeKey) ?? "schema" : "none";
   let tokensField: "max_tokens" | "max_completion_tokens" = "max_tokens";
 
-  for (let attempt = 0; attempt < 4; attempt++) {
+  let effort = cfg.reasoningEffort && !noEffort.has(modeKey) ? cfg.reasoningEffort : undefined;
+
+  for (let attempt = 0; attempt < 5; attempt++) {
     const body: Record<string, unknown> = {
       model,
       messages: [{ role: "system", content: req.system }, { role: "user", content: req.user }],
@@ -207,6 +216,7 @@ async function openaiCall(cfg: AiConfig, req: CompletionRequest, schema: Record<
     };
     if (mode === "schema") body.response_format = { type: "json_schema", json_schema: { name: "ozvi_result", strict: true, schema } };
     else if (mode === "object") body.response_format = { type: "json_object" };
+    if (effort) body.reasoning_effort = effort;
 
     let res: Response;
     try {
@@ -225,6 +235,11 @@ async function openaiCall(cfg: AiConfig, req: CompletionRequest, schema: Record<
       const detail = (await res.text().catch(() => "")).slice(0, 2000);
       // Newer OpenAI models reject max_tokens; most other servers only know max_tokens.
       if (tokensField === "max_tokens" && /max_completion_tokens/.test(detail)) { tokensField = "max_completion_tokens"; continue; }
+      // A server or model without reasoning control: leave the parameter out from now on.
+      if (effort && /reasoning/i.test(detail)) {
+        console.warn(`[ozvi] ai: ${model} does not accept reasoning_effort=${effort}; sending without it`);
+        effort = undefined; noEffort.add(modeKey); continue;
+      }
       // No structured output on this server/model: fall back to json_object, then to plain text + validation.
       if (mode === "schema") { mode = "object"; jsonModes.set(modeKey, mode); continue; }
       if (mode === "object") { mode = "none"; jsonModes.set(modeKey, mode); continue; }

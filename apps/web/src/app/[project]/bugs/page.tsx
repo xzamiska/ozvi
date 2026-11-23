@@ -7,6 +7,7 @@ import { Bug, Lock, Search } from "lucide-react";
 import Link from "next/link";
 import { ExportMenu } from "@/components/ExportMenu";
 import { ItemRow } from "@/components/ItemRow";
+import { ListTools } from "@/components/ozvi/ListTools";
 import { EmptyState, FilterBar, Page, PageHead, Panel, RailSection, Segments } from "@/components/ozvi/page";
 import { RouteLegend } from "@/components/ozvi/route";
 import { Button } from "@/components/ui/button";
@@ -23,6 +24,8 @@ import { Gate, signInText } from "../_gate";
 import { hasTag, listTags } from "@/lib/tags";
 import { tagFromParam } from "@/lib/tag-rules";
 import { decorateRows } from "@/lib/row-extras";
+import { listTranslationView } from "@/lib/translate-view";
+import { TitlesBar, TranslationScope } from "@/components/ozvi/Translate";
 import { boardTitle } from "@/lib/board-meta";
 import { needSection } from "@/lib/sections-server";
 
@@ -38,7 +41,7 @@ const STAGES = {
 export default async function Bugs({ params, searchParams }: { params: Promise<{ project: string }>; searchParams: Promise<{ s?: string; st?: string; q?: string; sort?: string; p?: string; tag?: string; who?: string }> }) {
   const { project: slug } = await params;
   const sp = await searchParams;
-  const { project, user, isTeam, locale } = await getCtx(slug);
+  const { project, user, isTeam, locale, plan } = await getCtx(slug);
   needSection(project, "bugs");
   const t = await getTranslations("board.bugs");
   const tb = await getTranslations("board");
@@ -57,7 +60,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
   const page = pageParam(sp.p);
   const { items } = schema;
   const mine = isTeam ? [] : [eq(items.authorId, user.id)];
-  const { rows, hasMore, counts, allTags, tag, members, who } = await withProject(db, project.id, async (tx) => {
+  const { rows, hasMore, counts, allTags, tag, members, who, translation } = await withProject(db, project.id, async (tx) => {
     // Tags: everybody filters by public ones; team-only tags exist (and filter) only for the team.
     const allTags = await listTags(tx, isTeam);
     const tag = tagFromParam(allTags, sp.tag, isTeam);
@@ -68,7 +71,9 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
     const page_ = takePage(await listItems(tx, [eq(items.kind, "bug"), inArray(items.status, st ? [st] : [...STAGES[stage!].statuses]), ...mine, ...search], sort, isTeam,
       { limit: fetchLimit(page), team: isTeam }), page);
     await decorateRows(tx, project, locale, page_.rows, isTeam);
-    return { ...page_, allTags, tag, members, who,
+    // Automatic translation: titles of reports in another language (only rows this viewer may read).
+    const translation = await listTranslationView(tx, { project, plan, locale }, page_.rows);
+    return { ...page_, allTags, tag, members, who, translation,
     // Counts follow the search, so the numbers on the segments match what a click shows.
     counts: Object.fromEntries((await tx.select({ status: items.status, n: sql<number>`count(*)::int` }).from(items)
       .where(and(eq(items.kind, "bug"), sql`${items.mergedIntoId} is null and ${items.deletedAt} is null`, ...mine, ...search)).groupBy(items.status)).map((r) => [r.status, r.n])) as Record<string, number>,
@@ -76,6 +81,8 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
   const count = (k: keyof typeof STAGES) => STAGES[k].statuses.reduce((a, s) => a + (counts[s] ?? 0), 0);
   const keep = { ...(st ? { st } : { s: stage! }), ...(q ? { q } : {}), ...(sort !== "new" ? { sort } : {}), ...(tag ? { tag: tag.name } : {}), ...(who ? { who } : {}) };
   const tg = await getTranslations("tags");
+  const whoOptions = isTeam ? assigneeOptions(t, members, user.id, (w) => ti("former", { who: w })) : [];
+  const whoLabel = whoOptions.find((o) => o.value === who)?.label ?? "";
   const href = (o: Record<string, string>) => `?${new URLSearchParams({ ...keep, ...o })}`;
   const shownTotal = st ? (counts[st] ?? 0) : count(stage!);
   const total = count("all");
@@ -91,7 +98,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
       />
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="min-w-0">
-          {(total > 0 || q || tag) && (
+          {(total > 0 || q || tag || who) && (
             <div className="mb-3 grid gap-2">
               <form className="relative min-w-0" role="search">
                 <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -108,7 +115,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
                   <UrlSelect name="st" value={st ?? ""} label={t("exactStatus")}
                     options={[{ value: "", label: t("anyStatus") }, ...STAGES.all.statuses.map((s) => ({ value: s, label: `${stopLabel(locale, s, project)} (${counts[s] ?? 0})` }))]} />
                 )}
-                {isTeam && <UrlSelect name="who" value={who} label={t("who")} options={assigneeOptions(t, members, user.id, (w) => ti("former", { who: w }))} />}
+                {isTeam && <UrlSelect name="who" value={who} label={t("who")} prefix={t("who")} options={whoOptions} />}
                 {allTags.length > 0 && (
                   <UrlSelect name="tag" value={tag?.name ?? ""} label={tg("filter")}
                     options={[{ value: "", label: tg("all") }, ...allTags.map((x) => ({ value: x.name, label: x.public ? x.name : `${x.name} · ${tg("teamOnly")}` }))]} />
@@ -123,11 +130,14 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
               </div>
             </div>
           )}
-          {total === 0 && !q && !tag ? (
+          {total === 0 && !q && !tag && !who ? (
             <EmptyState
               title={isTeam ? t("emptyTeamTitle") : t("emptyMineTitle")}
               text={isTeam ? t("emptyTeamText") : t("emptyMineText")}
             />
+          ) : rows.length === 0 && who && !q ? (
+            <EmptyState title={t("noneForWho", { who: whoLabel })} text={t("noneForWhoText")}
+              action={<Button asChild variant="outline"><Link href={`?${new URLSearchParams(Object.entries(keep).filter(([k]) => k !== "who"))}`}>{t("whoClear")}</Link></Button>} />
           ) : rows.length === 0 && tag && !q ? (
             <EmptyState title={tg("noneForTag", { tag: tag.name })} text={tg("noneForTagText")}
               action={<Button asChild variant="outline"><Link href={`?${new URLSearchParams(Object.entries(keep).filter(([k]) => k !== "tag"))}`}>{tg("all")}</Link></Button>} />
@@ -141,10 +151,14 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
               action={<Button asChild variant="outline"><Link href="?s=all">{t("showAll")}</Link></Button>}
             />
           ) : (
-            <Panel as="ul" className="divide-y">{rows.map((r) => <ItemRow key={r.id} slug={slug} row={r} voted={false} login={false} locale={locale}
-              tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user.role === "admin" } : undefined} selectable={isTeam} />)}</Panel>
+            <TranslationScope slug={slug} view={translation}>
+              {isTeam && <ListTools count={rows.length} />}
+              <TitlesBar className="mb-2" />
+              <Panel as="ul" className="divide-y">{rows.map((r) => <ItemRow key={r.id} slug={slug} row={r} voted={false} login={false} locale={locale}
+                tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user.role === "admin" } : undefined} selectable={isTeam} />)}</Panel>
+            </TranslationScope>
           )}
-          {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="bug" team={members} />}
+          {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="bug" team={members} me={user?.id} />}
           <LoadMore href={hasMore ? nextPageHref(keep, page) : null} shown={rows.length} total={shownTotal} />
         </div>
         <aside className="grid content-start gap-8 max-lg:hidden">

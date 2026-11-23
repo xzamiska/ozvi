@@ -6,6 +6,7 @@ import { fetchLimit, takePage } from "./paging";
 import { subLabelMap } from "./sub-statuses";
 import { tagFromParam, type Tag } from "./tag-rules";
 import { hasTag, listTags, tagsByItem } from "./tags";
+import { votersSql } from "./votes";
 
 /**
  * The public roadmap: ideas in the three forward lanes, each paging on its own, with the tags this
@@ -21,7 +22,7 @@ export const ROADMAP_LANES = [
 ] as const;
 export type LaneKey = (typeof ROADMAP_LANES)[number]["key"];
 
-export interface RoadmapCard { id: string; number: number; title: string; votes: number; updatedAt: Date; tags: Tag[]; subLabel?: string }
+export interface RoadmapCard { id: string; number: number; title: string; votes: number; voters: number; updatedAt: Date; tags: Tag[]; subLabel?: string }
 export interface RoadmapLane { rows: RoadmapCard[]; hasMore: boolean; total: number }
 
 export async function roadmapLanes(tx: Tx, board: BoardLanguages, locale: Locale, opts: { team: boolean; tag?: string | null; pages: Record<LaneKey, number> }) {
@@ -34,7 +35,7 @@ export async function roadmapLanes(tx: Tx, board: BoardLanguages, locale: Locale
     const page = opts.pages[c.key];
     const where = and(eq(items.kind, "idea"), eq(items.status, c.status), isNull(items.mergedIntoId), isNull(items.deletedAt), eq(items.pending, false),
       ...(tag ? [hasTag(tag.id)] : []));
-    const rows = await tx.select({ id: items.id, number: items.number, title: items.title, votes: items.voteCount, updatedAt: items.updatedAt, subStatusId: items.subStatusId })
+    const rows = await tx.select({ id: items.id, number: items.number, title: items.title, votes: items.voteCount, voters: votersSql, updatedAt: items.updatedAt, subStatusId: items.subStatusId })
       .from(items).where(where)
       .orderBy(...(c.status === "shipped" ? [desc(items.updatedAt)] : [desc(items.voteCount), desc(items.createdAt)]), desc(items.number))
       .limit(fetchLimit(page, c.size));

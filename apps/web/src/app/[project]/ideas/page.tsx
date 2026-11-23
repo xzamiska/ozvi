@@ -7,6 +7,7 @@ import { Plus, Search } from "lucide-react";
 import Link from "next/link";
 import { ExportMenu } from "@/components/ExportMenu";
 import { ItemRow } from "@/components/ItemRow";
+import { ListTools } from "@/components/ozvi/ListTools";
 import { EmptyState, FilterBar, Page, PageHead, Panel, RailSection, Segments } from "@/components/ozvi/page";
 import { RouteLegend, StatusMark } from "@/components/ozvi/route";
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,8 @@ import { Gate, signInText } from "../_gate";
 import { hasTag, listTags } from "@/lib/tags";
 import { tagFromParam } from "@/lib/tag-rules";
 import { decorateRows } from "@/lib/row-extras";
+import { listTranslationView } from "@/lib/translate-view";
+import { TitlesBar, TranslationScope } from "@/components/ozvi/Translate";
 import { boardTitle } from "@/lib/board-meta";
 import { needSection } from "@/lib/sections-server";
 
@@ -45,7 +48,7 @@ export default async function Ideas({ params, searchParams }: {
 }) {
   const { project: slug } = await params;
   const sp = await searchParams;
-  const { project, user, isTeam, locale } = await getCtx(slug);
+  const { project, user, isTeam, locale, plan: boardPlan } = await getCtx(slug);
   needSection(project, "ideas");
   const t = await getTranslations("board.ideas");
   const tb = await getTranslations("board");
@@ -66,7 +69,7 @@ export default async function Ideas({ params, searchParams }: {
   }
 
   const { items } = schema;
-  const { queued, rows, hasMore, total, voted, weights, left, plans, shipped, allTags, tag, members, who } = await withProject(db, project.id, async (tx) => {
+  const { queued, rows, hasMore, total, voted, weights, left, plans, shipped, allTags, tag, members, who, translation } = await withProject(db, project.id, async (tx) => {
     // Tags: everybody filters by public ones; team-only tags exist (and filter) only for the team.
     const allTags = await listTags(tx, isTeam);
     const tag = tagFromParam(allTags, sp.tag, isTeam);
@@ -79,6 +82,8 @@ export default async function Ideas({ params, searchParams }: {
     const queued = isTeam ? await countItems(tx, [eq(items.kind, "idea")], { queue: true }) : 0;
     const weights = await myVoteWeights(tx, user?.id, rows.map((r) => r.id));
     await decorateRows(tx, project, locale, rows, isTeam);
+    // Automatic translation: titles of ideas in another language (only rows this viewer may read).
+    const translation = await listTranslationView(tx, { project, plan: boardPlan, locale }, rows);
     const plans = isTeam ? await customerPlans(tx) : [];
     if (isTeam) {
       // Exact per-currency MRR for the rows on screen (the SQL sort sums cents without converting currencies).
@@ -87,10 +92,12 @@ export default async function Ideas({ params, searchParams }: {
     }
     const shipped = await tx.select({ number: items.number, title: items.title, updatedAt: items.updatedAt }).from(items)
       .where(and(eq(items.kind, "idea"), eq(items.status, "shipped"), isNull(items.mergedIntoId), isNull(items.deletedAt), eq(items.pending, false))).orderBy(desc(items.updatedAt)).limit(4);
-    return { queued, rows, hasMore, total, voted: new Set(weights.keys()), weights, left: await budgetLeft(tx, project, user?.id), plans, shipped, allTags, tag, members, who };
+    return { queued, rows, hasMore, total, voted: new Set(weights.keys()), weights, left: await budgetLeft(tx, project, user?.id), plans, shipped, allTags, tag, members, who, translation };
   });
   const m = await getTranslations("moderation");
   const tg = await getTranslations("tags");
+  const whoOptions = isTeam && user ? assigneeOptions(t, members, user.id, (w) => ti("former", { who: w })) : [];
+  const whoLabel = whoOptions.find((o) => o.value === who)?.label ?? "";
   const keep = { sort, f: fParam, ...(q ? { q } : {}), ...(plan ? { plan } : {}), ...(tag ? { tag: tag.name } : {}), ...(who ? { who } : {}) };
   const href = (o: Record<string, string>) => `?${new URLSearchParams({ ...keep, ...o })}`;
   const vote = { mode: voteModeOf(project), left };
@@ -107,7 +114,8 @@ export default async function Ideas({ params, searchParams }: {
               {isTeam && <ExportMenu slug={slug} kind="idea" query={keep} />}
               <Button asChild size="lg"><Link href={`/${slug}/new?kind=idea`}><Plus />{t("suggest")}</Link></Button>
             </>
-          : login ? <Button asChild size="lg" variant="outline"><a href={login}>{t("signInToSuggest")}</a></Button> : null}
+          // Signing in to suggest comes back to the form (it was the list), where similar ideas show while writing.
+          : login ? <Button asChild size="lg" variant="outline"><a href={loginHref(project, `/${slug}/new?kind=idea`) ?? login}>{t("signInToSuggest")}</a></Button> : null}
       />
       {/* After "Moje údaje" → erase (lib/privacy-actions.ts): the person is signed out and lands here. */}
       {sp.erased === "1" && !user && (
@@ -124,6 +132,7 @@ export default async function Ideas({ params, searchParams }: {
               <input type="hidden" name="sort" value={sort} />
               {plan && <input type="hidden" name="plan" value={plan} />}
               {tag && <input type="hidden" name="tag" value={tag.name} />}
+              {who && <input type="hidden" name="who" value={who} />}
             </form>
             <FilterBar>
               <Segments label={t("status")} items={[
@@ -140,7 +149,7 @@ export default async function Ideas({ params, searchParams }: {
                 <UrlSelect name="tag" value={tag?.name ?? ""} label={tg("filter")}
                   options={[{ value: "", label: tg("all") }, ...allTags.map((x) => ({ value: x.name, label: x.public ? x.name : `${x.name} · ${tg("teamOnly")}` }))]} />
               )}
-              {isTeam && user && <UrlSelect name="who" value={who} label={t("who")} options={assigneeOptions(t, members, user.id, (w) => ti("former", { who: w }))} />}
+              {isTeam && user && <UrlSelect name="who" value={who} label={t("who")} prefix={t("who")} options={whoOptions} />}
               {isTeam && (plans.length > 0 || plan) && (
                 <UrlSelect name="plan" value={plan} label={t("planFilter")}
                   options={[{ value: "", label: t("allPlans") }, ...[...new Set([...plans, ...(plan ? [plan] : [])])].map((p) => ({ value: p, label: t("planOption", { plan: p }) }))]} />
@@ -151,6 +160,8 @@ export default async function Ideas({ params, searchParams }: {
           {left !== null && <VoteBudget left={left} budget={project.voteBudget!} mode={vote.mode} />}
           {rows.length === 0 ? (
             queue && !q && !plan ? <EmptyState title={m("queueEmpty")} text={m("queueEmptyText")} /> :
+            who && !q ? <EmptyState title={t("noneForWho", { who: whoLabel })} text={t("noneForWhoText")}
+              action={<Button asChild variant="outline"><Link href={`?${new URLSearchParams(Object.entries(keep).filter(([k]) => k !== "who"))}`}>{t("whoClear")}</Link></Button>} /> :
             tag && !q ? <EmptyState title={tg("noneForTag", { tag: tag.name })} text={tg("noneForTagText")}
               action={<Button asChild variant="outline"><Link href={`?${new URLSearchParams(Object.entries(keep).filter(([k]) => k !== "tag"))}`}>{tg("all")}</Link></Button>} /> :
             plan && !q ? <EmptyState title={t("noneForPlan", { plan })} text={t("noneForPlanText")}
@@ -160,12 +171,16 @@ export default async function Ideas({ params, searchParams }: {
                   action={<Button asChild variant="outline"><Link href={href({ f: "all" })}>{t("showAll")}</Link></Button>} />
               : <EmptyState title={t("emptyTitle")} text={user ? t("emptyUser") : t("emptyGuest")} />
           ) : (
-            <Panel as="ul" className="divide-y">
-              {rows.map((r) => <ItemRow key={r.id} slug={slug} row={r} voted={voted.has(r.id)} weight={weights.get(r.id)} vote={vote} login={login} locale={locale}
-                tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user?.role === "admin" } : undefined} selectable={isTeam} />)}
-            </Panel>
+            <TranslationScope slug={slug} view={translation}>
+              {isTeam && <ListTools count={rows.length} />}
+              <TitlesBar className="mb-2" />
+              <Panel as="ul" className="divide-y">
+                {rows.map((r) => <ItemRow key={r.id} slug={slug} row={r} voted={voted.has(r.id)} weight={weights.get(r.id)} vote={vote} login={login} locale={locale}
+                  tagHref={(x) => `?${new URLSearchParams({ ...keep, tag: x.name })}`} tagging={isTeam ? { all: allTags, admin: user?.role === "admin" } : undefined} selectable={isTeam} />)}
+              </Panel>
+            </TranslationScope>
           )}
-          {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="idea" team={members} />}
+          {isTeam && rows.length > 0 && <BulkBar slug={slug} kind="idea" team={members} me={user?.id} />}
           <LoadMore href={hasMore ? nextPageHref(keep, page) : null} shown={rows.length} total={total} />
         </div>
 

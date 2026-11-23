@@ -20,6 +20,7 @@ registerPack({
     origin: "Diese Website darf keine Meldungen senden. Bitte informieren Sie den Administrator der App, damit er sie zu den erlaubten Adressen hinzufügt.",
   },
   ideas: {
+    trOn: "Titel mit KI übersetzt", trOff: "Titel im Original", trOrig: "Originale anzeigen", trShow: "Übersetzungen anzeigen",
     search: "Ideen durchsuchen", searchPh: "Z. B. CSV-Export", none: "Nichts gefunden. Schlagen Sie es als neue Idee vor.", empty: "Noch keine Ideen.",
     suggest: "Neue Idee vorschlagen", all: "Alle Ideen auf dem Board", vote: "Abstimmen", voted: "Abgestimmt", votes: (n: number) => `${n} ${n === 1 ? "Stimme" : "Stimmen"}`,
     weight: (w: number) => `Wichtigkeit ${w} von 3`, left: (l: number, t: number) => `${l} von ${t} Punkten übrig`,

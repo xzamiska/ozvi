@@ -25,6 +25,8 @@ export const LIMITS = {
   translate: { max: 60, windowMs: 60 * 60_000 },
   /** English pivots of typed idea titles (cross-language "similar ideas"), per viewer. */
   pivot: { max: 40, windowMs: 60 * 60_000 },
+  /** Embeddings of typed idea titles (similar ideas while writing, the question on submit), per viewer. */
+  similar: { max: 120, windowMs: 60 * 60_000 },
   /** Sign-in codes per IP an hour (OZVI_LOGIN_PER_IP, default 20; checking codes allows twice as many). */
   loginIp: { max: LOGIN_PER_IP, windowMs: 60 * 60_000 },
   loginVerifyIp: { max: 2 * LOGIN_PER_IP, windowMs: 60 * 60_000 },
@@ -64,6 +66,14 @@ export function take(kind: keyof typeof LIMITS, key: string, now = Date.now()): 
   hits.set(k, list);
   if (hits.size > 50_000) for (const [key2, v] of hits) if (!v.some((t) => t > now - 3600_000)) hits.delete(key2);
   return { ok: true, limit: max, remaining: max - list.length, resetSeconds: reset(list) };
+}
+
+/** Gives back a slot taken at `at` (an attempt that did not go through should not count against the limit). */
+export function release(kind: keyof typeof LIMITS, key: string, at: number): void {
+  const k = `${kind}:${key}`;
+  const list = hits.get(k);
+  const i = list?.lastIndexOf(at) ?? -1;
+  if (i >= 0) list!.splice(i, 1);
 }
 
 export class RateLimitError extends Error {

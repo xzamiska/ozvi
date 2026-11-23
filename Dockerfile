@@ -16,10 +16,20 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm --filter @ozvi/web build
 # Self-contained migrator (drizzle + postgres bundled) so the runtime image needs no dev deps.
+# The CLI and the local embedding model's process (ozvi-embeddings.mjs, started by the server on first use) leave
+# the model's libraries out: they load them at run time from the standalone node_modules (the two links below
+# make them resolvable from /app).
 RUN pnpm --filter @ozvi/widget exec esbuild ../db/src/migrate.ts --bundle --platform=node --format=esm \
       --outfile=/app/migrate.mjs --banner:js="import{createRequire}from'module';const require=createRequire(import.meta.url);" \
  && pnpm --filter @ozvi/widget exec esbuild ../db/src/cli.ts --bundle --platform=node --format=esm \
-      --outfile=/app/ozvi.mjs --banner:js="import{createRequire}from'module';const require=createRequire(import.meta.url);"
+      --external:@huggingface/transformers --external:onnxruntime-web \
+      --outfile=/app/ozvi.mjs --banner:js="import{createRequire}from'module';const require=createRequire(import.meta.url);" \
+ && pnpm --filter @ozvi/widget exec esbuild ../db/src/local-embeddings-child.ts --bundle --platform=node --format=esm \
+      --external:@huggingface/transformers --external:onnxruntime-web \
+      --outfile=/app/ozvi-embeddings.mjs --banner:js="import{createRequire}from'module';const require=createRequire(import.meta.url);" \
+ && cd apps/web/.next/standalone/node_modules && mkdir -p @huggingface \
+ && ln -s .pnpm/onnxruntime-web@*/node_modules/onnxruntime-web onnxruntime-web \
+ && cd @huggingface && ln -s ../.pnpm/@huggingface+transformers@*/node_modules/@huggingface/transformers transformers
 
 FROM node:22.23.5-alpine AS runtime
 WORKDIR /app
@@ -35,7 +45,7 @@ COPY --from=build --chown=ozvi:ozvi /app/apps/web/.next/static ./apps/web/.next/
 COPY --from=build --chown=ozvi:ozvi /app/apps/web/public ./apps/web/public
 # Ozvi's own release notes, served as /releases and /releases.json on ozvi.io (cloud mode).
 COPY --from=build --chown=ozvi:ozvi /app/apps/web/releases ./apps/web/releases
-COPY --from=build --chown=ozvi:ozvi /app/migrate.mjs /app/ozvi.mjs ./
+COPY --from=build --chown=ozvi:ozvi /app/migrate.mjs /app/ozvi.mjs /app/ozvi-embeddings.mjs ./
 COPY --from=build --chown=ozvi:ozvi /app/packages/db/migrations ./migrations
 USER ozvi
 VOLUME /data

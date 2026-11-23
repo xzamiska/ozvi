@@ -7,7 +7,7 @@ import { addCommentTo, type Item } from "./domain";
 import { notifyNewIdea } from "./email/notify";
 import type { Project, User } from "./project";
 import { INSIGHT_PREFIX } from "./provenance";
-import { findSimilar, type SimilarRow } from "./similar";
+import { findSimilar, SIMILAR_STRONG, type SimilarRow } from "./similar";
 import { applyVote } from "./votes";
 
 /**
@@ -18,7 +18,10 @@ import { applyVote } from "./votes";
 
 const { items, users, votes, comments } = schema;
 
-/** Similarity at or above this attaches to the closest idea on its own; below, a new idea goes to the queue. */
+/**
+ * Similarity at or above this (and at least the method's SIMILAR_STRONG: the local model's scale sits higher)
+ * attaches to the closest idea on its own; below, a new idea goes to the queue.
+ */
 export const INSIGHT_ATTACH_SCORE = 0.85;
 
 /** Single line, no control or angle characters, bounded: customer fields come from an agent. */
@@ -95,7 +98,7 @@ export async function submitInsight(
       const [into] = await tx.select({ number: items.number }).from(items).where(eq(items.id, target.mergedIntoId));
       throw new ToolError(`#${a.match} was merged into #${into?.number ?? "?"}; attach there.`);
     }
-  } else if (candidates[0] && candidates[0].score >= INSIGHT_ATTACH_SCORE) {
+  } else if (candidates[0] && candidates[0].score >= Math.max(INSIGHT_ATTACH_SCORE, SIMILAR_STRONG[candidates[0].method])) {
     target = (await tx.query.items.findFirst({ where: eq(items.id, candidates[0].id) })) ?? null;
   }
   const note = insightNote(locale, a, who, actor.name);

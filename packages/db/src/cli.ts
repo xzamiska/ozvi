@@ -3,6 +3,8 @@
  *   docker compose exec ozvi node ozvi.mjs project:create myapp "My app" --preset les --origin https://app.example.com
  *   … --theme /data/myapp-theme.json   (your own theme.json instead of a preset)
  *   docker compose exec ozvi node ozvi.mjs project:list
+ *   docker compose exec ozvi node ozvi.mjs duplicates:eval --project myapp [--method trigram|api|local|all] [--json]
+ *     (how well each similarity method finds the originals of merged items; numbers only, see duplicates-eval.ts)
  */
 import { presets, themeSchema } from "@ozvi/theme";
 import { readFileSync } from "node:fs";
@@ -10,10 +12,15 @@ import { eq } from "drizzle-orm";
 import { parseArgs } from "node:util";
 import { createDb, encryptSecret, newSecret, withSystem } from "./index";
 import { projects, workspaces } from "./schema";
+import { aiProviderSet } from "./ai-env";
+import { formatReport, runDuplicatesEval, type EvalMethod } from "./duplicates-eval";
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
-  options: { preset: { type: "string", default: "ozvi" }, theme: { type: "string" }, origin: { type: "string", multiple: true }, "login-url": { type: "string" } },
+  options: {
+    preset: { type: "string", default: "ozvi" }, theme: { type: "string" }, origin: { type: "string", multiple: true }, "login-url": { type: "string" },
+    project: { type: "string" }, method: { type: "string", default: "all" }, json: { type: "boolean", default: false },
+  },
 });
 const [cmd, slug, name] = positionals;
 const db = createDb();
@@ -37,6 +44,8 @@ try {
       const exists = await tx.select().from(projects).where(eq(projects.slug, slug));
       if (exists.length) throw new Error(`project "${slug}" already exists`);
       await tx.insert(projects).values({
+        // Self-hosted with an AI provider: post translation starts "on request" (as new Pro/Studio boards in the cloud).
+        translationMode: aiProviderSet(process.env) ? "on_demand" : "off",
         workspaceId: w!.id, slug, name, theme, ssoSecretEnc: encryptSecret(secret),
         allowedOrigins: values.origin ?? [], loginUrl: values["login-url"] ?? null,
       });
@@ -46,8 +55,14 @@ try {
     console.log(`OZVI_SSO_SECRET=${secret}\n`);
     console.log("Shown once — set it in your app, then sign users in with signOzviToken() from @ozvi/sdk.");
     console.log(`Board: ${base}/${slug}/ideas   Settings (role "admin" in the token): ${base}/${slug}/admin`);
+  } else if (cmd === "duplicates:eval" && values.project) {
+    const all: EvalMethod[] = ["trigram", "api", "local"];
+    const m = values.method ?? "all";
+    if (m !== "all" && !all.includes(m as EvalMethod)) throw new Error("--method: trigram, api, local or all");
+    const report = await runDuplicatesEval(db, values.project, m === "all" ? all : [m as EvalMethod]);
+    console.log(values.json ? JSON.stringify(report, null, 2) : formatReport(report));
   } else {
-    console.log(`Usage:\n  ozvi.mjs project:create <slug> "<Name>" [--preset ${Object.keys(presets).join("|")} | --theme theme.json] [--origin https://app.example.com] [--login-url URL]\n  ozvi.mjs project:list`);
+    console.log(`Usage:\n  ozvi.mjs project:create <slug> "<Name>" [--preset ${Object.keys(presets).join("|")} | --theme theme.json] [--origin https://app.example.com] [--login-url URL]\n  ozvi.mjs project:list\n  ozvi.mjs duplicates:eval --project <slug> [--method trigram|api|local|all] [--json]`);
     process.exitCode = 2;
   }
 } catch (e) {

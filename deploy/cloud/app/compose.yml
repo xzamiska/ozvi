@@ -48,6 +48,12 @@ services:
       OZVI_AI_MODEL: ${OZVI_AI_MODEL:-}
       OZVI_AI_MODEL_FAST: ${OZVI_AI_MODEL_FAST:-}
       OZVI_EMBEDDINGS_MODEL: ${OZVI_EMBEDDINGS_MODEL:-}
+      OZVI_AI_REASONING_EFFORT: ${OZVI_AI_REASONING_EFFORT:-}
+      OZVI_EMBEDDINGS: ${OZVI_EMBEDDINGS:-}
+      OZVI_MODELS_PREFETCH: ${OZVI_MODELS_PREFETCH:-}
+      OZVI_EMBEDDINGS_THREADS: ${OZVI_EMBEDDINGS_THREADS:-}
+      OZVI_EMBEDDINGS_IDLE_MINUTES: ${OZVI_EMBEDDINGS_IDLE_MINUTES:-}
+      OZVI_HEARTBEAT_URL: ${OZVI_HEARTBEAT_URL:-}
       OZVI_ADMIN_EMAILS: ${OZVI_ADMIN_EMAILS:-}
       OZVI_SIGNUP: ${OZVI_SIGNUP:-}
       OZVI_FREE_WORKSPACES_PER_IP: ${OZVI_FREE_WORKSPACES_PER_IP:-}
@@ -69,6 +75,7 @@ services:
       internal: {}
       edge:
         aliases: ["${OZVI_ENV:?set OZVI_ENV to live or staging}-ozvi"]
+    # With OZVI_EMBEDDINGS=local the model's process needs ~0.6-1.1 GB more: set OZVI_MEM=2560m.
     mem_limit: ${OZVI_MEM:-1536m}
 
   # Nightly custom-format dump at 02:30 (TZ), kept BACKUP_KEEP days, in addition to the VM backup.

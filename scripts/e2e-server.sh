@@ -22,6 +22,10 @@ export OZVI_SECRET_KEY=e2e-only-secret-key-0123456789abcdef0123 OZVI_SESSION_SEC
 # DNS stays real: the domain specs check the unverified path (records to set, a failing "Overiť doménu").
 export OZVI_DEV_LOGIN=0 OZVI_DEV_BILLING=1 OZVI_DEV_DNS=0 OZVI_SIGNUP=open OZVI_ADMIN_EMAILS=operator@e2e.test
 export OZVI_NEXT_DIST=.next-e2e NODE_OPTIONS= OZVI_FREE_WORKSPACES_PER_IP=10000 OZVI_LOGIN_PER_IP=10000
+# AI: a deterministic fake model (scripts/e2e-ai-mock.mjs, "[pl] …" translations), never a real provider or key.
+# It lives as long as this process (exec below keeps the PID).
+export OZVI_AI_PROVIDER=openai OZVI_AI_BASE_URL=http://127.0.0.1:3419/v1 OZVI_AI_MODEL=e2e-mock OZVI_AI_API_KEY=
+node scripts/e2e-ai-mock.mjs --port 3419 --parent $$ &
 rm -rf data/uploads-e2e
 pnpm --filter @ozvi/db migrate >/dev/null
 pnpm --filter @ozvi/widget build >/dev/null

@@ -51,8 +51,13 @@ export function Customers({ kind, people, demand, locale, votes }: {
         <p className="text-[15px] font-semibold leading-snug">
           {who}{extra}{money && <> · <span className="tabular-nums">{t("mrrTotal", { mrr: money })}</span></>}
         </p>
-        {votes && votes.importance && (
-          <p className="mt-0.5 text-[13px] text-muted-foreground">{tv("weighted", { points: votes.points, people: votes.voters })}</p>
+        {/* The vote box counts votes; "who wants it" also counts the author and authors of merged duplicates who
+            did not vote. Say so, or the two numbers on one page disagree without a reason. */}
+        {votes && (votes.importance || demand.people > votes.voters) && (
+          <p className="mt-0.5 text-[13px] text-muted-foreground">
+            {votes.importance ? tv("weighted", { points: votes.points, people: votes.voters }) : tv("count", { count: votes.points })}
+            {demand.people > votes.voters && <> · {t("authorsCounted")}</>}
+          </p>
         )}
       </div>
       {!anyTraits && <p className="text-[13px] text-muted-foreground">{t("noTraitsHint")}</p>}

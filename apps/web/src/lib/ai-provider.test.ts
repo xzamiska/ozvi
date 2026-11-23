@@ -3,7 +3,7 @@ import type { AddressInfo } from "node:net";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 import { _resetJsonModes, aiConfig, aiProviderName, completeJson, completeText, extractJson, ProviderError, type AiConfig } from "./ai-provider";
-import { embeddingsConfig } from "./similar";
+import { embeddingsConfig, embeddingsFor } from "./similar";
 
 describe("aiConfig", () => {
   it("is off with nothing set, or with OZVI_AI_PROVIDER=off", () => {
@@ -29,6 +29,11 @@ describe("aiConfig", () => {
     expect(aiConfig({ OZVI_AI_PROVIDER: "openai-compatible", OZVI_AI_MODEL: "llama3.1", OZVI_AI_BASE_URL: "http://ollama:11434/v1/" }))
       .toEqual({ provider: "openai", apiKey: undefined, baseUrl: "http://ollama:11434/v1", model: "llama3.1", modelFast: "llama3.1" });
   });
+  it("OZVI_AI_REASONING_EFFORT is kept for openai-compatible only", () => {
+    expect(aiConfig({ OZVI_AI_PROVIDER: "openai", OZVI_AI_MODEL: "m", OZVI_AI_REASONING_EFFORT: " None " })).toMatchObject({ reasoningEffort: "none" });
+    expect(aiConfig({ OZVI_AI_PROVIDER: "openai", OZVI_AI_MODEL: "m" })).not.toHaveProperty("reasoningEffort");
+    expect(aiConfig({ OZVI_AI_PROVIDER: "anthropic", OZVI_AI_API_KEY: "k", OZVI_AI_REASONING_EFFORT: "none" })).not.toHaveProperty("reasoningEffort");
+  });
   it("unknown provider = off", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     expect(aiConfig({ OZVI_AI_PROVIDER: "gemini", OZVI_AI_MODEL: "x" })).toBeNull();
@@ -41,10 +46,18 @@ describe("aiConfig", () => {
   });
   it("embeddings reuse the OpenAI-compatible base when OZVI_EMBEDDINGS_URL is unset", () => {
     expect(embeddingsConfig({ OZVI_AI_PROVIDER: "openai", OZVI_AI_MODEL: "m", OZVI_AI_BASE_URL: "http://ollama:11434/v1", OZVI_EMBEDDINGS_MODEL: "nomic-embed-text" }))
-      .toEqual({ url: "http://ollama:11434/v1", model: "nomic-embed-text", key: undefined });
+      .toEqual({ provider: "api", url: "http://ollama:11434/v1", model: "nomic-embed-text", key: undefined });
     expect(embeddingsConfig({ OZVI_EMBEDDINGS_URL: "http://e/v1", OZVI_EMBEDDINGS_MODEL: "e", OZVI_AI_PROVIDER: "openai", OZVI_AI_MODEL: "m" })).toMatchObject({ url: "http://e/v1" });
     expect(embeddingsConfig({ ANTHROPIC_API_KEY: "k", OZVI_EMBEDDINGS_MODEL: "e" })).toBeNull();
     expect(embeddingsConfig({ OZVI_AI_PROVIDER: "openai", OZVI_AI_MODEL: "m" })).toBeNull();
+  });
+  it("the local model: its own model id, on every plan; an embeddings API only on plans with AI", () => {
+    const local = embeddingsConfig({ OZVI_EMBEDDINGS: "local", OZVI_EMBEDDINGS_URL: "http://e/v1", OZVI_EMBEDDINGS_MODEL: "e" });
+    expect(local).toEqual({ provider: "local", model: "local:multilingual-e5-small" });
+    const api = embeddingsConfig({ OZVI_EMBEDDINGS_URL: "http://e/v1", OZVI_EMBEDDINGS_MODEL: "e" });
+    expect((["self", "free", "pro", "studio"] as const).map((p) => embeddingsFor(p, local))).toEqual([true, true, true, true]);
+    expect((["self", "free", "pro", "studio"] as const).map((p) => embeddingsFor(p, api))).toEqual([true, false, false, true]);
+    expect(embeddingsFor("self", null)).toBe(false);
   });
 });
 
@@ -122,6 +135,27 @@ describe("OpenAI-compatible adapter", () => {
     handler = (b, _q, res) => "max_tokens" in b ? reply(res, 400, { error: { message: "Use 'max_completion_tokens' instead." } }) : reply(res, 200, ok("ok"));
     expect(await completeText(cfg, text)).toBe("ok");
     expect(seen[1]).toMatchObject({ max_completion_tokens: 50 });
+  });
+  it("sends reasoning_effort when configured; drops it once if the server rejects it, and remembers", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const withEffort = { ...cfg, reasoningEffort: "none" };
+    handler = (_b, _q, res) => reply(res, 200, ok('{"title":"T","body":"B"}'));
+    await completeJson(withEffort, json);
+    expect(seen[0]).toMatchObject({ reasoning_effort: "none", response_format: { type: "json_schema" } });
+    expect(seen[0]!.max_tokens).toBe(50);
+
+    seen.length = 0; _resetJsonModes();
+    handler = (b, _q, res) => "reasoning_effort" in b
+      ? reply(res, 400, { error: { message: "Unrecognized request argument supplied: reasoning_effort" } })
+      : reply(res, 200, ok('{"title":"T","body":"B"}'));
+    expect(await completeJson(withEffort, json)).toEqual({ title: "T", body: "B" });
+    expect(seen.map((s) => "reasoning_effort" in s)).toEqual([true, false]);
+    expect(seen[1]).toMatchObject({ response_format: { type: "json_schema" } }); // structured output kept
+    seen.length = 0;
+    await completeJson(withEffort, json);
+    expect(seen).toHaveLength(1);
+    expect(seen[0]).not.toHaveProperty("reasoning_effort");
+    warn.mockRestore();
   });
   it.each([[401, "auth"], [403, "auth"], [429, "overloaded"], [503, "overloaded"], [500, "failed"], [502, "failed"]])("maps HTTP %i to %s", async (status, code) => {
     handler = (_b, _q, res) => reply(res, status, { error: { message: "x" } });

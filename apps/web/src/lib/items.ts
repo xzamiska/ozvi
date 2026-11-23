@@ -14,6 +14,8 @@ import type { Locale } from "@/i18n/locales";
 import { cleanCapture, type Capture } from "./bug-context";
 import { maskText, maskUrl } from "@ozvi/sdk/mask";
 import type { ItemSource } from "./provenance";
+import type { SimilarSeen } from "./duplicates";
+import { countDuplicate } from "./duplicate-stats";
 
 export class ValidationError extends Error {}
 
@@ -38,6 +40,8 @@ export interface NewItem {
   kind: "bug" | "idea"; title: string; body: string; context: unknown; files: File[];
   /** Provenance shown to agents (MCP, webhooks, GitHub); default "board". */
   source?: ItemSource;
+  /** Ideas: the similar ideas its author was shown and why it is different (lib/duplicates.ts, context.similarSeen). */
+  similarSeen?: SimilarSeen | null;
 }
 
 /**
@@ -67,7 +71,7 @@ export async function createItem(project: Project, user: User, input: NewItem, l
   if (dup) return { number: dup.number, pending: (dup.pending as PendingReason | null) ?? null };
   if (!allow("item", user.id) || !allow("itemBurst", user.id)) throw new RateLimitError(locale);
   const pending = pendingReason({ kind: input.kind, title, body }, user, project);
-  const context = input.kind === "bug" ? cleanContext(input.context) : null;
+  const context = input.kind === "bug" ? cleanContext(input.context) : input.similarSeen ? { similarSeen: input.similarSeen } : null;
 
   const files = await prepareAttachments(db, project, input.files, locale);
   const written: string[] = [];
@@ -80,6 +84,11 @@ export async function createItem(project: Project, user: User, input: NewItem, l
         status: input.kind === "bug" ? "new" : "open", pending: !!pending, pendingReason: pending, source: input.source ?? "board",
       }).returning();
       await storeAttachments(tx, project.id, item!.id, files, written);
+      // Created although similar ideas were shown (ADR-0015 counters; the item keeps what was shown for the team).
+      if (input.kind === "idea" && input.similarSeen) {
+        await countDuplicate(tx, project.id, "created_anyway");
+        if (input.similarSeen.strong) await countDuplicate(tx, project.id, "said_different");
+      }
       if (input.kind === "bug") await notifyNewBug(tx, project, item!);
       else await notifyNewIdea(tx, project, item!);
       await emit(tx, project, "item.created", { item: item!, actorName: user.name });

@@ -36,7 +36,8 @@
       "noProjects": ", bez projektů",
       "exportHint": "Export každého projektu stáhnete v jeho nastavení (Data projektu).",
       "nothingRemoved": "Ve všech vašich prostorech jsou i další členové, takže se žádné projekty nesmažou.",
-      "leave": "Z prostorů {list} odejdete, ostatní v nich pokračují."
+      "leave": "Z prostorů {list} odejdete, ostatní v nich pokračují.",
+      "noWorkspaces": "Nejste v žádném prostoru, smažeme tedy jen váš účet a údaje pro přihlášení."
     },
     "forms": {
       "role": "Role",
@@ -141,8 +142,8 @@
       "noSmtpCode": "E-maily nejsou nastavené (SMTP). Kód je v logu serveru.",
       "noAccess": "Tento e-mail nemá přístup. Na vlastním serveru ho přidejte do OZVI_ADMIN_EMAILS.",
       "emailLoginOff": "Přihlášení e-mailem není pro tento projekt zapnuté.",
-      "tooManyProjects": "Příliš mnoho nových projektů za hodinu. Zkuste to později.",
-      "tooManyFree": "Z této sítě dnes vzniklo příliš mnoho bezplatných prostorů. Zkuste to zítra, přidejte projekt do existujícího prostoru nebo přejděte na Pro.",
+      "tooManyProjects": "Za poslední hodinu jste založili příliš mnoho projektů. Další založíte za {minutes} min.",
+      "tooManyFree": "Z jedné sítě lze za den založit jen několik bezplatných prostorů a z této sítě je dnešní limit vyčerpán. Zkuste to znovu za {hours} h, nebo nám napište na support@ozvi.io a pomůžeme vám.",
       "nameLength": "Název musí mít 2 až 60 znaků.",
       "slugInvalid": "Adresa smí obsahovat malá písmena, číslice a pomlčky (2–41 znaků) a nesmí být vyhrazená.",
       "pickLook": "Vyberte vzhled.",
@@ -169,7 +170,9 @@
       "signupClosed": "Registrace ještě není otevřená. Napište nám na support@ozvi.io a ozveme se, až spustíme.",
       "alreadySubscribed": "Prostor už má předplatné. Plán změníte přímo v něm, bez další platby navíc.",
       "freeExistsOther": "Pro tuto e-mailovou schránku už existuje bezplatný prostor pod jiným účtem (stejná adresa s +značkou nebo s tečkami). Přihlaste se tím účtem a projekt přidejte tam, nebo vás jeho vlastník pozve do prostoru.",
-      "nameChars": "Jméno nesmí obsahovat znaky < a >. Odstraňte je a uložte znovu."
+      "nameChars": "Jméno nesmí obsahovat znaky < a >. Odstraňte je a uložte znovu.",
+      "tooManyFreeHasWorkspace": "Z jedné sítě lze za den založit jen několik bezplatných prostorů a z této sítě je dnešní limit vyčerpán. Nový prostor založíte za {hours} h, projekt ale můžete hned přidat do prostoru, ve kterém už jste.",
+      "addToWorkspace": "Přidat projekt do prostoru {workspace}"
     },
     "workspace": {
       "not_owner": "Tohle může udělat jen vlastník prostoru.",
@@ -180,7 +183,7 @@
       "last_owner": "Prostor musí mít alespoň jednoho vlastníka. Nejdřív udělejte vlastníkem někoho jiného.",
       "no_account": "Účet už neexistuje.",
       "email_taken": "Na {email} už je jiný účet v Ozvi. Zrušte ho, nebo použijte jinou adresu.",
-      "subscription": "Prostor {ws} má aktivní předplatné. Zrušte ho v Plánu a využití (Spravovat předplatné) a potom zrušte účet.",
+      "subscription": "Prostor {ws} má aktivní předplatné. Zrušte ho v Plánu a využití (tlačítko Zrušit předplatné) a potom zrušte účet.",
       "sole_owner": "V prostoru {ws} jste jediný vlastník. V části Tým udělejte vlastníkem někoho jiného, nebo ostatní členy odeberte."
     },
     "billing": {
@@ -294,7 +297,7 @@
       "saved": "Jazyky jsou uložené.",
       "invalid": "Vyberte jazyk ze seznamu.",
       "translation": "Překlad příspěvků",
-      "translationHint": "Nápady, komentáře a novinky napsané v jiném jazyce přeloží AI do jazyka čtenáře. Překlad je vždy označený a originál je na jedno kliknutí. Soukromá hlášení a poznámky týmu se překládají jen těm, kdo je smí vidět.",
+      "translationHint": "Nápady, komentáře a novinky napsané v jiném jazyce přeloží AI do jazyka čtenáře, i v e-mailových upozorněních (s originálem pod překladem). Překlad je vždy označený a originál je na jedno kliknutí. Soukromá hlášení a poznámky týmu se překládají jen těm, kdo je smí vidět.",
       "translationNoAi": "Překlady nejsou ve vašem plánu. Pro má 500 a Studio 2 000 nových překladů měsíčně; při vlastním hostingu je potřeba nastavit AI poskytovatele.",
       "mode": {
         "off": "Vypnutý",
@@ -302,7 +305,7 @@
         "on_demand": "Na vyžádání",
         "on_demandHint": "U příspěvku v jiném jazyce se zobrazí tlačítko „Přeložit“.",
         "auto": "Automaticky",
-        "autoHint": "Příspěvky v jiném jazyce se rovnou zobrazí přeložené, s odkazem na originál. Spotřebuje víc překladů než „Na požádání“."
+        "autoHint": "Příspěvky v jiném jazyce se rovnou zobrazí přeložené, s odkazem na originál, i názvy v seznamech nápadů a chyb a ve widgetu. Spotřebuje víc překladů než „Na požádání“."
       },
       "allowance": "Tento měsíc: {used} z {limit} nových překladů za celý pracovní prostor. Překlad, který už jednou vznikl, se znovu nepočítá."
     },
@@ -372,7 +375,7 @@
       "mailOffC": ", a k tomu",
       "plan": "Tarif",
       "sent": "Odeslané e-maily",
-      "deferred": "Čeká na denní souhrn",
+      "deferred": "Čeká na souhrn",
       "attachments": "Přílohy",
       "unlimited": "bez limitu"
     },
@@ -723,7 +726,7 @@
       "text": "Odstavce do zásad ochrany soukromí a záznamů o zpracování, sestavené podle nastavení tohoto projektu. Údaje v hranatých závorkách doplňte.",
       "legalTitle": "Toto není právní rada",
       "legal": "Jde o návrh podle toho, jak je projekt nastavený. Před zveřejněním ho zkontrolujte s právníkem.",
-      "cloud": "Ozvi cloud: pro údaje vašich uživatelů jste správce a Ozvi váš zpracovatel. Potřebujete také smlouvu o zpracování (DPA), vyžádáte si ji na {email}.",
+      "cloud": "Ozvi cloud: pro údaje vašich uživatelů jste správce a Ozvi váš zpracovatel. Smlouva o zpracování (DPA) je součástí obchodních podmínek a platí od registrace, její znění je na ozvi.io/dpa. Podepsanou verzi vám pošleme na vyžádání ({email}).",
       "self": "Vlastní instalace: správcem jste vy a s autory Ozvi smlouvu o zpracování nepotřebujete. Smlouvy uzavíráte přímo s poskytovateli uvedenými v textu (hosting, e-maily, AI, integrace).",
       "subprocessors": "Seznam subdodavatelů",
       "language": "Jazyk textu",
@@ -859,7 +862,10 @@
       "next": "Dále:",
       "proof": "Důkaz opravy",
       "proofPreview": "Vyzkoušet opravu",
-      "proofRelease": "Vydání {v}"
+      "proofRelease": "Vydání {v}",
+      "merged": "Sloučeno do #{n}",
+      "mergedPrivate": "Řeší se pod jiným číslem",
+      "reopened": "Znovu otevřeno: pořád nefunguje"
     },
     "ideas": {
       "gateTitle": "Nápady vidí jen přihlášení",
@@ -901,7 +907,10 @@
       "who": "Řeší",
       "whoAny": "Kdokoli",
       "whoMe": "Já",
-      "whoNone": "Nikdo"
+      "whoNone": "Nikdo",
+      "noneForWho": "Nic pro „Řeší: {who}“",
+      "noneForWhoText": "Je zapnutý filtr Řeší, proto vidíte jen část seznamu. Zrušte ho nebo vyberte někoho jiného.",
+      "whoClear": "Zrušit filtr Řeší"
     },
     "bugs": {
       "gateTitle": "Hlášení chyb vidí jen autor a tým",
@@ -942,7 +951,10 @@
       "who": "Řeší",
       "whoAny": "Kdokoli",
       "whoMe": "Já",
-      "whoNone": "Nikdo"
+      "whoNone": "Nikdo",
+      "noneForWho": "Nic pro „Řeší: {who}“",
+      "noneForWhoText": "Je zapnutý filtr Řeší, proto vidíte jen část seznamu. Zrušte ho nebo vyberte někoho jiného.",
+      "whoClear": "Zrušit filtr Řeší"
     },
     "roadmap": {
       "gateTitle": "Roadmapu vidí jen přihlášení",
@@ -963,7 +975,7 @@
       "lede": "Novinky v aplikaci {app}. Když vydáme nápad, pro který jste hlasovali, přijde vám e-mail.",
       "write": "Napsat novinku",
       "published": "Zveřejněno.",
-      "notified": "{n, plural, one { E-mail dostane # člověk, který pro nápady hlasoval.} few { E-mail dostanou # lidé, kteří pro nápady hlasovali.} other { E-mail dostane # lidí, kteří pro nápady hlasovali.}}",
+      "notified": "{n, plural, one { Posíláme # e-mail: hlasujícím, autorům a komentujícím.} few { Posíláme # e-maily: hlasujícím, autorům a komentujícím.} other { Posíláme # e-mailů: hlasujícím, autorům a komentujícím.}}",
       "emptyTitle": "Zatím žádné novinky",
       "emptyTeam": "Až vydáte nápad, napište o něm pár vět. Hlasující dostanou e-mail.",
       "emptyGuest": "Až tým něco vydá, najdete to tady.",
@@ -974,7 +986,7 @@
       "teamOnlyNoRole": "Váš účet nemá roli v týmu. Přidělí vám ji admin tohoto boardu.",
       "teamOnlySignIn": "Pokud patříte do týmu, přihlaste se.",
       "newTitle": "Nová novinka",
-      "newLede": "Napište, co jste vydali. Lidé, kteří pro vybrané nápady hlasovali, se to po zveřejnění dozví e-mailem.",
+      "newLede": "Napište, co jste vydali. Kdo pro vybrané nápady hlasoval, napsal je nebo je komentoval, se to po zveřejnění dozví e-mailem.",
       "editTitle": "Upravit novinku",
       "draftTitle": "Koncept novinky",
       "editLede": "Zveřejněno {date}. Úpravy se projeví v seznamu novinek; e-mail znovu neodejde.",
@@ -1069,6 +1081,7 @@
       "mergedPrivate": "Toto hlášení už řešíme pod jiným číslem. Až ho opravíme, dáme vědět.",
       "mergedInto": "Toto je duplicita. Pokračuje v",
       "votesMoved": ", hlasy se přesunuly tam",
+      "mergedGoThere": "Hlasování a diskuse pokračují u #{n}.",
       "noBody": "Bez popisu.",
       "technical": "Technické údaje",
       "show": "Zobrazit",
@@ -1098,7 +1111,12 @@
       "assigned": "Řeší: {who}",
       "unassigned": "Nikdo to zatím neřeší",
       "mergedHere": "Sloučeno sem:",
-      "former": "{who} (už není v týmu)"
+      "former": "{who} (už není v týmu)",
+      "you": "{who} (vy)",
+      "attached": "Váš hlas a popis jsou u tohoto nápadu. Dáme vám vědět, až se s ním něco pohne.",
+      "attachedQueued": "Váš popis čeká na schválení týmem, pak se objeví u tohoto nápadu.",
+      "seenStrong": "Autor viděl #{n} a označil to za jiné",
+      "seenShown": "Při psaní autor viděl:"
     },
     "me": {
       "title": "Moje údaje",
@@ -1137,11 +1155,11 @@
       "teamMailItems": {
         "newBug": {
           "title": "Nové hlášení chyby",
-          "text": "Hned, jak ho někdo pošle."
+          "text": "Když ho někdo pošle."
         },
         "newIdea": {
           "title": "Nový nápad",
-          "text": "Hned, jak ho někdo navrhne."
+          "text": "Když ho někdo navrhne."
         },
         "comments": {
           "title": "Komentáře a interní poznámky",
@@ -1154,6 +1172,21 @@
         "digest": {
           "title": "Pondělní souhrn",
           "text": "Jednou týdně: čísla, co čeká na odpověď a co je vydané, ale neoznámené."
+        }
+      },
+      "teamMailPace": "Jak vám je posílat",
+      "teamMailPaces": {
+        "instant": {
+          "title": "Hned",
+          "text": "Každý e-mail zvlášť, jakmile se něco stane."
+        },
+        "hourly": {
+          "title": "Souhrn jednou za hodinu",
+          "text": "Hodinu po první události přijde jeden e-mail se vším, co se mezitím stalo."
+        },
+        "daily": {
+          "title": "Souhrn jednou denně ráno",
+          "text": "Jeden e-mail v 8:00 se vším od včerejšího souhrnu."
         }
       }
     },
@@ -1175,6 +1208,7 @@
       "affectsPeople": "Týká se {n, plural, one {# člověka} few {# lidí} many {# člověka} other {# lidí}}",
       "andPeople": " a {n, plural, one {# člověk bez firmy} few {# lidé bez firmy} many {# člověka bez firmy} other {# lidí bez firmy}}",
       "mrrTotal": "celkem {mrr} MRR",
+      "authorsCounted": "počítáme i autora a autory sloučených duplicit, i když nehlasovali",
       "anonymous": "Uživatel",
       "plan": "tarif {plan}",
       "author": "autor",
@@ -1196,7 +1230,7 @@
       "ideas": "Nápady",
       "bugs": "Chyby",
       "emptyTitle": "Nikdo nečeká",
-      "emptyText": "{n, plural, one {Na každé hlášení tým odpověděl do # dne.} other {Na každé hlášení tým odpověděl do # dní.}}",
+      "emptyText": "{n, plural, one {Žádné hlášení nečeká na odpověď týmu déle než # den.} few {Žádné hlášení nečeká na odpověď týmu déle než # dny.} many {Žádné hlášení nečeká na odpověď týmu déle než # dne.} other {Žádné hlášení nečeká na odpověď týmu déle než # dní.}}",
       "ruleTitle": "Kdy se hlášení objeví",
       "rule": "{n, plural, one {Když autor nebo jiný uživatel napíše a tým do # dne neodpoví veřejně ani nezmění stav.} other {Když autor nebo jiný uživatel napíše a tým do # dní neodpoví veřejně ani nezmění stav.}}",
       "ruleClears": "Interní poznámky se nepočítají. Vydaná, opravená a zamítnutá hlášení tu nejsou.",
@@ -1226,9 +1260,12 @@
       "nobody": "Nikdo",
       "notify": "Poslat e-maily o změně stavu",
       "clear": "Zrušit výběr",
-      "apply": "Použít",
+      "apply": "Změnit vybrané",
       "applying": "Ukládám…",
-      "done": "{n, plural, one {Změněn # záznam} few {Změněny # záznamy} other {Změněno # záznamů}}"
+      "done": "{n, plural, one {Změněn # záznam} few {Změněny # záznamy} other {Změněno # záznamů}}",
+      "you": "{who} (vy)",
+      "selectAll": "Vybrat vše na stránce ({n})",
+      "dense": "Husté řádky"
     },
     "select": "Vybrat #{n}",
     "keys": {
@@ -1381,7 +1418,7 @@
     },
     "activity": {
       "title": "Aktivita",
-      "lede": "Změny v prostoru a v nastavení projektů: tým, plán, domény, tokeny, webhooky a přihlášení.",
+      "lede": "Změny v prostoru a v nastavení projektů (tým, plán, domény, tokeny, webhooky, přihlášení) a větší zásahy týmu: sloučení, hromadné změny a mazání.",
       "emptyTitle": "Zatím žádná aktivita",
       "emptyText": "První záznamy přibudou, až někoho pozvete nebo změníte nastavení projektu.",
       "older": "Starší záznamy",
@@ -1401,7 +1438,8 @@
           "sso_secret": "Nový klíč SSO",
           "oidc": "Nastaveno přihlášení přes OIDC",
           "domain": "Změněna vlastní doména",
-          "domain_verified": "Ověřena vlastní doména"
+          "domain_verified": "Ověřena vlastní doména",
+          "deleted": "Smazaný projekt"
         },
         "token": {
           "created": "Nový API token",
@@ -1455,7 +1493,8 @@
         },
         "import": {
           "started": "Import spuštěn",
-          "undone": "Import vrácen zpět"
+          "undone": "Import vrácen zpět",
+          "cancelled": "Import zrušen"
         },
         "retention": {
           "run": "Automatické mazání dat",
@@ -1470,7 +1509,31 @@
         },
         "account": {
           "renamed": "Změněné jméno účtu"
+        },
+        "triage": {
+          "merged": "Sloučené duplicity",
+          "bulk": "Hromadná změna",
+          "unmerged": "Oddělené duplicity"
+        },
+        "changelog": {
+          "published": "Zveřejněná novinka",
+          "draft_deleted": "Smazaný koncept novinky"
+        },
+        "data": {
+          "exported": "Export dat"
         }
+      },
+      "rows": "{n, plural, one {# řádek} few {# řádky} other {# řádků}}",
+      "planManual": "přidělený ručně",
+      "planStatus": {
+        "active": "aktivní",
+        "past_due": "platba selhala",
+        "scheduled_cancel": "zrušeno ke konci období",
+        "canceled": "zrušeno",
+        "expired": "skončeno",
+        "trialing": "zkušební období",
+        "paused": "pozastaveno",
+        "unpaid": "nezaplaceno"
       }
     },
     "delivery": {
@@ -1509,7 +1572,7 @@
         "idea_status": "Stav nápadu",
         "changelog": "Novinka",
         "team_digest": "Týdenní souhrn",
-        "digest": "Denní souhrn",
+        "digest": "Souhrn",
         "login": "Přihlášení",
         "invite": "Pozvánka"
       },
@@ -1562,7 +1625,7 @@
       "paidTitle": "Děkujeme za platbu",
       "paid": "Plán se přepne, jakmile platbu potvrdí platební brána, obvykle do minuty.",
       "pastDueTitle": "Poslední platba selhala",
-      "pastDue": "Aktualizujte kartu ve správě předplatného, jinak se prostor přepne na Free.",
+      "pastDue": "Aktualizujte kartu přes tlačítko Faktury a karta, jinak se prostor přepne na Free.",
       "usageTitle": "Využití tento měsíc",
       "emails": "E-maily",
       "attachments": "Přílohy",
@@ -1702,9 +1765,8 @@
     "mergeSelf": "Záznam nelze sloučit sám se sebou.",
     "mergeKinds": "Sloučit lze jen dva nápady nebo dvě chyby.",
     "alreadyMerged": "#{n} je už sloučený.",
+    "mergedClosed": "Tento nápad je sloučený do #{n}. Hlasujte a komentujte tam.",
     "targetMerged": "#{n} je sloučený do jiného záznamu; slučte do něj.",
-    "mergedIdea": "Sloučeno do #{n} „{title}“. Hlasy se přesunuly tam.",
-    "mergedBug": "Toto hlášení už řešíme pod jiným číslem. Až ho opravíme, dáme vědět i tady.",
     "blocked": "Na tomto boardu teď nemůžete přidávat příspěvky, hlasovat ani komentovat.",
     "deleted": "Tento záznam byl smazán.",
     "mergePending": "Nápad čeká na schválení. Nejdřív ho schvalte nebo zamítněte.",
@@ -1734,7 +1796,8 @@
     "proofUrl": "Odkaz musí být celá adresa začínající https://.",
     "assignTeamOnly": "Řešitele může určit jen tým.",
     "assignNotTeam": "Řešitelem může být jen člen týmu tohoto boardu.",
-    "assignClosed": "Smazaný nebo sloučený záznam už nelze přidělit."
+    "assignClosed": "Smazaný nebo sloučený záznam už nelze přidělit.",
+    "notMerged": "#{n} není sloučený."
   },
   "email": {
     "footer": "Tento e-mail vám poslal {project}, protože sledujete tento záznam.",
@@ -1759,7 +1822,8 @@
     "ideaHeading": "Nápad, který sledujete, je teď: {label}",
     "ideaWhy": "Dostáváte to, protože jste nápad napsali nebo jste ho komentovali.",
     "viewIdea": "Zobrazit nápad",
-    "someone": "Někdo",
+    "teamMember": "Člen týmu",
+    "user": "Uživatel",
     "internalNote": "Interní poznámka",
     "newComment": "Nový komentář",
     "newInternalNote": "Nová interní poznámka",
@@ -1791,6 +1855,8 @@
     "openReports": "Otevřít hlášení",
     "digestSubject": "{project}: {n, plural, one {# novinka} few {# novinky} other {# novinek}} k vaší zpětné vazbě",
     "digestHeading": "Co se změnilo",
+    "teamSummarySubject": "{project}: {n, plural, one {# novinka} few {# novinky} other {# novinek}} pro tým",
+    "teamSummaryHeading": "Co je nového na boardu",
     "openFeedback": "Otevřít zpětnou vazbu",
     "loginSubject": "{code} — přihlášení do {brand}",
     "loginHeading": "Přihlášení do {brand}",
@@ -1821,6 +1887,11 @@
     "rejectedBody": "Váš nápad „{title}“ tým prošel a rozhodl se ho nezveřejnit. Pokud máte dotaz, napište týmu.",
     "rejectedBodyReason": "Váš nápad „{title}“ tým prošel a rozhodl se ho nezveřejnit. Připojil k tomu zprávu:",
     "rejectedCta": "Otevřít nápad",
+    "mergedSubject": "Sledujeme to pod #{n}: {title}",
+    "mergedSummary": "Nápad „{title}“ jsme spojili se stejným nápadem #{n}.",
+    "mergedHeading": "Sledujeme to pod #{n}",
+    "mergedBody": "Nápad „{title}“ už na boardu máme jako #{n} „{target}“, proto jsme je spojili. Hlasy se přesunuly tam.",
+    "mergedNext": "Až se u něj něco změní, dáme vám vědět.",
     "teamDigestUnanswered": "{n, plural, one {Bez odpovědi: # hlášení čeká na tým déle než {days} dní.} few {Bez odpovědi: # hlášení čekají na tým déle než {days} dní.} other {Bez odpovědi: # hlášení čeká na tým déle než {days} dní.}}",
     "teamDigestWaiting": "{n, plural, one {# den} few {# dny} other {# dní}}",
     "openUnanswered": "Otevřít Bez odpovědi",
@@ -1869,7 +1940,14 @@
     "assignedBody": "{who} vám přidělil(a) {ref}.",
     "assignedManySubject": "Přiděleno vám: {n, plural, one {# záznam} few {# záznamy} other {# záznamů}}",
     "assignedManyBody": "{who} vám přidělil(a) tyto záznamy:",
-    "openMine": "Otevřít moje"
+    "openMine": "Otevřít moje",
+    "translatedLabel": "Přeloženo s pomocí AI (model {model}), může obsahovat nepřesnosti.",
+    "originalHeading": "Původní text",
+    "bugMergedSubject": "Řešíme to společně: #{n} {title}",
+    "bugMergedSummary": "Vaše hlášení „{title}“ řešíme společně se stejným problémem od dalších lidí.",
+    "bugMergedHeading": "Řešíme to společně s dalšími",
+    "bugMergedBody": "Stejný problém nahlásili i další, proto vaše hlášení „{title}“ řešíme společně s nimi. Nic dalšího dělat nemusíte.",
+    "bugMergedNext": "Až to opravíme, dáme vám vědět a zeptáme se, jestli vám to funguje."
   },
   "errors": {
     "signIn": "K této akci se musíte přihlásit.",
@@ -1921,7 +1999,8 @@
       "placeholderBug": "Např. Po uložení klienta zmizí DIČ",
       "placeholderIdea": "Např. Export do CSV",
       "similarLabel": "Podobné nápady",
-      "similar": "Něco podobného už existuje. Pokud je to ono, stačí zahlasovat.",
+      "similar": "Podobné už existuje. Pokud je to ono, přidejte hlas — svůj text můžete přidat jako komentář.",
+      "similarAi": "Vybral je model AI podle významu textu.",
       "bodyBug": "Co jste dělali a co jste čekali?",
       "bodyIdea": "Proč to potřebujete?",
       "bodyPlaceholderBug": "1. Otevřel jsem klienta\n2. Vyplnil DIČ a dal Uložit\n3. Po znovuotevření je pole prázdné",
@@ -1939,7 +2018,24 @@
       "language": "Jazyk",
       "sending": "Odesílám…",
       "submitBug": "Nahlásit chybu",
-      "submitIdea": "Navrhnout nápad"
+      "submitIdea": "Navrhnout nápad",
+      "view": "Zobrazit",
+      "newWindow": "otevře se v novém okně",
+      "voted": "Váš hlas je u #{n}.",
+      "addAsComment": "Přidat můj text jako komentář k #{n}",
+      "addingComment": "Přidávám…",
+      "commentAdded": "Váš text je u #{n} jako komentář. Dáme vám vědět, až se s ním něco pohne.",
+      "commentQueued": "Váš text u #{n} čeká na schválení týmem.",
+      "openIdea": "Otevřít #{n}",
+      "writeFirst": "Nejdřív napište, co by vám pomohlo.",
+      "strongTitle": "Není to #{n}?",
+      "strongText": "Takový nápad už existuje. Když k němu přidáte hlas a svůj popis, tým uvidí, že to chce víc lidí.",
+      "strongAttach": "Přidat hlas a můj popis k #{n}",
+      "attaching": "Přidávám…",
+      "strongNew": "Je to něco jiného, vytvořit nový nápad",
+      "strongReason": "V čem je to jiné?",
+      "guestSubmit": "Přihlásit se a navrhnout",
+      "guestNote": "Návrh si pamatujeme v tomto okně. Po přihlášení se sem vrátíte a odešlete ho."
     },
     "files": {
       "unsupported": "„{name}“ nepodporujeme. Přiložte obrázek, PDF nebo textový log.",
@@ -1989,7 +2085,13 @@
       "title": "Opravili jsme to.",
       "text": "Už vám to funguje? Jedním kliknutím hlášení uzavřete, nebo ho vrátíte týmu.",
       "works": "Ano, funguje",
-      "broken": "Pořád nefunguje"
+      "broken": "Pořád nefunguje",
+      "whatLabel": "Co přesně pořád nefunguje? (nepovinné)",
+      "whatPlaceholder": "Například: po kliknutí na Uložit se pořád nic nestane.",
+      "sendBack": "Vrátit týmu",
+      "cancel": "Zpět",
+      "reopened": "Hlášení jsme vrátili týmu. Až ho opravíme, dáme vám vědět.",
+      "verified": "Děkujeme, hlášení je uzavřené."
     },
     "gallery": {
       "label": "Přílohy",
@@ -2036,7 +2138,14 @@
       "mergeHere": "Sloučit #{n} sem",
       "mergeHereTitle": "Sloučit #{n} sem?",
       "mergeHereIdea": "Hlasy z #{n} se přesunou sem a #{n} se zavře jako duplicita tohoto nápadu.",
-      "mergeHereBug": "#{n} se zavře jako duplicita tohoto hlášení. Jeho autor se o opravě dozví spolu s tímto."
+      "mergeHereBug": "#{n} se zavře jako duplicita tohoto hlášení. Jeho autor se o opravě dozví spolu s tímto.",
+      "unmerge": "Oddělit",
+      "unmergeHint": "Sloučeno omylem? Oddělte ho od #{into}.",
+      "unmergeTitle": "Oddělit #{n} od #{into}?",
+      "unmergeIdea": "#{n} bude znovu samostatný nápad ve stavu Navrženo. Hlasy, které se při sloučení přesunuly do #{into}, zůstanou u #{into}.",
+      "unmergeBug": "#{n} bude znovu samostatné hlášení ve stavu Přijato.",
+      "unmerging": "Odděluji…",
+      "unmergeConfirm": "Oddělit #{n}"
     },
     "changelog": {
       "votes": "{count, plural, one {# hlas} few {# hlasy} many {# hlasu} other {# hlasů}}",
@@ -2053,10 +2162,10 @@
       "body": "Text",
       "bodyHint": "Co je nového a proč to pomůže. Pište pro lidi, kteří o to žádali.",
       "publishNoItems": "Po zveřejnění se novinka objeví v seznamu novinek. Bez vybraných nápadů nikomu nepošleme e-mail.",
-      "publishOne": "Po zveřejnění se vybraný nápad označí jako vydaný a každý, kdo pro něj hlasoval, dostane jeden e-mail s tímto textem",
-      "publishMany": "Po zveřejnění se {n} vybraných nápadů označí jako vydané a každý, kdo pro ně hlasoval, dostane jeden e-mail s tímto textem",
-      "total": "(celkem {votes})",
-      "publishNotify": "Zveřejnit a upozornit hlasující",
+      "publishOne": "Po zveřejnění se vybraný nápad označí jako vydaný.",
+      "publishMany": "Po zveřejnění se {n} vybraných nápadů označí jako vydané.",
+      "recipients": "{n, plural, =0 {Nikomu nepošleme e-mail.} one {Pošleme # e-mail: hlasujícím, autorům a komentujícím.} few {Pošleme # e-maily: hlasujícím, autorům a komentujícím.} other {Pošleme # e-mailů: hlasujícím, autorům a komentujícím.}}",
+      "publishNotify": "Zveřejnit a poslat e-maily",
       "publish": "Zveřejnit novinku",
       "saveChanges": "Uložit změny",
       "saveDraft": "Uložit koncept",
@@ -2669,17 +2778,17 @@
       },
       "devItems": [
         {
-          "href": "#developers",
+          "href": "/docs/widget",
           "title": "Widget",
           "text": "Jeden skript, shadow DOM, do 20 kB"
         },
         {
-          "href": "#developers",
+          "href": "/docs/widget#sign-in",
           "title": "Přihlášení",
           "text": "Podepsaný token, OIDC nebo kód do e-mailu"
         },
         {
-          "href": "#developers",
+          "href": "/docs/mcp",
           "title": "MCP server",
           "text": "Claude Code, Cursor, VS Code"
         },
@@ -3356,7 +3465,8 @@
     },
     "offRoute": "mimo trasu",
     "stopOf": "zastávka {n} z {of}",
-    "now": "teď"
+    "now": "teď",
+    "merged": "Sloučeno"
   },
   "widget": {
     "noProject": "Projekt neexistuje.",
@@ -3448,6 +3558,7 @@
     "home": "Ozvi – úvod",
     "widget": "Widget",
     "api": "REST API",
+    "mcp": "MCP server",
     "webhooks": "Webhooky",
     "automation": "Automatizace",
     "toc": "Na této stránce",
@@ -3647,7 +3758,8 @@
       "queued": "Čeká na spuštění…",
       "fetch": "{n, plural, one {Stahuji z Canny: # záznam} few {Stahuji z Canny: # záznamy} other {Stahuji z Canny: # záznamů}}",
       "write": "Ukládám {done} z {total}",
-      "fetchFider": "{n, plural, one {Stahuji z Fideru: # záznam} few {Stahuji z Fideru: # záznamy} other {Stahuji z Fideru: # záznamů}}"
+      "fetchFider": "{n, plural, one {Stahuji z Fideru: # záznam} few {Stahuji z Fideru: # záznamy} other {Stahuji z Fideru: # záznamů}}",
+      "slow": "Čeká déle než obvykle. Import můžete zrušit a spustit znovu, nic se nezdvojí."
     },
     "summary": "{items, plural, one {# příspěvek} few {# příspěvky} other {# příspěvků}}, {votes, plural, one {# hlas} few {# hlasy} other {# hlasů}}, {comments, plural, one {# komentář} few {# komentáře} other {# komentářů}}, {users, plural, one {# nový člověk} few {# noví lidé} other {# nových lidí}}",
     "runErrors": {
@@ -3660,7 +3772,8 @@
       "fiderNetwork": "Fider není dostupný. Zkuste to za chvíli znovu.",
       "fiderApi": "Fider vrátil chybu. Co se stihlo uložit, můžete vrátit zpět nebo import spustit znovu.",
       "fiderBackup": "Záloze jsme neporozuměli.",
-      "fiderUrl": "Fider přesměroval na jinou adresu."
+      "fiderUrl": "Fider přesměroval na jinou adresu.",
+      "cancelled": "Zrušeno. Spusťte import znovu, až budete chtít."
     },
     "undo": "Vrátit zpět",
     "undoTitle": "Vrátit import zpět?",
@@ -3691,7 +3804,8 @@
       "backupTooBig": "Záloha je větší než 25 MB. Použijte import přes API nebo příkaz na serveru.",
       "fiderEmpty": "Ve Fideru nejsou žádné příspěvky.",
       "fiderExpired": "Načtená data vypršela. Načtěte Fider znovu."
-    }
+    },
+    "cancel": "Zrušit"
   },
   "a11y": {
     "skip": "Přeskočit na obsah",
@@ -3725,7 +3839,8 @@
       "enforcementTitle": "Pokud nejste spokojeni s odpovědí",
       "enforcement": "Můžete se obrátit na orgán dozoru nad trhem ve své zemi, který dohlíží na přístupnost výrobků a služeb (v Česku podle zákona č. 424/2023 Sb., na Slovensku podle zákona č. 351/2022 Z. z.).",
       "updated": "Prohlášení jsme připravili {date} a aktualizujeme ho při každé větší změně."
-    }
+    },
+    "close": "Zavřít"
   },
   "tags": {
     "title": "Štítky",
@@ -3763,7 +3878,12 @@
       "rate": "Příliš mnoho překladů za hodinu. Zkuste to později.",
       "cap": "Měsíční počet AI překladů je vyčerpán. Originál zůstává, nové překlady přibudou od 1. dne dalšího měsíce.",
       "tooLong": "Příspěvek je na překlad příliš dlouhý."
-    }
+    },
+    "titlesWorking": "Překládám názvy…",
+    "titlesLabel": "Názvy jsou přeložené s pomocí AI",
+    "titlesOriginal": "Názvy v originále",
+    "showOriginals": "zobrazit originály",
+    "showTranslations": "zobrazit překlady"
   },
   "subprocessors": {
     "meta": "Subdodavatelé – Ozvi",
@@ -3971,7 +4091,8 @@
       "type": {
         "local": "localStorage",
         "cookie": "Cookie",
-        "cookieHttpOnly": "Cookie (HttpOnly)"
+        "cookieHttpOnly": "Cookie (HttpOnly)",
+        "session": "sessionStorage"
       },
       "purpose": {
         "seen": "Pamatuje si nejnovější novinku, kterou jste viděli, kvůli odznaku „Co je nového“. Nikdy neopustí váš prohlížeč.",
@@ -3979,11 +4100,14 @@
         "oidc": "Chrání přihlášení přes {issuer} před podvržením.",
         "locale": "Pamatuje si jazyk, který jste si vybrali.",
         "csv": "Pamatuje si oddělovač pro export do CSV.",
-        "widgetLogin": "Pamatuje si, že jste svůj e-mail ve widgetu ověřili, abyste nemuseli zadávat kód u každého hlášení."
+        "widgetLogin": "Pamatuje si, že jste svůj e-mail ve widgetu ověřili, abyste nemuseli zadávat kód u každého hlášení.",
+        "dense": "Pamatuje si, zda tým chce husté řádky v seznamech.",
+        "draft": "Pamatuje si rozepsaný nápad nebo hlášení, dokud ho neodešlete, aby se neztratil při otevření podobného nápadu nebo přihlášení."
       },
       "untilCleared": "Dokud nevymažete data prohlížeče",
       "widgetNote": "Samotný widget žádné cookies nenastavuje: přihlásí vás krátkodobým tokenem z naší aplikace.",
-      "widgetNoteEmail": "Samotný widget žádné cookies nenastavuje. Když v něm ověříte svůj e-mail, zapamatuje si to v prohlížeči (položka výše)."
+      "widgetNoteEmail": "Samotný widget žádné cookies nenastavuje. Když v něm ověříte svůj e-mail, zapamatuje si to v prohlížeči (položka výše).",
+      "untilTabClosed": "Dokud nezavřete okno nebo kartu"
     },
     "units": {
       "years": "{n, plural, one {# rok} few {# roky} many {# roku} other {# let}}",

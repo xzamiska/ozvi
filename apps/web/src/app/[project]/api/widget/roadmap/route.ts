@@ -3,6 +3,7 @@ import { projectOrigin } from "@/lib/email/url";
 import { roadmapLanes, ROADMAP_LANES } from "@/lib/roadmap";
 import { stopLabel } from "@/lib/route-text";
 import { clampLimit } from "@/lib/widget-rules";
+import { voteModeOf, votesLabel } from "@/lib/votes";
 import { readProject, widgetPreflight, widgetRead } from "@/lib/widget-api";
 
 type P = { params: Promise<{ project: string }> };
@@ -19,6 +20,7 @@ export async function GET(req: NextRequest, { params }: P) {
   const limit = clampLimit(req.nextUrl.searchParams.get("limit"), 5, 20);
   const { lanes } = await readProject(project, (tx) => roadmapLanes(tx, project, locale, { team: false, pages: { pl: 1, ip: 1, sh: 1 } }));
   const base = `${projectOrigin(project)}/${project.slug}`;
+  const mode = voteModeOf(project);
   return r.json({
     url: `${base}/roadmap`,
     lanes: ROADMAP_LANES.map((l, i) => ({
@@ -26,7 +28,7 @@ export async function GET(req: NextRequest, { params }: P) {
       label: stopLabel(locale, l.status, project),
       total: lanes[i]!.total,
       rows: lanes[i]!.rows.slice(0, limit).map((c) => ({
-        number: c.number, title: c.title, votes: c.votes, sub: c.subLabel ?? null,
+        number: c.number, title: c.title, votes: c.votes, votesLabel: votesLabel(locale, mode, c.votes, c.voters), sub: c.subLabel ?? null,
         tags: c.tags.map((t) => ({ name: t.name, color: t.color })), url: `${base}/i/${c.number}`,
       })),
     })),

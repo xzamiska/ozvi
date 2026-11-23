@@ -41,6 +41,18 @@ docker compose exec ozvi node ozvi.mjs project:create myapp "My app" --origin ht
 
   `OZVI_AI_MODEL_FAST` = an optional cheaper model for translations. The older `ANTHROPIC_API_KEY` still works as `anthropic`. Without these settings (or with `OZVI_AI_PROVIDER=off`) the app runs without AI. With `openai` the model must at least return JSON; structured output (`json_schema`) is used when the server supports it. List the provider as a sub-processor in your privacy policy (not needed for a local model).
 - **AI duplicates (optional):** `OZVI_EMBEDDINGS_URL` + `OZVI_EMBEDDINGS_MODEL` (+ `OZVI_EMBEDDINGS_KEY`): any API compatible with OpenAI `/embeddings` (OpenAI, Ollama, LM Studio, vLLM). With `OZVI_AI_PROVIDER=openai`, `OZVI_EMBEDDINGS_MODEL` is enough (the address and key are reused). The worker indexes items in the background; without it, duplicates are found by fuzzy text matching (pg_trgm). The `vector` extension is created by the `initdb` script; if it is missing, embeddings are skipped.
+  - **Local model instead of an API:** `OZVI_EMBEDDINGS=local` runs a small multilingual model (multilingual-e5-small, quantized, 384 dimensions) inside Ozvi on WebAssembly, so it works on the Alpine image. No text leaves the server and there is nothing to pay per call. It takes precedence over `OZVI_EMBEDDINGS_URL`/`_MODEL`.
+
+    | Variable | Meaning |
+    |---|---|
+    | `OZVI_EMBEDDINGS=local` | turn the local model on |
+    | `OZVI_MODELS_DIR` | where the model is kept; default `models` next to the attachments folder (`/data/models` in Docker, on the same volume) |
+    | `OZVI_MODELS_PREFETCH=1` | download and load the model at start instead of on first use |
+    | `OZVI_EMBEDDINGS_THREADS` | WebAssembly threads for the model (default 1; 2–4 make long texts 2–3× faster on a multi-core server) |
+    | `OZVI_EMBEDDINGS_IDLE_MINUTES` | end the model's process after this many minutes without use and free its memory (default 0 = keep it loaded); the next use loads it again in about a second |
+
+    The first use downloads ~135 MB from `huggingface.co` (a pinned revision); later starts load it from disk in about a second. The model runs in its own process next to the server (`ozvi-embeddings.mjs`, started on first use), so it never slows requests down. Plan for **about 1.1 GB of extra RAM while it is loaded** (a server with at least 2 GB); on a small server set `OZVI_EMBEDDINGS_IDLE_MINUTES=15`. Until the model is loaded, suggestions use text matching. Without `OZVI_EMBEDDINGS=local` nothing of it is loaded and duplicates are still found by text matching, only ideas written in other words less often. Switching between the local model and an API re-indexes items by itself (vectors are kept per model).
+  - **Which method works better on your data:** `docker compose exec ozvi node ozvi.mjs duplicates:eval --project <slug> [--method trigram|api|local|all] [--json]` measures, on the items your team merged, how often each method finds the original (recall@1/@3, precision and recall per threshold). It prints numbers only, never titles or texts. `--method api` needs `OZVI_EMBEDDINGS_URL` and `OZVI_EMBEDDINGS_MODEL`.
 - <a id="github"></a>**GitHub (optional):** easiest through your own GitHub App. A board admin then just clicks Connect GitHub, installs the app on the chosen repositories and picks one in Ozvi, with no token and no webhook to set up ([ADR-0011](adr/0011-github-app.md)). You create the app with one confirmation on GitHub:
 
   ```

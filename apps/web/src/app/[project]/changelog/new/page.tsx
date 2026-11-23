@@ -4,6 +4,7 @@ import { ChangelogForm } from "@/components/ChangelogForm";
 import { Page, PageHead } from "@/components/ozvi/page";
 import { aiAvailable } from "@/lib/ai";
 import { linkCandidates } from "@/lib/changelog-queries";
+import { withReach } from "@/lib/changelog";
 import { db } from "@/lib/db";
 import { getCtx } from "@/lib/project";
 import { getTranslations } from "next-intl/server";
@@ -25,7 +26,7 @@ export default async function NewEntry({ params, searchParams }: { params: Promi
   const wanted = new Set([sp.item, ...(sp.items ?? "").split(",")].map((x) => Number(x)).filter((x) => Number.isInteger(x) && x > 0).slice(0, 50));
   const candidates = await withProject(db, project.id, async (tx) => {
     const ids = wanted.size ? (await tx.select({ id: schema.items.id }).from(schema.items).where(inArray(schema.items.number, [...wanted]))).map((r) => r.id) : [];
-    return linkCandidates(tx, [], ids);
+    return withReach(tx, await linkCandidates(tx, [], ids), user!.id, null);
   });
   const pre = candidates.filter((c) => wanted.has(c.number)).map((c) => c.id);
   return (

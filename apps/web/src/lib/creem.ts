@@ -186,7 +186,8 @@ export function planAfter(status: string, paid: PaidPlan): PlanName {
 }
 
 /** Applies one verified webhook. Returns a short description (logged and returned to Creem). */
-export async function applyCreemEvent(cfg: CreemConfig, ev: Event): Promise<string> {
+/** `actor`: who caused it, when the console applies its own change at once (otherwise the gateway, "Creem"). */
+export async function applyCreemEvent(cfg: CreemConfig, ev: Event, actor = "Creem"): Promise<string> {
   let sub: Sub | undefined;
   let workspaceId: string | undefined;
   if (ev.eventType === "checkout.completed") {
@@ -236,7 +237,7 @@ export async function applyCreemEvent(cfg: CreemConfig, ev: Event): Promise<stri
     ...(at && !Number.isNaN(at.getTime()) && { creemEventAt: at }),
   }).where(eq(schema.workspaces.id, ws.id));
   if (plan !== ws.plan || status !== ws.planStatus) {
-    await logActivity({ workspaceId: ws.id, actor: "Creem", action: "plan.changed", detail: `${ws.plan} → ${plan} (${status})` });
+    await logActivity({ workspaceId: ws.id, actor, action: "plan.changed", detail: `${ws.plan} → ${plan} (${status})` });
   }
   if (!PLAN_LIMITS[plan].customDomain) {
     // Links in e-mails must not point at a domain we no longer serve; re-verify after upgrading.

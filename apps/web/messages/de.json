@@ -36,7 +36,8 @@
       "noProjects": ", keine Projekte",
       "exportHint": "Einen Export jedes Projekts können Sie in dessen Einstellungen herunterladen (Projektdaten).",
       "nothingRemoved": "Alle Ihre Workspaces haben weitere Mitglieder, daher werden keine Projekte gelöscht.",
-      "leave": "Sie verlassen {list}; alle anderen bleiben."
+      "leave": "Sie verlassen {list}; alle anderen bleiben.",
+      "noWorkspaces": "Sie gehören keinem Workspace an, daher löschen wir nur Ihr Konto und Ihre Anmeldedaten."
     },
     "forms": {
       "role": "Rolle",
@@ -141,8 +142,8 @@
       "noSmtpCode": "E-Mail ist nicht konfiguriert (SMTP). Der Code steht im Serverlog.",
       "noAccess": "Diese E-Mail-Adresse hat keinen Zugang. Auf einem selbst gehosteten Server fügen Sie sie zu OZVI_ADMIN_EMAILS hinzu.",
       "emailLoginOff": "Die Anmeldung per E-Mail ist für dieses Projekt nicht aktiviert.",
-      "tooManyProjects": "Zu viele neue Projekte innerhalb einer Stunde. Versuchen Sie es später erneut.",
-      "tooManyFree": "Aus diesem Netzwerk wurden heute zu viele kostenlose Bereiche angelegt. Versuchen Sie es morgen, fügen Sie das Projekt einem bestehenden Bereich hinzu oder wechseln Sie zu Pro.",
+      "tooManyProjects": "Sie haben in der letzten Stunde zu viele Projekte angelegt. Das nächste können Sie in {minutes} Min. anlegen.",
+      "tooManyFree": "Aus einem Netzwerk lassen sich pro Tag nur wenige kostenlose Bereiche anlegen, und das heutige Limit für dieses Netzwerk ist erreicht. Versuchen Sie es in {hours} Std. erneut oder schreiben Sie uns an support@ozvi.io, wir helfen Ihnen.",
       "nameLength": "Der Name muss 2 bis 60 Zeichen lang sein.",
       "slugInvalid": "Die Adresse darf Kleinbuchstaben, Ziffern und Bindestriche enthalten (2–41 Zeichen) und kein reserviertes Wort sein.",
       "pickLook": "Wählen Sie ein Aussehen.",
@@ -169,7 +170,9 @@
       "signupClosed": "Die Registrierung ist noch nicht geöffnet. Schreiben Sie an support@ozvi.io, wir melden uns zum Start.",
       "alreadySubscribed": "Dieser Arbeitsbereich hat bereits ein Abo. Wechseln Sie den Plan darin, ohne doppelt zu zahlen.",
       "freeExistsOther": "Für dieses Postfach gibt es bereits einen kostenlosen Workspace unter einem anderen Konto (dieselbe Adresse mit +Tag oder Punkten). Melden Sie sich mit diesem Konto an und fügen Sie das Projekt dort hinzu, oder lassen Sie sich vom Inhaber einladen.",
-      "nameChars": "Der Name darf die Zeichen < und > nicht enthalten. Entfernen Sie sie und speichern Sie erneut."
+      "nameChars": "Der Name darf die Zeichen < und > nicht enthalten. Entfernen Sie sie und speichern Sie erneut.",
+      "tooManyFreeHasWorkspace": "Aus einem Netzwerk lassen sich pro Tag nur wenige kostenlose Bereiche anlegen, und das heutige Limit für dieses Netzwerk ist erreicht. Einen neuen Bereich können Sie in {hours} Std. anlegen, das Projekt aber sofort einem Bereich hinzufügen, dem Sie bereits angehören.",
+      "addToWorkspace": "Projekt zu {workspace} hinzufügen"
     },
     "workspace": {
       "not_owner": "Das kann nur ein Inhaber des Workspace.",
@@ -180,7 +183,7 @@
       "last_owner": "Ein Workspace braucht mindestens einen Inhaber. Machen Sie zuerst eine andere Person zum Inhaber.",
       "no_account": "Dieses Konto existiert nicht mehr.",
       "email_taken": "Für {email} gibt es bereits ein anderes Ozvi-Konto. Löschen Sie es oder verwenden Sie eine andere Adresse.",
-      "subscription": "{ws} hat ein aktives Abonnement. Kündigen Sie es unter „Tarif & Nutzung“ (Abonnement verwalten) und löschen Sie danach Ihr Konto.",
+      "subscription": "{ws} hat ein aktives Abonnement. Kündigen Sie es unter „Tarif & Nutzung“ (Schaltfläche „Abo kündigen“) und löschen Sie danach Ihr Konto.",
       "sole_owner": "Sie sind der einzige Inhaber von {ws}. Machen Sie unter „Team“ eine andere Person zum Inhaber oder entfernen Sie die übrigen Mitglieder."
     },
     "billing": {
@@ -294,7 +297,7 @@
       "saved": "Sprachen gespeichert.",
       "invalid": "Wählen Sie eine Sprache aus der Liste.",
       "translation": "Übersetzung von Beiträgen",
-      "translationHint": "KI übersetzt Ideen, Kommentare und Neuigkeiten, die in einer anderen Sprache verfasst wurden, in die Sprache der lesenden Person. Übersetzungen sind immer gekennzeichnet, und das Original ist nur einen Klick entfernt. Private Fehlermeldungen und Team-Notizen werden nur für Personen übersetzt, die sie sehen dürfen.",
+      "translationHint": "KI übersetzt Ideen, Kommentare und Neuigkeiten, die in einer anderen Sprache verfasst wurden, in die Sprache der lesenden Person, auch in E-Mail-Benachrichtigungen (mit dem Original unter der Übersetzung). Übersetzungen sind immer gekennzeichnet, und das Original ist nur einen Klick entfernt. Private Fehlermeldungen und Team-Notizen werden nur für Personen übersetzt, die sie sehen dürfen.",
       "translationNoAi": "Übersetzungen sind nicht in Ihrem Plan. Pro hat 500 und Studio 2.000 neue Übersetzungen pro Monat; bei eigenem Hosting muss ein KI-Anbieter eingerichtet sein.",
       "mode": {
         "off": "Aus",
@@ -302,7 +305,7 @@
         "on_demand": "Auf Anfrage",
         "on_demandHint": "Beiträge in einer anderen Sprache erhalten eine Schaltfläche „Übersetzen“.",
         "auto": "Automatisch",
-        "autoHint": "Beiträge in einer anderen Sprache erscheinen gleich übersetzt, mit Link zum Original. Verbraucht mehr Übersetzungen als „Auf Anfrage“."
+        "autoHint": "Beiträge in einer anderen Sprache erscheinen gleich übersetzt, mit Link zum Original, ebenso die Titel in den Listen der Ideen und Fehler und im Widget. Verbraucht mehr Übersetzungen als „Auf Anfrage“."
       },
       "allowance": "Diesen Monat: {used} von {limit} neuen Übersetzungen für den ganzen Arbeitsbereich. Eine einmal erstellte Übersetzung zählt nicht erneut."
     },
@@ -372,7 +375,7 @@
       "mailOffC": " sowie",
       "plan": "Tarif",
       "sent": "Gesendete E-Mails",
-      "deferred": "Wartet auf tägliche Zusammenfassung",
+      "deferred": "Wartet auf Zusammenfassung",
       "attachments": "Anhänge",
       "unlimited": "unbegrenzt"
     },
@@ -723,7 +726,7 @@
       "text": "Absätze für Ihre Datenschutzerklärung und Ihr Verarbeitungsverzeichnis, zusammengestellt aus den Einstellungen dieses Projekts. Ergänzen Sie die Angaben in eckigen Klammern.",
       "legalTitle": "Dies ist keine Rechtsberatung",
       "legal": "Es ist ein Entwurf auf Grundlage der Projekteinstellungen. Lassen Sie ihn vor der Veröffentlichung juristisch prüfen.",
-      "cloud": "Ozvi Cloud: Für die Daten Ihrer Nutzer sind Sie Verantwortlicher und Ozvi Ihr Auftragsverarbeiter. Sie brauchen auch einen Auftragsverarbeitungsvertrag (AVV/DPA); fordern Sie ihn unter {email} an.",
+      "cloud": "Ozvi Cloud: Für die Daten Ihrer Nutzer sind Sie Verantwortlicher und Ozvi Ihr Auftragsverarbeiter. Der Auftragsverarbeitungsvertrag (AVV/DPA) ist Teil der Nutzungsbedingungen und gilt ab der Registrierung; den Text finden Sie unter ozvi.io/dpa. Ein unterschriebenes Exemplar schicken wir Ihnen auf Anfrage ({email}).",
       "self": "Selbst gehostet: Sie sind Verantwortlicher und brauchen keinen Auftragsverarbeitungsvertrag mit den Autoren von Ozvi. Verträge schließen Sie direkt mit den im Text genannten Anbietern (Hosting, E-Mail, KI, Integrationen).",
       "subprocessors": "Liste der Unterauftragsverarbeiter",
       "language": "Sprache des Textes",
@@ -859,7 +862,10 @@
       "next": "Als Nächstes:",
       "proof": "Nachweis der Korrektur",
       "proofPreview": "Korrektur ausprobieren",
-      "proofRelease": "Release {v}"
+      "proofRelease": "Release {v}",
+      "merged": "Zusammengeführt mit #{n}",
+      "mergedPrivate": "Wird unter einer anderen Nummer bearbeitet",
+      "reopened": "Wieder geöffnet: geht immer noch nicht"
     },
     "ideas": {
       "gateTitle": "Ideen sind nur für angemeldete Personen sichtbar",
@@ -901,7 +907,10 @@
       "who": "Zuständig",
       "whoAny": "Alle",
       "whoMe": "Ich",
-      "whoNone": "Niemand"
+      "whoNone": "Niemand",
+      "noneForWho": "Nichts für „Zuständig: {who}“",
+      "noneForWhoText": "Der Filter „Zuständig“ ist aktiv, deshalb sehen Sie nur einen Teil der Liste. Heben Sie ihn auf oder wählen Sie jemand anderen.",
+      "whoClear": "Filter „Zuständig“ aufheben"
     },
     "bugs": {
       "gateTitle": "Fehlermeldungen sind nur für die meldende Person und das Team sichtbar",
@@ -942,7 +951,10 @@
       "who": "Zuständig",
       "whoAny": "Alle",
       "whoMe": "Ich",
-      "whoNone": "Niemand"
+      "whoNone": "Niemand",
+      "noneForWho": "Nichts für „Zuständig: {who}“",
+      "noneForWhoText": "Der Filter „Zuständig“ ist aktiv, deshalb sehen Sie nur einen Teil der Liste. Heben Sie ihn auf oder wählen Sie jemand anderen.",
+      "whoClear": "Filter „Zuständig“ aufheben"
     },
     "roadmap": {
       "gateTitle": "Die Roadmap ist nur für angemeldete Personen sichtbar",
@@ -963,7 +975,7 @@
       "lede": "Was es Neues bei {app} gibt. Wenn wir eine Idee umsetzen, für die Sie abgestimmt haben, erhalten Sie eine E-Mail.",
       "write": "Neuigkeit schreiben",
       "published": "Veröffentlicht.",
-      "notified": "{n, plural, one { # Person, die für diese Ideen abgestimmt hat, erhält eine E-Mail.} other { # Personen, die für diese Ideen abgestimmt haben, erhalten eine E-Mail.}}",
+      "notified": "{n, plural, one { Wir senden # E-Mail: an Abstimmende, Einreichende und Kommentierende.} other { Wir senden # E-Mails: an Abstimmende, Einreichende und Kommentierende.}}",
       "emptyTitle": "Noch keine Neuigkeiten",
       "emptyTeam": "Wenn Sie eine Idee umgesetzt haben, schreiben Sie ein paar Zeilen dazu. Alle, die abgestimmt haben, erhalten eine E-Mail.",
       "emptyGuest": "Wenn das Team etwas veröffentlicht, finden Sie es hier.",
@@ -974,7 +986,7 @@
       "teamOnlyNoRole": "Ihr Konto hat keine Team-Rolle. Der Admin dieses Boards kann sie Ihnen zuweisen.",
       "teamOnlySignIn": "Wenn Sie zum Team gehören, melden Sie sich an.",
       "newTitle": "Neuer Eintrag",
-      "newLede": "Schreiben Sie, was Sie umgesetzt haben. Wer für die ausgewählten Ideen abgestimmt hat, erfährt es nach der Veröffentlichung per E-Mail.",
+      "newLede": "Schreiben Sie, was Sie umgesetzt haben. Wer für die ausgewählten Ideen abgestimmt, sie eingereicht oder kommentiert hat, erfährt es nach der Veröffentlichung per E-Mail.",
       "editTitle": "Eintrag bearbeiten",
       "draftTitle": "Entwurf eines Eintrags",
       "editLede": "Veröffentlicht am {date}. Änderungen erscheinen in der Liste der Neuigkeiten; es wird keine weitere E-Mail versendet.",
@@ -1069,6 +1081,7 @@
       "mergedPrivate": "Wir bearbeiten diese Meldung bereits unter einer anderen Nummer. Wir informieren Sie, sobald der Fehler behoben ist.",
       "mergedInto": "Dies ist ein Duplikat. Weiter geht es unter",
       "votesMoved": "; die Stimmen wurden dorthin übertragen",
+      "mergedGoThere": "Abstimmung und Diskussion gehen bei #{n} weiter.",
       "noBody": "Keine Beschreibung.",
       "technical": "Technische Details",
       "show": "Anzeigen",
@@ -1098,7 +1111,12 @@
       "assigned": "Zuständig: {who}",
       "unassigned": "Noch niemand zuständig",
       "mergedHere": "Hierher zusammengeführt:",
-      "former": "{who} (nicht mehr im Team)"
+      "former": "{who} (nicht mehr im Team)",
+      "you": "{who} (Sie)",
+      "attached": "Ihre Stimme und Beschreibung sind bei dieser Idee. Wir melden uns, wenn sich etwas tut.",
+      "attachedQueued": "Ihre Beschreibung wartet auf die Freigabe durch das Team und erscheint dann bei dieser Idee.",
+      "seenStrong": "Der Autor hat #{n} gesehen und als etwas anderes markiert",
+      "seenShown": "Beim Schreiben hat der Autor gesehen:"
     },
     "me": {
       "title": "Meine Daten",
@@ -1137,11 +1155,11 @@
       "teamMailItems": {
         "newBug": {
           "title": "Neue Fehlermeldung",
-          "text": "Sobald jemand eine sendet."
+          "text": "Wenn jemand eine sendet."
         },
         "newIdea": {
           "title": "Neue Idee",
-          "text": "Sobald jemand eine vorschlägt."
+          "text": "Wenn jemand eine vorschlägt."
         },
         "comments": {
           "title": "Kommentare und interne Notizen",
@@ -1154,6 +1172,21 @@
         "digest": {
           "title": "Montagsübersicht",
           "text": "Einmal pro Woche: Zahlen, was auf Antwort wartet und was veröffentlicht, aber nicht angekündigt wurde."
+        }
+      },
+      "teamMailPace": "Wie wir sie senden",
+      "teamMailPaces": {
+        "instant": {
+          "title": "Sofort",
+          "text": "Jede E-Mail einzeln, sobald etwas passiert."
+        },
+        "hourly": {
+          "title": "Stündliche Zusammenfassung",
+          "text": "Eine E-Mail eine Stunde nach dem ersten Ereignis, mit allem, was seitdem passiert ist."
+        },
+        "daily": {
+          "title": "Tägliche Zusammenfassung am Morgen",
+          "text": "Eine E-Mail um 8:00 mit allem seit der letzten Zusammenfassung."
         }
       }
     },
@@ -1175,6 +1208,7 @@
       "affectsPeople": "Betrifft {n, plural, one {# Person} other {# Personen}}",
       "andPeople": " und {n, plural, one {# Person ohne Unternehmen} other {# Personen ohne Unternehmen}}",
       "mrrTotal": "{mrr} MRR insgesamt",
+      "authorsCounted": "inklusive Autor und Autoren zusammengeführter Duplikate, auch ohne Stimme",
       "anonymous": "Nutzer",
       "plan": "Tarif {plan}",
       "author": "Verfasser",
@@ -1196,7 +1230,7 @@
       "ideas": "Ideen",
       "bugs": "Fehler",
       "emptyTitle": "Niemand wartet",
-      "emptyText": "{n, plural, one {Das Team hat jede Meldung innerhalb von # Tag beantwortet.} other {Das Team hat jede Meldung innerhalb von # Tagen beantwortet.}}",
+      "emptyText": "{n, plural, one {Keine Meldung wartet länger als # Tag auf eine Antwort des Teams.} other {Keine Meldung wartet länger als # Tage auf eine Antwort des Teams.}}",
       "ruleTitle": "Wann eine Meldung hier erscheint",
       "rule": "{n, plural, one {Wenn die verfassende Person oder jemand anderes schreibt und das Team nicht innerhalb von # Tag öffentlich antwortet oder den Status ändert.} other {Wenn die verfassende Person oder jemand anderes schreibt und das Team nicht innerhalb von # Tagen öffentlich antwortet oder den Status ändert.}}",
       "ruleClears": "Interne Notizen zählen nicht. Umgesetzte, behobene und abgelehnte Meldungen erscheinen hier nie.",
@@ -1226,9 +1260,12 @@
       "nobody": "Niemand",
       "notify": "Status-E-Mails senden",
       "clear": "Auswahl aufheben",
-      "apply": "Anwenden",
+      "apply": "Auswahl ändern",
       "applying": "Wird gespeichert …",
-      "done": "{n, plural, one {# Eintrag geändert} other {# Einträge geändert}}"
+      "done": "{n, plural, one {# Eintrag geändert} other {# Einträge geändert}}",
+      "you": "{who} (Sie)",
+      "selectAll": "Alle auf dieser Seite auswählen ({n})",
+      "dense": "Kompakte Zeilen"
     },
     "select": "#{n} auswählen",
     "keys": {
@@ -1381,7 +1418,7 @@
     },
     "activity": {
       "title": "Aktivität",
-      "lede": "Änderungen am Workspace und an den Projekteinstellungen: Team, Tarif, Domains, Tokens, Webhooks und Anmeldung.",
+      "lede": "Änderungen am Arbeitsbereich und an den Projekteinstellungen (Team, Plan, Domains, Tokens, Webhooks, Anmeldung) sowie größere Eingriffe des Teams: Zusammenführungen, Sammeländerungen und Löschungen.",
       "emptyTitle": "Noch keine Aktivität",
       "emptyText": "Einträge erscheinen, sobald Sie jemanden einladen oder Projekteinstellungen ändern.",
       "older": "Ältere Einträge",
@@ -1401,7 +1438,8 @@
           "sso_secret": "Neuer SSO-Schlüssel",
           "oidc": "OIDC-Anmeldung eingerichtet",
           "domain": "Eigene Domain geändert",
-          "domain_verified": "Eigene Domain verifiziert"
+          "domain_verified": "Eigene Domain verifiziert",
+          "deleted": "Projekt gelöscht"
         },
         "token": {
           "created": "Neues API-Token",
@@ -1455,7 +1493,8 @@
         },
         "import": {
           "started": "Import gestartet",
-          "undone": "Import rückgängig gemacht"
+          "undone": "Import rückgängig gemacht",
+          "cancelled": "Import abgebrochen"
         },
         "retention": {
           "run": "Automatische Datenlöschung",
@@ -1470,7 +1509,31 @@
         },
         "account": {
           "renamed": "Kontoname geändert"
+        },
+        "triage": {
+          "merged": "Duplikate zusammengeführt",
+          "bulk": "Sammeländerung",
+          "unmerged": "Duplikate getrennt"
+        },
+        "changelog": {
+          "published": "Neuigkeit veröffentlicht",
+          "draft_deleted": "Entwurf einer Neuigkeit gelöscht"
+        },
+        "data": {
+          "exported": "Datenexport"
         }
+      },
+      "rows": "{n, plural, one {# Zeile} other {# Zeilen}}",
+      "planManual": "manuell vergeben",
+      "planStatus": {
+        "active": "aktiv",
+        "past_due": "Zahlung fehlgeschlagen",
+        "scheduled_cancel": "zum Periodenende gekündigt",
+        "canceled": "gekündigt",
+        "expired": "abgelaufen",
+        "trialing": "Testphase",
+        "paused": "pausiert",
+        "unpaid": "unbezahlt"
       }
     },
     "delivery": {
@@ -1509,7 +1572,7 @@
         "idea_status": "Status der Idee",
         "changelog": "Neuigkeiten-Eintrag",
         "team_digest": "Wöchentliche Zusammenfassung",
-        "digest": "Tägliche Zusammenfassung",
+        "digest": "Zusammenfassung",
         "login": "Anmeldung",
         "invite": "Einladung"
       },
@@ -1562,7 +1625,7 @@
       "paidTitle": "Vielen Dank für Ihre Zahlung",
       "paid": "Der Tarif wechselt, sobald der Zahlungsdienst die Zahlung bestätigt, in der Regel innerhalb einer Minute.",
       "pastDueTitle": "Die letzte Zahlung ist fehlgeschlagen",
-      "pastDue": "Aktualisieren Sie Ihre Karte in der Abonnementverwaltung, sonst wechselt der Workspace zu Free.",
+      "pastDue": "Aktualisieren Sie Ihre Karte über die Schaltfläche „Rechnungen und Karte“, sonst wechselt der Workspace zu Free.",
       "usageTitle": "Nutzung in diesem Monat",
       "emails": "E-Mails",
       "attachments": "Anhänge",
@@ -1702,9 +1765,8 @@
     "mergeSelf": "Ein Beitrag kann nicht mit sich selbst zusammengeführt werden.",
     "mergeKinds": "Sie können nur zwei Ideen oder zwei Fehler zusammenführen.",
     "alreadyMerged": "#{n} ist bereits zusammengeführt.",
+    "mergedClosed": "Diese Idee wurde mit #{n} zusammengeführt. Stimmen und kommentieren Sie dort.",
     "targetMerged": "#{n} wurde in einen anderen Beitrag zusammengeführt; führen Sie in diesen zusammen.",
-    "mergedIdea": "Zusammengeführt mit #{n} „{title}“. Die Stimmen wurden dorthin übertragen.",
-    "mergedBug": "Wir bearbeiten diese Meldung bereits unter einer anderen Nummer. Sobald der Fehler behoben ist, informieren wir Sie hier.",
     "blocked": "Sie können auf diesem Board derzeit keine Beiträge verfassen, nicht abstimmen und nicht kommentieren.",
     "deleted": "Dieser Beitrag wurde gelöscht.",
     "mergePending": "Diese Idee wartet auf Freigabe. Geben Sie sie zuerst frei oder lehnen Sie sie ab.",
@@ -1734,7 +1796,8 @@
     "proofUrl": "Der Link muss eine vollständige Adresse sein, die mit https:// beginnt.",
     "assignTeamOnly": "Nur das Team kann Einträge zuweisen.",
     "assignNotTeam": "Zugewiesen werden kann nur ein Teammitglied dieses Boards.",
-    "assignClosed": "Ein gelöschter oder zusammengeführter Eintrag kann nicht mehr zugewiesen werden."
+    "assignClosed": "Ein gelöschter oder zusammengeführter Eintrag kann nicht mehr zugewiesen werden.",
+    "notMerged": "#{n} ist nicht zusammengeführt."
   },
   "email": {
     "footer": "Sie erhalten diese E-Mail von {project}, weil Sie diesem Beitrag folgen.",
@@ -1759,7 +1822,8 @@
     "ideaHeading": "Eine Idee, der Sie folgen, hat jetzt den Status: {label}",
     "ideaWhy": "Sie erhalten diese E-Mail, weil Sie die Idee eingereicht oder kommentiert haben.",
     "viewIdea": "Idee ansehen",
-    "someone": "Jemand",
+    "teamMember": "Teammitglied",
+    "user": "Nutzer",
     "internalNote": "Interne Notiz",
     "newComment": "Neuer Kommentar",
     "newInternalNote": "Neue interne Notiz",
@@ -1791,6 +1855,8 @@
     "openReports": "Meldungen öffnen",
     "digestSubject": "{project}: {n, plural, one {# Neuigkeit} other {# Neuigkeiten}} zu Ihrem Feedback",
     "digestHeading": "Was sich geändert hat",
+    "teamSummarySubject": "{project}: {n, plural, one {# Neuigkeit} other {# Neuigkeiten}} für das Team",
+    "teamSummaryHeading": "Neu auf dem Board",
     "openFeedback": "Feedback öffnen",
     "loginSubject": "{code} – Anmeldung bei {brand}",
     "loginHeading": "Anmeldung bei {brand}",
@@ -1821,6 +1887,11 @@
     "rejectedBody": "Das Team hat Ihre Idee „{title}“ geprüft und entschieden, sie nicht zu veröffentlichen. Bei Fragen schreiben Sie bitte dem Team.",
     "rejectedBodyReason": "Das Team hat Ihre Idee „{title}“ geprüft und entschieden, sie nicht zu veröffentlichen. Es hat eine Nachricht hinzugefügt:",
     "rejectedCta": "Idee öffnen",
+    "mergedSubject": "Wir verfolgen das unter #{n}: {title}",
+    "mergedSummary": "Wir haben die Idee „{title}“ mit der gleichen Idee #{n} zusammengeführt.",
+    "mergedHeading": "Wir verfolgen das unter #{n}",
+    "mergedBody": "Die Idee „{title}“ gibt es auf dem Board schon als #{n} „{target}“, deshalb haben wir sie zusammengeführt. Die Stimmen sind dorthin umgezogen.",
+    "mergedNext": "Wir melden uns, sobald sich dort etwas ändert.",
     "teamDigestUnanswered": "{n, plural, one {Unbeantwortet: # Meldung wartet seit mehr als {days} Tagen auf das Team.} other {Unbeantwortet: # Meldungen warten seit mehr als {days} Tagen auf das Team.}}",
     "teamDigestWaiting": "{n, plural, one {# Tag} other {# Tage}}",
     "openUnanswered": "Unbeantwortete öffnen",
@@ -1869,7 +1940,14 @@
     "assignedBody": "{who} hat Ihnen {ref} zugewiesen.",
     "assignedManySubject": "Ihnen zugewiesen: {n, plural, one {# Eintrag} other {# Einträge}}",
     "assignedManyBody": "{who} hat Ihnen diese Einträge zugewiesen:",
-    "openMine": "Meine öffnen"
+    "openMine": "Meine öffnen",
+    "translatedLabel": "Mit KI übersetzt (Modell {model}), kann Ungenauigkeiten enthalten.",
+    "originalHeading": "Originaltext",
+    "bugMergedSubject": "Wir bearbeiten es gemeinsam: #{n} {title}",
+    "bugMergedSummary": "Ihre Meldung „{title}“ bearbeiten wir zusammen mit demselben Problem, das andere gemeldet haben.",
+    "bugMergedHeading": "Gemeinsam mit anderen in Bearbeitung",
+    "bugMergedBody": "Andere haben dasselbe Problem gemeldet, daher bearbeiten wir Ihre Meldung „{title}“ zusammen mit ihren. Sie müssen nichts weiter tun.",
+    "bugMergedNext": "Sobald es behoben ist, sagen wir Ihnen Bescheid und fragen, ob es bei Ihnen funktioniert."
   },
   "errors": {
     "signIn": "Bitte melden Sie sich dafür an.",
@@ -1921,7 +1999,8 @@
       "placeholderBug": "Z. B. Die USt-IdNr. verschwindet nach dem Speichern eines Kunden",
       "placeholderIdea": "z. B. Export als CSV",
       "similarLabel": "Ähnliche Ideen",
-      "similar": "Etwas Ähnliches gibt es bereits. Wenn es dasselbe ist, stimmen Sie einfach dafür ab.",
+      "similar": "Etwas Ähnliches gibt es schon. Wenn es das ist, stimmen Sie dafür — Ihren Text können Sie als Kommentar hinzufügen.",
+      "similarAi": "Ein KI-Modell hat sie nach der Bedeutung des Textes ausgewählt.",
       "bodyBug": "Was haben Sie getan und was haben Sie erwartet?",
       "bodyIdea": "Wofür brauchen Sie das?",
       "bodyPlaceholderBug": "1. Kunden geöffnet\n2. USt-IdNr. eingetragen und auf Speichern geklickt\n3. Nach erneutem Öffnen ist das Feld leer",
@@ -1939,7 +2018,24 @@
       "language": "Sprache",
       "sending": "Wird gesendet …",
       "submitBug": "Fehler melden",
-      "submitIdea": "Idee vorschlagen"
+      "submitIdea": "Idee vorschlagen",
+      "view": "Ansehen",
+      "newWindow": "öffnet sich in einem neuen Fenster",
+      "voted": "Ihre Stimme ist bei #{n}.",
+      "addAsComment": "Meinen Text als Kommentar zu #{n} hinzufügen",
+      "addingComment": "Wird hinzugefügt…",
+      "commentAdded": "Ihr Text steht als Kommentar bei #{n}. Wir melden uns, wenn sich dort etwas tut.",
+      "commentQueued": "Ihr Text bei #{n} wartet auf die Freigabe durch das Team.",
+      "openIdea": "#{n} öffnen",
+      "writeFirst": "Schreiben Sie zuerst, was Ihnen helfen würde.",
+      "strongTitle": "Ist es #{n}?",
+      "strongText": "Diese Idee gibt es schon. Wenn Sie dort abstimmen und Ihre Beschreibung ergänzen, sieht das Team, dass mehr Leute sie wollen.",
+      "strongAttach": "Stimme und Beschreibung zu #{n} hinzufügen",
+      "attaching": "Wird hinzugefügt…",
+      "strongNew": "Das ist etwas anderes, neue Idee anlegen",
+      "strongReason": "Was ist anders?",
+      "guestSubmit": "Anmelden und vorschlagen",
+      "guestNote": "Wir behalten Ihren Entwurf in diesem Fenster. Nach der Anmeldung kommen Sie hierher zurück und senden ihn ab."
     },
     "files": {
       "unsupported": "„{name}“ wird nicht unterstützt. Hängen Sie ein Bild, ein PDF oder ein Text-Log an.",
@@ -1989,7 +2085,13 @@
       "title": "Wir haben das behoben.",
       "text": "Funktioniert es jetzt bei Ihnen? Ein Klick schließt die Meldung oder schickt sie zurück an das Team.",
       "works": "Ja, es funktioniert",
-      "broken": "Geht immer noch nicht"
+      "broken": "Geht immer noch nicht",
+      "whatLabel": "Was genau geht immer noch nicht? (optional)",
+      "whatPlaceholder": "Zum Beispiel: Ein Klick auf Speichern bewirkt immer noch nichts.",
+      "sendBack": "An das Team zurückschicken",
+      "cancel": "Zurück",
+      "reopened": "Wir haben die Meldung an das Team zurückgeschickt. Wir melden uns, sobald es behoben ist.",
+      "verified": "Danke, die Meldung ist abgeschlossen."
     },
     "gallery": {
       "label": "Anhänge",
@@ -2036,7 +2138,14 @@
       "mergeHere": "#{n} hierher zusammenführen",
       "mergeHereTitle": "#{n} hierher zusammenführen?",
       "mergeHereIdea": "Die Stimmen von #{n} wandern hierher, und #{n} wird als Duplikat dieser Idee geschlossen.",
-      "mergeHereBug": "#{n} wird als Duplikat dieser Meldung geschlossen. Die meldende Person erfährt von der Korrektur zusammen mit dieser."
+      "mergeHereBug": "#{n} wird als Duplikat dieser Meldung geschlossen. Die meldende Person erfährt von der Korrektur zusammen mit dieser.",
+      "unmerge": "Trennen",
+      "unmergeHint": "Versehentlich zusammengeführt? Trennen Sie es von #{into}.",
+      "unmergeTitle": "#{n} von #{into} trennen?",
+      "unmergeIdea": "#{n} wird wieder eine eigene Idee im Status Vorgeschlagen. Stimmen, die beim Zusammenführen zu #{into} gewandert sind, bleiben bei #{into}.",
+      "unmergeBug": "#{n} wird wieder eine eigene Meldung im Status Eingegangen.",
+      "unmerging": "Wird getrennt…",
+      "unmergeConfirm": "#{n} trennen"
     },
     "changelog": {
       "votes": "{count, plural, one {# Stimme} other {# Stimmen}}",
@@ -2053,10 +2162,10 @@
       "body": "Text",
       "bodyHint": "Was neu ist und wie es hilft. Schreiben Sie für die Personen, die es sich gewünscht haben.",
       "publishNoItems": "Beim Veröffentlichen wird der Eintrag zu den Neuigkeiten hinzugefügt. Ohne ausgewählte Ideen erhält niemand eine E-Mail.",
-      "publishOne": "Beim Veröffentlichen wird die ausgewählte Idee als umgesetzt markiert, und alle, die dafür abgestimmt haben, erhalten eine E-Mail mit diesem Text",
-      "publishMany": "Beim Veröffentlichen werden {n} ausgewählte Ideen als umgesetzt markiert, und alle, die dafür abgestimmt haben, erhalten eine E-Mail mit diesem Text",
-      "total": "({votes} insgesamt)",
-      "publishNotify": "Veröffentlichen und Abstimmende benachrichtigen",
+      "publishOne": "Beim Veröffentlichen wird die ausgewählte Idee als umgesetzt markiert.",
+      "publishMany": "Beim Veröffentlichen werden {n} ausgewählte Ideen als umgesetzt markiert.",
+      "recipients": "{n, plural, =0 {Niemand erhält eine E-Mail.} one {Wir senden # E-Mail: an Abstimmende, Einreichende und Kommentierende.} other {Wir senden # E-Mails: an Abstimmende, Einreichende und Kommentierende.}}",
+      "publishNotify": "Veröffentlichen und E-Mails senden",
       "publish": "Eintrag veröffentlichen",
       "saveChanges": "Änderungen speichern",
       "saveDraft": "Entwurf speichern",
@@ -2669,17 +2778,17 @@
       },
       "devItems": [
         {
-          "href": "#developers",
+          "href": "/docs/widget",
           "title": "Widget",
           "text": "Ein Skript, Shadow DOM, unter 20 kB"
         },
         {
-          "href": "#developers",
+          "href": "/docs/widget#sign-in",
           "title": "Anmeldung",
           "text": "Signiertes Token, OIDC oder E-Mail-Code"
         },
         {
-          "href": "#developers",
+          "href": "/docs/mcp",
           "title": "MCP-Server",
           "text": "Claude Code, Cursor, VS Code"
         },
@@ -3356,7 +3465,8 @@
     },
     "offRoute": "außerhalb des Ablaufs",
     "stopOf": "Schritt {n} von {of}",
-    "now": "jetzt"
+    "now": "jetzt",
+    "merged": "Zusammengeführt"
   },
   "widget": {
     "noProject": "Dieses Projekt existiert nicht.",
@@ -3448,6 +3558,7 @@
     "home": "Ozvi – Startseite",
     "widget": "Widget",
     "api": "REST-API",
+    "mcp": "MCP-Server",
     "webhooks": "Webhooks",
     "automation": "Automatisierung",
     "toc": "Auf dieser Seite",
@@ -3647,7 +3758,8 @@
       "queued": "Wartet auf den Start …",
       "fetch": "{n, plural, one {Download aus Canny: # Datensatz} other {Download aus Canny: # Datensätze}}",
       "write": "{done} von {total} gespeichert",
-      "fetchFider": "{n, plural, one {Download aus Fider: # Datensatz} other {Download aus Fider: # Datensätze}}"
+      "fetchFider": "{n, plural, one {Download aus Fider: # Datensatz} other {Download aus Fider: # Datensätze}}",
+      "slow": "Das dauert länger als üblich. Sie können den Import abbrechen und neu starten; nichts wird doppelt angelegt."
     },
     "summary": "{items, plural, one {# Beitrag} other {# Beiträge}}, {votes, plural, one {# Stimme} other {# Stimmen}}, {comments, plural, one {# Kommentar} other {# Kommentare}}, {users, plural, one {# neue Person} other {# neue Personen}}",
     "runErrors": {
@@ -3660,7 +3772,8 @@
       "fiderNetwork": "Fider ist nicht erreichbar. Versuchen Sie es gleich noch einmal.",
       "fiderApi": "Fider hat einen Fehler zurückgegeben. Sie können das Gespeicherte rückgängig machen oder den Import erneut starten.",
       "fiderBackup": "Wir konnten das Backup nicht lesen.",
-      "fiderUrl": "Fider hat auf eine andere Adresse umgeleitet."
+      "fiderUrl": "Fider hat auf eine andere Adresse umgeleitet.",
+      "cancelled": "Abgebrochen. Starten Sie den Import erneut, wann Sie möchten."
     },
     "undo": "Rückgängig machen",
     "undoTitle": "Diesen Import rückgängig machen?",
@@ -3691,7 +3804,8 @@
       "backupTooBig": "Das Backup ist größer als 25 MB. Nutzen Sie den Import über die API oder den Befehl auf dem Server.",
       "fiderEmpty": "In Fider gibt es keine Beiträge.",
       "fiderExpired": "Die geladenen Daten sind abgelaufen. Laden Sie Fider erneut."
-    }
+    },
+    "cancel": "Abbrechen"
   },
   "a11y": {
     "skip": "Zum Inhalt springen",
@@ -3725,7 +3839,8 @@
       "enforcementTitle": "Wenn Sie mit unserer Antwort nicht zufrieden sind",
       "enforcement": "Sie können sich an die Marktüberwachungsbehörde Ihres Landes wenden, die die Barrierefreiheit von Produkten und Dienstleistungen überwacht (in der Slowakei nach Gesetz Nr. 351/2022 Slg., in Tschechien nach Gesetz Nr. 424/2023 Slg.).",
       "updated": "Wir haben diese Erklärung am {date} erstellt und aktualisieren sie bei jeder größeren Änderung."
-    }
+    },
+    "close": "Schließen"
   },
   "tags": {
     "title": "Tags",
@@ -3763,7 +3878,12 @@
       "rate": "Zu viele Übersetzungen in dieser Stunde. Versuchen Sie es später erneut.",
       "cap": "Die KI-Übersetzungen dieses Monats sind aufgebraucht. Das Original bleibt; neue Übersetzungen gibt es ab dem 1. des nächsten Monats.",
       "tooLong": "Dieser Beitrag ist zu lang für eine Übersetzung."
-    }
+    },
+    "titlesWorking": "Titel werden übersetzt …",
+    "titlesLabel": "Titel mit KI übersetzt",
+    "titlesOriginal": "Titel im Original",
+    "showOriginals": "Originale anzeigen",
+    "showTranslations": "Übersetzungen anzeigen"
   },
   "subprocessors": {
     "meta": "Unterauftragsverarbeiter – Ozvi",
@@ -3971,7 +4091,8 @@
       "type": {
         "local": "localStorage",
         "cookie": "Cookie",
-        "cookieHttpOnly": "Cookie (HttpOnly)"
+        "cookieHttpOnly": "Cookie (HttpOnly)",
+        "session": "sessionStorage"
       },
       "purpose": {
         "seen": "Merkt sich die neueste Neuigkeit, die Sie gesehen haben, für das Abzeichen „Neu“. Verlässt nie Ihren Browser.",
@@ -3979,11 +4100,14 @@
         "oidc": "Schützt die Anmeldung über {issuer} vor Fälschung.",
         "locale": "Merkt sich die gewählte Sprache.",
         "csv": "Merkt sich das Trennzeichen für CSV-Exporte.",
-        "widgetLogin": "Merkt sich, dass Sie Ihre E-Mail-Adresse im Widget bestätigt haben, damit Sie nicht bei jeder Meldung einen Code brauchen."
+        "widgetLogin": "Merkt sich, dass Sie Ihre E-Mail-Adresse im Widget bestätigt haben, damit Sie nicht bei jeder Meldung einen Code brauchen.",
+        "dense": "Merkt sich, ob das Team kompakte Zeilen in Listen möchte.",
+        "draft": "Behält eine Idee oder Meldung, die Sie gerade schreiben, bis Sie sie absenden, damit sie beim Öffnen einer ähnlichen Idee oder bei der Anmeldung nicht verloren geht."
       },
       "untilCleared": "Bis Sie die Browserdaten löschen",
       "widgetNote": "Das Widget selbst setzt keine Cookies: Es meldet Sie mit einem kurzlebigen Token aus unserer App an.",
-      "widgetNoteEmail": "Das Widget selbst setzt keine Cookies. Wenn Sie darin Ihre E-Mail-Adresse bestätigen, merkt es sich das im Browser (Eintrag oben)."
+      "widgetNoteEmail": "Das Widget selbst setzt keine Cookies. Wenn Sie darin Ihre E-Mail-Adresse bestätigen, merkt es sich das im Browser (Eintrag oben).",
+      "untilTabClosed": "Bis Sie das Fenster oder den Tab schließen"
     },
     "units": {
       "years": "{n, plural, one {# Jahr} other {# Jahre}}",

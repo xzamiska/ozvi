@@ -21,9 +21,9 @@ export type AiRecipient = { kind: "anthropic" } | { kind: "remote"; host: string
 export interface StorageItem {
   name: string;
   where: "widget" | "board" | "boardTeam";
-  type: "local" | "cookie" | "cookieHttpOnly";
-  purpose: "seen" | "widgetLogin" | "session" | "oidc" | "locale" | "csv";
-  /** Seconds; null = until the person clears browser data. */
+  type: "local" | "session" | "cookie" | "cookieHttpOnly";
+  purpose: "seen" | "widgetLogin" | "session" | "oidc" | "locale" | "csv" | "dense" | "draft";
+  /** Seconds; null = until the person clears browser data (type "session": until the tab is closed). */
   maxAge: number | null;
 }
 
@@ -168,7 +168,7 @@ export function buildKit(cfg: KitConfig, t: KitT, locale: Locale): Kit {
   sections.push({ id: "storage", title: t("sections.storage"), blocks: [
     { kind: "p", text: t("storage.intro") },
     { kind: "table", head: [t("storage.head.name"), t("storage.head.where"), t("storage.head.type"), t("storage.head.purpose"), t("storage.head.duration")],
-      rows: cfg.storage.map((s) => [s.name, where(s.where), t(`storage.type.${s.type}`), purposeOf(s), duration(s.maxAge, t)]) },
+      rows: cfg.storage.map((s) => [s.name, where(s.where), t(`storage.type.${s.type}`), purposeOf(s), s.type === "session" ? t("storage.untilTabClosed") : duration(s.maxAge, t)]) },
     { kind: "p", text: t(cfg.signIn.sso ? "storage.widgetNote" : "storage.widgetNoteEmail") },
   ] });
 

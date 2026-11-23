@@ -83,7 +83,7 @@ export default async function Overview({ params, searchParams }: { params: Promi
             <AlertTriangle />
             <AlertTitle>{t("pastDueTitle")}</AlertTitle>
             <AlertDescription>
-              {owner ? t.rich("pastDueOwner", { link: (chunks) => <Link href={`/app/w/${ws.id}/plan`} className="oz-link">{chunks}</Link> }) : t("pastDueMember")}
+              <p>{owner ? t.rich("pastDueOwner", { link: (chunks) => <Link href={`/app/w/${ws.id}/plan`} className="oz-link">{chunks}</Link> }) : t("pastDueMember")}</p>
             </AlertDescription>
           </Alert>
         )}
@@ -91,14 +91,14 @@ export default async function Overview({ params, searchParams }: { params: Promi
           <Alert>
             <AlertTriangle />
             <AlertTitle>{t("nearTitle")}</AlertTitle>
-            <AlertDescription>{t.rich("near", { link: (chunks) => <Link href={`/app/w/${ws.id}/plan`} className="oz-link">{chunks}</Link> })}</AlertDescription>
+            <AlertDescription><p>{t.rich("near", { link: (chunks) => <Link href={`/app/w/${ws.id}/plan`} className="oz-link">{chunks}</Link> })}</p></AlertDescription>
           </Alert>
         )}
         {unverified.map((p) => (
           <Alert key={p.id}>
             <AlertTriangle />
             <AlertTitle>{t("domainTitle", { domain: p.customDomain ?? "" })}</AlertTitle>
-            <AlertDescription>{t.rich("domain", { board: p.name, link: (chunks) => <a href={`/app/open/${p.slug}?to=admin`} className="oz-link">{chunks}</a> })}</AlertDescription>
+            <AlertDescription><p>{t.rich("domain", { board: p.name, link: (chunks) => <a href={`/app/open/${p.slug}?to=admin`} className="oz-link">{chunks}</a> })}</p></AlertDescription>
           </Alert>
         ))}
       </div>

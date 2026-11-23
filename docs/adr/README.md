@@ -16,3 +16,4 @@
 | [0012](0012-opt-in-telemetry.md) | Anonymous statistics from self-host only with consent (`OZVI_TELEMETRY=1`), seven fields, nothing about content | 2026-11-12 |
 | [0013](0013-screenshot-privacy-by-default.md) | The screenshot by default covers fields, e-mails, phone numbers, cards and tokens with a solid rectangle in a copy of the page; `mask: "all"` for sensitive apps | 2026-11-12 |
 | [0014](0014-widget-email-verification.md) | The widget works without host-app sign-in: the person verifies an e-mail code inside the widget (amends 0005) | 2026-11-18 |
+| [0015](0015-duplicates-before-they-happen.md) | Duplicates before they happen: one matcher for author and team, attach to an existing idea on submit, known issues for private bugs, optional local embedding model | 2026-11-21 |

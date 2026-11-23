@@ -5,7 +5,7 @@ import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import { createServer as createNetServer, type AddressInfo } from "node:net";
 import { withProject } from "@ozvi/db";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { anonymous, api, backdate, createItem, openAdmin, ownerAdmin, section, seedToken, setPlan, SSO_SECRET, ssoPerson, ssoVisit } from "../lib/admin";
 import { db, enableSso, projectBySlug, schema, ssoUrl } from "../lib/db";
 import { email, uniq } from "../lib/env";
@@ -231,6 +231,19 @@ test.describe("board settings: sections, voting, languages", () => {
     // The team does not get it either.
     expect((await page.goto(`/${slug}/roadmap`))!.status()).toBe(404);
     await v.ctx.close();
+  });
+
+  test("ideas off and on again (saved in between) brings the roadmap back", async ({ page }) => {
+    const { slug } = await ownerAdmin(page);
+    const save = async () => { await submitAction(page, section(page, "Časti boardu").getByRole("button", { name: "Uložiť časti" })); await page.reload(); };
+    await section(page, "Časti boardu").getByRole("switch", { name: "Nápady" }).click();
+    await save();
+    await expect(section(page, "Časti boardu").getByRole("switch", { name: "Roadmapa" })).toBeDisabled();
+    await section(page, "Časti boardu").getByRole("switch", { name: "Nápady" }).click();
+    await save();
+    await expect(section(page, "Časti boardu").getByRole("switch", { name: "Roadmapa" })).toHaveAttribute("aria-checked", "true");
+    await page.goto(`/${slug}/ideas`);
+    await expect(page.getByRole("navigation", { name: "Board" }).getByRole("link", { name: "Roadmapa" })).toBeVisible();
   });
 
   test("importance voting with a budget shows on the board", async ({ page, request }) => {
@@ -572,8 +585,13 @@ test.describe("board settings: integrations", () => {
         if (format) await hooks.getByRole("radio", { name: new RegExp(format) }).click();
         await hooks.getByRole("button", { name: "Pridať webhook" }).click();
       };
+      // A refused address keeps what was filled in (it used to clear the URL and the ticked events).
+      await hooks.getByRole("checkbox", { name: "Zmena stavu" }).check();
       await add(`http://127.0.0.1:${port}/hook`);
       await expect(hooks.getByRole("alert")).toHaveText("Adresa musí začínať https://.");
+      await expect(hooks.getByLabel("Adresa webhooku")).toHaveValue(`http://127.0.0.1:${port}/hook`);
+      await expect(hooks.getByRole("checkbox", { name: "Zmena stavu" })).toBeChecked();
+      await hooks.getByRole("checkbox", { name: "Zmena stavu" }).uncheck();
       await add(`https://127.0.0.1:${port}/hook`);
       await expect(hooks.getByRole("alert")).toHaveText("Adresa nemôže smerovať do internej siete.");
       await add(`https://localhost:${port}/hook`);
@@ -784,6 +802,11 @@ test.describe("board settings: import, data, deletion", () => {
     expect(dump).toContain("Nápad na export");
     // Not for anyone else.
     expect((await request.get(`/${slug}/admin/export`)).status()).toBe(403);
+    // Both downloads carry customers' data: the console Activity says who took what.
+    const project = (await projectBySlug(slug))!;
+    const exported = await db.select({ detail: schema.activity.detail }).from(schema.activity)
+      .where(and(eq(schema.activity.projectId, project.id), eq(schema.activity.action, "data.exported")));
+    expect(exported.map((r) => r.detail).sort()).toEqual(["JSON", "ideas (1)"]);
 
     const ret = page.locator("#retention");
     await ret.getByRole("combobox", { name: "Záznam z hlásenia chyby" }).click();
@@ -826,6 +849,10 @@ test.describe("board settings: import, data, deletion", () => {
     await confirm.click();
     await page.waitForURL(/\/app(\/|$)/);
     expect((await request.get(`/${slug}/ideas`)).status()).toBe(404);
-    expect(await projectBySlug(slug)).toBeUndefined();
+    const gone = await projectBySlug(slug);
+    expect(gone).toBeUndefined();
+    // The workspace keeps a line about it (the project's own rows went with it).
+    const deleted = await db.select({ detail: schema.activity.detail }).from(schema.activity).where(eq(schema.activity.action, "project.deleted"));
+    expect(deleted.map((r) => r.detail)).toContainEqual(expect.stringContaining(`(/${slug})`));
   });
 });

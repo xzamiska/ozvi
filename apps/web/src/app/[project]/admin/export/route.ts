@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import { logActivity, who } from "@/lib/activity";
 import { exportProject } from "@/lib/privacy";
 import { getCtx } from "@/lib/project";
 
@@ -7,7 +8,9 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ projec
   const { project: slug } = await params;
   const { project, user } = await getCtx(slug);
   if (user?.role !== "admin") return new Response("Len pre admina.", { status: 403 });
-  return new Response(JSON.stringify(await exportProject(project), null, 2), {
+  const dump = JSON.stringify(await exportProject(project), null, 2);
+  await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: "data.exported", detail: "JSON" });
+  return new Response(dump, {
     headers: { "content-type": "application/json; charset=utf-8", "content-disposition": `attachment; filename="${slug}-export-${new Date().toISOString().slice(0, 10)}.json"`, "cache-control": "no-store" },
   });
 }

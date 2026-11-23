@@ -29,8 +29,15 @@ export function homeSection(p: HasSections): Section {
 /** Which section an item kind belongs to. */
 export const sectionOfKind = (kind: string): Section => (kind === "bug" ? "bugs" : "ideas");
 
-/** What a settings form sends, made valid (the same rules as enabledSections). */
+/**
+ * What a settings form sends, made valid. Stores the admin's switches, not the derived result: a roadmap
+ * left on while ideas are off comes back with ideas (it used to be dropped, and stayed off).
+ */
 export function normalizeSections(input: readonly string[], home: string | null | undefined): { sections: Section[]; homeSection: Section } {
-  const sections = enabledSections({ sections: input });
+  const wish = SECTIONS.filter((s) => input.includes(s));
+  const sections = wish.some((s) => s !== "roadmap" || wish.includes("ideas")) ? wish : [...SECTIONS];
   return { sections, homeSection: homeSection({ sections, homeSection: home }) };
 }
+
+/** The admin's switches (the stored wish), for the settings form; what is actually on is enabledSections. */
+export const sectionSwitches = (p: HasSections): Section[] => (p.sections ? SECTIONS.filter((s) => p.sections!.includes(s)) : [...SECTIONS]);

@@ -1,6 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
-  bigint, boolean, check, index, integer, jsonb, pgEnum, pgTable, primaryKey, smallint, text, timestamp, uniqueIndex, uuid,
+  bigint, boolean, check, date, index, integer, jsonb, pgEnum, pgTable, primaryKey, smallint, text, timestamp, uniqueIndex, uuid,
 } from "drizzle-orm/pg-core";
 
 /**
@@ -150,7 +150,7 @@ export const users = pgTable("users", {
    * Team members only: which team e-mails they want ("My data" → Team e-mails). Keys newBug, newIdea, comments, assigned,
    * digest; a missing key means on. Their own items and conversations still reach them like anyone else.
    */
-  teamMail: jsonb("team_mail").$type<Partial<Record<"newBug" | "newIdea" | "comments" | "digest" | "assigned", boolean>>>().notNull().default({}),
+  teamMail: jsonb("team_mail").$type<Partial<Record<"newBug" | "newIdea" | "comments" | "digest" | "assigned", boolean>> & { pace?: "instant" | "hourly" | "daily" }>().notNull().default({}),
   /** Team: when they last marked the "New" inbox as read (lib/inbox.ts); null = the last 7 days count as new. */
   inboxSeenAt: timestamp("inbox_seen_at", { withTimezone: true }),
   /** Bumped to sign the user out everywhere; sessions carry the version they were issued with. */
@@ -311,6 +311,25 @@ export const itemProofs = pgTable("item_proofs", {
   createdAt: createdAt(),
 }, (t) => [uniqueIndex("item_proofs_url").on(t.itemId, t.kind, t.url), check("item_proofs_kind", sql`${t.kind} in ('pr', 'preview')`)]);
 
+/** What duplicate_stats counts (ADR-0015 measurement). */
+export const DUPLICATE_EVENTS = ["attached", "created_anyway", "said_different", "merged_later", "split"] as const;
+
+/**
+ * Daily counters for duplicates before they happen (ADR-0015): only numbers per board and day (UTC), never who.
+ * attached = a draft became a vote + comment on an existing idea; created_anyway = an idea created although
+ * similar ones were shown; said_different = …after the author was asked about a strong match; merged_later =
+ * such an idea merged by the team; split = a merge undone ("Oddeliť").
+ */
+export const duplicateStats = pgTable("duplicate_stats", {
+  projectId: uuid("project_id").notNull().references(() => projects.id, { onDelete: "cascade" }),
+  day: date("day").notNull(),
+  kind: text("kind").notNull(),
+  n: integer("n").notNull().default(0),
+}, (t) => [
+  primaryKey({ columns: [t.projectId, t.day, t.kind] }),
+  check("duplicate_stats_kind", sql`${t.kind} in ('attached', 'created_anyway', 'said_different', 'merged_later', 'split')`),
+]);
+
 export const votes = pgTable("votes", {
   projectId: uuid("project_id").notNull().references(() => projects.id, { onDelete: "cascade" }),
   itemId: uuid("item_id").notNull().references(() => items.id, { onDelete: "cascade" }),
@@ -376,6 +395,12 @@ export const emails = pgTable("emails", {
   lastError: text("last_error"),
   sendAfter: timestamp("send_after", { withTimezone: true }).notNull().defaultNow(),
   sentAt: timestamp("sent_at", { withTimezone: true }),
+  /**
+   * A post in this mail (a comment) waits for its AI translation into the recipient's language: the worker
+   * translates it before sending (apps/web lib/email/translate-mail.ts) and clears this; on any failure, or after
+   * a few minutes, the mail goes out as rendered (original only). `mail` is the unrendered message to rebuild.
+   */
+  translate: jsonb("translate").$type<{ subject: "comment"; id: string; target: string; mail: Record<string, unknown> }>(),
   createdAt: createdAt(),
 }, (t) => [
   index("emails_queue").on(t.status, t.sendAfter),
@@ -555,12 +580,12 @@ export const workspaceInvites = pgTable("workspace_invites", {
  * Who changed what in a workspace (console and board settings): invites, roles, plan, projects,
  * domains, tokens, webhooks, integrations. Workspace-scoped like workspace_members (no RLS);
  * read only through the console after a membership check. `actor` is a display label, kept
- * even after the person leaves.
+ * even after the person leaves; rows outlive their project (project_id set null), it is an audit trail.
  */
 export const activity = pgTable("activity", {
   id: id(),
   workspaceId: uuid("workspace_id").notNull().references(() => workspaces.id, { onDelete: "cascade" }),
-  projectId: uuid("project_id").references(() => projects.id, { onDelete: "cascade" }),
+  projectId: uuid("project_id").references(() => projects.id, { onDelete: "set null" }),
   actor: text("actor"),
   action: text("action").notNull(),
   detail: text("detail"),
