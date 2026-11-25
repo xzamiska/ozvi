@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { framesOf, parseDsn, reportError, safePath } from "./error-report";
+import { framesOf, malformedRequest, parseDsn, reportError, safePath } from "./error-report";
 
 afterEach(() => vi.unstubAllGlobals());
 
 describe("error report", () => {
   it("reads a Sentry/GlitchTip DSN", () => {
-    expect(parseDsn("http://abc123@10.50.0.10:8083/4")).toMatchObject({ store: "http://10.50.0.10:8083/api/4/store/" });
-    expect(parseDsn("http://abc123@10.50.0.10:8083/4")?.auth).toContain("sentry_key=abc123");
+    expect(parseDsn("http://abc123@errors.example.com/4")).toMatchObject({ store: "http://errors.example.com/api/4/store/" });
+    expect(parseDsn("http://abc123@errors.example.com/4")?.auth).toContain("sentry_key=abc123");
     expect(parseDsn(undefined)).toBeNull();
     expect(parseDsn("https://errors.example.com/4")).toBeNull();
     expect(parseDsn("not a url")).toBeNull();
@@ -20,6 +20,20 @@ describe("error report", () => {
   it("turns a Node stack into frames, oldest first", () => {
     const f = framesOf("Error: x\n    at inner (/app/a.js:10:5)\n    at outer (/app/node_modules/b.js:3:1)");
     expect(f.map((x) => [x.function, x.lineno, x.in_app])).toEqual([["outer", 3, false], ["inner", 10, true]]);
+  });
+
+  it("does not report requests Next.js rejected as malformed (scanners)", async () => {
+    const calls: string[] = [];
+    vi.stubGlobal("fetch", async (url: string) => { calls.push(url); return new Response(null, { status: 200 }); });
+    const env = { OZVI_ERROR_DSN: "http://abc123@errors.example.com/4" };
+    expect(malformedRequest(new Error("The router state header was sent but could not be parsed."))).toBe(true);
+    expect(malformedRequest(new Error('The Server Reference ID did not match the expected format. Received "x".'))).toBe(true);
+    expect(malformedRequest(new Error("relation \"items\" does not exist"))).toBe(false);
+    expect(malformedRequest("The router state header was sent but could not be parsed.")).toBe(false);
+    expect(await reportError(new Error("The router state header was sent but could not be parsed."), { path: "/billiwo", method: "POST" }, env)).toBe(false);
+    expect(calls).toHaveLength(0);
+    expect(await reportError(new Error("boom"), { path: "/billiwo", method: "POST" }, env)).toBe(true);
+    expect(calls).toHaveLength(1);
   });
 
   it("sends nothing without a DSN, and only the error with one", async () => {

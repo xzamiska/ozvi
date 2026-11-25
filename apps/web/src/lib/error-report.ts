@@ -39,12 +39,25 @@ export function framesOf(stack: string | undefined) {
 /** The path without query or fragment (tokens live there), capped. */
 export const safePath = (path: string | undefined) => (path ?? "").split(/[?#]/)[0]!.slice(0, 300);
 
+/**
+ * Next.js rejecting a malformed request: a broken router state header or an invalid Server Action id.
+ * Scanners send these in bursts (dozens a second, every public page); the server answers with an error
+ * and nothing in Ozvi ran, so they are not our bugs and would only bury real ones in the collector.
+ */
+const MALFORMED_REQUEST = [
+  /^The router state header was (sent but could not be parsed|too large)\./,
+  /^Multiple router state headers were sent\./,
+  /^The Server Reference ID did not match the expected format\./,
+];
+export const malformedRequest = (err: unknown) =>
+  err instanceof Error && MALFORMED_REQUEST.some((re) => re.test(err.message));
+
 // At most 30 events a minute per process: an error in a loop must not flood the collector.
 let windowStart = 0, sent = 0;
 
 export async function reportError(err: unknown, ctx: { path?: string; method?: string; route?: string; kind?: string; job?: string } = {}, env: Record<string, string | undefined> = process.env): Promise<boolean> {
   const dsn = parseDsn(env.OZVI_ERROR_DSN);
-  if (!dsn) return false;
+  if (!dsn || malformedRequest(err)) return false;
   const now = Date.now();
   if (now - windowStart > 60_000) { windowStart = now; sent = 0; }
   if (++sent > 30) return false;
