@@ -17,7 +17,7 @@ Versions are semver: `1.4.2` = a fix, `1.5.0` = new features, `2.0.0` = a change
    - creates a GitHub Release with the notes.
 
    Without the notes file the workflow fails and nothing is pushed.
-6. Deploy the cloud (ozvi.io) to the new version. Only then does the release appear on `ozvi.io/releases` and in `releases.json`. From there, self-hosted servers and updaters find it: those in automatic mode install it overnight, the others see it in the admin (no e-mail is sent).
+6. Deploy the cloud (ozvi.io) to the new version once the workflow has finished: first staging again, built from the tagged `main`, then live from that same image. An image built before the tag (or before the release images were on ghcr.io) carries the previous version as `OZVI_RELEASED`, so ozvi.io would keep the new release out of its list and no server would hear of it. Only then does the release appear on `ozvi.io/releases` and in `releases.json`. From there, self-hosted servers and updaters find it: those in automatic mode install it overnight, the others see it in the admin (no e-mail is sent).
 
 A pre-release `v1.5.0-rc.1` gets only its own tag. It does not move `1`, `1.5` or `latest`, so no updater installs it on its own, and it needs no notes.
 
