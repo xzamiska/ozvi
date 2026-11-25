@@ -2,6 +2,8 @@
 
 Source-available bug reports and an idea board that look like your product.
 
+Bug reports arrive by e-mail without the details you need, ideas get lost in chats and spreadsheets, and the people who asked never hear back. Ozvi collects both from inside your app with the context attached, and tells everyone who asked when it is fixed or shipped.
+
 [Website](https://ozvi.io/?utm_source=github&utm_campaign=readme) · [Live demo](https://ozvi.io/en/demo?utm_source=github&utm_campaign=readme) · [Docs](https://ozvi.io/docs/widget) · [Videos](https://www.youtube.com/@ozviapp) · [`@ozvi/widget`](https://www.npmjs.com/package/@ozvi/widget) · [`@ozvi/sdk`](https://www.npmjs.com/package/@ozvi/sdk)
 
 ![A customer reports a bug from inside the app; the team gets the screenshot with private data covered, the steps, the failed request and the console error](docs/media/ozvi-demo.gif)
@@ -11,7 +13,7 @@ Source-available bug reports and an idea board that look like your product.
 - **Your design.** One `theme.json` (colours, fonts, radius, density) styles the board, the widget and the e-mails.
 - **Your login.** Users stay signed in from your app via a signed token or OIDC; boards can also offer sign-in by e-mailed code.
 - **Your tools.** A built-in MCP server (personal tokens or OAuth connectors) lets Claude and other agents search, summarise, triage and publish — with confirmation for anything irreversible and user text always handed over as data. Webhooks for Slack, Discord or your backend.
-- **Optional AI.** Duplicate detection (embeddings via any OpenAI-compatible endpoint, or fuzzy text matching with none), thread summaries, changelog drafts and a weekly team digest written by the model you choose: Claude natively or any OpenAI-compatible API (OpenAI, Mistral, Ollama, vLLM…).
+- **Optional AI.** Duplicate detection while people write (a small multilingual model that runs inside Ozvi, so no text leaves the server and nothing is paid per call; or embeddings via any OpenAI-compatible endpoint; or fuzzy text matching with neither), thread summaries, changelog drafts and a weekly team digest written by the model you choose: Claude natively or any OpenAI-compatible API (OpenAI, Mistral, Ollama, vLLM…).
 
 Self-hosting is free with every feature (FSL-1.1-ALv2, see Licence). The same image runs the hosted cloud.
 
