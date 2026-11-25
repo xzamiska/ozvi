@@ -84,10 +84,16 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
     });
   }, [bug, prefill.url, prefill.appVersion]);
 
-  // The draft comes back after opening a suggestion, signing in or reloading; every edit is kept.
+  // The draft comes back after opening a suggestion, signing in or reloading; every edit is kept. Text typed
+  // before the page's JavaScript ran (a slow phone; the title field is focused from the start) is in the fields
+  // but not in the state yet: it wins over the stored draft, and the next render would otherwise erase it.
+  const titleRef = useRef<HTMLInputElement>(null);
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     const d = readDraft(key);
-    if (d) { setTitle((x) => x || d.title || ""); setBody((x) => x || d.body || ""); }
+    const typed = { title: titleRef.current?.value ?? "", body: bodyRef.current?.value ?? "" };
+    setTitle((x) => x || typed.title || d?.title || "");
+    setBody((x) => x || typed.body || d?.body || "");
     setRestored(true);
   }, [key]);
   useEffect(() => { if (restored) writeDraft(key, { title, body }); }, [restored, key, title, body, state, attachState]);
@@ -139,7 +145,7 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
           <label className="text-[14px] font-semibold" htmlFor="f-title">{bug ? t("titleBug") : t("titleIdea")}</label>
           <span className={cn("text-xs tabular-nums text-muted-foreground", title.length > 180 && "font-semibold text-st-ack")}>{title.length}/200</span>
         </div>
-        <Input id="f-title" name="title" required minLength={3} maxLength={200} value={title} autoFocus autoComplete="off"
+        <Input ref={titleRef} id="f-title" name="title" required minLength={3} maxLength={200} value={title} autoFocus autoComplete="off"
           onChange={(e) => setTitle(e.target.value)} className="h-11 bg-surface text-[16px]"
           placeholder={bug ? t("placeholderBug") : t("placeholderIdea")} />
       </div>
@@ -164,7 +170,7 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
         <label className="text-[14px] font-semibold" htmlFor="f-body">
           {bug ? t("bodyBug") : t("bodyIdea")} <span className="font-normal text-muted-foreground">{tf("optional")}</span>
         </label>
-        <MarkdownEditor slug={slug} id="f-body" name="body" rows={5} maxLength={10000} className="min-h-[132px] text-[15px]"
+        <MarkdownEditor ref={bodyRef} slug={slug} id="f-body" name="body" rows={5} maxLength={10000} className="min-h-[132px] text-[15px]"
           value={body} onChange={(e) => setBody(e.target.value)}
           placeholder={bug ? t("bodyPlaceholderBug") : t("bodyPlaceholderIdea")} />
       </div>

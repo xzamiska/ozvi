@@ -666,6 +666,27 @@ test.describe("public board", () => {
     await guest.close(); await ann.ctx.close(); await ben.ctx.close();
   });
 
+  test("text typed before the page has finished loading stays in the new idea form", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    const p = ann.page;
+    // A slow phone: the form is on screen (server-rendered, focused) well before its JavaScript runs.
+    let release!: () => void;
+    const loaded = new Promise<void>((r) => { release = r; });
+    await p.route("**/_next/static/chunks/**", async (route) => { await loaded; await route.continue(); });
+    // The page's scripts are held back, so "domcontentloaded" never comes: wait for the server-rendered field.
+    await p.goto(`/${b.slug}/new?kind=idea`, { waitUntil: "commit" });
+    const title = uniq("Písané pred načítaním");
+    await p.locator("#f-title").pressSequentially(title);
+    await p.locator("#f-body").pressSequentially("Aj popis.");
+    release();
+    await p.waitForLoadState("load");
+    await p.waitForLoadState("networkidle");
+    await expect(p.getByLabel("Čo by vám pomohlo?")).toHaveValue(title);
+    await expect(p.locator("#f-body")).toHaveValue("Aj popis.");
+    await p.unroute("**/_next/static/chunks/**");
+  });
+
   test("moderation: authors edit and delete their own posts and comments until the team answers; the team deletes and restores", async ({ page, browser }) => {
     test.setTimeout(120_000);
     const b = await ownerBoard(page);
