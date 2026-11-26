@@ -12,6 +12,7 @@ import { loginHref } from "@/lib/project";
 import { budgetLeft, voteModeOf } from "@/lib/votes";
 import { withProject } from "@ozvi/db";
 import { db } from "@/lib/db";
+import { knownByNumber, knownOpen } from "@/lib/known-issues";
 
 export const generateMetadata = async ({ params, searchParams }: { params: Promise<{ project: string }>; searchParams: Promise<{ kind?: string }> }) =>
   boardTitle("board.newItem", (await searchParams).kind === "bug" ? "titleBug" : "titleIdea")({ params });
@@ -19,7 +20,7 @@ export const generateMetadata = async ({ params, searchParams }: { params: Promi
 /** Host apps can deep-link: /billiwo/new?kind=bug&url=/invoices/12&v=2.14.0 */
 export default async function NewItem({ params, searchParams }: {
   params: Promise<{ project: string }>;
-  searchParams: Promise<{ kind?: string; url?: string; v?: string }>;
+  searchParams: Promise<{ kind?: string; url?: string; v?: string; known?: string }>;
 }) {
   const { project: slug } = await params;
   const sp = await searchParams;
@@ -38,6 +39,12 @@ export default async function NewItem({ params, searchParams }: {
     return <Gate project={project} locale={locale} returnTo={returnTo} title={bug ? t("gateBug") : t("gateIdea")}
       text={await signInText(project, locale, t("gateText"))} />;
   }
+  // "Mám ten istý problém" on the list of known issues: the form starts joined to it (if it is still open).
+  const known = bug && user && /^\d{1,9}$/.test(sp.known ?? "")
+    ? await withProject(db, project.id, async (tx) => {
+      const k = await knownByNumber(tx, Number(sp.known));
+      return k && knownOpen(k.status) ? { number: k.number, title: k.title, body: k.body, status: k.status, affected: k.affected } : null;
+    }) : null;
   return (
     <Page>
       <PageHead
@@ -50,7 +57,7 @@ export default async function NewItem({ params, searchParams }: {
           <p role="note" className="flex items-start gap-2 self-start rounded-xl border border-dashed bg-surface/60 px-4 py-3.5 text-[14.5px] text-muted-foreground">
             <Ban className="mt-0.5 size-4 shrink-0" aria-hidden />{(await getTranslations("moderation"))("blockedNotice")}
           </p>
-        ) : <NewItemForm slug={slug} kind={kind} prefill={{ url: sp.url?.slice(0, 500), appVersion: sp.v?.slice(0, 50) }} login={guestLogin}
+        ) : <NewItemForm slug={slug} kind={kind} prefill={{ url: sp.url?.slice(0, 500), appVersion: sp.v?.slice(0, 50), known }} login={guestLogin}
               vote={{ mode: voteModeOf(project), left: user && !bug ? await withProject(db, project.id, (tx) => budgetLeft(tx, project, user.id)) : null }} />}
         <aside className="grid content-start gap-6 lg:pt-1">
           <RailSection title={tb("route")}>

@@ -865,7 +865,8 @@
       "proofRelease": "Release {v}",
       "merged": "Merged into #{n}",
       "mergedPrivate": "Handled under another number",
-      "reopened": "Reopened: still broken"
+      "reopened": "Reopened: still broken",
+      "mergedKnown": "Joined a known issue"
     },
     "ideas": {
       "gateTitle": "Ideas are visible to signed-in users only",
@@ -954,7 +955,12 @@
       "whoNone": "Nobody",
       "noneForWho": "Nothing for “Assignee: {who}”",
       "noneForWhoText": "The assignee filter is on, so you see only part of the list. Clear it or pick someone else.",
-      "whoClear": "Clear assignee filter"
+      "whoClear": "Clear assignee filter",
+      "knownTitle": "Issues we are working on",
+      "knownLede": "If you have one of them, join it. You’ll hear when it is fixed.",
+      "knownSame": "I have the same problem",
+      "knownAffected": "{n, plural, one {Reported by # person} other {Reported by # people}}",
+      "knownTeam": "Known issues ({n})"
     },
     "roadmap": {
       "gateTitle": "The roadmap is visible to signed-in users only",
@@ -1116,7 +1122,9 @@
       "attached": "Your vote and description are on this idea. We’ll let you know when it moves.",
       "attachedQueued": "Your description is waiting for the team’s approval, then it appears on this idea.",
       "seenStrong": "The author saw #{n} and marked this as different",
-      "seenShown": "While writing, the author saw:"
+      "seenShown": "While writing, the author saw:",
+      "knownIssue": "Known issue",
+      "mergedKnown": "Part of the known issue “{title}”. We’ll let you know when it is fixed."
     },
     "me": {
       "title": "My data",
@@ -1513,7 +1521,9 @@
         "triage": {
           "merged": "Duplicates merged",
           "bulk": "Bulk change",
-          "unmerged": "Duplicates split"
+          "unmerged": "Duplicates split",
+          "known_published": "Known issue published",
+          "known_hidden": "Known issue removed"
         },
         "changelog": {
           "published": "Update published",
@@ -1986,7 +1996,14 @@
     "adminOnly": "Only a board admin can do this.",
     "sectionOff": "This section is switched off for this project.",
     "deleteOwnerOnly": "Only the workspace owner can delete the whole project, coming here from the Ozvi console.",
-    "operatorOnly": "Only the instance operators (OZVI_ADMIN_EMAILS) control server updates, coming here from the Ozvi console."
+    "operatorOnly": "Only the instance operators (OZVI_ADMIN_EMAILS) control server updates, coming here from the Ozvi console.",
+    "known": {
+      "team": "Only the team publishes known issues.",
+      "kind": "Only a bug report can be published as a known issue.",
+      "state": "A merged, deleted or queued report cannot be a known issue.",
+      "title": "The public title needs 3 to 200 characters.",
+      "body": "The note can have at most 2,000 characters."
+    }
   },
   "forms": {
     "optional": "optional",
@@ -2035,7 +2052,15 @@
       "strongNew": "It’s something else, create a new idea",
       "strongReason": "How is it different?",
       "guestSubmit": "Sign in to suggest",
-      "guestNote": "We keep your draft in this window. After signing in you come back here and send it."
+      "guestNote": "We keep your draft in this window. After signing in you come back here and send it.",
+      "knownLabel": "Known issues similar to your report",
+      "known": "Is it one of the issues we are already working on?",
+      "knownSame": "I have the same problem",
+      "knownAffected": "{n, plural, one {Reported by # person} other {Reported by # people}}",
+      "knownJoinLabel": "Joining a known issue",
+      "knownJoining": "You are joining the known issue “{title}”",
+      "knownJoiningText": "Describe what happened on your side. The team sees your report with its context, and you get an e-mail when it is fixed.",
+      "knownNotIt": "That’s not it"
     },
     "files": {
       "unsupported": "We don’t support “{name}”. Attach an image, PDF or text log.",
@@ -2307,6 +2332,20 @@
       "repo": "Enter the repository as owner/name, e.g. acme/app.",
       "slug": "Use 2 to 41 characters: lowercase letters without accents, digits and hyphens, starting with a letter or digit.",
       "code": "Enter the 6-digit code from the e-mail."
+    },
+    "known": {
+      "hint": "When a bug affects more people, publish it. Others see it when reporting and join it instead of filing a new report.",
+      "start": "Publish as a known issue",
+      "privacy": "Customers see only the title and note you write here, never the original report, its files or context. Rewrite the title if it names a customer or holds other data.",
+      "published": "{n, plural, =0 {Published as a known issue. Nobody has joined yet.} one {Published as a known issue. # person joined.} other {Published as a known issue. # people joined.}}",
+      "title": "Public title",
+      "body": "Note for customers (optional)",
+      "bodyPlaceholder": "For example: when it happens and how to work around it for now",
+      "save": "Save changes",
+      "publish": "Publish",
+      "hide": "Remove from known issues",
+      "cancel": "Cancel",
+      "saved": "Saved"
     }
   },
   "integrations": {

@@ -198,6 +198,13 @@ export const items = pgTable("items", {
   deleteReason: text("delete_reason"),
   /** Where the post came from (provenance for agents): board, widget, mcp, import, api. */
   source: text("source").notNull().default("board"),
+  /**
+   * Known issue (bugs, ADR-0015 phase 3): published by the team with a title and note a person wrote or
+   * approved. Reporters see and match only these two fields, never the report's own text, files or context.
+   */
+  knownTitle: text("known_title"),
+  knownBody: text("known_body"),
+  knownAt: timestamp("known_at", { withTimezone: true }),
   createdAt: createdAt(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 }, (t) => [
@@ -206,6 +213,8 @@ export const items = pgTable("items", {
   index("items_board").on(t.projectId, t.kind, t.status, t.voteCount),
   index("items_assignee").on(t.projectId, t.assigneeId),
   check("items_title_len", sql`char_length(${t.title}) between 1 and 200`),
+  check("items_known_issue", sql`${t.knownAt} is null or (${t.kind} = 'bug' and char_length(${t.knownTitle}) between 3 and 200)`),
+  index("items_known").on(t.projectId).where(sql`${t.knownAt} is not null`),
 ]);
 
 /**
@@ -312,13 +321,14 @@ export const itemProofs = pgTable("item_proofs", {
 }, (t) => [uniqueIndex("item_proofs_url").on(t.itemId, t.kind, t.url), check("item_proofs_kind", sql`${t.kind} in ('pr', 'preview')`)]);
 
 /** What duplicate_stats counts (ADR-0015 measurement). */
-export const DUPLICATE_EVENTS = ["attached", "created_anyway", "said_different", "merged_later", "split"] as const;
+export const DUPLICATE_EVENTS = ["attached", "created_anyway", "said_different", "merged_later", "split", "joined_known"] as const;
 
 /**
  * Daily counters for duplicates before they happen (ADR-0015): only numbers per board and day (UTC), never who.
  * attached = a draft became a vote + comment on an existing idea; created_anyway = an idea created although
  * similar ones were shown; said_different = …after the author was asked about a strong match; merged_later =
- * such an idea merged by the team; split = a merge undone ("Oddeliť").
+ * such an idea merged by the team; split = a merge undone ("Oddeliť"); joined_known = a bug reported as
+ * "Mám ten istý problém" on a known issue.
  */
 export const duplicateStats = pgTable("duplicate_stats", {
   projectId: uuid("project_id").notNull().references(() => projects.id, { onDelete: "cascade" }),
@@ -327,7 +337,7 @@ export const duplicateStats = pgTable("duplicate_stats", {
   n: integer("n").notNull().default(0),
 }, (t) => [
   primaryKey({ columns: [t.projectId, t.day, t.kind] }),
-  check("duplicate_stats_kind", sql`${t.kind} in ('attached', 'created_anyway', 'said_different', 'merged_later', 'split')`),
+  check("duplicate_stats_kind", sql`${t.kind} in ('attached', 'created_anyway', 'said_different', 'merged_later', 'split', 'joined_known')`),
 ]);
 
 export const votes = pgTable("votes", {

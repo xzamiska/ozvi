@@ -22,6 +22,7 @@ import { getTranslations } from "next-intl/server";
 import { HONEYPOT, isBlocked } from "./moderation-rules";
 import { attachDraft, cleanSimilarSeen, countDuplicate, draftComment, similarInputs, splitItem, strongMatch } from "./duplicates";
 import { sectionOn } from "./sections";
+import { KnownIssueError, publishKnown, unpublishKnown } from "./known-issues";
 
 const { items } = schema;
 
@@ -81,6 +82,7 @@ export async function createItem(slug: string, _prev: CreateState, form: FormDat
       context,
       files: form.getAll("files").filter((f): f is File => f instanceof File),
       similarSeen: kind === "idea" ? cleanSimilarSeen(str(form, "shown"), str(form, "strong"), str(form, "reason")) : null,
+      joinKnown: kind === "bug" && /^\d{1,9}$/.test(str(form, "joinKnown")) ? Number(str(form, "joinKnown")) : null,
     }, locale);
   } catch (e) {
     if (e instanceof AttachmentError || e instanceof ValidationError || e instanceof RateLimitError) return { error: e.message };
@@ -209,6 +211,33 @@ export async function bulkUpdate(slug: string, form: FormData): Promise<{ change
 }
 
 /** Team: mark this item as a duplicate of #target. */
+/**
+ * Team: publish a bug as a known issue (or update its public title and note), or take it off the list
+ * (`hide`). Reporters see only these two fields (lib/known-issues.ts).
+ */
+export async function setKnownIssue(slug: string, itemId: string, _prev: FormState, form: FormData): Promise<FormState & { saved?: number }> {
+  const { project, isTeam, user, locale, t } = await requireUser(slug);
+  if (!isTeam) return { error: t("known.team") };
+  const hide = str(form, "hide") === "1";
+  let detail = "";
+  try {
+    await withProject(db, project.id, async (tx) => {
+      const item = await tx.query.items.findFirst({ where: eq(items.id, itemId) });
+      if (!item || item.kind !== "bug") throw new DomainError(t("itemMissing"));
+      if (hide) await unpublishKnown(tx, item);
+      else await publishKnown(tx, item, { title: str(form, "title"), body: String(form.get("body") ?? "") });
+      detail = `#${item.number}`;
+    });
+  } catch (e) {
+    if (e instanceof KnownIssueError) return { error: t(`known.${e.message as "kind" | "state" | "title" | "body"}`) };
+    if (e instanceof DomainError) return { error: e.text(locale) };
+    throw e;
+  }
+  await logActivity({ workspaceId: project.workspaceId, projectId: project.id, actor: who(user), action: hide ? "triage.known_hidden" : "triage.known_published", detail });
+  revalidatePath(`/${slug}`, "layout");
+  return { saved: Date.now() };
+}
+
 export async function mergeInto(slug: string, itemId: string, _prev: FormState, form: FormData): Promise<FormState> {
   const { project, isTeam, user, locale, t } = await requireUser(slug);
   if (!isTeam) return { error: t("mergeTeamOnly") };

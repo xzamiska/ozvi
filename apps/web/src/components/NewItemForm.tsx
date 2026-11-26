@@ -19,6 +19,9 @@ import { DRAFT_PREFIX } from "@/lib/storage-keys";
 /** /[project]/search: findSimilar at the SHOW threshold, with the viewer's own vote. */
 interface Similar { id: string; number: number; title: string; votes: number; status: string; score: number; weight: number; method: string }
 
+/** /[project]/search?kind=bug: open known issues matching the title (public title and note only). */
+export interface KnownSuggestion { number: number; title: string; body: string; status: string; affected: number }
+
 /** Listed in the privacy kit (lib/storage-keys.ts): the tab keeps the draft until it is sent or closed. */
 const draftKey = (slug: string, kind: string) => `${DRAFT_PREFIX}${slug}:${kind}`;
 function readDraft(key: string): { title?: string; body?: string } | null {
@@ -35,7 +38,7 @@ function writeDraft(key: string, d: { title: string; body: string } | null) {
  * `login`: null = signed in; otherwise a guest on a public board, who sees suggestions and signs in to post.
  */
 export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left: null }, login = null }: {
-  slug: string; kind: "bug" | "idea"; prefill: { url?: string; appVersion?: string };
+  slug: string; kind: "bug" | "idea"; prefill: { url?: string; appVersion?: string; known?: KnownSuggestion | null };
   vote?: { mode: VoteMode; left: number | null };
   login?: string | null;
 }) {
@@ -58,6 +61,9 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
   const [body, setBody] = useState("");
   const [restored, setRestored] = useState(false);
   const [similar, setSimilar] = useState<Similar[]>([]);
+  // Bugs: known issues like the one being described, and the one the reporter says they have too.
+  const [known, setKnown] = useState<KnownSuggestion[]>([]);
+  const [joined, setJoined] = useState<KnownSuggestion | null>(prefill.known ?? null);
   // What the author was shown (number → best score), and which suggestions they voted on or opened.
   const shown = useRef(new Map<number, number>());
   // The question replaces the submit row, often below the fold (a tablet, a long description): bring it into view
@@ -111,6 +117,16 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
     return () => { clearTimeout(timer); ctrl.abort(); };
   }, [bug, slug, title]);
 
+  useEffect(() => {
+    if (!bug || joined || title.trim().length < 4) { setKnown([]); return; }
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => {
+      fetch(`/${slug}/search?kind=bug&q=${encodeURIComponent(title)}`, { signal: ctrl.signal })
+        .then((r) => r.json()).then((rows: KnownSuggestion[]) => setKnown(rows)).catch(() => {});
+    }, 250);
+    return () => { clearTimeout(timer); ctrl.abort(); };
+  }, [bug, joined, slug, title]);
+
   const path = (() => { try { return ctx.url ? new URL(ctx.url, location.origin).pathname : ""; } catch { return ctx.url ?? ""; } })();
   const summary = [path, ctx.appVersion && `v${ctx.appVersion}`, ctx.browser && browserLabel(ctx.browser)]
     .filter(Boolean).join(" · ");
@@ -125,6 +141,7 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
       <Honeypot />
       <input type="hidden" name="kind" value={kind} />
       <input type="hidden" name="context" value={JSON.stringify(ctx)} />
+      {bug && joined && <input type="hidden" name="joinKnown" value={joined.number} />}
       {!bug && <>
         <input type="hidden" name="seen" value={[...seen, ...(asked ? [asked.number] : [])].join(",")} />
         <input type="hidden" name="shown" value={JSON.stringify([...shown.current].map(([number, score]) => ({ number, score })))} />
@@ -149,6 +166,35 @@ export function NewItemForm({ slug, kind, prefill, vote = { mode: "simple", left
           onChange={(e) => setTitle(e.target.value)} className="h-11 bg-surface text-[16px]"
           placeholder={bug ? t("placeholderBug") : t("placeholderIdea")} />
       </div>
+
+      {bug && joined && (
+        <section role="status" aria-label={t("knownJoinLabel")} className="grid gap-2 rounded-xl border border-brand-line bg-brand-soft/60 p-4">
+          <p className="flex flex-wrap items-center gap-2 text-[14.5px] font-semibold">{t("knownJoining", { title: joined.title })} <StatusTag kind="bug" status={joined.status} /></p>
+          <p className="text-[14px] text-muted-foreground">{t("knownJoiningText")}</p>
+          <div><Button type="button" variant="outline" size="sm" onClick={() => setJoined(null)}>{t("knownNotIt")}</Button></div>
+        </section>
+      )}
+
+      {bug && !joined && known.length > 0 && (
+        <section aria-live="polite" aria-label={t("knownLabel")} className="grid gap-3 rounded-xl border border-brand-line bg-brand-soft/60 p-4">
+          <p className="text-[14px] font-semibold">{t("known")}</p>
+          <ul className="grid gap-2">
+            {known.map((k) => (
+              <li key={k.number} className="grid gap-2 rounded-lg border bg-surface p-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-[15px] font-semibold">{k.title}</span>
+                  <StatusTag kind="bug" status={k.status} />
+                </div>
+                {k.body && <p className="line-clamp-3 whitespace-pre-line text-[14px] text-muted-foreground">{k.body}</p>}
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button type="button" size="sm" onClick={() => setJoined(k)}>{t("knownSame")}</Button>
+                  <span className="text-[13px] text-muted-foreground">{t("knownAffected", { n: k.affected })}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {similar.length > 0 && (
         <section aria-live="polite" aria-label={t("similarLabel")} className="grid gap-3 rounded-xl border border-brand-line bg-brand-soft/60 p-4">

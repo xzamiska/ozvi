@@ -9,7 +9,7 @@ import { ExportMenu } from "@/components/ExportMenu";
 import { ItemRow } from "@/components/ItemRow";
 import { ListTools } from "@/components/ozvi/ListTools";
 import { EmptyState, FilterBar, Page, PageHead, Panel, RailSection, Segments } from "@/components/ozvi/page";
-import { RouteLegend } from "@/components/ozvi/route";
+import { RouteLegend, StatusTag } from "@/components/ozvi/route";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { getCtx } from "@/lib/project";
@@ -28,6 +28,7 @@ import { listTranslationView } from "@/lib/translate-view";
 import { TitlesBar, TranslationScope } from "@/components/ozvi/Translate";
 import { boardTitle } from "@/lib/board-meta";
 import { needSection } from "@/lib/sections-server";
+import { knownOpen, listKnown, type KnownIssue } from "@/lib/known-issues";
 
 export const generateMetadata = boardTitle("board.nav", "bugs");
 
@@ -60,7 +61,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
   const page = pageParam(sp.p);
   const { items } = schema;
   const mine = isTeam ? [] : [eq(items.authorId, user.id)];
-  const { rows, hasMore, counts, allTags, tag, members, who, translation } = await withProject(db, project.id, async (tx) => {
+  const { rows, hasMore, counts, allTags, tag, members, who, translation, known } = await withProject(db, project.id, async (tx) => {
     // Tags: everybody filters by public ones; team-only tags exist (and filter) only for the team.
     const allTags = await listTags(tx, isTeam);
     const tag = tagFromParam(allTags, sp.tag, isTeam);
@@ -73,7 +74,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
     await decorateRows(tx, project, locale, page_.rows, isTeam);
     // Automatic translation: titles of reports in another language (only rows this viewer may read).
     const translation = await listTranslationView(tx, { project, plan, locale }, page_.rows);
-    return { ...page_, allTags, tag, members, who, translation,
+    return { ...page_, allTags, tag, members, who, translation, known: await listKnown(tx),
     // Counts follow the search, so the numbers on the segments match what a click shows.
     counts: Object.fromEntries((await tx.select({ status: items.status, n: sql<number>`count(*)::int` }).from(items)
       .where(and(eq(items.kind, "bug"), sql`${items.mergedIntoId} is null and ${items.deletedAt} is null`, ...mine, ...search)).groupBy(items.status)).map((r) => [r.status, r.n])) as Record<string, number>,
@@ -98,6 +99,7 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
       />
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="min-w-0">
+          {!isTeam && known.length > 0 && <KnownList slug={slug} known={known} t={t} />}
           {(total > 0 || q || tag || who) && (
             <div className="mb-3 grid gap-2">
               <form className="relative min-w-0" role="search">
@@ -162,9 +164,46 @@ export default async function Bugs({ params, searchParams }: { params: Promise<{
           <LoadMore href={hasMore ? nextPageHref(keep, page) : null} shown={rows.length} total={shownTotal} />
         </div>
         <aside className="grid content-start gap-8 max-lg:hidden">
+          {isTeam && known.length > 0 && (
+            <RailSection title={t("knownTeam", { n: known.length })}>
+              <ul className="grid gap-1.5 text-[13.5px]">
+                {known.map((k) => <li key={k.id}><Link className="oz-link" href={`/${slug}/i/${k.number}`}>#{k.number} {k.title}</Link></li>)}
+              </ul>
+            </RailSection>
+          )}
           <RailSection title={tb("route")}><RouteLegend kind="bug" /></RailSection>
         </aside>
       </div>
     </Page>
+  );
+}
+
+/**
+ * Known issues for people reporting bugs (ADR-0015 phase 3): only the title and note the team published.
+ * "Mám ten istý problém" opens the bug form joined to it; fixed ones stay listed for a while with their version.
+ */
+function KnownList({ slug, known, t }: { slug: string; known: KnownIssue[]; t: Awaited<ReturnType<typeof getTranslations<"board.bugs">>> }) {
+  return (
+    <section aria-labelledby="known-h" className="mb-8 grid gap-3">
+      <div>
+        <h2 id="known-h" className="text-[17px] font-semibold">{t("knownTitle")}</h2>
+        <p className="text-[14px] text-muted-foreground">{t("knownLede")}</p>
+      </div>
+      <Panel as="ul" className="divide-y">
+        {known.map((k) => (
+          <li key={k.id} className="grid gap-2 px-4 py-3.5">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[15px] font-semibold">{k.title}</span>
+              <StatusTag kind="bug" status={k.status} version={k.fixedInVersion} />
+            </div>
+            {k.body && <p className="whitespace-pre-line text-[14px] text-muted-foreground">{k.body}</p>}
+            <div className="flex flex-wrap items-center gap-3">
+              {knownOpen(k.status) && <Button asChild size="sm" variant="outline"><Link href={`/${slug}/new?kind=bug&known=${k.number}`}>{t("knownSame")}</Link></Button>}
+              <span className="text-[13px] text-muted-foreground">{t("knownAffected", { n: k.affected })}</span>
+            </div>
+          </li>
+        ))}
+      </Panel>
+    </section>
   );
 }
