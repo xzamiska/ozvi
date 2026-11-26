@@ -473,7 +473,7 @@ export default async function ItemPage({ params, searchParams }: { params: Promi
               )}
               {!bug && ["in_progress", "shipped"].includes(item.status) && (
                 <TeamBlock title={t("news")}>
-                  <p className="text-[13px] text-muted-foreground">{t("newsHint", { n: item.voteCount })}</p>
+                  <p className="text-[13px] text-muted-foreground">{t("newsHint", { n: vote.voters })}</p>
                   <Button asChild variant="outline" size="sm"><Link href={`/${slug}/changelog/new?item=${item.number}`}>{b("changelog.write")}</Link></Button>
                 </TeamBlock>
               )}

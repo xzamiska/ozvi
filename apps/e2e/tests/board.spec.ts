@@ -200,6 +200,10 @@ test.describe("public board", () => {
     await act(p, () => picker.getByRole("button", { name: /Pekné mať/ }).click());
     await expect(p.getByRole("button", { name: /^Zmeniť hlas, 1 bod od 1 človeka/ })).toBeVisible();
 
+    // The news hint counts people, not points: 2 points on the first idea come from one voter.
+    await moveTo(page, b.slug, n1, "Rozpracované");
+    await expect(page.getByText("Hlasujúci (1) dostanú e-mail.", { exact: false })).toBeVisible();
+
     // Remove the vote.
     await p.getByRole("button", { name: /^Zmeniť hlas/ }).click();
     await act(p, () => p.getByRole("button", { name: "Odobrať hlas" }).click());
