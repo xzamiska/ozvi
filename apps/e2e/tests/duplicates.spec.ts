@@ -1,9 +1,10 @@
 import { expect, test } from "@playwright/test";
 import { withProject } from "@ozvi/db";
 import { eq } from "drizzle-orm";
-import { act, boardUser, createItem, itemRow, ownerBoard, projectRow } from "../lib/board";
+import { act, boardUser, createItem, itemRow, moveTo, ownerBoard, projectRow } from "../lib/board";
 import { db, schema } from "../lib/db";
 import { uniq } from "../lib/env";
+import { lastMail } from "../lib/mail";
 import { attachmentsOf } from "../lib/widget";
 
 /** 1×1 transparent PNG. */
@@ -118,5 +119,67 @@ test.describe("duplicates before they happen @tablet", () => {
     await page.reload();
     await expect(page.getByRole("button", { name: /^Hlasovať/ })).toBeVisible();
     await ann.ctx.close();
+  });
+});
+
+/** ADR-0015 phase 3: the team publishes a bug as a known issue; others join it instead of reporting it again. */
+test.describe("known issues @tablet", () => {
+  test("the team publishes a known issue; a reporter joins it from the list or while typing and hears about the fix", async ({ page, browser }) => {
+    const b = await ownerBoard(page);
+    const ann = await boardUser(browser, b, "anna");
+    const tag = uniq("k");
+    // Anna's own words name a customer: the public title the team writes must not.
+    const original = `Faktúra pre Novák s.r.o. sa nestiahne ${tag}`;
+    const n = await createItem(ann.page, b.slug, "bug", original, "Klient Novák, IČO 12345678.");
+    const known = `Faktúra v PDF sa nestiahne ${tag}`;
+
+    await page.goto(`/${b.slug}/i/${n}`);
+    await page.getByRole("button", { name: "Zverejniť ako známu chybu" }).click();
+    await expect(page.getByText(/Zákazníci uvidia len názov a poznámku/)).toBeVisible();
+    await expect(page.getByLabel("Verejný názov")).toHaveValue(original);
+    await page.getByLabel("Verejný názov").fill(known);
+    await page.getByLabel(/Poznámka pre zákazníkov/).fill("Zatiaľ ju otvorte v náhľade a uložte odtiaľ.");
+    await act(page, () => page.getByRole("button", { name: "Zverejniť", exact: true }).click());
+    await expect(page.getByText("Zverejnená ako známa chyba. Zatiaľ sa nikto nepripojil.")).toBeVisible();
+
+    // From the list of bugs: only the public title and note, never Anna's report.
+    const ben = await boardUser(browser, b, "ben");
+    await ben.page.goto(`/${b.slug}/bugs`);
+    const list = ben.page.getByRole("region", { name: "Chyby, ktoré už riešime" });
+    await expect(list).toContainText(known);
+    await expect(list).toContainText("Zatiaľ ju otvorte v náhľade");
+    await expect(ben.page.locator("body")).not.toContainText("Novák");
+    await list.getByRole("link", { name: "Mám ten istý problém" }).click();
+    await expect(ben.page.getByRole("status", { name: "Pripojenie k známej chybe" })).toContainText(known);
+    await ben.page.getByLabel("Čo nefunguje?").fill("Nestiahne sa mi faktúra");
+    await ben.page.getByLabel(/Čo ste robili/).fill("Klikol som na Stiahnuť PDF, nič sa nestalo.");
+    await ben.page.getByRole("button", { name: "Nahlásiť chybu" }).click();
+    await ben.page.waitForURL(new RegExp(`/${b.slug}/i/\\d+$`));
+    const nBen = Number(ben.page.url().match(/\/i\/(\d+)$/)![1]);
+    await expect(ben.page.getByText(`Patrí k známej chybe „${known}“`)).toBeVisible();
+    await expect(ben.page.getByText("Pripojené k známej chybe").filter({ visible: true })).toBeVisible();
+    expect((await itemRow(b.slug, nBen))!.mergedIntoId).toBe((await itemRow(b.slug, n))!.id);
+
+    // While typing: the known issue is suggested by its public title (typed without diacritics).
+    const carl = await boardUser(browser, b, "carl");
+    await carl.page.goto(`/${b.slug}/new?kind=bug`);
+    await carl.page.getByLabel("Čo nefunguje?").fill(`faktura v pdf sa nestiahne ${tag}`);
+    const suggested = carl.page.getByRole("region", { name: "Známe chyby podobné vášmu hláseniu" });
+    await expect(suggested).toContainText(known);
+    await expect(suggested).toContainText("Hlásili 2 ľudia");
+    await suggested.getByRole("button", { name: "Mám ten istý problém" }).click();
+    await carl.page.getByRole("button", { name: "Nahlásiť chybu" }).click();
+    await carl.page.waitForURL(new RegExp(`/${b.slug}/i/\\d+$`));
+    await expect(carl.page.getByText(`Patrí k známej chybe „${known}“`)).toBeVisible();
+
+    // The fix reaches everyone who joined, about their own report only.
+    await page.goto(`/${b.slug}/i/${n}`);
+    await expect(page.getByText("Zverejnená ako známa chyba. Pripojili sa 2 ľudia.")).toBeVisible();
+    await moveTo(page, b.slug, n, "Opravené", "3.2.0");
+    const mail = await lastMail(ben.email, { subject: /^Opravené:/ });
+    expect(mail.text).toContain("3.2.0");
+    expect(`${mail.Subject} ${mail.text}`).not.toContain("Novák");
+    await lastMail(carl.email, { subject: /^Opravené:/ });
+    await ann.ctx.close(); await ben.ctx.close(); await carl.ctx.close();
   });
 });

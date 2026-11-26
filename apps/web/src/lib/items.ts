@@ -7,7 +7,8 @@ import { emit } from "./events";
 import type { Project, User } from "./project";
 import { allow, RateLimitError } from "./ratelimit";
 import { translator } from "@/i18n/messages";
-import { assertCanParticipate, DomainError } from "./domain";
+import { assertCanParticipate, DomainError, mergeItems } from "./domain";
+import { joinable } from "./known-issues";
 import { sectionOfKind, sectionOn } from "./sections";
 import { DUPLICATE_ITEM_WINDOW_MS, pendingReason, sameTitle, type PendingReason } from "./moderation-rules";
 import type { Locale } from "@/i18n/locales";
@@ -42,6 +43,8 @@ export interface NewItem {
   source?: ItemSource;
   /** Ideas: the similar ideas its author was shown and why it is different (lib/duplicates.ts, context.similarSeen). */
   similarSeen?: SimilarSeen | null;
+  /** Bugs: number of a known issue the reporter has too ("Mám ten istý problém"); the report is merged into it. */
+  joinKnown?: number | null;
 }
 
 /**
@@ -84,6 +87,15 @@ export async function createItem(project: Project, user: User, input: NewItem, l
         status: input.kind === "bug" ? "new" : "open", pending: !!pending, pendingReason: pending, source: input.source ?? "board",
       }).returning();
       await storeAttachments(tx, project.id, item!.id, files, written);
+      // "Mám ten istý problém": the reporter's own report, merged into the known issue right away (they follow it).
+      // Anything else (not published, fixed meanwhile, a report held for review) stays an ordinary report.
+      if (input.kind === "bug" && input.joinKnown && !item!.pending) {
+        const known = await tx.query.items.findFirst({ where: eq(schema.items.number, input.joinKnown) });
+        if (known && joinable(known)) {
+          await mergeItems(tx, project, user, item!, known);
+          await countDuplicate(tx, project.id, "joined_known");
+        }
+      }
       // Created although similar ideas were shown (ADR-0015 counters; the item keeps what was shown for the team).
       if (input.kind === "idea" && input.similarSeen) {
         await countDuplicate(tx, project.id, "created_anyway");

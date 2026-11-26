@@ -19,6 +19,7 @@ import { AiSummaryBox, AssigneeControl, GithubBox, MergeBox, RouteControl, Unmer
 import { similarSeenOf, type SimilarSeen } from "@/lib/duplicates";
 import { assignableTeam } from "@/lib/assign";
 import { ProofBox } from "@/components/ozvi/ProofBox";
+import { KnownIssueBox } from "@/components/ozvi/KnownIssue";
 import { listProofs, readProof, visibleProof } from "@/lib/proof";
 import { Button } from "@/components/ui/button";
 import { VoteButton } from "@/components/VoteButton";
@@ -213,7 +214,8 @@ export default async function ItemPage({ params, searchParams }: { params: Promi
     // A merged duplicate ends in "Merged into #n" (not the closed status the merge stored); another
     // reporter's bug keeps the original's number private.
     ...(item.mergedIntoId ? [{ type: "merged", at: item.updatedAt,
-      into: mergedInto && !(bug && !isTeam && mergedInto.authorId !== user?.id) ? { number: mergedInto.number, href: `/${slug}/i/${mergedInto.number}` } : null } as JourneyEvent]
+      into: mergedInto && !(bug && !isTeam && mergedInto.authorId !== user?.id) ? { number: mergedInto.number, href: `/${slug}/i/${mergedInto.number}` } : null,
+      known: !!mergedInto?.knownAt } as JourneyEvent]
     // Imported or older items may lack history: the current stop still belongs on the route.
     : item.status !== ROUTE[item.kind][0] && history.at(-1)?.to !== item.status
       ? [{ type: "status", at: item.updatedAt, status: item.status, version: item.fixedInVersion } as JourneyEvent] : []),
@@ -307,7 +309,11 @@ export default async function ItemPage({ params, searchParams }: { params: Promi
             {mergedInto && (
               <p role="note" className="rounded-lg border bg-muted px-4 py-3 text-[14.5px]">
                 {bug && !isTeam && mergedInto.authorId !== user?.id
-                  ? t("mergedPrivate")
+                  ? mergedInto.knownAt && mergedInto.knownTitle
+                    // Joined a known issue: its public title and where it is on the route (nothing of the report itself).
+                    ? <span className="inline-flex flex-wrap items-center gap-2">{t("mergedKnown", { title: mergedInto.knownTitle })}
+                        <StatusTag kind="bug" status={mergedInto.status} version={mergedInto.fixedInVersion} /></span>
+                    : t("mergedPrivate")
                   : <>{t("mergedInto")} <Link className="oz-link" href={`/${slug}/i/${mergedInto.number}`}>#{mergedInto.number} {mergedInto.title}</Link>{bug ? "" : t("votesMoved")}.</>}
               </p>
             )}
@@ -465,6 +471,12 @@ export default async function ItemPage({ params, searchParams }: { params: Promi
                 <ProofBox slug={slug} itemId={item.id} kind={item.kind}
                   proofs={team.proofs.map((x) => ({ id: x.id, kind: x.kind as "pr" | "preview", url: x.url, title: x.title, ref: x.ref }))} />
               </TeamBlock>
+              {bug && !item.mergedIntoId && !deleted && !item.pending && (
+                <TeamBlock title={t("knownIssue")}>
+                  <KnownIssueBox slug={slug} itemId={item.id} published={!!item.knownAt} joined={team.merged.length}
+                    title={item.knownTitle ?? item.title} body={item.knownBody ?? ""} />
+                </TeamBlock>
+              )}
               {!bug && (
                 <TeamBlock title={t("voters")}>
                   <p className="text-[13px] text-muted-foreground">{t("votersHint", { n: vote.voters })}</p>

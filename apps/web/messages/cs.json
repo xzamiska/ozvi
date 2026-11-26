@@ -865,7 +865,8 @@
       "proofRelease": "Vydání {v}",
       "merged": "Sloučeno do #{n}",
       "mergedPrivate": "Řeší se pod jiným číslem",
-      "reopened": "Znovu otevřeno: pořád nefunguje"
+      "reopened": "Znovu otevřeno: pořád nefunguje",
+      "mergedKnown": "Připojeno ke známé chybě"
     },
     "ideas": {
       "gateTitle": "Nápady vidí jen přihlášení",
@@ -954,7 +955,12 @@
       "whoNone": "Nikdo",
       "noneForWho": "Nic pro „Řeší: {who}“",
       "noneForWhoText": "Je zapnutý filtr Řeší, proto vidíte jen část seznamu. Zrušte ho nebo vyberte někoho jiného.",
-      "whoClear": "Zrušit filtr Řeší"
+      "whoClear": "Zrušit filtr Řeší",
+      "knownTitle": "Chyby, které už řešíme",
+      "knownLede": "Pokud máte některou z nich, připojte se. Dozvíte se, až bude opravená.",
+      "knownSame": "Mám stejný problém",
+      "knownAffected": "{n, plural, one {Nahlásil # člověk} few {Nahlásili # lidé} many {Nahlásilo # lidí} other {Nahlásilo # lidí}}",
+      "knownTeam": "Známé chyby ({n})"
     },
     "roadmap": {
       "gateTitle": "Roadmapu vidí jen přihlášení",
@@ -1116,7 +1122,9 @@
       "attached": "Váš hlas a popis jsou u tohoto nápadu. Dáme vám vědět, až se s ním něco pohne.",
       "attachedQueued": "Váš popis čeká na schválení týmem, pak se objeví u tohoto nápadu.",
       "seenStrong": "Autor viděl #{n} a označil to za jiné",
-      "seenShown": "Při psaní autor viděl:"
+      "seenShown": "Při psaní autor viděl:",
+      "knownIssue": "Známá chyba",
+      "mergedKnown": "Patří ke známé chybě „{title}“. Až ji opravíme, dáme vědět."
     },
     "me": {
       "title": "Moje údaje",
@@ -1513,7 +1521,9 @@
         "triage": {
           "merged": "Sloučené duplicity",
           "bulk": "Hromadná změna",
-          "unmerged": "Oddělené duplicity"
+          "unmerged": "Oddělené duplicity",
+          "known_published": "Zveřejněná známá chyba",
+          "known_hidden": "Odebraná známá chyba"
         },
         "changelog": {
           "published": "Zveřejněná novinka",
@@ -1986,7 +1996,14 @@
     "adminOnly": "Tohle může udělat jen admin boardu.",
     "sectionOff": "Tato část je v projektu vypnutá.",
     "deleteOwnerOnly": "Celý projekt může smazat jen vlastník pracovního prostoru, když sem přijde z konzole Ozvi.",
-    "operatorOnly": "Aktualizace serveru řídí jen správci instance (OZVI_ADMIN_EMAILS), když sem přijdou z konzole Ozvi."
+    "operatorOnly": "Aktualizace serveru řídí jen správci instance (OZVI_ADMIN_EMAILS), když sem přijdou z konzole Ozvi.",
+    "known": {
+      "team": "Známé chyby zveřejňuje jen tým.",
+      "kind": "Jako známou chybu lze zveřejnit jen hlášení chyby.",
+      "state": "Sloučené, smazané nebo čekající hlášení nemůže být známou chybou.",
+      "title": "Veřejný název musí mít 3 až 200 znaků.",
+      "body": "Poznámka může mít nejvýš 2 000 znaků."
+    }
   },
   "forms": {
     "optional": "nepovinné",
@@ -2035,7 +2052,15 @@
       "strongNew": "Je to něco jiného, vytvořit nový nápad",
       "strongReason": "V čem je to jiné?",
       "guestSubmit": "Přihlásit se a navrhnout",
-      "guestNote": "Návrh si pamatujeme v tomto okně. Po přihlášení se sem vrátíte a odešlete ho."
+      "guestNote": "Návrh si pamatujeme v tomto okně. Po přihlášení se sem vrátíte a odešlete ho.",
+      "knownLabel": "Známé chyby podobné vašemu hlášení",
+      "known": "Není to některá z chyb, které už řešíme?",
+      "knownSame": "Mám stejný problém",
+      "knownAffected": "{n, plural, one {Nahlásil # člověk} few {Nahlásili # lidé} many {Nahlásilo # lidí} other {Nahlásilo # lidí}}",
+      "knownJoinLabel": "Připojení ke známé chybě",
+      "knownJoining": "Připojujete se ke známé chybě „{title}“",
+      "knownJoiningText": "Popište, co se stalo u vás. Tým uvidí vaše hlášení i s kontextem a až chybu opravíme, dostanete e-mail.",
+      "knownNotIt": "Není to ono"
     },
     "files": {
       "unsupported": "„{name}“ nepodporujeme. Přiložte obrázek, PDF nebo textový log.",
@@ -2307,6 +2332,20 @@
       "repo": "Zadejte repozitář ve tvaru vlastník/název, například firma/app.",
       "slug": "Použijte 2 až 41 znaků: malá písmena bez diakritiky, číslice a pomlčky. Na začátku písmeno nebo číslice.",
       "code": "Zadejte 6místný kód z e-mailu."
+    },
+    "known": {
+      "hint": "Když chyba trápí více lidí, zveřejněte ji. Ostatní ji uvidí při hlášení a připojí se místo nového hlášení.",
+      "start": "Zveřejnit jako známou chybu",
+      "privacy": "Zákazníci uvidí jen název a poznámku, které sem napíšete, nikdy původní hlášení, přílohy ani kontext. Přepište název, pokud obsahuje jméno zákazníka nebo jiné údaje.",
+      "published": "{n, plural, =0 {Zveřejněno jako známá chyba. Zatím se nikdo nepřipojil.} one {Zveřejněno jako známá chyba. Připojil se # člověk.} few {Zveřejněno jako známá chyba. Připojili se # lidé.} many {Zveřejněno jako známá chyba. Připojilo se # lidí.} other {Zveřejněno jako známá chyba. Připojilo se # lidí.}}",
+      "title": "Veřejný název",
+      "body": "Poznámka pro zákazníky (nepovinné)",
+      "bodyPlaceholder": "Například: kdy se to stává a jak to zatím obejít",
+      "save": "Uložit změny",
+      "publish": "Zveřejnit",
+      "hide": "Odebrat ze známých chyb",
+      "cancel": "Zrušit",
+      "saved": "Uloženo"
     }
   },
   "integrations": {

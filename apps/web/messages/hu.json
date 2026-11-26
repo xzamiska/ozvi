@@ -865,7 +865,8 @@
       "proofRelease": "Kiadás: {v}",
       "merged": "Összevonva ezzel: #{n}",
       "mergedPrivate": "Másik szám alatt foglalkozunk vele",
-      "reopened": "Újranyitva: még mindig hibás"
+      "reopened": "Újranyitva: még mindig hibás",
+      "mergedKnown": "Ismert hibához csatolva"
     },
     "ideas": {
       "gateTitle": "Az ötletek csak bejelentkezett felhasználók számára láthatók",
@@ -954,7 +955,12 @@
       "whoNone": "Senki",
       "noneForWho": "Nincs találat: „Felelős: {who}”",
       "noneForWhoText": "A felelős szerinti szűrő be van kapcsolva, ezért csak a lista egy részét látod. Kapcsold ki, vagy válassz mást.",
-      "whoClear": "Felelős szűrő törlése"
+      "whoClear": "Felelős szűrő törlése",
+      "knownTitle": "Hibák, amelyeken dolgozunk",
+      "knownLede": "Ha önnél is előfordul valamelyik, csatlakozzon. Értesítjük, amikor kijavítottuk.",
+      "knownSame": "Nekem is ez a problémám",
+      "knownAffected": "{n, plural, one {# személy jelentette} other {# személy jelentette}}",
+      "knownTeam": "Ismert hibák ({n})"
     },
     "roadmap": {
       "gateTitle": "Az ütemterv csak bejelentkezett felhasználók számára látható",
@@ -1116,7 +1122,9 @@
       "attached": "A szavazata és a leírása ennél az ötletnél van. Szólunk, ha változik valami.",
       "attachedQueued": "A leírása a csapat jóváhagyására vár, utána megjelenik ennél az ötletnél.",
       "seenStrong": "A szerző látta a #{n} ötletet, és mást jelölt meg",
-      "seenShown": "Írás közben a szerző látta:"
+      "seenShown": "Írás közben a szerző látta:",
+      "knownIssue": "Ismert hiba",
+      "mergedKnown": "A(z) „{title}” ismert hibához tartozik. Szólunk, amikor kijavítottuk."
     },
     "me": {
       "title": "Saját adatok",
@@ -1513,7 +1521,9 @@
         "triage": {
           "merged": "Duplikátumok összevonva",
           "bulk": "Csoportos módosítás",
-          "unmerged": "Szétválasztott duplikátumok"
+          "unmerged": "Szétválasztott duplikátumok",
+          "known_published": "Ismert hiba közzétéve",
+          "known_hidden": "Ismert hiba eltávolítva"
         },
         "changelog": {
           "published": "Közzétett újdonság",
@@ -1986,7 +1996,14 @@
     "adminOnly": "Ezt csak a tábla adminisztrátora teheti meg.",
     "sectionOff": "Ez a rész ki van kapcsolva ebben a projektben.",
     "deleteOwnerOnly": "Az egész projektet csak a munkaterület tulajdonosa törölheti, az Ozvi konzolból érkezve.",
-    "operatorOnly": "A szerver frissítéseit csak a példány üzemeltetői (OZVI_ADMIN_EMAILS) irányítják, az Ozvi konzolból érkezve."
+    "operatorOnly": "A szerver frissítéseit csak a példány üzemeltetői (OZVI_ADMIN_EMAILS) irányítják, az Ozvi konzolból érkezve.",
+    "known": {
+      "team": "Ismert hibát csak a csapat tehet közzé.",
+      "kind": "Ismert hibaként csak hibabejelentés tehető közzé.",
+      "state": "Összevont, törölt vagy jóváhagyásra váró bejelentés nem lehet ismert hiba.",
+      "title": "A nyilvános cím 3–200 karakter legyen.",
+      "body": "A megjegyzés legfeljebb 2000 karakter lehet."
+    }
   },
   "forms": {
     "optional": "nem kötelező",
@@ -2035,7 +2052,15 @@
       "strongNew": "Ez más, új ötlet létrehozása",
       "strongReason": "Miben más?",
       "guestSubmit": "Bejelentkezés és javaslat",
-      "guestNote": "A piszkozatot ebben az ablakban megőrizzük. Bejelentkezés után ide tér vissza és elküldi."
+      "guestNote": "A piszkozatot ebben az ablakban megőrizzük. Bejelentkezés után ide tér vissza és elküldi.",
+      "knownLabel": "A bejelentéséhez hasonló ismert hibák",
+      "known": "Nem valamelyik hiba ez, amelyen már dolgozunk?",
+      "knownSame": "Nekem is ez a problémám",
+      "knownAffected": "{n, plural, one {# személy jelentette} other {# személy jelentette}}",
+      "knownJoinLabel": "Csatlakozás ismert hibához",
+      "knownJoining": "Csatlakozik a(z) „{title}” ismert hibához",
+      "knownJoiningText": "Írja le, mi történt önnél. A csapat a környezeti adatokkal együtt látja a bejelentését, és e-mailt kap, amikor a hibát kijavítjuk.",
+      "knownNotIt": "Nem ez az"
     },
     "files": {
       "unsupported": "Ezt a fájlt nem támogatjuk: „{name}”. Csatolj képet, PDF-et vagy szöveges naplót.",
@@ -2307,6 +2332,20 @@
       "repo": "A tárolót tulajdonos/név formában add meg, pl. ceg/app.",
       "slug": "2–41 karaktert használj: ékezet nélküli kisbetűket, számjegyeket és kötőjelet, betűvel vagy számmal kezdve.",
       "code": "Add meg az e-mailben kapott 6 jegyű kódot."
+    },
+    "known": {
+      "hint": "Ha egy hiba több embert érint, tegye közzé. Mások bejelentéskor látják, és új bejelentés helyett csatlakoznak hozzá.",
+      "start": "Közzététel ismert hibaként",
+      "privacy": "Az ügyfelek csak az itt megadott címet és megjegyzést látják, soha az eredeti bejelentést, csatolmányokat vagy környezeti adatokat. Írja át a címet, ha ügyfélnevet vagy más adatot tartalmaz.",
+      "published": "{n, plural, =0 {Ismert hibaként közzétéve. Még senki sem csatlakozott.} one {Ismert hibaként közzétéve. # személy csatlakozott.} other {Ismert hibaként közzétéve. # személy csatlakozott.}}",
+      "title": "Nyilvános cím",
+      "body": "Megjegyzés az ügyfeleknek (nem kötelező)",
+      "bodyPlaceholder": "Például: mikor fordul elő, és hogyan lehet egyelőre megkerülni",
+      "save": "Módosítások mentése",
+      "publish": "Közzététel",
+      "hide": "Eltávolítás az ismert hibák közül",
+      "cancel": "Mégse",
+      "saved": "Mentve"
     }
   },
   "integrations": {

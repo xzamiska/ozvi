@@ -865,7 +865,8 @@
       "proofRelease": "Release {v}",
       "merged": "Zusammengeführt mit #{n}",
       "mergedPrivate": "Wird unter einer anderen Nummer bearbeitet",
-      "reopened": "Wieder geöffnet: geht immer noch nicht"
+      "reopened": "Wieder geöffnet: geht immer noch nicht",
+      "mergedKnown": "Einem bekannten Problem angeschlossen"
     },
     "ideas": {
       "gateTitle": "Ideen sind nur für angemeldete Personen sichtbar",
@@ -954,7 +955,12 @@
       "whoNone": "Niemand",
       "noneForWho": "Nichts für „Zuständig: {who}“",
       "noneForWhoText": "Der Filter „Zuständig“ ist aktiv, deshalb sehen Sie nur einen Teil der Liste. Heben Sie ihn auf oder wählen Sie jemand anderen.",
-      "whoClear": "Filter „Zuständig“ aufheben"
+      "whoClear": "Filter „Zuständig“ aufheben",
+      "knownTitle": "Probleme, an denen wir arbeiten",
+      "knownLede": "Wenn Sie eines davon haben, schließen Sie sich an. Sie erfahren, wann es behoben ist.",
+      "knownSame": "Ich habe dasselbe Problem",
+      "knownAffected": "{n, plural, one {Von # Person gemeldet} other {Von # Personen gemeldet}}",
+      "knownTeam": "Bekannte Probleme ({n})"
     },
     "roadmap": {
       "gateTitle": "Die Roadmap ist nur für angemeldete Personen sichtbar",
@@ -1116,7 +1122,9 @@
       "attached": "Ihre Stimme und Beschreibung sind bei dieser Idee. Wir melden uns, wenn sich etwas tut.",
       "attachedQueued": "Ihre Beschreibung wartet auf die Freigabe durch das Team und erscheint dann bei dieser Idee.",
       "seenStrong": "Der Autor hat #{n} gesehen und als etwas anderes markiert",
-      "seenShown": "Beim Schreiben hat der Autor gesehen:"
+      "seenShown": "Beim Schreiben hat der Autor gesehen:",
+      "knownIssue": "Bekanntes Problem",
+      "mergedKnown": "Gehört zum bekannten Problem „{title}“. Wir melden uns, sobald es behoben ist."
     },
     "me": {
       "title": "Meine Daten",
@@ -1513,7 +1521,9 @@
         "triage": {
           "merged": "Duplikate zusammengeführt",
           "bulk": "Sammeländerung",
-          "unmerged": "Duplikate getrennt"
+          "unmerged": "Duplikate getrennt",
+          "known_published": "Bekanntes Problem veröffentlicht",
+          "known_hidden": "Bekanntes Problem entfernt"
         },
         "changelog": {
           "published": "Neuigkeit veröffentlicht",
@@ -1986,7 +1996,14 @@
     "adminOnly": "Das kann nur ein Board-Admin.",
     "sectionOff": "Dieser Bereich ist in diesem Projekt ausgeschaltet.",
     "deleteOwnerOnly": "Nur die Inhaberin oder der Inhaber des Arbeitsbereichs kann das ganze Projekt löschen, aus der Ozvi-Konsole kommend.",
-    "operatorOnly": "Server-Updates steuern nur die Betreiber der Instanz (OZVI_ADMIN_EMAILS), aus der Ozvi-Konsole kommend."
+    "operatorOnly": "Server-Updates steuern nur die Betreiber der Instanz (OZVI_ADMIN_EMAILS), aus der Ozvi-Konsole kommend.",
+    "known": {
+      "team": "Bekannte Probleme veröffentlicht nur das Team.",
+      "kind": "Nur eine Fehlermeldung kann als bekanntes Problem veröffentlicht werden.",
+      "state": "Eine zusammengeführte, gelöschte oder wartende Meldung kann kein bekanntes Problem sein.",
+      "title": "Der öffentliche Titel braucht 3 bis 200 Zeichen.",
+      "body": "Die Notiz darf höchstens 2.000 Zeichen haben."
+    }
   },
   "forms": {
     "optional": "optional",
@@ -2035,7 +2052,15 @@
       "strongNew": "Das ist etwas anderes, neue Idee anlegen",
       "strongReason": "Was ist anders?",
       "guestSubmit": "Anmelden und vorschlagen",
-      "guestNote": "Wir behalten Ihren Entwurf in diesem Fenster. Nach der Anmeldung kommen Sie hierher zurück und senden ihn ab."
+      "guestNote": "Wir behalten Ihren Entwurf in diesem Fenster. Nach der Anmeldung kommen Sie hierher zurück und senden ihn ab.",
+      "knownLabel": "Bekannte Probleme ähnlich Ihrer Meldung",
+      "known": "Ist es eines der Probleme, an denen wir schon arbeiten?",
+      "knownSame": "Ich habe dasselbe Problem",
+      "knownAffected": "{n, plural, one {Von # Person gemeldet} other {Von # Personen gemeldet}}",
+      "knownJoinLabel": "Einem bekannten Problem beitreten",
+      "knownJoining": "Sie schließen sich dem bekannten Problem „{title}“ an",
+      "knownJoiningText": "Beschreiben Sie, was bei Ihnen passiert ist. Das Team sieht Ihre Meldung mit Kontext, und Sie bekommen eine E-Mail, sobald es behoben ist.",
+      "knownNotIt": "Das ist es nicht"
     },
     "files": {
       "unsupported": "„{name}“ wird nicht unterstützt. Hängen Sie ein Bild, ein PDF oder ein Text-Log an.",
@@ -2307,6 +2332,20 @@
       "repo": "Geben Sie das Repository als Besitzer/Name ein, z. B. firma/app.",
       "slug": "Verwenden Sie 2 bis 41 Zeichen: Kleinbuchstaben ohne Umlaute, Ziffern und Bindestriche, beginnend mit Buchstabe oder Ziffer.",
       "code": "Geben Sie den 6-stelligen Code aus der E-Mail ein."
+    },
+    "known": {
+      "hint": "Betrifft ein Fehler mehrere Personen, veröffentlichen Sie ihn. Andere sehen ihn beim Melden und schließen sich an, statt neu zu melden.",
+      "start": "Als bekanntes Problem veröffentlichen",
+      "privacy": "Kunden sehen nur den Titel und die Notiz von hier, nie die ursprüngliche Meldung, Anhänge oder Kontext. Schreiben Sie den Titel um, wenn er einen Kunden nennt oder andere Daten enthält.",
+      "published": "{n, plural, =0 {Als bekanntes Problem veröffentlicht. Noch niemand hat sich angeschlossen.} one {Als bekanntes Problem veröffentlicht. # Person hat sich angeschlossen.} other {Als bekanntes Problem veröffentlicht. # Personen haben sich angeschlossen.}}",
+      "title": "Öffentlicher Titel",
+      "body": "Notiz für Kunden (optional)",
+      "bodyPlaceholder": "Zum Beispiel: wann es passiert und wie man es vorerst umgeht",
+      "save": "Änderungen speichern",
+      "publish": "Veröffentlichen",
+      "hide": "Aus bekannten Problemen entfernen",
+      "cancel": "Abbrechen",
+      "saved": "Gespeichert"
     }
   },
   "integrations": {

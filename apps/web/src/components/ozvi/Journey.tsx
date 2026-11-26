@@ -24,7 +24,7 @@ export type JourneyEvent =
   | { type: "link"; at: Date; provider: string; ref: string; url: string; state: string }
   | { type: "release"; at: Date; title: string; href: string }
   /** Merged into another item: its number and link, or null when the reader may not see it (another reporter's bug). */
-  | { type: "merged"; at: Date; into: { number: number; href: string } | null };
+  | { type: "merged"; at: Date; into: { number: number; href: string } | null; known?: boolean };
 
 export function Journey({ kind, status, events, className, locale = "sk" }: {
   kind: Kind; status: string; events: JourneyEvent[]; className?: string; locale?: Locale;
@@ -58,7 +58,7 @@ export function Journey({ kind, status, events, className, locale = "sk" }: {
               <span className="min-w-0 text-[14px] font-semibold [overflow-wrap:anywhere]">
                 {e.type === "status" ? <>{e.reopened ? t("reopened") : routeText(tr, "label", e.status)}{e.version && (e.status === "fixed" || e.status === "verified") ? <span data-num>{t("inVersion", { v: e.version })}</span> : null}{e.sub ? <span className="font-medium text-muted-foreground"> · {e.sub}</span> : null}</>
                   : e.type === "reply" ? <a href={`#c-${e.commentId}`} className="hover:underline">{t("teamReply")}</a>
-                  : e.type === "merged" ? (e.into ? <Link href={e.into.href} className="hover:underline">{t("merged", { n: e.into.number })}</Link> : t("mergedPrivate"))
+                  : e.type === "merged" ? (e.into ? <Link href={e.into.href} className="hover:underline">{t("merged", { n: e.into.number })}</Link> : e.known ? t("mergedKnown") : t("mergedPrivate"))
                   : e.type === "link" ? <a href={e.url} target="_blank" rel="noreferrer" className="hover:underline">{TRACKER[e.provider] ?? e.provider} {e.ref}</a>
                   : t("released")}
               </span>
