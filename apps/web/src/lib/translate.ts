@@ -1,7 +1,7 @@
 import { PLAN_LIMITS, schema, withProject, withSystem, type Db, type PlanName, type Tx } from "@ozvi/db";
 import { and, eq, gte, inArray, sql } from "drizzle-orm";
 import { createHash } from "node:crypto";
-import { AI_MODEL_FAST, AiError, aiConfigured, pivotTitles, translatePost, translateTitles, type AiErrorCode, type TranslatedText } from "./ai";
+import { AI_MODEL_FAST, AiError, aiConfigured, pivotTitles, translatePost, translateTitles, type AiErrorCode, type TranslatedText, type TranslationContext } from "./ai";
 import { detectLanguage, type Lang } from "./lang-detect";
 import { take } from "./ratelimit";
 import { sectionOfKind, sectionOn } from "./sections";
@@ -110,7 +110,8 @@ export function changelogReadable(e: { publishedAt: Date | null }, p: BoardFlags
   return !!e.publishedAt || v.isTeam;
 }
 
-export interface Source { subject: Subject; id: string; title: string | null; body: string }
+/** `thread`: for a comment, the title of the post it belongs to (translation context, never translated). */
+export interface Source { subject: Subject; id: string; title: string | null; body: string; thread?: string | null }
 
 /** The posts of `wanted` this viewer may read, with their current text; anything else is dropped silently. */
 export async function readableSources(tx: Tx, p: BoardFlags, v: Viewer, wanted: { subject: Subject; id: string }[]): Promise<Source[]> {
@@ -123,11 +124,11 @@ export async function readableSources(tx: Tx, p: BoardFlags, v: Viewer, wanted: 
     }
   }
   if (commentIds.length) {
-    const rows = await tx.select({ c: comments, item: { kind: items.kind, authorId: items.authorId, pending: items.pending, deletedAt: items.deletedAt } })
+    const rows = await tx.select({ c: comments, item: { kind: items.kind, title: items.title, authorId: items.authorId, pending: items.pending, deletedAt: items.deletedAt } })
       .from(comments).innerJoin(items, eq(items.id, comments.itemId)).where(inArray(comments.id, commentIds));
     // A comment is readable only where its thread is.
     for (const { c, item } of rows) {
-      if (commentReadable(c, v) && itemReadable(item, p, v)) out.push({ subject: "comment", id: c.id, title: null, body: c.body });
+      if (commentReadable(c, v) && itemReadable(item, p, v)) out.push({ subject: "comment", id: c.id, title: null, body: c.body, thread: item.title });
     }
   }
   if (entryIds.length) {
@@ -191,7 +192,7 @@ export type TranslateError = AiErrorCode | "tooLong" | "cap";
 export interface TranslateResult { translations: Translation[]; errors: { id: string; code: TranslateError }[] }
 
 export interface TranslateDeps {
-  translate: (input: { title: string | null; body: string }, target: string) => Promise<TranslatedText>;
+  translate: (input: { title: string | null; body: string }, target: string, ctx?: TranslationContext) => Promise<TranslatedText>;
   model: () => string;
   now: () => number;
 }
@@ -203,7 +204,7 @@ const defaultDeps: TranslateDeps = { translate: translatePost, model: AI_MODEL_F
  * `rateKey` identifies the viewer for the limiter (user id, else client IP).
  */
 export async function translateFor(db: Db, opts: {
-  project: BoardFlags & { id: string; workspaceId: string; translationMode?: string | null }; plan: PlanName; viewer: Viewer; target: string; rateKey: string;
+  project: BoardFlags & { id: string; name: string; workspaceId: string; translationMode?: string | null }; plan: PlanName; viewer: Viewer; target: string; rateKey: string;
   wanted: { subject: Subject; id: string }[]; deps?: Partial<TranslateDeps>;
 }): Promise<TranslateResult> {
   const deps = { ...defaultDeps, ...opts.deps };
@@ -235,7 +236,7 @@ export async function translateFor(db: Db, opts: {
   for (let i = 0; i < todo.length; i += 4) {
     await Promise.all(todo.slice(i, i + 4).map(async (s) => {
       try {
-        const out = await deps.translate({ title: s.title, body: s.body }, target);
+        const out = await deps.translate({ title: s.title, body: s.body }, target, { board: project.name, post: s.thread });
         if (untranslated(`${s.title ?? ""}\n${s.body}`, `${out.title ?? ""}\n${out.body}`, target)) { result.errors.push({ id: s.id, code: "failed" }); return; }
         fresh.push({ subject: s.subject, id: s.id, title: s.title === null ? null : out.title, body: out.body, model: deps.model(),
           sourceLocale: detectLanguage(`${s.title ?? ""}\n${s.body}`), hash: sourceHash(s.title, s.body) });
@@ -289,7 +290,7 @@ export async function cachedTitles(tx: Tx, sources: Source[], target: string): P
   return out;
 }
 
-export interface TitleDeps { translate: (titles: string[], target: string) => Promise<string[]>; model: () => string; now: () => number }
+export interface TitleDeps { translate: (titles: string[], target: string, ctx?: TranslationContext) => Promise<string[]>; model: () => string; now: () => number }
 const defaultTitleDeps: TitleDeps = { translate: translateTitles, model: AI_MODEL_FAST, now: Date.now };
 
 /**
@@ -298,7 +299,7 @@ const defaultTitleDeps: TitleDeps = { translate: translateTitles, model: AI_MODE
  * reporter and the team), the same monthly allowance, one model call for all misses.
  */
 export async function translateTitlesFor(db: Db, opts: {
-  project: BoardFlags & { id: string; workspaceId: string; translationMode?: string | null }; plan: PlanName; viewer: Viewer; target: string; rateKey: string;
+  project: BoardFlags & { id: string; name: string; workspaceId: string; translationMode?: string | null }; plan: PlanName; viewer: Viewer; target: string; rateKey: string;
   ids: string[]; deps?: Partial<TitleDeps>;
 }): Promise<TranslateResult> {
   const deps = { ...defaultTitleDeps, ...opts.deps };
@@ -324,7 +325,7 @@ export async function translateTitlesFor(db: Db, opts: {
   }
   let out: string[];
   try {
-    out = await deps.translate(todo.map((s) => s.title!), target);
+    out = await deps.translate(todo.map((s) => s.title!), target, { board: project.name });
   } catch (e) {
     const code: TranslateError = e instanceof AiError ? e.code : "failed";
     if (!(e instanceof AiError)) console.error("[ozvi] translate titles", e);

@@ -132,6 +132,13 @@ describe("translateFor (cache, permissions, limits; Claude mocked)", () => {
     expect(anon.translate).not.toHaveBeenCalled();
   });
 
+  it("tells the model which board and which post a text belongs to (ambiguous words)", async () => {
+    const c = (await withProject(db, project.id, (tx) => tx.insert(schema.comments).values({ projectId: project.id, itemId: idea, authorId: other, body: "Tak, proszę o to." }).returning()))[0]!.id;
+    const { translate } = await run(viewer(other), [{ subject: "comment", id: c }, { subject: "changelog", id: pub }]);
+    expect(translate).toHaveBeenCalledWith(expect.objectContaining({ body: "Tak, proszę o to." }), "sk", { board: "Translate test", post: "Eksport faktur do CSV" });
+    expect(translate).toHaveBeenCalledWith(expect.objectContaining({ title: "Nowy eksport" }), "sk", { board: "Translate test", post: undefined });
+  });
+
   it("the reporter and the team may translate what they can read", async () => {
     const mine = await run(viewer(author), [{ subject: "item", id: bug }]);
     expect(mine.translate).toHaveBeenCalledTimes(1);

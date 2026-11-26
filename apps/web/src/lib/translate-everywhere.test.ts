@@ -71,7 +71,7 @@ describe("titles in lists (automatic mode)", () => {
     const anon = await run(viewer(null), [bug], titles(), "anon");
     expect(anon.translate).not.toHaveBeenCalled();
     const mine = await run(viewer(author), [bug], titles(), "mine");
-    expect(mine.translate).toHaveBeenCalledWith(["Faktura się nie zapisuje"], "sk");
+    expect(mine.translate).toHaveBeenCalledWith(["Faktura się nie zapisuje"], "sk", { board: "Everywhere" });
     // Now cached, but still only for those who may read the bug.
     const later = await run(viewer(other), [bug], titles(), "o3");
     expect(later.r.translations).toEqual([]);
@@ -89,7 +89,7 @@ describe("titles in lists (automatic mode)", () => {
   it("a new title is a new version", async () => {
     await withProject(db, project.id, (tx) => tx.update(schema.items).set({ title: "Eksport faktur do XLSX" }).where(eq(schema.items.id, idea)));
     const { r, translate } = await run(viewer(other), [idea], titles(), "v2");
-    expect(translate).toHaveBeenCalledWith(["Eksport faktur do XLSX"], "sk");
+    expect(translate).toHaveBeenCalledWith(["Eksport faktur do XLSX"], "sk", { board: "Everywhere" });
     expect(r.translations[0]?.title).toBe("[sk] Eksport faktur do XLSX");
   });
 
@@ -165,7 +165,7 @@ describe("e-mails quote replies in the recipient's language", () => {
   it("the worker translates the quote, labels it and keeps the original under it", async () => {
     const translate = vi.fn(async (input: { title: string | null; body: string }, target: string) => ({ title: null, body: `[${target}] Dziękujemy, eksport do CSV dodamy.` }));
     expect(await translateMails(db, { projectIds: [project.id], deps: { translate, model: () => "claude-test" } })).toBe(1);
-    expect(translate).toHaveBeenCalledWith({ title: null, body: reply }, "pl");
+    expect(translate).toHaveBeenCalledWith({ title: null, body: reply }, "pl", { board: "Everywhere", post: "Ciemny motyw aplikacji" });
     const [pl] = await mailTo(polish);
     expect(pl!.translate).toBeNull();
     expect(pl!.text).toContain("[pl] Dziękujemy, eksport do CSV dodamy.");
